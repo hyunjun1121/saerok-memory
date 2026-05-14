@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary-50: #eefbe8;
+    --color-primary-100: #d8f6ca;
+    --color-primary-200: #b9eda0;
+    --color-primary-300: #93df6e;
+    --color-primary-400: #70cf42;
+    --color-primary-500: #58bd2f;
+    --color-primary-600: #429623;
+    --color-primary-700: #34731f;
+    --color-primary-800: #2d5c20;
+    --color-primary-900: #264d1f;
+    --color-blue-500: #1cb0f6;
+    --color-yellow-500: #ffc800;
+    --color-orange-500: #ff9600;
+    --color-red-500: #ff4b4b;
+    --color-purple-500: #ce82ff;
+    --color-ink: #2b2f33;
+    --color-muted: #6b7280;
+    --color-border: #d9dee8;
+    --color-surface: #ffffff;
+    --color-background: #f7f8fb;
+    --font-size-xs: 12px;
+    --font-size-sm: 14px;
+    --font-size-md: 17px;
+    --font-size-lg: 20px;
+    --font-size-xl: 24px;
+    --font-size-2xl: 30px;
+    --font-size-3xl: 36px;
+    --radius-sm: 10px;
+    --radius-md: 14px;
+    --radius-lg: 18px;
+    --radius-xl: 24px;
+    --radius-pill: 999px;
+    --button-bg: var(--color-primary-500);
+    --button-border: var(--color-primary-700);
+    --button-shadow: rgba(0, 0, 0, 0.18);
+  }
+
+  body {
+    @apply bg-[#f7f8fb] text-ink antialiased;
+    font-family: "Pretendard", "Nunito", system-ui, sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+}
