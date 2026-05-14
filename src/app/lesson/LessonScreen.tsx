@@ -1,0 +1,117 @@
+import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { X } from "lucide-react";
+import { ProgressBar } from "../../components/ProgressBar";
+import { FeedbackTray } from "../../components/FeedbackTray";
+import { ExerciseRenderer } from "../../features/lessons/ExerciseRenderer";
+import { mockExercises, Exercise } from "../../data/mockExercises";
+import { ExerciseState } from "../../features/lessons/exerciseTypes/types";
+import { MemoryCard } from "../../features/memory/types";
+import { generateMemoryReviewExercise } from "../../features/memory/memoryReviewGenerator";
+
+export default function LessonScreen() {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const [exercises, setExercises] = useState<Exercise[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [globalState, setGlobalState] = useState<ExerciseState>("awaiting_answer");
+
+  useEffect(() => {
+    // Inject generated memory review exercises into the session if available
+    const savedCards = JSON.parse(localStorage.getItem("memoryCards") || "[]") as MemoryCard[];
+    let sessionExercises = [...mockExercises];
+
+    if (savedCards.length > 0) {
+      // Pick a random card to review
+      const randomCard = savedCards[Math.floor(Math.random() * savedCards.length)];
+      const reviewEx = generateMemoryReviewExercise(randomCard, "lesson_1");
+      if (reviewEx) {
+        // Insert review exercise into the middle
+        sessionExercises.splice(2, 0, reviewEx);
+      }
+    }
+
+    setExercises(sessionExercises);
+  }, []);
+
+  const currentExercise = exercises[currentIndex];
+
+  const handleClose = () => {
+    navigate("/");
+  };
+
+  const handleContinue = () => {
+    if (currentIndex + 1 < exercises.length) {
+      setCurrentIndex(currentIndex + 1);
+      setGlobalState("awaiting_answer");
+    } else {
+      navigate("/result");
+    }
+  };
+
+  const handleRetry = () => {
+    setGlobalState("awaiting_answer");
+  };
+
+  if (!currentExercise) return null;
+
+  return (
+    <div className="flex flex-col min-h-[100dvh] bg-background pb-32">
+      <header className="flex items-center gap-4 px-4 py-6 w-full max-w-md mx-auto">
+        <button
+          onClick={handleClose}
+          className="text-gray-400 hover:text-gray-600 transition-colors p-2 -ml-2 rounded-full hover:bg-gray-100 min-w-[48px] min-h-[48px] flex items-center justify-center"
+          aria-label="Close lesson"
+        >
+          <X size={28} strokeWidth={2.5} />
+        </button>
+        <ProgressBar
+          value={currentIndex + 1}
+          max={exercises.length}
+          className="flex-1"
+        />
+      </header>
+
+      <main className="flex flex-col flex-1 w-full max-w-md mx-auto px-4 mt-2">
+        <ExerciseRenderer
+          exercise={currentExercise}
+          globalState={globalState}
+          setGlobalState={setGlobalState}
+          onComplete={handleContinue}
+        />
+      </main>
+
+      {globalState === "correct_feedback" && (
+        <FeedbackTray
+          variant="correct"
+          title={t("feedback.correct.title")}
+          body={currentExercise.explanation}
+          primaryActionLabel={t("feedback.continue")}
+          onPrimaryAction={handleContinue}
+        />
+      )}
+
+      {globalState === "incorrect_feedback" && (
+        <FeedbackTray
+          variant="incorrect"
+          title={t("feedback.incorrect.title")}
+          body={currentExercise.explanation}
+          primaryActionLabel={t("feedback.continue")}
+          onPrimaryAction={handleContinue}
+        />
+      )}
+
+      {globalState === "hint_feedback" && (
+        <FeedbackTray
+          variant="hint"
+          title={t("feedback.incorrect.title")}
+          body={t("feedback.incorrect.retry")}
+          primaryActionLabel={t("feedback.incorrect.retry")}
+          onPrimaryAction={handleRetry}
+        />
+      )}
+    </div>
+  );
+}

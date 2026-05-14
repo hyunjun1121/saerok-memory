@@ -1,0 +1,43 @@
+{
+  "appTitle": "記憶の庭",
+  "navigation": {
+    "home": "学習",
+    "garden": "庭",
+    "family": "家族",
+    "settings": "設定"
+  },
+  "home": {
+    "continueButton": "続ける",
+    "unitTitle": "はじめに：良い思い出",
+    "mascotGreeting": "今日も会えて嬉しいです！ゆっくり始めましょうか？"
+  },
+  "feedback": {
+    "correct": { "title": "素晴らしい！" },
+    "incorrect": { "title": "惜しいですね", "retry": "もう一度やってみましょうか？" },
+    "continue": "続ける"
+  },
+  "exercise": {
+    "multipleChoice": { "prompt": "次の意味を持つ言葉は何でしょうか？" },
+    "situationMatch": { "prompt": "次の状況に最も合う言葉は？" },
+    "pairMatching": { "prompt": "正しいペアを見つけて繋いでください。" },
+    "memory": { "prompt": "私の記憶", "select": "選択する" }
+  },
+  "result": {
+    "title": "学習完了！",
+    "streak": "連続学習日数：{{streak}}日",
+    "points": "今日集めたしずく：{{points}}",
+    "done": "終わる"
+  },
+  "garden": {
+    "subtitle": "自分だけの記憶が育つ庭です。",
+    "level": "レベル",
+    "waterDrops": "集めたしずく",
+    "leaves": "記憶の葉",
+    "flowers": "咲いた花"
+  },
+  "settings": {
+    "language": { "title": "言語 (Language)" },
+    "dataManagement": "データ管理",
+    "deleteMemoryCards": "記憶カードを削除する"
+  }
+}

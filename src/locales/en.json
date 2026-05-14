@@ -1,0 +1,43 @@
+{
+  "appTitle": "Memory Garden",
+  "navigation": {
+    "home": "Learn",
+    "garden": "Garden",
+    "family": "Family",
+    "settings": "Settings"
+  },
+  "home": {
+    "continueButton": "Continue",
+    "unitTitle": "Getting Started: Good Memories",
+    "mascotGreeting": "Nice to see you! Shall we start slowly?"
+  },
+  "feedback": {
+    "correct": { "title": "Nice work!" },
+    "incorrect": { "title": "Almost there", "retry": "Try again?" },
+    "continue": "Continue"
+  },
+  "exercise": {
+    "multipleChoice": { "prompt": "Which meaning fits this phrase?" },
+    "situationMatch": { "prompt": "Which situation matches the phrase?" },
+    "pairMatching": { "prompt": "Match the correct pairs." },
+    "memory": { "prompt": "My Memory", "select": "Select" }
+  },
+  "result": {
+    "title": "Session Complete!",
+    "streak": "Day streak: {{streak}}",
+    "points": "Drops collected today: {{points}}",
+    "done": "Finish"
+  },
+  "garden": {
+    "subtitle": "A garden where your own memories grow.",
+    "level": "Level",
+    "waterDrops": "Drops collected",
+    "leaves": "Memory leaves",
+    "flowers": "Bloomed flowers"
+  },
+  "settings": {
+    "language": { "title": "Language" },
+    "dataManagement": "Data Management",
+    "deleteMemoryCards": "Delete Memory Cards"
+  }
+}
