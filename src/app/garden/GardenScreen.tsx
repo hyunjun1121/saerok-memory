@@ -1,4 +1,3 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 import { TreePine, Droplets, Leaf, Flower, Award } from "lucide-react";
 import { useGamification } from "../../features/gamification/useGamification";

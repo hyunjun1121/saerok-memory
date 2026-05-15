@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { ChoiceCard } from "../../../components/ChoiceCard";
 import { Button3D } from "../../../components/Button3D";
-import { ExerciseState } from "./types";
-import { MemoryCard } from "../../memory/types";
+import type { ExerciseState } from "./types";
+import type { MemoryCard, MemoryTopic } from "../../memory/types";
 import { calculateNextReviewState } from "../../memory/memoryScheduler";
 
 function saveMemoryCard(card: MemoryCard) {
@@ -32,13 +33,17 @@ function updateMemoryCard(cardId: string, result: "remembered" | "hint_used" | "
 interface Option {
   id: string;
   label: string;
+  value?: string;
 }
+
+type MemoryField = "topic" | "emotionTag";
 
 interface PersonalMemoryRecallProps {
   prompt: string;
   options: Option[];
   memoryId?: string;
   linkedConceptId?: string;
+  memoryField?: MemoryField;
   correctOptionId?: string;
   onComplete: () => void;
   setGlobalState: (state: ExerciseState) => void;
@@ -50,11 +55,12 @@ export function PersonalMemoryRecall({
   options,
   memoryId,
   linkedConceptId,
+  memoryField = "topic",
   correctOptionId,
-  onComplete,
   setGlobalState,
   globalState,
 }: PersonalMemoryRecallProps) {
+  const { t } = useTranslation();
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [missCount, setMissCount] = useState(0);
   const [hiddenOptionIds, setHiddenOptionIds] = useState<Set<string>>(new Set());
@@ -95,6 +101,7 @@ export function PersonalMemoryRecall({
       }
     } else {
       const selectedOption = options.find((o) => o.id === selectedId);
+      const selectedValue = selectedOption?.value ?? selectedOption?.label ?? "unknown";
 
       const newCard: MemoryCard = {
         id: `mem_${Date.now()}`,
@@ -103,11 +110,16 @@ export function PersonalMemoryRecall({
         updatedAt: new Date().toISOString(),
         source: "daily_lesson",
         linkedConceptId,
-        topic: selectedOption ? (selectedOption.label as any) : "unknown",
         sensitivity: "personal",
         shareWithFamily: false,
         reviewState: calculateNextReviewState(undefined, "remembered"),
       };
+
+      if (memoryField === "emotionTag") {
+        newCard.emotionTag = selectedValue;
+      } else {
+        newCard.topic = selectedValue as MemoryTopic;
+      }
 
       saveMemoryCard(newCard);
       setGlobalState("correct_feedback");
@@ -120,7 +132,7 @@ export function PersonalMemoryRecall({
     <div className="flex flex-col w-full gap-8">
       <div className="flex flex-col gap-2">
         <span className="text-sm font-bold text-pink-500 uppercase tracking-wide">
-          나의 기억
+          {t("exercise.memory.prompt")}
         </span>
         <h2 className="text-3xl font-extrabold text-ink leading-snug">{prompt}</h2>
       </div>
@@ -166,7 +178,7 @@ export function PersonalMemoryRecall({
             fullWidth
             onClick={handleCheck}
           >
-            선택하기
+            {t("exercise.memory.select")}
           </Button3D>
         </div>
       )}

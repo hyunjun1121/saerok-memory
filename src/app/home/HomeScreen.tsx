@@ -1,7 +1,6 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { LessonNode, LessonNodeState } from "../../components/LessonNode";
+import { LessonNode, type LessonNodeState } from "../../components/LessonNode";
 import { MascotBubble } from "../../components/MascotBubble";
 import { Button3D } from "../../components/Button3D";
 
@@ -17,7 +16,7 @@ export default function HomeScreen() {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const handleNodePress = (id: string) => {
+  const handleNodePress = () => {
     navigate("/lesson");
   };
 

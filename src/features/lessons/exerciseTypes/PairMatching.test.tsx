@@ -2,6 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import { PairMatching } from './PairMatching'
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import '../../../i18n'
+import type { ExerciseState } from './types'
 
 describe('PairMatching', () => {
   const mockProps = {
@@ -12,7 +13,7 @@ describe('PairMatching', () => {
     ],
     onComplete: vi.fn(),
     setGlobalState: vi.fn(),
-    globalState: "awaiting_answer" as any
+    globalState: "awaiting_answer" as ExerciseState
   }
 
   beforeEach(() => {

@@ -1,40 +1,38 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { X } from "lucide-react";
 import { ProgressBar } from "../../components/ProgressBar";
 import { FeedbackTray } from "../../components/FeedbackTray";
 import { ExerciseRenderer } from "../../features/lessons/ExerciseRenderer";
-import { mockExercises, Exercise } from "../../data/mockExercises";
-import { ExerciseState } from "../../features/lessons/exerciseTypes/types";
-import { MemoryCard } from "../../features/memory/types";
+import { mockExercises, type Exercise } from "../../data/mockExercises";
+import type { ExerciseState } from "../../features/lessons/exerciseTypes/types";
+import type { MemoryCard } from "../../features/memory/types";
 import { generateMemoryReviewExercise } from "../../features/memory/memoryReviewGenerator";
+
+function buildSessionExercises() {
+  const savedCards = JSON.parse(localStorage.getItem("memoryCards") || "[]") as MemoryCard[];
+  const sessionExercises = [...mockExercises];
+
+  if (savedCards.length > 0) {
+    const randomCard = savedCards[Math.floor(Math.random() * savedCards.length)];
+    const reviewEx = generateMemoryReviewExercise(randomCard, "lesson_1");
+
+    if (reviewEx) {
+      sessionExercises.splice(2, 0, reviewEx);
+    }
+  }
+
+  return sessionExercises;
+}
 
 export default function LessonScreen() {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const [exercises, setExercises] = useState<Exercise[]>([]);
+  const [exercises] = useState<Exercise[]>(buildSessionExercises);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [globalState, setGlobalState] = useState<ExerciseState>("awaiting_answer");
-
-  useEffect(() => {
-    // Inject generated memory review exercises into the session if available
-    const savedCards = JSON.parse(localStorage.getItem("memoryCards") || "[]") as MemoryCard[];
-    let sessionExercises = [...mockExercises];
-
-    if (savedCards.length > 0) {
-      // Pick a random card to review
-      const randomCard = savedCards[Math.floor(Math.random() * savedCards.length)];
-      const reviewEx = generateMemoryReviewExercise(randomCard, "lesson_1");
-      if (reviewEx) {
-        // Insert review exercise into the middle
-        sessionExercises.splice(2, 0, reviewEx);
-      }
-    }
-
-    setExercises(sessionExercises);
-  }, []);
 
   const currentExercise = exercises[currentIndex];
 

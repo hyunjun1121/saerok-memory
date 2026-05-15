@@ -1,5 +1,5 @@
 import { calculateNextReviewState, calculatePriority } from './memoryScheduler';
-import { MemoryCard, ReviewState } from './types';
+import type { MemoryCard, ReviewState } from './types';
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 
 describe('memoryScheduler', () => {

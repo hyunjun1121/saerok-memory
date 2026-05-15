@@ -2,6 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import { SituationMatch } from './SituationMatch'
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import '../../../i18n'
+import type { ExerciseState } from './types'
 
 describe('SituationMatch', () => {
   const mockProps = {
@@ -13,7 +14,7 @@ describe('SituationMatch', () => {
     correctOptionId: "opt_1",
     onComplete: vi.fn(),
     setGlobalState: vi.fn(),
-    globalState: "awaiting_answer" as any
+    globalState: "awaiting_answer" as ExerciseState
   }
 
   beforeEach(() => {

@@ -1,4 +1,4 @@
-import React from "react";
+import type { ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 import { Check, RotateCcw } from "lucide-react";
 
@@ -6,7 +6,7 @@ export interface ChoiceCardProps {
   id: string;
   label: string;
   description?: string;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
   state: "idle" | "selected" | "correct" | "incorrect" | "disabled";
   onSelect: (id: string) => void;
   className?: string;

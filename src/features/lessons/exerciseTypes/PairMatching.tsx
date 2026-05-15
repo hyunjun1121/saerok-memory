@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { Button3D } from "../../../components/Button3D";
 import { useTranslation } from "react-i18next";
-import { ExerciseState } from "./types";
+import type { ExerciseState } from "./types";
 
 interface Pair {
   id: string;
@@ -22,15 +22,19 @@ interface PairMatchingProps {
 export function PairMatching({
   prompt,
   pairs,
-  explanation,
-  onComplete,
   setGlobalState,
   globalState,
 }: PairMatchingProps) {
   const { t } = useTranslation();
 
-  const [leftItems, setLeftItems] = useState<{ id: string; text: string }[]>([]);
-  const [rightItems, setRightItems] = useState<{ id: string; text: string }[]>([]);
+  const leftItems = useMemo(
+    () => pairs.map((p) => ({ id: p.id, text: p.left })),
+    [pairs]
+  );
+  const rightItems = useMemo(
+    () => [...pairs].reverse().map((p) => ({ id: p.id, text: p.right })),
+    [pairs]
+  );
 
   const [selectedLeft, setSelectedLeft] = useState<string | null>(null);
   const [selectedRight, setSelectedRight] = useState<string | null>(null);
@@ -38,34 +42,47 @@ export function PairMatching({
   const [errorPair, setErrorPair] = useState<{ left: string; right: string } | null>(null);
   const [missCount, setMissCount] = useState(0);
 
-  useEffect(() => {
-    const lefts = pairs.map((p) => ({ id: p.id, text: p.left }));
-    const rights = pairs.map((p) => ({ id: p.id, text: p.right }));
-    setLeftItems(lefts.sort(() => Math.random() - 0.5));
-    setRightItems(rights.sort(() => Math.random() - 0.5));
-  }, [pairs]);
+  const resolveSelection = (leftId: string, rightId: string) => {
+    if (leftId === rightId) {
+      const nextMatchedCount = matchedIds.includes(leftId) ? matchedIds.length : matchedIds.length + 1;
 
-  useEffect(() => {
-    if (selectedLeft && selectedRight) {
-      if (selectedLeft === selectedRight) {
-        setMatchedIds((prev) => [...prev, selectedLeft]);
-        setSelectedLeft(null);
-        setSelectedRight(null);
+      setMatchedIds((prev) => prev.includes(leftId) ? prev : [...prev, leftId]);
+      setSelectedLeft(null);
+      setSelectedRight(null);
 
-        if (matchedIds.length + 1 === pairs.length) {
-          setGlobalState("answer_selected");
-        }
-      } else {
-        setErrorPair({ left: selectedLeft, right: selectedRight });
-
-        setTimeout(() => {
-          setSelectedLeft(null);
-          setSelectedRight(null);
-          setErrorPair(null);
-        }, 800);
+      if (nextMatchedCount === pairs.length) {
+        setGlobalState("answer_selected");
       }
+
+      return;
     }
-  }, [selectedLeft, selectedRight, pairs.length, matchedIds.length, setGlobalState]);
+
+    setErrorPair({ left: leftId, right: rightId });
+
+    setTimeout(() => {
+      setSelectedLeft(null);
+      setSelectedRight(null);
+      setErrorPair(null);
+    }, 800);
+  };
+
+  const handleLeftSelect = (id: string) => {
+    if (selectedRight) {
+      resolveSelection(id, selectedRight);
+      return;
+    }
+
+    setSelectedLeft(id === selectedLeft ? null : id);
+  };
+
+  const handleRightSelect = (id: string) => {
+    if (selectedLeft) {
+      resolveSelection(selectedLeft, id);
+      return;
+    }
+
+    setSelectedRight(id === selectedRight ? null : id);
+  };
 
   const handleCheck = () => {
     if (matchedIds.length === pairs.length) {
@@ -108,7 +125,7 @@ export function PairMatching({
             <button
               key={`l-${item.id}`}
               disabled={matchedIds.includes(item.id) || !!errorPair}
-              onClick={() => setSelectedLeft(item.id === selectedLeft ? null : item.id)}
+              onClick={() => handleLeftSelect(item.id)}
               className={twMerge(
                 "relative flex items-center justify-center min-h-[72px] p-3 rounded-2xl border-2 transition-all font-bold text-lg select-none",
                 getCardStyle(item.id, "left")
@@ -124,7 +141,7 @@ export function PairMatching({
             <button
               key={`r-${item.id}`}
               disabled={matchedIds.includes(item.id) || !!errorPair}
-              onClick={() => setSelectedRight(item.id === selectedRight ? null : item.id)}
+              onClick={() => handleRightSelect(item.id)}
               className={twMerge(
                 "relative flex items-center justify-center min-h-[72px] p-3 rounded-2xl border-2 transition-all font-bold text-lg text-center select-none",
                 getCardStyle(item.id, "right")
@@ -143,7 +160,7 @@ export function PairMatching({
             fullWidth
             onClick={handleCheck}
           >
-            확인하기
+            {t("exercise.check")}
           </Button3D>
         </div>
       )}

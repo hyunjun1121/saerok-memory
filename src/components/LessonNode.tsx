@@ -1,4 +1,4 @@
-import React from "react";
+import type { ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 import { Check, Lock, RefreshCw, Star, Image as ImageIcon } from "lucide-react";
 
@@ -13,7 +13,7 @@ export type LessonNodeState =
 export interface LessonNodeProps {
   id: string;
   state: LessonNodeState;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
   label?: string;
   position: "left" | "center" | "right";
   onPress: (id: string) => void;

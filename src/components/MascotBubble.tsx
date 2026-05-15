@@ -1,4 +1,3 @@
-import React from "react";
 import { twMerge } from "tailwind-merge";
 import { MessageCircle, Heart, Sparkles, Coffee } from "lucide-react";
 

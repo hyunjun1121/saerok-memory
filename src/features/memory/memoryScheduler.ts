@@ -1,4 +1,4 @@
-import { MemoryCard, ReviewState } from "./types";
+import type { MemoryCard, ReviewState } from "./types";
 
 export function calculateNextReviewState(
   currentState: ReviewState | undefined,

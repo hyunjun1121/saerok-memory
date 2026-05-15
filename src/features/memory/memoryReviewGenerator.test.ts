@@ -1,5 +1,5 @@
 import { generateMemoryReviewExercise } from './memoryReviewGenerator';
-import { MemoryCard } from './types';
+import type { MemoryCard } from './types';
 import { describe, it, expect } from 'vitest';
 
 describe('memoryReviewGenerator', () => {
@@ -26,10 +26,12 @@ describe('memoryReviewGenerator', () => {
     expect(exercise).toBeDefined();
     expect(exercise?.type).toBe('personal_memory_recall');
     expect(exercise?.difficulty).toBe(2);
-    expect(exercise?.payload.options.length).toBe(2);
+    const options = exercise?.payload.options ?? [];
+    expect(options.length).toBe(2);
 
-    const correctOption = exercise?.payload.options.find((o: any) => o.id === 'correct');
-    expect(correctOption.label).toBe('가족');
+    const correctOption = options.find((o) => o.id === 'correct');
+    expect(correctOption).toBeDefined();
+    expect(correctOption?.label).toBe('가족');
   });
 
   it('generates Level 2 exercise (3 choices) when reviewCount > 1', () => {
@@ -41,7 +43,7 @@ describe('memoryReviewGenerator', () => {
     const exercise = generateMemoryReviewExercise(card, 'lesson_1');
 
     expect(exercise?.difficulty).toBe(3);
-    expect(exercise?.payload.options.length).toBe(3);
+    expect(exercise?.payload.options?.length).toBe(3);
   });
 
   it('falls back to emotionTag if topic is missing/unknown', () => {
@@ -49,8 +51,18 @@ describe('memoryReviewGenerator', () => {
     const exercise = generateMemoryReviewExercise(card, 'lesson_1');
 
     expect(exercise?.prompt).toContain('어떤 기분');
-    const correctOption = exercise?.payload.options.find((o: any) => o.id === 'correct');
-    expect(correctOption.label).toBe('뿌듯함');
+    const options = exercise?.payload.options ?? [];
+    const correctOption = options.find((o) => o.id === 'correct');
+    expect(correctOption).toBeDefined();
+    expect(correctOption?.label).toBe('뿌듯함');
+  });
+
+  it('treats legacy emotion values stored in topic as emotions', () => {
+    const card = { ...baseCard, topic: '뿌듯함' as unknown as MemoryCard['topic'] };
+    const exercise = generateMemoryReviewExercise(card, 'lesson_1');
+
+    expect(exercise?.payload.memoryField).toBe('emotionTag');
+    expect(exercise?.prompt).toContain('어떤 기분');
   });
 
   it('returns null if no usable data exists', () => {

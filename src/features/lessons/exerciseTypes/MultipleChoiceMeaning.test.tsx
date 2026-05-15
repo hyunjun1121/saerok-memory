@@ -2,6 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import { MultipleChoiceMeaning } from './MultipleChoiceMeaning'
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import '../../../i18n'
+import type { ExerciseState } from './types'
 
 describe('MultipleChoiceMeaning', () => {
   const mockProps = {
@@ -14,7 +15,7 @@ describe('MultipleChoiceMeaning', () => {
     explanation: "This is why",
     onComplete: vi.fn(),
     setGlobalState: vi.fn(),
-    globalState: "awaiting_answer" as any
+    globalState: "awaiting_answer" as ExerciseState
   }
 
   beforeEach(() => {

@@ -1,7 +1,7 @@
-import React from "react";
+import type { ButtonHTMLAttributes } from "react";
 import { twMerge } from "tailwind-merge";
 
-export interface Button3DProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface Button3DProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary" | "danger" | "neutral" | "disabled";
   size?: "md" | "lg" | "xl";
   pressed?: boolean;

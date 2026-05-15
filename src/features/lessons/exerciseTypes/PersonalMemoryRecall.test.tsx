@@ -2,6 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import { PersonalMemoryRecall } from './PersonalMemoryRecall'
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import '../../../i18n'
+import type { ExerciseState } from './types'
 
 describe('PersonalMemoryRecall', () => {
   beforeEach(() => {
@@ -18,7 +19,7 @@ describe('PersonalMemoryRecall', () => {
       ],
       onComplete: vi.fn(),
       setGlobalState: vi.fn(),
-      globalState: "awaiting_answer" as any
+      globalState: "awaiting_answer" as ExerciseState
     }
 
     render(<PersonalMemoryRecall {...mockProps} />)
@@ -36,7 +37,7 @@ describe('PersonalMemoryRecall', () => {
       linkedConceptId: "concept_1",
       onComplete: vi.fn(),
       setGlobalState: vi.fn(),
-      globalState: "awaiting_answer" as any
+      globalState: "awaiting_answer" as ExerciseState
     }
 
     const { rerender } = render(<PersonalMemoryRecall {...mockProps} />)
@@ -54,6 +55,30 @@ describe('PersonalMemoryRecall', () => {
     expect(savedCards[0].topic).toBe("Family")
     expect(savedCards[0].shareWithFamily).toBe(false)
     expect(savedCards[0].sensitivity).toBe("personal")
+  })
+
+  it('saves emotion choices as emotionTag instead of topic', () => {
+    const mockProps = {
+      prompt: "Emotion Prompt",
+      options: [
+        { id: "opt_proud", label: "뿌듯함" },
+      ],
+      linkedConceptId: "concept_1",
+      memoryField: "emotionTag" as const,
+      onComplete: vi.fn(),
+      setGlobalState: vi.fn(),
+      globalState: "awaiting_answer" as ExerciseState
+    }
+
+    const { rerender } = render(<PersonalMemoryRecall {...mockProps} />)
+
+    fireEvent.click(screen.getByText("뿌듯함"))
+    rerender(<PersonalMemoryRecall {...mockProps} globalState="answer_selected" />)
+    fireEvent.click(screen.getByText("선택하기"))
+
+    const savedCards = JSON.parse(localStorage.getItem("memoryCards") || "[]")
+    expect(savedCards[0].topic).toBeUndefined()
+    expect(savedCards[0].emotionTag).toBe("뿌듯함")
   })
 })
 
@@ -87,7 +112,7 @@ describe('PersonalMemoryRecall', () => {
       correctOptionId: "opt_1",
       onComplete: vi.fn(),
       setGlobalState: vi.fn(),
-      globalState: "awaiting_answer" as any
+      globalState: "awaiting_answer" as ExerciseState
     }
 
     const { rerender } = render(<PersonalMemoryRecall {...mockProps} />)

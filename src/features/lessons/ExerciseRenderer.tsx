@@ -1,10 +1,12 @@
-import React from "react";
-import { Exercise } from "../../data/mockExercises";
-import { ExerciseState } from "./exerciseTypes/types";
+import type { Exercise } from "../../data/mockExercises";
+import type { ExerciseState } from "./exerciseTypes/types";
 import { MultipleChoiceMeaning } from "./exerciseTypes/MultipleChoiceMeaning";
 import { SituationMatch } from "./exerciseTypes/SituationMatch";
 import { PairMatching } from "./exerciseTypes/PairMatching";
 import { PersonalMemoryRecall } from "./exerciseTypes/PersonalMemoryRecall";
+import { SequenceOrder } from "./exerciseTypes/SequenceOrder";
+import { AudioChoice } from "./exerciseTypes/AudioChoice";
+import { PictureChoice } from "./exerciseTypes/PictureChoice";
 
 interface ExerciseRendererProps {
   exercise: Exercise;
@@ -25,8 +27,8 @@ export function ExerciseRenderer({
       return (
         <MultipleChoiceMeaning
           prompt={exercise.prompt}
-          options={exercise.payload.options}
-          correctOptionId={exercise.correctAnswer}
+          options={exercise.payload.options ?? []}
+          correctOptionId={typeof exercise.correctAnswer === "string" ? exercise.correctAnswer : ""}
           explanation={exercise.explanation}
           globalState={globalState}
           setGlobalState={setGlobalState}
@@ -38,8 +40,8 @@ export function ExerciseRenderer({
       return (
         <SituationMatch
           prompt={exercise.prompt}
-          options={exercise.payload.options}
-          correctOptionId={exercise.correctAnswer}
+          options={exercise.payload.options ?? []}
+          correctOptionId={typeof exercise.correctAnswer === "string" ? exercise.correctAnswer : ""}
           explanation={exercise.explanation}
           globalState={globalState}
           setGlobalState={setGlobalState}
@@ -51,7 +53,7 @@ export function ExerciseRenderer({
       return (
         <PairMatching
           prompt={exercise.prompt}
-          pairs={exercise.payload.pairs}
+          pairs={exercise.payload.pairs ?? []}
           explanation={exercise.explanation}
           globalState={globalState}
           setGlobalState={setGlobalState}
@@ -59,14 +61,49 @@ export function ExerciseRenderer({
         />
       );
 
+    case "sequence_order":
+      return (
+        <SequenceOrder
+          prompt={exercise.prompt}
+          items={exercise.payload.items ?? []}
+          correctOrder={Array.isArray(exercise.correctAnswer) ? exercise.correctAnswer : []}
+          globalState={globalState}
+          setGlobalState={setGlobalState}
+        />
+      );
+
+    case "audio_choice":
+      return (
+        <AudioChoice
+          prompt={exercise.prompt}
+          options={exercise.payload.options ?? []}
+          audioText={exercise.payload.audioText}
+          correctOptionId={typeof exercise.correctAnswer === "string" ? exercise.correctAnswer : ""}
+          globalState={globalState}
+          setGlobalState={setGlobalState}
+        />
+      );
+
+    case "picture_choice":
+      return (
+        <PictureChoice
+          prompt={exercise.prompt}
+          options={exercise.payload.options ?? []}
+          correctOptionId={typeof exercise.correctAnswer === "string" ? exercise.correctAnswer : ""}
+          globalState={globalState}
+          setGlobalState={setGlobalState}
+        />
+      );
+
     case "personal_memory_recall":
       return (
         <PersonalMemoryRecall
           prompt={exercise.prompt}
-          options={exercise.payload.options}
+          options={exercise.payload.options ?? []}
           memoryId={exercise.payload.memoryId}
           linkedConceptId={exercise.payload.linkedConceptId}
-          correctOptionId={exercise.correctAnswer}
+          memoryField={exercise.payload.memoryField}
+          correctOptionId={typeof exercise.correctAnswer === "string" ? exercise.correctAnswer : undefined}
           globalState={globalState}
           setGlobalState={setGlobalState}
           onComplete={onComplete}

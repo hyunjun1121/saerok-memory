@@ -17,9 +17,13 @@
     "continue": "続ける"
   },
   "exercise": {
+    "check": "確認する",
     "multipleChoice": { "prompt": "次の意味を持つ言葉は何でしょうか？" },
     "situationMatch": { "prompt": "次の状況に最も合う言葉は？" },
     "pairMatching": { "prompt": "正しいペアを見つけて繋いでください。" },
+    "sequenceOrder": { "prompt": "順番に選んでください。" },
+    "audioChoice": { "prompt": "音を聞いて選んでください。", "play": "聞く" },
+    "pictureChoice": { "prompt": "絵を見て選んでください。" },
     "memory": { "prompt": "私の記憶", "select": "選択する" }
   },
   "result": {
@@ -34,6 +38,15 @@
     "waterDrops": "集めたしずく",
     "leaves": "記憶の葉",
     "flowers": "咲いた花"
+  },
+  "family": {
+    "title": "家族",
+    "subtitle": "信頼できる保護者1人と思い出を共有できます。",
+    "inviteTitle": "保護者を招待",
+    "inviteBody": "家族が学習を応援し、共有された記憶カードを確認できるように招待します。",
+    "inviteButton": "保護者を招待する",
+    "privacyTitle": "共有前の確認",
+    "privacyBody": "記憶カードは初期設定では非公開です。利用者が選んだ内容だけが家族に共有されます。"
   },
   "settings": {
     "language": { "title": "言語 (Language)" },

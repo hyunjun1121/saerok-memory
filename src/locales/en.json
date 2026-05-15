@@ -17,9 +17,13 @@
     "continue": "Continue"
   },
   "exercise": {
+    "check": "Check",
     "multipleChoice": { "prompt": "Which meaning fits this phrase?" },
     "situationMatch": { "prompt": "Which situation matches the phrase?" },
     "pairMatching": { "prompt": "Match the correct pairs." },
+    "sequenceOrder": { "prompt": "Choose in order." },
+    "audioChoice": { "prompt": "Listen and choose.", "play": "Play" },
+    "pictureChoice": { "prompt": "Look and choose." },
     "memory": { "prompt": "My Memory", "select": "Select" }
   },
   "result": {
@@ -34,6 +38,15 @@
     "waterDrops": "Drops collected",
     "leaves": "Memory leaves",
     "flowers": "Bloomed flowers"
+  },
+  "family": {
+    "title": "Family",
+    "subtitle": "Share memories with one trusted guardian.",
+    "inviteTitle": "Guardian Invite",
+    "inviteBody": "Invite a family member so they can encourage learning and view shared memory cards.",
+    "inviteButton": "Invite Guardian",
+    "privacyTitle": "Review Before Sharing",
+    "privacyBody": "Memory cards are private by default. Only items chosen by the user are shared with family."
   },
   "settings": {
     "language": { "title": "Language" },

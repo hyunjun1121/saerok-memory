@@ -5,13 +5,31 @@ export type ExerciseType =
   | "sequence_order"
   | "audio_choice"
   | "picture_choice"
-  | "personal_memory_recall"
-  | "voice_recall";
+  | "personal_memory_recall";
 
 export interface AnswerOption {
   id: string;
   label: string;
+  value?: string;
+  imageUrl?: string;
   accessibilityLabel?: string;
+}
+
+export interface PairOption {
+  id: string;
+  left: string;
+  right: string;
+}
+
+export interface ExercisePayload {
+  audioText?: string;
+  conceptId?: string;
+  items?: AnswerOption[];
+  linkedConceptId?: string;
+  memoryField?: "topic" | "emotionTag";
+  memoryId?: string;
+  options?: AnswerOption[];
+  pairs?: PairOption[];
 }
 
 export interface Exercise {
@@ -19,8 +37,8 @@ export interface Exercise {
   lessonId: string;
   type: ExerciseType;
   prompt: string;
-  payload: any;
-  correctAnswer: any;
+  payload: ExercisePayload;
+  correctAnswer: string | string[] | null;
   explanation?: string;
   difficulty: 1 | 2 | 3 | 4 | 5;
   accessibilityHint?: string;
@@ -103,11 +121,12 @@ export const mockExercises: Exercise[] = [
     prompt: "최근에 '일석이조'라고 느꼈던 순간이 있나요? 어떤 일이 있었나요?",
     payload: {
       linkedConceptId: "concept_1",
+      memoryField: "topic",
       options: [
-        { id: "opt_family", label: "family" },
-        { id: "opt_health", label: "health" },
-        { id: "opt_hobby", label: "hobby" },
-        { id: "opt_daily", label: "daily_life" }
+        { id: "opt_family", label: "가족", value: "family" },
+        { id: "opt_health", label: "건강", value: "health" },
+        { id: "opt_hobby", label: "취미", value: "hobby" },
+        { id: "opt_daily", label: "일상", value: "daily_life" }
       ]
     },
     correctAnswer: null, // Any answer is valid for creation
@@ -121,6 +140,7 @@ export const mockExercises: Exercise[] = [
     prompt: "그때 어떤 기분이 드셨나요?",
     payload: {
       linkedConceptId: "concept_1",
+      memoryField: "emotionTag",
       options: [
         { id: "opt_happy", label: "기쁨" },
         { id: "opt_proud", label: "뿌듯함" },

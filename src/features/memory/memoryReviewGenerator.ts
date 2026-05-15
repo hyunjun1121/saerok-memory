@@ -1,5 +1,5 @@
-import { MemoryCard } from "./types";
-import { Exercise } from "../../data/mockExercises";
+import type { MemoryCard } from "./types";
+import type { Exercise } from "../../data/mockExercises";
 
 const ALL_TOPICS = ["가족", "건강", "여행", "일", "음식", "취미", "친구", "일상"];
 const ALL_EMOTIONS = ["뿌듯함", "마음이 놓임", "감사함", "힘들었음", "슬픔", "기쁨", "놀라움", "아쉬움"];
@@ -29,14 +29,17 @@ export function generateMemoryReviewExercise(card: MemoryCard, lessonId: string)
 
   const exerciseId = `mem_review_${card.id}_${Date.now()}`;
 
-  if (card.topic && card.topic !== "unknown") {
+  const storedTopic = card.topic as string | undefined;
+  const legacyEmotionTag = storedTopic && ALL_EMOTIONS.includes(storedTopic) ? storedTopic : undefined;
+
+  if (storedTopic && storedTopic !== "unknown" && !legacyEmotionTag) {
     const topicMap: Record<string, string> = {
       "family": "가족", "health": "건강", "travel": "여행",
       "work": "일", "food": "음식", "hobby": "취미",
       "friends": "친구", "daily_life": "일상"
     };
 
-    const correctLabel = topicMap[card.topic] || card.topic;
+    const correctLabel = topicMap[storedTopic] || storedTopic;
     const distractors = getRandomDistractors(ALL_TOPICS, correctLabel, choiceCount - 1);
 
     const options = [
@@ -49,17 +52,19 @@ export function generateMemoryReviewExercise(card: MemoryCard, lessonId: string)
       lessonId,
       type: "personal_memory_recall",
       prompt: "지난번, 어떤 주제와 관련된 이야기를 고르셨을까요?",
-      payload: { memoryId: card.id, options: shuffleOptions(options) },
+      payload: { memoryId: card.id, memoryField: "topic", options: shuffleOptions(options) },
       correctAnswer: "correct",
       explanation: `맞아요. ${correctLabel}에 대한 이야기를 선택하셨어요.`,
       difficulty: choiceCount as 1 | 2 | 3 | 4 | 5,
     };
   }
 
-  if (card.emotionTag) {
-    const distractors = getRandomDistractors(ALL_EMOTIONS, card.emotionTag, choiceCount - 1);
+  const emotionTag = card.emotionTag ?? legacyEmotionTag;
+
+  if (emotionTag) {
+    const distractors = getRandomDistractors(ALL_EMOTIONS, emotionTag, choiceCount - 1);
     const options = [
-      { id: "correct", label: card.emotionTag },
+      { id: "correct", label: emotionTag },
       ...distractors.map((dist, idx) => ({ id: `dist_${idx}`, label: dist }))
     ];
 
@@ -68,9 +73,9 @@ export function generateMemoryReviewExercise(card: MemoryCard, lessonId: string)
       lessonId,
       type: "personal_memory_recall",
       prompt: "그때 어떤 기분이 들었다고 하셨는지 기억나시나요?",
-      payload: { memoryId: card.id, options: shuffleOptions(options) },
+      payload: { memoryId: card.id, memoryField: "emotionTag", options: shuffleOptions(options) },
       correctAnswer: "correct",
-      explanation: `네, 그때 ${card.emotionTag}을(를) 느끼셨다고 했어요.`,
+      explanation: `네, 그때 ${emotionTag}을(를) 느끼셨다고 했어요.`,
       difficulty: choiceCount as 1 | 2 | 3 | 4 | 5,
     };
   }

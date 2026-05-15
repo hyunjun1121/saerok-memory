@@ -1,4 +1,3 @@
-import React from "react";
 import { twMerge } from "tailwind-merge";
 import { Button3D } from "./Button3D";
 import { CheckCircle2, XCircle, Info } from "lucide-react";

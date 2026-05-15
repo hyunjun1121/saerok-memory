@@ -1,22 +1,51 @@
-import { useState, useEffect } from "react";
 import {
-  StreakState, updateStreak
+  createContext,
+  createElement,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from "react";
+import {
+  type StreakState, updateStreak
 } from "./streaks";
 import {
-  GardenState, addGardenReward, RewardEvent, initialGardenState
+  type GardenState, addGardenReward, type RewardEvent, initialGardenState
 } from "./gardenProgress";
 
-export function useGamification() {
+interface GamificationContextValue {
+  streakState: StreakState;
+  gardenState: GardenState;
+  completeSession: () => void;
+  addReward: (event: RewardEvent) => void;
+}
+
+const initialStreakState: StreakState = {
+  currentStreak: 0,
+  lastSessionDate: null,
+  longestStreak: 0,
+};
+
+const GamificationContext = createContext<GamificationContextValue | null>(null);
+
+function readStorageState<T>(key: string, fallback: T): T {
+  try {
+    const saved = localStorage.getItem(key);
+    return saved ? JSON.parse(saved) as T : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+export function GamificationProvider({ children }: { children: ReactNode }) {
   const [streakState, setStreakState] = useState<StreakState>(() => {
-    const saved = localStorage.getItem("streakState");
-    if (saved) return JSON.parse(saved);
-    return { currentStreak: 0, lastSessionDate: null, longestStreak: 0 };
+    return readStorageState("streakState", initialStreakState);
   });
 
   const [gardenState, setGardenState] = useState<GardenState>(() => {
-    const saved = localStorage.getItem("gardenState");
-    if (saved) return JSON.parse(saved);
-    return initialGardenState;
+    return readStorageState("gardenState", initialGardenState);
   });
 
   useEffect(() => {
@@ -27,14 +56,29 @@ export function useGamification() {
     localStorage.setItem("gardenState", JSON.stringify(gardenState));
   }, [gardenState]);
 
-  const completeSession = () => {
+  const completeSession = useCallback(() => {
     setStreakState(prev => updateStreak(prev));
     setGardenState(prev => addGardenReward(prev, "session_complete"));
-  };
+  }, []);
 
-  const addReward = (event: RewardEvent) => {
+  const addReward = useCallback((event: RewardEvent) => {
     setGardenState(prev => addGardenReward(prev, event));
-  };
+  }, []);
 
-  return { streakState, gardenState, completeSession, addReward };
+  const value = useMemo(
+    () => ({ streakState, gardenState, completeSession, addReward }),
+    [streakState, gardenState, completeSession, addReward]
+  );
+
+  return createElement(GamificationContext.Provider, { value }, children);
+}
+
+export function useGamification() {
+  const context = useContext(GamificationContext);
+
+  if (!context) {
+    throw new Error("useGamification must be used within GamificationProvider");
+  }
+
+  return context;
 }

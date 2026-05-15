@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { ChoiceCard } from "../../../components/ChoiceCard";
 import { Button3D } from "../../../components/Button3D";
 import { useTranslation } from "react-i18next";
-import { ExerciseState } from "./types";
+import type { ExerciseState } from "./types";
 
 interface Option {
   id: string;
@@ -23,8 +23,6 @@ export function MultipleChoiceMeaning({
   prompt,
   options,
   correctOptionId,
-  explanation,
-  onComplete,
   setGlobalState,
   globalState,
 }: MultipleChoiceMeaningProps) {
@@ -109,7 +107,7 @@ export function MultipleChoiceMeaning({
             fullWidth
             onClick={handleCheck}
           >
-            확인하기
+            {t("exercise.check")}
           </Button3D>
         </div>
       )}

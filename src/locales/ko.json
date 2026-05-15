@@ -17,9 +17,13 @@
     "continue": "계속하기"
   },
   "exercise": {
+    "check": "확인하기",
     "multipleChoice": { "prompt": "다음 뜻을 가진 말은 무엇일까요?" },
     "situationMatch": { "prompt": "다음 상황에 가장 잘 맞는 말은?" },
     "pairMatching": { "prompt": "알맞은 짝을 찾아 연결해보세요." },
+    "sequenceOrder": { "prompt": "순서대로 골라보세요." },
+    "audioChoice": { "prompt": "소리를 듣고 골라보세요.", "play": "듣기" },
+    "pictureChoice": { "prompt": "그림을 보고 골라보세요." },
     "memory": { "prompt": "나의 기억", "select": "선택하기" }
   },
   "result": {
@@ -34,6 +38,15 @@
     "waterDrops": "모은 물방울",
     "leaves": "기억의 잎사귀",
     "flowers": "피어난 주간 꽃"
+  },
+  "family": {
+    "title": "가족",
+    "subtitle": "믿을 수 있는 보호자 한 명과 기억을 나눌 수 있어요.",
+    "inviteTitle": "보호자 초대",
+    "inviteBody": "가족이 학습 응원과 공유된 기억 카드를 확인할 수 있도록 초대합니다.",
+    "inviteButton": "보호자 초대하기",
+    "privacyTitle": "공유 전 확인",
+    "privacyBody": "기억 카드는 기본적으로 비공개이며, 사용자가 선택한 내용만 가족에게 공유됩니다."
   },
   "settings": {
     "language": { "title": "언어 (Language)" },
