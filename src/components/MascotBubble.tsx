@@ -1,5 +1,4 @@
 import { twMerge } from "tailwind-merge";
-import { MessageCircle, Heart, Sparkles, Coffee } from "lucide-react";
 
 export interface MascotBubbleProps {
   mood: "happy" | "thinking" | "encouraging" | "calm";
@@ -16,22 +15,18 @@ export function MascotBubble({
 }: MascotBubbleProps) {
   const moodConfig = {
     happy: {
-      icon: <Sparkles className="w-8 h-8 text-yellow-500" />,
       bubbleBorder: "border-yellow-200",
       bubbleBg: "bg-yellow-50",
     },
     thinking: {
-      icon: <MessageCircle className="w-8 h-8 text-blue-500" />,
       bubbleBorder: "border-blue-200",
       bubbleBg: "bg-blue-50",
     },
     encouraging: {
-      icon: <Heart className="w-8 h-8 text-red-400" />,
       bubbleBorder: "border-red-200",
       bubbleBg: "bg-red-50",
     },
     calm: {
-      icon: <Coffee className="w-8 h-8 text-primary-500" />,
       bubbleBorder: "border-primary-200",
       bubbleBg: "bg-primary-50",
     },
@@ -42,8 +37,8 @@ export function MascotBubble({
   return (
     <div className={twMerge("flex items-end gap-4", className)}>
       {showMascot && (
-        <div className="flex shrink-0 items-center justify-center w-16 h-16 rounded-full bg-white border-2 border-gray-200 shadow-sm">
-          {config.icon}
+        <div className="flex shrink-0 items-center justify-center w-16 h-16 overflow-hidden rounded-full bg-white border-2 border-primary-200 shadow-sm">
+          <img src="/assets/haru/mascot.png" alt="Haru Mascot" className="w-14 h-14 object-contain mt-2" />
         </div>
       )}
 

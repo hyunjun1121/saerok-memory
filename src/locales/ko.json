@@ -19,18 +19,36 @@
     "mascotGreeting": "오늘도 반가워요! 천천히 시작해볼까요?"
   },
   "feedback": {
-    "correct": { "title": "잘하셨어요!" },
-    "incorrect": { "title": "조금 아쉬워요", "retry": "다시 해볼까요?" },
+    "correct": {
+      "title": "잘하셨어요!"
+    },
+    "incorrect": {
+      "title": "조금 아쉬워요",
+      "retry": "다시 해볼까요?"
+    },
     "continue": "계속하기"
   },
   "exercise": {
     "check": "확인하기",
-    "multipleChoice": { "prompt": "다음 뜻을 가진 말은 무엇일까요?" },
-    "situationMatch": { "prompt": "다음 상황에 가장 잘 맞는 말은?" },
-    "pairMatching": { "prompt": "알맞은 짝을 찾아 연결해보세요." },
-    "sequenceOrder": { "prompt": "순서대로 골라보세요." },
-    "audioChoice": { "prompt": "소리를 듣고 골라보세요.", "play": "듣기" },
-    "pictureChoice": { "prompt": "그림을 보고 골라보세요." },
+    "multipleChoice": {
+      "prompt": "다음 뜻을 가진 말은 무엇일까요?"
+    },
+    "situationMatch": {
+      "prompt": "다음 상황에 가장 잘 맞는 말은?"
+    },
+    "pairMatching": {
+      "prompt": "알맞은 짝을 찾아 연결해보세요."
+    },
+    "sequenceOrder": {
+      "prompt": "순서대로 골라보세요."
+    },
+    "audioChoice": {
+      "prompt": "소리를 듣고 골라보세요.",
+      "play": "듣기"
+    },
+    "pictureChoice": {
+      "prompt": "그림을 보고 골라보세요."
+    },
     "memory": {
       "prompt": "나의 기억",
       "select": "선택하기",
@@ -108,10 +126,32 @@
     "summaryEmpty": "아직 공유할 활동 기록이 없습니다. 꾸준히 연습해보세요!",
     "routinesCompleted": "이번 주 완료한 연습: {{count}}회",
     "dueMemoryCards": "복습할 기억 카드: {{count}}개",
-    "sharedMemoryCards": "가족과 나눌 이야기: {{count}}개"
+    "sharedMemoryCards": "가족과 나눌 이야기: {{count}}개",
+    "tabs": {
+      "family": "가족",
+      "counselor": "상담사"
+    },
+    "counselorTitle": "활동 요약",
+    "counselorSubtitle": "상담 시 활용할 수 있는 활동 기록입니다.",
+    "counselorActivityLabel": "활동 개요",
+    "counselorPracticeLabel": "연습 참여",
+    "counselorCuesLabel": "대화 주제 제안",
+    "counselorMemoriesLabel": "공유된 기억",
+    "counselorNotesLabel": "다음 대화를 위한 참고 자료",
+    "counselorDisclaimer": "이 화면의 데이터는 로컬 데모 데이터이며, 의학적 진단이나 검사 결과가 아닙니다. 질병의 위험이나 진행을 나타내지 않습니다.",
+    "cues": {
+      "fallbackEasiest": "오늘 연습 중에 어떤 활동이 가장 편하셨는지 여쭤보세요.",
+      "fallbackTomorrow": "내일은 어떤 연습을 다시 해보고 싶으신지 여쭤보세요.",
+      "askSummary": "저장된 이야기 '{{summary}}'에 대해 조금 더 물어보세요.",
+      "askEmotion": "그때 '{{emotion}}'을 느끼셨던 이유를 물어보세요.",
+      "askPeople": "'{{person}}'님과 함께했던 다른 즐거운 기억이 있는지 물어보세요.",
+      "askPlace": "'{{place}}'에 다시 가본다면 무엇을 제일 먼저 하고 싶으신지 여쭤보세요."
+    }
   },
   "settings": {
-    "language": { "title": "언어 (Language)" },
+    "language": {
+      "title": "언어 (Language)"
+    },
     "dataManagement": "데이터 관리",
     "deleteMemoryCards": "기억 카드 삭제하기",
     "deleteCognitiveData": "연습 기록 삭제하기"

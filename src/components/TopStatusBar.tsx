@@ -1,6 +1,7 @@
 import { twMerge } from "tailwind-merge";
-import { Flame, Droplets, Settings } from "lucide-react";
+import { Flame, Settings } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export interface TopStatusBarProps {
   streak: number;
@@ -9,6 +10,24 @@ export interface TopStatusBarProps {
 }
 
 export function TopStatusBar({ streak, gardenPoints, className }: TopStatusBarProps) {
+  const { i18n } = useTranslation();
+
+  const getLogo = () => {
+    switch (i18n.language) {
+      case "ja":
+        return <img src="/assets/haru/logo_ja_hiragana.png" alt="Haru Logo" className="h-6 w-auto" />;
+      case "ko":
+        return <img src="/assets/haru/logo_ko.png" alt="Haru Logo" className="h-6 w-auto" />;
+      default:
+        return (
+          <div className="flex items-center gap-2">
+            <img src="/assets/haru/app_icon.png" alt="Haru Icon" className="h-6 w-auto" />
+            <span className="text-xl font-bold text-primary-800">Haru</span>
+          </div>
+        );
+    }
+  };
+
   return (
     <header
       className={twMerge(
@@ -16,14 +35,18 @@ export function TopStatusBar({ streak, gardenPoints, className }: TopStatusBarPr
         className
       )}
     >
+      <div className="flex items-center">
+        {getLogo()}
+      </div>
+
       <div className="flex gap-4 sm:gap-6 items-center">
-        <div className="flex items-center gap-2">
-          <Flame className="w-6 h-6 text-orange-500 fill-orange-500" strokeWidth={2} />
-          <span className="text-lg font-bold text-orange-600">{streak}</span>
+        <div className="flex items-center gap-1.5">
+          <Flame className="w-5 h-5 text-orange-500 fill-orange-500" strokeWidth={2} />
+          <span className="text-base font-bold text-orange-600">{streak}</span>
         </div>
-        <div className="flex items-center gap-2">
-          <Droplets className="w-6 h-6 text-blue-500 fill-blue-500" strokeWidth={2} />
-          <span className="text-lg font-bold text-blue-600">{gardenPoints}</span>
+        <div className="flex items-center gap-1.5">
+          <img src="/assets/haru/water_drop.png" alt="Drops" className="w-5 h-5 object-contain" />
+          <span className="text-base font-bold text-blue-600">{gardenPoints}</span>
         </div>
       </div>
 

@@ -19,18 +19,36 @@
     "mascotGreeting": "Nice to see you! Shall we start slowly?"
   },
   "feedback": {
-    "correct": { "title": "Nice work!" },
-    "incorrect": { "title": "Almost there", "retry": "Try again?" },
+    "correct": {
+      "title": "Nice work!"
+    },
+    "incorrect": {
+      "title": "Almost there",
+      "retry": "Try again?"
+    },
     "continue": "Continue"
   },
   "exercise": {
     "check": "Check",
-    "multipleChoice": { "prompt": "Which meaning fits this phrase?" },
-    "situationMatch": { "prompt": "Which situation matches the phrase?" },
-    "pairMatching": { "prompt": "Match the correct pairs." },
-    "sequenceOrder": { "prompt": "Choose in order." },
-    "audioChoice": { "prompt": "Listen and choose.", "play": "Play" },
-    "pictureChoice": { "prompt": "Look and choose." },
+    "multipleChoice": {
+      "prompt": "Which meaning fits this phrase?"
+    },
+    "situationMatch": {
+      "prompt": "Which situation matches the phrase?"
+    },
+    "pairMatching": {
+      "prompt": "Match the correct pairs."
+    },
+    "sequenceOrder": {
+      "prompt": "Choose in order."
+    },
+    "audioChoice": {
+      "prompt": "Listen and choose.",
+      "play": "Play"
+    },
+    "pictureChoice": {
+      "prompt": "Look and choose."
+    },
     "memory": {
       "prompt": "My Memory",
       "select": "Select",
@@ -108,10 +126,32 @@
     "summaryEmpty": "There is no activity to share yet. Keep practicing gently.",
     "routinesCompleted": "Practices completed this week: {{count}}",
     "dueMemoryCards": "Memory cards to review: {{count}}",
-    "sharedMemoryCards": "Stories shared with family: {{count}}"
+    "sharedMemoryCards": "Stories shared with family: {{count}}",
+    "tabs": {
+      "family": "Family",
+      "counselor": "Counselor"
+    },
+    "counselorTitle": "Activity Overview",
+    "counselorSubtitle": "Activity records to help prepare for conversations.",
+    "counselorActivityLabel": "Activity Overview",
+    "counselorPracticeLabel": "Routine Participation",
+    "counselorCuesLabel": "Conversation Cues",
+    "counselorMemoriesLabel": "Shareable Memories",
+    "counselorNotesLabel": "Notes for the Next Conversation",
+    "counselorDisclaimer": "This data is from a local demo and is not a medical test. It does not indicate disease risk or progression.",
+    "cues": {
+      "fallbackEasiest": "Ask which activity felt the easiest during today's practice.",
+      "fallbackTomorrow": "Ask what kind of practice they would like to try again tomorrow.",
+      "askSummary": "Ask a little more about the shared story '{{summary}}'.",
+      "askEmotion": "Ask what made them feel '{{emotion}}' at that time.",
+      "askPeople": "Ask if they have other fond memories with '{{person}}'.",
+      "askPlace": "Ask what they would want to do first if they went back to '{{place}}'."
+    }
   },
   "settings": {
-    "language": { "title": "Language" },
+    "language": {
+      "title": "Language"
+    },
     "dataManagement": "Data Management",
     "deleteMemoryCards": "Delete Memory Cards",
     "deleteCognitiveData": "Delete Practice Records"

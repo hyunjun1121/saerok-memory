@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { TreePine, Droplets, Leaf, Flower, Award } from "lucide-react";
+import { Droplets, Leaf, Flower, Award } from "lucide-react";
 import { useGamification } from "../../features/gamification/useGamification";
 
 export default function GardenScreen() {
@@ -18,20 +18,14 @@ export default function GardenScreen() {
       </div>
 
       <div className="relative w-full aspect-square bg-gradient-to-b from-blue-50 to-primary-100 rounded-3xl border-4 border-white shadow-sm overflow-hidden flex flex-col items-center justify-end pb-8 mb-8">
-        <div className="absolute top-10 right-10 w-16 h-16 bg-white/40 rounded-full blur-xl" />
-        <div className="absolute bottom-20 left-10 w-24 h-24 bg-primary-200/50 rounded-full blur-2xl" />
+        <div className="absolute inset-0 bg-primary-100/50 mix-blend-multiply" />
+        <img
+          src="/assets/haru/garden_scene.png"
+          alt="Haru Garden Scene"
+          className="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out scale-[1.02]"
+        />
 
-        <div className="relative z-10 flex flex-col items-center">
-          <TreePine
-            className="text-primary-600 transition-all duration-700 ease-out"
-            size={120 + ((gardenState.treeLevel || 1) * 20)}
-            strokeWidth={1.5}
-            fill="currentColor"
-          />
-          <div className="w-32 h-4 bg-black/10 rounded-[100%] mt-2 blur-sm" />
-        </div>
-
-        <div className="absolute top-4 left-4 bg-white/80 backdrop-blur px-4 py-2 rounded-2xl border-2 border-primary-200 shadow-sm flex items-center gap-2">
+        <div className="absolute top-4 left-4 z-20 bg-white/90 backdrop-blur px-4 py-2 rounded-2xl border-2 border-primary-200 shadow-sm flex items-center gap-2">
           <Award className="w-5 h-5 text-yellow-500" />
           <span className="font-bold text-primary-800">
             {t("garden.level")} {gardenState.treeLevel || 1}
