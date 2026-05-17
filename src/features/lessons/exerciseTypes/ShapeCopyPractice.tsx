@@ -144,7 +144,7 @@ export function ShapeCopyPractice({
             onTouchEnd={stopDrawing}
             onTouchCancel={stopDrawing}
             style={{ cursor: "crosshair" }}
-            aria-label="Drawing area"
+            aria-label={t("exercise.cognitive.drawingArea")}
           />
           <button
             onClick={handleClear}

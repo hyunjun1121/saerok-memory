@@ -1,4 +1,5 @@
 import { lazy, Suspense } from 'react';
+import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AppShell } from './components/AppShell';
 import { GamificationProvider } from './features/gamification/useGamification';
@@ -10,11 +11,21 @@ const GardenScreen = lazy(() => import('./app/garden/GardenScreen'));
 const FamilyScreen = lazy(() => import('./app/family/FamilyScreen'));
 const SettingsScreen = lazy(() => import('./app/settings/SettingsScreen'));
 
+function LoadingFallback() {
+  const { t } = useTranslation();
+
+  return (
+    <div className="flex min-h-screen items-center justify-center">
+      {t("app.loading")}
+    </div>
+  );
+}
+
 export default function App() {
   return (
     <GamificationProvider>
       <BrowserRouter>
-        <Suspense fallback={<div className="flex min-h-screen items-center justify-center">Loading...</div>}>
+        <Suspense fallback={<LoadingFallback />}>
           <Routes>
             <Route element={<AppShell />}>
               <Route path="/" element={<HomeScreen />} />

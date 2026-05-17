@@ -23,7 +23,7 @@ export default function ResultScreen() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-between min-h-[100dvh] pt-12 pb-8 px-6 bg-primary-50">
+    <div data-screen="result" className="flex flex-col items-center justify-between min-h-[100dvh] pt-12 pb-8 px-6 bg-primary-50">
       <div className="flex flex-col items-center gap-6 w-full max-w-md mt-8">
         <h1 className="text-4xl font-extrabold text-primary-800 text-center drop-shadow-sm">
           {t("result.title")}

@@ -18,12 +18,12 @@ export default function SettingsScreen() {
   };
 
   return (
-    <div className="flex flex-col min-h-full pb-32 pt-8 px-4 w-full max-w-md mx-auto">
+    <div data-screen="settings" className="flex flex-col min-h-full pb-32 pt-8 px-4 w-full max-w-md mx-auto">
       <header className="flex items-center gap-4 mb-8">
         <button
           onClick={handleBack}
           className="p-3 bg-white rounded-full border-2 border-gray-200 hover:bg-gray-50 active:scale-95 transition-all min-w-[48px] min-h-[48px] flex items-center justify-center"
-          aria-label="Back"
+          aria-label={t("common.back")}
         >
           <ArrowLeft size={24} />
         </button>
@@ -99,7 +99,7 @@ export default function SettingsScreen() {
         </Button3D>
 
         <Button3D variant="neutral" className="flex justify-between items-center text-red-500 mt-2" onClick={clearCognitiveRoutineResults}>
-          {t("settings.deleteCognitiveData", "연습 기록 삭제하기")} <Trash2 size={20} />
+          {t("settings.deleteCognitiveData")} <Trash2 size={20} />
         </Button3D>
       </section>
     </div>

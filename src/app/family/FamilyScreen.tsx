@@ -20,7 +20,7 @@ export default function FamilyScreen() {
   const hasData = completedRoutines > 0 || dueCards > 0 || sharedCards > 0;
 
   return (
-    <div className="flex min-h-full w-full max-w-md flex-col gap-6 px-4 pb-32 pt-8">
+    <div data-screen="family" className="flex min-h-full w-full max-w-md flex-col gap-6 px-4 pb-32 pt-8">
       <header className="flex flex-col gap-2">
         <h1 className="text-3xl font-extrabold text-ink">
           {t("family.title")}

@@ -1,5 +1,11 @@
 {
   "appTitle": "Memory Garden",
+  "app": {
+    "loading": "Loading..."
+  },
+  "common": {
+    "back": "Back"
+  },
   "navigation": {
     "home": "Learn",
     "garden": "Garden",
@@ -7,6 +13,7 @@
     "settings": "Settings"
   },
   "home": {
+    "unitLabel": "Unit 1",
     "continueButton": "Continue",
     "unitTitle": "Getting Started: Good Memories",
     "mascotGreeting": "Nice to see you! Shall we start slowly?"
@@ -69,8 +76,12 @@
       "listen": "Listen",
       "speak": "Repeat aloud",
       "listening": "Listening...",
-      "doneSpeaking": "I finished speaking"
+      "doneSpeaking": "I finished speaking",
+      "drawingArea": "Drawing area"
     }
+  },
+  "lesson": {
+    "close": "Close lesson"
   },
   "result": {
     "title": "Session Complete!",

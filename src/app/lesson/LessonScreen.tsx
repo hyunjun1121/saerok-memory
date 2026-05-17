@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { X } from "lucide-react";
 import { ProgressBar } from "../../components/ProgressBar";
 import { FeedbackTray } from "../../components/FeedbackTray";
@@ -11,7 +11,7 @@ import type { MemoryCard } from "../../features/memory/types";
 import { generateMemoryReviewExercise } from "../../features/memory/memoryReviewGenerator";
 import { getLocalizedText } from "../../utils/localizedText";
 
-function buildSessionExercises() {
+function buildSessionExercises(initialExerciseId?: string | null) {
   const savedCards = JSON.parse(localStorage.getItem("memoryCards") || "[]") as MemoryCard[];
   const sessionExercises = [...mockExercises];
 
@@ -24,14 +24,26 @@ function buildSessionExercises() {
     }
   }
 
+  if (initialExerciseId) {
+    const initialExerciseIndex = sessionExercises.findIndex(
+      (exercise) => exercise.id === initialExerciseId,
+    );
+
+    if (initialExerciseIndex >= 0) {
+      return sessionExercises.slice(initialExerciseIndex);
+    }
+  }
+
   return sessionExercises;
 }
 
 export default function LessonScreen() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const location = useLocation();
+  const initialExerciseId = new URLSearchParams(location.search).get("captureExerciseId");
 
-  const [exercises] = useState<Exercise[]>(buildSessionExercises);
+  const [exercises] = useState<Exercise[]>(() => buildSessionExercises(initialExerciseId));
   const [currentIndex, setCurrentIndex] = useState(0);
   const [globalState, setGlobalState] = useState<ExerciseState>("awaiting_answer");
 
@@ -58,12 +70,12 @@ export default function LessonScreen() {
   if (!currentExercise) return null;
 
   return (
-    <div className="flex flex-col min-h-[100dvh] bg-background pb-32">
+    <div data-screen="lesson" data-exercise-id={currentExercise.id} className="flex flex-col min-h-[100dvh] bg-background pb-32">
       <header className="flex items-center gap-4 px-4 py-6 w-full max-w-md mx-auto">
         <button
           onClick={handleClose}
           className="text-gray-400 hover:text-gray-600 transition-colors p-2 -ml-2 rounded-full hover:bg-gray-100 min-w-[48px] min-h-[48px] flex items-center justify-center"
-          aria-label="Close lesson"
+          aria-label={t("lesson.close")}
         >
           <X size={28} strokeWidth={2.5} />
         </button>

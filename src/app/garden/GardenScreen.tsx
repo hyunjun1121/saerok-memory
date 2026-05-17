@@ -7,7 +7,7 @@ export default function GardenScreen() {
   const { gardenState } = useGamification();
 
   return (
-    <div className="flex flex-col min-h-full pb-32 pt-8 px-4 w-full max-w-md mx-auto">
+    <div data-screen="garden" className="flex flex-col min-h-full pb-32 pt-8 px-4 w-full max-w-md mx-auto">
       <div className="flex flex-col gap-2 mb-8">
         <h1 className="text-3xl font-extrabold text-ink">
           {t("navigation.garden")}

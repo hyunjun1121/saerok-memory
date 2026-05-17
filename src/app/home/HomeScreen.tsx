@@ -25,11 +25,11 @@ export default function HomeScreen() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-full py-8 px-4 w-full max-w-md mx-auto">
+    <div data-screen="home" className="flex flex-col items-center justify-center min-h-full py-8 px-4 w-full max-w-md mx-auto">
       <div className="w-full bg-primary-500 rounded-2xl p-6 shadow-card border-2 border-primary-700 mb-8 relative overflow-hidden">
         <div className="relative z-10 flex flex-col gap-2">
           <span className="text-primary-100 font-bold text-sm tracking-wide uppercase">
-            Unit 1
+            {t("home.unitLabel")}
           </span>
           <h1 className="text-2xl font-extrabold text-white">
             {t("home.unitTitle", "시작하기: 좋은 기억")}

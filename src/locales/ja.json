@@ -1,5 +1,11 @@
 {
   "appTitle": "記憶の庭",
+  "app": {
+    "loading": "読み込み中..."
+  },
+  "common": {
+    "back": "戻る"
+  },
   "navigation": {
     "home": "学習",
     "garden": "庭",
@@ -7,6 +13,7 @@
     "settings": "設定"
   },
   "home": {
+    "unitLabel": "ユニット1",
     "continueButton": "続ける",
     "unitTitle": "はじめに：良い思い出",
     "mascotGreeting": "今日も会えて嬉しいです！ゆっくり始めましょうか？"
@@ -69,8 +76,12 @@
       "listen": "聞く",
       "speak": "声に出して言う",
       "listening": "聞いています...",
-      "doneSpeaking": "言い終わりました"
+      "doneSpeaking": "言い終わりました",
+      "drawingArea": "絵を描く場所"
     }
+  },
+  "lesson": {
+    "close": "レッスンを閉じる"
   },
   "result": {
     "title": "学習完了！",

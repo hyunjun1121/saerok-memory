@@ -1,5 +1,11 @@
 {
   "appTitle": "기억정원",
+  "app": {
+    "loading": "불러오는 중..."
+  },
+  "common": {
+    "back": "뒤로 가기"
+  },
   "navigation": {
     "home": "학습",
     "garden": "정원",
@@ -7,6 +13,7 @@
     "settings": "설정"
   },
   "home": {
+    "unitLabel": "1단원",
     "continueButton": "계속하기",
     "unitTitle": "시작하기: 좋은 기억",
     "mascotGreeting": "오늘도 반가워요! 천천히 시작해볼까요?"
@@ -69,8 +76,12 @@
       "listen": "들어보기",
       "speak": "따라 말하기",
       "listening": "듣는 중...",
-      "doneSpeaking": "다 말했습니다"
+      "doneSpeaking": "다 말했습니다",
+      "drawingArea": "그림을 그리는 영역"
     }
+  },
+  "lesson": {
+    "close": "수업 닫기"
   },
   "result": {
     "title": "학습 완료!",

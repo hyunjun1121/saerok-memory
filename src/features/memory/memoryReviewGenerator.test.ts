@@ -1,8 +1,13 @@
 import { generateMemoryReviewExercise } from './memoryReviewGenerator';
 import type { MemoryCard } from './types';
-import { describe, it, expect } from 'vitest';
+import { afterEach, describe, it, expect } from 'vitest';
+import i18n from '../../i18n';
 
 describe('memoryReviewGenerator', () => {
+  afterEach(async () => {
+    await i18n.changeLanguage('ko');
+  });
+
   const baseCard: MemoryCard = {
     id: 'test_card_1',
     userId: 'user_1',
@@ -65,6 +70,17 @@ describe('memoryReviewGenerator', () => {
     expect(exercise?.prompt).toBeTruthy();
   });
 
+  it('localizes a topic review exercise in Japanese', async () => {
+    await i18n.changeLanguage('ja');
+
+    const card = { ...baseCard, topic: 'family' as const };
+    const exercise = generateMemoryReviewExercise(card, 'lesson_1');
+
+    expect(exercise?.prompt).toBe('前回、どの話題の思い出を選びましたか？');
+    const correctOption = exercise?.payload.options?.find((o) => o.id === 'correct');
+    expect(correctOption?.label).toBe('家族');
+  });
+
   it('generates a review question from a saved spoken story cue', () => {
     const card: MemoryCard = {
       ...baseCard,
@@ -87,6 +103,29 @@ describe('memoryReviewGenerator', () => {
     expect(exercise?.explanation).toContain('지난봄에 딸과 병원');
     const correctOption = exercise?.payload.options?.find((o) => o.id === 'correct');
     expect(correctOption?.label).toBe('딸');
+  });
+
+  it('localizes known Korean story cues into Japanese review choices', async () => {
+    await i18n.changeLanguage('ja');
+
+    const card: MemoryCard = {
+      ...baseCard,
+      originalTranscript: '지난봄에 딸과 병원에 다녀온 뒤 국밥집에서 밥을 먹었어요.',
+      textSummary: '지난봄에 딸과 병원에 다녀온 뒤 국밥집에서 밥을 먹었어요.',
+      storyCues: {
+        people: ['딸'],
+        places: ['병원', '국밥집'],
+        objects: ['우산'],
+        emotions: ['고마움'],
+        timeHints: ['봄'],
+      },
+    };
+
+    const exercise = generateMemoryReviewExercise(card, 'lesson_1');
+    const correctOption = exercise?.payload.options?.find((o) => o.id === 'correct');
+
+    expect(exercise?.prompt).toBe('前回話した思い出で、一緒にいた人は誰でしたか？');
+    expect(correctOption?.label).toBe('娘');
   });
 
   it('returns null if no usable data exists', () => {

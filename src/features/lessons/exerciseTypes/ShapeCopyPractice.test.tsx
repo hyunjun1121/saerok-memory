@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { ShapeCopyPractice } from './ShapeCopyPractice';
 import { getCognitiveRoutineResults, clearCognitiveRoutineResults } from '../../cognitive/cognitiveRoutineStorage';
-import '../../../i18n';
+import i18n from '../../../i18n';
 
 describe('ShapeCopyPractice', () => {
   beforeEach(() => {
@@ -38,7 +38,7 @@ describe('ShapeCopyPractice', () => {
     expect(setGlobalState).toHaveBeenCalledWith('answer_selected');
 
     // Simulate drawing
-    const canvas = screen.getByLabelText('Drawing area');
+    const canvas = screen.getByLabelText(i18n.t('exercise.cognitive.drawingArea'));
     fireEvent.mouseDown(canvas, { clientX: 10, clientY: 10 });
     fireEvent.mouseUp(canvas);
 
