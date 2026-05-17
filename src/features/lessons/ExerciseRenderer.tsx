@@ -7,6 +7,10 @@ import { PersonalMemoryRecall } from "./exerciseTypes/PersonalMemoryRecall";
 import { SequenceOrder } from "./exerciseTypes/SequenceOrder";
 import { AudioChoice } from "./exerciseTypes/AudioChoice";
 import { PictureChoice } from "./exerciseTypes/PictureChoice";
+import { DelayedWordRecall } from "./exerciseTypes/DelayedWordRecall";
+import { AttentionPattern } from "./exerciseTypes/AttentionPattern";
+import { ShapeCopyPractice } from "./exerciseTypes/ShapeCopyPractice";
+import { SpeechRepeatPractice } from "./exerciseTypes/SpeechRepeatPractice";
 
 interface ExerciseRendererProps {
   exercise: Exercise;
@@ -107,6 +111,56 @@ export function ExerciseRenderer({
           globalState={globalState}
           setGlobalState={setGlobalState}
           onComplete={onComplete}
+        />
+      );
+
+    case "delayed_word_recall":
+      return (
+        <DelayedWordRecall
+          prompt={exercise.prompt}
+          phase={exercise.payload.phase || "encode"}
+          wordSetId={exercise.payload.wordSetId}
+          words={exercise.payload.words}
+          options={exercise.payload.options}
+          requiredSelectionCount={exercise.payload.requiredSelectionCount}
+          expectedAnswers={Array.isArray(exercise.correctAnswer) ? exercise.correctAnswer : []}
+          onComplete={onComplete}
+          setGlobalState={setGlobalState}
+          globalState={globalState}
+        />
+      );
+
+    case "attention_pattern":
+      return (
+        <AttentionPattern
+          prompt={exercise.prompt}
+          pattern={exercise.payload.pattern ?? []}
+          options={exercise.payload.options ?? []}
+          correctOptionId={typeof exercise.correctAnswer === "string" ? exercise.correctAnswer : ""}
+          onComplete={onComplete}
+          setGlobalState={setGlobalState}
+          globalState={globalState}
+        />
+      );
+
+    case "shape_copy_practice":
+      return (
+        <ShapeCopyPractice
+          prompt={exercise.prompt}
+          onComplete={onComplete}
+          setGlobalState={setGlobalState}
+          globalState={globalState}
+        />
+      );
+
+    case "speech_repeat_practice":
+      return (
+        <SpeechRepeatPractice
+          prompt={exercise.prompt}
+          phrase={exercise.payload.phrase ?? ""}
+          onComplete={onComplete}
+          setGlobalState={setGlobalState}
+          globalState={globalState}
         />
       );
 

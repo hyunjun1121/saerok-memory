@@ -24,7 +24,17 @@
     "sequenceOrder": { "prompt": "순서대로 골라보세요." },
     "audioChoice": { "prompt": "소리를 듣고 골라보세요.", "play": "듣기" },
     "pictureChoice": { "prompt": "그림을 보고 골라보세요." },
-    "memory": { "prompt": "나의 기억", "select": "선택하기" }
+    "memory": { "prompt": "나의 기억", "select": "선택하기" },
+    "cognitive": {
+      "practice": "가벼운 연습",
+      "ready": "네, 기억했습니다",
+      "clear": "지우기",
+      "done": "다 그렸습니다",
+      "listen": "들어보기",
+      "speak": "따라 말하기",
+      "listening": "듣는 중...",
+      "doneSpeaking": "다 말했습니다"
+    }
   },
   "result": {
     "title": "학습 완료!",
@@ -46,11 +56,17 @@
     "inviteBody": "가족이 학습 응원과 공유된 기억 카드를 확인할 수 있도록 초대합니다.",
     "inviteButton": "보호자 초대하기",
     "privacyTitle": "공유 전 확인",
-    "privacyBody": "기억 카드는 기본적으로 비공개이며, 사용자가 선택한 내용만 가족에게 공유됩니다."
+    "privacyBody": "기억 카드는 기본적으로 비공개이며, 사용자가 선택한 내용만 가족에게 공유됩니다.",
+    "summaryTitle": "최근 활동 요약",
+    "summaryEmpty": "아직 공유할 활동 기록이 없습니다. 꾸준히 연습해보세요!",
+    "routinesCompleted": "이번 주 완료한 연습: {{count}}회",
+    "dueMemoryCards": "복습할 기억 카드: {{count}}개",
+    "sharedMemoryCards": "가족과 나눌 이야기: {{count}}개"
   },
   "settings": {
     "language": { "title": "언어 (Language)" },
     "dataManagement": "데이터 관리",
-    "deleteMemoryCards": "기억 카드 삭제하기"
+    "deleteMemoryCards": "기억 카드 삭제하기",
+    "deleteCognitiveData": "연습 기록 삭제하기"
   }
 }
