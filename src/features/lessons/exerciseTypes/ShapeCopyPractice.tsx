@@ -121,7 +121,7 @@ export function ShapeCopyPractice({
       </div>
 
       <div className="flex flex-col items-center justify-center gap-4 py-4">
-        {/* Simple non-diagnostic house shape reference */}
+        {/* Simple house shape reference */}
         <div className="w-32 h-32 border-4 border-gray-400 rounded-lg flex items-center justify-center relative bg-gray-50">
             <svg viewBox="0 0 100 100" className="w-24 h-24 stroke-gray-600 fill-none stroke-[4] stroke-linecap-round stroke-linejoin-round">
                 <path d="M 20 50 L 50 20 L 80 50 L 80 80 L 20 80 Z M 20 50 L 80 50" />

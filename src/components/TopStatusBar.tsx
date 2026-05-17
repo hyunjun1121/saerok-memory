@@ -15,13 +15,13 @@ export function TopStatusBar({ streak, gardenPoints, className }: TopStatusBarPr
   const getLogo = () => {
     switch (i18n.language) {
       case "ja":
-        return <img src="/assets/haru/logo_ja_hiragana.png" alt={t("appTitle")} className="h-6 w-auto" />;
+        return <img src="/assets/haru/logo_ja_hiragana.png" alt={t("appTitle")} className="h-9 max-w-[150px] object-contain" />;
       case "ko":
-        return <img src="/assets/haru/logo_ko.png" alt={t("appTitle")} className="h-6 w-auto" />;
+        return <img src="/assets/haru/logo_ko.png" alt={t("appTitle")} className="h-9 max-w-[150px] object-contain" />;
       default:
         return (
           <div className="flex items-center gap-2">
-            <img src="/assets/haru/app_icon.png" alt={t("appTitle")} className="h-6 w-auto" />
+            <img src="/assets/haru/app_icon.png" alt={t("appTitle")} className="h-8 w-auto" />
             <span className="text-xl font-bold text-primary-800">{t("appTitle")}</span>
           </div>
         );

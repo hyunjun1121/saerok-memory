@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
-import { Home, TreePine, Users } from "lucide-react";
+import { FileText, Home, TreePine } from "lucide-react";
 
 export interface BottomNavigationProps {
   className?: string;
@@ -28,7 +28,7 @@ export function BottomNavigation({ className }: BottomNavigationProps) {
       id: "family",
       path: "/family",
       label: t("navigation.family"),
-      icon: <Users className="w-8 h-8" strokeWidth={2.5} />,
+      icon: <FileText className="w-8 h-8" strokeWidth={2.5} />,
     },
   ];
 

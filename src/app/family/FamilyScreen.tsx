@@ -21,13 +21,16 @@ import {
   generateCaregiverCounselorReport,
   type ReportCopyItem,
 } from "../../features/family/caregiverReport";
+import { buildDemoMemoryCards, buildDemoRoutineResults } from "../../features/family/demoReportData";
 
 export default function FamilyScreen() {
   const { t, i18n } = useTranslation();
-  const [activeTab, setActiveTab] = useState<"family" | "counselor">("family");
+  const [activeTab, setActiveTab] = useState<"family" | "counselor">("counselor");
 
-  const routineResults = getCognitiveRoutineResults();
-  const memoryCards = getMemoryCards();
+  const storedRoutineResults = getCognitiveRoutineResults();
+  const storedMemoryCards = getMemoryCards();
+  const routineResults = storedRoutineResults.length > 0 ? storedRoutineResults : buildDemoRoutineResults();
+  const memoryCards = storedMemoryCards.length > 0 ? storedMemoryCards : buildDemoMemoryCards();
   const report = generateCaregiverCounselorReport(memoryCards, routineResults);
 
   const hasData =
@@ -207,7 +210,7 @@ export default function FamilyScreen() {
                     {t("family.reportTitle")}
                   </h2>
                   <span className="rounded-full bg-orange-50 px-3 py-1 text-xs font-extrabold text-orange-700">
-                    {t("family.report.nonDiagnosticBadge")}
+                    {t("family.report.activityBadge")}
                   </span>
                 </div>
 

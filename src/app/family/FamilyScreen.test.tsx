@@ -47,7 +47,7 @@ describe("FamilyScreen", () => {
 
     // Check counselor content
     expect(screen.getByText("family.reportTitle")).toBeInTheDocument();
-    expect(screen.getByText("family.report.nonDiagnosticBadge")).toBeInTheDocument();
+    expect(screen.getByText("family.report.activityBadge")).toBeInTheDocument();
     expect(screen.getByText("family.trend.title")).toBeInTheDocument();
     expect(screen.getByText("family.counselorCuesLabel")).toBeInTheDocument();
     expect(screen.getByText("family.counselorDisclaimer")).toBeInTheDocument();
