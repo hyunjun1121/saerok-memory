@@ -21,7 +21,7 @@ export default function GardenScreen() {
         <div className="absolute inset-0 bg-primary-100/50 mix-blend-multiply" />
         <img
           src="/assets/haru/garden_scene.png"
-          alt="Haru Garden Scene"
+          alt=""
           className="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out scale-[1.02]"
         />
 

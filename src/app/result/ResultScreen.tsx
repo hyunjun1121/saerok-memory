@@ -31,7 +31,7 @@ export default function ResultScreen() {
 
         <div className="relative w-48 h-48 flex items-center justify-center bg-white rounded-full border-4 border-primary-200 shadow-xl my-6 overflow-hidden">
           <div className="absolute inset-0 rounded-full animate-pulseSlow bg-primary-50 opacity-50" />
-          <img src="/assets/haru/memory_bloom.png" alt="Memory Bloom" className="w-32 h-32 object-contain z-10" />
+          <img src="/assets/haru/memory_bloom.png" alt="" className="w-32 h-32 object-contain z-10" />
         </div>
       </div>
 
@@ -44,7 +44,7 @@ export default function ResultScreen() {
         </div>
 
         <div className="flex-1 flex flex-col items-center justify-center p-4 bg-white rounded-2xl border-2 border-blue-200 shadow-sm">
-          <img src="/assets/haru/water_drop.png" alt="Water Drops" className="w-10 h-10 object-contain mb-2" />
+          <img src="/assets/haru/water_drop.png" alt={t("garden.waterDrops")} className="w-10 h-10 object-contain mb-2" />
           <span className="text-xl font-bold text-ink text-center">
             {t("result.points", { points: gardenState.waterDrops || 1 })}
           </span>

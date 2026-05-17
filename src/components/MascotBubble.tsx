@@ -38,7 +38,7 @@ export function MascotBubble({
     <div className={twMerge("flex items-end gap-4", className)}>
       {showMascot && (
         <div className="flex shrink-0 items-center justify-center w-16 h-16 overflow-hidden rounded-full bg-white border-2 border-primary-200 shadow-sm">
-          <img src="/assets/haru/mascot.png" alt="Haru Mascot" className="w-14 h-14 object-contain mt-2" />
+          <img src="/assets/haru/mascot.png" alt="" className="w-14 h-14 object-contain mt-2" />
         </div>
       )}
 

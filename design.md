@@ -1,6 +1,6 @@
 # design.md
 
-# Memory Garden Design Specification
+# Haru Design Specification
 
 A Duolingo-inspired cognitive training interface for older adults.
 
