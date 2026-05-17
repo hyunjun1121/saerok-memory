@@ -159,6 +159,27 @@
       "noPrivateDetailsNote": "사용자가 공유하지 않은 개인 기억은 보호자·상담사 화면에 표시하지 않습니다."
     },
     "report": {
+      "noPracticeDate": "기록 없음",
+      "routineTrendUp": "최근 7일의 참여 횟수가 이전 7일보다 늘었습니다. 격려를 이어갈 수 있습니다.",
+      "routineTrendDown": "최근 7일의 참여 횟수가 이전 7일보다 줄었습니다. 부담 없는 재시작을 함께 제안해 보세요.",
+      "routineTrendFlat": "최근 7일의 참여 흐름이 크게 변하지 않았습니다. 같은 시간대의 짧은 루틴을 유지해 보세요.",
+      "strengthsTitle": "관찰 가능한 강점",
+      "strengths": {
+        "routines": "지금까지 {{count}}회의 활동을 완료했습니다.",
+        "consistency": "전체 활동 중 약 {{completionRate}}%가 완료되어 루틴을 따라간 기록이 있습니다.",
+        "sharedMemories": "공유에 동의한 기억이 {{shareableMemoryCount}}개 있어 대화 소재로 활용할 수 있습니다.",
+        "reviewCadence": "현재 바로 복습할 기억 카드가 없어 부담을 낮춘 대화로 이어갈 수 있습니다.",
+        "routineMomentum": "최근 참여가 늘어나는 흐름이 있어 짧은 격려가 도움이 될 수 있습니다.",
+        "gentleStart": "아직 데이터가 적습니다. 평가보다 편안한 시작을 돕는 것이 우선입니다."
+      },
+      "nextTopics": {
+        "shareableSeed": "먼저 사용자가 공유해도 괜찮은 짧은 기억 하나를 함께 저장해 보세요.",
+        "topic": "{{topic}} 주제로 저장된 기억 {{count}}개를 바탕으로 가벼운 질문을 준비해 보세요.",
+        "reviewDue": "오늘 복습할 기억 카드 {{count}}개를 대화 시작점으로 삼을 수 있습니다.",
+        "routineConsistency": "참여가 줄어든 주에는 이유를 추궁하기보다 가장 쉬웠던 활동부터 다시 제안해 보세요.",
+        "routineMomentum": "최근 참여가 늘었으므로 같은 시간대에 짧은 루틴을 이어가도록 격려해 보세요.",
+        "prepareConversation": "공유된 기억을 바탕으로 상담 전 한 가지 장면만 먼저 물어보세요."
+      },
       "activityBadge": "30일 활동 요약"
     },
     "tabs": {
