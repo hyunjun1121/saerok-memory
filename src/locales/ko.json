@@ -24,7 +24,20 @@
     "sequenceOrder": { "prompt": "순서대로 골라보세요." },
     "audioChoice": { "prompt": "소리를 듣고 골라보세요.", "play": "듣기" },
     "pictureChoice": { "prompt": "그림을 보고 골라보세요." },
-    "memory": { "prompt": "나의 기억", "select": "선택하기" },
+    "memory": {
+      "prompt": "나의 기억",
+      "select": "선택하기",
+      "review": {
+        "topic": "지난번, 어떤 주제와 관련된 이야기를 고르셨을까요?",
+        "topicExplanation": "맞아요. {{topic}}에 대한 이야기를 선택하셨어요.",
+        "emotion": "그때 어떤 기분이 들었다고 하셨는지 기억나시나요?",
+        "emotionExplanation": "네, 그때 {{emotion}}을(를) 느끼셨다고 했어요.",
+        "people": "지난번에 저장하신 기억에서, 누구와 함께 있었는지 기억나시나요?",
+        "peopleExplanation": "네, {{person}}와(과) 함께 있었어요.",
+        "place": "그 기억이 있던 장소가 어디였는지 기억나시나요?",
+        "placeExplanation": "네, 장소는 {{place}}이었어요."
+      }
+    },
     "cognitive": {
       "practice": "가벼운 연습",
       "ready": "네, 기억했습니다",

@@ -32,9 +32,15 @@ export function upsertMemoryCueCard(
 
   if (existingIndex >= 0) {
     const existing = cards[existingIndex];
+    // Merge fields carefully: do not aggressively overwrite non-empty fields with undefined or null
+    // Specifically spread the update but filter out undefined values to preserve existing data
+    const safeUpdate = Object.fromEntries(
+      Object.entries(cardUpdate).filter(([, v]) => v !== undefined && v !== null)
+    );
+
     cards[existingIndex] = {
       ...existing,
-      ...cardUpdate,
+      ...safeUpdate,
       updatedAt: now,
     };
   } else {
