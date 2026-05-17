@@ -22,3 +22,15 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+.vercel
+
+# Local browser profiles generated while capturing application screenshots.
+# These may contain cookies, login databases, cache, and session state.
+피우다프로젝트/application_assets/chrome-profile*/
+
+# Generated render/cache artifacts.
+피우다프로젝트/docx_render_check/
+피우다프로젝트/docx_render_check_url/
+피우다프로젝트/**/__pycache__/
+피우다프로젝트/**/*.pyc
+피우다프로젝트/~$*
