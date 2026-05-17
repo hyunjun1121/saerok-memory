@@ -28,7 +28,7 @@ function buildSessionExercises() {
 }
 
 export default function LessonScreen() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
   const [exercises] = useState<Exercise[]>(buildSessionExercises);

@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { Button3D } from "../../components/Button3D";
-import { TreePine, Flame, Droplets } from "lucide-react";
+import { Flame } from "lucide-react";
 import { useGamification } from "../../features/gamification/useGamification";
 
 export default function ResultScreen() {
@@ -29,9 +29,9 @@ export default function ResultScreen() {
           {t("result.title")}
         </h1>
 
-        <div className="relative w-48 h-48 flex items-center justify-center bg-white rounded-full border-4 border-primary-200 shadow-xl my-6">
-          <div className="absolute inset-0 rounded-full animate-pulseSlow bg-primary-100 opacity-50" />
-          <TreePine className="w-24 h-24 text-primary-500 z-10" strokeWidth={2} />
+        <div className="relative w-48 h-48 flex items-center justify-center bg-white rounded-full border-4 border-primary-200 shadow-xl my-6 overflow-hidden">
+          <div className="absolute inset-0 rounded-full animate-pulseSlow bg-primary-50 opacity-50" />
+          <img src="/assets/haru/memory_bloom.png" alt="Memory Bloom" className="w-32 h-32 object-contain z-10" />
         </div>
       </div>
 
@@ -44,7 +44,7 @@ export default function ResultScreen() {
         </div>
 
         <div className="flex-1 flex flex-col items-center justify-center p-4 bg-white rounded-2xl border-2 border-blue-200 shadow-sm">
-          <Droplets className="w-10 h-10 text-blue-500 fill-blue-500 mb-2" />
+          <img src="/assets/haru/water_drop.png" alt="Water Drops" className="w-10 h-10 object-contain mb-2" />
           <span className="text-xl font-bold text-ink text-center">
             {t("result.points", { points: gardenState.waterDrops || 1 })}
           </span>
