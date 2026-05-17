@@ -5,28 +5,16 @@ import { Button3D } from "../../../components/Button3D";
 import type { ExerciseState } from "./types";
 import type { MemoryCard, MemoryTopic } from "../../memory/types";
 import { calculateNextReviewState } from "../../memory/memoryScheduler";
-
-function saveMemoryCard(card: MemoryCard) {
-  try {
-    const existing = JSON.parse(localStorage.getItem("memoryCards") || "[]");
-    localStorage.setItem("memoryCards", JSON.stringify([...existing, card]));
-  } catch (e) {
-    console.error("Failed to save memory card", e);
-  }
-}
+import { upsertMemoryCueCard, getMemoryCards, saveMemoryCards } from "../../memory/memoryCardStorage";
 
 function updateMemoryCard(cardId: string, result: "remembered" | "hint_used" | "missed") {
-  try {
-    const existing: MemoryCard[] = JSON.parse(localStorage.getItem("memoryCards") || "[]");
-    const idx = existing.findIndex(c => c.id === cardId);
-    if (idx >= 0) {
-      const card = existing[idx];
-      card.reviewState = calculateNextReviewState(card.reviewState, result);
-      card.updatedAt = new Date().toISOString();
-      localStorage.setItem("memoryCards", JSON.stringify(existing));
-    }
-  } catch (e) {
-    console.error("Failed to update memory card", e);
+  const existing = getMemoryCards();
+  const idx = existing.findIndex(c => c.id === cardId);
+  if (idx >= 0) {
+    const card = existing[idx];
+    card.reviewState = calculateNextReviewState(card.reviewState, result);
+    card.updatedAt = new Date().toISOString();
+    saveMemoryCards(existing);
   }
 }
 
@@ -36,7 +24,7 @@ interface Option {
   value?: string;
 }
 
-type MemoryField = "topic" | "emotionTag";
+type MemoryField = "topic" | "emotionTag" | "peopleTags" | "placeTag";
 
 interface PersonalMemoryRecallProps {
   prompt: string;
@@ -103,25 +91,21 @@ export function PersonalMemoryRecall({
       const selectedOption = options.find((o) => o.id === selectedId);
       const selectedValue = selectedOption?.value ?? selectedOption?.label ?? "unknown";
 
-      const newCard: MemoryCard = {
-        id: `mem_${Date.now()}`,
-        userId: "local_user",
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-        source: "daily_lesson",
-        linkedConceptId,
-        sensitivity: "personal",
-        shareWithFamily: false,
-        reviewState: calculateNextReviewState(undefined, "remembered"),
+      const cardUpdate: Partial<MemoryCard> & { linkedConceptId: string } = {
+        linkedConceptId: linkedConceptId || "unknown",
       };
 
       if (memoryField === "emotionTag") {
-        newCard.emotionTag = selectedValue;
+        cardUpdate.emotionTag = selectedValue;
+      } else if (memoryField === "peopleTags") {
+        cardUpdate.peopleTags = [selectedValue];
+      } else if (memoryField === "placeTag") {
+        cardUpdate.placeTag = selectedValue;
       } else {
-        newCard.topic = selectedValue as MemoryTopic;
+        cardUpdate.topic = selectedValue as MemoryTopic;
       }
 
-      saveMemoryCard(newCard);
+      upsertMemoryCueCard(cardUpdate);
       setGlobalState("correct_feedback");
     }
   };

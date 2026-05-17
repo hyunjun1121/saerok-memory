@@ -63,6 +63,34 @@ describe('ExerciseRenderer', () => {
         payload: { options: [{ id: 'a', label: 'A' }], memoryField: 'topic' },
         correctAnswer: null,
       },
+      {
+        ...baseExercise,
+        type: 'delayed_word_recall',
+        prompt: 'Recall Prompt',
+        payload: { phase: 'encode', words: ['a', 'b', 'c'] },
+        correctAnswer: null,
+      },
+      {
+        ...baseExercise,
+        type: 'attention_pattern',
+        prompt: 'Attention Prompt',
+        payload: { pattern: [1, 2, 3], options: [{ id: 'a', label: 'A' }] },
+        correctAnswer: 'a',
+      },
+      {
+        ...baseExercise,
+        type: 'shape_copy_practice',
+        prompt: 'Shape Prompt',
+        payload: {},
+        correctAnswer: null,
+      },
+      {
+        ...baseExercise,
+        type: 'speech_repeat_practice',
+        prompt: 'Speech Prompt',
+        payload: { phrase: 'test phrase' },
+        correctAnswer: null,
+      },
     ];
 
     for (const exercise of exercises) {

@@ -42,6 +42,20 @@ describe('memoryScheduler', () => {
       const state = calculateNextReviewState(currentState, 'missed');
       expect(state.intervalDays).toBe(4);
       expect(state.ease).toBe(2.3);
+      expect(state.lastResult).toBe('missed');
+    });
+
+    it('drops interval on hint_used', () => {
+      const currentState: ReviewState = {
+        dueAt: '2026-05-13T10:00:00.000Z',
+        intervalDays: 7,
+        ease: 2.5,
+        reviewCount: 3,
+      };
+      const state = calculateNextReviewState(currentState, 'hint_used');
+      expect(state.intervalDays).toBe(4);
+      expect(state.ease).toBe(2.3);
+      expect(state.lastResult).toBe('hint_used');
     });
   });
 

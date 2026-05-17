@@ -5,7 +5,11 @@ export type ExerciseType =
   | "sequence_order"
   | "audio_choice"
   | "picture_choice"
-  | "personal_memory_recall";
+  | "personal_memory_recall"
+  | "delayed_word_recall"
+  | "attention_pattern"
+  | "shape_copy_practice"
+  | "speech_repeat_practice";
 
 export interface AnswerOption {
   id: string;
@@ -26,10 +30,16 @@ export interface ExercisePayload {
   conceptId?: string;
   items?: AnswerOption[];
   linkedConceptId?: string;
-  memoryField?: "topic" | "emotionTag";
+  memoryField?: "topic" | "emotionTag" | "peopleTags" | "placeTag";
   memoryId?: string;
   options?: AnswerOption[];
   pairs?: PairOption[];
+  phase?: "encode" | "recall";
+  wordSetId?: string;
+  words?: string[];
+  requiredSelectionCount?: number;
+  pattern?: number[];
+  phrase?: string;
 }
 
 export interface Exercise {
@@ -48,6 +58,19 @@ export const mockExercises: Exercise[] = [
   {
     id: "ex_1",
     lessonId: "lesson_1",
+    type: "delayed_word_recall",
+    prompt: "다음 단어 세 개를 잘 기억해두세요. 나중에 다시 물어볼게요.",
+    payload: {
+      phase: "encode",
+      wordSetId: "set_1",
+      words: ["비행기", "사과", "자전거"]
+    },
+    correctAnswer: null,
+    difficulty: 1,
+  },
+  {
+    id: "ex_2",
+    lessonId: "lesson_1",
     type: "multiple_choice_meaning",
     prompt: "고진감래와 가장 가까운 뜻은 무엇일까요?",
     payload: {
@@ -64,7 +87,7 @@ export const mockExercises: Exercise[] = [
     difficulty: 1,
   },
   {
-    id: "ex_2",
+    id: "ex_3",
     lessonId: "lesson_1",
     type: "situation_match",
     prompt: "다음 중 '고진감래' 상황은?",
@@ -81,7 +104,7 @@ export const mockExercises: Exercise[] = [
     difficulty: 2,
   },
   {
-    id: "ex_3",
+    id: "ex_4",
     lessonId: "lesson_1",
     type: "multiple_choice_meaning",
     prompt: "일석이조와 가장 가까운 뜻은 무엇일까요?",
@@ -99,7 +122,25 @@ export const mockExercises: Exercise[] = [
     difficulty: 1,
   },
   {
-    id: "ex_4",
+    id: "ex_attention",
+    lessonId: "lesson_1",
+    type: "attention_pattern",
+    prompt: "규칙을 찾아 다음 숫자를 골라보세요.",
+    payload: {
+      pattern: [12, 10, 8],
+      options: [
+        { id: "opt_1", label: "4" },
+        { id: "opt_2", label: "5" },
+        { id: "opt_3", label: "6" },
+        { id: "opt_4", label: "7" }
+      ]
+    },
+    correctAnswer: "opt_3",
+    explanation: "2씩 작아지는 규칙이에요. 8 다음은 6입니다.",
+    difficulty: 2,
+  },
+  {
+    id: "ex_5",
     lessonId: "lesson_1",
     type: "pair_matching",
     prompt: "알맞은 짝을 찾아 연결해보세요.",
@@ -115,7 +156,49 @@ export const mockExercises: Exercise[] = [
     difficulty: 3,
   },
   {
-    id: "ex_5",
+    id: "ex_shape",
+    lessonId: "lesson_1",
+    type: "shape_copy_practice",
+    prompt: "위의 그림을 보고 아래에 비슷하게 그려보세요.",
+    payload: {},
+    correctAnswer: null,
+    difficulty: 1,
+  },
+  {
+    id: "ex_speech",
+    lessonId: "lesson_1",
+    type: "speech_repeat_practice",
+    prompt: "이 문장을 소리 내어 따라 읽어보세요.",
+    payload: {
+      phrase: "오늘 날씨가 참 좋습니다."
+    },
+    correctAnswer: null,
+    difficulty: 1,
+  },
+  {
+    id: "ex_recall",
+    lessonId: "lesson_1",
+    type: "delayed_word_recall",
+    prompt: "처음에 기억해두었던 세 단어가 무엇이었나요?",
+    payload: {
+      phase: "recall",
+      wordSetId: "set_1",
+      requiredSelectionCount: 3,
+      options: [
+        { id: "w_1", label: "비행기" },
+        { id: "w_2", label: "자동차" },
+        { id: "w_3", label: "사과" },
+        { id: "w_4", label: "바나나" },
+        { id: "w_5", label: "자전거" },
+        { id: "w_6", label: "기차" }
+      ]
+    },
+    correctAnswer: ["w_1", "w_3", "w_5"],
+    explanation: "맞아요! 비행기, 사과, 자전거였어요.",
+    difficulty: 3,
+  },
+  {
+    id: "ex_6",
     lessonId: "lesson_1",
     type: "personal_memory_recall",
     prompt: "최근에 '일석이조'라고 느꼈던 순간이 있나요? 어떤 일이 있었나요?",
@@ -134,7 +217,7 @@ export const mockExercises: Exercise[] = [
     difficulty: 1,
   },
   {
-    id: "ex_6",
+    id: "ex_7",
     lessonId: "lesson_1",
     type: "personal_memory_recall",
     prompt: "그때 어떤 기분이 드셨나요?",

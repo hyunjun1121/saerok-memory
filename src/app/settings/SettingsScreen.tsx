@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { Globe, ArrowLeft, Trash2, Shield, Settings2 } from "lucide-react";
 import { Button3D } from "../../components/Button3D";
+import { clearCognitiveRoutineResults } from "../../features/cognitive/cognitiveRoutineStorage";
 
 export default function SettingsScreen() {
   const { t, i18n } = useTranslation();
@@ -95,6 +96,10 @@ export default function SettingsScreen() {
 
         <Button3D variant="neutral" className="flex justify-between items-center text-red-500" onClick={() => localStorage.removeItem("memoryCards")}>
           {t("settings.deleteMemoryCards")} <Trash2 size={20} />
+        </Button3D>
+
+        <Button3D variant="neutral" className="flex justify-between items-center text-red-500 mt-2" onClick={clearCognitiveRoutineResults}>
+          {t("settings.deleteCognitiveData", "연습 기록 삭제하기")} <Trash2 size={20} />
         </Button3D>
       </section>
     </div>
