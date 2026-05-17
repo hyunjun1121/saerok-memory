@@ -127,6 +127,61 @@
     "routinesCompleted": "Practices completed this week: {{count}}",
     "dueMemoryCards": "Memory cards to review: {{count}}",
     "sharedMemoryCards": "Stories shared with family: {{count}}",
+    "loggedInModeLabel": "Haru caregiver demo account",
+    "demoModeNote": "Only user-approved activity records and memory cues are summarized here.",
+    "viewTabsLabel": "Family and counselor views",
+    "reportTitle": "Caregiver and Counselor Support Report",
+    "notesTitle": "Prepare the Next Conversation",
+    "metrics": {
+      "thisWeek": "Completed this week",
+      "lastPracticeDate": "Latest activity",
+      "dueReviewCount": "Due today",
+      "sharedMemoryCount": "Shared memories",
+      "participationRate": "Completion rate",
+      "attemptedThisWeek": "Attempts this week",
+      "completedPreviousWeek": "Completed last week"
+    },
+    "memoryTopics": {
+      "family": "family",
+      "health": "health",
+      "travel": "travel",
+      "work": "work",
+      "food": "food",
+      "hobby": "hobbies",
+      "friends": "friends",
+      "daily_life": "daily life",
+      "unknown": "memory"
+    },
+    "trend": {
+      "title": "Routine Participation Flow"
+    },
+    "conversation": {
+      "noPrivateDetailsNote": "Memories that were not shared are not shown to family or counselors."
+    },
+    "report": {
+      "nonDiagnosticBadge": "Non-medical activity summary",
+      "noPracticeDate": "No record",
+      "routineTrendUp": "Participation in the last 7 days is higher than the previous 7 days. Continue with gentle encouragement.",
+      "routineTrendDown": "Participation in the last 7 days is lower than the previous 7 days. Suggest an easy restart without pressure.",
+      "routineTrendFlat": "Participation has not changed much in the last 7 days. Keep a short routine at a familiar time.",
+      "strengthsTitle": "Observable Strengths",
+      "strengths": {
+        "routines": "{{count}} activities have been completed so far.",
+        "consistency": "About {{completionRate}}% of recorded activities were completed, showing routine participation.",
+        "sharedMemories": "{{shareableMemoryCount}} user-approved memories can support conversation.",
+        "reviewCadence": "There are no memory cards due right now, so conversation can stay light.",
+        "routineMomentum": "Recent participation is increasing, so brief encouragement may help.",
+        "gentleStart": "There is limited data so far. Support a comfortable start rather than evaluation."
+      },
+      "nextTopics": {
+        "shareableSeed": "Start by saving one short memory the user is comfortable sharing.",
+        "topic": "Prepare a light question from {{count}} saved memory item(s) about {{topic}}.",
+        "reviewDue": "{{count}} memory card(s) are due today and can be used as conversation starters.",
+        "routineConsistency": "If participation decreased, suggest restarting with the easiest activity rather than asking why.",
+        "routineMomentum": "Recent participation is increasing. Encourage the same short routine at a familiar time.",
+        "prepareConversation": "Use shared memories to ask about one specific scene before the conversation."
+      }
+    },
     "tabs": {
       "family": "Family",
       "counselor": "Counselor"

@@ -46,7 +46,9 @@ describe("FamilyScreen", () => {
     fireEvent.click(screen.getByText("family.tabs.counselor"));
 
     // Check counselor content
-    expect(screen.getByText("family.counselorActivityLabel")).toBeInTheDocument();
+    expect(screen.getByText("family.reportTitle")).toBeInTheDocument();
+    expect(screen.getByText("family.report.nonDiagnosticBadge")).toBeInTheDocument();
+    expect(screen.getByText("family.trend.title")).toBeInTheDocument();
     expect(screen.getByText("family.counselorCuesLabel")).toBeInTheDocument();
     expect(screen.getByText("family.counselorDisclaimer")).toBeInTheDocument();
 

@@ -32,7 +32,7 @@ export default function HomeScreen() {
             {t("home.unitLabel")}
           </span>
           <h1 className="text-2xl font-extrabold text-white">
-            {t("home.unitTitle", "시작하기: 좋은 기억")}
+            {t("home.unitTitle")}
           </h1>
         </div>
         <div className="absolute right-[-20px] bottom-[-20px] w-32 h-32 bg-white/10 rounded-full blur-2xl pointer-events-none" />
@@ -54,7 +54,7 @@ export default function HomeScreen() {
         <div className="mt-8 mb-4">
           <MascotBubble
             mood="encouraging"
-            message={t("home.mascotGreeting", "오늘도 반가워요! 천천히 시작해볼까요?")}
+            message={t("home.mascotGreeting")}
           />
         </div>
       </div>
@@ -62,7 +62,7 @@ export default function HomeScreen() {
       <div className="fixed bottom-[96px] left-0 right-0 px-4 w-full max-w-md mx-auto z-30 pointer-events-none">
         <div className="pointer-events-auto">
           <Button3D variant="primary" fullWidth onClick={handleContinue}>
-            {t("home.continueButton", "계속하기")}
+            {t("home.continueButton")}
           </Button3D>
         </div>
       </div>

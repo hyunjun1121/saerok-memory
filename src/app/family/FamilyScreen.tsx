@@ -1,31 +1,63 @@
 import { useState } from "react";
-import { HeartHandshake, ShieldCheck, UserPlus, Activity, BookOpen, MessageCircle, AlertCircle } from "lucide-react";
+import {
+  Activity,
+  AlertCircle,
+  BookOpen,
+  CalendarDays,
+  CheckCircle2,
+  FileText,
+  HeartHandshake,
+  MessageCircle,
+  ShieldCheck,
+  Sparkles,
+  UserPlus,
+} from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button3D } from "../../components/Button3D";
 import { getCognitiveRoutineResults } from "../../features/cognitive/cognitiveRoutineStorage";
 import { getMemoryCards } from "../../features/memory/memoryCardStorage";
-import { generateConversationCues } from "../../features/family/conversationCues";
 import { twMerge } from "tailwind-merge";
+import {
+  generateCaregiverCounselorReport,
+  type ReportCopyItem,
+} from "../../features/family/caregiverReport";
 
 export default function FamilyScreen() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [activeTab, setActiveTab] = useState<"family" | "counselor">("family");
 
   const routineResults = getCognitiveRoutineResults();
   const memoryCards = getMemoryCards();
-  const conversationCues = generateConversationCues(memoryCards, t);
+  const report = generateCaregiverCounselorReport(memoryCards, routineResults);
 
-  const completedRoutines = routineResults?.filter(r => r.completed).length || 0;
+  const hasData =
+    report.overview.completedRoutines > 0 ||
+    report.overview.dueMemoryCount > 0 ||
+    report.overview.shareableMemoryCount > 0;
 
-  const now = new Date().getTime();
-  const dueCards = memoryCards?.filter(c => c.reviewState?.dueAt && new Date(c.reviewState.dueAt).getTime() <= now).length || 0;
+  const renderCopy = (item: ReportCopyItem) => {
+    const values = item.values?.topic
+      ? {
+          ...item.values,
+          topic: t(`family.memoryTopics.${item.values.topic}`, {
+            defaultValue: String(item.values.topic),
+          }),
+        }
+      : item.values;
 
-  const sharedCards = memoryCards?.filter(c => c.shareWithFamily).length || 0;
+    return t(item.key, values);
+  };
 
-  const hasData = completedRoutines > 0 || dueCards > 0 || sharedCards > 0;
+  const formatDate = (isoDate?: string) => {
+    if (!isoDate) return t("family.report.noPracticeDate");
+    return new Intl.DateTimeFormat(i18n.language === "ja" ? "ja-JP" : i18n.language === "en" ? "en-US" : "ko-KR", {
+      month: "short",
+      day: "numeric",
+    }).format(new Date(isoDate));
+  };
 
   return (
-    <div data-screen="family" className="flex min-h-full w-full max-w-md flex-col gap-6 px-4 pb-32 pt-8">
+    <div data-screen="family" className="flex min-h-full w-full max-w-md flex-col gap-6 px-4 pb-48 pt-8">
       <header className="flex flex-col gap-2">
         <h1 className="text-3xl font-extrabold text-ink">
           {activeTab === "family" ? t("family.title") : t("family.counselorTitle")}
@@ -35,8 +67,29 @@ export default function FamilyScreen() {
         </p>
       </header>
 
-      <div className="flex w-full rounded-xl bg-gray-100 p-1">
+      <section className="overflow-hidden rounded-2xl border-2 border-primary-100 bg-white shadow-sm">
+        <div className="flex items-center gap-4 p-4">
+          <img
+            src="/assets/haru/family_connection.png"
+            alt=""
+            className="h-20 w-20 shrink-0 rounded-2xl object-cover"
+          />
+          <div className="flex flex-col gap-1">
+            <span className="text-sm font-extrabold text-primary-700">
+              {t("family.loggedInModeLabel")}
+            </span>
+            <p className="text-sm font-medium leading-relaxed text-gray-600">
+              {t("family.demoModeNote")}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div className="flex w-full rounded-xl bg-gray-100 p-1" role="tablist" aria-label={t("family.viewTabsLabel")}>
         <button
+          type="button"
+          role="tab"
+          aria-selected={activeTab === "family"}
           onClick={() => setActiveTab("family")}
           className={twMerge(
             "flex-1 rounded-lg py-2 text-center text-sm font-bold transition-colors",
@@ -48,6 +101,9 @@ export default function FamilyScreen() {
           {t("family.tabs.family")}
         </button>
         <button
+          type="button"
+          role="tab"
+          aria-selected={activeTab === "counselor"}
           onClick={() => setActiveTab("counselor")}
           className={twMerge(
             "flex-1 rounded-lg py-2 text-center text-sm font-bold transition-colors",
@@ -97,17 +153,28 @@ export default function FamilyScreen() {
                      {t("family.summaryEmpty")}
                    </p>
                 ) : (
-                   <ul className="text-base font-medium leading-relaxed text-gray-600 space-y-2 mt-2">
-                     {completedRoutines > 0 && (
-                       <li>{t("family.routinesCompleted", { count: completedRoutines })}</li>
-                     )}
-                     {dueCards > 0 && (
-                       <li>{t("family.dueMemoryCards", { count: dueCards })}</li>
-                     )}
-                     {sharedCards > 0 && (
-                       <li>{t("family.sharedMemoryCards", { count: sharedCards })}</li>
-                     )}
-                   </ul>
+                  <div className="mt-3 grid grid-cols-2 gap-3">
+                    <div className="rounded-xl bg-primary-50 p-3">
+                      <CheckCircle2 className="mb-2 h-5 w-5 text-primary-600" />
+                      <p className="text-2xl font-extrabold text-ink">{report.routineTrend.completedThisWindow}</p>
+                      <p className="text-xs font-bold text-gray-500">{t("family.metrics.thisWeek")}</p>
+                    </div>
+                    <div className="rounded-xl bg-blue-50 p-3">
+                      <CalendarDays className="mb-2 h-5 w-5 text-blue-600" />
+                      <p className="text-base font-extrabold text-ink">{formatDate(report.overview.lastPracticeDate)}</p>
+                      <p className="text-xs font-bold text-gray-500">{t("family.metrics.lastPracticeDate")}</p>
+                    </div>
+                    <div className="rounded-xl bg-yellow-50 p-3">
+                      <BookOpen className="mb-2 h-5 w-5 text-yellow-600" />
+                      <p className="text-2xl font-extrabold text-ink">{report.dueMemoryCount}</p>
+                      <p className="text-xs font-bold text-gray-500">{t("family.metrics.dueReviewCount")}</p>
+                    </div>
+                    <div className="rounded-xl bg-green-50 p-3">
+                      <MessageCircle className="mb-2 h-5 w-5 text-green-600" />
+                      <p className="text-2xl font-extrabold text-ink">{report.shareableMemoryCount}</p>
+                      <p className="text-xs font-bold text-gray-500">{t("family.metrics.sharedMemoryCount")}</p>
+                    </div>
+                  </div>
                 )}
               </div>
             </div>
@@ -132,25 +199,74 @@ export default function FamilyScreen() {
           <section className="flex flex-col gap-4 rounded-2xl border-2 border-gray-200 bg-white p-5 shadow-sm">
             <div className="flex items-start gap-4">
               <div className="rounded-xl bg-blue-50 p-3 text-blue-600">
-                <BookOpen className="h-7 w-7" />
+                <FileText className="h-7 w-7" />
               </div>
               <div className="flex flex-col gap-1 w-full">
-                <h2 className="text-xl font-bold text-ink">
-                  {t("family.counselorActivityLabel")}
-                </h2>
+                <div className="flex flex-wrap items-center gap-2">
+                  <h2 className="text-xl font-bold text-ink">
+                    {t("family.reportTitle")}
+                  </h2>
+                  <span className="rounded-full bg-orange-50 px-3 py-1 text-xs font-extrabold text-orange-700">
+                    {t("family.report.nonDiagnosticBadge")}
+                  </span>
+                </div>
 
                 <div className="mt-2 flex flex-col gap-2">
                   <div className="flex justify-between items-center border-b border-gray-100 pb-2">
                     <span className="text-gray-600 font-medium">{t("family.counselorPracticeLabel")}</span>
-                    <span className="font-bold text-ink">{completedRoutines}</span>
+                    <span className="font-bold text-ink">{report.overview.completedRoutines}</span>
+                  </div>
+                  <div className="flex justify-between items-center border-b border-gray-100 pb-2">
+                    <span className="text-gray-600 font-medium">{t("family.counselorMemoriesLabel")}</span>
+                    <span className="font-bold text-ink">{report.shareableMemoryCount}</span>
                   </div>
                   <div className="flex justify-between items-center pb-1">
-                    <span className="text-gray-600 font-medium">{t("family.counselorMemoriesLabel")}</span>
-                    <span className="font-bold text-ink">{sharedCards}</span>
+                    <span className="text-gray-600 font-medium">{t("family.metrics.participationRate")}</span>
+                    <span className="font-bold text-ink">{report.routineTrend.participationRateThisWindow}%</span>
                   </div>
                 </div>
               </div>
             </div>
+          </section>
+
+          <section className="flex flex-col gap-3 rounded-2xl border-2 border-primary-100 bg-white p-5 shadow-sm">
+            <div className="flex items-center gap-3">
+              <div className="rounded-xl bg-primary-50 p-3 text-primary-600">
+                <Activity className="h-6 w-6" />
+              </div>
+              <div>
+                <h2 className="text-lg font-bold text-ink">{t("family.trend.title")}</h2>
+                <p className="text-sm font-medium leading-relaxed text-gray-600">
+                  {renderCopy(report.routineTrend.trendSummaryCopy)}
+                </p>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="rounded-xl bg-gray-50 p-3">
+                <p className="text-2xl font-extrabold text-ink">{report.routineTrend.attemptedThisWindow}</p>
+                <p className="text-xs font-bold text-gray-500">{t("family.metrics.attemptedThisWeek")}</p>
+              </div>
+              <div className="rounded-xl bg-gray-50 p-3">
+                <p className="text-2xl font-extrabold text-ink">{report.routineTrend.completedPreviousWindow}</p>
+                <p className="text-xs font-bold text-gray-500">{t("family.metrics.completedPreviousWeek")}</p>
+              </div>
+            </div>
+          </section>
+
+          <section className="flex flex-col gap-3 rounded-2xl border-2 border-purple-100 bg-white p-5 shadow-sm">
+            <div className="flex items-center gap-3">
+              <div className="rounded-xl bg-purple-50 p-3 text-purple-600">
+                <Sparkles className="h-6 w-6" />
+              </div>
+              <h2 className="text-lg font-bold text-ink">{t("family.report.strengthsTitle")}</h2>
+            </div>
+            <ul className="space-y-2 text-sm font-medium leading-relaxed text-gray-600">
+              {report.strengths.map((item) => (
+                <li key={item.key} className="rounded-xl bg-purple-50/60 px-3 py-2">
+                  {renderCopy(item)}
+                </li>
+              ))}
+            </ul>
           </section>
 
           <section className="flex flex-col gap-4 rounded-2xl border-2 border-green-200 bg-white p-5 shadow-sm">
@@ -164,20 +280,36 @@ export default function FamilyScreen() {
                 </h2>
 
                 <ul className="text-base font-medium leading-relaxed text-gray-600 space-y-3 mt-2 list-disc pl-5">
-                  {conversationCues.map((cue) => (
-                    <li key={cue.id}>{cue.text}</li>
+                  {report.conversationCues.map((cue, index) => (
+                    <li key={`${cue.key}-${index}`}>{renderCopy(cue)}</li>
                   ))}
                 </ul>
+                <p className="mt-3 rounded-xl bg-green-50 px-3 py-2 text-sm font-medium leading-relaxed text-green-800">
+                  {t("family.conversation.noPrivateDetailsNote")}
+                </p>
               </div>
             </div>
+          </section>
+
+          <section className="flex flex-col gap-3 rounded-2xl border-2 border-blue-100 bg-white p-5 shadow-sm">
+            <h2 className="text-lg font-bold text-ink">{t("family.notesTitle")}</h2>
+            <ul className="space-y-2 text-sm font-medium leading-relaxed text-gray-600">
+              {report.suggestedNextConversationTopics.map((item, index) => (
+                <li key={`${item.key}-${index}`} className="rounded-xl bg-blue-50 px-3 py-2">
+                  {renderCopy(item)}
+                </li>
+              ))}
+            </ul>
           </section>
 
           <section className="flex items-start gap-4 rounded-2xl border-2 border-orange-100 bg-orange-50 p-5">
             <AlertCircle className="mt-1 h-6 w-6 shrink-0 text-orange-600" />
             <div className="flex flex-col gap-1">
-              <p className="text-sm font-medium leading-relaxed text-orange-800">
-                {t("family.counselorDisclaimer")}
-              </p>
+              <ul className="space-y-2 text-sm font-medium leading-relaxed text-orange-800">
+                {report.safetyDisclaimerCopyKeys.map((key) => (
+                  <li key={key}>{t(key)}</li>
+                ))}
+              </ul>
             </div>
           </section>
         </>

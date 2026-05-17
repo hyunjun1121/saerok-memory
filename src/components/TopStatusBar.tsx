@@ -22,7 +22,7 @@ export function TopStatusBar({ streak, gardenPoints, className }: TopStatusBarPr
         return (
           <div className="flex items-center gap-2">
             <img src="/assets/haru/app_icon.png" alt={t("appTitle")} className="h-6 w-auto" />
-            <span className="text-xl font-bold text-primary-800">Haru</span>
+            <span className="text-xl font-bold text-primary-800">{t("appTitle")}</span>
           </div>
         );
     }
@@ -31,7 +31,7 @@ export function TopStatusBar({ streak, gardenPoints, className }: TopStatusBarPr
   return (
     <header
       className={twMerge(
-        "sticky top-0 z-40 flex items-center justify-between w-full h-16 px-4 bg-white/80 backdrop-blur-md border-b border-gray-200",
+        "sticky top-0 z-40 mx-auto flex h-16 w-full max-w-md items-center justify-between border-x border-b border-gray-200 bg-white/80 px-4 backdrop-blur-md",
         className
       )}
     >

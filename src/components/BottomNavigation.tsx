@@ -35,7 +35,7 @@ export function BottomNavigation({ className }: BottomNavigationProps) {
   return (
     <nav
       className={twMerge(
-        "fixed bottom-0 left-0 right-0 z-40 bg-white border-t-2 border-gray-200 pb-safe",
+        "fixed bottom-0 left-1/2 z-40 w-full max-w-md -translate-x-1/2 bg-white border-x border-t-2 border-gray-200 pb-safe",
         className
       )}
     >
