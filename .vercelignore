@@ -9,11 +9,10 @@ application_assets
 application_assets/**
 docx_render_check
 docx_render_check/**
+image
+image/**
 *.hwp
 *.hwpx
 *.docx
 *.pdf
 *.mp4
-*.png
-*.jpg
-*.jpeg
