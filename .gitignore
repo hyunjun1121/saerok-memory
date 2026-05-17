@@ -36,3 +36,5 @@ playwright-report/
 피우다프로젝트/**/__pycache__/
 피우다프로젝트/**/*.pyc
 피우다프로젝트/~$*
+
+.vercel
