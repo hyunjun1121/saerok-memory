@@ -24,7 +24,30 @@
     "sequenceOrder": { "prompt": "順番に選んでください。" },
     "audioChoice": { "prompt": "音を聞いて選んでください。", "play": "聞く" },
     "pictureChoice": { "prompt": "絵を見て選んでください。" },
-    "memory": { "prompt": "私の記憶", "select": "選択する" }
+    "memory": {
+      "prompt": "私の記憶",
+      "select": "選択する",
+      "review": {
+        "topic": "前回、どの話題の思い出を選びましたか？",
+        "topicExplanation": "そうです。{{topic}}についての思い出を選びました。",
+        "emotion": "その時、どんな気持ちだったと言っていましたか？",
+        "emotionExplanation": "はい、その時は{{emotion}}と感じていました。",
+        "people": "前回保存した思い出で、誰と一緒にいましたか？",
+        "peopleExplanation": "はい、{{person}}と一緒にいました。",
+        "place": "その思い出はどこでのことでしたか？",
+        "placeExplanation": "はい、場所は{{place}}でした。"
+      }
+    },
+    "cognitive": {
+      "practice": "軽い練習",
+      "ready": "はい、覚えました",
+      "clear": "消す",
+      "done": "描き終わりました",
+      "listen": "聞く",
+      "speak": "声に出して言う",
+      "listening": "聞いています...",
+      "doneSpeaking": "言い終わりました"
+    }
   },
   "result": {
     "title": "学習完了！",
@@ -46,11 +69,17 @@
     "inviteBody": "家族が学習を応援し、共有された記憶カードを確認できるように招待します。",
     "inviteButton": "保護者を招待する",
     "privacyTitle": "共有前の確認",
-    "privacyBody": "記憶カードは初期設定では非公開です。利用者が選んだ内容だけが家族に共有されます。"
+    "privacyBody": "記憶カードは初期設定では非公開です。利用者が選んだ内容だけが家族に共有されます。",
+    "summaryTitle": "最近の活動まとめ",
+    "summaryEmpty": "まだ共有できる活動記録はありません。無理なく続けてみましょう。",
+    "routinesCompleted": "今週完了した練習：{{count}}回",
+    "dueMemoryCards": "復習する記憶カード：{{count}}枚",
+    "sharedMemoryCards": "家族と共有する話題：{{count}}件"
   },
   "settings": {
     "language": { "title": "言語 (Language)" },
     "dataManagement": "データ管理",
-    "deleteMemoryCards": "記憶カードを削除する"
+    "deleteMemoryCards": "記憶カードを削除する",
+    "deleteCognitiveData": "練習記録を削除する"
   }
 }

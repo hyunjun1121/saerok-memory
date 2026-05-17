@@ -24,7 +24,30 @@
     "sequenceOrder": { "prompt": "Choose in order." },
     "audioChoice": { "prompt": "Listen and choose.", "play": "Play" },
     "pictureChoice": { "prompt": "Look and choose." },
-    "memory": { "prompt": "My Memory", "select": "Select" }
+    "memory": {
+      "prompt": "My Memory",
+      "select": "Select",
+      "review": {
+        "topic": "Last time, which topic did you choose for your memory?",
+        "topicExplanation": "That's right. You chose a memory about {{topic}}.",
+        "emotion": "Do you remember how you said you felt then?",
+        "emotionExplanation": "Yes, you said you felt {{emotion}} then.",
+        "people": "In the memory you saved last time, who was with you?",
+        "peopleExplanation": "Yes, you were with {{person}}.",
+        "place": "Do you remember where that memory happened?",
+        "placeExplanation": "Yes, the place was {{place}}."
+      }
+    },
+    "cognitive": {
+      "practice": "Light Practice",
+      "ready": "Yes, I remembered",
+      "clear": "Clear",
+      "done": "I finished drawing",
+      "listen": "Listen",
+      "speak": "Repeat aloud",
+      "listening": "Listening...",
+      "doneSpeaking": "I finished speaking"
+    }
   },
   "result": {
     "title": "Session Complete!",
@@ -46,11 +69,17 @@
     "inviteBody": "Invite a family member so they can encourage learning and view shared memory cards.",
     "inviteButton": "Invite Guardian",
     "privacyTitle": "Review Before Sharing",
-    "privacyBody": "Memory cards are private by default. Only items chosen by the user are shared with family."
+    "privacyBody": "Memory cards are private by default. Only items chosen by the user are shared with family.",
+    "summaryTitle": "Recent Activity Summary",
+    "summaryEmpty": "There is no activity to share yet. Keep practicing gently.",
+    "routinesCompleted": "Practices completed this week: {{count}}",
+    "dueMemoryCards": "Memory cards to review: {{count}}",
+    "sharedMemoryCards": "Stories shared with family: {{count}}"
   },
   "settings": {
     "language": { "title": "Language" },
     "dataManagement": "Data Management",
-    "deleteMemoryCards": "Delete Memory Cards"
+    "deleteMemoryCards": "Delete Memory Cards",
+    "deleteCognitiveData": "Delete Practice Records"
   }
 }
