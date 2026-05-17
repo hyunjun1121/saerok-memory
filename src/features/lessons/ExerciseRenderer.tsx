@@ -1,5 +1,6 @@
 import type { Exercise } from "../../data/mockExercises";
 import type { ExerciseState } from "./exerciseTypes/types";
+import { getLocalizedText } from "../../utils/localizedText";
 import { MultipleChoiceMeaning } from "./exerciseTypes/MultipleChoiceMeaning";
 import { SituationMatch } from "./exerciseTypes/SituationMatch";
 import { PairMatching } from "./exerciseTypes/PairMatching";
@@ -11,6 +12,7 @@ import { DelayedWordRecall } from "./exerciseTypes/DelayedWordRecall";
 import { AttentionPattern } from "./exerciseTypes/AttentionPattern";
 import { ShapeCopyPractice } from "./exerciseTypes/ShapeCopyPractice";
 import { SpeechRepeatPractice } from "./exerciseTypes/SpeechRepeatPractice";
+import { useTranslation } from "react-i18next";
 
 interface ExerciseRendererProps {
   exercise: Exercise;
@@ -25,15 +27,37 @@ export function ExerciseRenderer({
   setGlobalState,
   onComplete,
 }: ExerciseRendererProps) {
+  const { i18n } = useTranslation();
+  const language = i18n.language;
+  const prompt = getLocalizedText(exercise.prompt, language);
+  const explanation = getLocalizedText(exercise.explanation, language);
+  const options = (exercise.payload.options ?? []).map((option) => ({
+    ...option,
+    label: getLocalizedText(option.label, language),
+    accessibilityLabel: getLocalizedText(option.accessibilityLabel, language),
+  }));
+  const items = (exercise.payload.items ?? []).map((item) => ({
+    ...item,
+    label: getLocalizedText(item.label, language),
+    accessibilityLabel: getLocalizedText(item.accessibilityLabel, language),
+  }));
+  const pairs = (exercise.payload.pairs ?? []).map((pair) => ({
+    ...pair,
+    left: getLocalizedText(pair.left, language),
+    right: getLocalizedText(pair.right, language),
+  }));
+  const words = exercise.payload.words?.map((word) => getLocalizedText(word, language));
+  const audioText = getLocalizedText(exercise.payload.audioText, language);
+  const phrase = getLocalizedText(exercise.payload.phrase, language);
 
   switch (exercise.type) {
     case "multiple_choice_meaning":
       return (
         <MultipleChoiceMeaning
-          prompt={exercise.prompt}
-          options={exercise.payload.options ?? []}
+          prompt={prompt}
+          options={options}
           correctOptionId={typeof exercise.correctAnswer === "string" ? exercise.correctAnswer : ""}
-          explanation={exercise.explanation}
+          explanation={explanation}
           globalState={globalState}
           setGlobalState={setGlobalState}
           onComplete={onComplete}
@@ -43,10 +67,10 @@ export function ExerciseRenderer({
     case "situation_match":
       return (
         <SituationMatch
-          prompt={exercise.prompt}
-          options={exercise.payload.options ?? []}
+          prompt={prompt}
+          options={options}
           correctOptionId={typeof exercise.correctAnswer === "string" ? exercise.correctAnswer : ""}
-          explanation={exercise.explanation}
+          explanation={explanation}
           globalState={globalState}
           setGlobalState={setGlobalState}
           onComplete={onComplete}
@@ -56,9 +80,9 @@ export function ExerciseRenderer({
     case "pair_matching":
       return (
         <PairMatching
-          prompt={exercise.prompt}
-          pairs={exercise.payload.pairs ?? []}
-          explanation={exercise.explanation}
+          prompt={prompt}
+          pairs={pairs}
+          explanation={explanation}
           globalState={globalState}
           setGlobalState={setGlobalState}
           onComplete={onComplete}
@@ -68,8 +92,8 @@ export function ExerciseRenderer({
     case "sequence_order":
       return (
         <SequenceOrder
-          prompt={exercise.prompt}
-          items={exercise.payload.items ?? []}
+          prompt={prompt}
+          items={items}
           correctOrder={Array.isArray(exercise.correctAnswer) ? exercise.correctAnswer : []}
           globalState={globalState}
           setGlobalState={setGlobalState}
@@ -79,9 +103,9 @@ export function ExerciseRenderer({
     case "audio_choice":
       return (
         <AudioChoice
-          prompt={exercise.prompt}
-          options={exercise.payload.options ?? []}
-          audioText={exercise.payload.audioText}
+          prompt={prompt}
+          options={options}
+          audioText={audioText}
           correctOptionId={typeof exercise.correctAnswer === "string" ? exercise.correctAnswer : ""}
           globalState={globalState}
           setGlobalState={setGlobalState}
@@ -91,8 +115,8 @@ export function ExerciseRenderer({
     case "picture_choice":
       return (
         <PictureChoice
-          prompt={exercise.prompt}
-          options={exercise.payload.options ?? []}
+          prompt={prompt}
+          options={options}
           correctOptionId={typeof exercise.correctAnswer === "string" ? exercise.correctAnswer : ""}
           globalState={globalState}
           setGlobalState={setGlobalState}
@@ -102,8 +126,8 @@ export function ExerciseRenderer({
     case "personal_memory_recall":
       return (
         <PersonalMemoryRecall
-          prompt={exercise.prompt}
-          options={exercise.payload.options ?? []}
+          prompt={prompt}
+          options={options}
           memoryId={exercise.payload.memoryId}
           linkedConceptId={exercise.payload.linkedConceptId}
           memoryField={exercise.payload.memoryField}
@@ -117,11 +141,11 @@ export function ExerciseRenderer({
     case "delayed_word_recall":
       return (
         <DelayedWordRecall
-          prompt={exercise.prompt}
+          prompt={prompt}
           phase={exercise.payload.phase || "encode"}
           wordSetId={exercise.payload.wordSetId}
-          words={exercise.payload.words}
-          options={exercise.payload.options}
+          words={words}
+          options={options}
           requiredSelectionCount={exercise.payload.requiredSelectionCount}
           expectedAnswers={Array.isArray(exercise.correctAnswer) ? exercise.correctAnswer : []}
           onComplete={onComplete}
@@ -133,9 +157,9 @@ export function ExerciseRenderer({
     case "attention_pattern":
       return (
         <AttentionPattern
-          prompt={exercise.prompt}
+          prompt={prompt}
           pattern={exercise.payload.pattern ?? []}
-          options={exercise.payload.options ?? []}
+          options={options}
           correctOptionId={typeof exercise.correctAnswer === "string" ? exercise.correctAnswer : ""}
           onComplete={onComplete}
           setGlobalState={setGlobalState}
@@ -146,7 +170,7 @@ export function ExerciseRenderer({
     case "shape_copy_practice":
       return (
         <ShapeCopyPractice
-          prompt={exercise.prompt}
+          prompt={prompt}
           onComplete={onComplete}
           setGlobalState={setGlobalState}
           globalState={globalState}
@@ -156,8 +180,8 @@ export function ExerciseRenderer({
     case "speech_repeat_practice":
       return (
         <SpeechRepeatPractice
-          prompt={exercise.prompt}
-          phrase={exercise.payload.phrase ?? ""}
+          prompt={prompt}
+          phrase={phrase}
           onComplete={onComplete}
           setGlobalState={setGlobalState}
           globalState={globalState}

@@ -35,7 +35,30 @@
         "people": "In the memory you saved last time, who was with you?",
         "peopleExplanation": "Yes, you were with {{person}}.",
         "place": "Do you remember where that memory happened?",
-        "placeExplanation": "Yes, the place was {{place}}."
+        "placeExplanation": "Yes, the place was {{place}}.",
+        "story": {
+          "people": "Who was with you in the story you shared last time?",
+          "place": "Which place appeared in the story you shared last time?",
+          "object": "Which object was a cue in the story you shared last time?",
+          "emotion": "Which feeling was closest to the story you shared last time?",
+          "time": "Which time cue appeared in the story you shared last time?",
+          "summary": "Which story is closest to the memory you shared last time?"
+        },
+        "storyExplanation": "Last time, your story was: “{{summary}}”"
+      },
+      "story": {
+        "label": "My Story",
+        "helper": "This is not a test. It leaves concrete memory cues you can revisit later.",
+        "speakTitle": "Tell a short story",
+        "speakBody": "Press speak and talk comfortably for about 20 seconds.",
+        "unsupported": "Speech recognition is limited in this browser. You can leave the story in the box below.",
+        "start": "Start speaking",
+        "stop": "Stop speaking",
+        "transcriptLabel": "Story to save",
+        "inputLabel": "Memory story to save",
+        "placeholder": "Example: Last spring, I went to the hospital with my daughter and ate soup nearby. It rained, and I felt grateful because she brought an umbrella.",
+        "privacy": "Personal stories are private by default and are not shared with family unless you choose to share them.",
+        "save": "Save story"
       }
     },
     "cognitive": {

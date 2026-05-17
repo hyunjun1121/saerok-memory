@@ -4,6 +4,7 @@ import { Mic, Play } from "lucide-react";
 import { Button3D } from "../../../components/Button3D";
 import type { ExerciseState } from "./types";
 import { saveCognitiveRoutineResult } from "../../cognitive/cognitiveRoutineStorage";
+import { getSpeechLanguage } from "../../../utils/localizedText";
 
 interface SpeechRepeatPracticeProps {
   prompt: string;
@@ -20,7 +21,7 @@ export function SpeechRepeatPractice({
   setGlobalState,
   globalState,
 }: SpeechRepeatPracticeProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [isPlaying, setIsPlaying] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState("");
@@ -37,7 +38,7 @@ export function SpeechRepeatPractice({
 
     setIsPlaying(true);
     const utterance = new SpeechSynthesisUtterance(phrase);
-    utterance.lang = "ko-KR";
+    utterance.lang = getSpeechLanguage(i18n.language);
     utterance.onend = () => setIsPlaying(false);
     window.speechSynthesis.speak(utterance);
   };
@@ -65,7 +66,7 @@ export function SpeechRepeatPractice({
       if (!SpeechRecognitionConstructor) return;
 
       const recognition = new SpeechRecognitionConstructor();
-      recognition.lang = "ko-KR";
+      recognition.lang = getSpeechLanguage(i18n.language);
       recognition.continuous = false;
       recognition.interimResults = false;
 

@@ -1,8 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import type { Exercise } from '../../data/mockExercises';
+import { mockExercises, type Exercise } from '../../data/mockExercises';
 import { ExerciseRenderer } from './ExerciseRenderer';
-import '../../i18n';
+import { getLocalizedText } from '../../utils/localizedText';
+import i18n from '../../i18n';
 
 const baseExercise = {
   id: 'ex_test',
@@ -103,9 +104,33 @@ describe('ExerciseRenderer', () => {
         />
       );
 
-      expect(screen.getByText(exercise.prompt)).toBeInTheDocument();
+      expect(screen.getByText(getLocalizedText(exercise.prompt, 'ko'))).toBeInTheDocument();
       expect(screen.queryByText(/Unsupported exercise type/i)).not.toBeInTheDocument();
       unmount();
+    }
+  });
+
+  it('renders localized exercise data in Japanese', async () => {
+    await i18n.changeLanguage('ja');
+
+    try {
+      const exercise = mockExercises.find((item) => item.id === 'ex_2');
+      expect(exercise).toBeDefined();
+
+      render(
+        <ExerciseRenderer
+          exercise={exercise!}
+          globalState="awaiting_answer"
+          setGlobalState={vi.fn()}
+          onComplete={vi.fn()}
+        />
+      );
+
+      expect(screen.getByText('「苦あれば楽あり」に最も近い意味はどれですか？')).toBeInTheDocument();
+      expect(screen.getByText('つらい時期のあとに良いことが来る')).toBeInTheDocument();
+      expect(screen.queryByText('고진감래와 가장 가까운 뜻은 무엇일까요?')).not.toBeInTheDocument();
+    } finally {
+      await i18n.changeLanguage('ko');
     }
   });
 });

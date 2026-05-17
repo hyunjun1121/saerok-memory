@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Button3D } from "../../../components/Button3D";
 import { ChoiceCard } from "../../../components/ChoiceCard";
 import type { ExerciseState } from "./types";
+import { getSpeechLanguage } from "../../../utils/localizedText";
 
 interface Option {
   id: string;
@@ -27,14 +28,14 @@ export function AudioChoice({
   setGlobalState,
   globalState,
 }: AudioChoiceProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [missCount, setMissCount] = useState(0);
 
   const playAudio = () => {
     if (!audioText || !("speechSynthesis" in window)) return;
     const utterance = new SpeechSynthesisUtterance(audioText);
-    utterance.lang = "ko-KR";
+    utterance.lang = getSpeechLanguage(i18n.language);
     window.speechSynthesis.cancel();
     window.speechSynthesis.speak(utterance);
   };

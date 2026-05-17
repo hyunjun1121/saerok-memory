@@ -9,6 +9,7 @@ import { mockExercises, type Exercise } from "../../data/mockExercises";
 import type { ExerciseState } from "../../features/lessons/exerciseTypes/types";
 import type { MemoryCard } from "../../features/memory/types";
 import { generateMemoryReviewExercise } from "../../features/memory/memoryReviewGenerator";
+import { getLocalizedText } from "../../utils/localizedText";
 
 function buildSessionExercises() {
   const savedCards = JSON.parse(localStorage.getItem("memoryCards") || "[]") as MemoryCard[];
@@ -35,6 +36,7 @@ export default function LessonScreen() {
   const [globalState, setGlobalState] = useState<ExerciseState>("awaiting_answer");
 
   const currentExercise = exercises[currentIndex];
+  const currentExplanation = getLocalizedText(currentExercise?.explanation, i18n.language);
 
   const handleClose = () => {
     navigate("/");
@@ -85,7 +87,7 @@ export default function LessonScreen() {
         <FeedbackTray
           variant="correct"
           title={t("feedback.correct.title")}
-          body={currentExercise.explanation}
+          body={currentExplanation}
           primaryActionLabel={t("feedback.continue")}
           onPrimaryAction={handleContinue}
         />
@@ -95,7 +97,7 @@ export default function LessonScreen() {
         <FeedbackTray
           variant="incorrect"
           title={t("feedback.incorrect.title")}
-          body={currentExercise.explanation}
+          body={currentExplanation}
           primaryActionLabel={t("feedback.continue")}
           onPrimaryAction={handleContinue}
         />

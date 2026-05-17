@@ -65,6 +65,30 @@ describe('memoryReviewGenerator', () => {
     expect(exercise?.prompt).toBeTruthy();
   });
 
+  it('generates a review question from a saved spoken story cue', () => {
+    const card: MemoryCard = {
+      ...baseCard,
+      originalTranscript: '지난봄에 딸과 병원에 다녀온 뒤 국밥집에서 밥을 먹었어요. 딸이 우산을 챙겨줘 고마웠어요.',
+      textSummary: '지난봄에 딸과 병원에 다녀온 뒤 국밥집에서 밥을 먹었어요.',
+      storyCues: {
+        people: ['딸'],
+        places: ['병원', '국밥집'],
+        objects: ['우산'],
+        emotions: ['고마움'],
+        timeHints: ['봄'],
+      },
+    };
+
+    const exercise = generateMemoryReviewExercise(card, 'lesson_1');
+
+    expect(exercise?.type).toBe('personal_memory_recall');
+    expect(exercise?.payload.memoryField).toBe('story');
+    expect(exercise?.correctAnswer).toBe('correct');
+    expect(exercise?.explanation).toContain('지난봄에 딸과 병원');
+    const correctOption = exercise?.payload.options?.find((o) => o.id === 'correct');
+    expect(correctOption?.label).toBe('딸');
+  });
+
   it('returns null if no usable data exists', () => {
     const exercise = generateMemoryReviewExercise(baseCard, 'lesson_1');
     expect(exercise).toBeNull();

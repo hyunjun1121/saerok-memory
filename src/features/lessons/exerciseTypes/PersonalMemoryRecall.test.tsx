@@ -80,6 +80,40 @@ describe('PersonalMemoryRecall', () => {
     expect(savedCards[0].topic).toBeUndefined()
     expect(savedCards[0].emotionTag).toBe("뿌듯함")
   })
+
+  it('saves a spoken memory story as transcript and concrete cues', () => {
+    const mockProps = {
+      prompt: "Story Prompt",
+      options: [],
+      linkedConceptId: "daily_memory_1",
+      memoryField: "story" as const,
+      onComplete: vi.fn(),
+      setGlobalState: vi.fn(),
+      globalState: "awaiting_answer" as ExerciseState
+    }
+
+    render(<PersonalMemoryRecall {...mockProps} />)
+
+    fireEvent.change(screen.getByLabelText("저장될 기억 이야기"), {
+      target: {
+        value: "지난봄에 딸과 병원에 다녀온 뒤 국밥집에서 밥을 먹었어요. 비가 와서 딸이 우산을 챙겨줘 고마웠어요."
+      }
+    })
+    fireEvent.click(screen.getByText("이야기 저장하기"))
+
+    expect(mockProps.setGlobalState).toHaveBeenCalledWith("correct_feedback")
+
+    const savedCards = JSON.parse(localStorage.getItem("memoryCards") || "[]")
+    expect(savedCards).toHaveLength(1)
+    expect(savedCards[0].linkedConceptId).toBe("daily_memory_1")
+    expect(savedCards[0].originalTranscript).toContain("딸과 병원")
+    expect(savedCards[0].textSummary).toBeTruthy()
+    expect(savedCards[0].storyCues.people).toContain("딸")
+    expect(savedCards[0].storyCues.places).toEqual(expect.arrayContaining(["병원", "국밥집"]))
+    expect(savedCards[0].storyCues.objects).toContain("우산")
+    expect(savedCards[0].sensitivity).toBe("sensitive")
+    expect(savedCards[0].shareWithFamily).toBe(false)
+  })
 })
 
   it('updates an existing MemoryCard locally when correctly answering in review mode', () => {

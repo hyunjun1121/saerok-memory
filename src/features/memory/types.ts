@@ -17,6 +17,14 @@ export interface ReviewState {
   reviewCount: number;
 }
 
+export interface MemoryStoryCues {
+  people?: string[];
+  places?: string[];
+  objects?: string[];
+  emotions?: string[];
+  timeHints?: string[];
+}
+
 export interface MemoryCard {
   id: string;
   userId: string;
@@ -31,6 +39,7 @@ export interface MemoryCard {
   imageAssetIds?: string[];
   textSummary?: string;
   originalTranscript?: string;
+  storyCues?: MemoryStoryCues;
   sensitivity: "low" | "personal" | "sensitive";
   shareWithFamily: boolean;
   reviewState: ReviewState;

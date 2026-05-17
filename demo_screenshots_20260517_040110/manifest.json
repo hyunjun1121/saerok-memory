@@ -1,0 +1,36 @@
+{
+  "capturedAt": "2026-05-17T04:01:18.183Z",
+  "appUrl": "http://127.0.0.1:5190",
+  "viewport": {
+    "width": 430,
+    "height": 932,
+    "deviceScaleFactor": 1
+  },
+  "manifest": [
+    {
+      "file": "01_home_initial.png",
+      "title": "? ??",
+      "note": ""
+    },
+    {
+      "file": "02_garden_empty.png",
+      "title": "?? ?? - ?? ??",
+      "note": ""
+    },
+    {
+      "file": "03_family_empty.png",
+      "title": "?? ?? - ?? ??? ??",
+      "note": ""
+    },
+    {
+      "file": "04_settings_ko_selected.png",
+      "title": "?? ?? - ??? ??",
+      "note": ""
+    },
+    {
+      "file": "05_settings_en_selected.png",
+      "title": "?? ?? - English ?? ??",
+      "note": ""
+    }
+  ]
+}
