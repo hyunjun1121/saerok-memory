@@ -84,8 +84,8 @@
 
 ## 4. 라이브 호스팅 배포 상태
 
-- **최신 Vercel Production URL**: [https://haru-mjha4zepu-hyunjun-kims-projects.vercel.app](https://haru-mjha4zepu-hyunjun-kims-projects.vercel.app)
-- **Production Alias URL**: [https://saerok-memory.vercel.app](https://saerok-memory.vercel.app)
+- **검증 당시 Vercel Production 고유 URL**: [https://haru-mjha4zepu-hyunjun-kims-projects.vercel.app](https://haru-mjha4zepu-hyunjun-kims-projects.vercel.app)
+- **안정 Production Alias URL**: [https://saerok-memory.vercel.app](https://saerok-memory.vercel.app)
 - **배포 상태**: `Ready` (HTTP 200 통과 완료, 3개 국어 즉시 전환 및 로컬 스토리지 정상 보존 확인)
 
 ---
