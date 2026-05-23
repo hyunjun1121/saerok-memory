@@ -115,7 +115,7 @@ npm run build
 
 - TypeScript build mode 통과
 - ESLint 통과
-- Vitest 24개 파일, 73개 테스트 통과
+- Vitest 25개 파일, 76개 테스트 통과
 - Vite production build 통과
 - Playwright 화면 캡처 69개 통과
 
