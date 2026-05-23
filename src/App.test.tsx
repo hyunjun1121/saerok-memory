@@ -19,6 +19,6 @@ describe('App Smoke Test', () => {
 
     render(<App />)
 
-    expect(await screen.findByRole('heading', { name: '가족' })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: '상담 리포트' })).toBeInTheDocument()
   })
 })

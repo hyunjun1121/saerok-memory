@@ -95,7 +95,57 @@
       "speak": "따라 말하기",
       "listening": "듣는 중...",
       "doneSpeaking": "다 말했습니다",
-      "drawingArea": "그림을 그리는 영역"
+      "drawingArea": "그림을 그리는 영역",
+      "wordRecallEncodeGuide": "단어만 외우기보다 범주와 함께 기억해 보세요. 나중에 같은 단어를 다시 골라봅니다.",
+      "wordRecallRecallGuide": "처음에 본 단어 {{count}}개를 다시 골라보세요. 틀려도 기록은 연습 흐름으로만 남습니다.",
+      "wordRecallCueLabel": "처음 함께 본 범주",
+      "wordRecallFreeLabel": "먼저 떠오른 단어",
+      "wordRecallFreePlaceholder": "예: 연필, 사과, 버스",
+      "wordRecallFreeHelper": "생각나는 단어를 먼저 적고, 아래 선택지로 다시 확인해 보세요.",
+      "workingMemory": "작업기억 연습",
+      "digitSpanForwardGuide": "숫자를 차례로 기억해 주세요.",
+      "digitSpanBackwardGuide": "숫자를 차례로 본 뒤, 다음 화면에서 거꾸로 눌러주세요.",
+      "startAnswer": "이제 눌러보기",
+      "backspace": "하나 지우기",
+      "verbalFluency": "언어 유창성 연습",
+      "category": "범주",
+      "verbalFluencyGuide": "정답을 맞히는 검사가 아니라, 한 범주 안에서 단어를 떠올리는 연습입니다.",
+      "verbalFluencyIntro": "시작하면 시간이 줄어듭니다. 떠오르는 단어를 쉼표로 나누어 적거나, 말한 뒤 기억나는 만큼 적어 주세요.",
+      "wordInputLabel": "떠오른 단어",
+      "wordInputPlaceholder": "예: 고양이, 강아지, 코끼리",
+      "addWords": "단어 추가",
+      "enteredWords": "입력한 단어",
+      "removeWord": "{{word}} 지우기",
+      "uniqueWords": "서로 다른 단어",
+      "repeatedWords": "반복 단어",
+      "startFluency": "시작하기",
+      "finishFluency": "저장하고 다음으로",
+      "saveFluency": "기록 저장하기",
+      "trailSwitching": "주의 전환 연습",
+      "trailGuide": "현재 단서를 보고 숫자와 그림을 번갈아 눌러보세요. 틀려도 바로 다시 이어갈 수 있습니다.",
+      "trailCurrentTarget": "다음 단서",
+      "trailErrors": "다시 누른 횟수",
+      "trailWrongNode": "{{label}}이 아니라 표시된 다음 단서를 눌러보세요.",
+      "restartTrail": "처음부터 다시",
+      "trailNodeAria": "{{label}} 누르기",
+      "orientation": "날짜 감각 연습",
+      "orientationGuide": "정확히 맞히는 시험이 아니라, 하루를 시작하며 오늘의 날짜와 요일을 가볍게 확인하는 활동입니다.",
+      "orientationTodayLabel": "오늘 확인할 내용",
+      "orientationTodayHelper": "날짜와 요일",
+      "colorFocus": "색상 집중 루틴",
+      "stroopGuide": "단어의 뜻이 아니라 글자가 보이는 색을 눌러주세요. 의료 검사가 아니라 가벼운 주의집중 루틴입니다.",
+      "stroopProgress": "카드 {{progress}}",
+      "stroopWordAria": "색 단어 {{word}}",
+      "stroopComplete": "색상 루틴 완료",
+      "stroopCorrect": "집중 선택",
+      "stroopRetries": "다른 선택",
+      "stroopEmpty": "이 루틴에 사용할 색상 카드가 없습니다.",
+      "colors": {
+        "red": "빨강",
+        "blue": "파랑",
+        "green": "초록",
+        "yellow": "노랑"
+      }
     }
   },
   "lesson": {
@@ -158,6 +208,32 @@
     "conversation": {
       "noPrivateDetailsNote": "사용자가 공유하지 않은 개인 기억은 보호자·상담사 화면에 표시하지 않습니다."
     },
+    "observation": {
+      "title": "보호자 관찰 메모",
+      "body": "최근 몇 주 또는 몇 달 사이 가족이 느낀 일상 변화가 있다면 상담 전에 짧게 정리해 둡니다.",
+      "domainLabel": "관찰 영역",
+      "noteLabel": "메모",
+      "notePlaceholder": "예: 약속 시간을 다시 확인하는 일이 늘었지만, 산책 루틴은 잘 이어가고 있습니다.",
+      "save": "관찰 메모 저장",
+      "latestTitle": "최근 메모: {{date}}",
+      "counselorTitle": "최근 보호자 관찰",
+      "supportNote": "이 기록은 진단 점수가 아니라 가족이 상담 전에 일상 변화를 정리하기 위한 참고 메모입니다.",
+      "latestResponse": "{{domain}}: {{response}}",
+      "responses": {
+        "aboutSame": "큰 변화 없음",
+        "occasionallyDifferent": "가끔 달라 보임",
+        "oftenDifferent": "자주 달라 보임",
+        "notSure": "잘 모르겠음"
+      },
+      "domains": {
+        "dailyRoutine": "익숙한 일상",
+        "conversation": "대화 흐름",
+        "appointments": "약속 기억",
+        "navigation": "길 찾기",
+        "medicationMoney": "약·돈 관리",
+        "moodSocial": "기분·사회활동"
+      }
+    },
     "report": {
       "noPracticeDate": "기록 없음",
       "routineTrendUp": "최근 7일의 참여 횟수가 이전 7일보다 늘었습니다. 격려를 이어갈 수 있습니다.",
@@ -172,13 +248,31 @@
         "routineMomentum": "최근 참여가 늘어나는 흐름이 있어 짧은 격려가 도움이 될 수 있습니다.",
         "gentleStart": "아직 데이터가 적습니다. 평가보다 편안한 시작을 돕는 것이 우선입니다."
       },
+      "activityHighlightsTitle": "최근 활동 단서",
+      "activityHighlights": {
+        "wordRecall": "최근 단어 회상 루틴에서 {{count}}개의 단어를 다시 선택했습니다.",
+        "digitSpan": "최근 숫자 기억 루틴은 {{length}}자리까지 진행했습니다.",
+        "verbalFluency": "최근 범주 말하기 루틴에서 서로 다른 단어 {{count}}개를 기록했습니다.",
+        "trail": "최근 주의 전환 루틴에서 다시 누른 횟수는 {{count}}회입니다.",
+        "stroop": "최근 색상 집중 루틴에서 집중 선택 {{correctCount}}회, 다른 선택 {{errorCount}}회, 평균 반응 약 {{averageSeconds}}초가 기록되었습니다.",
+        "orientation": "최근 날짜 감각 루틴에서 오늘 날짜와 요일을 확인했습니다.",
+        "drawing": "최근 그리기 루틴은 {{strokeCount}}획, 약 {{seconds}}초의 활동 기록을 남겼습니다.",
+        "fallback": "최근 활동 기록은 있으나 세부 단서는 아직 충분히 쌓이지 않았습니다."
+      },
       "nextTopics": {
         "shareableSeed": "먼저 사용자가 공유해도 괜찮은 짧은 기억 하나를 함께 저장해 보세요.",
         "topic": "{{topic}} 주제로 저장된 기억 {{count}}개를 바탕으로 가벼운 질문을 준비해 보세요.",
         "reviewDue": "오늘 복습할 기억 카드 {{count}}개를 대화 시작점으로 삼을 수 있습니다.",
         "routineConsistency": "참여가 줄어든 주에는 이유를 추궁하기보다 가장 쉬웠던 활동부터 다시 제안해 보세요.",
         "routineMomentum": "최근 참여가 늘었으므로 같은 시간대에 짧은 루틴을 이어가도록 격려해 보세요.",
-        "prepareConversation": "공유된 기억을 바탕으로 상담 전 한 가지 장면만 먼저 물어보세요."
+        "prepareConversation": "공유된 기억을 바탕으로 상담 전 한 가지 장면만 먼저 물어보세요.",
+        "observationDailyRoutine": "익숙한 일과 중 여전히 쉬운 부분과 작은 단서가 필요한 단계를 함께 물어보세요.",
+        "observationConversation": "최근 대화 흐름이 달라 보였다면 천천히 답할 수 있는 구체적인 질문을 준비하세요.",
+        "observationAppointments": "일정 알림, 약속 카드, 당일 확인 전화가 도움이 될지 확인하세요.",
+        "observationNavigation": "익숙한 장소를 떠올리며 간단한 길 찾기 단서를 함께 정리하세요.",
+        "observationMedicationMoney": "약, 청구서, 결제 과정에 함께 볼 체크리스트가 필요한지 살펴보세요.",
+        "observationMoodSocial": "기분, 사람들과의 연락, 아직 즐거운 활동에 대해 부담 없는 질문을 준비하세요.",
+        "observationUncertain": "잘 모르겠다고 표시된 영역은 결론을 내리지 말고 중립적인 확인 질문으로 다루세요."
       },
       "activityBadge": "30일 활동 요약"
     },

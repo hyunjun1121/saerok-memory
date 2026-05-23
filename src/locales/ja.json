@@ -95,7 +95,57 @@
       "speak": "声に出して言う",
       "listening": "聞いています...",
       "doneSpeaking": "言い終わりました",
-      "drawingArea": "絵を描く場所"
+      "drawingArea": "絵を描く場所",
+      "wordRecallEncodeGuide": "言葉だけでなく、カテゴリーと一緒に覚えてみましょう。あとで同じ言葉をもう一度選びます。",
+      "wordRecallRecallGuide": "最初に見た言葉{{count}}個をもう一度選んでください。間違えても練習の流れとしてだけ記録されます。",
+      "wordRecallCueLabel": "最初に一緒に見たカテゴリー",
+      "wordRecallFreeLabel": "先に思い出した言葉",
+      "wordRecallFreePlaceholder": "例：えんぴつ、りんご、バス",
+      "wordRecallFreeHelper": "先に思い浮かぶ言葉を書き、その後で下の選択肢から確認してください。",
+      "workingMemory": "作業記憶の練習",
+      "digitSpanForwardGuide": "数字を順番に覚えてください。",
+      "digitSpanBackwardGuide": "数字を順番に見て、次の画面で逆の順番に押してください。",
+      "startAnswer": "押してみる",
+      "backspace": "一つ消す",
+      "verbalFluency": "言語流暢性の練習",
+      "category": "カテゴリー",
+      "verbalFluencyGuide": "正解を判定する検査ではなく、一つのカテゴリーから言葉を思い出す練習です。",
+      "verbalFluencyIntro": "始めると時間が減ります。思いついた言葉を読点で区切って書くか、話したあと覚えている分を書いてください。",
+      "wordInputLabel": "思いついた言葉",
+      "wordInputPlaceholder": "例：ねこ、いぬ、ぞう",
+      "addWords": "言葉を追加",
+      "enteredWords": "入力した言葉",
+      "removeWord": "{{word}}を消す",
+      "uniqueWords": "重複しない言葉",
+      "repeatedWords": "重複した言葉",
+      "startFluency": "始める",
+      "finishFluency": "保存して次へ",
+      "saveFluency": "記録を保存",
+      "trailSwitching": "注意切り替えの練習",
+      "trailGuide": "今の手がかりを見ながら、数字と絵を交互に押してください。間違えても、そのまま続けられます。",
+      "trailCurrentTarget": "次の手がかり",
+      "trailErrors": "押し直した回数",
+      "trailWrongNode": "{{label}}ではなく、表示されている次の手がかりを押してみましょう。",
+      "restartTrail": "最初からやり直す",
+      "trailNodeAria": "{{label}}を押す",
+      "orientation": "日付感覚の練習",
+      "orientationGuide": "正解を判定する検査ではなく、一日の始まりに今日の日付と曜日を軽く確かめる活動です。",
+      "orientationTodayLabel": "今日確認すること",
+      "orientationTodayHelper": "日付と曜日",
+      "colorFocus": "色に集中するルーティン",
+      "stroopGuide": "言葉の意味ではなく、文字に見えている色を押してください。医療検査ではなく、軽い注意のルーティンです。",
+      "stroopProgress": "カード {{progress}}",
+      "stroopWordAria": "色の言葉 {{word}}",
+      "stroopComplete": "色のルーティン完了",
+      "stroopCorrect": "集中して選べた回数",
+      "stroopRetries": "別の選択",
+      "stroopEmpty": "このルーティンで使う色カードがありません。",
+      "colors": {
+        "red": "赤",
+        "blue": "青",
+        "green": "緑",
+        "yellow": "黄"
+      }
     }
   },
   "lesson": {
@@ -158,6 +208,32 @@
     "conversation": {
       "noPrivateDetailsNote": "利用者が共有していない個人的な思い出は、見守り・相談員画面には表示されません。"
     },
+    "observation": {
+      "title": "見守り観察メモ",
+      "body": "ここ数週間から数か月で家族が気づいた日常の変化があれば、相談前に短く整理します。",
+      "domainLabel": "観察領域",
+      "noteLabel": "メモ",
+      "notePlaceholder": "例：約束の時間を確認することは増えましたが、散歩の習慣は続いています。",
+      "save": "観察メモを保存",
+      "latestTitle": "最近のメモ：{{date}}",
+      "counselorTitle": "最近の見守り観察",
+      "supportNote": "これは診断スコアではなく、相談前に日常の変化を整理するための見守りメモです。",
+      "latestResponse": "{{domain}}：{{response}}",
+      "responses": {
+        "aboutSame": "大きな変化なし",
+        "occasionallyDifferent": "時々違って見える",
+        "oftenDifferent": "よく違って見える",
+        "notSure": "よく分からない"
+      },
+      "domains": {
+        "dailyRoutine": "慣れた日常",
+        "conversation": "会話の流れ",
+        "appointments": "約束の記憶",
+        "navigation": "道順",
+        "medicationMoney": "薬・お金の管理",
+        "moodSocial": "気分・社会活動"
+      }
+    },
     "report": {
       "noPracticeDate": "記録なし",
       "routineTrendUp": "直近7日間の参加回数が前の7日間より増えています。励ましを続けられます。",
@@ -172,13 +248,31 @@
         "routineMomentum": "最近の参加が増えているため、短い励ましが役立つ可能性があります。",
         "gentleStart": "まだデータが少ない状態です。評価よりも安心して始められる支援を優先します。"
       },
+      "activityHighlightsTitle": "最近の活動の手がかり",
+      "activityHighlights": {
+        "wordRecall": "最近の単語想起ルーティンで{{count}}個の単語をもう一度選びました。",
+        "digitSpan": "最近の数字記憶ルーティンは{{length}}桁まで進みました。",
+        "verbalFluency": "最近のカテゴリ発話ルーティンで、異なる単語{{count}}個を記録しました。",
+        "trail": "最近の注意切り替えルーティンで、押し直しは{{count}}回でした。",
+        "stroop": "最近の色集中ルーティンでは、集中して選べた回数が{{correctCount}}回、別の選択が{{errorCount}}回、平均反応は約{{averageSeconds}}秒でした。",
+        "orientation": "最近の日付感覚ルーティンで、今日の日付と曜日を確認しました。",
+        "drawing": "最近の描画ルーティンでは{{strokeCount}}画、約{{seconds}}秒の活動記録が残っています。",
+        "fallback": "最近の活動記録はありますが、詳細な手がかりはまだ十分ではありません。"
+      },
       "nextTopics": {
         "shareableSeed": "まず、利用者が共有してもよい短い思い出を一つ一緒に保存してみてください。",
         "topic": "{{topic}}のテーマで保存された思い出{{count}}件をもとに、軽い質問を準備してみてください。",
         "reviewDue": "今日復習する記憶カード{{count}}枚を会話の入り口にできます。",
         "routineConsistency": "参加が少ない週は理由を問い詰めず、一番取り組みやすかった活動から再開を提案してみてください。",
         "routineMomentum": "最近の参加が増えているため、同じ時間帯に短いルーティンを続けられるよう励ましてみてください。",
-        "prepareConversation": "共有された思い出をもとに、相談前に一つの場面だけを先に聞いてみてください。"
+        "prepareConversation": "共有された思い出をもとに、相談前に一つの場面だけを先に聞いてみてください。",
+        "observationDailyRoutine": "慣れた日課の中で今も取り組みやすい部分と、小さな手がかりが役立つ手順を聞いてください。",
+        "observationConversation": "最近の会話の流れが違って見えた場合は、ゆっくり答えられる具体的な質問を準備してください。",
+        "observationAppointments": "予定の通知、約束カード、当日の確認電話が役立つか確認してください。",
+        "observationNavigation": "慣れた場所を思い出しながら、簡単な道順の手がかりを一緒に整理してください。",
+        "observationMedicationMoney": "薬、請求書、支払いの手順に一緒に見られるチェックリストが必要か確認してください。",
+        "observationMoodSocial": "気分、人との連絡、今も楽しめる活動について、負担の少ない質問を準備してください。",
+        "observationUncertain": "よく分からないと記録された領域は、結論を急がず中立的な確認質問として扱ってください。"
       },
       "activityBadge": "30日活動サマリー"
     },

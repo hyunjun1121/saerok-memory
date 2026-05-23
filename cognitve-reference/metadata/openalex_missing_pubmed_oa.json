@@ -1,0 +1,202 @@
+[
+  {
+    "pmid": "1202204",
+    "title": "\"Mini-mental state\". A practical method for grading the cognitive state of patients for the clinician.",
+    "doi": "10.1016/0022-3956(75)90026-6",
+    "openalex_api_url": "https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.1016%2F0022-3956%2875%2990026-6",
+    "open_access": {
+      "is_oa": false,
+      "oa_status": "closed",
+      "oa_url": null,
+      "any_repository_has_fulltext": false
+    },
+    "locations_checked": [
+      {
+        "landing_page_url": "https://doi.org/10.1016/0022-3956(75)90026-6",
+        "pdf_url": null,
+        "is_oa": false,
+        "source": "Journal of Psychiatric Research"
+      },
+      {
+        "landing_page_url": "https://pubmed.ncbi.nlm.nih.gov/1202204",
+        "pdf_url": null,
+        "is_oa": false,
+        "source": "PubMed"
+      },
+      {
+        "landing_page_url": "https://openresearch.surrey.ac.uk/esploro/outputs/journalArticle/Longer-versus-shorter-daily-constraint-induced-movement/99516185802346",
+        "pdf_url": null,
+        "is_oa": false,
+        "source": "View"
+      },
+      {
+        "landing_page_url": "http://epubs.surrey.ac.uk/822522/",
+        "pdf_url": null,
+        "is_oa": false,
+        "source": "Surrey Research Insight Open Access (The University of Surrey)"
+      }
+    ]
+  },
+  {
+    "pmid": "15817019",
+    "title": "The Montreal Cognitive Assessment, MoCA: a brief screening tool for mild cognitive impairment.",
+    "doi": "10.1111/j.1532-5415.2005.53221.x",
+    "openalex_api_url": "https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.1111%2Fj.1532-5415.2005.53221.x",
+    "open_access": {
+      "is_oa": false,
+      "oa_status": "closed",
+      "oa_url": null,
+      "any_repository_has_fulltext": false
+    },
+    "locations_checked": [
+      {
+        "landing_page_url": "https://doi.org/10.1111/j.1532-5415.2005.53221.x",
+        "pdf_url": null,
+        "is_oa": false,
+        "source": "Journal of the American Geriatrics Society"
+      },
+      {
+        "landing_page_url": "https://pubmed.ncbi.nlm.nih.gov/15817019",
+        "pdf_url": null,
+        "is_oa": false,
+        "source": "PubMed"
+      }
+    ]
+  },
+  {
+    "pmid": "16116116",
+    "title": "The AD8: a brief informant interview to detect dementia.",
+    "doi": "10.1212/01.wnl.0000172958.95282.2a",
+    "openalex_api_url": "https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.1212%2F01.wnl.0000172958.95282.2a",
+    "open_access": {
+      "is_oa": false,
+      "oa_status": "closed",
+      "oa_url": null,
+      "any_repository_has_fulltext": false
+    },
+    "locations_checked": [
+      {
+        "landing_page_url": "https://doi.org/10.1212/01.wnl.0000172958.95282.2a",
+        "pdf_url": null,
+        "is_oa": false,
+        "source": "Neurology"
+      },
+      {
+        "landing_page_url": "https://pubmed.ncbi.nlm.nih.gov/16116116",
+        "pdf_url": null,
+        "is_oa": false,
+        "source": "PubMed"
+      }
+    ]
+  },
+  {
+    "pmid": "16977673",
+    "title": "The Addenbrooke's Cognitive Examination Revised (ACE-R): a brief cognitive test battery for dementia screening.",
+    "doi": "10.1002/gps.1610",
+    "openalex_api_url": "https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.1002%2Fgps.1610",
+    "open_access": {
+      "is_oa": false,
+      "oa_status": "closed",
+      "oa_url": null,
+      "any_repository_has_fulltext": false
+    },
+    "locations_checked": [
+      {
+        "landing_page_url": "https://doi.org/10.1002/gps.1610",
+        "pdf_url": null,
+        "is_oa": false,
+        "source": "International Journal of Geriatric Psychiatry"
+      },
+      {
+        "landing_page_url": "https://pubmed.ncbi.nlm.nih.gov/16977673",
+        "pdf_url": null,
+        "is_oa": false,
+        "source": "PubMed"
+      },
+      {
+        "landing_page_url": "https://ueaeprints.uea.ac.uk/id/eprint/80486/",
+        "pdf_url": null,
+        "is_oa": false,
+        "source": "UEA Digital Repository (University of East Anglia)"
+      }
+    ]
+  },
+  {
+    "pmid": "20220323",
+    "title": "Self-administered Gerocognitive Examination (SAGE): a brief cognitive assessment Instrument for mild cognitive impairment (MCI) and early dementia.",
+    "doi": "10.1097/WAD.0b013e3181b03277",
+    "openalex_api_url": "https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.1097%2FWAD.0b013e3181b03277",
+    "open_access": {
+      "is_oa": false,
+      "oa_status": "closed",
+      "oa_url": null,
+      "any_repository_has_fulltext": false
+    },
+    "locations_checked": [
+      {
+        "landing_page_url": "https://doi.org/10.1097/wad.0b013e3181b03277",
+        "pdf_url": null,
+        "is_oa": false,
+        "source": "Alzheimer Disease & Associated Disorders"
+      },
+      {
+        "landing_page_url": "https://pubmed.ncbi.nlm.nih.gov/20220323",
+        "pdf_url": null,
+        "is_oa": false,
+        "source": "PubMed"
+      }
+    ]
+  },
+  {
+    "pmid": "23949210",
+    "title": "Validation of the Addenbrooke's Cognitive Examination III in frontotemporal dementia and Alzheimer's disease.",
+    "doi": "10.1159/000351671",
+    "openalex_api_url": "https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.1159%2F000351671",
+    "open_access": {
+      "is_oa": false,
+      "oa_status": "closed",
+      "oa_url": null,
+      "any_repository_has_fulltext": false
+    },
+    "locations_checked": [
+      {
+        "landing_page_url": "https://doi.org/10.1159/000351671",
+        "pdf_url": null,
+        "is_oa": false,
+        "source": "Dementia and Geriatric Cognitive Disorders"
+      },
+      {
+        "landing_page_url": "https://pubmed.ncbi.nlm.nih.gov/23949210",
+        "pdf_url": null,
+        "is_oa": false,
+        "source": "PubMed"
+      }
+    ]
+  },
+  {
+    "pmid": "30047147",
+    "title": "The clock drawing test: A systematic review and meta-analysis of diagnostic accuracy.",
+    "doi": "10.1111/jan.13810",
+    "openalex_api_url": "https://api.openalex.org/works/https%3A%2F%2Fdoi.org%2F10.1111%2Fjan.13810",
+    "open_access": {
+      "is_oa": false,
+      "oa_status": "closed",
+      "oa_url": null,
+      "any_repository_has_fulltext": false
+    },
+    "locations_checked": [
+      {
+        "landing_page_url": "https://doi.org/10.1111/jan.13810",
+        "pdf_url": null,
+        "is_oa": false,
+        "source": "Journal of Advanced Nursing"
+      },
+      {
+        "landing_page_url": "https://pubmed.ncbi.nlm.nih.gov/30047147",
+        "pdf_url": null,
+        "is_oa": false,
+        "source": "PubMed"
+      }
+    ]
+  }
+]

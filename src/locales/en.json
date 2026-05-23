@@ -95,7 +95,57 @@
       "speak": "Repeat aloud",
       "listening": "Listening...",
       "doneSpeaking": "I finished speaking",
-      "drawingArea": "Drawing area"
+      "drawingArea": "Drawing area",
+      "wordRecallEncodeGuide": "Remember each word together with its category. You will choose the same words again later.",
+      "wordRecallRecallGuide": "Choose the {{count}} words you saw at the beginning. Mistakes are stored only as practice-flow records.",
+      "wordRecallCueLabel": "Categories shown earlier",
+      "wordRecallFreeLabel": "Words remembered first",
+      "wordRecallFreePlaceholder": "Example: pencil, apple, bus",
+      "wordRecallFreeHelper": "Write the words that come to mind first, then confirm with the choices below.",
+      "workingMemory": "Working Memory Practice",
+      "digitSpanForwardGuide": "Remember the numbers in order.",
+      "digitSpanBackwardGuide": "Look at the numbers in order, then tap them backward on the next screen.",
+      "startAnswer": "Start tapping",
+      "backspace": "Delete one",
+      "verbalFluency": "Verbal Fluency Practice",
+      "category": "Category",
+      "verbalFluencyGuide": "This is not a scored test. It is a routine for recalling words within one category.",
+      "verbalFluencyIntro": "The timer will start when you begin. Type words separated by commas, or say them aloud and enter what you remember.",
+      "wordInputLabel": "Words you recalled",
+      "wordInputPlaceholder": "Example: cat, dog, elephant",
+      "addWords": "Add words",
+      "enteredWords": "Entered words",
+      "removeWord": "Remove {{word}}",
+      "uniqueWords": "Unique words",
+      "repeatedWords": "Repeated words",
+      "startFluency": "Start",
+      "finishFluency": "Save and continue",
+      "saveFluency": "Save record",
+      "trailSwitching": "Attention Switching Practice",
+      "trailGuide": "Use the current cue and alternate between numbers and pictures. If you tap the wrong item, you can continue right away.",
+      "trailCurrentTarget": "Next cue",
+      "trailErrors": "Retaps",
+      "trailWrongNode": "Try the displayed next cue instead of {{label}}.",
+      "restartTrail": "Start over",
+      "trailNodeAria": "Tap {{label}}",
+      "orientation": "Date Awareness Practice",
+      "orientationGuide": "This is not a scored test. It is a light routine for checking today's date and weekday at the start of the day.",
+      "orientationTodayLabel": "What to check today",
+      "orientationTodayHelper": "Date and weekday",
+      "colorFocus": "Color Focus Practice",
+      "stroopGuide": "Read slowly and tap the visible ink color, not the meaning of the word. This is a light attention routine, not a medical test.",
+      "stroopProgress": "Card {{progress}}",
+      "stroopWordAria": "Color word {{word}}",
+      "stroopComplete": "Color routine complete",
+      "stroopCorrect": "Focused taps",
+      "stroopRetries": "Other taps",
+      "stroopEmpty": "No color cards are ready for this routine.",
+      "colors": {
+        "red": "Red",
+        "blue": "Blue",
+        "green": "Green",
+        "yellow": "Yellow"
+      }
     }
   },
   "lesson": {
@@ -158,6 +208,32 @@
     "conversation": {
       "noPrivateDetailsNote": "Personal memories that the user did not share are not shown in caregiver or counselor views."
     },
+    "observation": {
+      "title": "Caregiver Observation Notes",
+      "body": "If family members notice changes over the last few weeks or months, record a short note before the next conversation.",
+      "domainLabel": "Observation domains",
+      "noteLabel": "Note",
+      "notePlaceholder": "Example: Appointment times need more reminders, but the walking routine is still steady.",
+      "save": "Save observation note",
+      "latestTitle": "Latest note: {{date}}",
+      "counselorTitle": "Recent caregiver observation",
+      "supportNote": "This is not a diagnostic score. It is a caregiver note for organizing everyday changes before a care conversation.",
+      "latestResponse": "{{domain}}: {{response}}",
+      "responses": {
+        "aboutSame": "about the same",
+        "occasionallyDifferent": "occasionally different",
+        "oftenDifferent": "often different",
+        "notSure": "not sure"
+      },
+      "domains": {
+        "dailyRoutine": "familiar routines",
+        "conversation": "conversation flow",
+        "appointments": "appointments",
+        "navigation": "finding places",
+        "medicationMoney": "medicine and money",
+        "moodSocial": "mood and social activity"
+      }
+    },
     "report": {
       "noPracticeDate": "No record",
       "routineTrendUp": "Participation in the last 7 days is higher than the previous 7 days. Continue with gentle encouragement.",
@@ -172,13 +248,31 @@
         "routineMomentum": "Recent participation is increasing, so brief encouragement may help.",
         "gentleStart": "There is limited data so far. Support a comfortable start rather than evaluation."
       },
+      "activityHighlightsTitle": "Recent Activity Cues",
+      "activityHighlights": {
+        "wordRecall": "In the latest word-recall routine, {{count}} word(s) were selected again.",
+        "digitSpan": "The latest number-memory routine reached {{length}} digit(s).",
+        "verbalFluency": "The latest category-speaking routine recorded {{count}} unique word(s).",
+        "trail": "The latest attention-switching routine had {{count}} retry tap(s).",
+        "stroop": "The latest color-focus routine recorded {{correctCount}} focused tap(s), {{errorCount}} other tap(s), and an average response of about {{averageSeconds}} second(s).",
+        "orientation": "The latest date-awareness routine checked today's date and weekday.",
+        "drawing": "The latest drawing routine recorded {{strokeCount}} stroke(s) over about {{seconds}} second(s).",
+        "fallback": "There are recent activity records, but detailed cues are still limited."
+      },
       "nextTopics": {
         "shareableSeed": "Start by saving one short memory the user is comfortable sharing.",
         "topic": "Prepare a light question from {{count}} saved memory item(s) about {{topic}}.",
         "reviewDue": "{{count}} memory card(s) are due today and can be used as conversation starters.",
         "routineConsistency": "If participation decreased, suggest restarting with the easiest activity rather than asking why.",
         "routineMomentum": "Recent participation is increasing. Encourage the same short routine at a familiar time.",
-        "prepareConversation": "Use shared memories to ask about one specific scene before the conversation."
+        "prepareConversation": "Use shared memories to ask about one specific scene before the conversation.",
+        "observationDailyRoutine": "Ask which familiar routine still feels easiest, and which step may need a small cue.",
+        "observationConversation": "Prepare slower, concrete questions if recent conversation flow looked different.",
+        "observationAppointments": "Check whether calendar reminders, appointment cards, or a same-day call would help.",
+        "observationNavigation": "Ask about familiar places and plan one simple route cue together.",
+        "observationMedicationMoney": "Review whether medicine, bills, or payment steps need a shared checklist.",
+        "observationMoodSocial": "Prepare a gentle question about mood, contact with others, or activities they still enjoy.",
+        "observationUncertain": "For areas marked not sure, use a neutral check-in question rather than drawing conclusions."
       },
       "activityBadge": "30-day activity summary"
     },

@@ -12,7 +12,7 @@ The app teaches short cultural language concepts such as four-character idioms, 
 
 ## 1. Product Design Goal
 
-The interface should feel like a friendly daily lesson game, not a medical test.
+The learner-facing interface should feel like a friendly daily lesson game, not a medical test. Haru may still include an evidence-informed advisory layer in caregiver/counselor/report contexts when it is clearly labeled as Haru's own support signal, not as a formal clinical diagnosis.
 
 The user should be able to complete one session in 5 to 10 minutes with almost no typing. Most actions should be taps, selections, matching gestures, or simple voice responses. The core loop is:
 
@@ -36,6 +36,26 @@ The design should optimize for:
 6. Emotional comfort.
 7. Habit formation through streaks, progress, and small rewards.
 8. Personal memory reinforcement without making the user feel examined.
+
+### 1.1 Evidence-Informed Advisory Layer
+
+Haru should not be so defensive that it avoids useful interpretation. The product may combine credible medical and cognitive-science references with Haru's own repeated routine data to create a transparent advisory model.
+
+Allowed design direction:
+
+1. Show a first-run or startup notice explaining that Haru's advisory output is not a medical diagnosis, official screening result, treatment, or prevention claim.
+2. Use Haru-specific labels such as attention level, conversation-needed signal, watch area, or expert-consultation consideration.
+3. Explain the contributing signals in plain language: routine consistency, delayed recall changes, attention response patterns, drawing telemetry, verbal fluency, memory review changes, and caregiver observations.
+4. Keep richer advisory content in family/caregiver/counselor/report screens rather than interrupting the older adult's daily lesson.
+5. Recommend professional consultation when repeated patterns or caregiver observations make that appropriate.
+
+Still avoid:
+
+1. Official test names as product scores.
+2. Medicalized disease labels.
+3. Single-session disease predictions.
+4. Clinical cutoffs copied from official tests.
+5. Claims that Haru is clinically validated unless future Haru validation data exists.
 
 ---
 
@@ -143,7 +163,7 @@ Avoid:
 1. Public leaderboards in the MVP.
 2. Aggressive loss aversion.
 3. Punishing the user for memory mistakes.
-4. Medicalized scores.
+4. Medicalized official scores. Haru-specific advisory levels are acceptable in report contexts when they are explainable and clearly limited.
 
 ### 2.5 Guided path over open menu
 
@@ -210,7 +230,8 @@ Simple
 Optimistic
 Culturally familiar
 Trustworthy
-Non-medical
+Evidence-informed
+Non-clinical in learner screens
 ```
 
 It should not feel:

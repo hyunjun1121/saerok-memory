@@ -1,5 +1,9 @@
 ﻿import type { MemoryCard } from "../memory/types";
 import type { RoutineResult } from "../cognitive/cognitiveRoutineStorage";
+import type {
+  CaregiverObservationDomain,
+  CaregiverObservationRecord,
+} from "./caregiverObservationStorage";
 
 export interface ReportCopyItem {
   key: string;
@@ -34,6 +38,7 @@ export interface CaregiverCounselorReport {
   routineTrend: RoutineParticipationSummary;
   dueMemoryCount: number;
   shareableMemoryCount: number;
+  activityHighlights: ReportCopyItem[];
   conversationCues: ReportCopyItem[];
   strengths: ReportCopyItem[];
   suggestedNextConversationTopics: ReportCopyItem[];
@@ -54,6 +59,15 @@ const SAFETY_COPY_KEYS = [
   "exercise.memory.story.privacy",
 ];
 
+const OBSERVATION_TOPIC_KEY_MAP: Record<CaregiverObservationDomain, string> = {
+  dailyRoutine: "family.report.nextTopics.observationDailyRoutine",
+  conversation: "family.report.nextTopics.observationConversation",
+  appointments: "family.report.nextTopics.observationAppointments",
+  navigation: "family.report.nextTopics.observationNavigation",
+  medicationMoney: "family.report.nextTopics.observationMedicationMoney",
+  moodSocial: "family.report.nextTopics.observationMoodSocial",
+};
+
 function parseIsoDate(value?: string): number | null {
   if (!value) {
     return null;
@@ -72,6 +86,132 @@ function addReportItemIfMissing(items: ReportCopyItem[], item: ReportCopyItem): 
   if (!items.some((existing) => JSON.stringify(existing) === serialized)) {
     items.push(item);
   }
+}
+
+function getMetadataNumber(result: RoutineResult | undefined, key: string): number | null {
+  const value = result?.metadata?.[key];
+  return typeof value === "number" && Number.isFinite(value) ? value : null;
+}
+
+function getLatestCompletedResult(
+  routineResults: RoutineResult[],
+  type: RoutineResult["type"],
+  now: Date,
+): RoutineResult | undefined {
+  const nowTime = now.getTime();
+
+  return routineResults
+    .filter((result) => result.type === type && result.completed)
+    .map((result) => ({
+      result,
+      timestamp: parseIsoDate(result.timestamp),
+    }))
+    .filter((entry): entry is { result: RoutineResult; timestamp: number } =>
+      entry.timestamp !== null && entry.timestamp <= nowTime,
+    )
+    .sort((a, b) => b.timestamp - a.timestamp)[0]?.result;
+}
+
+function buildActivityHighlights(routineResults: RoutineResult[], now: Date): ReportCopyItem[] {
+  const highlights: ReportCopyItem[] = [];
+  const latestWordRecall = getLatestCompletedResult(routineResults, "delayed_word_recall", now);
+  const latestDigitSpan = getLatestCompletedResult(routineResults, "digit_span_practice", now);
+  const latestVerbalFluency = getLatestCompletedResult(routineResults, "verbal_fluency_practice", now);
+  const latestTrail = getLatestCompletedResult(routineResults, "trail_switching_practice", now);
+  const latestStroop = getLatestCompletedResult(routineResults, "stroop_touch_practice", now);
+  const latestOrientation = getLatestCompletedResult(routineResults, "orientation_practice", now);
+  const latestDrawing = getLatestCompletedResult(routineResults, "shape_copy_practice", now);
+
+  const wordRecallCorrect =
+    getMetadataNumber(latestWordRecall, "correctCount") ??
+    getMetadataNumber(latestWordRecall, "wordRecallCorrect");
+  if (wordRecallCorrect !== null) {
+    addReportItemIfMissing(highlights, {
+      key: "family.report.activityHighlights.wordRecall",
+      values: {
+        count: wordRecallCorrect,
+      },
+    });
+  }
+
+  const digitSpanLength = getMetadataNumber(latestDigitSpan, "spanLength") ?? getMetadataNumber(latestDigitSpan, "digitSpanLength");
+  if (digitSpanLength !== null) {
+    addReportItemIfMissing(highlights, {
+      key: "family.report.activityHighlights.digitSpan",
+      values: {
+        length: digitSpanLength,
+      },
+    });
+  }
+
+  const verbalFluencyUnique =
+    getMetadataNumber(latestVerbalFluency, "uniqueCount") ??
+    getMetadataNumber(latestVerbalFluency, "verbalFluencyUniqueCount");
+  if (verbalFluencyUnique !== null) {
+    addReportItemIfMissing(highlights, {
+      key: "family.report.activityHighlights.verbalFluency",
+      values: {
+        count: verbalFluencyUnique,
+      },
+    });
+  }
+
+  const trailErrors = getMetadataNumber(latestTrail, "errorCount") ?? getMetadataNumber(latestTrail, "trailSwitchingErrors");
+  if (trailErrors !== null) {
+    addReportItemIfMissing(highlights, {
+      key: "family.report.activityHighlights.trail",
+      values: {
+        count: trailErrors,
+      },
+    });
+  }
+
+  const stroopCorrect = getMetadataNumber(latestStroop, "correctCount");
+  const stroopErrors = getMetadataNumber(latestStroop, "errorCount");
+  const stroopAverageResponseMs = getMetadataNumber(latestStroop, "averageResponseMs");
+  if (stroopCorrect !== null || stroopErrors !== null || stroopAverageResponseMs !== null) {
+    addReportItemIfMissing(highlights, {
+      key: "family.report.activityHighlights.stroop",
+      values: {
+        correctCount: stroopCorrect ?? "-",
+        errorCount: stroopErrors ?? "-",
+        averageSeconds:
+          stroopAverageResponseMs !== null
+            ? Math.max(0, Math.round(stroopAverageResponseMs / 100) / 10)
+            : "-",
+      },
+    });
+  }
+
+  if (latestOrientation) {
+    addReportItemIfMissing(highlights, {
+      key: "family.report.activityHighlights.orientation",
+    });
+  }
+
+  const drawingStrokeCount =
+    getMetadataNumber(latestDrawing, "strokeCount") ??
+    getMetadataNumber(latestDrawing, "drawingStrokeCount");
+  const drawingDurationMs =
+    getMetadataNumber(latestDrawing, "drawingDurationMs") ??
+    getMetadataNumber(latestDrawing, "durationMs");
+  if (drawingStrokeCount !== null || drawingDurationMs !== null) {
+    addReportItemIfMissing(highlights, {
+      key: "family.report.activityHighlights.drawing",
+      values: {
+        strokeCount: drawingStrokeCount ?? "-",
+        seconds: drawingDurationMs !== null ? Math.round(drawingDurationMs / 1000) : "-",
+      },
+    });
+  }
+
+  if (highlights.length === 0 && routineResults.length > 0) {
+    addReportItemIfMissing(highlights, {
+      key: "family.report.activityHighlights.fallback",
+    });
+  }
+
+  return highlights.slice(0, 5);
 }
 
 function buildConversationCues(cards: MemoryCard[]): ReportCopyItem[] {
@@ -272,13 +412,65 @@ function buildStrengths(
   return strengths;
 }
 
+function getLatestCaregiverObservation(
+  observationRecords: CaregiverObservationRecord[],
+  now: Date,
+): CaregiverObservationRecord | undefined {
+  const nowTime = now.getTime();
+
+  return observationRecords
+    .map((record) => ({
+      record,
+      timestamp: parseIsoDate(record.createdAt),
+    }))
+    .filter((entry): entry is { record: CaregiverObservationRecord; timestamp: number } =>
+      entry.timestamp !== null && entry.timestamp <= nowTime,
+    )
+    .sort((a, b) => b.timestamp - a.timestamp)[0]?.record;
+}
+
+function buildObservationSuggestedTopics(
+  observationRecords: CaregiverObservationRecord[],
+  now: Date,
+): ReportCopyItem[] {
+  const latestObservation = getLatestCaregiverObservation(observationRecords, now);
+  const suggestions: ReportCopyItem[] = [];
+
+  if (!latestObservation) {
+    return suggestions;
+  }
+
+  latestObservation.selectedDomains.forEach((domain) => {
+    const response = latestObservation.domainResponses[domain];
+
+    if (!response || response === "aboutSame") {
+      return;
+    }
+
+    addReportItemIfMissing(suggestions, {
+      key:
+        response === "notSure"
+          ? "family.report.nextTopics.observationUncertain"
+          : OBSERVATION_TOPIC_KEY_MAP[domain],
+    });
+  });
+
+  return suggestions.slice(0, 3);
+}
+
 function buildSuggestedTopics(
   cards: MemoryCard[],
   overview: CaregiverCounselorOverview,
-  routineTrend: RoutineParticipationSummary
+  routineTrend: RoutineParticipationSummary,
+  observationRecords: CaregiverObservationRecord[],
+  now: Date,
 ): ReportCopyItem[] {
   const shareableCards = cards.filter((card) => card.shareWithFamily);
   const suggestions: ReportCopyItem[] = [];
+
+  buildObservationSuggestedTopics(observationRecords, now).forEach((item) =>
+    addReportItemIfMissing(suggestions, item),
+  );
 
   if (shareableCards.length === 0) {
     addReportItemIfMissing(suggestions, {
@@ -287,7 +479,6 @@ function buildSuggestedTopics(
         fallback: "Start by saving one short memory with sharing enabled.",
       },
     });
-    return suggestions;
   }
 
   const topicCounts = new Map<string, number>();
@@ -344,10 +535,12 @@ function buildSuggestedTopics(
 export function generateCaregiverCounselorReport(
   memoryCards: MemoryCard[],
   routineResults: RoutineResult[],
-  now = new Date()
+  now = new Date(),
+  caregiverObservationRecords: CaregiverObservationRecord[] = [],
 ): CaregiverCounselorReport {
   const safeCards = memoryCards ?? [];
   const safeRoutineResults = routineResults ?? [];
+  const safeCaregiverObservationRecords = caregiverObservationRecords ?? [];
 
   const dueMemoryCards = safeCards.filter((card) => {
     const dueAt = parseIsoDate(card.reviewState?.dueAt);
@@ -399,11 +592,14 @@ export function generateCaregiverCounselorReport(
   };
 
   const conversationCues = buildConversationCues(safeCards);
+  const activityHighlights = buildActivityHighlights(safeRoutineResults, now);
   const strengths = buildStrengths(overview, routineParticipation);
   const suggestedNextConversationTopics = buildSuggestedTopics(
     safeCards,
     overview,
-    routineParticipation
+    routineParticipation,
+    safeCaregiverObservationRecords,
+    now,
   );
 
   return {
@@ -411,6 +607,7 @@ export function generateCaregiverCounselorReport(
     routineTrend: routineParticipation,
     dueMemoryCount: dueMemoryCards.length,
     shareableMemoryCount: shareableMemoryCards.length,
+    activityHighlights,
     conversationCues,
     strengths,
     suggestedNextConversationTopics,

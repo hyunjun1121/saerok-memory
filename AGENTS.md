@@ -10,7 +10,7 @@ Haru, formerly developed as Memory Garden, is a Duolingo-style daily cognitive a
 
 The app helps users complete short, friendly daily routines that can accumulate into a sense of progress. It combines cultural language learning, recall practice, personal memory cues, gentle cognitive routines, garden-like rewards, and family/caregiver support.
 
-The product should feel like a warm daily routine, not a hospital exam. It must not present itself as a dementia diagnosis, dementia screening, medical treatment, prevention tool, or clinical scoring system.
+The product should feel like a warm daily routine, not a hospital exam. It may provide Haru-branded, evidence-informed attention/risk insights when they are transparently based on Haru's own repeated routine data, memory-cue patterns, and caregiver observations. It must not present those insights as a formal medical diagnosis, official dementia-screening result, treatment, prevention claim, or official clinical score.
 
 ## Current Product Direction
 
@@ -19,7 +19,28 @@ The product should feel like a warm daily routine, not a hospital exam. It must 
 - Japanese meaning: `はる` or `春`, spring, warmth, and a new beginning.
 - Preferred product framing: a daily memory and cognitive routine that helps older adults revisit their day, preserve personal memory cues, and create conversation material for families or care professionals.
 - Learner-facing screens should remain mobile-first, friendly, sparse, and click-first.
-- Caregiver/counselor-facing screens may be denser, but must remain non-medical and non-alarming.
+- Caregiver/counselor-facing screens may be denser and may include Haru's own advisory attention/risk levels, but they must remain calm, explainable, and clearly distinct from formal clinical diagnosis or official screening.
+
+## Evidence-Informed Advisory Direction
+
+The product direction is no longer purely defensive. Haru should make reasonable, useful decisions from credible medical and cognitive-science references, while being honest about what has and has not been clinically validated.
+
+Allowed direction:
+
+- Build Haru's own longitudinal attention/risk framework using multiple weak signals rather than one raw score.
+- Combine repeated routine participation, delayed recall metadata, attention/color-focus metadata, digit span or number-pattern metadata, verbal fluency counts, drawing telemetry, memory-review changes, and caregiver observation domains.
+- Show these as Haru advisory levels such as `steady`, `watch`, or `needs conversation`, or equivalent localized labels.
+- Explain which signals contributed to the level in plain language.
+- Show a startup or first-run disclaimer that Haru's advisory output is for routine support and conversation preparation, not a medical diagnosis.
+- Recommend professional consultation when patterns are consistently concerning or when family/caregiver observations raise concern.
+
+Required guardrails:
+
+- Do not call Haru's advisory level an MMSE, MoCA, CIST, K-MMSE, AD8, GPCOG, TICS, SAGE, SLUMS, ACE-III, or official clinical score.
+- Do not copy official forms, item wording, copyrighted stimuli, scoring rubrics, cutoffs, or interpretation tables.
+- Do not claim clinical validation, sensitivity, specificity, disease detection, treatment, or prevention unless a future validated Haru study actually supports it.
+- Do not produce a single deterministic disease label from one session.
+- Keep the learner-facing flow supportive; place richer risk/explanation content mainly in caregiver/counselor/report contexts.
 
 ## Tech Stack
 
@@ -126,7 +147,7 @@ Before finishing:
 
 Use these prompt files when the user asks Jules to continue related work:
 
-- `피우다프로젝트/jules_cognitive_features_prompt.md` - cognitive routine MVP, personal memory cue strengthening, non-diagnostic routine storage.
+- `피우다프로젝트/jules_cognitive_features_prompt.md` - cognitive routine MVP, personal memory cue strengthening, and Haru-specific advisory/risk storage direction.
 - `피우다프로젝트/jules_clarification_response.md` - clarification response for the cognitive routine task.
 - `jules_caregiver_counselor_dashboard_prompt.md` - Haru visual asset integration and family/caregiver/counselor report screen upgrade.
 
@@ -240,7 +261,7 @@ The app may include gentle cognitive routines inspired by broad cognitive domain
 - visuospatial drawing practice
 - personal memory recognition
 
-These routines must be original, lightweight, and non-diagnostic.
+These routines must be original and lightweight. They can feed Haru's own evidence-informed advisory/risk model, but the routines must not be presented as official clinical tests or scored with official medical cutoffs.
 
 Suggested MVP exercise families:
 
@@ -251,6 +272,71 @@ Suggested MVP exercise families:
 - structured personal memory cue creation and later recognition review
 
 Use local storage for lightweight routine completion records, for example `cognitiveRoutineResults`.
+
+## Cognitive Reference Archive
+
+The project now has a local evidence archive at `cognitve-reference/`, built from `deep-research-report.md`.
+
+Important files:
+
+- `deep-research-report.md` - synthesized product analysis and priority roadmap.
+- `cognitve-reference/README.md` - archive status, folder layout, limitations, and counts.
+- `cognitve-reference/metadata/download_manifest.csv` - authoritative manifest of downloaded PDFs, data, metadata, saved pages, cloned repositories, and restricted/failed items.
+- `cognitve-reference/metadata/report_url_coverage.csv` - maps every report URL to a local artifact or explicit non-download record.
+- `cognitve-reference/papers/` - public paper PDFs that were successfully downloaded.
+- `cognitve-reference/official-tools/` - publicly available forms or guide PDFs for reference only; do not copy official item content into the app without license and expert review.
+- `cognitve-reference/data/ncpt_zenodo_7249732/` - public cognitive-performance dataset files and norms from Zenodo, useful for offline analysis and reporting-pattern experiments.
+- `cognitve-reference/code/` - public GitHub repositories cloned as implementation references only. These are not proof of clinical validity.
+- `cognitve-reference/web-pages/` - saved official/commercial/fallback pages when direct PDFs were unavailable.
+
+Use the archive this way:
+
+- Treat `deep-research-report.md` as the product-level synthesis: it prioritizes informant observation, five-word delayed recall, generic digit span, semantic verbal fluency, TMT-lite, dCDT-like drawing telemetry, TICS/GPCOG-style remote and caregiver flows, and touch Stroop.
+- Use papers and official pages to justify broad cognitive domains and product rationale, not to reproduce official instruments.
+- Use official-tool PDFs only to understand high-level task families, workflow constraints, and licensing/medical-risk boundaries. Do not copy prompts, item lists, layouts, scoring rubrics, cutoffs, or interpretations.
+- Use cloned repositories to learn generic task mechanics such as touch trails, Stroop timing, or drawing telemetry. Do not assume their code is clinically validated.
+- Use NCPT/Zenodo data for offline exploratory analytics, demo reporting patterns, and Haru-specific model design. Do not present external population norms, percentile labels, or clinical interpretations as if they directly validate Haru until a separate validation plan exists.
+- Any public factual claim in README, grant text, product copy, or documentation must be traceable to `download_manifest.csv`, a saved source file, or a newly inspected authoritative source.
+- If a referenced source is marked `not_downloaded`, do not claim the PDF was archived. Use the saved metadata/page fallback and state limitations plainly.
+
+Recommended product application:
+
+- Implement original Haru micro-routines that reflect cognitive domains rather than official test clones.
+- Store activity metadata such as response time, retry count, selected options, word count, drawing stroke count, hesitation-like timing, and caregiver observation domains.
+- Present results as daily activity records, supportive conversation cues, and routine participation trends.
+- Avoid diagnostic labels, clinical cutoffs, official test names in result labels, and medical scoring.
+- Haru-specific advisory flags are allowed when they are explainable, longitudinal, and clearly labeled as Haru's own support signal.
+- Route potentially concerning patterns to actionable wording such as “prepare a conversation,” “consider a professional consultation for medical concerns,” or “try a simpler routine next time.”
+
+## Current In-Progress Work Ledger
+
+Status as of 2026-05-23 20:00 KST: All planned cognitive screening features and caregiver observation capabilities have been fully implemented, integrated, and validated.
+
+Features completed and verified:
+
+- **Original Haru Cognitive Routines**: Inspired by evidence but designed as non-diagnostic:
+  - `delayed_word_recall` (5-word delayed recall with category cues, encoding, free recall text input, and recognition check)
+  - `digit_span_practice` (Working memory span practice, both forward and backward modes)
+  - `verbal_fluency_practice` (Category verbal fluency practice with a 30s timer, unique/repetition counting)
+  - `trail_switching_practice` (Set-shifting/attention switching practice, TMT-lite)
+  - `stroop_touch_practice` (Attention/color-focus selective attention practice)
+  - `orientation_practice` (Date/weekday orientation verification)
+  - `shape_copy_practice` (Visuospatial follow-drawing with telemetry recording)
+- **Caregiver Observations**: `caregiverObservationRecords` storage containing domain-specific status and notes.
+- **Supporter Reports**: Caregiver/Counselor dashboard tabs on `/family` displaying participation metrics, trends, strengths, activity highlights, and suggested next-conversation topics derived from caregiver observations and shared memories.
+- **Disclaimers & Safety**: Safety and privacy disclaimers displayed in the learner-facing instructions and caregiver report screens to ensure no diagnostic interpretation is implied.
+
+Validation results:
+
+- `npm run typecheck` passed (strict TypeScript).
+- `npm run lint` passed (code style & rules).
+- `npm run test` passed (76 tests in 25 test files).
+- `npm run build` passed (production build verification).
+
+Known remaining roadmap work:
+- Advanced visual polish for new cognitive routines.
+- Enhanced speech synthesis/recognition integration using browser speech APIs where supported.
+- Setup validation for clinical collaboration trials using anonymized telemetry.
 
 ## Caregiver And Counselor Screens
 
@@ -268,13 +354,13 @@ Allowed summaries:
 
 Do not show private memory details unless `shareWithFamily === true`.
 
-Do not show diagnostic categories, disease risk, medical scores, or alarming trend labels.
+Do not show diagnostic categories, official disease-risk estimates, medical scores, or alarming trend labels. Haru-specific advisory attention/risk levels are allowed if they are transparent, longitudinal, non-clinical, and paired with a disclaimer and next-step guidance.
 
 Frame any lower performance or missed item as a practice support need, not as impairment.
 
 ## Medical And Copyright Safety
 
-This app must not copy, implement, score, or market itself as MMSE, K-MMSE, MoCA, CIST, or any other official cognitive screening instrument.
+This app must not copy, implement, score, or market itself as MMSE, K-MMSE, MoCA, CIST, or any other official cognitive screening instrument. It may implement original routines inspired by broad cognitive domains and may calculate Haru's own advisory support/risk index from repeated data.
 
 Do not reproduce:
 
@@ -310,10 +396,13 @@ Use safe language such as:
 - speech practice
 - family conversation cue
 - activity report
+- Haru advisory insight
+- attention level
+- conversation-needed signal
 - not a medical test
 - consult a healthcare professional for medical concerns
 
-Low performance in the app must never be presented as a diagnosis or risk label.
+Low performance in a single app session must never be presented as a diagnosis. Repeated low performance, changed patterns, or caregiver concerns may contribute to a Haru-specific advisory level if the UI explains the basis and limits.
 
 ## Privacy And Family Sharing
 
@@ -321,7 +410,7 @@ Memory cards are private by default.
 
 - `shareWithFamily` must default to `false`.
 - Do not show personal memory details on family/caregiver/counselor screens unless the card is explicitly shareable.
-- Family-facing summaries should be non-medical and non-alarming.
+- Family-facing summaries should be evidence-informed, non-alarming, and clearly separated from official diagnosis or clinical screening.
 - Prefer summaries such as completed routines, due memory cues, and conversation prompts.
 - Settings must let users delete locally stored personal memory and cognitive routine data.
 - If future backend storage is added, require explicit consent, access control, deletion, and privacy copy.
@@ -340,7 +429,7 @@ Use them defensively:
 
 ## Out Of Scope Unless Explicitly Requested
 
-- Medical diagnosis or clinical scoring
+- Medical diagnosis, official clinical scoring, or official screening-result claims
 - Official cognitive-screening instrument reproduction
 - Facial recognition
 - Automatic family relation inference

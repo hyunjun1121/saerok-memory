@@ -25,7 +25,7 @@ This is a React 18 + TypeScript + Vite app for older adults. The product is now 
 - Each day feels like a small milestone that accumulates into visible progress.
 - The learner-facing flow should remain light, friendly, non-punitive, and Duolingo-like.
 - Family members, caregivers, or counselors should be able to view a separate report-style screen that helps them understand activity patterns and choose conversation topics.
-- The app must not present itself as a medical device, dementia screening test, diagnostic test, treatment, prevention tool, or clinical scoring system.
+- The app may include Haru's own evidence-informed advisory attention/risk levels in caregiver/counselor/report contexts. It must not present those levels as a medical device output, official dementia screening result, diagnostic test, treatment, prevention tool, or official clinical score.
 
 ## Required Inputs To Inspect First
 
@@ -76,6 +76,8 @@ For family, caregiver, and counselor views, desktop/tablet density may be higher
 
 ## Medical And Safety Constraints
 
+This task should follow the updated product direction: Haru should not be so defensive that it avoids all useful interpretation. It can provide Haru-specific advisory signals if they are based on local routine data, memory patterns, and caregiver observations, and if the UI clearly explains that these are not medical diagnoses or official screening results.
+
 Do not use or display:
 
 - dementia diagnosis
@@ -102,10 +104,14 @@ Use safe wording such as:
 - activity report
 - conversation cue
 - care conversation support
+- Haru advisory insight
+- attention level
+- conversation-needed signal
+- expert consultation consideration
 - not a medical test
 - consult a healthcare professional for medical concerns
 
-Low performance must never be presented as diagnosis, risk labeling, or decline labeling. Avoid alarming trend charts. If a trend is shown, frame it as activity consistency or routine participation, not disease progression.
+Low performance from a single session must never be presented as diagnosis or disease progression. Repeated patterns may feed a Haru-specific advisory level when the report explains the contributing signals and pairs the output with a first-run/startup disclaimer.
 
 ## Scope A: Finish Haru Visual Asset Integration
 
@@ -149,7 +155,7 @@ Keep the UI professional and restrained. Do not create nested decorative cards. 
 
 ## Scope B: Add A Family, Caregiver, And Counselor Report View
 
-The existing `/family` route is currently closer to a guardian invite or simple summary screen. Upgrade it into a more useful non-medical support screen.
+The existing `/family` route is currently closer to a guardian invite or simple summary screen. Upgrade it into a more useful evidence-informed support screen with Haru-specific advisory insight, while avoiding official diagnosis or clinical-score framing.
 
 The screen should serve two audiences:
 
@@ -203,12 +209,14 @@ Show safe, useful summaries such as:
 
 The counselor view must not:
 
-- calculate dementia risk
+- calculate an official dementia-risk estimate
 - infer a diagnosis
 - show a medical score
 - claim clinical validity
 - reveal private stories unless shareable
 - overstate data quality
+
+The counselor view may calculate or display a Haru-specific advisory attention/risk level if it is clearly labeled as Haru's own support signal, not a clinical dementia-risk estimate. The explanation should show contributing factors such as routine consistency, delayed recall, attention/color-focus, drawing telemetry, memory-review changes, and caregiver observations.
 
 Recommended safe labels:
 
@@ -220,6 +228,10 @@ Recommended safe labels:
 - Notes for the next conversation
 - Local demo data only
 - Not a medical test
+- Haru advisory level
+- Watch area
+- Conversation recommended
+- Consider professional consultation
 
 ### Conversation Cue Logic
 
@@ -258,7 +270,7 @@ Suggested tests:
 - family/counselor screen summarizes local routine results
 - private memory details are not shown when `shareWithFamily` is false
 - shareable memory cue can appear as a conversation cue
-- counselor view uses non-diagnostic language
+- counselor view avoids official diagnostic language while allowing Haru-specific advisory wording
 - helper functions tolerate missing or invalid local data
 
 Prefer React Testing Library and Vitest consistent with the repository.

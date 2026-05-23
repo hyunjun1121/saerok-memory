@@ -1,6 +1,11 @@
 export type RoutineType =
   | "delayed_word_recall"
   | "attention_pattern"
+  | "digit_span_practice"
+  | "verbal_fluency_practice"
+  | "trail_switching_practice"
+  | "stroop_touch_practice"
+  | "orientation_practice"
   | "shape_copy_practice"
   | "speech_repeat_practice";
 

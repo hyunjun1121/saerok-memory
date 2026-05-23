@@ -12,14 +12,14 @@ The intended product direction is:
 
 - Keep the friendly, lightweight, non-punitive learning flow.
 - Make personal memory questions meaningful by storing selected personal cues and asking about them again after time has passed.
-- Add cognitive-routine exercises inspired by cognitive screening domains, but do not implement, copy, score, or market the app as an MMSE, K-MMSE, MoCA, CIST, or any medical diagnostic test.
+- Add cognitive-routine exercises inspired by cognitive screening domains. These routines may feed Haru's own evidence-informed advisory attention/risk model, but do not implement, copy, score, or market the app as an MMSE, K-MMSE, MoCA, CIST, or any official medical diagnostic test.
 - Avoid product naming decisions. Do not rename the app, brand, routes, or application documents in this task.
 
 ## Important Medical and Copyright Constraints
 
 Do not reproduce official MMSE forms, exact scoring, total 30-point interpretation, official stimuli, official instructions, or copyrighted layouts.
 
-Do not claim that the app diagnoses, screens, prevents, treats, or detects dementia.
+Do not claim that the app diagnoses, officially screens, prevents, treats, or detects dementia. It is acceptable to build Haru-specific advisory signals from repeated app data if the app shows a startup/first-run disclaimer and clearly says the signal is not a medical diagnosis or official screening result.
 
 Use safe wording in UI copy such as:
 
@@ -29,6 +29,10 @@ Use safe wording in UI copy such as:
 - attention practice
 - drawing practice
 - family conversation cue
+- Haru advisory level
+- attention/risk insight
+- conversation-needed signal
+- expert-consultation consideration
 - not a medical test
 - consult a healthcare professional for medical concerns
 
@@ -41,7 +45,7 @@ Do not use wording such as:
 - normal / mild / moderate / severe dementia
 - medical grade assessment
 
-The implementation may be inspired by public descriptions of cognitive domains such as delayed recall, attention/calculation, language repetition, and visuospatial drawing, but it must be original, gentle, and non-diagnostic.
+The implementation may be inspired by public descriptions of cognitive domains such as delayed recall, attention/calculation, language repetition, and visuospatial drawing, but it must be original, gentle, and separate from official clinical tests. Haru may aggregate those routine signals into its own advisory model when the output is explainable and limited.
 
 ## Jules-Specific Working Style
 
@@ -91,6 +95,12 @@ Relevant existing files include:
 The current memory card flow already stores `memoryCards` in `localStorage` and calculates review intervals with `calculateNextReviewState`. Improve this rather than replacing it with a separate unrelated system.
 
 ## Feature Requirements
+
+### 0. Add first-run advisory disclaimer context
+
+If the current app does not already show an advisory notice, plan for a first-run or startup notice. The notice should explain that Haru's advisory output is based on daily routine data and caregiver observations, and is not a medical diagnosis, official screening result, treatment, or prevention claim.
+
+The notice should not block the product from providing useful Haru-specific attention/risk insights after acknowledgement.
 
 ### 1. Make the personal memory feature meaningful
 
@@ -147,7 +157,7 @@ Implementation guidance:
 - Do not label it as MMSE or dementia screening.
 - Add tests for correct selection, first-miss hint behavior, and stored result shape.
 
-### 4. Add a non-diagnostic drawing-copy routine
+### 4. Add an original drawing-copy routine
 
 Add a simple visuospatial drawing practice component.
 
@@ -190,8 +200,8 @@ Update the family/caregiver screen to explain or summarize non-sensitive progres
 
 Requirements:
 
-- Show gentle, non-medical summaries such as completed routines, memory cues due for review, and conversation prompts.
-- Do not show diagnostic categories or medical risk labels.
+- Show useful summaries such as completed routines, memory cues due for review, conversation prompts, and Haru-specific advisory attention/risk levels.
+- Do not show diagnostic categories, official medical risk labels, or clinical scores.
 - Respect `shareWithFamily`. Personal memory details should not be shown as shared unless the card is explicitly marked shareable.
 - Keep privacy copy clear.
 
@@ -267,7 +277,7 @@ The task is complete when:
 - The lesson flow includes an attention number-pattern routine.
 - The app includes simple drawing-copy and speech-repeat practice routines, even if their MVP scoring is completion-only.
 - Family/caregiver and settings screens reflect the new local data safely.
-- No UI claims to diagnose, screen, treat, cure, prevent, or detect dementia.
+- No UI claims to diagnose, officially screen, treat, cure, prevent, or detect dementia. Haru-specific advisory signals are allowed when clearly limited and explained.
 - The implementation does not copy official MMSE text, official MMSE scoring, official forms, or official stimuli.
 - All visible user text is routed through i18n.
 - Tests, typecheck, and build pass, or failures are clearly documented with actionable details.

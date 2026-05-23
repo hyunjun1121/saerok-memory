@@ -65,7 +65,7 @@ Expected behavior:
 - The user should not type the words.
 - The routine should store lightweight local results under a typed storage helper, for example `cognitiveRoutineResults`.
 - Store timestamp, routine type, `wordSetId`, selected answers, expected answers, phase or completion status, and whether the recall was completed.
-- Do not display a diagnostic score or medical interpretation.
+- Do not display an official diagnostic score or clinical interpretation. The stored metadata may later contribute to a Haru-specific advisory attention/risk model if that output is clearly explained and paired with the app disclaimer.
 
 Mock data:
 
@@ -93,7 +93,7 @@ Expected behavior:
 - Completion should not depend on automatic correctness judgment.
 - Store completion metadata locally.
 - If saving a small drawing data URL is simple and safe, it is acceptable, but metadata-only storage is also acceptable for MVP.
-- Do not label the drawing as normal, abnormal, pass, fail, or diagnostic.
+- Do not label the drawing as normal, abnormal, pass, fail, or diagnostic. Drawing metadata may later be used as one contributor to Haru's own advisory level.
 
 Implementation preference:
 
@@ -137,10 +137,10 @@ Expected behavior when there is no data:
 
 Expected behavior when data exists:
 
-- Show simple non-medical summaries, such as completed routines, memory cues due for review, and available conversation prompts.
+- Show useful summaries, such as completed routines, memory cues due for review, available conversation prompts, and Haru-specific advisory attention/risk levels.
 - Respect `shareWithFamily`.
 - Do not show personal memory details unless the card is explicitly marked shareable.
-- Avoid risk labels, diagnostic labels, clinical scores, trend charts, or alarming wording.
+- Avoid official disease-risk labels, diagnostic labels, clinical scores, and alarming wording. Trend charts are allowed when they explain routine data and Haru's own advisory level without implying formal medical scoring.
 
 Good summary examples:
 
@@ -148,10 +148,14 @@ Good summary examples:
 - Memory cues ready for review.
 - Shared conversation cues.
 - Last practice date.
+- Haru attention level.
+- Conversation recommended.
+- Consider professional consultation.
 
 Avoid:
 
 - Dementia risk.
+- Official clinical risk estimate.
 - Cognitive impairment detected.
 - Normal or abnormal.
 - Medical score.
@@ -170,12 +174,13 @@ Please preserve the existing Duolingo-style flow:
 - No punishment for misses.
 - No dense clinical report screens.
 
-Please preserve medical and copyright safety:
+Please preserve medical and copyright safety while following the updated product direction:
 
 - Do not copy MMSE, K-MMSE, MoCA, CIST, or any official screening form.
 - Do not use official scoring, official stimuli, official instructions, or diagnostic thresholds.
 - Do not call this a dementia screening test.
-- Use safe wording such as memory practice, recall practice, attention practice, drawing practice, cognitive routine, and not a medical test.
+- You may build Haru's own advisory attention/risk level from repeated routine data and caregiver observations.
+- Use safe wording such as memory practice, recall practice, attention practice, drawing practice, cognitive routine, Haru advisory level, conversation-needed signal, expert-consultation consideration, and not a medical test.
 
 Please keep data handling conservative:
 
@@ -197,4 +202,3 @@ npm run build
 ```
 
 If any command cannot run in the Jules VM, report the exact command, the error, and the closest alternative you ran.
-

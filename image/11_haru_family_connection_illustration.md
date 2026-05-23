@@ -6,7 +6,7 @@ Copy and paste the full prompt below into GPT Image 2.
 Create a warm family connection illustration for Haru, a daily memory routine mobile app for older Korean and Japanese adults.
 
 Product context:
-Haru supports short, low-pressure daily activities such as number patterns, drawing practice, delayed word recall, personal story recall, language expression activities, garden rewards, and optional family/caregiver connection. The product must feel like a gentle daily routine, not a medical diagnosis tool.
+Haru supports short, low-pressure daily activities such as number patterns, drawing practice, delayed word recall, personal story recall, language expression activities, garden rewards, optional family/caregiver connection, and Haru-specific evidence-informed advisory insights. The product should feel like a gentle daily routine with a thoughtful support layer, not like a hospital diagnosis screen.
 
 Scene concept:
 An older adult and an adult family member are gently connected through a shared memory card and a small sprout motif. The image should suggest consent-based sharing, emotional connection, and conversation, not surveillance or medical monitoring.
@@ -22,7 +22,7 @@ Visual requirements:
 - Text: no text, no letters, no numbers
 
 Privacy tone:
-The illustration should imply that sharing is optional and user-controlled. Avoid any feeling of tracking, diagnosis, or monitoring.
+The illustration should imply that sharing is optional and user-controlled. It may suggest a thoughtful support report, but avoid any feeling of surveillance, formal diagnosis, or hospital monitoring.
 
 Avoid:
 Hospital scene, doctor, nurse, medical devices, surveillance cameras, charts, diagnostic dashboards, sad or distressed expressions, infantilizing older adults, excessive realism, random text, watermark, complex background, copied trademark style, Duolingo-like character.

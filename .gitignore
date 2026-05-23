@@ -23,6 +23,20 @@ dist-ssr
 *.sln
 *.sw?
 .vercel
+
+# Local cognitive-reference payloads. Keep small README/agents/metadata
+# files trackable, but do not commit downloaded papers, datasets, cloned
+# reference repositories, saved web pages, or local logs.
+/cognitve-reference/code/
+/cognitve-reference/data/
+/cognitve-reference/logs/
+/cognitve-reference/official-tools/
+/cognitve-reference/papers/
+/cognitve-reference/web-pages/
+
+# Local scratch prompts and generated application screenshot batches.
+/prompt.txt
+/피우다프로젝트/application_assets/auto_screenshots/
 test-results/
 playwright-report/
 

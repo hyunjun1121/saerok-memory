@@ -4,11 +4,11 @@ This folder contains independent GPT Image 2 prompts. Each `.md` file is self-co
 
 ## Product Context
 
-Haru is a warm daily memory and cognitive routine app for older Korean and Japanese adults. It supports short, low-pressure activities such as number patterns, drawing practice, delayed word recall, personal story recall, language expression activities, garden rewards, and optional family/caregiver connection. The product must feel like a gentle daily routine, not a medical diagnosis tool.
+Haru is a warm daily memory and cognitive routine app for older Korean and Japanese adults. It supports short, low-pressure activities such as number patterns, drawing practice, delayed word recall, personal story recall, language expression activities, garden rewards, optional family/caregiver connection, and Haru-specific evidence-informed advisory insights. The product should feel like a gentle daily routine with a thoughtful support layer, not like a hospital diagnosis screen.
 
 ## Global Style Direction
 
-- Mood: warm, gentle, calm, accessible, encouraging, non-medical
+- Mood: warm, gentle, calm, accessible, encouraging, evidence-informed without clinical imagery
 - Theme: one small daily routine helps memories grow like a garden
 - Palette: warm cream, paper ivory, sage green, deep leaf green, soft coral, warm sun yellow, muted sky blue, dark ink brown
 - Rendering: original polished 2D mobile app illustration, clean vector-like shapes, rounded forms, crisp edges, subtle tactile depth

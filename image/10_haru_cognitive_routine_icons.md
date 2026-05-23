@@ -6,7 +6,7 @@ Copy and paste the full prompt below into GPT Image 2.
 Create a cohesive set of six text-free mobile app icons for Haru cognitive routine lesson nodes.
 
 Product context:
-Haru is a warm daily memory and cognitive routine mobile app for older Korean and Japanese adults. It supports short, low-pressure activities such as number patterns, drawing practice, delayed word recall, personal story recall, language expression activities, garden rewards, and optional family/caregiver connection. The product must feel like a gentle daily routine, not a medical diagnosis tool.
+Haru is a warm daily memory and cognitive routine mobile app for older Korean and Japanese adults. It supports short, low-pressure activities such as number patterns, drawing practice, delayed word recall, personal story recall, language expression activities, garden rewards, optional family/caregiver connection, and Haru-specific evidence-informed advisory insights. The product should feel like a gentle daily routine with a thoughtful support layer, not like a hospital diagnosis screen.
 
 Icon set:
 1. Number pattern: simple calculator bead or number-step symbol suggesting serial subtraction without showing a full equation
@@ -21,7 +21,7 @@ Shared style:
 - Thick simple forms, high readability at mobile size
 - Palette: sage green, deep leaf green, soft coral, warm sun yellow, cream ivory, dark ink brown
 - Style: polished 2D vector-like app icons, crisp edges, subtle 3D button depth
-- Mood: gentle, supportive, non-diagnostic, older-adult friendly
+- Mood: gentle, supportive, evidence-informed, older-adult friendly
 - Background: transparent or warm cream
 - Text: no text, no letters, no numbers
 

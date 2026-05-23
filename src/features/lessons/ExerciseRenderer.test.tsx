@@ -80,6 +80,53 @@ describe('ExerciseRenderer', () => {
       },
       {
         ...baseExercise,
+        type: 'digit_span_practice',
+        prompt: 'Digit Span Prompt',
+        payload: { digits: ['4', '8', '2'], direction: 'backward' },
+        correctAnswer: ['2', '8', '4'],
+      },
+      {
+        ...baseExercise,
+        type: 'verbal_fluency_practice',
+        prompt: 'Verbal Fluency Prompt',
+        payload: { fluencyCategory: 'animals', durationSeconds: 30 },
+        correctAnswer: null,
+      },
+      {
+        ...baseExercise,
+        type: 'trail_switching_practice',
+        prompt: 'Trail Prompt',
+        payload: {
+          trailNodes: [
+            { id: 'n1', label: '1', group: 'number', x: 20, y: 20 },
+            { id: 's1', label: 'Flower', group: 'symbol', x: 70, y: 25 },
+          ],
+          expectedTrail: ['n1', 's1'],
+        },
+        correctAnswer: ['n1', 's1'],
+      },
+      {
+        ...baseExercise,
+        type: 'stroop_touch_practice',
+        prompt: 'Stroop Prompt',
+        payload: {
+          stroopColorOptions: ['red', 'blue', 'green', 'yellow'],
+          stroopTrials: [
+            { id: 's1', word: 'blue', inkColor: 'red' },
+            { id: 's2', word: 'green', inkColor: 'blue' },
+          ],
+        },
+        correctAnswer: null,
+      },
+      {
+        ...baseExercise,
+        type: 'orientation_practice',
+        prompt: 'Orientation Prompt',
+        payload: { orientationKind: 'date_weekday', targetDateISO: '2026-05-23' },
+        correctAnswer: null,
+      },
+      {
+        ...baseExercise,
         type: 'shape_copy_practice',
         prompt: 'Shape Prompt',
         payload: {},
@@ -126,7 +173,7 @@ describe('ExerciseRenderer', () => {
         />
       );
 
-      expect(screen.getByText('「苦あれば楽あり」に最も近い意味はどれですか？')).toBeInTheDocument();
+      expect(screen.getByText('「苦あれば楽あり」に近い意味はどれでしょうか。')).toBeInTheDocument();
       expect(screen.getByText('つらい時期のあとに良いことが来る')).toBeInTheDocument();
       expect(screen.queryByText('고진감래와 가장 가까운 뜻은 무엇일까요?')).not.toBeInTheDocument();
     } finally {

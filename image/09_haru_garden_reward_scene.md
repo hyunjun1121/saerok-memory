@@ -6,7 +6,7 @@ Copy and paste the full prompt below into GPT Image 2.
 Create a warm garden reward illustration for Haru, a daily memory and cognitive routine mobile app for older Korean and Japanese adults.
 
 Product context:
-Haru supports short, low-pressure daily activities such as number patterns, drawing practice, delayed word recall, personal story recall, language expression activities, garden rewards, and optional family/caregiver connection. The product must feel like a gentle daily routine, not a medical diagnosis tool.
+Haru supports short, low-pressure daily activities such as number patterns, drawing practice, delayed word recall, personal story recall, language expression activities, garden rewards, optional family/caregiver connection, and Haru-specific evidence-informed advisory insights. The product should feel like a gentle daily routine with a thoughtful support layer, not like a hospital diagnosis screen.
 
 Scene concept:
 A small peaceful garden grows after the user completes a short daily activity. The garden should show sprouts, one small blooming flower, a few gentle water drops, and a warm sun. The scene should feel like quiet progress, not competition.

@@ -6,7 +6,7 @@ Copy and paste the full prompt below into GPT Image 2.
 Create a text-free reward icon for Haru, a warm daily memory and cognitive routine mobile app for older Korean and Japanese adults.
 
 Product context:
-Haru supports short, low-pressure daily activities such as number patterns, drawing practice, delayed word recall, personal story recall, language expression activities, garden rewards, and optional family/caregiver connection. The product must feel like a gentle daily routine, not a medical diagnosis tool.
+Haru supports short, low-pressure daily activities such as number patterns, drawing practice, delayed word recall, personal story recall, language expression activities, garden rewards, optional family/caregiver connection, and Haru-specific evidence-informed advisory insights. The product should feel like a gentle daily routine with a thoughtful support layer, not like a hospital diagnosis screen.
 
 The icon should show a warm green water drop with a tiny sprout inside. It represents session completion, garden points, progress, and gentle encouragement. It should feel rewarding without feeling competitive or punitive.
 

@@ -2,207 +2,122 @@ import { expect, test, type Page } from "@playwright/test";
 import { mkdir } from "node:fs/promises";
 import path from "node:path";
 
+type Locale = "ko" | "ja" | "en";
+
 type CaptureScreen = {
   name: string;
   path: string;
   selector: string;
-  prepare?: (page: Page, locale: string) => Promise<void>;
+  prepare?: (page: Page, locale: Locale) => Promise<void>;
 };
 
 const outputRoot =
   process.env.SCREENSHOT_OUTPUT_DIR ??
   path.resolve(process.cwd(), "피우다프로젝트", "application_assets", "auto_screenshots");
 
-const locales = (process.env.SCREENSHOT_LOCALES ?? "ko")
+const locales = (process.env.SCREENSHOT_LOCALES ?? "ko,ja,en")
   .split(",")
   .map((locale) => locale.trim())
-  .filter(Boolean);
-
-const sampleNow = new Date("2026-05-17T09:00:00+09:00").getTime();
+  .filter((locale): locale is Locale => ["ko", "ja", "en"].includes(locale));
 
 function screenshotPath(locale: string, fileName: string) {
   return path.join(outputRoot, locale, fileName);
 }
 
-function localizedSeed(locale: string) {
+function storyText(locale: Locale) {
   if (locale === "ja") {
-    return {
-      emotion: "安心",
-      summary: "昨日、娘と近所の公園を散歩して、ベンチでお茶を飲んだ記憶",
-      transcript: "昨日、娘と近所の公園で散歩して、ベンチでお茶を飲みました。",
-      person: "娘",
-      place: "近所の公園",
-      object: "お茶",
-      timeHint: "昨日",
-    };
+    return "昨日、娘と近所の公園をゆっくり歩きました。ベンチでお茶を飲みながら、春の花を見て昔の遠足を思い出しました。";
   }
 
   if (locale === "en") {
-    return {
-      emotion: "calm",
-      summary: "A memory of walking in the neighborhood park with my daughter and drinking tea on a bench",
-      transcript: "Yesterday, I walked with my daughter in the neighborhood park and drank tea on a bench.",
-      person: "daughter",
-      place: "neighborhood park",
-      object: "tea",
-      timeHint: "yesterday",
-    };
+    return "Yesterday, I walked slowly with my daughter in the neighborhood park and drank tea on a bench while remembering a spring picnic.";
   }
 
-  return {
-    emotion: "편안함",
-    summary: "어제 딸과 동네 공원을 산책하고 벤치에서 차를 마신 기억",
-    transcript: "어제 딸과 동네 공원에서 산책하고 벤치에서 차를 마셨습니다.",
-    person: "딸",
-    place: "동네 공원",
-    object: "차",
-    timeHint: "어제",
-  };
+  return "어제 딸과 동네 공원을 천천히 걸었습니다. 벤치에서 차를 마시며 봄꽃을 보니 예전 소풍 생각이 났습니다.";
 }
 
-async function seedCaptureState(page: Page, locale: string) {
+async function seedCaptureState(page: Page, locale: Locale) {
   await page.addInitScript(
-    ({ captureLocale, now }) => {
-      const seed = (() => {
-        if (captureLocale === "ja") {
-          return {
-            emotion: "安心",
-            summary: "昨日、娘と近所の公園を散歩して、ベンチでお茶を飲んだ記憶",
-            transcript: "昨日、娘と近所の公園で散歩して、ベンチでお茶を飲みました。",
-            person: "娘",
-            place: "近所の公園",
-            object: "お茶",
-            timeHint: "昨日",
-          };
-        }
-
-        if (captureLocale === "en") {
-          return {
-            emotion: "calm",
-            summary: "A memory of walking in the neighborhood park with my daughter and drinking tea on a bench",
-            transcript: "Yesterday, I walked with my daughter in the neighborhood park and drank tea on a bench.",
-            person: "daughter",
-            place: "neighborhood park",
-            object: "tea",
-            timeHint: "yesterday",
-          };
-        }
-
-        return {
-          emotion: "편안함",
-          summary: "어제 딸과 동네 공원을 산책하고 벤치에서 차를 마신 기억",
-          transcript: "어제 딸과 동네 공원에서 산책하고 벤치에서 차를 마셨습니다.",
-          person: "딸",
-          place: "동네 공원",
-          object: "차",
-          timeHint: "어제",
-        };
-      })();
-
-      const isoNow = new Date(now).toISOString();
-      const yesterday = new Date(now - 24 * 60 * 60 * 1000).toISOString();
-      const lastWeek = new Date(now - 8 * 24 * 60 * 60 * 1000).toISOString();
-
+    ({ captureLocale }) => {
       localStorage.clear();
       localStorage.setItem("memoryGardenLang", captureLocale);
       localStorage.setItem(
         "streakState",
         JSON.stringify({
-          currentStreak: 5,
-          lastSessionDate: "2026-05-16",
-          longestStreak: 8,
+          currentStreak: 12,
+          lastSessionDate: "2026-05-17",
+          longestStreak: 18,
         }),
       );
       localStorage.setItem(
         "gardenState",
         JSON.stringify({
-          waterDrops: 12,
-          leaves: 4,
-          flowers: 2,
-          photoFlowers: 0,
-          treeLevel: 2,
+          waterDrops: 24,
+          leaves: 9,
+          flowers: 5,
+          photoFlowers: 1,
+          treeLevel: 4,
         }),
       );
+      const observationNote =
+        captureLocale === "ja"
+          ? "約束の時間を一度確認することが増えましたが、朝の散歩は続いています。"
+          : captureLocale === "en"
+            ? "Appointment times need one extra reminder, but the morning walk is still steady."
+            : "약속 시간을 한 번 더 확인하는 일이 늘었지만, 아침 산책은 잘 이어가고 있습니다.";
       localStorage.setItem(
-        "memoryCards",
+        "caregiverObservationRecords",
         JSON.stringify([
           {
-            id: "mem_capture_daily_walk",
-            userId: "local_user",
-            createdAt: yesterday,
-            updatedAt: isoNow,
-            source: "daily_lesson",
-            linkedConceptId: "daily_memory_1",
-            topic: "family",
-            emotionTag: seed.emotion,
-            textSummary: seed.summary,
-            originalTranscript: seed.transcript,
-            storyCues: {
-              people: [seed.person],
-              places: [seed.place],
-              objects: [seed.object],
-              emotions: [seed.emotion],
-              timeHints: [seed.timeHint],
-            },
-            sensitivity: "personal",
-            shareWithFamily: true,
-            reviewState: {
-              dueAt: yesterday,
-              intervalDays: 1,
-              ease: 2.5,
-              reviewCount: 0,
-            },
-          },
-        ]),
-      );
-      localStorage.setItem(
-        "cognitiveRoutineResults",
-        JSON.stringify([
-          {
-            id: "routine_capture_word_recall",
-            type: "delayed_word_recall",
-            timestamp: isoNow,
-            completed: true,
-            metadata: { phase: "recall", expectedAnswers: ["w_1", "w_3", "w_5"] },
-          },
-          {
-            id: "routine_capture_attention",
-            type: "attention_pattern",
-            timestamp: isoNow,
-            completed: true,
-            metadata: { pattern: [12, 10, 8], selectedId: "opt_3" },
-          },
-          {
-            id: "routine_capture_shape",
-            type: "shape_copy_practice",
-            timestamp: isoNow,
-            completed: true,
-            metadata: { hasDrawn: true },
-          },
-          {
-            id: "routine_capture_previous",
-            type: "speech_repeat_practice",
-            timestamp: lastWeek,
-            completed: true,
-            metadata: { phraseId: "practice_1" },
+            id: "capture_observation_1",
+            createdAt: "2026-05-20T09:00:00.000Z",
+            selectedDomains: ["appointments", "dailyRoutine"],
+            note: observationNote,
           },
         ]),
       );
     },
-    { captureLocale: locale, now: sampleNow },
+    { captureLocale: locale },
   );
 }
 
-async function capture(page: Page, locale: string, fileName: string) {
+async function drawOnCanvas(page: Page) {
+  const canvas = page.locator("canvas").first();
+  await expect(canvas).toBeVisible();
+  const box = await canvas.boundingBox();
+  if (!box) return;
+
+  await page.mouse.move(box.x + 80, box.y + 130);
+  await page.mouse.down();
+  await page.mouse.move(box.x + 140, box.y + 55);
+  await page.mouse.move(box.x + 220, box.y + 130);
+  await page.mouse.move(box.x + 220, box.y + 175);
+  await page.mouse.move(box.x + 80, box.y + 175);
+  await page.mouse.move(box.x + 80, box.y + 130);
+  await page.mouse.up();
+}
+
+async function capture(page: Page, locale: Locale, fileName: string) {
   await page.evaluate(() => document.fonts.ready);
+  await expect(page.locator("body")).not.toContainText("??");
+  await expect(page.locator("body")).not.toContainText("family.report");
+  await expect(page.locator("body")).not.toContainText("family.cues");
+  await expect(page.locator("body")).not.toContainText("family.observation");
+  await expect(page.locator("body")).not.toContainText("exercise.");
   await page.screenshot({
     path: screenshotPath(locale, fileName),
     fullPage: true,
   });
 }
 
-function counselorTabName(locale: string) {
-  if (locale === "ja") return "カウンセラー";
+function tabName(locale: Locale, tab: "caregiver" | "counselor") {
+  if (tab === "caregiver") {
+    if (locale === "ja") return "見守り";
+    if (locale === "en") return "Caregiver";
+    return "보호자";
+  }
+
+  if (locale === "ja") return "相談員";
   if (locale === "en") return "Counselor";
   return "상담사";
 }
@@ -214,9 +129,19 @@ const screens: CaptureScreen[] = [
     selector: '[data-screen="home"]',
   },
   {
-    name: "lesson-word-encoding",
-    path: "/lesson",
+    name: "lesson-delayed-word-encode",
+    path: "/lesson?captureExerciseId=ex_1",
     selector: '[data-exercise-id="ex_1"]',
+  },
+  {
+    name: "lesson-meaning-choice",
+    path: "/lesson?captureExerciseId=ex_2",
+    selector: '[data-exercise-id="ex_2"]',
+  },
+  {
+    name: "lesson-situation-match",
+    path: "/lesson?captureExerciseId=ex_3",
+    selector: '[data-exercise-id="ex_3"]',
   },
   {
     name: "lesson-attention-pattern",
@@ -224,16 +149,69 @@ const screens: CaptureScreen[] = [
     selector: '[data-exercise-id="ex_attention"]',
   },
   {
+    name: "lesson-orientation",
+    path: "/lesson?captureExerciseId=ex_orientation",
+    selector: '[data-exercise-id="ex_orientation"]',
+  },
+  {
+    name: "lesson-digit-span",
+    path: "/lesson?captureExerciseId=ex_digit_span",
+    selector: '[data-exercise-id="ex_digit_span"]',
+  },
+  {
+    name: "lesson-verbal-fluency",
+    path: "/lesson?captureExerciseId=ex_verbal_fluency",
+    selector: '[data-exercise-id="ex_verbal_fluency"]',
+  },
+  {
+    name: "lesson-trail-switching",
+    path: "/lesson?captureExerciseId=ex_trail_switching",
+    selector: '[data-exercise-id="ex_trail_switching"]',
+  },
+  {
+    name: "lesson-pair-matching",
+    path: "/lesson?captureExerciseId=ex_5",
+    selector: '[data-exercise-id="ex_5"]',
+  },
+  {
+    name: "lesson-sequence-order",
+    path: "/lesson?captureExerciseId=ex_sequence",
+    selector: '[data-exercise-id="ex_sequence"]',
+  },
+  {
+    name: "lesson-audio-choice",
+    path: "/lesson?captureExerciseId=ex_audio",
+    selector: '[data-exercise-id="ex_audio"]',
+  },
+  {
+    name: "lesson-picture-choice",
+    path: "/lesson?captureExerciseId=ex_picture",
+    selector: '[data-exercise-id="ex_picture"]',
+  },
+  {
     name: "lesson-shape-copy",
     path: "/lesson?captureExerciseId=ex_shape",
     selector: '[data-exercise-id="ex_shape"]',
+    prepare: async (page) => {
+      await drawOnCanvas(page);
+    },
+  },
+  {
+    name: "lesson-speech-repeat",
+    path: "/lesson?captureExerciseId=ex_speech",
+    selector: '[data-exercise-id="ex_speech"]',
+  },
+  {
+    name: "lesson-delayed-word-recall",
+    path: "/lesson?captureExerciseId=ex_recall",
+    selector: '[data-exercise-id="ex_recall"]',
   },
   {
     name: "lesson-memory-story",
     path: "/lesson?captureExerciseId=ex_6",
     selector: '[data-exercise-id="ex_6"]',
     prepare: async (page, locale) => {
-      await page.locator("#memory-story-text").fill(localizedSeed(locale).transcript);
+      await page.locator("#memory-story-text").fill(storyText(locale));
     },
   },
   {
@@ -252,16 +230,19 @@ const screens: CaptureScreen[] = [
     selector: '[data-screen="garden"]',
   },
   {
-    name: "family",
-    path: "/family",
-    selector: '[data-screen="family"]',
-  },
-  {
-    name: "family-counselor-report",
+    name: "report-counselor",
     path: "/family",
     selector: '[data-screen="family"]',
     prepare: async (page, locale) => {
-      await page.getByRole("tab", { name: counselorTabName(locale) }).click();
+      await page.getByRole("tab", { name: tabName(locale, "counselor") }).click();
+    },
+  },
+  {
+    name: "report-caregiver",
+    path: "/family",
+    selector: '[data-screen="family"]',
+    prepare: async (page, locale) => {
+      await page.getByRole("tab", { name: tabName(locale, "caregiver") }).click();
     },
   },
   {
