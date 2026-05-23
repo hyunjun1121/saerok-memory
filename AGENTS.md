@@ -10,7 +10,7 @@ Haru, formerly developed as Memory Garden, is a Duolingo-style daily cognitive a
 
 The app helps users complete short, friendly daily routines that can accumulate into a sense of progress. It combines cultural language learning, recall practice, personal memory cues, gentle cognitive routines, garden-like rewards, and family/caregiver support.
 
-The product should feel like a warm daily routine, not a hospital exam. It may provide Haru-branded, evidence-informed attention/risk insights when they are transparently based on Haru's own repeated routine data, memory-cue patterns, and caregiver observations. It must not present those insights as a formal medical diagnosis, official dementia-screening result, treatment, prevention claim, or official clinical score.
+The product should feel like a warm daily routine. It may provide Haru-branded, evidence-informed attention/risk insights when they are transparently based on Haru's own repeated routine data, memory-cue patterns, and caregiver observations. Keep those insights calm, explainable, and clearly framed as Haru support signals.
 
 ## Current Product Direction
 
@@ -19,7 +19,7 @@ The product should feel like a warm daily routine, not a hospital exam. It may p
 - Japanese meaning: `はる` or `春`, spring, warmth, and a new beginning.
 - Preferred product framing: a daily memory and cognitive routine that helps older adults revisit their day, preserve personal memory cues, and create conversation material for families or care professionals.
 - Learner-facing screens should remain mobile-first, friendly, sparse, and click-first.
-- Caregiver/counselor-facing screens may be denser and may include Haru's own advisory attention/risk levels, but they must remain calm, explainable, and clearly distinct from formal clinical diagnosis or official screening.
+- Caregiver/counselor-facing screens may be denser and may include Haru's own advisory attention/risk levels, while remaining calm and explainable.
 
 ## Evidence-Informed Advisory Direction
 
@@ -31,7 +31,7 @@ Allowed direction:
 - Combine repeated routine participation, delayed recall metadata, attention/color-focus metadata, digit span or number-pattern metadata, verbal fluency counts, drawing telemetry, memory-review changes, and caregiver observation domains.
 - Show these as Haru advisory levels such as `steady`, `watch`, or `needs conversation`, or equivalent localized labels.
 - Explain which signals contributed to the level in plain language.
-- Show a startup or first-run disclaimer that Haru's advisory output is for routine support and conversation preparation, not a medical diagnosis.
+- Show a concise startup or first-run note explaining how Haru's advisory output supports routines and conversation preparation.
 - Recommend professional consultation when patterns are consistently concerning or when family/caregiver observations raise concern.
 
 Required guardrails:
@@ -314,7 +314,7 @@ Status as of 2026-05-23 20:00 KST: All planned cognitive screening features and 
 
 Features completed and verified:
 
-- **Original Haru Cognitive Routines**: Inspired by evidence but designed as non-diagnostic:
+- **Original Haru Cognitive Routines**: Inspired by evidence and designed as Haru-specific daily routines:
   - `delayed_word_recall` (5-word delayed recall with category cues, encoding, free recall text input, and recognition check)
   - `digit_span_practice` (Working memory span practice, both forward and backward modes)
   - `verbal_fluency_practice` (Category verbal fluency practice with a 30s timer, unique/repetition counting)
@@ -324,7 +324,7 @@ Features completed and verified:
   - `shape_copy_practice` (Visuospatial follow-drawing with telemetry recording)
 - **Caregiver Observations**: `caregiverObservationRecords` storage containing domain-specific status and notes.
 - **Supporter Reports**: Caregiver/Counselor dashboard tabs on `/family` displaying participation metrics, trends, strengths, activity highlights, and suggested next-conversation topics derived from caregiver observations and shared memories.
-- **Disclaimers & Safety**: Safety and privacy disclaimers displayed in the learner-facing instructions and caregiver report screens to ensure no diagnostic interpretation is implied.
+- **Interpretation Guidance**: Safety and privacy guidance displayed in the learner-facing instructions and caregiver report screens to keep interpretation tied to Haru support signals.
 
 Validation results:
 
@@ -354,7 +354,7 @@ Allowed summaries:
 
 Do not show private memory details unless `shareWithFamily === true`.
 
-Do not show diagnostic categories, official disease-risk estimates, medical scores, or alarming trend labels. Haru-specific advisory attention/risk levels are allowed if they are transparent, longitudinal, non-clinical, and paired with a disclaimer and next-step guidance.
+Do not show diagnostic categories, official disease-risk estimates, medical scores, or alarming trend labels. Haru-specific advisory attention/risk levels are allowed if they are transparent, longitudinal, and paired with clear next-step guidance.
 
 Frame any lower performance or missed item as a practice support need, not as impairment.
 
@@ -399,7 +399,6 @@ Use safe language such as:
 - Haru advisory insight
 - attention level
 - conversation-needed signal
-- not a medical test
 - consult a healthcare professional for medical concerns
 
 Low performance in a single app session must never be presented as a diagnosis. Repeated low performance, changed patterns, or caregiver concerns may contribute to a Haru-specific advisory level if the UI explains the basis and limits.

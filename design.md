@@ -12,7 +12,7 @@ The app teaches short cultural language concepts such as four-character idioms, 
 
 ## 1. Product Design Goal
 
-The learner-facing interface should feel like a friendly daily lesson game, not a medical test. Haru may still include an evidence-informed advisory layer in caregiver/counselor/report contexts when it is clearly labeled as Haru's own support signal, not as a formal clinical diagnosis.
+The learner-facing interface should feel like a friendly daily lesson game. Haru may include an evidence-informed advisory layer in caregiver/counselor/report contexts when it is labeled as Haru's own support signal and remains separate from formal clinical language.
 
 The user should be able to complete one session in 5 to 10 minutes with almost no typing. Most actions should be taps, selections, matching gestures, or simple voice responses. The core loop is:
 
@@ -43,7 +43,7 @@ Haru should not be so defensive that it avoids useful interpretation. The produc
 
 Allowed design direction:
 
-1. Show a first-run or startup notice explaining that Haru's advisory output is not a medical diagnosis, official screening result, treatment, or prevention claim.
+1. Show a concise first-run or startup notice explaining how to use Haru's advisory output for routine support and conversation preparation.
 2. Use Haru-specific labels such as attention level, conversation-needed signal, watch area, or expert-consultation consideration.
 3. Explain the contributing signals in plain language: routine consistency, delayed recall changes, attention response patterns, drawing telemetry, verbal fluency, memory review changes, and caregiver observations.
 4. Keep richer advisory content in family/caregiver/counselor/report screens rather than interrupting the older adult's daily lesson.

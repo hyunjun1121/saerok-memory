@@ -67,11 +67,11 @@ describe("TrailSwitchingPractice", () => {
     );
 
     fireEvent.click(screen.getByRole("button", { name: "꽃 누르기" }));
-    expect(screen.getByText("꽃이 아니라 표시된 다음 단서를 눌러보세요.")).toBeInTheDocument();
+    expect(screen.getByText("표시된 다음 단서를 눌러보세요.")).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: "처음부터 다시" }));
 
-    expect(screen.queryByText("꽃이 아니라 표시된 다음 단서를 눌러보세요.")).not.toBeInTheDocument();
+    expect(screen.queryByText("표시된 다음 단서를 눌러보세요.")).not.toBeInTheDocument();
     expect(screen.getByText("0")).toBeInTheDocument();
   });
 });
