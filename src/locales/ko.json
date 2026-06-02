@@ -16,7 +16,9 @@
     "unitLabel": "1단원",
     "continueButton": "계속하기",
     "unitTitle": "시작하기: 좋은 기억",
-    "mascotGreeting": "오늘도 반가워요! 천천히 시작해볼까요?"
+    "mascotGreeting": "오늘도 반가워요! 천천히 시작해볼까요?",
+    "advisoryTitle": "하루의 작은 신호를 모아요",
+    "advisoryBody": "매일의 활동, 기억 단서, 보호자 메모가 쌓이면 리포트에서 다음 대화를 준비할 수 있습니다."
   },
   "feedback": {
     "correct": {
@@ -231,7 +233,9 @@
         "appointments": "약속 기억",
         "navigation": "길 찾기",
         "medicationMoney": "약·돈 관리",
-        "moodSocial": "기분·사회활동"
+        "moodSocial": "기분·사회활동",
+        "sleepAppetite": "수면·식사",
+        "homeSafety": "집 안 안전"
       }
     },
     "report": {
@@ -272,9 +276,68 @@
         "observationNavigation": "익숙한 장소를 떠올리며 간단한 길 찾기 단서를 함께 정리하세요.",
         "observationMedicationMoney": "약, 청구서, 결제 과정에 함께 볼 체크리스트가 필요한지 살펴보세요.",
         "observationMoodSocial": "기분, 사람들과의 연락, 아직 즐거운 활동에 대해 부담 없는 질문을 준비하세요.",
+        "observationSleepAppetite": "수면과 식사 리듬이 달라졌다면 하루 중 편안했던 시간대를 함께 확인하세요.",
+        "observationHomeSafety": "집 안 동선, 조명, 자주 쓰는 물건 위치처럼 생활 환경 단서를 함께 살펴보세요.",
         "observationUncertain": "잘 모르겠다고 표시된 영역은 결론을 내리지 말고 중립적인 확인 질문으로 다루세요."
       },
       "activityBadge": "30일 활동 요약"
+    },
+    "advisory": {
+      "title": "Haru 종합 주의 신호",
+      "signalTitle": "참고한 신호",
+      "nextStepsTitle": "다음 대화 액션",
+      "levels": {
+        "steady": "안정적",
+        "watch": "살펴보기",
+        "needsConversation": "대화 필요"
+      },
+      "summary": {
+        "steady": "현재 기록에서는 부담 없이 이어갈 수 있는 흐름이 보입니다.",
+        "watch": "{{signalCount}}개의 참고 신호가 있어 다음 대화에서 천천히 확인하면 좋습니다.",
+        "needsConversation": "{{signalCount}}개의 참고 신호가 겹쳐 보호자나 상담사가 구체적인 대화를 준비하는 것이 좋습니다."
+      },
+      "dataCompleteness": {
+        "limited": "아직 기록이 적어 해석은 가볍게 다룹니다.",
+        "usable": "며칠 이상의 활동 기록이 있어 대화 준비에 활용할 수 있습니다.",
+        "rich": "여러 주의 활동과 관찰 기록이 있어 흐름을 함께 살펴볼 수 있습니다."
+      },
+      "domains": {
+        "participation": "참여 흐름",
+        "memory": "기억 단서",
+        "attention": "주의 집중",
+        "language": "언어 표현",
+        "visuospatial": "시공간·그리기",
+        "dailyFlow": "일상 흐름",
+        "caregiverObservation": "보호자 관찰"
+      },
+      "domainSummaries": {
+        "steady": "{{domain}} 영역은 현재 두드러진 참고 신호가 없습니다.",
+        "withSignals": "{{domain}} 영역에 {{count}}개의 참고 신호가 있어 {{level}} 수준으로 살펴봅니다."
+      },
+      "signals": {
+        "participationStopped": "최근 7일 활동이 없고, 이전 7일에는 {{previous}}회 시도 기록이 있었습니다.",
+        "participationLower": "최근 7일 시도 {{recent}}회로, 이전 7일 {{previous}}회보다 줄었습니다.",
+        "completionLower": "최근 활동 완료 비율이 약 {{percent}}%로 낮아졌습니다.",
+        "wordRecallLow": "최근 단어 회상에서 {{target}}개 중 {{correct}}개를 다시 골랐습니다.",
+        "wordRecallWatch": "최근 단어 회상에서 {{target}}개 중 {{correct}}개를 골라 다음 복습 대화에 활용할 수 있습니다.",
+        "digitSpanMisses": "숫자 기억 루틴에서 다시 확인한 선택이 {{count}}회 기록되었습니다.",
+        "digitSpanShort": "최근 숫자 기억 루틴은 {{length}}자리 수준에서 머물렀습니다.",
+        "verbalFluencyLow": "범주 말하기 루틴에서 서로 다른 단어 {{count}}개가 기록되었습니다.",
+        "trailErrors": "주의 전환 루틴에서 다시 누른 횟수 {{count}}회가 기록되었습니다.",
+        "colorFocus": "색상 집중 루틴에서 다른 선택 {{errors}}회, 평균 약 {{seconds}}초가 기록되었습니다.",
+        "orientationMismatch": "날짜 감각 루틴에서 오늘 날짜와 요일 확인이 어긋난 기록이 있습니다.",
+        "drawingHesitation": "그리기 루틴에서 지우기 {{clearCount}}회, 약 {{seconds}}초의 활동 흐름이 기록되었습니다.",
+        "observationChanged": "보호자 메모에서 {{domain}} 영역이 '{{response}}'으로 기록되었습니다.",
+        "observationUncertain": "보호자 메모에서 {{domain}} 영역이 '{{response}}'으로 기록되어 중립적인 확인이 필요합니다."
+      },
+      "nextSteps": {
+        "keepRoutine": "지금처럼 짧은 루틴을 같은 시간대에 이어가며 긍정적인 기억 단서를 쌓아보세요.",
+        "prepareConversation": "다음 대화에서는 이유를 추궁하기보다 최근에 쉬웠던 활동과 어려웠던 순간을 구체적으로 물어보세요.",
+        "memoryCue": "공유 허용된 기억 카드에서 사람, 장소, 감정 단서를 골라 한 장면씩 다시 이야기해 보세요.",
+        "simplifyRoutine": "주의나 그리기 신호가 보이면 화면 설명을 줄이고 한 번에 하나의 활동만 제안하세요.",
+        "caregiverCheck": "보호자 메모와 실제 일상 장면이 같은 방향인지 가족 대화에서 차분히 확인하세요.",
+        "professionalConversation": "걱정되는 흐름이 반복되면 활동 기록과 보호자 메모를 정리해 전문가와 상담 주제로 활용하세요."
+      }
     },
     "tabs": {
       "family": "보호자",

@@ -41,6 +41,8 @@ const OBSERVATION_DOMAINS: CaregiverObservationDomain[] = [
   "navigation",
   "medicationMoney",
   "moodSocial",
+  "sleepAppetite",
+  "homeSafety",
 ];
 
 const OBSERVATION_RESPONSES: CaregiverObservationResponse[] = [
@@ -86,17 +88,38 @@ export default function FamilyScreen() {
     selectedObservationDomains.length > 0 || observationNote.trim().length > 0;
 
   const renderCopy = (item: ReportCopyItem) => {
-    const values = item.values?.topic
-      ? {
-          ...item.values,
-          topic: t(`family.memoryTopics.${item.values.topic}`, {
-            defaultValue: String(item.values.topic),
-          }),
+    const values = Object.fromEntries(
+      Object.entries(item.values ?? {}).map(([key, value]) => {
+        if (key === "topic") {
+          return [
+            key,
+            t(`family.memoryTopics.${value}`, {
+              defaultValue: String(value),
+            }),
+          ];
         }
-      : item.values;
+
+        if (typeof value === "string" && value.startsWith("family.")) {
+          return [key, t(value)];
+        }
+
+        return [key, value];
+      }),
+    );
 
     return t(item.key, values);
   };
+
+  const advisoryLevelClass = {
+    steady: "border-green-200 bg-green-50 text-green-800",
+    watch: "border-yellow-200 bg-yellow-50 text-yellow-800",
+    needsConversation: "border-orange-200 bg-orange-50 text-orange-800",
+  }[report.advisory.level];
+
+  const advisorySignals = report.advisory.signals.slice(0, 5);
+  const advisoryDomainSummaries = report.advisory.domainSummaries
+    .filter((summary) => summary.signalCount > 0)
+    .slice(0, 4);
 
   const formatDate = (isoDate?: string) => {
     if (!isoDate) return t("family.report.noPracticeDate");
@@ -257,6 +280,30 @@ export default function FamilyScreen() {
                     </div>
                   </div>
                 )}
+              </div>
+            </div>
+          </section>
+
+          <section className={twMerge("flex flex-col gap-3 rounded-2xl border-2 p-5 shadow-sm", advisoryLevelClass)}>
+            <div className="flex items-start gap-4">
+              <div className="rounded-xl bg-white/70 p-3">
+                <Sparkles className="h-7 w-7" />
+              </div>
+              <div className="flex flex-col gap-1">
+                <div className="flex flex-wrap items-center gap-2">
+                  <h2 className="text-xl font-bold text-ink">
+                    {t("family.advisory.title")}
+                  </h2>
+                  <span className="rounded-full bg-white/80 px-3 py-1 text-xs font-extrabold">
+                    {t(`family.advisory.levels.${report.advisory.level}`)}
+                  </span>
+                </div>
+                <p className="text-base font-medium leading-relaxed">
+                  {renderCopy(report.advisory.summary)}
+                </p>
+                <p className="text-sm font-bold">
+                  {t(`family.advisory.dataCompleteness.${report.advisory.dataCompleteness}`)}
+                </p>
               </div>
             </div>
           </section>
@@ -453,6 +500,68 @@ export default function FamilyScreen() {
               )}
             </section>
           )}
+
+          <section className="flex flex-col gap-4 rounded-2xl border-2 border-orange-100 bg-white p-5 shadow-sm">
+            <div className="flex items-start gap-4">
+              <div className="rounded-xl bg-orange-50 p-3 text-orange-600">
+                <Sparkles className="h-7 w-7" />
+              </div>
+              <div className="flex w-full flex-col gap-2">
+                <div className="flex flex-wrap items-center gap-2">
+                  <h2 className="text-xl font-bold text-ink">
+                    {t("family.advisory.title")}
+                  </h2>
+                  <span className={twMerge("rounded-full border px-3 py-1 text-xs font-extrabold", advisoryLevelClass)}>
+                    {t(`family.advisory.levels.${report.advisory.level}`)}
+                  </span>
+                </div>
+                <p className="text-base font-medium leading-relaxed text-gray-600">
+                  {renderCopy(report.advisory.summary)}
+                </p>
+                <p className="text-sm font-bold text-gray-500">
+                  {t(`family.advisory.dataCompleteness.${report.advisory.dataCompleteness}`)}
+                </p>
+              </div>
+            </div>
+
+            {advisoryDomainSummaries.length > 0 && (
+              <div className="grid grid-cols-1 gap-2">
+                {advisoryDomainSummaries.map((summary) => (
+                  <div key={summary.domain} className="rounded-xl bg-orange-50/60 px-3 py-2 text-sm font-medium leading-relaxed text-orange-900">
+                    {renderCopy(summary)}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {advisorySignals.length > 0 && (
+              <div className="flex flex-col gap-2">
+                <h3 className="text-sm font-extrabold text-gray-700">
+                  {t("family.advisory.signalTitle")}
+                </h3>
+                <ul className="space-y-2 text-sm font-medium leading-relaxed text-gray-600">
+                  {advisorySignals.map((signal, index) => (
+                    <li key={`${signal.key}-${signal.domain}-${index}`} className="rounded-xl bg-gray-50 px-3 py-2">
+                      {renderCopy(signal)}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <div className="flex flex-col gap-2">
+              <h3 className="text-sm font-extrabold text-gray-700">
+                {t("family.advisory.nextStepsTitle")}
+              </h3>
+              <ul className="space-y-2 text-sm font-medium leading-relaxed text-gray-600">
+                {report.advisory.nextSteps.map((item) => (
+                  <li key={item.key} className="rounded-xl bg-blue-50 px-3 py-2">
+                    {renderCopy(item)}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
 
           <section className="flex flex-col gap-3 rounded-2xl border-2 border-primary-100 bg-white p-5 shadow-sm">
             <div className="flex items-center gap-3">

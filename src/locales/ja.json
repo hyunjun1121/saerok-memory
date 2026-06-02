@@ -16,7 +16,9 @@
     "unitLabel": "ユニット1",
     "continueButton": "続ける",
     "unitTitle": "はじめに：良い思い出",
-    "mascotGreeting": "今日も会えて嬉しいです！ゆっくり始めましょうか？"
+    "mascotGreeting": "今日も会えて嬉しいです！ゆっくり始めましょうか？",
+    "advisoryTitle": "Haruの小さなサインを集めます",
+    "advisoryBody": "毎日の活動、記憶の手がかり、見守りメモが積み重なると、レポートで次の会話を準備できます。"
   },
   "feedback": {
     "correct": {
@@ -231,7 +233,9 @@
         "appointments": "約束の記憶",
         "navigation": "道順",
         "medicationMoney": "薬・お金の管理",
-        "moodSocial": "気分・社会活動"
+        "moodSocial": "気分・社会活動",
+        "sleepAppetite": "睡眠・食事",
+        "homeSafety": "家の安全"
       }
     },
     "report": {
@@ -272,9 +276,68 @@
         "observationNavigation": "慣れた場所を思い出しながら、簡単な道順の手がかりを一緒に整理してください。",
         "observationMedicationMoney": "薬、請求書、支払いの手順に一緒に見られるチェックリストが必要か確認してください。",
         "observationMoodSocial": "気分、人との連絡、今も楽しめる活動について、負担の少ない質問を準備してください。",
+        "observationSleepAppetite": "睡眠や食事のリズムが違って見える場合は、一日の中で落ち着いて過ごせた時間を確認してください。",
+        "observationHomeSafety": "家の中の動線、照明、よく使う物の置き場所など、生活環境の手がかりを一緒に確認してください。",
         "observationUncertain": "よく分からないと記録された領域は、結論を急がず中立的な確認質問として扱ってください。"
       },
       "activityBadge": "30日活動サマリー"
+    },
+    "advisory": {
+      "title": "Haru総合注意サイン",
+      "signalTitle": "参考にしたサイン",
+      "nextStepsTitle": "次の会話アクション",
+      "levels": {
+        "steady": "安定",
+        "watch": "見守り",
+        "needsConversation": "会話が必要"
+      },
+      "summary": {
+        "steady": "現在の記録では、負担をかけずに続けられる流れが見えます。",
+        "watch": "{{signalCount}}件の参考サインがあるため、次の会話でゆっくり確認するとよいでしょう。",
+        "needsConversation": "{{signalCount}}件の参考サインが重なっているため、見守り者や相談員が具体的な会話を準備するとよいでしょう。"
+      },
+      "dataCompleteness": {
+        "limited": "まだ記録が少ないため、軽く参考にします。",
+        "usable": "数日以上の活動記録があり、会話準備に活用できます。",
+        "rich": "複数週の活動と観察記録があり、流れを一緒に確認できます。"
+      },
+      "domains": {
+        "participation": "参加の流れ",
+        "memory": "記憶の手がかり",
+        "attention": "注意集中",
+        "language": "言語表現",
+        "visuospatial": "視空間・描画",
+        "dailyFlow": "日常の流れ",
+        "caregiverObservation": "見守り観察"
+      },
+      "domainSummaries": {
+        "steady": "{{domain}}には現在、目立つ参考サインはありません。",
+        "withSignals": "{{domain}}に{{count}}件の参考サインがあり、{{level}}として見守ります。"
+      },
+      "signals": {
+        "participationStopped": "直近7日間の活動がなく、その前の7日間には{{previous}}回の試行記録がありました。",
+        "participationLower": "直近7日間の試行は{{recent}}回で、前の7日間の{{previous}}回より少なくなっています。",
+        "completionLower": "最近の活動完了率は約{{percent}}%です。",
+        "wordRecallLow": "最近の単語想起では{{target}}個中{{correct}}個をもう一度選びました。",
+        "wordRecallWatch": "最近の単語想起では{{target}}個中{{correct}}個を選び、次の記憶会話に活用できます。",
+        "digitSpanMisses": "数字記憶ルーティンで確認し直した選択が{{count}}回記録されました。",
+        "digitSpanShort": "最近の数字記憶ルーティンは{{length}}桁付近にとどまりました。",
+        "verbalFluencyLow": "カテゴリ発話ルーティンで異なる単語{{count}}個が記録されました。",
+        "trailErrors": "注意切り替えルーティンで押し直し{{count}}回が記録されました。",
+        "colorFocus": "色集中ルーティンで別の選択{{errors}}回、平均約{{seconds}}秒が記録されました。",
+        "orientationMismatch": "日付感覚ルーティンで日付と曜日の確認がずれた記録があります。",
+        "drawingHesitation": "描画ルーティンで消去{{clearCount}}回、約{{seconds}}秒の活動が記録されました。",
+        "observationChanged": "見守りメモで{{domain}}が「{{response}}」と記録されました。",
+        "observationUncertain": "見守りメモで{{domain}}が「{{response}}」と記録されており、中立的な確認が必要です。"
+      },
+      "nextSteps": {
+        "keepRoutine": "今のように短いルーティンを同じ時間帯に続け、前向きな記憶の手がかりを積み重ねましょう。",
+        "prepareConversation": "次の会話では理由を問い詰めず、最近取り組みやすかった活動と難しかった具体的な場面を尋ねてください。",
+        "memoryCue": "共有された記憶カードから人、場所、感情を一つずつ選び、一場面ずつ話してみてください。",
+        "simplifyRoutine": "注意や描画のサインが見える場合は説明を減らし、一度に一つの活動だけを提案してください。",
+        "caregiverCheck": "見守りメモと実際の日常場面が同じ方向か、家族の会話で落ち着いて確認してください。",
+        "professionalConversation": "気になる流れが繰り返される場合は、活動記録と見守りメモを整理し、専門家との相談テーマとして活用してください。"
+      }
     },
     "tabs": {
       "family": "見守り",

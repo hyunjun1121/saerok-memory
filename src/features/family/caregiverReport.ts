@@ -4,6 +4,10 @@ import type {
   CaregiverObservationDomain,
   CaregiverObservationRecord,
 } from "./caregiverObservationStorage";
+import {
+  generateHaruAdvisorySummary,
+  type HaruAdvisorySummary,
+} from "./haruAdvisory";
 
 export interface ReportCopyItem {
   key: string;
@@ -36,6 +40,7 @@ export interface CaregiverCounselorOverview {
 export interface CaregiverCounselorReport {
   overview: CaregiverCounselorOverview;
   routineTrend: RoutineParticipationSummary;
+  advisory: HaruAdvisorySummary;
   dueMemoryCount: number;
   shareableMemoryCount: number;
   activityHighlights: ReportCopyItem[];
@@ -66,6 +71,8 @@ const OBSERVATION_TOPIC_KEY_MAP: Record<CaregiverObservationDomain, string> = {
   navigation: "family.report.nextTopics.observationNavigation",
   medicationMoney: "family.report.nextTopics.observationMedicationMoney",
   moodSocial: "family.report.nextTopics.observationMoodSocial",
+  sleepAppetite: "family.report.nextTopics.observationSleepAppetite",
+  homeSafety: "family.report.nextTopics.observationHomeSafety",
 };
 
 function parseIsoDate(value?: string): number | null {
@@ -601,10 +608,17 @@ export function generateCaregiverCounselorReport(
     safeCaregiverObservationRecords,
     now,
   );
+  const advisory = generateHaruAdvisorySummary(
+    safeCards,
+    safeRoutineResults,
+    safeCaregiverObservationRecords,
+    now,
+  );
 
   return {
     overview,
     routineTrend: routineParticipation,
+    advisory,
     dueMemoryCount: dueMemoryCards.length,
     shareableMemoryCount: shareableMemoryCards.length,
     activityHighlights,

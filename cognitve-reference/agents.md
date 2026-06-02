@@ -10,6 +10,8 @@
 - URL 커버리지: `C:\project\saerok-memory\cognitve-reference\metadata\report_url_coverage.csv`
 - 현황: 리포트에서 추출된 55개 URL은 다운로드 파일, 저장 HTML, 메타데이터, 클론된 저장소, 또는 명시적 `not_downloaded` 기록으로 모두 커버되어 있다.
 - 공개 PDF 매니페스트 항목 15개, 공개 데이터 항목 13개, 클론된 공개 GitHub 저장소 13개가 있다.
+- 2026-06-02 로컬 폴더 손실 이후 `download_manifest.csv` 기준 재복구를 수행했다. 최종 manifest 로컬 경로 누락은 0개이며, 새 `current_file_inventory.csv` 기준 2,023개 파일이 기록되어 있다.
+- 복구 감사 산출물은 `C:\project\saerok-memory\recovery_audit\`에 있다.
 
 주의: 폴더명이 `cognitve-reference`로 오타 형태이지만, 현재 작업 경로와 기존 참조가 이 이름을 사용하므로 임의로 변경하지 않는다.
 
@@ -62,18 +64,20 @@ Haru는 정식 치매 검사 앱이 아니라, 고령 사용자가 매일 부담
 - `stroop_touch_practice` (색상 집중 루틴), `digit_span_practice` (작업기억 연습), `verbal_fluency_practice` (언어 유창성 연습), `trail_switching_practice` (주의 전환 연습), `orientation_practice` (날짜 감각 연습), `shape_copy_practice` (도형 그리기 연습), `delayed_word_recall` (5단어 지연회상)이 구현되었습니다.
 - 모든 기록은 `cognitiveRoutineResults`, `caregiverObservationRecords`, `memoryCards` 형태로 `localStorage`에 구조화된 메타데이터와 함께 저장됩니다.
 - 보호자 및 상담사 대화 준비 리포트가 완성되었으며, `/family` 경로에서 보호자 관찰 기록, 참여율, 트렌드, 활동 단서(highlights), 강점(strengths), 비대면 대화 소재(conversation cues)를 가시적으로 출력합니다.
-- 전체 유닛 및 컴포넌트 검증 결과, 25개 파일 및 76개 테스트 케이스가 성공적으로 통과하였습니다.
+- 보호자 관찰 도메인은 익숙한 일상, 대화 흐름, 약속 기억, 길 찾기, 약·돈 관리, 기분·사회활동, 수면·식사, 집 안 안전의 8개 영역으로 확장되었습니다.
+- `src/features/family/haruAdvisory.ts`가 Haru 자체 종합 주의 신호를 산출합니다. 이 모듈은 반복 참여, 지연회상, 숫자 기억, 언어 유창성, 주의 전환, 색상 집중, 날짜 감각, 그리기 telemetry, 보호자 관찰을 결합해 `steady`, `watch`, `needsConversation` 수준과 다음 대화 액션을 만듭니다.
+- 전체 유닛 및 컴포넌트 검증 결과, 26개 파일 및 79개 테스트 케이스가 성공적으로 통과하였습니다.
 
 ## 다음 구현 순서 (포스트 MVP 로드맵)
 
 1. **상담사 화면 시각화 강화**:
-   - 누적되는 반응시간 및 그리기 Telemetry 데이터를 차트로 변환하는 시각화 도구를 통합합니다.
+   - 현재 Haru advisory 룰엔진은 구현되어 있습니다. 다음 단계에서는 누적되는 반응시간 및 그리기 Telemetry 데이터를 차트로 변환하는 시각화 도구를 통합합니다.
 2. **Speech Recognition 안정성 고도화**:
    - 마이크 입력 실패, 권한 거부, 백그라운드 환경 대응 등 디바이스 종속적인 Web Speech Recognition 흐름의 안정성을 개선합니다.
 3. **전문 자문 및 검증 설계**:
    - 가중치 기반 주의도 모델의 타당성을 평가하기 위해 인지과학 및 노인 의학 전문가와의 자문 절차 및 Pilot 검증 설계를 계획합니다.
 4. **문서와 지원서 동기화 유지**:
-   - 향후 새로운 논문이나 권위 기관의 출처가 추가될 경우 `download_manifest.csv` 및 `deep-research-report.md`에 지속 기록하고 비의료적 표현 범위를 유지합니다.
+   - 향후 새로운 논문이나 권위 기관의 출처가 추가될 경우 `download_manifest.csv` 및 `deep-research-report.md`에 지속 기록하고 Haru 자체 참고 신호의 해석 경계를 유지합니다.
 
 ## 구현 시 안전 문구 기준
 
@@ -111,7 +115,7 @@ Haru는 정식 치매 검사 앱이 아니라, 고령 사용자가 매일 부담
 - 새 metadata는 `src/features/cognitive/cognitiveRoutineStorage.ts`의 타입과 호환되게 저장한다.
 - 보호자/상담사 리포트에 연결할 때는 private memory detail을 직접 노출하지 않는다.
 - `shareWithFamily === true`인 기억 카드만 구체적 대화 주제로 쓴다.
-- tests는 최소한 렌더링, localStorage 저장, 리포트 변환, 비진단 문구 유지 여부를 확인한다.
+- tests는 최소한 렌더링, localStorage 저장, 리포트 변환, Haru advisory 신호 산출, 해석 경계 유지 여부를 확인한다.
 
 ## 근거 추적 규칙
 

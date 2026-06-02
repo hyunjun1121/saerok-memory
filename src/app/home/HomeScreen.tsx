@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { Sparkles } from "lucide-react";
 import { LessonNode, type LessonNodeState } from "../../components/LessonNode";
 import { MascotBubble } from "../../components/MascotBubble";
 import { Button3D } from "../../components/Button3D";
@@ -37,6 +38,20 @@ export default function HomeScreen() {
         </div>
         <div className="absolute right-[-20px] bottom-[-20px] w-32 h-32 bg-white/10 rounded-full blur-2xl pointer-events-none" />
       </div>
+
+      <section className="mb-8 flex w-full items-start gap-4 rounded-2xl border-2 border-orange-100 bg-white p-5 shadow-sm">
+        <div className="rounded-xl bg-orange-50 p-3 text-orange-600">
+          <Sparkles className="h-6 w-6" />
+        </div>
+        <div className="flex flex-col gap-1">
+          <h2 className="text-lg font-extrabold text-ink">
+            {t("home.advisoryTitle")}
+          </h2>
+          <p className="text-sm font-medium leading-relaxed text-gray-600">
+            {t("home.advisoryBody")}
+          </p>
+        </div>
+      </section>
 
       <div className="flex flex-col w-full relative pb-32">
         <div className="absolute top-10 bottom-10 left-1/2 -translate-x-1/2 w-4 bg-gray-200 rounded-full -z-10" />

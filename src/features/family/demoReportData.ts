@@ -275,10 +275,11 @@ export function buildDemoCaregiverObservationRecords(
     {
       id: "demo_observation_recent",
       createdAt: daysAgo(now, 2, 19),
-      selectedDomains: ["appointments", "conversation"],
+      selectedDomains: ["appointments", "conversation", "sleepAppetite"],
       domainResponses: {
         appointments: "occasionallyDifferent",
         conversation: "occasionallyDifferent",
+        sleepAppetite: "notSure",
         dailyRoutine: "aboutSame",
       },
       note: recentNote[locale],
@@ -286,9 +287,10 @@ export function buildDemoCaregiverObservationRecords(
     {
       id: "demo_observation_previous",
       createdAt: daysAgo(now, 11, 18),
-      selectedDomains: ["moodSocial"],
+      selectedDomains: ["moodSocial", "homeSafety"],
       domainResponses: {
         moodSocial: "notSure",
+        homeSafety: "aboutSame",
       },
       note: previousNote[locale],
     },

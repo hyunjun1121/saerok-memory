@@ -16,7 +16,9 @@
     "unitLabel": "Unit 1",
     "continueButton": "Continue",
     "unitTitle": "Getting Started: Good Memories",
-    "mascotGreeting": "Nice to see you! Shall we start slowly?"
+    "mascotGreeting": "Nice to see you! Shall we start slowly?",
+    "advisoryTitle": "Collect small Haru signals",
+    "advisoryBody": "Daily routines, memory cues, and caregiver notes can become conversation-ready support in the report."
   },
   "feedback": {
     "correct": {
@@ -231,7 +233,9 @@
         "appointments": "appointments",
         "navigation": "finding places",
         "medicationMoney": "medicine and money",
-        "moodSocial": "mood and social activity"
+        "moodSocial": "mood and social activity",
+        "sleepAppetite": "sleep and meals",
+        "homeSafety": "home safety"
       }
     },
     "report": {
@@ -272,9 +276,68 @@
         "observationNavigation": "Ask about familiar places and plan one simple route cue together.",
         "observationMedicationMoney": "Review whether medicine, bills, or payment steps need a shared checklist.",
         "observationMoodSocial": "Prepare a gentle question about mood, contact with others, or activities they still enjoy.",
+        "observationSleepAppetite": "If sleep or meal rhythm looks different, ask which part of the day felt most comfortable.",
+        "observationHomeSafety": "Review home movement paths, lighting, and where frequently used objects are placed.",
         "observationUncertain": "For areas marked not sure, use a neutral check-in question rather than drawing conclusions."
       },
       "activityBadge": "30-day activity summary"
+    },
+    "advisory": {
+      "title": "Haru attention signal",
+      "signalTitle": "Signals used",
+      "nextStepsTitle": "Next conversation actions",
+      "levels": {
+        "steady": "Steady",
+        "watch": "Watch",
+        "needsConversation": "Conversation needed"
+      },
+      "summary": {
+        "steady": "The current records show a flow that can continue with low pressure.",
+        "watch": "{{signalCount}} support signal(s) suggest a calm follow-up conversation.",
+        "needsConversation": "{{signalCount}} support signal(s) overlap, so a caregiver or counselor should prepare a concrete conversation."
+      },
+      "dataCompleteness": {
+        "limited": "There are still only a few records, so interpret lightly.",
+        "usable": "Several days of activity can support conversation preparation.",
+        "rich": "Multiple weeks of activity and observation records can be reviewed together."
+      },
+      "domains": {
+        "participation": "Participation flow",
+        "memory": "Memory cues",
+        "attention": "Attention",
+        "language": "Language expression",
+        "visuospatial": "Visuospatial drawing",
+        "dailyFlow": "Daily flow",
+        "caregiverObservation": "Caregiver observation"
+      },
+      "domainSummaries": {
+        "steady": "{{domain}} has no prominent support signal right now.",
+        "withSignals": "{{domain}} has {{count}} support signal(s), reviewed at the {{level}} level."
+      },
+      "signals": {
+        "participationStopped": "No activity was recorded in the last 7 days, after {{previous}} attempt(s) in the previous 7 days.",
+        "participationLower": "Recent 7-day attempts decreased to {{recent}}, compared with {{previous}} in the previous 7 days.",
+        "completionLower": "Recent completion rate is about {{percent}}%.",
+        "wordRecallLow": "Recent word recall selected {{correct}} of {{target}} words again.",
+        "wordRecallWatch": "Recent word recall selected {{correct}} of {{target}} words, which can guide the next memory conversation.",
+        "digitSpanMisses": "Number memory practice recorded {{count}} re-check selection(s).",
+        "digitSpanShort": "Recent number memory practice stayed around {{length}} digits.",
+        "verbalFluencyLow": "Category word practice recorded {{count}} unique word(s).",
+        "trailErrors": "Attention switching practice recorded {{count}} re-tap(s).",
+        "colorFocus": "Color focus practice recorded {{errors}} other choice(s), averaging about {{seconds}} seconds.",
+        "orientationMismatch": "Date and weekday practice recorded a mismatch.",
+        "drawingHesitation": "Drawing practice recorded {{clearCount}} clear action(s) and about {{seconds}} seconds of activity.",
+        "observationChanged": "Caregiver note marked {{domain}} as '{{response}}'.",
+        "observationUncertain": "Caregiver note marked {{domain}} as '{{response}}', so use a neutral check-in."
+      },
+      "nextSteps": {
+        "keepRoutine": "Continue short routines around the same time and build positive memory cues.",
+        "prepareConversation": "In the next conversation, ask about a recent easy activity and a specific moment that felt harder.",
+        "memoryCue": "Use shareable memory cards to revisit one person, place, or feeling at a time.",
+        "simplifyRoutine": "If attention or drawing signals appear, reduce instructions and offer one activity at a time.",
+        "caregiverCheck": "Compare caregiver notes with real daily scenes in a calm family conversation.",
+        "professionalConversation": "If concerning patterns repeat, organize activity records and caregiver notes for a professional conversation."
+      }
     },
     "tabs": {
       "family": "Caregiver",

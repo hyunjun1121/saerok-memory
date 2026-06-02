@@ -4,7 +4,9 @@ export type CaregiverObservationDomain =
   | "appointments"
   | "navigation"
   | "medicationMoney"
-  | "moodSocial";
+  | "moodSocial"
+  | "sleepAppetite"
+  | "homeSafety";
 
 export type CaregiverObservationResponse =
   | "aboutSame"
@@ -42,6 +44,8 @@ function isCaregiverObservationDomain(value: string): value is CaregiverObservat
     "navigation",
     "medicationMoney",
     "moodSocial",
+    "sleepAppetite",
+    "homeSafety",
   ].includes(value);
 }
 

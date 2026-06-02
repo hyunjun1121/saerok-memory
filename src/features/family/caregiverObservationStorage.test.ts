@@ -16,6 +16,7 @@ describe("caregiverObservationStorage", () => {
         appointments: "occasionallyDifferent",
         conversation: "aboutSame",
         navigation: "oftenDifferent",
+        sleepAppetite: "notSure",
       },
       note: "약속 확인이 조금 늘었습니다.",
     });
@@ -25,11 +26,12 @@ describe("caregiverObservationStorage", () => {
     expect(records[0]).toEqual(
       expect.objectContaining({
         id: saved.id,
-        selectedDomains: ["appointments", "navigation"],
+        selectedDomains: ["appointments", "navigation", "sleepAppetite"],
         domainResponses: {
           appointments: "occasionallyDifferent",
           conversation: "aboutSame",
           navigation: "oftenDifferent",
+          sleepAppetite: "notSure",
         },
         note: "약속 확인이 조금 늘었습니다.",
       }),

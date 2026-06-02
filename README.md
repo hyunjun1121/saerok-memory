@@ -14,6 +14,7 @@ Haru는 60-80대 고령 사용자를 위한 Duolingo 스타일의 일일 인지�
 - 스트릭과 정원 물방울 보상
 - 정원 화면
 - 보호자 및 상담사 리포트 화면
+- Haru 자체 종합 주의 신호: 반복 루틴, 공유 기억 단서, 보호자 관찰을 결합한 설명 가능한 advisory 요약
 - 한국어, 영어, 일본어 i18n
 - 로컬 저장소 기반 MVP 상태 관리
 
@@ -59,7 +60,9 @@ Haru는 60-80대 고령 사용자를 위한 Duolingo 스타일의 일일 인지�
 
 날짜·요일 감각 루틴은 오늘의 날짜와 요일을 선택형으로 확인하고, 선택한 항목과 기대 항목, 응답 시간, 일치 여부를 `orientation_practice` 활동 기록으로 저장합니다.
 
-보호자 관찰 메모는 `localStorage`의 `caregiverObservationRecords`에 저장됩니다. 상담 전 가족이 관찰한 일상 변화 영역, 영역별 변화 정도, 자유 메모를 보관하는 용도입니다.
+보호자 관찰 메모는 `localStorage`의 `caregiverObservationRecords`에 저장됩니다. 상담 전 가족이 관찰한 일상 변화 영역, 영역별 변화 정도, 자유 메모를 보관하는 용도입니다. 현재 관찰 영역은 익숙한 일상, 대화 흐름, 약속 기억, 길 찾기, 약·돈 관리, 기분·사회활동, 수면·식사, 집 안 안전의 8개 영역입니다.
+
+`generateHaruAdvisorySummary`는 반복 루틴 참여, 지연회상 metadata, 숫자 기억, 범주 유창성, 주의 전환, 색상 집중, 날짜 감각, 그리기 telemetry, 보호자 관찰을 결합해 Haru 자체의 `steady`, `watch`, `needsConversation` 수준을 산출합니다. 결과는 보호자·상담사 화면에서 참고 신호, 영역별 요약, 다음 대화 액션으로 표시됩니다.
 
 도형 따라 그리기 루틴은 Haru 원본 도형 모사 흐름으로 구성됩니다. `shape_copy_practice` 완료 시 획 수, 첫 터치 지연, 그리기 시간, 멈춤 횟수, 지우기 횟수, 샘플링된 터치 경로를 `cognitiveRoutineResults` metadata로 저장해 추후 활동 리포트의 원자료로 사용합니다.
 
@@ -115,9 +118,14 @@ npm run build
 
 - TypeScript build mode 통과
 - ESLint 통과
-- Vitest 25개 파일, 76개 테스트 통과
+- Vitest 26개 파일, 79개 테스트 통과
 - Vite production build 통과
-- Playwright 화면 캡처 69개 통과
+- Playwright 화면 캡처 69개 통과. 기본 webServer 방식은 Windows에서 worker 종료 지연이 발생해, 최종 검증은 Vite preview 서버를 별도로 띄우고 `PLAYWRIGHT_BASE_URL`을 지정해 exit code 0으로 완료함
+- Vercel production 배포 완료
+  - Project: `hyunjun-kims-projects/haru`
+  - Deployment: `dpl_9Hr1jfYSgowEYHSzk2Umd4U5av4M`
+  - Stable URL: `https://saerok-memory.vercel.app`
+  - Production URL 기준 Playwright 화면 캡처 69개 통과
 
 Playwright로 확인한 화면:
 
@@ -153,6 +161,7 @@ src/
 - `memoryGardenLang`
 - `memoryCards`
 - `cognitiveRoutineResults`
+- `caregiverObservationRecords`
 - `streakState`
 - `gardenState`
 

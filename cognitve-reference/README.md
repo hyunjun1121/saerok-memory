@@ -1,6 +1,6 @@
 # Haru cognitive reference archive
 
-Created/updated at: 2026-05-23T18:50:42
+Created/updated at: 2026-06-02T15:14:04
 
 This archive stores publicly downloadable PDFs, open datasets, public code repositories, saved web pages, and metadata derived from `deep-research-report.md`.
 
@@ -26,6 +26,14 @@ This archive stores publicly downloadable PDFs, open datasets, public code repos
 - `not_downloaded`: 20 restricted, commercial, unavailable, or blocked items
 
 `metadata/report_url_coverage.csv` maps every unique URL extracted from `deep-research-report.md` to a manifest status. At the latest check, all 55 report URLs were covered by a downloaded file, saved page, metadata fallback, cloned repository, or an explicit `not_downloaded` record.
+
+2026-06-02 recovery note:
+
+- The local archive was rebuilt from `metadata/download_manifest.csv` after local folder loss.
+- Final manifest local-path missing count: 0.
+- Rebuilt `metadata/current_file_inventory.csv` records 2023 files.
+- Recovery audit logs and restore scripts are stored in `C:\project\saerok-memory\recovery_audit\`.
+- `wps_stroop.html` initially returned HTTP 403 with the default request and was restored after retrying with browser-like request headers.
 
 ## Important limitations
 

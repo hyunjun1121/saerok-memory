@@ -310,7 +310,7 @@ Recommended product application:
 
 ## Current In-Progress Work Ledger
 
-Status as of 2026-05-23 20:00 KST: All planned cognitive screening features and caregiver observation capabilities have been fully implemented, integrated, and validated.
+Status as of 2026-06-02 16:38 KST: The Git-tracked app was restored after local-folder loss, dependencies were reinstalled, `cognitve-reference` was rebuilt from its manifest, the Haru advisory/report flow was reimplemented and validated, final DOCX/PDF reports were regenerated, and the Vercel production deployment was refreshed.
 
 Features completed and verified:
 
@@ -322,16 +322,41 @@ Features completed and verified:
   - `stroop_touch_practice` (Attention/color-focus selective attention practice)
   - `orientation_practice` (Date/weekday orientation verification)
   - `shape_copy_practice` (Visuospatial follow-drawing with telemetry recording)
-- **Caregiver Observations**: `caregiverObservationRecords` storage containing domain-specific status and notes.
-- **Supporter Reports**: Caregiver/Counselor dashboard tabs on `/family` displaying participation metrics, trends, strengths, activity highlights, and suggested next-conversation topics derived from caregiver observations and shared memories.
-- **Interpretation Guidance**: Safety and privacy guidance displayed in the learner-facing instructions and caregiver report screens to keep interpretation tied to Haru support signals.
+- **Caregiver Observations**: `caregiverObservationRecords` storage containing domain-specific status and notes across 8 domains: familiar routines, conversation flow, appointments, navigation, medicine/money, mood/social activity, sleep/meals, and home safety.
+- **Haru Advisory Engine**: `src/features/family/haruAdvisory.ts` combines repeated routine participation, delayed recall metadata, digit span, verbal fluency, trail switching, color focus, orientation, drawing telemetry, shareable memory context, and caregiver observations into Haru's own `steady`, `watch`, and `needsConversation` support levels.
+- **Supporter Reports**: Caregiver/Counselor dashboard tabs on `/family` displaying participation metrics, trends, strengths, activity highlights, Haru advisory signals, next-step actions, and suggested next-conversation topics derived from caregiver observations and shared memories.
+- **Interpretation Guidance**: Privacy and interpretation guidance displayed in learner-facing and report screens to keep interpretation tied to Haru support signals.
 
 Validation results:
 
+- `npm ci` passed after restore; npm audit reported 1 critical issue that was not force-fixed because it may introduce breaking dependency changes.
 - `npm run typecheck` passed (strict TypeScript).
 - `npm run lint` passed (code style & rules).
-- `npm run test` passed (76 tests in 25 test files).
+- `npm run test` passed (79 tests in 26 test files).
 - `npm run build` passed (production build verification).
+- Playwright screenshot capture passed for 69 screens, using an explicit Vite preview server and `PLAYWRIGHT_BASE_URL` to avoid Windows webServer shutdown delay.
+- Vercel production deployment passed for project `hyunjun-kims-projects/haru`.
+  - Deployment id: `dpl_9Hr1jfYSgowEYHSzk2Umd4U5av4M`
+  - Production URL: `https://haru-7i0sihp6n-hyunjun-kims-projects.vercel.app`
+  - Stable alias: `https://saerok-memory.vercel.app`
+  - Production Playwright capture passed for 69 screens against `https://saerok-memory.vercel.app`.
+
+Report restore:
+
+- `피우다프로젝트/final/build_reports_from_md.py` was recreated.
+- Detailed report regenerated as Markdown, DOCX, and PDF.
+- Broad overview report regenerated as Markdown, DOCX, and PDF.
+- Long caregiver/counselor report screenshots are cropped into `피우다프로젝트/final/report_assets/` for stable Word/PDF layout.
+- DOCX structural validation passed: image count equals Korean alt text count; no tracked changes or comments.
+- PDF render QA passed: detailed report 24 pages and broad report 8 pages, both with 0 blank-page candidates.
+
+Reference archive restore:
+
+- `cognitve-reference` was restored from `metadata/download_manifest.csv`.
+- Final manifest local-path missing count: 0.
+- Rebuilt inventory count: 2023 files.
+- Top-level restored counts: `code` 1947, `data` 14, `metadata` 17, `official-tools` 6, `papers` 8, `web-pages` 30, plus archive `README.md` and `agents.md`.
+- Recovery audit artifacts live under `recovery_audit/`.
 
 Known remaining roadmap work:
 - Advanced visual polish for new cognitive routines.

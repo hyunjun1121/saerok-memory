@@ -11,6 +11,11 @@ docx_render_check
 docx_render_check/**
 image
 image/**
+cognitve-reference
+cognitve-reference/**
+recovery_audit
+recovery_audit/**
+*.zip
 *.hwp
 *.hwpx
 *.docx

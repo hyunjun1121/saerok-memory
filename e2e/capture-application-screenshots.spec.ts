@@ -71,7 +71,12 @@ async function seedCaptureState(page: Page, locale: Locale) {
           {
             id: "capture_observation_1",
             createdAt: "2026-05-20T09:00:00.000Z",
-            selectedDomains: ["appointments", "dailyRoutine"],
+            selectedDomains: ["appointments", "dailyRoutine", "sleepAppetite"],
+            domainResponses: {
+              appointments: "occasionallyDifferent",
+              dailyRoutine: "aboutSame",
+              sleepAppetite: "notSure",
+            },
             note: observationNote,
           },
         ]),
@@ -103,6 +108,7 @@ async function capture(page: Page, locale: Locale, fileName: string) {
   await expect(page.locator("body")).not.toContainText("family.report");
   await expect(page.locator("body")).not.toContainText("family.cues");
   await expect(page.locator("body")).not.toContainText("family.observation");
+  await expect(page.locator("body")).not.toContainText("family.advisory");
   await expect(page.locator("body")).not.toContainText("exercise.");
   await page.screenshot({
     path: screenshotPath(locale, fileName),
