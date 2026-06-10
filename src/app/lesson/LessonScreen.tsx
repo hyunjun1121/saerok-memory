@@ -2,8 +2,10 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 import { X } from "lucide-react";
+import { Button3D } from "../../components/Button3D";
 import { ProgressBar } from "../../components/ProgressBar";
 import { FeedbackTray } from "../../components/FeedbackTray";
+import { MascotBubble } from "../../components/MascotBubble";
 import { ExerciseRenderer } from "../../features/lessons/ExerciseRenderer";
 import { mockExercises, type Exercise } from "../../data/mockExercises";
 import type { ExerciseState } from "../../features/lessons/exerciseTypes/types";
@@ -46,6 +48,7 @@ export default function LessonScreen() {
   const [exercises] = useState<Exercise[]>(() => buildSessionExercises(initialExerciseId));
   const [currentIndex, setCurrentIndex] = useState(0);
   const [globalState, setGlobalState] = useState<ExerciseState>("awaiting_answer");
+  const [hasStarted, setHasStarted] = useState(!!initialExerciseId);
 
   const currentExercise = exercises[currentIndex];
   const currentExplanation = getLocalizedText(currentExercise?.explanation, i18n.language);
@@ -66,6 +69,64 @@ export default function LessonScreen() {
   const handleRetry = () => {
     setGlobalState("awaiting_answer");
   };
+
+  const handleStartLesson = () => {
+    setHasStarted(true);
+  };
+
+  if (!hasStarted) {
+    return (
+      <div
+        data-screen="lesson-start"
+        data-testid="lesson-start-screen"
+        className="flex min-h-[100dvh] flex-col bg-background"
+      >
+        <header className="flex items-center justify-between px-4 py-6 w-full max-w-md mx-auto">
+          <button
+            onClick={handleClose}
+            className="text-gray-500 hover:text-gray-700 transition-colors p-2 -ml-2 rounded-full hover:bg-gray-100 min-w-[48px] min-h-[48px] flex items-center justify-center"
+            aria-label={t("lesson.close")}
+          >
+            <X size={28} strokeWidth={2.5} />
+          </button>
+        </header>
+        <main className="flex flex-1 flex-col justify-center px-6 py-10 w-full max-w-md mx-auto gap-6">
+          <p className="text-xs font-semibold text-primary uppercase tracking-[0.02em]">
+            {t("lesson.start.overline")}
+          </p>
+          <h1 className="text-[34px] leading-tight font-extrabold text-foreground">
+            {t("lesson.start.title")}
+          </h1>
+          <p className="text-base text-muted-foreground leading-relaxed">
+            {t("lesson.start.description")}
+          </p>
+          <section className="rounded-2xl border border-border bg-white px-4 py-5 shadow-sm">
+            <p className="text-xs font-semibold text-muted-foreground">{t("lesson.start.todayLabel")}</p>
+            <p className="mt-2 text-base font-semibold text-foreground">{t("lesson.start.todayPhrase")}</p>
+          </section>
+          <section className="rounded-2xl border border-border bg-white px-4 py-5 shadow-sm">
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.02em]">
+              {t("lesson.start.estimatedTimeLabel")}
+            </p>
+            <p className="mt-2 text-lg font-semibold text-foreground">
+              {t("lesson.start.estimatedTime")}
+            </p>
+          </section>
+          <MascotBubble mood="calm" message={t("lesson.start.mascotMessage")} />
+          <p className="text-sm text-muted-foreground">{t("lesson.start.hint")}</p>
+          <Button3D
+            onClick={handleStartLesson}
+            fullWidth
+            size="lg"
+            className="mt-auto pb-[env(safe-area-inset-bottom)]"
+            aria-label={t("lesson.start.startButton")}
+          >
+            {t("lesson.start.startButton")}
+          </Button3D>
+        </main>
+      </div>
+    );
+  }
 
   if (!currentExercise) return null;
 

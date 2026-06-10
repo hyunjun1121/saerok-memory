@@ -151,7 +151,19 @@
     }
   },
   "lesson": {
-    "close": "수업 닫기"
+    "close": "수업 닫기",
+    "start": {
+      "overline": "레슨 시작",
+      "title": "오늘의 기억 루틴을 시작할까요?",
+      "description": "짧은 8개 정도의 활동으로 오늘의 일과 기억 단서를 천천히 떠올려 보세요.",
+      "todayLabel": "오늘의 한마디",
+      "todayPhrase": "작은 노력이 모이면 하루가 더 또렷해집니다.",
+      "estimatedTimeLabel": "예상 시간",
+      "estimatedTime": "약 5분",
+      "hint": "천천히, 한 번에 하나씩 진행하면 괜찮아요.",
+      "mascotMessage": "준비가 되면 시작 버튼을 눌러주세요. 오늘의 루틴은 짧고 가벼워요.",
+      "startButton": "시작하기"
+    }
   },
   "result": {
     "title": "학습 완료!",

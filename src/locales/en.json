@@ -151,7 +151,19 @@
     }
   },
   "lesson": {
-    "close": "Close lesson"
+    "close": "Close lesson",
+    "start": {
+      "overline": "Lesson start",
+      "title": "Ready to start today’s memory routine?",
+      "description": "Try a short set of about 8 activities to gently recall and organize your memories.",
+      "todayLabel": "Today's note",
+      "todayPhrase": "Small, steady effort helps each day feel clearer.",
+      "estimatedTimeLabel": "Estimated time",
+      "estimatedTime": "about 5 minutes",
+      "hint": "Take it slowly, one step at a time.",
+      "mascotMessage": "When you’re ready, tap Start. The routine is short and easy to follow.",
+      "startButton": "Start"
+    }
   },
   "result": {
     "title": "Session Complete!",
