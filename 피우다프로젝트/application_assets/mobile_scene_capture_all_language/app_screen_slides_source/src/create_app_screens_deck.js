@@ -163,8 +163,8 @@ function makeSlide({ idx, img, eyebrow, title, lead, chips, bullets, note, evide
 
   const rightX = LAYOUT.contentBox.x + LAYOUT.rightPadding;
   const rightW = LAYOUT.contentBox.w - (LAYOUT.rightPadding * 2);
-  const bulletYStart = 3.82;
-  const bulletRowH = 0.42;
+  const bulletYStart = 4.06;
+  const bulletRowH = 0.34;
   const bulletBottomY = bulletYStart + (bullets.length * bulletRowH);
 
   slide.addImage({
@@ -257,12 +257,12 @@ function makeSlide({ idx, img, eyebrow, title, lead, chips, bullets, note, evide
 
   addBullets(slide, bullets, rightX, bulletYStart, rightW);
 
-  const designTitleY = Math.max(5.20, Math.min(5.45, bulletBottomY + 0.06));
+  const designTitleY = bulletBottomY + 0.10;
   const designTextY = designTitleY + 0.22;
-  const designTextHeight = 0.55;
-  const evidenceTitleY = 6.08;
-  const evidenceTextY = 6.28;
-  const evidenceTextHeight = 0.98;
+  const designTextHeight = 0.45;
+  const evidenceTitleY = designTextY + 0.26;
+  const evidenceTextY = evidenceTitleY + 0.20;
+  const evidenceTextHeight = 0.82;
 
   slide.addText('디자인 포인트', {
     x: rightX,
