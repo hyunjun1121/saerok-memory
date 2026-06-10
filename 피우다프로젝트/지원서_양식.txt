@@ -26,7 +26,7 @@
 
 차별점은 고령자에게 익숙한 문화 표현을 단순 지식 퀴즈로만 다루지 않고, 개인의 생활 기억과 감정 선택으로 연결한다는 점입니다. 기존 학습 앱은 빠른 반응, 경쟁, 긴 입력을 전제하는 경우가 많지만, 기억정원은 큰 터치 영역, 짧은 흐름, 즉시 피드백, 비경쟁 보상, 기억 회상 중심의 진행을 우선합니다. 또한 현재 구현물은 서버 전송 없이 브라우저 로컬 저장소에서 기억 카드와 보상 상태를 관리하는 최소 기능 제품이므로, 초기 실증 단계에서 개인정보 수집 범위를 줄일 수 있습니다. 다만 이 방식은 장기 서비스 단계의 계정 연동, 동의 관리, 암호화 저장, 보호자 권한 관리가 아직 구현되지 않았다는 한계를 함께 가집니다.
 
-현재 확인 가능한 화면 자산은 다음과 같습니다. 그림 1 `application_assets/final_01_home.png`는 홈 화면과 학습 시작 구조를 보여 줍니다. 그림 2 `application_assets/final_02_lesson_start.png`와 그림 3 `application_assets/final_03_lesson_feedback.png`는 선택형 학습과 정답 피드백을 보여 줍니다. 그림 4 `application_assets/final_04_memory_selection.png`는 개인 기억 주제 선택 화면을 보여 주며, `application_assets/final_04b_memory_saved_feedback.png`는 선택 후 피드백 화면입니다. 그림 5 `application_assets/final_05_result.png`는 학습 완료 보상, 그림 6 `application_assets/final_06_garden.png`은 정원 보상 화면, 그림 7 `application_assets/final_07_family.png`는 가족·보호자 안내 화면, 그림 8 `application_assets/final_08_settings.png`는 언어 설정과 기억 카드 삭제 기능을 보여 줍니다.
+현재 확인 가능한 화면 자산은 다음과 같습니다. 그림 1 `application_assets/final_qa/ko/01_home.png`는 홈 화면을 보여 줍니다. 그림 2 `application_assets/final_qa/ko/03_lesson-meaning-choice.png`는 선택형 학습 예시를 보여 줍니다. 그림 3 `application_assets/final_qa/ko/17_lesson-memory-story.png`는 개인 기억 주제 선택 흐름을 보여 주고, `application_assets/final_qa/ko/19_result.png`는 학습 결과 확인 화면을 보여 줍니다. 그림 4 `application_assets/final_qa/ko/20_garden.png`는 정원 보상 화면, 그림 5 `application_assets/final_qa/ko/21_report-counselor.png`는 상담사·보호자 안내 화면, 그림 6 `application_assets/final_qa/ko/23_settings.png`는 언어 설정과 기억 카드 삭제 기능을 보여 줍니다.
 
 ---
 

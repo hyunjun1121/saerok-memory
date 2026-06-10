@@ -262,12 +262,13 @@ def add_section_table(doc: Document, title: str, body: str) -> None:
 
 def add_images(doc: Document) -> None:
     images = [
-        ("final_01_home.png", "그림 1. 홈 화면과 학습 시작"),
-        ("final_03_lesson_feedback.png", "그림 2. 선택형 학습과 정답 피드백"),
-        ("final_04_memory_selection.png", "그림 3. 개인 기억 주제 선택"),
-        ("final_06_garden.png", "그림 4. 정원 보상 화면"),
-        ("final_07_family.png", "그림 5. 가족·보호자 안내 화면"),
-        ("final_08_settings.png", "그림 6. 언어 설정 및 기억 카드 삭제"),
+        ("final_qa/ko/01_home.png", "그림 1. 홈 화면과 학습 시작"),
+        ("final_qa/ko/03_lesson-meaning-choice.png", "그림 2. 선택형 학습과 정답 처리"),
+        ("final_qa/ko/17_lesson-memory-story.png", "그림 3. 개인 기억 주제 선택"),
+        ("final_qa/ko/19_result.png", "그림 4. 학습 결과 확인"),
+        ("final_qa/ko/20_garden.png", "그림 5. 정원 보상 화면"),
+        ("final_qa/ko/21_report-counselor.png", "그림 6. 상담사/보호자 안내 화면"),
+        ("final_qa/ko/23_settings.png", "그림 7. 언어 설정 및 기억 카드 삭제"),
     ]
     available = [(ASSET_DIR / name, caption) for name, caption in images if (ASSET_DIR / name).exists()]
     if not available:
