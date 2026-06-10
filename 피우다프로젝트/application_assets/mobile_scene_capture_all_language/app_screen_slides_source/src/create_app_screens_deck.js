@@ -42,11 +42,11 @@ const FONT = {
   lead: 16,
   chip: 10.2,
   sectionTitle: 13,
-  sectionTitleSmall: 12,
+  sectionTitleSmall: 13,
   bullet: 10.8,
   note: 10.2,
-  evidenceTitle: 10.5,
-  evidenceBody: 9.4
+  evidenceTitle: 13,
+  evidenceBody: 10.2
 };
 
 const LAYOUT = {
@@ -129,7 +129,7 @@ function addSlideNumber(slide, idx) {
 }
 
 function addBullets(slide, items, x, y, w) {
-  const rowH = 0.40;
+  const rowH = 0.33;
   items.forEach((text, i) => {
     const yy = y + i * rowH;
     slide.addShape(pptx.ShapeType.ellipse, {
@@ -163,8 +163,11 @@ function makeSlide({ idx, img, eyebrow, title, lead, chips, bullets, note, evide
 
   const rightX = LAYOUT.contentBox.x + LAYOUT.rightPadding;
   const rightW = LAYOUT.contentBox.w - (LAYOUT.rightPadding * 2);
-  const bulletYStart = 4.06;
-  const bulletRowH = 0.34;
+  const roleTitleY = 3.74;
+  const sectionTitleHeight = 0.28;
+  const sectionBodyGap = 0.10;
+  const bulletYStart = roleTitleY + sectionTitleHeight + sectionBodyGap;
+  const bulletRowH = 0.33;
   const bulletBottomY = bulletYStart + (bullets.length * bulletRowH);
 
   slide.addImage({
@@ -243,9 +246,9 @@ function makeSlide({ idx, img, eyebrow, title, lead, chips, bullets, note, evide
 
   slide.addText('화면 역할', {
     x: rightX,
-    y: 3.74,
+    y: roleTitleY,
     w: 1.3,
-    h: 0.28,
+    h: sectionTitleHeight,
     fontFace: FONT_FACE,
     fontSize: FONT.sectionTitle,
     bold: true,
@@ -257,12 +260,12 @@ function makeSlide({ idx, img, eyebrow, title, lead, chips, bullets, note, evide
 
   addBullets(slide, bullets, rightX, bulletYStart, rightW);
 
-  const designTitleY = bulletBottomY + 0.10;
-  const designTextY = designTitleY + 0.22;
-  const designTextHeight = 0.45;
-  const evidenceTitleY = designTextY + 0.26;
-  const evidenceTextY = evidenceTitleY + 0.20;
-  const evidenceTextHeight = 0.82;
+  const designTitleY = bulletBottomY + 0.16;
+  const designTextY = designTitleY + sectionTitleHeight + sectionBodyGap;
+  const designTextHeight = 0.53;
+  const evidenceTitleY = designTextY + designTextHeight + 0.16;
+  const evidenceTextY = evidenceTitleY + sectionTitleHeight + sectionBodyGap;
+  const evidenceTextHeight = 0.50;
 
   slide.addText('디자인 포인트', {
     x: rightX,
