@@ -57,7 +57,16 @@
     "title": "Keep it going this week",
     "completedDays": "You kept it going {{count}} day(s) this week.",
     "catalogNote": "Small rewards at welfare centers are decided by the operating organization.",
-    "bragCard": "{{count}} days of memory routine this week"
+    "bragCard": "{{count}} days of memory routine this week",
+    "bragCardShare": "Share",
+    "catalog": {
+      "stickerTitle": "Garden memory sticker",
+      "stickerBody": "Collect days of keeping it up this week to earn a sticker for the garden.",
+      "couponTitle": "Small exchange coupon",
+      "couponBody": "A small exchange coupon (e.g. a trash bag) set by the operating organization.",
+      "praiseTitle": "Praise card",
+      "praiseBody": "A card celebrating this week's effort."
+    }
   },
   "support": {
     "title": "Counseling resources",
@@ -228,6 +237,7 @@
     "encouragement": "A little each day keeps your brain active. Small routines add up.",
     "streak": "Participation streak: {{streak}} day(s)",
     "points": "Drops collected today: {{points}}",
+    "mascotPraise": "You did wonderfully today! Each day you keep going, your brain wakes up a little more.",
     "done": "Finish"
   },
   "garden": {

@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { Button3D } from "../../components/Button3D";
 import { WeeklyRewardCard } from "../../components/WeeklyRewardCard";
+import { MascotBubble } from "../../components/MascotBubble";
 import { Flame } from "lucide-react";
 import { useGamification } from "../../features/gamification/useGamification";
 import { getCognitiveRoutineResults } from "../../features/cognitive/cognitiveRoutineStorage";
@@ -37,6 +38,8 @@ export default function ResultScreen() {
         <p className="text-center text-lg font-bold text-ink">
           {t("result.encouragement")}
         </p>
+
+        <MascotBubble mood="praising" message={t("result.mascotPraise")} />
 
         <div className="relative w-48 h-48 flex items-center justify-center bg-white rounded-full border-4 border-primary-200 shadow-xl my-6 overflow-hidden">
           <div className="absolute inset-0 rounded-full animate-pulseSlow bg-primary-50 opacity-50" />

@@ -14,6 +14,7 @@ import {
 import {
   type GardenState, addGardenReward, type RewardEvent, initialGardenState
 } from "./gardenProgress";
+import { recordWeeklyCompletion } from "./weeklyRewards";
 
 interface GamificationContextValue {
   streakState: StreakState;
@@ -57,8 +58,22 @@ export function GamificationProvider({ children }: { children: ReactNode }) {
   }, [gardenState]);
 
   const completeSession = useCallback(() => {
-    setStreakState(prev => updateStreak(prev));
+    setStreakState(prev => {
+      const next = updateStreak(prev);
+      // streak_milestone: garden tree grows when a streak hits a milestone.
+      if ([3, 7, 14, 30].includes(next.currentStreak)) {
+        setGardenState(g => addGardenReward(g, "streak_milestone"));
+      }
+      return next;
+    });
     setGardenState(prev => addGardenReward(prev, "session_complete"));
+
+    // weekly_completion: a flower when this week's completed-day count reaches
+    // a participation threshold. recordWeeklyCompletion is idempotent for today.
+    const updated = recordWeeklyCompletion();
+    if ([3, 5, 7].includes(updated.completedDays.length)) {
+      setGardenState(g => addGardenReward(g, "weekly_completion"));
+    }
   }, []);
 
   const addReward = useCallback((event: RewardEvent) => {

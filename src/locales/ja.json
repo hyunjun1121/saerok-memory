@@ -57,7 +57,16 @@
     "title": "今週も続ける",
     "completedDays": "今週{{count}}日続きました。",
     "catalogNote": "福祉施設でもらえる小さなごほうびは運営機関が決めます。",
-    "bragCard": "今週の記憶ルーティン {{count}}日完了"
+    "bragCard": "今週の記憶ルーティン {{count}}日完了",
+    "bragCardShare": "シェア",
+    "catalog": {
+      "stickerTitle": "記憶の庭シール",
+      "stickerBody": "今週続けた日を集めると、庭に貼るシールがもらえます。",
+      "couponTitle": "福祉施設の小さな引換券",
+      "couponBody": "運営機関が決めた小さな引換券（例：ゴミ袋など）を受け取れます。",
+      "praiseTitle": "ほめるカード",
+      "praiseBody": "今週のがんばりをほめるカードを受け取ります。"
+    }
   },
   "support": {
     "title": "相談窓口のご案内",
@@ -228,6 +237,7 @@
     "encouragement": "毎日続けると、脳が少しずつ活性化します。小さなルーティンが大きな力に。",
     "streak": "連続参加：{{streak}}日",
     "points": "今日集めたしずく：{{points}}",
+    "mascotPraise": "今日もすてきにやり遂げました！毎日続けるほど、脳が少しずつ目を覚まします。",
     "done": "終わる"
   },
   "garden": {

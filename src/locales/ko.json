@@ -57,7 +57,16 @@
     "title": "이번 주 이어하기",
     "completedDays": "이번 주 {{count}}일 이어 했어요.",
     "catalogNote": "복지관에서 받을 수 있는 작은 보상은 운영 기관이 정해요.",
-    "bragCard": "이번 주 기억 루틴 {{count}}일 완료"
+    "bragCard": "이번 주 기억 루틴 {{count}}일 완료",
+    "bragCardShare": "자랑하기",
+    "catalog": {
+      "stickerTitle": "기억 정원 스티커",
+      "stickerBody": "이번 주 이어하기를 모으면 정원에 붙일 스티커를 받아요.",
+      "couponTitle": "복지관 작은 교환권",
+      "couponBody": "운영 기관이 정한 작은 교환권(예: 쓰레기봉투 등)을 받을 수 있어요.",
+      "praiseTitle": "칭찬 카드",
+      "praiseBody": "이번 주 노력을 칭찬하는 카드를 받아요."
+    }
   },
   "support": {
     "title": "상담 자원 안내",
@@ -228,6 +237,7 @@
     "encouragement": "매일 이어갈수록 뇌가 활성화돼요. 작은 루틴이 큰 힘이 됩니다.",
     "streak": "연속 참여: {{streak}}일",
     "points": "오늘 모은 물방울: {{points}}",
+    "mascotPraise": "오늘도 멋지게 해내셨어요! 매일 이어갈수록 뇌가 한 뼘 더 깨어요.",
     "done": "마치기"
   },
   "garden": {
