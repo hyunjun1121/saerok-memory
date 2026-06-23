@@ -1,12 +1,22 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { Globe, ArrowLeft, Trash2, Shield, Settings2 } from "lucide-react";
+import { Globe, ArrowLeft, Trash2, Shield, Settings2, Zap } from "lucide-react";
 import { Button3D } from "../../components/Button3D";
 import { clearCognitiveRoutineResults } from "../../features/cognitive/cognitiveRoutineStorage";
+import { getLearnerProfile, saveLearnerProfile } from "../../features/profile/learnerProfileStorage";
 
 export default function SettingsScreen() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const [autoStart, setAutoStart] = useState(
+    () => getLearnerProfile().autoStartTodayRoutine,
+  );
+
+  const toggleAutoStart = (next: boolean) => {
+    saveLearnerProfile({ autoStartTodayRoutine: next });
+    setAutoStart(next);
+  };
 
   const handleLanguageChange = (lng: string) => {
     i18n.changeLanguage(lng);
@@ -83,6 +93,31 @@ export default function SettingsScreen() {
             </span>
             {i18n.language === "ja" && <div className="w-3 h-3 rounded-full bg-primary-500" />}
           </button>
+        </div>
+      </section>
+
+      <section className="bg-white p-6 rounded-3xl border-2 border-gray-200 shadow-sm flex flex-col gap-4 mb-6">
+        <div className="flex items-center gap-3 border-b-2 border-gray-100 pb-4">
+          <div className="p-2 bg-amber-50 rounded-xl">
+            <Zap className="w-6 h-6 text-amber-700" />
+          </div>
+          <h2 className="text-xl font-bold text-ink">{t("settings.autoStartTitle")}</h2>
+        </div>
+        <div className="flex gap-3">
+          <Button3D
+            variant={autoStart ? "primary" : "neutral"}
+            className="flex-1"
+            onClick={() => toggleAutoStart(true)}
+          >
+            {t("settings.autoStartOn")}
+          </Button3D>
+          <Button3D
+            variant={!autoStart ? "primary" : "neutral"}
+            className="flex-1"
+            onClick={() => toggleAutoStart(false)}
+          >
+            {t("settings.autoStartOff")}
+          </Button3D>
         </div>
       </section>
 

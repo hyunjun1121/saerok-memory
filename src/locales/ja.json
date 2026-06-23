@@ -7,18 +7,74 @@
     "back": "戻る"
   },
   "navigation": {
-    "home": "学習",
+    "home": "今日のルーティン",
     "garden": "庭",
     "family": "レポート",
-    "settings": "設定"
+    "settings": "設定",
+    "aria": "メインメニュー"
   },
   "home": {
-    "unitLabel": "ユニット1",
-    "continueButton": "続ける",
-    "unitTitle": "はじめに：良い思い出",
+    "unitLabel": "今日のルーティン",
+    "continueButton": "今日のルーティンを始める",
+    "unitTitle": "一日をやさしく始めましょう",
     "mascotGreeting": "今日も会えて嬉しいです！ゆっくり始めましょうか？",
-    "advisoryTitle": "Haruの小さなサインを集めます",
-    "advisoryBody": "毎日の活動、記憶の手がかり、見守りメモが積み重なると、レポートで次の会話を準備できます。"
+    "advisoryTitle": "毎日、脳を軽く目覚めさせる",
+    "advisoryBody": "短い活動で今日一日を振り返り、記憶の手がかりを集めます。一日に少しずつで大丈夫です。",
+    "todayRoutineName": "今日は{{name}}の日です。"
+  },
+  "topbar": {
+    "streakAria": "連続参加 {{streak}}日",
+    "gardenAria": "集めたしずく {{points}}個"
+  },
+  "choice": {
+    "state": {
+      "selected": "選択中",
+      "correct": "完了",
+      "incorrect": "もう一度押す"
+    }
+  },
+  "speech": {
+    "listeningTitle": "聞いています",
+    "listeningBody": "ゆっくり話してください。終わったら下のボタンを押してください。",
+    "start": "話し始める",
+    "stop": "話を終える",
+    "unsupported": "この端末では音声認識が制限されています。下の欄に書いて残せます。",
+    "durationHint": "20秒ほど気軽に話してください。",
+    "transcriptLabel": "残した話",
+    "recognized": "話した内容"
+  },
+  "routine": {
+    "todayLabel": "今日のルーティン",
+    "attentionDay": "ゆっくり確かめる活動",
+    "memoryDay": "記憶を軽く目覚めさせる日",
+    "languageDay": "話すことを目覚めさせる日",
+    "dailyFlowDay": "一日の順番を整理する日",
+    "moodDay": "気分と人との交流を思い出す日",
+    "reviewDay": "軽い復習と庭のごほうび",
+    "fallback": "今日の軽いルーティン"
+  },
+  "weekly": {
+    "title": "今週も続ける",
+    "completedDays": "今週{{count}}日続きました。",
+    "catalogNote": "福祉施設でもらえる小さなごほうびは運営機関が決めます。",
+    "bragCard": "今週の記憶ルーティン {{count}}日完了"
+  },
+  "support": {
+    "title": "相談窓口のご案内",
+    "body": "心配が繰り返される場合は、活動記録とメモを整理して、近くの公式の相談窓口にお問い合わせください。これは診断やスクリーニング結果ではありません。",
+    "viewButton": "相談窓口を見る",
+    "close": "閉じる",
+    "verifyNote": "電話番号と住所は、運営機関の最新の公式情報で確認したうえで表示します。",
+    "phoneLabel": "代表電話",
+    "homepageLabel": "ホームページ",
+    "regionLabel": "対象地域",
+    "pending": "この地域の公式の相談窓口は、最新確認のうえ表示します。",
+    "type": {
+      "dementiaSafetyCenter": "認症サポートセンター",
+      "publicCounseling": "公的な相談機関",
+      "localClinic": "近くの病院・クリニック",
+      "welfareCenter": "地域包括支援センター・福祉施設"
+    }
   },
   "feedback": {
     "correct": {
@@ -89,7 +145,7 @@
       }
     },
     "cognitive": {
-      "practice": "軽い練習",
+      "practice": "今日の活動",
       "ready": "はい、覚えました",
       "clear": "消す",
       "done": "描き終わりました",
@@ -104,14 +160,14 @@
       "wordRecallFreeLabel": "先に思い出した言葉",
       "wordRecallFreePlaceholder": "例：えんぴつ、りんご、バス",
       "wordRecallFreeHelper": "先に思い浮かぶ言葉を書き、その後で下の選択肢から確認してください。",
-      "workingMemory": "作業記憶の練習",
-      "digitSpanForwardGuide": "数字を順番に覚えてください。",
-      "digitSpanBackwardGuide": "数字を順番に見て、次の画面で逆の順番に押してください。",
+      "workingMemory": "番号記憶の活動",
+      "digitSpanForwardGuide": "番号を順番に覚えてください。",
+      "digitSpanBackwardGuide": "番号を順番に見て、次の画面で逆の順番に押してください。",
       "startAnswer": "押してみる",
       "backspace": "一つ消す",
-      "verbalFluency": "言語流暢性の練習",
-      "category": "カテゴリー",
-      "verbalFluencyGuide": "一つのカテゴリーから言葉を思い出す練習です。",
+      "verbalFluency": "言葉思い出し",
+      "category": "お題",
+      "verbalFluencyGuide": "一つのお題から言葉を思い出す活動です。",
       "verbalFluencyIntro": "始めると時間が減ります。思いついた言葉を読点で区切って書くか、話したあと覚えている分を書いてください。",
       "wordInputLabel": "思いついた言葉",
       "wordInputPlaceholder": "例：ねこ、いぬ、ぞう",
@@ -123,18 +179,20 @@
       "startFluency": "始める",
       "finishFluency": "保存して次へ",
       "saveFluency": "記録を保存",
-      "trailSwitching": "注意切り替えの練習",
-      "trailGuide": "今の手がかりを見ながら、数字と絵を交互に押してください。間違えても、そのまま続けられます。",
+      "trailSwitching": "順番に押す",
+      "trailGuide": "示された次の手がかりを見ながら、数字と絵を交互に押してください。間違えても、そのまま続けられます。",
       "trailCurrentTarget": "次の手がかり",
       "trailErrors": "押し直した回数",
       "trailWrongNode": "表示されている次の手がかりを押してみましょう。",
       "restartTrail": "最初からやり直す",
       "trailNodeAria": "{{label}}を押す",
-      "orientation": "日付感覚の練習",
+      "trailGroupNumber": "番号",
+      "trailGroupSymbol": "絵",
+      "orientation": "今日の日付確認",
       "orientationGuide": "一日の始まりに今日の日付と曜日を軽く確かめる活動です。",
       "orientationTodayLabel": "今日確認すること",
       "orientationTodayHelper": "日付と曜日",
-      "colorFocus": "色に集中するルーティン",
+      "colorFocus": "見える色を選ぶ",
       "stroopGuide": "言葉の意味を少し横に置いて、文字に見えている色をゆっくり押してください。",
       "stroopProgress": "カード {{progress}}",
       "stroopWordAria": "色の言葉 {{word}}",
@@ -153,9 +211,9 @@
   "lesson": {
     "close": "レッスンを閉じる",
     "start": {
-      "overline": "レッスン開始",
+      "overline": "今日の短いルーティン",
       "title": "今日のメモリー・ルーティンを始めましょうか？",
-      "description": "今日の出来事や思い出をやさしく振り返るために、約8つの短いアクティビティを行います。",
+      "description": "いくつかの短い活動で、今日一日をゆっくり振り返ってみましょう。",
       "todayLabel": "今日の一言",
       "todayPhrase": "小さな継続が、今日をもっとはっきりと感じやすくします。",
       "estimatedTimeLabel": "想定時間",
@@ -166,8 +224,8 @@
     }
   },
   "result": {
-    "title": "学習完了！",
-    "streak": "連続学習日数：{{streak}}日",
+    "title": "今日のルーティン完了！",
+    "streak": "連続参加：{{streak}}日",
     "points": "今日集めたしずく：{{points}}",
     "done": "終わる"
   },
@@ -295,13 +353,13 @@
       "activityBadge": "30日活動サマリー"
     },
     "advisory": {
-      "title": "Haru総合注意サイン",
+      "title": "Haru会話準備サイン",
       "signalTitle": "参考にしたサイン",
       "nextStepsTitle": "次の会話アクション",
       "levels": {
         "steady": "安定",
         "watch": "見守り",
-        "needsConversation": "会話が必要"
+        "needsConversation": "相談の会話準備"
       },
       "summary": {
         "steady": "現在の記録では、負担をかけずに続けられる流れが見えます。",
@@ -358,7 +416,7 @@
     "counselorTitle": "相談レポート",
     "counselorSubtitle": "最近の活動と共有された思い出をもとに、次の会話を準備します。",
     "counselorActivityLabel": "活動概要",
-    "counselorPracticeLabel": "認知ルーティン参加",
+    "counselorPracticeLabel": "活動ルーティン参加",
     "counselorCuesLabel": "会話テーマの提案",
     "counselorMemoriesLabel": "共有された思い出",
     "counselorNotesLabel": "次の会話の参考資料",
@@ -378,6 +436,37 @@
     },
     "dataManagement": "データ管理",
     "deleteMemoryCards": "記憶カードを削除する",
-    "deleteCognitiveData": "練習記録を削除する"
+    "deleteCognitiveData": "活動記録を削除する",
+    "accessibilityTitle": "画面とフィードバック",
+    "soundFeedback": "音・振動フィードバック",
+    "soundFeedbackOn": "オン",
+    "soundFeedbackOff": "オフ",
+    "largeText": "文字を大きく",
+    "inputModeTitle": "参加のしかた",
+    "inputModeSpeech": "主に話す",
+    "inputModeTap": "主に押す",
+    "inputModeMixed": "両方まぜて",
+    "autoStartTitle": "起動時に今日のルーティンをすぐ開く",
+    "autoStartOn": "オン",
+    "autoStartOff": "オフ"
+  },
+  "onboarding": {
+    "title": "ようこそ",
+    "welcomeBody": "いくつかだけ無理なく選べば、今日のルーティンをすぐ始められます。",
+    "step": {
+      "languageTitle": "使いやすい言語を選んでください",
+      "largeTextTitle": "文字を大きくしますか？",
+      "largeTextHint": "大きくするをオンにすると、文字がよりはっきりします。",
+      "inputModeTitle": "どう参加しますか？"
+    },
+    "largeTextOn": "大きく表示",
+    "largeTextOff": "そのまま",
+    "inputMode": {
+      "speech": "主に話す",
+      "tap": "主に押す",
+      "mixed": "両方まぜて"
+    },
+    "next": "次へ",
+    "finish": "始める"
   }
 }

@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { saveCognitiveRoutineResult, getCognitiveRoutineResults, clearCognitiveRoutineResults } from "./cognitiveRoutineStorage";
+import { saveCognitiveRoutineResult, getCognitiveRoutineResults, clearCognitiveRoutineResults, isTodayRoutineCompleted } from "./cognitiveRoutineStorage";
 
 describe("cognitiveRoutineStorage", () => {
   it("should save and retrieve cognitive routine results", () => {
@@ -28,5 +28,24 @@ describe("cognitiveRoutineStorage", () => {
 
     const results = getCognitiveRoutineResults();
     expect(results).toHaveLength(0);
+  });
+
+  describe("isTodayRoutineCompleted (SP-07 launch auto-start)", () => {
+    it("returns true when a routine was completed today", () => {
+      localStorage.clear();
+      saveCognitiveRoutineResult({ type: "attention_pattern", completed: true });
+      expect(isTodayRoutineCompleted()).toBe(true);
+    });
+
+    it("returns false when nothing is completed today", () => {
+      localStorage.clear();
+      saveCognitiveRoutineResult({ type: "attention_pattern", completed: false });
+      expect(isTodayRoutineCompleted()).toBe(false);
+    });
+
+    it("returns false when results are empty", () => {
+      localStorage.clear();
+      expect(isTodayRoutineCompleted()).toBe(false);
+    });
   });
 });

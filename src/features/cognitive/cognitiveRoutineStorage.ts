@@ -1,3 +1,5 @@
+import { readJsonArray, removeKey, writeJson } from "../../utils/safeStorage";
+
 export type RoutineType =
   | "delayed_word_recall"
   | "attention_pattern"
@@ -17,14 +19,10 @@ export interface RoutineResult {
   metadata?: Record<string, unknown>;
 }
 
+const STORAGE_KEY = "cognitiveRoutineResults";
+
 export function getCognitiveRoutineResults(): RoutineResult[] {
-  try {
-    const data = localStorage.getItem("cognitiveRoutineResults");
-    return data ? JSON.parse(data) : [];
-  } catch (error) {
-    console.error("Failed to parse cognitiveRoutineResults", error);
-    return [];
-  }
+  return readJsonArray<RoutineResult>(STORAGE_KEY);
 }
 
 export function saveCognitiveRoutineResult(result: Omit<RoutineResult, "id" | "timestamp"> & Partial<Pick<RoutineResult, "timestamp">>): void {
@@ -38,17 +36,20 @@ export function saveCognitiveRoutineResult(result: Omit<RoutineResult, "id" | "t
 
   results.push(newResult);
 
-  try {
-    localStorage.setItem("cognitiveRoutineResults", JSON.stringify(results));
-  } catch (error) {
-    console.error("Failed to save cognitiveRoutineResults", error);
-  }
+  writeJson(STORAGE_KEY, results);
 }
 
 export function clearCognitiveRoutineResults(): void {
-  try {
-    localStorage.removeItem("cognitiveRoutineResults");
-  } catch (error) {
-    console.error("Failed to clear cognitiveRoutineResults", error);
-  }
+  removeKey(STORAGE_KEY);
+}
+
+/**
+ * Whether the learner already completed a routine today (local date).
+ * Used by the launch auto-start gate: skip 0-tap entry once today is done.
+ */
+export function isTodayRoutineCompleted(now: Date = new Date()): boolean {
+  const today = now.toDateString();
+  return getCognitiveRoutineResults().some(
+    (r) => r.completed && new Date(r.timestamp).toDateString() === today,
+  );
 }

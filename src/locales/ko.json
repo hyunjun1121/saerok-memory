@@ -7,18 +7,74 @@
     "back": "뒤로 가기"
   },
   "navigation": {
-    "home": "학습",
+    "home": "오늘 루틴",
     "garden": "정원",
     "family": "리포트",
-    "settings": "설정"
+    "settings": "설정",
+    "aria": "주요 메뉴"
   },
   "home": {
-    "unitLabel": "1단원",
-    "continueButton": "계속하기",
-    "unitTitle": "시작하기: 좋은 기억",
+    "unitLabel": "오늘의 루틴",
+    "continueButton": "오늘 루틴 시작하기",
+    "unitTitle": "하루를 가볍게 깨워요",
     "mascotGreeting": "오늘도 반가워요! 천천히 시작해볼까요?",
-    "advisoryTitle": "하루의 작은 신호를 모아요",
-    "advisoryBody": "매일의 활동, 기억 단서, 보호자 메모가 쌓이면 리포트에서 다음 대화를 준비할 수 있습니다."
+    "advisoryTitle": "매일 뇌를 가볍게 깨워요",
+    "advisoryBody": "짧은 활동으로 오늘 하루를 떠올리고 기억 단서를 모아요. 부담 없이 하루에 조금씩 하면 됩니다.",
+    "todayRoutineName": "오늘은 {{name}} 날이에요."
+  },
+  "topbar": {
+    "streakAria": "연속 참여 {{streak}}일",
+    "gardenAria": "모은 물방울 {{points}}개"
+  },
+  "choice": {
+    "state": {
+      "selected": "선택됨",
+      "correct": "완료",
+      "incorrect": "다시 눌러보기"
+    }
+  },
+  "speech": {
+    "listeningTitle": "듣고 있어요",
+    "listeningBody": "천천히 말씀해 주세요. 다 말하면 아래 버튼을 눌러주세요.",
+    "start": "말하기 시작",
+    "stop": "말하기 마치기",
+    "unsupported": "이 기기에서는 음성 인식이 제한되어 아래 칸에 글로 남길 수 있어요.",
+    "durationHint": "20초 정도 편하게 말씀해 주세요.",
+    "transcriptLabel": "남겨진 이야기",
+    "recognized": "말로 남긴 이야기"
+  },
+  "routine": {
+    "todayLabel": "오늘의 루틴",
+    "attentionDay": "천천히 살펴보는 활동",
+    "memoryDay": "기억을 가볍게 깨우는 날",
+    "languageDay": "말하기를 깨우는 날",
+    "dailyFlowDay": "하루 순서를 정리하는 날",
+    "moodDay": "기분과 만남을 떠올리는 날",
+    "reviewDay": "가벼운 복습과 정원 보상",
+    "fallback": "오늘의 가벼운 루틴"
+  },
+  "weekly": {
+    "title": "이번 주 이어하기",
+    "completedDays": "이번 주 {{count}}일 이어 했어요.",
+    "catalogNote": "복지관에서 받을 수 있는 작은 보상은 운영 기관이 정해요.",
+    "bragCard": "이번 주 기억 루틴 {{count}}일 완료"
+  },
+  "support": {
+    "title": "상담 자원 안내",
+    "body": "걱정이 반복되면 활동 기록과 메모를 정리해 가까운 공식 상담 자원에 문의해 보세요. 이 안내는 진단이나 선별 결과가 아니에요.",
+    "viewButton": "상담 자원 보기",
+    "close": "닫기",
+    "verifyNote": "연락처와 주소는 운영 기관의 최신 공식 자료로 확인한 뒤 표시해요.",
+    "phoneLabel": "대표 전화",
+    "homepageLabel": "홈페이지",
+    "regionLabel": "운영 지역",
+    "pending": "이 지역의 공식 상담 연락처는 최신 확인 뒤 표시해요.",
+    "type": {
+      "dementiaSafetyCenter": "치매안심센터",
+      "publicCounseling": "공공 상담 기관",
+      "localClinic": "가까운 병원·의원",
+      "welfareCenter": "주민센터·복지관"
+    }
   },
   "feedback": {
     "correct": {
@@ -89,13 +145,13 @@
       }
     },
     "cognitive": {
-      "practice": "가벼운 연습",
+      "practice": "오늘의 활동",
       "ready": "네, 기억했습니다",
       "clear": "지우기",
       "done": "다 그렸습니다",
       "listen": "들어보기",
       "speak": "따라 말하기",
-      "listening": "듣는 중...",
+      "listening": "듣고 있어요...",
       "doneSpeaking": "다 말했습니다",
       "drawingArea": "그림을 그리는 영역",
       "wordRecallEncodeGuide": "단어만 외우기보다 범주와 함께 기억해 보세요. 나중에 같은 단어를 다시 골라봅니다.",
@@ -104,15 +160,15 @@
       "wordRecallFreeLabel": "먼저 떠오른 단어",
       "wordRecallFreePlaceholder": "예: 연필, 사과, 버스",
       "wordRecallFreeHelper": "생각나는 단어를 먼저 적고, 아래 선택지로 다시 확인해 보세요.",
-      "workingMemory": "작업기억 연습",
-      "digitSpanForwardGuide": "숫자를 차례로 기억해 주세요.",
-      "digitSpanBackwardGuide": "숫자를 차례로 본 뒤, 다음 화면에서 거꾸로 눌러주세요.",
+      "workingMemory": "번호 기억 활동",
+      "digitSpanForwardGuide": "번호를 차례로 기억해 주세요.",
+      "digitSpanBackwardGuide": "번호를 차례로 본 뒤, 다음 화면에서 거꾸로 눌러주세요.",
       "startAnswer": "이제 눌러보기",
       "backspace": "하나 지우기",
-      "verbalFluency": "언어 유창성 연습",
-      "category": "범주",
-      "verbalFluencyGuide": "한 범주 안에서 떠오르는 단어를 편하게 모아보는 연습입니다.",
-      "verbalFluencyIntro": "시작하면 시간이 줄어듭니다. 떠오르는 단어를 쉼표로 나누어 적거나, 말한 뒤 기억나는 만큼 적어 주세요.",
+      "verbalFluency": "단어 떠올리기",
+      "category": "주제",
+      "verbalFluencyGuide": "한 주제 안에서 떠오르는 단어를 편하게 모아보는 활동이에요.",
+      "verbalFluencyIntro": "시작하면 시간이 줄어들어요. 떠오르는 단어를 쉼표로 나누어 적거나, 말한 뒤 기억나는 만큼 적어 주세요.",
       "wordInputLabel": "떠오른 단어",
       "wordInputPlaceholder": "예: 고양이, 강아지, 코끼리",
       "addWords": "단어 추가",
@@ -123,18 +179,20 @@
       "startFluency": "시작하기",
       "finishFluency": "저장하고 다음으로",
       "saveFluency": "기록 저장하기",
-      "trailSwitching": "주의 전환 연습",
-      "trailGuide": "현재 단서를 보고 숫자와 그림을 번갈아 눌러보세요. 틀려도 바로 다시 이어갈 수 있습니다.",
+      "trailSwitching": "차례대로 누르기",
+      "trailGuide": "표시된 다음 단서를 보고 숫자와 그림을 번갈아 눌러보세요. 틀려도 바로 다시 이어갈 수 있어요.",
       "trailCurrentTarget": "다음 단서",
       "trailErrors": "다시 누른 횟수",
       "trailWrongNode": "표시된 다음 단서를 눌러보세요.",
       "restartTrail": "처음부터 다시",
       "trailNodeAria": "{{label}} 누르기",
-      "orientation": "날짜 감각 연습",
-      "orientationGuide": "하루를 시작하며 오늘의 날짜와 요일을 가볍게 확인하는 활동입니다.",
+      "trailGroupNumber": "번호",
+      "trailGroupSymbol": "그림",
+      "orientation": "오늘 날짜 확인",
+      "orientationGuide": "하루를 시작하며 오늘의 날짜와 요일을 가볍게 확인하는 활동이에요.",
       "orientationTodayLabel": "오늘 확인할 내용",
       "orientationTodayHelper": "날짜와 요일",
-      "colorFocus": "색상 집중 루틴",
+      "colorFocus": "보이는 색 고르기",
       "stroopGuide": "단어의 뜻을 잠시 내려놓고, 글자가 보이는 색을 천천히 눌러주세요.",
       "stroopProgress": "카드 {{progress}}",
       "stroopWordAria": "색 단어 {{word}}",
@@ -153,9 +211,9 @@
   "lesson": {
     "close": "수업 닫기",
     "start": {
-      "overline": "레슨 시작",
+      "overline": "오늘의 짧은 루틴",
       "title": "오늘의 기억 루틴을 시작할까요?",
-      "description": "짧은 8개 정도의 활동으로 오늘의 일과 기억 단서를 천천히 떠올려 보세요.",
+      "description": "몇 가지 짧은 활동으로 오늘 하루를 천천히 떠올려 보세요.",
       "todayLabel": "오늘의 한마디",
       "todayPhrase": "작은 노력이 모이면 하루가 더 또렷해집니다.",
       "estimatedTimeLabel": "예상 시간",
@@ -166,8 +224,8 @@
     }
   },
   "result": {
-    "title": "학습 완료!",
-    "streak": "연속 학습일: {{streak}}일",
+    "title": "오늘 루틴 완료!",
+    "streak": "연속 참여: {{streak}}일",
     "points": "오늘 모은 물방울: {{points}}",
     "done": "마치기"
   },
@@ -295,13 +353,13 @@
       "activityBadge": "30일 활동 요약"
     },
     "advisory": {
-      "title": "Haru 종합 주의 신호",
+      "title": "Haru 대화 준비 신호",
       "signalTitle": "참고한 신호",
       "nextStepsTitle": "다음 대화 액션",
       "levels": {
         "steady": "안정적",
         "watch": "살펴보기",
-        "needsConversation": "대화 필요"
+        "needsConversation": "상담 대화 준비"
       },
       "summary": {
         "steady": "현재 기록에서는 부담 없이 이어갈 수 있는 흐름이 보입니다.",
@@ -358,7 +416,7 @@
     "counselorTitle": "상담 리포트",
     "counselorSubtitle": "최근 활동과 공유된 기억을 바탕으로 다음 대화를 준비합니다.",
     "counselorActivityLabel": "활동 개요",
-    "counselorPracticeLabel": "인지 루틴 참여",
+    "counselorPracticeLabel": "활동 루틴 참여",
     "counselorCuesLabel": "대화 주제 제안",
     "counselorMemoriesLabel": "공유 기억",
     "counselorNotesLabel": "다음 대화 참고 자료",
@@ -378,6 +436,37 @@
     },
     "dataManagement": "데이터 관리",
     "deleteMemoryCards": "기억 카드 삭제하기",
-    "deleteCognitiveData": "연습 기록 삭제하기"
+    "deleteCognitiveData": "활동 기록 삭제하기",
+    "accessibilityTitle": "화면 편의 설정",
+    "soundFeedback": "소리·진동 피드백",
+    "soundFeedbackOn": "켜기",
+    "soundFeedbackOff": "끄기",
+    "largeText": "글자 크게 보기",
+    "inputModeTitle": "참여 방법",
+    "inputModeSpeech": "말하기 위주",
+    "inputModeTap": "누르기 위주",
+    "inputModeMixed": "둘 다 섞어서",
+    "autoStartTitle": "시작할 때 바로 오늘 루틴 열기",
+    "autoStartOn": "켜기",
+    "autoStartOff": "끄기"
+  },
+  "onboarding": {
+    "title": "처음 오신 것을 환영해요",
+    "welcomeBody": "몇 가지만 편하게 골라주시면, 오늘 루틴을 바로 시작할 수 있어요.",
+    "step": {
+      "languageTitle": "편한 언어를 골라주세요",
+      "largeTextTitle": "글자를 크게 볼까요?",
+      "largeTextHint": "크게 보기를 켜면 글자가 더 또렷해요.",
+      "inputModeTitle": "어떻게 참여하실래요?"
+    },
+    "largeTextOn": "크게 보기",
+    "largeTextOff": "그대로",
+    "inputMode": {
+      "speech": "말하기 위주",
+      "tap": "누르기 위주",
+      "mixed": "둘 다 섞어서"
+    },
+    "next": "다음",
+    "finish": "시작하기"
   }
 }

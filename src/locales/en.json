@@ -7,18 +7,74 @@
     "back": "Back"
   },
   "navigation": {
-    "home": "Learn",
+    "home": "Today",
     "garden": "Garden",
     "family": "Report",
-    "settings": "Settings"
+    "settings": "Settings",
+    "aria": "Main menu"
   },
   "home": {
-    "unitLabel": "Unit 1",
-    "continueButton": "Continue",
-    "unitTitle": "Getting Started: Good Memories",
+    "unitLabel": "Today's routine",
+    "continueButton": "Start today's routine",
+    "unitTitle": "A gentle start to the day",
     "mascotGreeting": "Nice to see you! Shall we start slowly?",
-    "advisoryTitle": "Collect small Haru signals",
-    "advisoryBody": "Daily routines, memory cues, and caregiver notes can become conversation-ready support in the report."
+    "advisoryTitle": "A light daily brain warm-up",
+    "advisoryBody": "Short activities help you revisit the day and gather memory cues. A little each day is enough.",
+    "todayRoutineName": "Today is a {{name}} day."
+  },
+  "topbar": {
+    "streakAria": "{{streak}} day participation streak",
+    "gardenAria": "{{points}} drops collected"
+  },
+  "choice": {
+    "state": {
+      "selected": "Selected",
+      "correct": "Done",
+      "incorrect": "Try again"
+    }
+  },
+  "speech": {
+    "listeningTitle": "Listening",
+    "listeningBody": "Take your time and speak slowly. Tap the button below when you finish.",
+    "start": "Start speaking",
+    "stop": "Finish speaking",
+    "unsupported": "Speech recognition is limited on this device. You can type your answer in the box below.",
+    "durationHint": "Speak comfortably for about 20 seconds.",
+    "transcriptLabel": "Story captured",
+    "recognized": "Spoken story"
+  },
+  "routine": {
+    "todayLabel": "Today's routine",
+    "attentionDay": "A slow, careful activity",
+    "memoryDay": "A day to gently wake memory",
+    "languageDay": "A day to wake up talking",
+    "dailyFlowDay": "A day to organize the day's order",
+    "moodDay": "A day to recall mood and company",
+    "reviewDay": "Light review and a garden reward",
+    "fallback": "Today's light routine"
+  },
+  "weekly": {
+    "title": "Keep it going this week",
+    "completedDays": "You kept it going {{count}} day(s) this week.",
+    "catalogNote": "Small rewards at welfare centers are decided by the operating organization.",
+    "bragCard": "{{count}} days of memory routine this week"
+  },
+  "support": {
+    "title": "Counseling resources",
+    "body": "If worries repeat, organize the activity records and notes, then contact a nearby official counseling resource. This is not a diagnosis or screening result.",
+    "viewButton": "View counseling resources",
+    "close": "Close",
+    "verifyNote": "Phone numbers and addresses are shown only after verifying against the organization's latest official information.",
+    "phoneLabel": "Main phone",
+    "homepageLabel": "Website",
+    "regionLabel": "Region",
+    "pending": "Official counseling contacts for this region appear after the latest verification.",
+    "type": {
+      "dementiaSafetyCenter": "Dementia safety center",
+      "publicCounseling": "Public counseling center",
+      "localClinic": "Nearby clinic",
+      "welfareCenter": "Community or welfare center"
+    }
   },
   "feedback": {
     "correct": {
@@ -89,7 +145,7 @@
       }
     },
     "cognitive": {
-      "practice": "Light Practice",
+      "practice": "Today's activity",
       "ready": "Yes, I remembered",
       "clear": "Clear",
       "done": "I finished drawing",
@@ -104,14 +160,14 @@
       "wordRecallFreeLabel": "Words remembered first",
       "wordRecallFreePlaceholder": "Example: pencil, apple, bus",
       "wordRecallFreeHelper": "Write the words that come to mind first, then confirm with the choices below.",
-      "workingMemory": "Working Memory Practice",
+      "workingMemory": "Number Memory Activity",
       "digitSpanForwardGuide": "Remember the numbers in order.",
       "digitSpanBackwardGuide": "Look at the numbers in order, then tap them backward on the next screen.",
       "startAnswer": "Start tapping",
       "backspace": "Delete one",
-      "verbalFluency": "Verbal Fluency Practice",
-      "category": "Category",
-      "verbalFluencyGuide": "A routine for recalling words within one category.",
+      "verbalFluency": "Word Recall",
+      "category": "Topic",
+      "verbalFluencyGuide": "A routine for recalling words within one topic.",
       "verbalFluencyIntro": "The timer will start when you begin. Type words separated by commas, or say them aloud and enter what you remember.",
       "wordInputLabel": "Words you recalled",
       "wordInputPlaceholder": "Example: cat, dog, elephant",
@@ -123,18 +179,20 @@
       "startFluency": "Start",
       "finishFluency": "Save and continue",
       "saveFluency": "Save record",
-      "trailSwitching": "Attention Switching Practice",
-      "trailGuide": "Use the current cue and alternate between numbers and pictures. If you tap the wrong item, you can continue right away.",
+      "trailSwitching": "Tap in Order",
+      "trailGuide": "Follow the highlighted next cue and alternate between numbers and pictures. If you tap the wrong item, you can continue right away.",
       "trailCurrentTarget": "Next cue",
       "trailErrors": "Retaps",
       "trailWrongNode": "Try the displayed next cue instead of {{label}}.",
       "restartTrail": "Start over",
       "trailNodeAria": "Tap {{label}}",
-      "orientation": "Date Awareness Practice",
+      "trailGroupNumber": "Number",
+      "trailGroupSymbol": "Picture",
+      "orientation": "Today's Date Check",
       "orientationGuide": "A light start-of-day routine for checking today's date and weekday.",
       "orientationTodayLabel": "What to check today",
       "orientationTodayHelper": "Date and weekday",
-      "colorFocus": "Color Focus Practice",
+      "colorFocus": "Pick the Visible Color",
       "stroopGuide": "Read slowly and tap the visible ink color while setting aside the word meaning.",
       "stroopProgress": "Card {{progress}}",
       "stroopWordAria": "Color word {{word}}",
@@ -153,9 +211,9 @@
   "lesson": {
     "close": "Close lesson",
     "start": {
-      "overline": "Lesson start",
+      "overline": "Today's short routine",
       "title": "Ready to start today’s memory routine?",
-      "description": "Try a short set of about 8 activities to gently recall and organize your memories.",
+      "description": "Try a few short activities to gently revisit today.",
       "todayLabel": "Today's note",
       "todayPhrase": "Small, steady effort helps each day feel clearer.",
       "estimatedTimeLabel": "Estimated time",
@@ -166,8 +224,8 @@
     }
   },
   "result": {
-    "title": "Session Complete!",
-    "streak": "Day streak: {{streak}}",
+    "title": "Today's Routine Complete!",
+    "streak": "Participation streak: {{streak}} day(s)",
     "points": "Drops collected today: {{points}}",
     "done": "Finish"
   },
@@ -295,13 +353,13 @@
       "activityBadge": "30-day activity summary"
     },
     "advisory": {
-      "title": "Haru attention signal",
+      "title": "Haru conversation-prep signal",
       "signalTitle": "Signals used",
       "nextStepsTitle": "Next conversation actions",
       "levels": {
         "steady": "Steady",
         "watch": "Watch",
-        "needsConversation": "Conversation needed"
+        "needsConversation": "Conversation to prepare"
       },
       "summary": {
         "steady": "The current records show a flow that can continue with low pressure.",
@@ -358,7 +416,7 @@
     "counselorTitle": "Counselor Report",
     "counselorSubtitle": "Use recent activity and shared memories to prepare the next conversation.",
     "counselorActivityLabel": "Activity Overview",
-    "counselorPracticeLabel": "Cognitive Routine Participation",
+    "counselorPracticeLabel": "Activity Routine Participation",
     "counselorCuesLabel": "Conversation Topic Suggestions",
     "counselorMemoriesLabel": "Shared Memories",
     "counselorNotesLabel": "Notes for the Next Conversation",
@@ -378,6 +436,37 @@
     },
     "dataManagement": "Data Management",
     "deleteMemoryCards": "Delete Memory Cards",
-    "deleteCognitiveData": "Delete Practice Records"
+    "deleteCognitiveData": "Delete Activity Records",
+    "accessibilityTitle": "Display and Feedback",
+    "soundFeedback": "Sound and vibration feedback",
+    "soundFeedbackOn": "On",
+    "soundFeedbackOff": "Off",
+    "largeText": "Larger text",
+    "inputModeTitle": "How to take part",
+    "inputModeSpeech": "Mostly speaking",
+    "inputModeTap": "Mostly tapping",
+    "inputModeMixed": "A mix of both",
+    "autoStartTitle": "Open today's routine right away on start",
+    "autoStartOn": "On",
+    "autoStartOff": "Off"
+  },
+  "onboarding": {
+    "title": "Welcome",
+    "welcomeBody": "Pick a few things at your own pace and today's routine will start right away.",
+    "step": {
+      "languageTitle": "Choose a comfortable language",
+      "largeTextTitle": "Make the text larger?",
+      "largeTextHint": "Turning large text on makes the words clearer.",
+      "inputModeTitle": "How would you like to take part?"
+    },
+    "largeTextOn": "Larger text",
+    "largeTextOff": "Keep as is",
+    "inputMode": {
+      "speech": "Mostly speaking",
+      "tap": "Mostly tapping",
+      "mixed": "A mix of both"
+    },
+    "next": "Next",
+    "finish": "Get started"
   }
 }
