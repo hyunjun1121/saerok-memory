@@ -39,7 +39,7 @@
     "start": "말하기 시작",
     "stop": "말하기 마치기",
     "unsupported": "이 기기에서는 음성 인식이 제한되어 아래 칸에 글로 남길 수 있어요.",
-    "durationHint": "20초 정도 편하게 말씀해 주세요.",
+    "durationHint": "20초 정도 편하게 말씀해 주세요. 길어지면 자동으로 마무리돼요.",
     "transcriptLabel": "남겨진 이야기",
     "recognized": "말로 남긴 이야기"
   },

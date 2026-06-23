@@ -39,7 +39,7 @@
     "start": "Start speaking",
     "stop": "Finish speaking",
     "unsupported": "Speech recognition is limited on this device. You can type your answer in the box below.",
-    "durationHint": "Speak comfortably for about 20 seconds.",
+    "durationHint": "Speak comfortably for about 20 seconds. If it runs long, it wraps up on its own.",
     "transcriptLabel": "Story captured",
     "recognized": "Spoken story"
   },

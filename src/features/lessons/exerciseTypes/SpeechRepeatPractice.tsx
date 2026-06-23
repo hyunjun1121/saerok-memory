@@ -9,6 +9,25 @@ import { saveCognitiveRoutineResult } from "../../cognitive/cognitiveRoutineStor
 import { getSpeechLanguage } from "../../../utils/localizedText";
 import { useInteractionFeedback } from "../../../hooks/useInteractionFeedback";
 
+// SP-05: token-overlap similarity between the target phrase and the recognized
+// transcript. Stored as metadata only — never shown as a score/diagnosis (HL-1).
+function computePronunciationSimilarity(target: string, transcript: string): number {
+  const tokenize = (s: string) =>
+    s
+      .toLocaleLowerCase()
+      .replace(/[^\p{L}\p{N}\s]/gu, "")
+      .split(/\s+/)
+      .filter(Boolean);
+  const a = new Set(tokenize(target));
+  const b = new Set(tokenize(transcript));
+  if (a.size === 0) return 0;
+  let overlap = 0;
+  a.forEach((tok) => {
+    if (b.has(tok)) overlap += 1;
+  });
+  return overlap / a.size;
+}
+
 interface SpeechRepeatPracticeProps {
   prompt: string;
   phrase: string;
@@ -59,8 +78,12 @@ export function SpeechRepeatPractice({
         speechSupported: capture.isSupported,
         listeningDurationMs: capture.durationMs,
         recognitionError: capture.error,
+        audioAssetUrl: capture.audioAssetUrl,
         locale: i18n.language,
         inputMode: capture.transcript ? "speech" : "skipped",
+        pronunciationSimilarity: capture.transcript
+          ? computePronunciationSimilarity(phrase, capture.transcript)
+          : null,
       },
     });
 

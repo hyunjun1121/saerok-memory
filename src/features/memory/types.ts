@@ -40,6 +40,11 @@ export interface MemoryCard {
   textSummary?: string;
   originalTranscript?: string;
   storyCues?: MemoryStoryCues;
+  // SP-05: how the story was captured, preserved as metadata only.
+  inputMode?: "speech" | "typed" | "mixed" | "skipped";
+  speechDurationMs?: number;
+  recognitionError?: string | null;
+  audioAssetUrl?: string | null;
   sensitivity: "low" | "personal" | "sensitive";
   shareWithFamily: boolean;
   reviewState: ReviewState;

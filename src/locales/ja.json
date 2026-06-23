@@ -39,7 +39,7 @@
     "start": "話し始める",
     "stop": "話を終える",
     "unsupported": "この端末では音声認識が制限されています。下の欄に書いて残せます。",
-    "durationHint": "20秒ほど気軽に話してください。",
+    "durationHint": "20秒ほど気軽に話してください。長くなると自動で終わります。",
     "transcriptLabel": "残した話",
     "recognized": "話した内容"
   },

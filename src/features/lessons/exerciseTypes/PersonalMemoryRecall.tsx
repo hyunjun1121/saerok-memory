@@ -1,14 +1,15 @@
-import { useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Keyboard, Mic, Square } from "lucide-react";
+import { Keyboard } from "lucide-react";
 import { ChoiceCard } from "../../../components/ChoiceCard";
 import { Button3D } from "../../../components/Button3D";
+import { SpeechCapturePanel } from "../../speech/SpeechCapturePanel";
+import { useSpeechCapture } from "../../speech/useSpeechCapture";
 import type { ExerciseState } from "./types";
 import type { MemoryCard, MemoryTopic } from "../../memory/types";
 import { calculateNextReviewState } from "../../memory/memoryScheduler";
 import { upsertMemoryCueCard, getMemoryCards, saveMemoryCards } from "../../memory/memoryCardStorage";
 import { extractMemoryStoryCues, normalizeMemoryStory, summarizeMemoryStory } from "../../memory/memoryStory";
-import { getSpeechLanguage } from "../../../utils/localizedText";
 
 function updateMemoryCard(cardId: string, result: "remembered" | "hint_used" | "missed") {
   const existing = getMemoryCards();
@@ -29,31 +30,6 @@ interface Option {
 
 type MemoryField = "topic" | "emotionTag" | "peopleTags" | "placeTag" | "story";
 
-type SpeechRecognitionEventLike = Event & {
-  results: {
-    length: number;
-    [index: number]: {
-      [index: number]: { transcript: string };
-    };
-  };
-};
-
-type SpeechRecognitionLike = EventTarget & {
-  lang: string;
-  continuous: boolean;
-  interimResults: boolean;
-  start: () => void;
-  stop: () => void;
-  onresult: (event: SpeechRecognitionEventLike) => void;
-  onerror: () => void;
-  onend: () => void;
-};
-
-type SpeechRecognitionWindow = Window & {
-  SpeechRecognition?: new () => SpeechRecognitionLike;
-  webkitSpeechRecognition?: new () => SpeechRecognitionLike;
-};
-
 interface PersonalMemoryRecallProps {
   prompt: string;
   options: Option[];
@@ -73,6 +49,7 @@ export function PersonalMemoryRecall({
   linkedConceptId,
   memoryField = "topic",
   correctOptionId,
+  onComplete,
   setGlobalState,
   globalState,
 }: PersonalMemoryRecallProps) {
@@ -81,14 +58,28 @@ export function PersonalMemoryRecall({
   const [missCount, setMissCount] = useState(0);
   const [hiddenOptionIds, setHiddenOptionIds] = useState<Set<string>>(new Set());
   const [storyText, setStoryText] = useState("");
-  const [isListening, setIsListening] = useState(false);
-  const recognitionRef = useRef<SpeechRecognitionLike | null>(null);
+  const capture = useSpeechCapture(i18n.language);
 
   const isReviewMode = !!memoryId && !!correctOptionId;
   const isStoryCreationMode = !isReviewMode && memoryField === "story";
-  const speechApiAvailable =
-    typeof window !== "undefined" &&
-    ("SpeechRecognition" in window || "webkitSpeechRecognition" in window);
+
+  // onComplete is owned by the parent; this component relies on global feedback
+  // state for advancement.
+  void onComplete;
+
+  // Mirror recognized speech into the editable story field so the learner can
+  // review and correct before saving. External speech-API state is being merged
+  // into local editable state — the legitimate subscribe-to-external case.
+  useEffect(() => {
+    if (capture.transcript) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setStoryText((prev) => {
+        const merged = prev ? `${prev} ${capture.transcript}` : capture.transcript;
+        return normalizeMemoryStory(merged);
+      });
+      setGlobalState("answer_selected");
+    }
+  }, [capture.transcript, setGlobalState]);
 
   const handleSelect = (id: string) => {
     if (
@@ -150,56 +141,6 @@ export function PersonalMemoryRecall({
     setGlobalState(normalizeMemoryStory(value) ? "answer_selected" : "awaiting_answer");
   };
 
-  const startListening = () => {
-    if (!speechApiAvailable) return;
-
-    const speechWindow = window as SpeechRecognitionWindow;
-    const SpeechRecognitionConstructor =
-      speechWindow.SpeechRecognition ?? speechWindow.webkitSpeechRecognition;
-
-    if (!SpeechRecognitionConstructor) return;
-
-    try {
-      const recognition = new SpeechRecognitionConstructor();
-      recognition.lang = getSpeechLanguage(i18n.language);
-      recognition.continuous = true;
-      recognition.interimResults = false;
-
-      recognition.onresult = (event) => {
-        const fragments: string[] = [];
-        for (let i = 0; i < event.results.length; i += 1) {
-          const transcript = event.results[i]?.[0]?.transcript;
-          if (transcript) fragments.push(transcript);
-        }
-
-        const nextText = normalizeMemoryStory(fragments.join(" "));
-        if (nextText) {
-          setStoryText((prev) => normalizeMemoryStory(`${prev} ${nextText}`));
-          setGlobalState("answer_selected");
-        }
-      };
-
-      recognition.onerror = () => {
-        setIsListening(false);
-      };
-
-      recognition.onend = () => {
-        setIsListening(false);
-      };
-
-      recognitionRef.current = recognition;
-      recognition.start();
-      setIsListening(true);
-    } catch {
-      setIsListening(false);
-    }
-  };
-
-  const stopListening = () => {
-    recognitionRef.current?.stop();
-    setIsListening(false);
-  };
-
   const handleSaveStory = () => {
     const normalizedStory = normalizeMemoryStory(storyText);
     if (!normalizedStory) return;
@@ -209,6 +150,10 @@ export function PersonalMemoryRecall({
       originalTranscript: normalizedStory,
       textSummary: summarizeMemoryStory(normalizedStory),
       storyCues: extractMemoryStoryCues(normalizedStory),
+      inputMode: capture.transcript ? "speech" : "typed",
+      speechDurationMs: capture.durationMs,
+      recognitionError: capture.error,
+      audioAssetUrl: capture.audioAssetUrl,
       sensitivity: "sensitive",
     });
 
@@ -232,46 +177,22 @@ export function PersonalMemoryRecall({
           </p>
         </div>
 
-        <section className="flex flex-col gap-4 rounded-2xl border-2 border-pink-100 bg-pink-50 p-5">
-          <div className="flex items-center gap-3">
-            <div className="rounded-xl bg-white p-3 text-pink-500 shadow-sm">
-              <Mic className="h-6 w-6" />
-            </div>
-            <div className="flex flex-col">
-              <h3 className="text-lg font-extrabold text-ink">
-                {t("exercise.memory.story.speakTitle")}
-              </h3>
-              <p className="text-sm font-semibold text-gray-600">
-                {speechApiAvailable
-                  ? t("exercise.memory.story.speakBody")
-                  : t("exercise.memory.story.unsupported")}
-              </p>
-            </div>
-          </div>
-
-          <Button3D
-            variant={!speechApiAvailable ? "disabled" : isListening ? "danger" : "primary"}
-            fullWidth
-            disabled={!speechApiAvailable}
-            onClick={isListening ? stopListening : startListening}
-          >
-            {isListening ? (
-              <>
-                <Square className="mr-2 h-5 w-5" />
-                {t("exercise.memory.story.stop")}
-              </>
-            ) : (
-              <>
-                <Mic className="mr-2 h-5 w-5" />
-                {t("exercise.memory.story.start")}
-              </>
-            )}
-          </Button3D>
-        </section>
+        <SpeechCapturePanel
+          isSupported={capture.isSupported}
+          isListening={capture.isListening}
+          onStart={capture.start}
+          onStop={capture.stop}
+          startLabel={t("exercise.memory.story.start")}
+          stopLabel={t("exercise.memory.story.stop")}
+          listeningTitle={t("speech.listeningTitle")}
+          listeningBody={t("exercise.memory.story.speakBody")}
+          unsupportedNote={t("exercise.memory.story.unsupported")}
+          durationHint={t("speech.durationHint")}
+        />
 
         <section className="flex flex-col gap-3">
           <label className="flex items-center gap-2 text-base font-extrabold text-ink" htmlFor="memory-story-text">
-            <Keyboard className="h-5 w-5 text-gray-500" />
+            <Keyboard className="h-5 w-5 text-gray-500" aria-hidden="true" />
             {t("exercise.memory.story.transcriptLabel")}
           </label>
           <textarea
