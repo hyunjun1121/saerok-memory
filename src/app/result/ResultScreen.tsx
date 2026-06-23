@@ -34,6 +34,10 @@ export default function ResultScreen() {
           {t("result.title")}
         </h1>
 
+        <p className="text-center text-lg font-bold text-ink">
+          {t("result.encouragement")}
+        </p>
+
         <div className="relative w-48 h-48 flex items-center justify-center bg-white rounded-full border-4 border-primary-200 shadow-xl my-6 overflow-hidden">
           <div className="absolute inset-0 rounded-full animate-pulseSlow bg-primary-50 opacity-50" />
           <img src="/assets/haru/memory_bloom.png" alt="" className="w-32 h-32 object-contain z-10" />

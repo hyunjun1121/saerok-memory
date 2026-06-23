@@ -225,6 +225,7 @@
   },
   "result": {
     "title": "今日のルーティン完了！",
+    "encouragement": "毎日続けると、脳が少しずつ活性化します。小さなルーティンが大きな力に。",
     "streak": "連続参加：{{streak}}日",
     "points": "今日集めたしずく：{{points}}",
     "done": "終わる"
@@ -246,6 +247,7 @@
     "privacyBody": "記憶カードは初期設定では非公開です。利用者が選んだ内容だけが家族に共有されます。",
     "summaryTitle": "最近の活動レポート",
     "summaryEmpty": "まだ共有できる活動記録はありません。無理なく続けてみましょう。",
+    "encouragementBrainActive": "毎日続けると、脳が活性化する流れになります。",
     "routinesCompleted": "今週完了した練習：{{count}}回",
     "dueMemoryCards": "復習する記憶カード：{{count}}枚",
     "sharedMemoryCards": "家族と共有する話題：{{count}}件",

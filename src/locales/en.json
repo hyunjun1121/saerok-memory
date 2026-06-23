@@ -225,6 +225,7 @@
   },
   "result": {
     "title": "Today's Routine Complete!",
+    "encouragement": "A little each day keeps your brain active. Small routines add up.",
     "streak": "Participation streak: {{streak}} day(s)",
     "points": "Drops collected today: {{points}}",
     "done": "Finish"
@@ -246,6 +247,7 @@
     "privacyBody": "Memory cards are private by default. Only items chosen by the user are shared with family.",
     "summaryTitle": "Recent Activity Report",
     "summaryEmpty": "There is no activity to share yet. Keep practicing gently.",
+    "encouragementBrainActive": "Keeping it up each day helps the brain stay active.",
     "routinesCompleted": "Practices completed this week: {{count}}",
     "dueMemoryCards": "Memory cards to review: {{count}}",
     "sharedMemoryCards": "Stories shared with family: {{count}}",

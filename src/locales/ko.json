@@ -225,6 +225,7 @@
   },
   "result": {
     "title": "오늘 루틴 완료!",
+    "encouragement": "매일 이어갈수록 뇌가 활성화돼요. 작은 루틴이 큰 힘이 됩니다.",
     "streak": "연속 참여: {{streak}}일",
     "points": "오늘 모은 물방울: {{points}}",
     "done": "마치기"
@@ -246,6 +247,7 @@
     "privacyBody": "기억 카드는 기본적으로 비공개이며, 사용자가 선택한 내용만 가족에게 공유됩니다.",
     "summaryTitle": "최근 활동 리포트",
     "summaryEmpty": "아직 공유할 활동 기록이 없습니다. 꾸준히 연습해보세요!",
+    "encouragementBrainActive": "매일 이어가면 뇌가 활성화되는 흐름이에요.",
     "routinesCompleted": "이번 주 완료한 연습: {{count}}회",
     "dueMemoryCards": "복습할 기억 카드: {{count}}개",
     "sharedMemoryCards": "가족과 나눌 이야기: {{count}}개",
