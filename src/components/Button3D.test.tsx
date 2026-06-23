@@ -1,7 +1,17 @@
-import { describe, expect, it } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { describe, expect, it, vi, beforeEach } from "vitest";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { Button3D } from "./Button3D";
 import "../i18n";
+
+// SP-04 step 1: every Button3D tap fires the soft tap tone (unless disabled).
+vi.mock("../utils/interactionFeedback", () => ({
+  playSoftTapTone: vi.fn(),
+  playSoftSuccessTone: vi.fn(),
+  vibrateLightly: vi.fn(),
+  speakCalmly: vi.fn(),
+}));
+
+import { playSoftTapTone } from "../utils/interactionFeedback";
 
 /**
  * SP-02: high-contrast warm palette for presbyopia.
@@ -37,5 +47,26 @@ describe("Button3D SP-02 high-contrast palette", () => {
     expect(btn.className).toContain("bg-red-600");
     expect(btn.className).toContain("text-white");
     expect(btn.className).not.toContain("bg-red-500");
+  });
+});
+
+describe("Button3D SP-04 tap feedback", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    localStorage.clear();
+  });
+
+  it("fires the tap tone on click and forwards onClick", () => {
+    const onClick = vi.fn();
+    render(<Button3D variant="primary" onClick={onClick}>계속</Button3D>);
+    fireEvent.click(screen.getByRole("button", { name: "계속" }));
+    expect(playSoftTapTone).toHaveBeenCalledTimes(1);
+    expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
+  it("does not fire tap when disabled", () => {
+    render(<Button3D variant="disabled">계속</Button3D>);
+    fireEvent.click(screen.getByRole("button", { name: "계속" }));
+    expect(playSoftTapTone).not.toHaveBeenCalled();
   });
 });

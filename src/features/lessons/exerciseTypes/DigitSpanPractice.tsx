@@ -1,13 +1,18 @@
 import { useState } from "react";
 import { Button3D } from "../../../components/Button3D";
+import { ScenarioCard } from "../../../components/ScenarioCard";
 import type { ExerciseState } from "./types";
 import { saveCognitiveRoutineResult } from "../../cognitive/cognitiveRoutineStorage";
 import { useTranslation } from "react-i18next";
+import { useInteractionFeedback } from "../../../hooks/useInteractionFeedback";
 
 interface DigitSpanPracticeProps {
   prompt: string;
   digits: string[];
   direction: "forward" | "backward";
+  scenarioTitle?: string;
+  scenarioBody?: string;
+  benefitCopy?: string;
   setGlobalState: (state: ExerciseState) => void;
   globalState: ExerciseState;
 }
@@ -27,10 +32,14 @@ export function DigitSpanPractice({
   prompt,
   digits,
   direction,
+  scenarioTitle,
+  scenarioBody,
+  benefitCopy,
   setGlobalState,
   globalState,
 }: DigitSpanPracticeProps) {
   const { t } = useTranslation();
+  const { tap } = useInteractionFeedback();
   const [phase, setPhase] = useState<"study" | "answer">("study");
   const [enteredDigits, setEnteredDigits] = useState<string[]>([]);
   const [missCount, setMissCount] = useState(0);
@@ -48,6 +57,8 @@ export function DigitSpanPractice({
     if (phase !== "answer" || isFeedbackState(globalState)) {
       return;
     }
+
+    tap();
 
     setEnteredDigits((current) => {
       if (current.length >= expectedDigits.length) {
@@ -120,11 +131,13 @@ export function DigitSpanPractice({
   return (
     <div className="flex w-full flex-col gap-8">
       <div className="flex flex-col gap-2">
-        <span className="text-sm font-bold uppercase tracking-wide text-blue-500">
+        <span className="text-sm font-bold uppercase tracking-wide text-primary-600">
           {t("exercise.cognitive.workingMemory")}
         </span>
         <h2 className="text-3xl font-extrabold leading-snug text-ink">{prompt}</h2>
       </div>
+
+      <ScenarioCard title={scenarioTitle} body={scenarioBody} benefit={benefitCopy} />
 
       {phase === "study" ? (
         <div className="flex flex-col gap-5 rounded-2xl border-2 border-blue-100 bg-blue-50 p-6 text-center">

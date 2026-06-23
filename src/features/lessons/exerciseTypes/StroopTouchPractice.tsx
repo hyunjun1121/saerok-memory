@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { StroopColor } from "../../../data/mockExercises";
+import { ScenarioCard } from "../../../components/ScenarioCard";
 import { saveCognitiveRoutineResult } from "../../cognitive/cognitiveRoutineStorage";
+import { useInteractionFeedback } from "../../../hooks/useInteractionFeedback";
 import type { ExerciseState } from "./types";
 
 export interface RenderedStroopTrial {
@@ -14,6 +16,9 @@ interface StroopTouchPracticeProps {
   prompt: string;
   trials: RenderedStroopTrial[];
   colorOptions: StroopColor[];
+  scenarioTitle?: string;
+  scenarioBody?: string;
+  benefitCopy?: string;
   setGlobalState: (state: ExerciseState) => void;
   globalState: ExerciseState;
 }
@@ -80,10 +85,14 @@ export function StroopTouchPractice({
   prompt,
   trials,
   colorOptions,
+  scenarioTitle,
+  scenarioBody,
+  benefitCopy,
   setGlobalState,
   globalState,
 }: StroopTouchPracticeProps) {
   const { t } = useTranslation();
+  const { tap } = useInteractionFeedback();
   const trialStartedAtRef = useRef(getCurrentTimestampMs());
   const [currentIndex, setCurrentIndex] = useState(0);
   const [responses, setResponses] = useState<StroopTrialResult[]>([]);
@@ -111,6 +120,8 @@ export function StroopTouchPractice({
     if (!currentTrial || isFinishedState(globalState)) {
       return;
     }
+
+    tap();
 
     const responseMs = Math.max(0, getCurrentTimestampMs() - trialStartedAtRef.current);
     const trialResult: StroopTrialResult = {
@@ -162,11 +173,13 @@ export function StroopTouchPractice({
   return (
     <div className="flex w-full flex-col gap-6">
       <div className="flex flex-col gap-2">
-        <span className="text-sm font-bold uppercase tracking-wide text-blue-500">
+        <span className="text-sm font-bold uppercase tracking-wide text-primary-600">
           {t("exercise.cognitive.colorFocus")}
         </span>
         <h2 className="text-3xl font-extrabold leading-snug text-ink">{prompt}</h2>
       </div>
+
+      <ScenarioCard title={scenarioTitle} body={scenarioBody} benefit={benefitCopy} />
 
       <div className="rounded-2xl border-2 border-yellow-100 bg-yellow-50 p-4">
         <p className="text-base font-bold leading-relaxed text-yellow-900">
@@ -200,29 +213,35 @@ export function StroopTouchPractice({
       </div>
 
       <div className="grid grid-cols-2 gap-3">
-        {safeColorOptions.map((color) => (
-          <button
-            key={color}
-            type="button"
-            onClick={() => handleSelectColor(color)}
-            disabled={!currentTrial || isFinishedState(globalState)}
-            className={[
-              "flex min-h-[72px] items-center gap-3 rounded-2xl border-2 px-4 text-left text-base font-extrabold shadow-sm transition active:scale-95 disabled:opacity-60",
-              "focus:outline-none focus:ring-4",
-              COLOR_CLASSES[color].button,
-              COLOR_CLASSES[color].ring,
-            ].join(" ")}
-          >
-            <span
+        {safeColorOptions.map((color) => {
+          const colorName = t(`exercise.cognitive.colors.${color}`);
+          return (
+            <button
+              key={color}
+              type="button"
+              onClick={() => handleSelectColor(color)}
+              disabled={!currentTrial || isFinishedState(globalState)}
+              aria-label={colorName}
               className={[
-                "h-7 w-7 shrink-0 rounded-full border-2 border-white shadow-sm",
-                COLOR_CLASSES[color].swatch,
+                "flex min-h-[72px] items-center gap-3 rounded-2xl border-[3px] px-4 text-left text-lg font-extrabold shadow-sm transition active:scale-95 disabled:opacity-60",
+                "focus:outline-none focus:ring-4",
+                COLOR_CLASSES[color].button,
+                COLOR_CLASSES[color].ring,
               ].join(" ")}
-              aria-hidden="true"
-            />
-            {t(`exercise.cognitive.colors.${color}`)}
-          </button>
-        ))}
+            >
+              <span
+                className={[
+                  "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-white shadow-sm",
+                  COLOR_CLASSES[color].swatch,
+                ].join(" ")}
+                aria-hidden="true"
+              >
+                <span className="h-2 w-2 rounded-full bg-white/80" aria-hidden="true" />
+              </span>
+              {colorName}
+            </button>
+          );
+        })}
       </div>
 
       <div className="grid grid-cols-2 gap-3" aria-live="polite">

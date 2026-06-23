@@ -1,5 +1,6 @@
-import type { ButtonHTMLAttributes } from "react";
+import type { ButtonHTMLAttributes, MouseEventHandler } from "react";
 import { twMerge } from "tailwind-merge";
+import { useInteractionFeedback } from "../hooks/useInteractionFeedback";
 
 export interface Button3DProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary" | "danger" | "neutral" | "disabled";
@@ -16,9 +17,17 @@ export function Button3D({
   disabled = false,
   children,
   className,
+  onClick,
   ...props
 }: Button3DProps) {
+  const { tap } = useInteractionFeedback();
   const isActuallyDisabled = disabled || variant === "disabled";
+
+  const handleClick: MouseEventHandler<HTMLButtonElement> = (event) => {
+    if (isActuallyDisabled) return;
+    tap();
+    onClick?.(event);
+  };
 
   const baseClasses =
     "relative inline-flex items-center justify-center font-extrabold tracking-tight transition-all active:translate-y-1 active:shadow-none min-h-[60px] select-none";
@@ -45,6 +54,7 @@ export function Button3D({
   return (
     <button
       disabled={isActuallyDisabled}
+      onClick={handleClick}
       className={twMerge(
         baseClasses,
         sizeClasses[size],

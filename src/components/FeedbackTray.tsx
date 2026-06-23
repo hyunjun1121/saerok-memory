@@ -1,6 +1,8 @@
+import { useEffect } from "react";
 import { twMerge } from "tailwind-merge";
 import { Button3D } from "./Button3D";
 import { CheckCircle2, XCircle, Info } from "lucide-react";
+import { useInteractionFeedback } from "../hooks/useInteractionFeedback";
 
 export interface FeedbackTrayProps {
   variant: "correct" | "incorrect" | "hint" | "memory" | "neutral";
@@ -23,6 +25,16 @@ export function FeedbackTray({
   onSecondaryAction,
   className,
 }: FeedbackTrayProps) {
+  const { success } = useInteractionFeedback();
+
+  // Centralize the correct-answer cue: every exercise that sets correct_feedback
+  // now gets the success tone + vibration in one place (HL-4 immediate feedback).
+  useEffect(() => {
+    if (variant === "correct") {
+      success();
+    }
+  }, [variant, success]);
+
   const config = {
     correct: {
       bg: "bg-primary-50",

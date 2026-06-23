@@ -5,6 +5,7 @@ import { Button3D } from "../../../components/Button3D";
 import { ChoiceCard } from "../../../components/ChoiceCard";
 import type { ExerciseState } from "./types";
 import { getSpeechLanguage } from "../../../utils/localizedText";
+import { useInteractionFeedback } from "../../../hooks/useInteractionFeedback";
 
 interface Option {
   id: string;
@@ -29,15 +30,13 @@ export function AudioChoice({
   globalState,
 }: AudioChoiceProps) {
   const { t, i18n } = useTranslation();
+  const { speak } = useInteractionFeedback();
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [missCount, setMissCount] = useState(0);
 
   const playAudio = () => {
-    if (!audioText || !("speechSynthesis" in window)) return;
-    const utterance = new SpeechSynthesisUtterance(audioText);
-    utterance.lang = getSpeechLanguage(i18n.language);
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(utterance);
+    if (!audioText) return;
+    speak(audioText, getSpeechLanguage(i18n.language));
   };
 
   const handleSelect = (id: string) => {

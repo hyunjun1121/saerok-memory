@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button3D } from "../../../components/Button3D";
+import { useInteractionFeedback } from "../../../hooks/useInteractionFeedback";
 import type { ExerciseState } from "./types";
 
 interface PictureOption {
@@ -25,6 +26,7 @@ export function PictureChoice({
   globalState,
 }: PictureChoiceProps) {
   const { t } = useTranslation();
+  const { tap } = useInteractionFeedback();
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [missCount, setMissCount] = useState(0);
 
@@ -33,6 +35,7 @@ export function PictureChoice({
       return;
     }
 
+    tap();
     setSelectedId(id);
     setGlobalState("answer_selected");
   };
@@ -90,7 +93,7 @@ export function PictureChoice({
             {option.imageUrl && (
               <img
                 src={option.imageUrl}
-                alt=""
+                alt={option.label}
                 className="h-28 w-full object-cover"
               />
             )}

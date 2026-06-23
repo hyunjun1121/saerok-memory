@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { RotateCcw } from "lucide-react";
+import { Hash, Image, RotateCcw } from "lucide-react";
 import { Button3D } from "../../../components/Button3D";
+import { ScenarioCard } from "../../../components/ScenarioCard";
 import { saveCognitiveRoutineResult } from "../../cognitive/cognitiveRoutineStorage";
+import { useInteractionFeedback } from "../../../hooks/useInteractionFeedback";
 import type { ExerciseState } from "./types";
 
 export interface RenderedTrailNode {
@@ -17,6 +19,9 @@ interface TrailSwitchingPracticeProps {
   prompt: string;
   nodes: RenderedTrailNode[];
   expectedTrail: string[];
+  scenarioTitle?: string;
+  scenarioBody?: string;
+  benefitCopy?: string;
   setGlobalState: (state: ExerciseState) => void;
   globalState: ExerciseState;
 }
@@ -33,10 +38,14 @@ export function TrailSwitchingPractice({
   prompt,
   nodes,
   expectedTrail,
+  scenarioTitle,
+  scenarioBody,
+  benefitCopy,
   setGlobalState,
   globalState,
 }: TrailSwitchingPracticeProps) {
   const { t } = useTranslation();
+  const { tap } = useInteractionFeedback();
   const startedAtRef = useRef(0);
   const [clickedNodeIds, setClickedNodeIds] = useState<string[]>([]);
   const [errorCount, setErrorCount] = useState(0);
@@ -69,6 +78,8 @@ export function TrailSwitchingPractice({
     if (isFinishedState(globalState) || completed || !currentExpectedId) {
       return;
     }
+
+    tap();
 
     if (node.id !== currentExpectedId) {
       setErrorCount((current) => current + 1);
@@ -109,16 +120,30 @@ export function TrailSwitchingPractice({
   return (
     <div className="flex w-full flex-col gap-6">
       <div className="flex flex-col gap-2">
-        <span className="text-sm font-bold uppercase tracking-wide text-blue-500">
+        <span className="text-sm font-bold uppercase tracking-wide text-primary-600">
           {t("exercise.cognitive.trailSwitching")}
         </span>
         <h2 className="text-3xl font-extrabold leading-snug text-ink">{prompt}</h2>
       </div>
 
+      <ScenarioCard title={scenarioTitle} body={scenarioBody} benefit={benefitCopy} />
+
       <div className="rounded-2xl border-2 border-blue-100 bg-blue-50 p-4">
         <p className="text-base font-bold leading-relaxed text-blue-900">
           {t("exercise.cognitive.trailGuide")}
         </p>
+      </div>
+
+      {/* Legend distinguishes number vs picture groups by icon + text, not color alone. */}
+      <div className="flex flex-wrap gap-3 text-sm font-bold text-gray-600">
+        <span className="inline-flex items-center gap-1.5">
+          <Hash className="h-4 w-4" aria-hidden="true" />
+          {t("exercise.cognitive.trailGroupNumber")}
+        </span>
+        <span className="inline-flex items-center gap-1.5">
+          <Image className="h-4 w-4" aria-hidden="true" />
+          {t("exercise.cognitive.trailGroupSymbol")}
+        </span>
       </div>
 
       <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border-2 border-gray-200 bg-white shadow-sm">
@@ -149,17 +174,23 @@ export function TrailSwitchingPractice({
               type="button"
               onClick={() => handleNodeClick(node)}
               aria-label={t("exercise.cognitive.trailNodeAria", { label: node.label })}
+              aria-current={isCurrent ? "true" : undefined}
               className={[
-                "absolute flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl border-2 text-base font-extrabold shadow-sm transition active:scale-95",
+                "absolute flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-0.5 rounded-2xl border-[3px] text-base font-extrabold shadow-sm transition active:scale-95",
                 node.group === "number"
-                  ? "border-blue-300 bg-blue-50 text-blue-900"
-                  : "border-green-300 bg-green-50 text-green-900",
-                isCurrent ? "ring-4 ring-primary-200" : "",
+                  ? "rounded-xl border-blue-400 bg-blue-50 text-blue-900"
+                  : "rounded-full border-green-500 bg-green-50 text-green-900",
+                isCurrent ? "ring-4 ring-primary-300" : "",
                 isDone ? "border-primary-500 bg-primary-500 text-white" : "",
               ].join(" ")}
               style={{ left: `${node.x}%`, top: `${node.y}%` }}
             >
-              {node.label}
+              {node.group === "number" ? (
+                <Hash className="h-3.5 w-3.5 opacity-70" aria-hidden="true" />
+              ) : (
+                <Image className="h-3.5 w-3.5 opacity-70" aria-hidden="true" />
+              )}
+              <span className="leading-none">{node.label}</span>
             </button>
           );
         })}
