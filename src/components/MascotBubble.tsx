@@ -1,7 +1,7 @@
 import { twMerge } from "tailwind-merge";
 
 export interface MascotBubbleProps {
-  mood: "happy" | "thinking" | "encouraging" | "calm";
+  mood: "happy" | "thinking" | "encouraging" | "calm" | "praising";
   message: string;
   showMascot?: boolean;
   className?: string;
@@ -23,12 +23,16 @@ export function MascotBubble({
       bubbleBg: "bg-blue-50",
     },
     encouraging: {
-      bubbleBorder: "border-red-200",
-      bubbleBg: "bg-red-50",
+      bubbleBorder: "border-amber-200",
+      bubbleBg: "bg-amber-50",
     },
     calm: {
       bubbleBorder: "border-primary-200",
       bubbleBg: "bg-primary-50",
+    },
+    praising: {
+      bubbleBorder: "border-amber-300",
+      bubbleBg: "bg-amber-50",
     },
   };
 
@@ -53,8 +57,10 @@ export function MascotBubble({
           />
         )}
         <div
+          role="status"
+          aria-live="polite"
           className={twMerge(
-            "relative px-5 py-4 rounded-2xl border-2 text-lg font-medium text-ink shadow-sm z-20",
+            "relative px-5 py-4 rounded-2xl border-2 text-xl font-bold text-ink shadow-sm z-20",
             config.bubbleBorder,
             config.bubbleBg
           )}

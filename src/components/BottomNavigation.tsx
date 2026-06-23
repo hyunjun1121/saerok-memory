@@ -34,6 +34,7 @@ export function BottomNavigation({ className }: BottomNavigationProps) {
 
   return (
     <nav
+      aria-label={t("navigation.aria", "주요 메뉴")}
       className={twMerge(
         "fixed bottom-0 left-1/2 z-40 w-full max-w-md -translate-x-1/2 bg-white border-x border-t-2 border-gray-200 pb-safe",
         className
@@ -48,20 +49,26 @@ export function BottomNavigation({ className }: BottomNavigationProps) {
             <Link
               key={item.id}
               to={item.path}
+              aria-current={isActive ? "page" : undefined}
+              aria-label={item.label}
               className={twMerge(
                 "flex flex-col items-center justify-center gap-1 w-full h-full transition-colors",
-                isActive ? "text-primary-600" : "text-gray-400 hover:text-gray-600"
+                isActive ? "text-primary-600" : "text-gray-500 hover:text-gray-700"
               )}
             >
               <div
                 className={twMerge(
-                  "p-1.5 rounded-xl transition-all",
-                  isActive ? "bg-primary-50 text-primary-600" : "bg-transparent text-gray-400"
+                  "flex items-center justify-center p-1.5 rounded-xl transition-all",
+                  isActive
+                    ? "bg-primary-100 text-primary-700 ring-2 ring-primary-400"
+                    : "bg-transparent text-gray-500"
                 )}
               >
                 {item.icon}
               </div>
-              <span className="text-sm font-bold">{item.label}</span>
+              <span className={twMerge("font-bold", isActive ? "text-base" : "text-base")}>
+                {item.label}
+              </span>
             </Link>
           );
         })}

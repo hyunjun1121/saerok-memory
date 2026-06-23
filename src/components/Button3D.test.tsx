@@ -69,4 +69,16 @@ describe("Button3D SP-04 tap feedback", () => {
     fireEvent.click(screen.getByRole("button", { name: "계속" }));
     expect(playSoftTapTone).not.toHaveBeenCalled();
   });
+
+  it("SP-03: exposes aria-pressed only when pressed is true", () => {
+    const { rerender } = render(<Button3D variant="primary" pressed>토글</Button3D>);
+    expect(screen.getByRole("button", { name: "토글" })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+    rerender(<Button3D variant="primary" pressed={false}>토글</Button3D>);
+    expect(screen.getByRole("button", { name: "토글" })).not.toHaveAttribute(
+      "aria-pressed",
+    );
+  });
 });

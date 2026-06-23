@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button3D } from "../../components/Button3D";
+import { SupportResourceCard } from "../../components/SupportResourceCard";
 import { getCognitiveRoutineResults } from "../../features/cognitive/cognitiveRoutineStorage";
 import { getMemoryCards } from "../../features/memory/memoryCardStorage";
 import { twMerge } from "tailwind-merge";
@@ -21,6 +22,10 @@ import {
   generateCaregiverCounselorReport,
   type ReportCopyItem,
 } from "../../features/family/caregiverReport";
+import {
+  generateFamilySupportSummary,
+} from "../../features/family/familySupportSummary";
+import { getVerifiedSupportResources } from "../../data/supportResources";
 import {
   buildDemoCaregiverObservationRecords,
   buildDemoMemoryCards,
@@ -54,7 +59,7 @@ const OBSERVATION_RESPONSES: CaregiverObservationResponse[] = [
 
 export default function FamilyScreen() {
   const { t, i18n } = useTranslation();
-  const [activeTab, setActiveTab] = useState<"family" | "counselor">("counselor");
+  const [activeTab, setActiveTab] = useState<"family" | "counselor">("family");
   const [observationResponses, setObservationResponses] =
     useState<CaregiverObservationResponseMap>({});
   const [observationNote, setObservationNote] = useState("");
@@ -75,6 +80,13 @@ export default function FamilyScreen() {
     new Date(),
     observationRecords,
   );
+  const familySummary = generateFamilySupportSummary(
+    memoryCards,
+    routineResults,
+    observationRecords,
+    new Date(),
+  );
+  const supportResources = getVerifiedSupportResources();
 
   const hasData =
     report.overview.completedRoutines > 0 ||
@@ -196,7 +208,7 @@ export default function FamilyScreen() {
           aria-selected={activeTab === "family"}
           onClick={() => setActiveTab("family")}
           className={twMerge(
-            "flex-1 rounded-lg py-2 text-center text-sm font-bold transition-colors",
+            "flex-1 rounded-lg min-h-[56px] py-3 text-center text-base font-bold transition-colors",
             activeTab === "family"
               ? "bg-white text-primary-600 shadow-sm"
               : "text-gray-500 hover:text-gray-700"
@@ -210,7 +222,7 @@ export default function FamilyScreen() {
           aria-selected={activeTab === "counselor"}
           onClick={() => setActiveTab("counselor")}
           className={twMerge(
-            "flex-1 rounded-lg py-2 text-center text-sm font-bold transition-colors",
+            "flex-1 rounded-lg min-h-[56px] py-3 text-center text-base font-bold transition-colors",
             activeTab === "counselor"
               ? "bg-white text-primary-600 shadow-sm"
               : "text-gray-500 hover:text-gray-700"
@@ -284,29 +296,35 @@ export default function FamilyScreen() {
             </div>
           </section>
 
-          <section className={twMerge("flex flex-col gap-3 rounded-2xl border-2 p-5 shadow-sm", advisoryLevelClass)}>
+          <section className="flex flex-col gap-3 rounded-2xl border-2 border-primary-100 bg-white p-5 shadow-sm">
             <div className="flex items-start gap-4">
-              <div className="rounded-xl bg-white/70 p-3">
-                <Sparkles className="h-7 w-7" />
+              <div className="rounded-xl bg-primary-50 p-3 text-primary-600">
+                <MessageCircle className="h-7 w-7" />
               </div>
-              <div className="flex flex-col gap-1">
-                <div className="flex flex-wrap items-center gap-2">
-                  <h2 className="text-xl font-bold text-ink">
-                    {t("family.advisory.title")}
-                  </h2>
-                  <span className="rounded-full bg-white/80 px-3 py-1 text-xs font-extrabold">
-                    {t(`family.advisory.levels.${report.advisory.level}`)}
-                  </span>
-                </div>
-                <p className="text-base font-medium leading-relaxed">
-                  {renderCopy(report.advisory.summary)}
+              <div className="flex flex-col gap-2 w-full">
+                <h2 className="text-xl font-bold text-ink">
+                  {t("family.notesTitle")}
+                </h2>
+                <p className="text-base font-medium leading-relaxed text-gray-600">
+                  {renderCopy(familySummary.encouragement)}
                 </p>
-                <p className="text-sm font-bold">
-                  {t(`family.advisory.dataCompleteness.${report.advisory.dataCompleteness}`)}
+                {familySummary.conversationStarters.length > 0 && (
+                  <ul className="mt-1 space-y-2 text-base font-medium leading-relaxed text-gray-700 list-disc pl-5">
+                    {familySummary.conversationStarters.map((cue, index) => (
+                      <li key={`${cue.key}-${index}`}>{renderCopy(cue)}</li>
+                    ))}
+                  </ul>
+                )}
+                <p className="mt-1 rounded-xl bg-green-50 px-3 py-2 text-sm font-medium leading-relaxed text-green-800">
+                  {t("family.conversation.noPrivateDetailsNote")}
                 </p>
               </div>
             </div>
           </section>
+
+          {familySummary.showSupportResource && (
+            <SupportResourceCard resources={supportResources} />
+          )}
 
           <section className="flex flex-col gap-4 rounded-2xl border-2 border-green-100 bg-white p-5 shadow-sm">
             <div className="flex items-start gap-4">

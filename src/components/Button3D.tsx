@@ -54,6 +54,7 @@ export function Button3D({
   return (
     <button
       disabled={isActuallyDisabled}
+      aria-pressed={pressed || undefined}
       onClick={handleClick}
       className={twMerge(
         baseClasses,

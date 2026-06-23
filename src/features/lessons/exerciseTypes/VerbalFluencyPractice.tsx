@@ -1,6 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button3D } from "../../../components/Button3D";
+import { SpeechCapturePanel } from "../../speech/SpeechCapturePanel";
+import { useSpeechCapture } from "../../speech/useSpeechCapture";
 import { saveCognitiveRoutineResult } from "../../cognitive/cognitiveRoutineStorage";
 import type { ExerciseState } from "./types";
 
@@ -38,6 +40,26 @@ export function VerbalFluencyPractice({
   const [inputValue, setInputValue] = useState("");
   const [entries, setEntries] = useState<string[]>([]);
   const [startedAt, setStartedAt] = useState<number | null>(null);
+  const capture = useSpeechCapture();
+  const usedSpeechRef = useRef(false);
+  const usedTypedRef = useRef(false);
+
+  // When speech recognition returns words, drop them into the editable input so
+  // the learner can review/correct before adding. Speech never auto-submits.
+  useEffect(() => {
+    if (!capture.transcript) {
+      return;
+    }
+    usedSpeechRef.current = true;
+    // External speech-API transcript merged into the editable input so the
+    // learner can review/correct before adding. This is the legitimate
+    // "subscribe to external system" case the lint rule warns about.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setInputValue((prev) => {
+      const joined = splitEntries(`${prev} ${capture.transcript}`).join(", ");
+      return joined;
+    });
+  }, [capture.transcript]);
 
   const normalizedEntries = useMemo(
     () => entries.map(normalizeEntry).filter(Boolean),
@@ -96,6 +118,7 @@ export function VerbalFluencyPractice({
       return;
     }
 
+    usedTypedRef.current = true;
     setEntries((current) => [...current, ...nextEntries]);
     setInputValue("");
     setGlobalState("answer_selected");
@@ -122,6 +145,13 @@ export function VerbalFluencyPractice({
         entries,
         uniqueCount,
         repetitionCount,
+        inputMode: usedSpeechRef.current && usedTypedRef.current
+          ? "mixed"
+          : usedSpeechRef.current
+            ? "speech"
+            : "typed",
+        speechSupported: capture.isSupported,
+        speechDurationMs: capture.durationMs,
       },
     });
 
@@ -163,6 +193,19 @@ export function VerbalFluencyPractice({
         </div>
       ) : (
         <div className="flex flex-col gap-4">
+          <SpeechCapturePanel
+            isSupported={capture.isSupported}
+            isListening={capture.isListening}
+            onStart={capture.start}
+            onStop={capture.stop}
+            startLabel={t("speech.start")}
+            stopLabel={t("speech.stop")}
+            listeningTitle={t("speech.listeningTitle")}
+            listeningBody={t("speech.listeningBody")}
+            unsupportedNote={t("speech.unsupported")}
+            durationHint={t("exercise.memory.story.speakBody")}
+          />
+
           <label className="flex flex-col gap-2 text-sm font-bold text-gray-700">
             {t("exercise.cognitive.wordInputLabel")}
             <textarea
@@ -190,7 +233,7 @@ export function VerbalFluencyPractice({
                   key={`${entry}-${index}`}
                   type="button"
                   onClick={() => removeEntry(index)}
-                  className="rounded-full border-2 border-green-200 bg-white px-4 py-2 text-base font-extrabold text-green-800"
+                  className="rounded-full border-2 border-amber-300 bg-white min-h-[48px] px-4 py-2 text-base font-extrabold text-amber-800"
                   aria-label={t("exercise.cognitive.removeWord", { word: entry })}
                 >
                   {entry}

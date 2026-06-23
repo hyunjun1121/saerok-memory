@@ -40,19 +40,25 @@ export function TopStatusBar({ streak, gardenPoints, className }: TopStatusBarPr
       </div>
 
       <div className="flex gap-4 sm:gap-6 items-center">
-        <div className="flex items-center gap-1.5">
-          <Flame className="w-5 h-5 text-orange-500 fill-orange-500" strokeWidth={2} />
-          <span className="text-base font-bold text-orange-600">{streak}</span>
+        <div
+          className="flex items-center gap-1.5"
+          aria-label={t("topbar.streakAria", { streak, defaultValue: "연속 참여 {{streak}}일" })}
+        >
+          <Flame className="w-5 h-5 text-orange-500 fill-orange-500" strokeWidth={2} aria-hidden="true" />
+          <span className="text-xl font-extrabold text-orange-600">{streak}</span>
         </div>
-        <div className="flex items-center gap-1.5">
-          <img src="/assets/haru/water_drop.png" alt={t("garden.waterDrops")} className="w-5 h-5 object-contain" />
-          <span className="text-base font-bold text-blue-600">{gardenPoints}</span>
+        <div
+          className="flex items-center gap-1.5"
+          aria-label={t("topbar.gardenAria", { points: gardenPoints, defaultValue: "모은 물방울 {{points}}개" })}
+        >
+          <img src="/assets/haru/water_drop.png" alt="" aria-hidden="true" className="w-5 h-5 object-contain" />
+          <span className="text-xl font-extrabold text-blue-600">{gardenPoints}</span>
         </div>
       </div>
 
       <Link
         to="/settings"
-        className="p-2 -mr-2 rounded-full text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors flex items-center justify-center min-w-[48px] min-h-[48px]"
+        className="p-2 -mr-2 rounded-full text-gray-600 hover:text-gray-800 hover:bg-gray-100 transition-colors flex items-center justify-center min-w-[48px] min-h-[48px]"
         aria-label={t("navigation.settings")}
       >
         <Settings className="w-6 h-6" strokeWidth={2} />
