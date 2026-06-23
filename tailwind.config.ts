@@ -25,6 +25,11 @@ export default {
         duoOrange: "#ff9600",
         duoRed: "#ff4b4b",
         ink: "#2b2f33",
+        amber: {
+          50: "#fff7e6",
+          700: "#b35900",
+          800: "#8f4400",
+        },
       },
       borderRadius: {
         xl: "18px",
