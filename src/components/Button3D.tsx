@@ -21,21 +21,21 @@ export function Button3D({
   const isActuallyDisabled = disabled || variant === "disabled";
 
   const baseClasses =
-    "relative inline-flex items-center justify-center font-bold transition-all active:translate-y-1 active:shadow-none min-h-[56px] select-none";
+    "relative inline-flex items-center justify-center font-extrabold tracking-tight transition-all active:translate-y-1 active:shadow-none min-h-[60px] select-none";
 
   const sizeClasses = {
-    md: "px-4 py-2 text-md rounded-xl",
-    lg: "px-6 py-4 text-lg rounded-2xl",
-    xl: "px-8 py-5 text-xl rounded-2xl",
+    md: "px-5 py-3 text-lg rounded-xl min-h-[60px]",
+    lg: "px-6 py-4 text-xl rounded-2xl min-h-[68px]",
+    xl: "px-8 py-5 text-2xl rounded-2xl min-h-[80px]",
   };
 
   const variantClasses = {
     primary:
-      "border-2 border-primary-700 bg-primary-500 text-white shadow-[0_5px_0_var(--color-primary-700)] hover:bg-primary-400",
+      "border-2 border-amber-800 bg-amber-700 text-white shadow-[0_5px_0_var(--color-amber-800)] hover:brightness-95",
     secondary:
-      "border-2 border-blue-600 bg-blue-500 text-white shadow-[0_5px_0_var(--color-blue-600)] hover:bg-blue-400",
+      "border-2 border-ink bg-[var(--color-surface-warm)] text-ink shadow-[0_5px_0_var(--color-ink)] hover:bg-amber-50",
     danger:
-      "border-2 border-red-600 bg-red-500 text-white shadow-[0_5px_0_var(--color-red-600)] hover:bg-red-400",
+      "border-2 border-[#a8281f] bg-red-600 text-white shadow-[0_5px_0_#a8281f] hover:brightness-95",
     neutral:
       "border-2 border-gray-300 bg-white text-ink shadow-[0_5px_0_var(--color-border)] hover:bg-gray-50",
     disabled:
