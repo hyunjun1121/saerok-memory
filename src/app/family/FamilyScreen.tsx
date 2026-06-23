@@ -89,9 +89,8 @@ export default function FamilyScreen() {
   const supportResources = getVerifiedSupportResources();
 
   const hasData =
-    report.overview.completedRoutines > 0 ||
-    report.overview.dueMemoryCount > 0 ||
-    report.overview.shareableMemoryCount > 0;
+    familySummary.completedThisWeek > 0 ||
+    familySummary.shareableMemoryCount > 0;
   const latestObservation = observationRecords[0];
   const selectedObservationDomains = OBSERVATION_DOMAINS.filter(
     (domain) => observationResponses[domain] && observationResponses[domain] !== "aboutSame",
@@ -272,22 +271,22 @@ export default function FamilyScreen() {
                   <div className="mt-3 grid grid-cols-2 gap-3">
                     <div className="rounded-xl bg-primary-50 p-3">
                       <CheckCircle2 className="mb-2 h-5 w-5 text-primary-600" />
-                      <p className="text-2xl font-extrabold text-ink">{report.routineTrend.completedThisWindow}</p>
+                      <p className="text-2xl font-extrabold text-ink">{familySummary.completedThisWeek}</p>
                       <p className="text-xs font-bold text-gray-500">{t("family.metrics.thisWeek")}</p>
                     </div>
                     <div className="rounded-xl bg-blue-50 p-3">
                       <CalendarDays className="mb-2 h-5 w-5 text-blue-600" />
-                      <p className="text-base font-extrabold text-ink">{formatDate(report.overview.lastPracticeDate)}</p>
+                      <p className="text-base font-extrabold text-ink">{formatDate(familySummary.lastPracticeDate)}</p>
                       <p className="text-xs font-bold text-gray-500">{t("family.metrics.lastPracticeDate")}</p>
                     </div>
                     <div className="rounded-xl bg-yellow-50 p-3">
                       <BookOpen className="mb-2 h-5 w-5 text-yellow-600" />
-                      <p className="text-2xl font-extrabold text-ink">{report.dueMemoryCount}</p>
-                      <p className="text-xs font-bold text-gray-500">{t("family.metrics.dueReviewCount")}</p>
+                      <p className="text-2xl font-extrabold text-ink">{familySummary.attemptedThisWeek}</p>
+                      <p className="text-xs font-bold text-gray-500">{t("family.metrics.attemptedThisWeek")}</p>
                     </div>
                     <div className="rounded-xl bg-green-50 p-3">
                       <MessageCircle className="mb-2 h-5 w-5 text-green-600" />
-                      <p className="text-2xl font-extrabold text-ink">{report.shareableMemoryCount}</p>
+                      <p className="text-2xl font-extrabold text-ink">{familySummary.shareableMemoryCount}</p>
                       <p className="text-xs font-bold text-gray-500">{t("family.metrics.sharedMemoryCount")}</p>
                     </div>
                   </div>

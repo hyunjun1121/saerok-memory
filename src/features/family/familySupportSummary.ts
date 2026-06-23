@@ -90,13 +90,12 @@ function buildConversationStarters(cards: MemoryCard[]): ReportCopyItem[] {
 // concerns or a sustained drop — never from a single session.
 function shouldShowSupportResource(
   observationRecords: CaregiverObservationRecord[],
-  advisoryLevel: "steady" | "watch" | "needsConversation",
+  _advisoryLevel: "steady" | "watch" | "needsConversation",
   now: Date,
 ): boolean {
-  if (advisoryLevel === "needsConversation") {
-    return true;
-  }
-
+  // SP-09: the support resource card is offered only when there is a repeated
+  // (>=2) caregiver concern in the last 30 days — never from a single session,
+  // even if the advisory level reached needsConversation via compound signals.
   const cutoff = now.getTime() - 30 * ONE_DAY_MS;
   const repeatedConcerns = observationRecords.filter((record) => {
     const ts = parseIsoDate(record.createdAt);

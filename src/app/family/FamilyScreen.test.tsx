@@ -29,37 +29,44 @@ describe("FamilyScreen", () => {
     (getMemoryCards as Mock).mockReturnValue([]);
   });
 
-  it("renders the tabs and defaults to counselor view", () => {
+  it("renders the tabs and defaults to the gentle family view", () => {
     render(<FamilyScreen />);
 
     // Check tabs
     expect(screen.getByText("family.tabs.family")).toBeInTheDocument();
     expect(screen.getByText("family.tabs.counselor")).toBeInTheDocument();
 
-    // Check counselor content
-    expect(screen.getByText("family.reportTitle")).toBeInTheDocument();
-    expect(screen.getByText("family.report.activityBadge")).toBeInTheDocument();
-    expect(screen.getByText("family.trend.title")).toBeInTheDocument();
-  });
-
-  it("switches to family view when tab is clicked", () => {
-    render(<FamilyScreen />);
-
-    fireEvent.click(screen.getByText("family.tabs.family"));
-
-    // Check family content
+    // SP-08: default is the family view — encouraging content, no raw report.
     expect(screen.getByText("family.inviteTitle")).toBeInTheDocument();
     expect(screen.getByText("family.summaryTitle")).toBeInTheDocument();
     expect(screen.getByText("family.privacyTitle")).toBeInTheDocument();
 
-    // Check that counselor content is hidden
+    // Counselor-only report content is hidden by default.
     expect(screen.queryByText("family.reportTitle")).not.toBeInTheDocument();
+    expect(screen.queryByText("family.trend.title")).not.toBeInTheDocument();
+  });
+
+  it("switches to the counselor view when the tab is clicked", () => {
+    render(<FamilyScreen />);
+
+    fireEvent.click(screen.getByText("family.tabs.counselor"));
+
+    // Check counselor content
+    expect(screen.getByText("family.reportTitle")).toBeInTheDocument();
+    expect(screen.getByText("family.report.activityBadge")).toBeInTheDocument();
+    expect(screen.getByText("family.trend.title")).toBeInTheDocument();
+
+    // Family-only content is hidden in counselor view.
+    expect(screen.queryByText("family.inviteTitle")).not.toBeInTheDocument();
   });
 
   it("displays fallback cues when there are no shareable memory cards in counselor view", () => {
     (getMemoryCards as Mock).mockReturnValue([{ shareWithFamily: false }]);
 
     render(<FamilyScreen />);
+
+    // Counselor content is on the counselor tab (family is the gentle default).
+    fireEvent.click(screen.getByText("family.tabs.counselor"));
 
     // Should display fallback cues
     expect(screen.getByText("family.cues.fallbackEasiest")).toBeInTheDocument();
@@ -86,6 +93,18 @@ describe("FamilyScreen", () => {
     expect(screen.getByText("2")).toBeInTheDocument();
     // 1 shared card
     expect(screen.getByText("1")).toBeInTheDocument();
+  });
+
+  it("SP-09: family view shows familySummary metrics and no due-review tile", () => {
+    // A shareable card makes hasData true so the metric grid renders.
+    (getMemoryCards as Mock).mockReturnValue([{ shareWithFamily: true }]);
+
+    render(<FamilyScreen />);
+
+    // Family view (default) uses familySummary; the attempted-this-week tile is present...
+    expect(screen.getByText("family.metrics.attemptedThisWeek")).toBeInTheDocument();
+    // ...and the counselor-only due-review tile is not.
+    expect(screen.queryByText("family.metrics.dueReviewCount")).not.toBeInTheDocument();
   });
 
   it("saves caregiver observation notes and shows them in the counselor view", () => {

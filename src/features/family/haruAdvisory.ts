@@ -238,11 +238,14 @@ function addRoutineSignals(
 
   if (wordRecallCorrect !== null && wordRecallTarget > 0) {
     const ratio = wordRecallCorrect / wordRecallTarget;
+    // Conservative (SP-08): a single low recall session is only a "watch" cue.
+    // needsConversation is reserved for repeated/compound signals (e.g. a
+    // stopped participation trend or a caregiver "often different" observation).
     if (ratio < 0.4) {
       addSignal(signals, {
         domain: "memory",
-        level: "needsConversation",
-        weight: 2,
+        level: "watch",
+        weight: 1,
         key: "family.advisory.signals.wordRecallLow",
         values: { correct: wordRecallCorrect, target: wordRecallTarget },
       });
@@ -386,9 +389,16 @@ function addObservationSignals(
     });
   });
 
+  // SP-09: needsConversation is reserved for a repeated (>=2) often-different
+  // concern across domains — never from a single caregiver observation.
+  const hasRepeatedConcern =
+    [...strongestByDomain.entries()].filter(([, response]) => response === "oftenDifferent")
+      .length >= 2;
+
   strongestByDomain.forEach((response, observationDomain) => {
     const domain = OBSERVATION_DOMAIN_MAP[observationDomain];
-    const level: HaruAdvisoryLevel = response === "oftenDifferent" ? "needsConversation" : "watch";
+    const level: HaruAdvisoryLevel =
+      response === "oftenDifferent" && hasRepeatedConcern ? "needsConversation" : "watch";
     addSignal(signals, {
       domain,
       level,

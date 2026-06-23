@@ -74,8 +74,10 @@ describe("generateHaruAdvisorySummary", () => {
         createdAt: "2026-01-14T20:00:00.000Z",
         selectedDomains: ["appointments", "homeSafety"],
         domainResponses: {
+          // SP-09: two often-different domains form a repeated concern that
+          // legitimately reaches needsConversation (a single one would not).
           appointments: "oftenDifferent",
-          homeSafety: "occasionallyDifferent",
+          homeSafety: "oftenDifferent",
         },
         note: "Needs more concrete reminders.",
       },
@@ -96,6 +98,10 @@ describe("generateHaruAdvisorySummary", () => {
         "family.advisory.signals.observationChanged",
       ]),
     );
+    // The memory domain reaches needsConversation here because the caregiver
+    // observation (appointments often different) also maps to memory. SP-08:
+    // a single low word-recall session alone must NOT do this — see the
+    // dedicated single-session test below.
     expect(summary.domainSummaries).toContainEqual(
       expect.objectContaining({
         domain: "memory",
@@ -109,6 +115,63 @@ describe("generateHaruAdvisorySummary", () => {
       ]),
     );
     expect(JSON.stringify(summary)).not.toMatch(/diagnosis|dementia|score|MMSE|MoCA/i);
+  });
+
+  it("keeps a single low word-recall session at watch, not needsConversation (SP-08)", () => {
+    const routineResults: RoutineResult[] = [
+      {
+        id: "word_only",
+        type: "delayed_word_recall",
+        timestamp: "2026-01-14T09:00:00.000Z",
+        completed: true,
+        metadata: { correctCount: 1, targetCount: 5 },
+      },
+    ];
+
+    const summary = generateHaruAdvisorySummary([], routineResults, [], now);
+
+    // A single low session is only a gentle watch cue; never an alarm.
+    expect(summary.level).toBe("watch");
+    expect(summary.signals.map((signal) => signal.key)).toContain(
+      "family.advisory.signals.wordRecallLow",
+    );
+    expect(summary.signals.every((signal) => signal.level !== "needsConversation")).toBe(true);
+  });
+
+  it("keeps a single often-different caregiver observation at watch (SP-09)", () => {
+    const observationRecords: CaregiverObservationRecord[] = [
+      {
+        id: "obs_single",
+        createdAt: "2026-01-14T20:00:00.000Z",
+        selectedDomains: ["appointments"],
+        domainResponses: { appointments: "oftenDifferent" },
+        note: "",
+      },
+    ];
+
+    const summary = generateHaruAdvisorySummary([], [], observationRecords, now);
+
+    expect(summary.level).toBe("watch");
+    expect(summary.signals.every((signal) => signal.level !== "needsConversation")).toBe(true);
+  });
+
+  it("raises to needsConversation only when two domains are often-different (SP-09)", () => {
+    const observationRecords: CaregiverObservationRecord[] = [
+      {
+        id: "obs_repeated",
+        createdAt: "2026-01-14T20:00:00.000Z",
+        selectedDomains: ["appointments", "navigation"],
+        domainResponses: {
+          appointments: "oftenDifferent",
+          navigation: "oftenDifferent",
+        },
+        note: "",
+      },
+    ];
+
+    const summary = generateHaruAdvisorySummary([], [], observationRecords, now);
+
+    expect(summary.level).toBe("needsConversation");
   });
 
   it("marks data completeness as rich when repeated routines and observations are available", () => {
