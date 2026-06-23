@@ -53,6 +53,14 @@ export interface WordCategoryCue {
   category: LocalizedText;
 }
 
+export type RoutineDomain =
+  | "memory"
+  | "attention"
+  | "language"
+  | "dailyFlow"
+  | "visuospatial"
+  | "moodSocial";
+
 export interface ExercisePayload {
   audioText?: LocalizedText;
   conceptId?: string;
@@ -80,6 +88,12 @@ export interface ExercisePayload {
   stroopColorOptions?: StroopColor[];
   orientationKind?: "date_weekday";
   targetDateISO?: string;
+  // Haru-original everyday framing (never copies official test items/cutoffs).
+  domain?: RoutineDomain;
+  recommendedDays?: number[];
+  scenarioTitle?: LocalizedText;
+  scenarioBody?: LocalizedText;
+  benefitCopy?: LocalizedText;
 }
 
 export interface Exercise {
@@ -146,24 +160,25 @@ export const mockExercises: Exercise[] = [
     lessonId: "lesson_1",
     type: "multiple_choice_meaning",
     prompt: {
-      ko: "'고진감래'와 가장 가까운 뜻은 무엇일까요?",
-      ja: "「苦あれば楽あり」に近い意味はどれでしょうか。",
-      en: "Which meaning is closest to \"good things come after hardship\"?",
+      ko: "이른 아침에 이웃에게 건네기 좋은 말은 무엇일까요?",
+      ja: "早い朝、ご近所さんに声をかけるのに良い言葉はどれでしょう?",
+      en: "Which is a good thing to say to a neighbor early in the morning?",
     },
     payload: {
-      conceptId: "concept_2",
+      domain: "language",
+      recommendedDays: [3, 5],
       options: [
-        { id: "opt_1", label: { ko: "힘든 일이 지나면 좋은 일이 온다", ja: "つらい時期のあとに良いことが来る", en: "Good things come after a hard time" } },
-        { id: "opt_2", label: { ko: "같은 말을 여러 번 반복한다", ja: "同じ言葉を何度も繰り返す", en: "Repeating the same words many times" } },
-        { id: "opt_3", label: { ko: "욕심이 너무 많다", ja: "欲張りすぎる", en: "Being too greedy" } },
-        { id: "opt_4", label: { ko: "매우 바쁘게 움직인다", ja: "とても忙しく動き回る", en: "Moving around very busily" } },
+        { id: "opt_1", label: { ko: "안녕하세요", ja: "おはようございます", en: "Good morning" } },
+        { id: "opt_2", label: { ko: "잘 가세요", ja: "いってらっしゃい", en: "Take care (goodbye)" } },
+        { id: "opt_3", label: { ko: "맛있게 드세요", ja: "いただきます", en: "Enjoy your meal" } },
+        { id: "opt_4", label: { ko: "고맙습니다", ja: "ありがとうございます", en: "Thank you" } },
       ],
     },
     correctAnswer: "opt_1",
     explanation: {
-      ko: "고생 끝에 즐거운 일이 온다는 뜻입니다.",
-      ja: "苦労したあとに良いことが来る、という意味です。",
-      en: "It means joy can come after hardship.",
+      ko: "아침 인사로는 '안녕하세요'가 어울려요.",
+      ja: "朝のあいさつには「おはようございます」が合います。",
+      en: "A morning greeting fits best at the start of the day.",
     },
     difficulty: 1,
   },
@@ -172,23 +187,24 @@ export const mockExercises: Exercise[] = [
     lessonId: "lesson_1",
     type: "situation_match",
     prompt: {
-      ko: "다음 중 '고진감래'와 어울리는 상황은 무엇일까요?",
-      ja: "次のうち「苦あれば楽あり」に合う場面はどれでしょうか。",
-      en: "Which situation matches \"good things come after hardship\"?",
+      ko: "다음 중 '잠깐만 기다려 주세요'와 어울리는 상황은 무엇일까요?",
+      ja: "次のうち「少しだけお待ちください」に合う場面はどれでしょう?",
+      en: "Which situation fits \"please wait a moment\"?",
     },
     payload: {
-      conceptId: "concept_2",
+      domain: "language",
+      recommendedDays: [3, 5],
       options: [
-        { id: "opt_1", label: { ko: "오래 연습해서 드디어 노래를 잘하게 됐다", ja: "長く練習して、ようやく歌が上手になった", en: "After practicing for a long time, I finally sang well" } },
-        { id: "opt_2", label: { ko: "길에서 우연히 친구를 만났다", ja: "道で偶然友だちに会った", en: "I happened to meet a friend on the street" } },
-        { id: "opt_3", label: { ko: "약속 시간에 늦었다", ja: "約束の時間に遅れた", en: "I was late for an appointment" } },
+        { id: "opt_1", label: { ko: "전화를 받고 다른 일을 먼저 마무리해야 할 때", ja: "電話に出て、まず別の用事を終わらせる時", en: "Answering the phone but needing to finish something first" } },
+        { id: "opt_2", label: { ko: "식사를 모두 마치고 자리에서 일어날 때", ja: "食事を終えて席を立つ時", en: "Finishing a meal and getting up from the table" } },
+        { id: "opt_3", label: { ko: "산책을 마치고 집에 돌아올 때", ja: "散歩を終えて家に戻る時", en: "Coming back home after a walk" } },
       ],
     },
     correctAnswer: "opt_1",
     explanation: {
-      ko: "힘든 연습 뒤에 좋은 결과가 온 상황입니다.",
-      ja: "努力のあとに良い結果が来た場面です。",
-      en: "This is a situation where effort over time led to a good result.",
+      ko: "잠시 시간이 필요할 때 '잠깐만 기다려 주세요'라고 해요.",
+      ja: "少し時間が欲しい時に「少しだけお待ちください」と言います。",
+      en: "We say it when we need a short moment before continuing.",
     },
     difficulty: 2,
   },
@@ -197,24 +213,25 @@ export const mockExercises: Exercise[] = [
     lessonId: "lesson_1",
     type: "multiple_choice_meaning",
     prompt: {
-      ko: "'일석이조'와 가장 가까운 뜻은 무엇일까요?",
-      ja: "「一石二鳥」に近い意味はどれでしょうか。",
-      en: "Which meaning is closest to \"two birds with one stone\"?",
+      ko: "'맛있게 드세요'는 보통 언제 건네는 말일까요?",
+      ja: "「いただきます」は普通、いつ使う言葉でしょう?",
+      en: "When do we usually say \"enjoy your meal\"?",
     },
     payload: {
-      conceptId: "concept_1",
+      domain: "language",
+      recommendedDays: [3, 5],
       options: [
-        { id: "opt_1", label: { ko: "하나의 행동으로 두 가지 이익을 얻는다", ja: "一つの行動で二つの良いことを得る", en: "Getting two benefits from one action" } },
-        { id: "opt_2", label: { ko: "방향을 잡지 못하고 망설인다", ja: "方向が分からず迷う", en: "Being confused about which way to go" } },
-        { id: "opt_3", label: { ko: "결심이 오래가지 못한다", ja: "決心が長く続かない", en: "A decision does not last long" } },
-        { id: "opt_4", label: { ko: "묻는 말에 엉뚱하게 답한다", ja: "聞かれたことと違う答えをする", en: "Giving an answer that misses the question" } },
+        { id: "opt_1", label: { ko: "밥을 먹기 직전에", ja: "食事を始める直前に", en: "Right before starting a meal" } },
+        { id: "opt_2", label: { ko: "잠들기 직전에", ja: "眠る直前に", en: "Right before going to sleep" } },
+        { id: "opt_3", label: { ko: "전화를 받을 때", ja: "電話に出る時", en: "When answering the phone" } },
+        { id: "opt_4", label: { ko: "문을 열고 나갈 때", ja: "ドアを開けて出る時", en: "When opening the door to leave" } },
       ],
     },
     correctAnswer: "opt_1",
     explanation: {
-      ko: "한 번의 행동으로 두 가지 좋은 결과를 얻는다는 뜻입니다.",
-      ja: "一つの行動で二つの良い結果を得る、という意味です。",
-      en: "It means getting two results from one action.",
+      ko: "식사를 시작할 때 '맛있게 드세요'라고 해요.",
+      ja: "食事を始める時に「いただきます」と言います。",
+      en: "We say it as a meal begins.",
     },
     difficulty: 1,
   },
@@ -223,24 +240,40 @@ export const mockExercises: Exercise[] = [
     lessonId: "lesson_1",
     type: "attention_pattern",
     prompt: {
-      ko: "규칙을 찾아 다음 숫자를 골라보세요.",
-      ja: "規則を見つけて、次の数字を選んでください。",
-      en: "Find the pattern and choose the next number.",
+      ko: "사과 9개가 있는데 이웃에게 2개 드리면 몇 개가 남을까요?",
+      ja: "りんごが9個あるとき、ご近所さんに2個あげたらいくつ残るでしょうか?",
+      en: "You have 9 apples. If you give 2 to a neighbor, how many are left?",
     },
     payload: {
-      pattern: [12, 10, 8],
+      domain: "attention",
+      recommendedDays: [1, 6],
+      scenarioTitle: {
+        ko: "나눠 드리기",
+        ja: "おすそわけ",
+        en: "Sharing with a neighbor",
+      },
+      scenarioBody: {
+        ko: "처음에 사과 9개가 있었어요. 이웃에게 2개를 나눠 드렸어요.",
+        ja: "最初はりんごが9個ありました。ご近所さんに2個おすそわけしました。",
+        en: "You started with 9 apples and shared 2 with a neighbor.",
+      },
+      benefitCopy: {
+        ko: "하루 일과에서 일어나는 일을 가볍게 떠올려 보는 활동이에요.",
+        ja: "一日の出来事を軽く思い出す活動です。",
+        en: "A light activity for recalling everyday moments.",
+      },
       options: [
-        { id: "opt_1", label: "4" },
-        { id: "opt_2", label: "5" },
-        { id: "opt_3", label: "6" },
-        { id: "opt_4", label: "7" },
+        { id: "opt_1", label: "5" },
+        { id: "opt_2", label: "6" },
+        { id: "opt_3", label: "7" },
+        { id: "opt_4", label: "8" },
       ],
     },
     correctAnswer: "opt_3",
     explanation: {
-      ko: "2씩 작아지는 규칙입니다. 8 다음은 6입니다.",
-      ja: "2ずつ小さくなる規則です。8の次は6です。",
-      en: "The numbers go down by 2. After 8 comes 6.",
+      ko: "9개에서 2개를 나눠 드리면 7개가 남아요.",
+      ja: "9個から2個あげると、7個残ります。",
+      en: "9 minus 2 leaves 7.",
     },
     difficulty: 2,
   },
@@ -249,19 +282,31 @@ export const mockExercises: Exercise[] = [
     lessonId: "lesson_1",
     type: "digit_span_practice",
     prompt: {
-      ko: "숫자를 기억한 뒤 거꾸로 눌러보세요.",
-      ja: "数字を覚えて、逆の順番で押してください。",
-      en: "Remember the numbers, then tap them in reverse order.",
+      ko: "버스 번호 482를 천천히 기억한 뒤, 그대로 다시 눌러볼게요.",
+      ja: "バス番号482をゆっくり覚えて、同じ順番に押してみましょう。",
+      en: "Remember the bus number 482 slowly, then tap it back in the same order.",
     },
     payload: {
+      domain: "memory",
+      recommendedDays: [2, 4],
+      scenarioTitle: {
+        ko: "버스 번호 표",
+        ja: "バスの番号표",
+        en: "A bus number sign",
+      },
+      scenarioBody: {
+        ko: "정류장 전광판에 잠깐 뜬 번호를 확인하는 일상 장면이에요.",
+        ja: "停留所の案内板に少し表示された番号を確かめる日常の場面です。",
+        en: "An everyday moment of checking a number that briefly appears on a stop sign.",
+      },
       digits: ["4", "8", "2"],
-      direction: "backward",
+      direction: "forward",
     },
-    correctAnswer: ["2", "8", "4"],
+    correctAnswer: ["4", "8", "2"],
     explanation: {
-      ko: "작업기억을 가볍게 쓰는 연습입니다. 정답보다 천천히 다시 시도하는 흐름이 중요합니다.",
-      ja: "ワーキングメモリを軽く使う練習です。正解だけでなく、落ち着いてもう一度試す流れを大切にします。",
-      en: "This is a light working-memory practice. The goal is a calm retry flow and steady attention.",
+      ko: "잠깐 본 번호를 가볍게 떠올리는 활동이에요. 정답보다 천천히 다시 시도하는 흐름이 중요해요.",
+      ja: "少し見た番号を軽く思い出す活動です。正解だけでなく、落ち着いてもう一度試す流れを大切にします。",
+      en: "A light activity for recalling a number you glimpsed. The goal is a calm retry flow and steady attention.",
     },
     difficulty: 2,
   },
@@ -275,11 +320,23 @@ export const mockExercises: Exercise[] = [
       en: "Choose the date and weekday that best match today.",
     },
     payload: {
+      domain: "dailyFlow",
+      recommendedDays: [0, 3, 6],
+      scenarioTitle: {
+        ko: "오늘의 달력",
+        ja: "今日のカレンダー",
+        en: "Today's calendar",
+      },
+      scenarioBody: {
+        ko: "아침에 달력을 보며 오늘이 며칠, 무슨 요일인지 가볍게 확인해요.",
+        ja: "朝にカレンダーを見て、今日が何日で何曜日かを軽く確かめます。",
+        en: "A light morning check of today's date and weekday on the calendar.",
+      },
       orientationKind: "date_weekday",
     },
     correctAnswer: null,
     explanation: {
-      ko: "오늘의 날짜와 요일을 확인하며 하루의 흐름을 정리하는 루틴입니다. 선택과 응답 흐름은 활동 기록으로 저장됩니다.",
+      ko: "오늘의 날짜와 요일을 확인하며 하루의 흐름을 정리하는 루틴이에요. 선택과 응답 흐름은 활동 기록으로 저장돼요.",
       ja: "今日の日付と曜日を確かめながら、一日の流れを整えるルーティンです。選択と反応の流れは活動記録として保存されます。",
       en: "This routine checks today's date and weekday while helping organize the flow of the day. Choices and response flow are saved as activity records.",
     },
@@ -295,6 +352,18 @@ export const mockExercises: Exercise[] = [
       en: "Say or write as many animal names as you can think of.",
     },
     payload: {
+      domain: "language",
+      recommendedDays: [3, 5],
+      scenarioTitle: {
+        ko: "시장 가격표 떠올리기",
+        ja: "市場の値段表思い出し",
+        en: "Recalling a market price list",
+      },
+      scenarioBody: {
+        ko: "한 주제 안에서 떠오르는 단어를 편하게 말하거나 적어보세요.",
+        ja: "一つのお題の中で思いつく言葉を気軽に話すか書いてみましょう。",
+        en: "Comfortably say or write words that come to mind within one topic.",
+      },
       fluencyCategory: {
         ko: "동물",
         ja: "動物",
@@ -304,9 +373,9 @@ export const mockExercises: Exercise[] = [
     },
     correctAnswer: null,
     explanation: {
-      ko: "범주 안에서 단어를 떠올리는 언어 유창성 연습입니다. 떠오른 단어와 반복 흐름을 오늘의 활동 기록으로 저장합니다.",
-      ja: "カテゴリー内の言葉を思い出す言語流暢性の練習です。思いついた言葉と繰り返しの流れを今日の活動記録として保存します。",
-      en: "This language fluency routine recalls words within a category. Entered words and repetition flow are saved as today's activity record.",
+      ko: "한 주제 안에서 단어를 떠올리는 가벼운 말하기 활동이에요. 떠오른 단어와 반복 흐름을 오늘의 활동 기록으로 저장해요.",
+      ja: "一つのお題の中で言葉を思い出す軽い話す活動です。思いついた言葉と繰り返しの流れを今日の活動記録として保存します。",
+      en: "A light speaking activity for recalling words within one topic. Entered words and repetition flow are saved as today's activity record.",
     },
     difficulty: 2,
   },
@@ -315,26 +384,38 @@ export const mockExercises: Exercise[] = [
     lessonId: "lesson_1",
     type: "trail_switching_practice",
     prompt: {
-      ko: "숫자와 그림 단서를 번갈아 눌러 길을 완성해 보세요.",
-      ja: "数字と絵の手がかりを交互に押して、道を完成させましょう。",
-      en: "Alternate between numbers and picture cues to complete the path.",
+      ko: "복지관 가는 길을 번호표와 장소 그림을 번갈아 눌러 완성해 보세요.",
+      ja: "福祉施設へ行く道を、番号표と場所の絵を交互に押して完成させましょう。",
+      en: "Complete the route to the welfare center by alternating between number signs and place pictures.",
     },
     payload: {
+      domain: "attention",
+      recommendedDays: [1, 4],
+      scenarioTitle: {
+        ko: "복지관 가는 길",
+        ja: "福祉施設へ行く道",
+        en: "Route to the welfare center",
+      },
+      scenarioBody: {
+        ko: "1번 정류장에서 시작해 꽃집, 2번 약국을 차례로 지나가요.",
+        ja: "1番の停留所から始まり、花屋、2番の薬局を順に通ります。",
+        en: "Start at stop 1, then pass the flower shop and pharmacy stop 2 in order.",
+      },
       trailNodes: [
         { id: "n1", label: "1", group: "number", x: 16, y: 20 },
-        { id: "s1", label: { ko: "꽃", ja: "花", en: "flower" }, group: "symbol", x: 74, y: 18 },
+        { id: "s1", label: { ko: "꽃집", ja: "花屋", en: "flower shop" }, group: "symbol", x: 74, y: 18 },
         { id: "n2", label: "2", group: "number", x: 54, y: 42 },
-        { id: "s2", label: { ko: "잎", ja: "葉", en: "leaf" }, group: "symbol", x: 22, y: 60 },
+        { id: "s2", label: { ko: "약국", ja: "薬局", en: "pharmacy" }, group: "symbol", x: 22, y: 60 },
         { id: "n3", label: "3", group: "number", x: 70, y: 72 },
-        { id: "s3", label: { ko: "물방울", ja: "しずく", en: "drop" }, group: "symbol", x: 34, y: 84 },
+        { id: "s3", label: { ko: "복지관", ja: "福祉施設", en: "welfare center" }, group: "symbol", x: 34, y: 84 },
       ],
       expectedTrail: ["n1", "s1", "n2", "s2", "n3", "s3"],
     },
     correctAnswer: ["n1", "s1", "n2", "s2", "n3", "s3"],
     explanation: {
-      ko: "숫자와 그림 범주를 번갈아 따라가는 주의 전환 연습입니다. 선택 순서와 다시 누른 횟수를 활동 흐름으로 저장합니다.",
-      ja: "数字と絵のカテゴリーを交互にたどる注意切り替えの練習です。選択の順番と押し直した回数を活動の流れとして保存します。",
-      en: "This routine practices switching attention between number and picture categories. Tap order and retaps are saved as activity flow.",
+      ko: "번호표와 장소 그림을 번갈아 따라가는 가벼운 활동이에요. 선택 순서와 다시 누른 횟수를 활동 흐름으로 저장해요.",
+      ja: "番号表と場所の絵を交互にたどる軽い活動です。選択の順番と押し直した回数を活動の流れとして保存します。",
+      en: "A light activity of following number signs and place pictures in turn. Tap order and retaps are saved as activity flow.",
     },
     difficulty: 3,
   },
@@ -348,6 +429,18 @@ export const mockExercises: Exercise[] = [
       en: "Ignore the word meaning and choose the color you see.",
     },
     payload: {
+      domain: "attention",
+      recommendedDays: [1, 5],
+      scenarioTitle: {
+        ko: "색깔 신호",
+        ja: "色のサイン",
+        en: "Color signals",
+      },
+      scenarioBody: {
+        ko: "신호등이나 간판 색을 빠르게 알아보는 짧은 활동이에요. 색이 잘 안 보이면 글자로 된 색 이름도 함께 표시돼요.",
+        ja: "信号や看板の色を素早く見分ける短い活動です。色が見えにくい時は、色の名前も文字で表示されます。",
+        en: "A short activity for noticing signal and sign colors quickly. If a color is hard to see, the color name is shown in text too.",
+      },
       stroopColorOptions: ["red", "blue", "green", "yellow"],
       stroopTrials: [
         {
@@ -380,22 +473,24 @@ export const mockExercises: Exercise[] = [
     lessonId: "lesson_1",
     type: "pair_matching",
     prompt: {
-      ko: "표현과 뜻을 알맞게 연결해 보세요.",
-      ja: "表現と意味を正しくつないでください。",
-      en: "Find and match the correct pairs.",
+      ko: "일상 행동과 어울리는 장소를 알맞게 연결해 보세요.",
+      ja: "日常の行動と合う場所を正しくつないでください。",
+      en: "Match each everyday action with the place it belongs to.",
     },
     payload: {
+      domain: "dailyFlow",
+      recommendedDays: [0, 4],
       pairs: [
-        { id: "pair_1", left: { ko: "고진감래", ja: "苦あれば楽あり", en: "hardship then joy" }, right: { ko: "힘든 뒤 좋은 일", ja: "苦労のあとに良いこと", en: "good after hardship" } },
-        { id: "pair_2", left: { ko: "일석이조", ja: "一石二鳥", en: "two birds with one stone" }, right: { ko: "하나로 두 이익", ja: "一つで二つの良いこと", en: "two gains from one action" } },
-        { id: "pair_3", left: { ko: "동문서답", ja: "的外れな答え", en: "missing the point" }, right: { ko: "엉뚱한 답", ja: "質問とずれた答え", en: "off-topic answer" } },
+        { id: "pair_1", left: { ko: "밥 먹기", ja: "ご飯を食べる", en: "Eating a meal" }, right: { ko: "식탁", ja: "ダイニングテーブル", en: "Dining table" } },
+        { id: "pair_2", left: { ko: "전화 받기", ja: "電話に出る", en: "Answering the phone" }, right: { ko: "가족 목소리", ja: "家族の声", en: "A family member's voice" } },
+        { id: "pair_3", left: { ko: "가볍게 산책하기", ja: "軽く散歩する", en: "A short walk" }, right: { ko: "동네 길", ja: "近所の道", en: "A neighborhood street" } },
       ],
     },
     correctAnswer: ["pair_1", "pair_2", "pair_3"],
     explanation: {
-      ko: "각 표현과 뜻을 잘 연결했습니다.",
-      ja: "それぞれの表現と意味を正しくつなげました。",
-      en: "You matched each expression with the right meaning.",
+      ko: "일상 행동과 어울리는 장소를 잘 연결했습니다.",
+      ja: "日常の行動と合う場所を正しくつなげました。",
+      en: "You matched each everyday action with its place.",
     },
     difficulty: 3,
   },
@@ -411,7 +506,7 @@ export const mockExercises: Exercise[] = [
     payload: {
       items: [
         { id: "step_1", label: { ko: "아침 인사하기", ja: "朝のあいさつをする", en: "Say a morning greeting" } },
-        { id: "step_2", label: { ko: "세 단어 기억하기", ja: "三つの言葉を覚える", en: "Remember three words" } },
+        { id: "step_2", label: { ko: "밥 챙겨 먹기", ja: "ご飯を食べる", en: "Have a meal" } },
         { id: "step_3", label: { ko: "짧게 회상하기", ja: "短く思い出す", en: "Recall a short memory" } },
         { id: "step_4", label: { ko: "정원에 물 주기", ja: "庭に水をあげる", en: "Water the garden" } },
       ],
@@ -434,18 +529,21 @@ export const mockExercises: Exercise[] = [
       en: "Listen and choose the same expression.",
     },
     payload: {
-      audioText: { ko: "고진감래", ja: "苦あれば楽あり", en: "Good things come after hardship" },
+      domain: "language",
+      recommendedDays: [3, 5],
+      audioText: { ko: "시원하다", ja: "すっきりする", en: "Refreshing" },
       options: [
-        { id: "opt_1", label: { ko: "고진감래", ja: "苦あれば楽あり", en: "Good things come after hardship" } },
-        { id: "opt_2", label: { ko: "일석이조", ja: "一石二鳥", en: "Two birds with one stone" } },
-        { id: "opt_3", label: { ko: "동문서답", ja: "的外れな答え", en: "Missing the point" } },
+        { id: "opt_1", label: { ko: "시원하다", ja: "すっきりする", en: "Refreshing" } },
+        { id: "opt_2", label: { ko: "춥다", ja: "寒い", en: "Cold" } },
+        { id: "opt_3", label: { ko: "더워요", ja: "暑い", en: "Hot" } },
+        { id: "opt_4", label: { ko: "졸려요", ja: "眠い", en: "Sleepy" } },
       ],
     },
     correctAnswer: "opt_1",
     explanation: {
-      ko: "들은 표현은 고진감래입니다.",
-      ja: "聞こえた表現は「苦あれば楽あり」です。",
-      en: "The expression you heard was good things come after hardship.",
+      ko: "들은 표현은 '시원하다'예요.",
+      ja: "聞こえた表現は「すっきりする」です。",
+      en: "The expression you heard was \"refreshing\".",
     },
     difficulty: 1,
   },
@@ -483,7 +581,20 @@ export const mockExercises: Exercise[] = [
       ja: "上の形を見て、下に似た形を描いてください。",
       en: "Look at the shape above and draw a similar one below.",
     },
-    payload: {},
+    payload: {
+      domain: "visuospatial",
+      recommendedDays: [4, 6],
+      scenarioTitle: {
+        ko: "손글씨 연습장",
+        ja: "手書きの練習帳",
+        en: "A handwriting practice sheet",
+      },
+      scenarioBody: {
+        ko: "보이는 도형을 천천히 따라 그리며 손을 가볍게 움직여요.",
+        ja: "見える形をゆっくりなぞり、手を軽く動かします。",
+        en: "Slowly trace the shown shape to move the hand gently.",
+      },
+    },
     correctAnswer: null,
     difficulty: 1,
   },
@@ -497,6 +608,18 @@ export const mockExercises: Exercise[] = [
       en: "Please read this sentence aloud.",
     },
     payload: {
+      domain: "language",
+      recommendedDays: [3, 5],
+      scenarioTitle: {
+        ko: "아침 인사",
+        ja: "朝のあいさつ",
+        en: "A morning greeting",
+      },
+      scenarioBody: {
+        ko: "짧은 문장을 입 밖으로 천천히 내보며 말하기를 깨워요.",
+        ja: "短い文をゆっくり声に出して、話すことを目覚めさせます。",
+        en: "Say a short sentence slowly out loud to warm up talking.",
+      },
       phrase: {
         ko: "오늘 하루도 천천히 잘 시작했습니다.",
         ja: "今日もゆっくり始められました。",
@@ -566,11 +689,13 @@ export const mockExercises: Exercise[] = [
     lessonId: "lesson_1",
     type: "personal_memory_recall",
     prompt: {
-      ko: "최근에 떠오르는 하루의 기억을 짧게 말해볼까요? 누구와 있었는지, 어디였는지, 어떤 일이 있었는지 편하게 이야기해 주세요.",
-      ja: "最近思い出す一日の記憶を短く話してみましょう。誰といたか、どこだったか、何があったかを気軽に話してください。",
-      en: "Tell a short story about a recent day you remember. Who were you with, where were you, and what happened?",
+      ko: "오늘 또는 어제 있었던 일을 세 문장만 천천히 말해볼까요? 누구와 있었는지, 어디였는지, 어떤 기분이었는지만 말해도 좋아요.",
+      ja: "今日または昨日あったことを、三文だけゆっくり話してみましょう。誰といたか、どこだったか、どんな気分だったかだけでも大丈夫です。",
+      en: "Could you tell me, in about three sentences, what happened today or yesterday? Just who you were with, where you were, and how you felt is enough.",
     },
     payload: {
+      domain: "moodSocial",
+      recommendedDays: [2, 5],
       linkedConceptId: "daily_memory_1",
       memoryField: "story",
       options: [],

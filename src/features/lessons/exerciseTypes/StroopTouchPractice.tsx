@@ -192,7 +192,7 @@ export function StroopTouchPractice({
           {t("exercise.cognitive.stroopProgress", { progress: progressLabel })}
         </p>
         {currentTrial ? (
-          <div className="mt-5 flex min-h-[132px] items-center justify-center rounded-2xl bg-gray-50 px-4">
+          <div className="mt-5 flex min-h-[132px] flex-col items-center justify-center gap-3 rounded-2xl bg-gray-50 px-4">
             <span
               className={[
                 "text-6xl font-black leading-none",
@@ -204,6 +204,11 @@ export function StroopTouchPractice({
             >
               {currentTrial.word}
             </span>
+            {/* Visible color-name fallback so the task never relies on color alone
+                (fulfils the scenarioBody promise). */}
+            <p className="text-xl font-extrabold text-gray-700">
+              {t(`exercise.cognitive.colors.${currentTrial.inkColor}`)}
+            </p>
           </div>
         ) : (
           <div className="mt-5 rounded-2xl bg-green-50 px-4 py-8 text-xl font-extrabold text-green-800">

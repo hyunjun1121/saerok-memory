@@ -173,9 +173,9 @@ describe('ExerciseRenderer', () => {
         />
       );
 
-      expect(screen.getByText('「苦あれば楽あり」に近い意味はどれでしょうか。')).toBeInTheDocument();
-      expect(screen.getByText('つらい時期のあとに良いことが来る')).toBeInTheDocument();
-      expect(screen.queryByText('고진감래와 가장 가까운 뜻은 무엇일까요?')).not.toBeInTheDocument();
+      expect(screen.getByText('早い朝、ご近所さんに声をかけるのに良い言葉はどれでしょう?')).toBeInTheDocument();
+      expect(screen.getByText('おはようございます')).toBeInTheDocument();
+      expect(screen.queryByText(/고진감래/)).not.toBeInTheDocument();
     } finally {
       await i18n.changeLanguage('ko');
     }

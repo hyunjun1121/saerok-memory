@@ -2,14 +2,18 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button3D } from "../../../components/Button3D";
 import { ChoiceCard } from "../../../components/ChoiceCard";
+import { ScenarioCard } from "../../../components/ScenarioCard";
 import type { ExerciseState } from "./types";
 import { saveCognitiveRoutineResult } from "../../cognitive/cognitiveRoutineStorage";
 
 interface AttentionPatternProps {
   prompt: string;
-  pattern: number[];
+  pattern?: number[];
   options: { id: string; label: string; value?: string }[];
   correctOptionId: string;
+  scenarioTitle?: string;
+  scenarioBody?: string;
+  benefitCopy?: string;
   onComplete: () => void;
   setGlobalState: (state: ExerciseState) => void;
   globalState: ExerciseState;
@@ -20,6 +24,9 @@ export function AttentionPattern({
   pattern,
   options,
   correctOptionId,
+  scenarioTitle,
+  scenarioBody,
+  benefitCopy,
   setGlobalState,
   globalState,
 }: AttentionPatternProps) {
@@ -64,23 +71,27 @@ export function AttentionPattern({
   return (
     <div className="flex flex-col w-full gap-8">
       <div className="flex flex-col gap-2">
-        <span className="text-sm font-bold text-blue-500 uppercase tracking-wide">
-          {t("exercise.cognitive.practice", "주의력 연습")}
+        <span className="text-sm font-bold text-primary-600 uppercase tracking-wide">
+          {t("exercise.cognitive.practice")}
         </span>
         <h2 className="text-3xl font-extrabold text-ink leading-snug">{prompt}</h2>
       </div>
 
-      <div className="flex items-center justify-center gap-4 py-8">
-        {pattern.map((num, i) => (
-          <div key={i} className="flex items-center gap-4">
-            <span className="text-4xl font-extrabold text-ink">{num}</span>
-            <span className="text-2xl text-gray-400">→</span>
+      <ScenarioCard title={scenarioTitle} body={scenarioBody} benefit={benefitCopy} />
+
+      {pattern && pattern.length > 0 && (
+        <div className="flex items-center justify-center gap-4 py-8">
+          {pattern.map((num, i) => (
+            <div key={i} className="flex items-center gap-4">
+              <span className="text-4xl font-extrabold text-ink">{num}</span>
+              <span className="text-2xl text-gray-400">→</span>
+            </div>
+          ))}
+          <div className="w-16 h-16 rounded-2xl border-4 border-dashed border-gray-300 flex items-center justify-center">
+            <span className="text-2xl text-gray-400">?</span>
           </div>
-        ))}
-        <div className="w-16 h-16 rounded-2xl border-4 border-dashed border-gray-300 flex items-center justify-center">
-          <span className="text-2xl text-gray-400">?</span>
         </div>
-      </div>
+      )}
 
       <div className="grid grid-cols-2 gap-4">
         {options.map((option) => {

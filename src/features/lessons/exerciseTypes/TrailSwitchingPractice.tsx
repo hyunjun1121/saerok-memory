@@ -178,8 +178,8 @@ export function TrailSwitchingPractice({
               className={[
                 "absolute flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-0.5 rounded-2xl border-[3px] text-base font-extrabold shadow-sm transition active:scale-95",
                 node.group === "number"
-                  ? "rounded-xl border-blue-400 bg-blue-50 text-blue-900"
-                  : "rounded-full border-green-500 bg-green-50 text-green-900",
+                  ? "rounded-xl border-ink bg-[var(--color-surface-warm)] text-ink"
+                  : "rounded-full border-orange-500 bg-amber-50 text-ink",
                 isCurrent ? "ring-4 ring-primary-300" : "",
                 isDone ? "border-primary-500 bg-primary-500 text-white" : "",
               ].join(" ")}
