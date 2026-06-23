@@ -33,17 +33,17 @@ export function LessonNode({
 
   const stateConfig = {
     completed: {
-      bg: "bg-primary-500",
-      border: "border-primary-700",
-      shadow: "shadow-[0_6px_0_var(--color-primary-700)]",
+      bg: "bg-primary-700",
+      border: "border-amber-800",
+      shadow: "shadow-[0_6px_0_var(--color-amber-800)]",
       text: "text-white",
       defaultIcon: <Check size={28} strokeWidth={3} />,
       animate: false,
     },
     current: {
-      bg: "bg-primary-500",
-      border: "border-primary-700 ring-4 ring-primary-200 ring-offset-2",
-      shadow: "shadow-[0_6px_0_var(--color-primary-700)]",
+      bg: "bg-primary-700",
+      border: "border-amber-800 ring-4 ring-[var(--color-surface-warm)] ring-offset-2",
+      shadow: "shadow-[0_6px_0_var(--color-amber-800)]",
       text: "text-white",
       defaultIcon: <Star size={28} strokeWidth={2.5} fill="currentColor" />,
       animate: true,

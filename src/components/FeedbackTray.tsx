@@ -27,7 +27,7 @@ export function FeedbackTray({
     correct: {
       bg: "bg-primary-50",
       text: "text-primary-800",
-      icon: <CheckCircle2 className="text-primary-500 w-8 h-8" strokeWidth={2.5} />,
+      icon: <CheckCircle2 className="text-primary-700 w-8 h-8" strokeWidth={2.5} />,
       buttonVariant: "primary" as const,
     },
     incorrect: {
@@ -45,7 +45,7 @@ export function FeedbackTray({
     memory: {
       bg: "bg-blue-50",
       text: "text-blue-800",
-      icon: <CheckCircle2 className="text-blue-500 w-8 h-8" strokeWidth={2.5} />,
+      icon: <CheckCircle2 className="text-ink w-8 h-8" strokeWidth={2.5} />,
       buttonVariant: "secondary" as const,
     },
     neutral: {
@@ -58,6 +58,9 @@ export function FeedbackTray({
 
   return (
     <div
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
       className={twMerge(
         "fixed bottom-0 left-0 right-0 w-full animate-slideUpFade px-4 pb-8 pt-6 sm:px-6 z-50",
         config.bg,
