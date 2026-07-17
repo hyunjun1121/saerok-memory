@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   Activity,
   AlertCircle,
@@ -15,8 +15,15 @@ import {
 import { useTranslation } from "react-i18next";
 import { Button3D } from "@/components/Button3D";
 import { SupportResourceCard } from "@/features/family/ui/SupportResourceCard";
-import { getCognitiveRoutineResults } from "@/features/cognitive/cognitiveRoutineStorage";
-import { getMemoryCards } from "@/features/memory/memoryCardStorage";
+import {
+  getCognitiveRoutineResults,
+  subscribeToCognitiveRoutineResults,
+} from "@/features/cognitive/cognitiveRoutineStorage";
+import {
+  getMemoryCards,
+  subscribeToMemoryCards,
+} from "@/features/memory/memoryCardStorage";
+import { useHaruConsent } from "@/features/profile/useHaruConsent";
 import { twMerge } from "tailwind-merge";
 import {
   generateCaregiverCounselorReport,
@@ -59,6 +66,7 @@ const OBSERVATION_RESPONSES: CaregiverObservationResponse[] = [
 
 export default function FamilyScreen() {
   const { t, i18n } = useTranslation();
+  const consent = useHaruConsent();
   const [activeTab, setActiveTab] = useState<"family" | "counselor">("family");
   const [observationResponses, setObservationResponses] =
     useState<CaregiverObservationResponseMap>({});
@@ -70,23 +78,55 @@ export default function FamilyScreen() {
       : buildDemoCaregiverObservationRecords(i18n.language);
   });
 
-  const storedRoutineResults = getCognitiveRoutineResults();
-  const storedMemoryCards = getMemoryCards();
-  const routineResults = storedRoutineResults.length > 0 ? storedRoutineResults : buildDemoRoutineResults();
-  const memoryCards = storedMemoryCards.length > 0 ? storedMemoryCards : buildDemoMemoryCards(i18n.language);
-  const report = generateCaregiverCounselorReport(
-    memoryCards,
-    routineResults,
-    new Date(),
-    observationRecords,
+  const [reportNow] = useState(() => new Date());
+  const loadRoutineResults = useCallback(() => {
+    if (!consent.longitudinalUsageStorage) return [];
+    const stored = getCognitiveRoutineResults();
+    return stored.length > 0 ? stored : buildDemoRoutineResults();
+  }, [consent.longitudinalUsageStorage]);
+  const loadMemoryCards = useCallback(() => {
+    if (!consent.longitudinalUsageStorage) return [];
+    const stored = getMemoryCards();
+    return stored.length > 0 ? stored : buildDemoMemoryCards(i18n.language);
+  }, [consent.longitudinalUsageStorage, i18n.language]);
+  const [routineResults, setRoutineResults] = useState(loadRoutineResults);
+  const [memoryCards, setMemoryCards] = useState(loadMemoryCards);
+
+  useEffect(() => {
+    const refreshRoutineResults = () => setRoutineResults(loadRoutineResults());
+    const refreshMemoryCards = () => setMemoryCards(loadMemoryCards());
+    refreshRoutineResults();
+    refreshMemoryCards();
+    const unsubscribeRoutineResults = subscribeToCognitiveRoutineResults(
+      refreshRoutineResults,
+    );
+    const unsubscribeMemoryCards = subscribeToMemoryCards(refreshMemoryCards);
+    return () => {
+      unsubscribeRoutineResults();
+      unsubscribeMemoryCards();
+    };
+  }, [loadMemoryCards, loadRoutineResults]);
+  const report = useMemo(
+    () =>
+      generateCaregiverCounselorReport(
+        memoryCards,
+        routineResults,
+        reportNow,
+        observationRecords,
+      ),
+    [memoryCards, observationRecords, reportNow, routineResults],
   );
-  const familySummary = generateFamilySupportSummary(
-    memoryCards,
-    routineResults,
-    observationRecords,
-    new Date(),
+  const familySummary = useMemo(
+    () =>
+      generateFamilySupportSummary(
+        memoryCards,
+        routineResults,
+        observationRecords,
+        reportNow,
+      ),
+    [memoryCards, observationRecords, reportNow, routineResults],
   );
-  const supportResources = getVerifiedSupportResources();
+  const supportResources = useMemo(() => getVerifiedSupportResources(), []);
 
   const hasData =
     familySummary.completedThisWeek > 0 ||

@@ -6,6 +6,13 @@ import { Button3D } from "@/components/Button3D";
 import { clearCognitiveRoutineResults } from "@/features/cognitive/cognitiveRoutineStorage";
 import { clearHaruAdminUsageRecords } from "@/features/lessons/haruAdminUsageRecordStorage";
 import { clearHaruDemoSessions } from "@/features/lessons/haruDemoSessionStorage";
+import { clearMemoryCards } from "@/features/memory/memoryCardStorage";
+import { clearSttJobsByTargetKind } from "@/features/speech/sttJobQueue";
+import { applyHaruConsentChange } from "@/features/profile/haruPrivacyControls";
+import {
+  getHaruConsent,
+  type HaruConsentPermissions,
+} from "@/features/profile/haruConsentStorage";
 import { getLearnerProfile, saveLearnerProfile } from "@/features/profile/learnerProfileStorage";
 
 export default function SettingsScreen() {
@@ -16,6 +23,15 @@ export default function SettingsScreen() {
   );
   const [isDeletingCognitiveData, setIsDeletingCognitiveData] = useState(false);
   const [deletionStatus, setDeletionStatus] = useState<"success" | "error" | null>(null);
+  const [isDeletingMemoryCards, setIsDeletingMemoryCards] = useState(false);
+  const [memoryDeletionStatus, setMemoryDeletionStatus] = useState<
+    "success" | "error" | null
+  >(null);
+  const [consent, setConsent] = useState(getHaruConsent);
+  const [updatingConsent, setUpdatingConsent] = useState<
+    keyof HaruConsentPermissions | null
+  >(null);
+  const [privacyStatus, setPrivacyStatus] = useState<"success" | "error" | null>(null);
 
   const toggleAutoStart = (next: boolean) => {
     saveLearnerProfile({ autoStartTodayRoutine: next });
@@ -35,16 +51,57 @@ export default function SettingsScreen() {
     if (isDeletingCognitiveData) return;
     setIsDeletingCognitiveData(true);
     setDeletionStatus(null);
+    let deletionFailed = false;
     try {
       await clearHaruAdminUsageRecords();
-      clearHaruDemoSessions();
-      clearCognitiveRoutineResults();
-      setDeletionStatus("success");
     } catch (error) {
       console.error("Failed to delete Haru activity data", error);
-      setDeletionStatus("error");
+      deletionFailed = true;
+    }
+    try {
+      if (!clearHaruDemoSessions()) deletionFailed = true;
+    } catch {
+      deletionFailed = true;
+    }
+    try {
+      if (!clearCognitiveRoutineResults()) deletionFailed = true;
+    } catch {
+      deletionFailed = true;
+    }
+    setDeletionStatus(deletionFailed ? "error" : "success");
+    setIsDeletingCognitiveData(false);
+  };
+
+  const handleClearMemoryCards = async () => {
+    if (isDeletingMemoryCards) return;
+    setIsDeletingMemoryCards(true);
+    setMemoryDeletionStatus(null);
+    try {
+      const queueCleared = await clearSttJobsByTargetKind("memory-story");
+      const cardsCleared = clearMemoryCards();
+      setMemoryDeletionStatus(queueCleared && cardsCleared ? "success" : "error");
+    } catch (error) {
+      console.error("Failed to delete Haru memory cards", error);
+      setMemoryDeletionStatus("error");
     } finally {
-      setIsDeletingCognitiveData(false);
+      setIsDeletingMemoryCards(false);
+    }
+  };
+
+  const handleConsentChange = async (key: keyof HaruConsentPermissions) => {
+    if (updatingConsent) return;
+    setUpdatingConsent(key);
+    setPrivacyStatus(null);
+    try {
+      const next = await applyHaruConsentChange({ [key]: !consent[key] });
+      setConsent(next);
+      setPrivacyStatus("success");
+    } catch (error) {
+      console.error("Failed to update Haru privacy choices", error);
+      setConsent(getHaruConsent());
+      setPrivacyStatus("error");
+    } finally {
+      setUpdatingConsent(null);
     }
   };
 
@@ -142,17 +199,100 @@ export default function SettingsScreen() {
         </div>
       </section>
 
+      <section className="bg-white p-6 rounded-3xl border-2 border-gray-200 shadow-sm flex flex-col gap-4 mb-6">
+        <div className="flex items-center gap-3 border-b-2 border-gray-100 pb-4">
+          <div className="p-2 bg-emerald-50 rounded-xl">
+            <Shield className="w-6 h-6 text-emerald-700" />
+          </div>
+          <div>
+            <h2 className="text-xl font-bold text-ink">{t("settings.privacyTitle")}</h2>
+            <p className="mt-1 text-base font-semibold leading-relaxed text-gray-600">
+              {t("settings.privacyDescription")}
+            </p>
+          </div>
+        </div>
+
+        {(
+          [
+            ["voiceRecording", "settings.voiceRecordingConsent"],
+            ["sttProcessing", "settings.sttProcessingConsent"],
+            ["longitudinalUsageStorage", "settings.longitudinalConsent"],
+            ["personalizedQuestionUse", "settings.personalizationConsent"],
+          ] as const
+        ).map(([key, labelKey]) => (
+          <div key={key} className="flex items-center justify-between gap-4 py-2">
+            <span className="text-lg font-bold leading-snug text-ink">{t(labelKey)}</span>
+            <button
+              type="button"
+              role="switch"
+              aria-checked={consent[key]}
+              aria-label={t(labelKey)}
+              disabled={updatingConsent !== null}
+              onClick={() => handleConsentChange(key)}
+              className={`min-h-[56px] min-w-[112px] rounded-2xl border-2 px-4 text-base font-extrabold transition active:scale-95 disabled:cursor-wait disabled:opacity-60 ${
+                consent[key]
+                  ? "border-emerald-700 bg-emerald-100 text-emerald-950"
+                  : "border-gray-400 bg-gray-100 text-gray-800"
+              }`}
+            >
+              {updatingConsent === key
+                ? t("settings.privacySaving")
+                : t(consent[key] ? "settings.privacyOn" : "settings.privacyOff")}
+            </button>
+          </div>
+        ))}
+        <p className="rounded-2xl bg-amber-50 p-4 text-base font-semibold leading-relaxed text-amber-950">
+          {t("settings.longitudinalConsentWarning")}
+        </p>
+        {privacyStatus && (
+          <p
+            className={`text-base font-semibold ${privacyStatus === "success" ? "text-green-700" : "text-red-600"}`}
+            role={privacyStatus === "error" ? "alert" : "status"}
+            aria-live="polite"
+          >
+            {t(
+              privacyStatus === "success"
+                ? "settings.privacyUpdateSuccess"
+                : "settings.privacyUpdateError",
+            )}
+          </p>
+        )}
+      </section>
+
       <section className="bg-white p-6 rounded-3xl border-2 border-gray-200 shadow-sm flex flex-col gap-4">
         <div className="flex items-center gap-3 border-b-2 border-gray-100 pb-4">
           <div className="p-2 bg-red-50 rounded-xl">
-            <Shield className="w-6 h-6 text-red-500" />
+            <Trash2 className="w-6 h-6 text-red-500" />
           </div>
           <h2 className="text-xl font-bold text-ink">{t("settings.dataManagement")}</h2>
         </div>
 
-        <Button3D variant="neutral" className="flex justify-between items-center text-red-500" onClick={() => localStorage.removeItem("memoryCards")}>
-          {t("settings.deleteMemoryCards")} <Trash2 size={20} />
+        <Button3D
+          variant="neutral"
+          className="flex justify-between items-center text-red-500"
+          disabled={isDeletingMemoryCards}
+          onClick={handleClearMemoryCards}
+        >
+          {t(
+            isDeletingMemoryCards
+              ? "settings.deletingMemoryCards"
+              : "settings.deleteMemoryCards",
+          )}{" "}
+          <Trash2 size={20} />
         </Button3D>
+        {memoryDeletionStatus && (
+          <p
+            className={`text-base font-semibold ${memoryDeletionStatus === "success" ? "text-green-700" : "text-red-600"}`}
+            role={memoryDeletionStatus === "error" ? "alert" : "status"}
+            aria-live="polite"
+          >
+            {t(
+              memoryDeletionStatus === "success"
+                ? "settings.deleteMemoryCardsSuccess"
+                : "settings.deleteMemoryCardsError",
+            )}
+          </p>
+        )}
 
         <Button3D
           variant="neutral"

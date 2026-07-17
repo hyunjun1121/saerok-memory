@@ -1,12 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button3D } from "@/components/Button3D";
-import { HARU_DEMO_PERSONA } from "@/data/haruDemoPersona";
 import { SpeechCapturePanel } from "@/features/speech/SpeechCapturePanel";
-import { formatSttEngine, transcribeStory } from "@/features/speech/stt";
 import { useVoiceRecorder } from "@/features/speech/useVoiceRecorder";
-import { saveCognitiveRoutineResult } from "@/features/cognitive/cognitiveRoutineStorage";
+import {
+  patchCognitiveRoutineResultById,
+  saveCognitiveRoutineResult,
+} from "@/features/cognitive/cognitiveRoutineStorage";
 import type { ExerciseState } from "@/features/lessons/exerciseTypes/types";
+import {
+  getHaruConsent,
+  subscribeToHaruConsent,
+} from "@/features/profile/haruConsentStorage";
+import {
+  getHaruVoiceConsentError,
+  hasHaruVoicePipelineConsent,
+  useHaruConsent,
+} from "@/features/profile/useHaruConsent";
+import { enqueueSttJob } from "@/features/speech/sttJobQueue";
 
 interface VerbalFluencyPracticeProps {
   prompt: string;
@@ -32,9 +43,28 @@ export function VerbalFluencyPractice({
   const { t } = useTranslation();
   const [isTranscribing, setIsTranscribing] = useState(false);
   const capture = useVoiceRecorder(durationSeconds * 1000);
-  const voiceRecordingConsented = HARU_DEMO_PERSONA.consents.voiceRecording;
-  const sttProcessingConsented = HARU_DEMO_PERSONA.consents.sttProcessing;
-  const speechConsentGranted = voiceRecordingConsented && sttProcessingConsented;
+  const stopRecording = capture.stop;
+  const consent = useHaruConsent();
+  const speechConsentGranted = hasHaruVoicePipelineConsent(consent);
+  const captureAuthorizedRef = useRef(speechConsentGranted);
+  const consentRevisionRef = useRef(0);
+  const recordingConsentRevisionRef = useRef<number | null>(
+    speechConsentGranted ? 0 : null,
+  );
+  const pipelineConsentGrantedRef = useRef(speechConsentGranted);
+
+  useEffect(() => {
+    return subscribeToHaruConsent((nextConsent) => {
+      const nextGranted = hasHaruVoicePipelineConsent(nextConsent);
+      if (pipelineConsentGrantedRef.current && !nextGranted) {
+        captureAuthorizedRef.current = false;
+        consentRevisionRef.current += 1;
+        recordingConsentRevisionRef.current = null;
+        stopRecording();
+      }
+      pipelineConsentGrantedRef.current = nextGranted;
+    });
+  }, [stopRecording]);
 
   useEffect(() => {
     if (globalState === "correct_feedback" || globalState === "incorrect_feedback") {
@@ -46,50 +76,69 @@ export function VerbalFluencyPractice({
   const handleFinish = async () => {
     if (isTranscribing) return;
     setIsTranscribing(true);
-    const blob = speechConsentGranted ? await capture.stopAndGetBlob() : null;
-    const result = blob && blob.size > 0 ? await transcribeStory(blob) : null;
-    const transcript = result && !result.noSpeech ? result.text : "";
-    const recognitionError = !voiceRecordingConsented
-      ? "voice-consent-required"
-      : !sttProcessingConsented
-        ? "stt-consent-required"
-        : result?.noSpeech
-          ? "no-speech"
-          : capture.error ?? (blob && !result ? "transcribe-failed" : null);
-    const entries = transcript
-      .split(/[\s,，、]+/u)
-      .map((entry) => entry.trim())
-      .filter(Boolean);
-    const uniqueCount = new Set(entries).size;
+    const consentAtFinish = getHaruConsent();
+    const recordingConsentRevision = recordingConsentRevisionRef.current;
+    const hadConsentAtFinish =
+      captureAuthorizedRef.current &&
+      recordingConsentRevision !== null &&
+      hasHaruVoicePipelineConsent(consentAtFinish);
+    const capturedBlob = hadConsentAtFinish ? await capture.stopAndGetBlob() : null;
+    const consentAfterFinalization = getHaruConsent();
+    const canRetainAudio =
+      hadConsentAtFinish &&
+      captureAuthorizedRef.current &&
+      consentRevisionRef.current === recordingConsentRevision &&
+      recordingConsentRevisionRef.current === recordingConsentRevision &&
+      hasHaruVoicePipelineConsent(consentAfterFinalization);
+    const blob = canRetainAudio ? capturedBlob : null;
+    const hasAudio = Boolean(canRetainAudio && blob && blob.size > 0);
+    const recognitionError = !canRetainAudio
+      ? getHaruVoiceConsentError(consentAfterFinalization) ?? "voice-consent-required"
+      : hasAudio
+          ? "stt-pending"
+          : capture.error ?? "recording-unavailable";
 
-    saveCognitiveRoutineResult({
+    const routineResultId = saveCognitiveRoutineResult({
       type: "verbal_fluency_practice",
       completed: true,
       metadata: {
         category,
         durationSeconds,
-        transcript,
-        entries,
-        uniqueCount,
-        repetitionCount: Math.max(0, entries.length - uniqueCount),
-        inputMode: transcript ? "speech" : "skipped",
+        transcript: "",
+        entries: [],
+        uniqueCount: 0,
+        repetitionCount: 0,
+        inputMode: hasAudio ? "speech" : "skipped",
         speechSupported: capture.isSupported,
-        speechDurationMs: capture.getDurationMs(),
-        audioAssetUrl: speechConsentGranted ? capture.audioAssetUrl : null,
+        speechDurationMs: canRetainAudio ? capture.getDurationMs() : 0,
+        audioAssetUrl: canRetainAudio ? capture.audioAssetUrl : null,
         recognitionError,
-        sttStatus: transcript ? "completed" : "failed",
-        sttNoSpeech: result?.noSpeech ?? false,
-        sttEngine: result ? formatSttEngine(result) : null,
-        sttModel: result?.model ?? null,
-        sttModelRevision: result?.modelRevision ?? null,
-        sttAlignerModel: result?.alignerModel ?? null,
-        sttAlignerRevision: result?.alignerRevision ?? null,
-        sttPreprocessingVersion: result?.preprocessingVersion ?? null,
-        sttLanguage: result?.language ?? null,
-        sttConfidence: result?.confidence ?? null,
-        sttSegments: result?.noSpeech ? [] : (result?.segments ?? []),
+        sttStatus: hasAudio ? "pending" : "failed",
+        sttNoSpeech: false,
+        sttEngine: null,
+        sttModel: null,
+        sttModelRevision: null,
+        sttAlignerModel: null,
+        sttAlignerRevision: null,
+        sttPreprocessingVersion: null,
+        sttLanguage: null,
+        sttConfidence: null,
+        sttSegments: [],
       },
     });
+
+    if (hasAudio && blob && routineResultId) {
+      const jobId = await enqueueSttJob(blob, {
+        kind: "verbal-fluency",
+        routineResultId,
+      });
+      if (!jobId) {
+        patchCognitiveRoutineResultById(routineResultId, {
+          recognitionError: "stt-queue-failed",
+          sttStatus: "failed",
+        });
+      }
+    }
 
     setIsTranscribing(false);
     setGlobalState("correct_feedback");
@@ -108,7 +157,13 @@ export function VerbalFluencyPractice({
       <SpeechCapturePanel
         isSupported={capture.isSupported && speechConsentGranted}
         isListening={capture.isRecording}
-        onStart={speechConsentGranted ? capture.start : () => undefined}
+        onStart={() => {
+          if (hasHaruVoicePipelineConsent(getHaruConsent())) {
+            captureAuthorizedRef.current = true;
+            recordingConsentRevisionRef.current = consentRevisionRef.current;
+            capture.start();
+          }
+        }}
         onStop={capture.stop}
         startLabel={t("speech.start")}
         stopLabel={t("speech.stop")}

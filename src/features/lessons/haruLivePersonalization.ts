@@ -1,9 +1,9 @@
 import {
-  HARU_DEMO_PERSONA,
   HARU_WEEK_QUESTION_META,
   haru7DayExercises,
   type HaruScriptedSource,
 } from "@/data/haru7DayExercises";
+import { getHaruConsent } from "@/features/profile/haruConsentStorage";
 import type { AnswerOption, Exercise } from "@/data/mockExercises";
 import type {
   HaruDemoResponse,
@@ -497,10 +497,11 @@ function resolvePriorResponse(
   exercise: Exercise,
   source: Extract<HaruScriptedSource, { kind: "prior_question" }>,
   sessions: readonly HaruDemoSession[],
+  personalizedQuestionUse: boolean,
 ): ResolvedHaruExercise {
   const sourceQuestionIds = [source.sourceQuestionId];
   const response = sourceResponse(source, sessions);
-  if (!response || !HARU_DEMO_PERSONA.consents.personalizedQuestionUse) {
+  if (!response || !personalizedQuestionUse) {
     return {
       exercise: fallbackExercise(exercise),
       personalization: { kind: "fallback", sourceQuestionIds },
@@ -548,6 +549,7 @@ function resolvePriorResponse(
 export function resolveHaruExercise(
   exercise: Exercise,
   sessions: readonly HaruDemoSession[],
+  personalizedQuestionUse = getHaruConsent().personalizedQuestionUse,
 ): ResolvedHaruExercise {
   const question = questionById.get(exercise.id);
   const source = question?.scriptedSource;
@@ -555,14 +557,28 @@ export function resolveHaruExercise(
     return { exercise, personalization: { kind: "none" } };
   }
   if (source.kind === "profile") {
+    if (!personalizedQuestionUse) {
+      return {
+        exercise: fallbackExercise(exercise),
+        personalization: { kind: "fallback" },
+      };
+    }
     return { exercise, personalization: { kind: "profile" } };
   }
-  return resolvePriorResponse(exercise, source, sessions);
+  return resolvePriorResponse(
+    exercise,
+    source,
+    sessions,
+    personalizedQuestionUse,
+  );
 }
 
 export function resolveHaruExercises(
   exercises: readonly Exercise[],
   sessions: readonly HaruDemoSession[],
+  personalizedQuestionUse = getHaruConsent().personalizedQuestionUse,
 ): ResolvedHaruExercise[] {
-  return exercises.map((exercise) => resolveHaruExercise(exercise, sessions));
+  return exercises.map((exercise) =>
+    resolveHaruExercise(exercise, sessions, personalizedQuestionUse),
+  );
 }

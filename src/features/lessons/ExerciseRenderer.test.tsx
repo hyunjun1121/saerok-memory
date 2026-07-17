@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { mockExercises, type Exercise } from '@/data/mockExercises';
 import { ExerciseRenderer } from '@/features/lessons/ExerciseRenderer';
@@ -13,7 +13,7 @@ const baseExercise = {
 } satisfies Pick<Exercise, 'id' | 'lessonId' | 'explanation' | 'difficulty'>;
 
 describe('ExerciseRenderer', () => {
-  it('renders every declared exercise type without the unsupported fallback', () => {
+  it('renders every declared exercise type without the unsupported fallback', async () => {
     const exercises: Exercise[] = [
       {
         ...baseExercise,
@@ -151,14 +151,16 @@ describe('ExerciseRenderer', () => {
         />
       );
 
-      expect(screen.getByText(getLocalizedText(exercise.prompt, 'ko'))).toBeInTheDocument();
+      expect(await screen.findByText(getLocalizedText(exercise.prompt, 'ko'))).toBeInTheDocument();
       expect(screen.queryByText(/Unsupported exercise type/i)).not.toBeInTheDocument();
       unmount();
     }
   });
 
   it('renders localized exercise data in Japanese', async () => {
-    await i18n.changeLanguage('ja');
+    await act(async () => {
+      await i18n.changeLanguage('ja');
+    });
 
     try {
       const exercise = mockExercises.find((item) => item.id === 'ex_2');
@@ -173,11 +175,13 @@ describe('ExerciseRenderer', () => {
         />
       );
 
-      expect(screen.getByText('早い朝、ご近所さんに声をかけるのに良い言葉はどれでしょう?')).toBeInTheDocument();
+      expect(await screen.findByText('早い朝、ご近所さんに声をかけるのに良い言葉はどれでしょう?')).toBeInTheDocument();
       expect(screen.getByText('おはようございます')).toBeInTheDocument();
       expect(screen.queryByText(/고진감래/)).not.toBeInTheDocument();
     } finally {
-      await i18n.changeLanguage('ko');
+      await act(async () => {
+        await i18n.changeLanguage('ko');
+      });
     }
   });
 });

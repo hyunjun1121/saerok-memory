@@ -4,15 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AppShell } from '@/components/AppShell';
 import { GamificationProvider } from '@/features/gamification/useGamification';
-import {
-  getHaruAdminUsageRecord,
-  patchHaruAdminVoiceSttSuccess,
-} from '@/features/lessons/haruAdminUsageRecordStorage';
-import { enqueueHaruRagRecord, startHaruRagSync } from '@/features/lessons/haruRagSync';
-import {
-  reconcileHaruSttRetryOutbox,
-  startHaruSttRetry,
-} from '@/features/lessons/haruSttRetry';
 import { ensureDemoSeedCards } from '@/features/memory/memoryCardStorage';
 
 const ResultScreen = lazy(() => import('@/app/result/ResultScreen'));
@@ -50,21 +41,21 @@ function LaunchGate({ children }: { children: ReactNode }) {
     // Seed the demo "ate out yesterday" memory card so the recall question has
     // real grounding (idempotent — never overwrites user data).
     ensureDemoSeedCards();
-    const stopRagSync = startHaruRagSync();
-    const adminRecord = getHaruAdminUsageRecord();
-    if (adminRecord) {
-      enqueueHaruRagRecord(adminRecord);
-      reconcileHaruSttRetryOutbox(adminRecord);
-    }
-    const stopSttRetry = startHaruSttRetry(patchHaruAdminVoiceSttSuccess);
+    let disposed = false;
+    let stopBackgroundSync: (() => void) | null = null;
+    void import('@/features/lessons/haruBackgroundSync').then(({ startHaruBackgroundSync }) => {
+      if (!disposed) {
+        stopBackgroundSync = startHaruBackgroundSync();
+      }
+    });
 
     const savedLang = localStorage.getItem("memoryGardenLang");
     if (savedLang && savedLang !== i18n.language) {
       i18n.changeLanguage(savedLang);
     }
     return () => {
-      stopSttRetry();
-      stopRagSync();
+      disposed = true;
+      stopBackgroundSync?.();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -75,7 +66,9 @@ function LaunchGate({ children }: { children: ReactNode }) {
 export default function App() {
   return (
     <GamificationProvider>
-      <BrowserRouter>
+      <BrowserRouter
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      >
         <LaunchGate>
           <Suspense fallback={<LoadingFallback />}>
             <Routes>

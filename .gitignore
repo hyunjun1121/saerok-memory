@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# SQLite runtime sidecars created by local STT/RAG services.
+*.db-shm
+*.db-wal
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

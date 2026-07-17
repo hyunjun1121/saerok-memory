@@ -1,34 +1,26 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Play } from "lucide-react";
 import { Button3D } from "@/components/Button3D";
-import { HARU_DEMO_PERSONA } from "@/data/haruDemoPersona";
 import { SpeechCapturePanel } from "@/features/speech/SpeechCapturePanel";
-import { formatSttEngine, transcribeStory } from "@/features/speech/stt";
 import { useVoiceRecorder } from "@/features/speech/useVoiceRecorder";
 import type { ExerciseState } from "@/features/lessons/exerciseTypes/types";
-import { saveCognitiveRoutineResult } from "@/features/cognitive/cognitiveRoutineStorage";
+import {
+  patchCognitiveRoutineResultById,
+  saveCognitiveRoutineResult,
+} from "@/features/cognitive/cognitiveRoutineStorage";
 import { getSpeechLanguage } from "@/utils/localizedText";
 import { useInteractionFeedback } from "@/hooks/useInteractionFeedback";
-
-// SP-05: token-overlap similarity between the target phrase and the recognized
-// transcript. Stored as metadata only — never shown as a score/diagnosis (HL-1).
-function computePronunciationSimilarity(target: string, transcript: string): number {
-  const tokenize = (s: string) =>
-    s
-      .toLocaleLowerCase()
-      .replace(/[^\p{L}\p{N}\s]/gu, "")
-      .split(/\s+/)
-      .filter(Boolean);
-  const a = new Set(tokenize(target));
-  const b = new Set(tokenize(transcript));
-  if (a.size === 0) return 0;
-  let overlap = 0;
-  a.forEach((tok) => {
-    if (b.has(tok)) overlap += 1;
-  });
-  return overlap / a.size;
-}
+import {
+  getHaruConsent,
+  subscribeToHaruConsent,
+} from "@/features/profile/haruConsentStorage";
+import {
+  getHaruVoiceConsentError,
+  hasHaruVoicePipelineConsent,
+  useHaruConsent,
+} from "@/features/profile/useHaruConsent";
+import { enqueueSttJob } from "@/features/speech/sttJobQueue";
 
 interface SpeechRepeatPracticeProps {
   prompt: string;
@@ -51,9 +43,28 @@ export function SpeechRepeatPractice({
   const [transcript, setTranscript] = useState("");
   const [isTranscribing, setIsTranscribing] = useState(false);
   const capture = useVoiceRecorder();
-  const voiceRecordingConsented = HARU_DEMO_PERSONA.consents.voiceRecording;
-  const sttProcessingConsented = HARU_DEMO_PERSONA.consents.sttProcessing;
-  const speechConsentGranted = voiceRecordingConsented && sttProcessingConsented;
+  const stopRecording = capture.stop;
+  const consent = useHaruConsent();
+  const speechConsentGranted = hasHaruVoicePipelineConsent(consent);
+  const captureAuthorizedRef = useRef(speechConsentGranted);
+  const consentRevisionRef = useRef(0);
+  const recordingConsentRevisionRef = useRef<number | null>(
+    speechConsentGranted ? 0 : null,
+  );
+  const pipelineConsentGrantedRef = useRef(speechConsentGranted);
+
+  useEffect(() => {
+    return subscribeToHaruConsent((nextConsent) => {
+      const nextGranted = hasHaruVoicePipelineConsent(nextConsent);
+      if (pipelineConsentGrantedRef.current && !nextGranted) {
+        captureAuthorizedRef.current = false;
+        consentRevisionRef.current += 1;
+        recordingConsentRevisionRef.current = null;
+        stopRecording();
+      }
+      pipelineConsentGrantedRef.current = nextGranted;
+    });
+  }, [stopRecording]);
 
   // Let the learner proceed at any time (speech is optional). We intentionally
   // do NOT auto-advance on save — the learner reviews feedback first, then
@@ -77,45 +88,67 @@ export function SpeechRepeatPractice({
   const handleFinish = async () => {
     if (isTranscribing) return;
     setIsTranscribing(true);
-    const blob = speechConsentGranted ? await capture.stopAndGetBlob() : null;
-    const result = blob && blob.size > 0 ? await transcribeStory(blob) : null;
-    const qwenTranscript = result && !result.noSpeech ? result.text : "";
-    const recognitionError = !voiceRecordingConsented
-      ? "voice-consent-required"
-      : !sttProcessingConsented
-        ? "stt-consent-required"
-        : result?.noSpeech
-          ? "no-speech"
-          : capture.error ?? (blob && !result ? "transcribe-failed" : null);
-    setTranscript(qwenTranscript);
-    saveCognitiveRoutineResult({
+    const consentAtFinish = getHaruConsent();
+    const recordingConsentRevision = recordingConsentRevisionRef.current;
+    const hadConsentAtFinish =
+      captureAuthorizedRef.current &&
+      recordingConsentRevision !== null &&
+      hasHaruVoicePipelineConsent(consentAtFinish);
+    const capturedBlob = hadConsentAtFinish ? await capture.stopAndGetBlob() : null;
+    const consentAfterFinalization = getHaruConsent();
+    const canRetainAudio =
+      hadConsentAtFinish &&
+      captureAuthorizedRef.current &&
+      consentRevisionRef.current === recordingConsentRevision &&
+      recordingConsentRevisionRef.current === recordingConsentRevision &&
+      hasHaruVoicePipelineConsent(consentAfterFinalization);
+    const blob = canRetainAudio ? capturedBlob : null;
+    const hasAudio = Boolean(canRetainAudio && blob && blob.size > 0);
+    const recognitionError = !canRetainAudio
+      ? getHaruVoiceConsentError(consentAfterFinalization) ?? "voice-consent-required"
+      : hasAudio
+          ? "stt-pending"
+          : capture.error ?? "recording-unavailable";
+    setTranscript("");
+    const routineResultId = saveCognitiveRoutineResult({
       type: "speech_repeat_practice",
       completed: true,
       metadata: {
         phrase,
-        transcript: qwenTranscript,
+        transcript: "",
         speechSupported: capture.isSupported,
-        listeningDurationMs: capture.getDurationMs(),
+        listeningDurationMs: canRetainAudio ? capture.getDurationMs() : 0,
         recognitionError,
-        audioAssetUrl: speechConsentGranted ? capture.audioAssetUrl : null,
+        audioAssetUrl: canRetainAudio ? capture.audioAssetUrl : null,
         locale: i18n.language,
-        inputMode: qwenTranscript ? "speech" : "skipped",
-        sttStatus: qwenTranscript ? "completed" : "failed",
-        sttNoSpeech: result?.noSpeech ?? false,
-        sttEngine: result ? formatSttEngine(result) : null,
-        sttModel: result?.model ?? null,
-        sttModelRevision: result?.modelRevision ?? null,
-        sttAlignerModel: result?.alignerModel ?? null,
-        sttAlignerRevision: result?.alignerRevision ?? null,
-        sttPreprocessingVersion: result?.preprocessingVersion ?? null,
-        sttLanguage: result?.language ?? null,
-        sttConfidence: result?.confidence ?? null,
-        sttSegments: result?.noSpeech ? [] : (result?.segments ?? []),
-        pronunciationSimilarity: qwenTranscript
-          ? computePronunciationSimilarity(phrase, qwenTranscript)
-          : null,
+        inputMode: hasAudio ? "speech" : "skipped",
+        sttStatus: hasAudio ? "pending" : "failed",
+        sttNoSpeech: false,
+        sttEngine: null,
+        sttModel: null,
+        sttModelRevision: null,
+        sttAlignerModel: null,
+        sttAlignerRevision: null,
+        sttPreprocessingVersion: null,
+        sttLanguage: null,
+        sttConfidence: null,
+        sttSegments: [],
+        pronunciationSimilarity: null,
       },
     });
+
+    if (hasAudio && blob && routineResultId) {
+      const jobId = await enqueueSttJob(blob, {
+        kind: "speech-repeat",
+        routineResultId,
+      });
+      if (!jobId) {
+        patchCognitiveRoutineResultById(routineResultId, {
+          recognitionError: "stt-queue-failed",
+          sttStatus: "failed",
+        });
+      }
+    }
 
     // Feedback first; advancement happens when the learner taps Continue.
     setIsTranscribing(false);
@@ -154,7 +187,13 @@ export function SpeechRepeatPractice({
       <SpeechCapturePanel
         isSupported={capture.isSupported && speechConsentGranted}
         isListening={capture.isRecording}
-        onStart={speechConsentGranted ? capture.start : () => undefined}
+        onStart={() => {
+          if (hasHaruVoicePipelineConsent(getHaruConsent())) {
+            captureAuthorizedRef.current = true;
+            recordingConsentRevisionRef.current = consentRevisionRef.current;
+            capture.start();
+          }
+        }}
         onStop={capture.stop}
         startLabel={t("speech.start")}
         stopLabel={t("speech.stop")}

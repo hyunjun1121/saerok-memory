@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import i18n from "@/i18n";
 import {
@@ -9,12 +9,24 @@ import {
 import { HaruScenarioQuestion } from "@/features/lessons/exerciseTypes/HaruScenarioQuestion";
 import type { ExerciseState } from "@/features/lessons/exerciseTypes/types";
 import type { HaruChoiceKeyBindings } from "@/features/lessons/haruInputBindings";
+import { updateHaruConsent } from "@/features/profile/haruConsentStorage";
 import { getLocalizedText } from "@/utils/localizedText";
 
 const mocks = vi.hoisted(() => ({
+  isRecording: false,
   start: vi.fn(),
   stop: vi.fn(),
   stopAndGetBlob: vi.fn(async () => new Blob(["private-audio"])),
+  stopAndFinalize: vi.fn(async () => ({
+    blob: new Blob(["private-audio"], { type: "audio/webm" }),
+    previewUrl: "blob:private-audio",
+    mimeType: "audio/webm",
+    durationMs: 13_300,
+    sampleRateHz: 16_000,
+    channelCount: 1,
+    startedAt: "2026-07-20T01:00:00.000Z",
+    endedAt: "2026-07-20T01:00:13.300Z",
+  })),
   getDurationMs: vi.fn(() => 13_300),
   transcribe: vi.fn(async () => ({
     text: "유성시장에서 가지를 샀어요.",
@@ -36,7 +48,7 @@ const mocks = vi.hoisted(() => ({
 vi.mock("@/features/speech/useVoiceRecorder", () => ({
   useVoiceRecorder: () => ({
     isSupported: true,
-    isRecording: false,
+    isRecording: mocks.isRecording,
     isFinalizing: false,
     levels: [],
     durationMs: 13_300,
@@ -46,6 +58,7 @@ vi.mock("@/features/speech/useVoiceRecorder", () => ({
     error: null,
     start: mocks.start,
     stop: mocks.stop,
+    stopAndFinalize: mocks.stopAndFinalize,
     stopAndGetBlob: mocks.stopAndGetBlob,
     getDurationMs: mocks.getDurationMs,
   }),
@@ -104,6 +117,8 @@ function setVoiceConsent(value: boolean) {
 describe("HaruScenarioQuestion", () => {
   beforeEach(async () => {
     vi.clearAllMocks();
+    localStorage.clear();
+    mocks.isRecording = false;
     setVoiceConsent(true);
     await i18n.changeLanguage("ko");
   });
@@ -326,7 +341,7 @@ describe("HaruScenarioQuestion", () => {
     );
 
     await waitFor(() => expect(onResponse).toHaveBeenCalledTimes(1));
-    expect(mocks.stopAndGetBlob).not.toHaveBeenCalled();
+    expect(mocks.stopAndFinalize).not.toHaveBeenCalled();
     expect(mocks.transcribe).not.toHaveBeenCalled();
     expect(onResponse).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -341,7 +356,10 @@ describe("HaruScenarioQuestion", () => {
     );
   });
 
-  it("auto-starts consented voice and emits structured facts without transcript or audio URL", async () => {
+  it("advances after audio finalization without waiting for a foreground STT request", async () => {
+    mocks.transcribe.mockImplementationOnce(
+      () => new Promise(() => undefined),
+    );
     const { onResponse, onAdminResponse } = renderScenario("D1_Q5");
 
     await waitFor(() => expect(mocks.start).toHaveBeenCalledTimes(1));
@@ -350,19 +368,15 @@ describe("HaruScenarioQuestion", () => {
     );
 
     await waitFor(() => expect(onResponse).toHaveBeenCalledTimes(1));
-    expect(mocks.stopAndGetBlob).toHaveBeenCalledTimes(1);
-    expect(mocks.transcribe).toHaveBeenCalledTimes(1);
+    expect(mocks.stopAndFinalize).toHaveBeenCalledTimes(1);
+    expect(mocks.transcribe).not.toHaveBeenCalled();
     expect(onResponse).toHaveBeenCalledWith(
       expect.objectContaining({
         questionId: "D1_Q5",
         responseType: "voice",
         voiceDurationSeconds: 13.3,
-        sttStatus: "completed",
-        sttLanguage: "ko",
-        derivedAnnotations: [
-          { entityType: "장소", value: "유성시장" },
-          { entityType: "구매물품", value: "가지" },
-        ],
+        sttStatus: "failed",
+        recognitionError: "stt-pending",
         feedback: getLocalizedText(getScenario("D1_Q5").exercise.explanation, "ko"),
       }),
     );
@@ -372,65 +386,147 @@ describe("HaruScenarioQuestion", () => {
     expect(serializedResponse).not.toContain("유성시장에서 가지를 샀어요.");
     expect(onAdminResponse).toHaveBeenCalledWith(
       expect.objectContaining({
-        rawUserUtteranceTranscript: "유성시장에서 가지를 샀어요.",
         audioBlob: expect.any(Blob),
-        recordingStartedAt: expect.any(String),
-        recordingEndedAt: expect.any(String),
-        sttProcessedAt: expect.any(String),
-        sttEngine: "qwen3-asr:Qwen/Qwen3-ASR-1.7B@a1b2c3d4",
-        sttModel: "Qwen/Qwen3-ASR-1.7B",
-        sttModelRevision: "a1b2c3d4",
-        sttAlignerModel: "Qwen/Qwen3-ForcedAligner-0.6B",
-        sttAlignerRevision: "aligner-revision",
-        sttPreprocessingVersion: "haru-dc-hp80-rms-v1",
-        sttSegments: [{ id: 0, start: 0, end: 13.3, text: "유성시장에서 가지를 샀어요." }],
+        recordingStartedAt: "2026-07-20T01:00:00.000Z",
+        recordingEndedAt: "2026-07-20T01:00:13.300Z",
+        sttStatus: "failed",
+        recognitionError: "stt-pending",
         audioSampleRateHz: 16_000,
         audioChannelCount: 1,
       }),
     );
+    const adminPayload = onAdminResponse.mock.calls[0][0];
+    expect(adminPayload).not.toHaveProperty("rawUserUtteranceTranscript");
+    expect(adminPayload).not.toHaveProperty("sttProcessedAt");
   });
 
-  it("treats Qwen no-speech as a failed empty response without durable facts", async () => {
-    mocks.transcribe.mockResolvedValueOnce({
-      text: "그러니까.",
-      noSpeech: true,
-      language: "ko-KR",
-      durationSec: 30,
-      confidence: null,
-      engine: "qwen3-asr",
-      model: "Qwen/Qwen3-ASR-1.7B",
-      modelRevision: "revision",
-      alignerModel: "Qwen/Qwen3-ForcedAligner-0.6B",
-      alignerRevision: "aligner-revision",
-      preprocessingVersion: "haru-dc-hp80-rms-v1",
-      segments: [{ id: 0, start: 0, end: 0.2, text: "그러니까" }],
-    });
+  it("stops an active recording and discards audio when live consent is withdrawn", async () => {
+    mocks.isRecording = true;
     const { onResponse, onAdminResponse } = renderScenario("D1_Q5");
+
+    act(() => {
+      updateHaruConsent({ longitudinalUsageStorage: false });
+    });
+
+    await waitFor(() => expect(mocks.stop).toHaveBeenCalledTimes(1));
+    expect(screen.getByText(i18n.t("exercise.memory.story.privacy"))).toBeInTheDocument();
 
     fireEvent.click(
       screen.getByRole("button", { name: i18n.t("exercise.memory.story.finish") }),
     );
 
     await waitFor(() => expect(onResponse).toHaveBeenCalledTimes(1));
+    expect(mocks.stopAndFinalize).not.toHaveBeenCalled();
     expect(onResponse).toHaveBeenCalledWith(
       expect.objectContaining({
-        responseType: "voice",
-        sttStatus: "failed",
-        sttNoSpeech: true,
-        recognitionError: "no-speech",
+        voiceDurationSeconds: 0,
+        recognitionError: "voice-consent-required",
       }),
     );
-    expect(onResponse.mock.calls[0][0]).not.toHaveProperty("derivedAnnotations");
     expect(onAdminResponse).toHaveBeenCalledWith(
-      expect.objectContaining({
-        sttNoSpeech: true,
-        sttSegments: [],
-        sttModelRevision: "revision",
+      expect.not.objectContaining({ audioBlob: expect.any(Blob) }),
+    );
+
+    mocks.isRecording = false;
+  });
+
+  it("rechecks consent after recorder finalization before exposing audio", async () => {
+    let resolveArtifact!: (
+      artifact: Awaited<ReturnType<typeof mocks.stopAndFinalize>>,
+    ) => void;
+    mocks.stopAndFinalize.mockReturnValueOnce(
+      new Promise((resolve) => {
+        resolveArtifact = resolve;
       }),
     );
-    const adminPayload = onAdminResponse.mock.calls[0][0];
-    expect(adminPayload).not.toHaveProperty("rawUserUtteranceTranscript");
-    expect(JSON.stringify(adminPayload)).not.toContain("그러니까");
+    const { onResponse, onAdminResponse } = renderScenario("D1_Q5");
+
+    fireEvent.click(
+      screen.getByRole("button", { name: i18n.t("exercise.memory.story.finish") }),
+    );
+    await waitFor(() => expect(mocks.stopAndFinalize).toHaveBeenCalledTimes(1));
+
+    act(() => {
+      updateHaruConsent({ sttProcessing: false });
+    });
+    await act(async () => {
+      resolveArtifact({
+        blob: new Blob(["withdrawn-audio"], { type: "audio/webm" }),
+        previewUrl: "blob:withdrawn-audio",
+        mimeType: "audio/webm",
+        durationMs: 13_300,
+        sampleRateHz: 16_000,
+        channelCount: 1,
+        startedAt: "2026-07-20T01:00:00.000Z",
+        endedAt: "2026-07-20T01:00:13.300Z",
+      });
+    });
+
+    await waitFor(() => expect(onResponse).toHaveBeenCalledTimes(1));
+    expect(onResponse).toHaveBeenCalledWith(
+      expect.objectContaining({
+        voiceDurationSeconds: 0,
+        recognitionError: "stt-consent-required",
+      }),
+    );
+    const adminResponse = onAdminResponse.mock.calls[0][0];
+    expect(adminResponse).not.toHaveProperty("audioBlob");
+    expect(adminResponse).not.toHaveProperty("recordingStartedAt");
+    expect(adminResponse).not.toHaveProperty("audioSampleRateHz");
+  });
+
+  it("permanently discards a capture revoked during finalization after quick re-consent", async () => {
+    let resolveArtifact!: (
+      artifact: Awaited<ReturnType<typeof mocks.stopAndFinalize>>,
+    ) => void;
+    mocks.isRecording = true;
+    mocks.stopAndFinalize.mockReturnValueOnce(
+      new Promise((resolve) => {
+        resolveArtifact = resolve;
+      }),
+    );
+    const { onResponse, onAdminResponse } = renderScenario("D1_Q5");
+
+    fireEvent.click(
+      screen.getByRole("button", { name: i18n.t("exercise.memory.story.finish") }),
+    );
+    await waitFor(() => expect(mocks.stopAndFinalize).toHaveBeenCalledTimes(1));
+
+    act(() => {
+      updateHaruConsent({ sttProcessing: false });
+    });
+    await waitFor(() => expect(mocks.stop).toHaveBeenCalledTimes(1));
+
+    act(() => {
+      updateHaruConsent({ sttProcessing: true });
+    });
+    await waitFor(() => expect(mocks.start).toHaveBeenCalledTimes(2));
+
+    await act(async () => {
+      resolveArtifact({
+        blob: new Blob(["revoked-audio"], { type: "audio/webm" }),
+        previewUrl: "blob:revoked-audio",
+        mimeType: "audio/webm",
+        durationMs: 13_300,
+        sampleRateHz: 16_000,
+        channelCount: 1,
+        startedAt: "2026-07-20T01:00:00.000Z",
+        endedAt: "2026-07-20T01:00:13.300Z",
+      });
+    });
+
+    await waitFor(() => expect(onResponse).toHaveBeenCalledTimes(1));
+    expect(onResponse).toHaveBeenCalledWith(
+      expect.objectContaining({
+        voiceDurationSeconds: 0,
+        recognitionError: "voice-consent-required",
+      }),
+    );
+    expect(onAdminResponse.mock.calls[0][0]).not.toHaveProperty("audioBlob");
+    expect(onAdminResponse.mock.calls[0][0]).not.toHaveProperty("recordingStartedAt");
+    expect(onAdminResponse.mock.calls[0][0]).not.toHaveProperty("audioSampleRateHz");
+
+    mocks.isRecording = false;
   });
 
   it("keeps personalization provenance out of the learner question", () => {

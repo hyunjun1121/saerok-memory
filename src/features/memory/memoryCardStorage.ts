@@ -1,7 +1,9 @@
 import type { MemoryCard } from "@/features/memory/types";
+import { getHaruConsent } from "@/features/profile/haruConsentStorage";
 import { readJsonArray, writeJson } from "@/utils/safeStorage";
 
 const STORAGE_KEY = "memoryCards";
+export const MEMORY_CARDS_UPDATED_EVENT = "haru:memory-cards-updated";
 
 const MEMORY_SOURCES = new Set<MemoryCard["source"]>([
   "daily_lesson",
@@ -58,7 +60,92 @@ function sanitizeMemoryCard(card: MemoryCard): MemoryCard {
   return durableCard;
 }
 
+function notifyMemoryCardsChanged(): void {
+  if (typeof window === "undefined") return;
+  window.dispatchEvent(new Event(MEMORY_CARDS_UPDATED_EVENT));
+}
+
+function clearPersistedCards(notifyWhenAlreadyEmpty = false): boolean {
+  try {
+    if (typeof window === "undefined" || !window.localStorage) return false;
+    const hadPersistedCards = window.localStorage.getItem(STORAGE_KEY) !== null;
+    window.localStorage.removeItem(STORAGE_KEY);
+    const removed = window.localStorage.getItem(STORAGE_KEY) === null;
+    if (removed && (hadPersistedCards || notifyWhenAlreadyEmpty)) {
+      notifyMemoryCardsChanged();
+    }
+    return removed;
+  } catch {
+    return false;
+  }
+}
+
+function persistMemoryCards(cards: readonly MemoryCard[]): boolean {
+  const saved = writeJson(STORAGE_KEY, cards);
+  if (saved) notifyMemoryCardsChanged();
+  return saved;
+}
+
+export function subscribeToMemoryCards(listener: () => void): () => void {
+  if (typeof window === "undefined") return () => undefined;
+  const onLocalUpdate = () => listener();
+  const onStorage = (event: StorageEvent) => {
+    if (event.key === STORAGE_KEY || event.key === null) listener();
+  };
+  window.addEventListener(MEMORY_CARDS_UPDATED_EVENT, onLocalUpdate);
+  window.addEventListener("storage", onStorage);
+  return () => {
+    window.removeEventListener(MEMORY_CARDS_UPDATED_EVENT, onLocalUpdate);
+    window.removeEventListener("storage", onStorage);
+  };
+}
+
+function isVoiceDerivedCard(card: MemoryCard): boolean {
+  return (
+    card.source === "voice_note" ||
+    card.inputMode === "speech" ||
+    card.inputMode === "mixed" ||
+    card.originalTranscript !== undefined ||
+    card.speechDurationMs !== undefined ||
+    card.recognitionError !== undefined ||
+    card.sttStatus !== undefined ||
+    card.sttNoSpeech !== undefined ||
+    card.sttEngine !== undefined ||
+    card.sttModel !== undefined ||
+    card.sttSegments !== undefined ||
+    card.audioAssetUrl !== undefined
+  );
+}
+
+function scrubVoiceDerivedCard(card: MemoryCard): MemoryCard {
+  if (!isVoiceDerivedCard(card)) return card;
+  const scrubbed = { ...card };
+  delete scrubbed.originalTranscript;
+  delete scrubbed.textSummary;
+  delete scrubbed.storyCues;
+  delete scrubbed.inputMode;
+  delete scrubbed.speechDurationMs;
+  delete scrubbed.recognitionError;
+  delete scrubbed.audioAssetUrl;
+  delete scrubbed.sttStatus;
+  delete scrubbed.sttNoSpeech;
+  delete scrubbed.sttEngine;
+  delete scrubbed.sttModel;
+  delete scrubbed.sttModelRevision;
+  delete scrubbed.sttAlignerModel;
+  delete scrubbed.sttAlignerRevision;
+  delete scrubbed.sttPreprocessingVersion;
+  delete scrubbed.sttLanguage;
+  delete scrubbed.sttConfidence;
+  delete scrubbed.sttSegments;
+  return scrubbed;
+}
+
 export function getMemoryCards(): MemoryCard[] {
+  if (!getHaruConsent().longitudinalUsageStorage) {
+    clearPersistedCards();
+    return [];
+  }
   const stored = readJsonArray<unknown>(STORAGE_KEY);
   const cards = stored.filter(isMemoryCard).map(sanitizeMemoryCard);
   const needsCleanup =
@@ -70,13 +157,33 @@ export function getMemoryCards(): MemoryCard[] {
         value.audioAssetUrl.startsWith("blob:"),
     );
   if (needsCleanup) {
-    writeJson(STORAGE_KEY, cards);
+    persistMemoryCards(cards);
   }
   return cards;
 }
 
-export function saveMemoryCards(cards: MemoryCard[]): void {
-  writeJson(STORAGE_KEY, cards.filter(isMemoryCard).map(sanitizeMemoryCard));
+export function getMemoryCardById(id: string): MemoryCard | null {
+  if (!id) return null;
+  return getMemoryCards().find((card) => card.id === id) ?? null;
+}
+
+export function saveMemoryCards(cards: MemoryCard[]): boolean {
+  if (!getHaruConsent().longitudinalUsageStorage) {
+    clearPersistedCards();
+    return false;
+  }
+  return persistMemoryCards(cards.filter(isMemoryCard).map(sanitizeMemoryCard));
+}
+
+export function clearMemoryCards(): boolean {
+  return clearPersistedCards(true);
+}
+
+export function scrubMemoryVoiceData(): boolean {
+  if (!getHaruConsent().longitudinalUsageStorage) {
+    return clearPersistedCards();
+  }
+  return saveMemoryCards(getMemoryCards().map(scrubVoiceDerivedCard));
 }
 
 // Demo seed: a single pre-existing memory card so the recall question
@@ -117,7 +224,11 @@ export function ensureDemoSeedCards(): void {
 
 export function upsertMemoryCueCard(
   cardUpdate: Partial<MemoryCard> & { linkedConceptId: string; lessonId?: string }
-): void {
+): string | null {
+  if (!getHaruConsent().longitudinalUsageStorage) {
+    clearPersistedCards();
+    return null;
+  }
   const cards = getMemoryCards();
 
   // Find an existing draft or card from the same concept in the same lesson (or generally same concept if lessonId isn't perfectly tracked yet)
@@ -162,5 +273,68 @@ export function upsertMemoryCueCard(
     cards.push(newCard);
   }
 
-  saveMemoryCards(cards);
+  const savedCard = existingIndex >= 0 ? cards[existingIndex] : cards.at(-1);
+  return saveMemoryCards(cards) ? (savedCard?.id ?? null) : null;
+}
+
+/**
+ * Patch one existing learner-authored memory cue after background processing.
+ * Never creates a missing card: deletion while STT is pending takes precedence.
+ */
+export function patchMemoryCueCardByLinkedConceptId(
+  linkedConceptId: string,
+  cardUpdate: Partial<MemoryCard>,
+): boolean {
+  if (!linkedConceptId) return false;
+  if (!getHaruConsent().longitudinalUsageStorage) {
+    clearPersistedCards();
+    return false;
+  }
+  const cards = getMemoryCards();
+  const index = cards.findIndex(
+    (card) =>
+      card.linkedConceptId === linkedConceptId && card.source === "daily_lesson",
+  );
+  if (index < 0) return false;
+
+  const safeUpdate = Object.fromEntries(
+    Object.entries(cardUpdate).filter(([, value]) => value !== undefined),
+  ) as Partial<MemoryCard>;
+  cards[index] = {
+    ...cards[index],
+    ...safeUpdate,
+    id: cards[index].id,
+    linkedConceptId: cards[index].linkedConceptId,
+    updatedAt: new Date().toISOString(),
+  };
+  return saveMemoryCards(cards);
+}
+
+/**
+ * Patch one existing card by immutable id. Background jobs must target this
+ * identifier so deleting and recreating a concept cannot receive stale STT.
+ */
+export function patchMemoryCueCardById(
+  id: string,
+  cardUpdate: Partial<MemoryCard>,
+): boolean {
+  if (!id) return false;
+  if (!getHaruConsent().longitudinalUsageStorage) {
+    clearPersistedCards();
+    return false;
+  }
+  const cards = getMemoryCards();
+  const index = cards.findIndex((card) => card.id === id);
+  if (index < 0) return false;
+
+  const safeUpdate = Object.fromEntries(
+    Object.entries(cardUpdate).filter(([, value]) => value !== undefined),
+  ) as Partial<MemoryCard>;
+  cards[index] = {
+    ...cards[index],
+    ...safeUpdate,
+    id: cards[index].id,
+    updatedAt: new Date().toISOString(),
+  };
+  return saveMemoryCards(cards);
 }

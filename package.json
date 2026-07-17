@@ -25,13 +25,12 @@
     "rag:bootstrap": "node scripts/run-python-service.mjs rag bootstrap"
   },
   "dependencies": {
-    "clsx": "^2.1.1",
     "i18next": "^26.1.0",
     "lucide-react": "^1.14.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-i18next": "^17.0.7",
-    "react-router-dom": "^6.30.3",
+    "react-router-dom": "^6.30.4",
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
@@ -42,7 +41,6 @@
     "@types/node": "^24.12.3",
     "@types/react": "^18.3.28",
     "@types/react-dom": "^18.3.7",
-    "@types/react-router-dom": "^5.3.3",
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.5.0",
     "eslint": "^10.3.0",
@@ -54,7 +52,7 @@
     "tailwindcss": "^3.4.19",
     "typescript": "^5.7.0",
     "typescript-eslint": "^8.59.3",
-    "vite": "^6.1.1",
-    "vitest": "^3.0.5"
+    "vite": "^6.4.3",
+    "vitest": "^3.2.7"
   }
 }

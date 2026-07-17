@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import type { Exercise } from "@/data/mockExercises";
 import {
   HARU_WEEK_QUESTION_META,
@@ -5,28 +6,93 @@ import {
 } from "@/data/haru7DayExercises";
 import type { ExerciseState } from "@/features/lessons/exerciseTypes/types";
 import { getLocalizedText } from "@/utils/localizedText";
-import { MultipleChoiceMeaning } from "@/features/lessons/exerciseTypes/MultipleChoiceMeaning";
-import { SituationMatch } from "@/features/lessons/exerciseTypes/SituationMatch";
-import { PairMatching } from "@/features/lessons/exerciseTypes/PairMatching";
-import { PersonalMemoryRecall } from "@/features/lessons/exerciseTypes/PersonalMemoryRecall";
-import { SequenceOrder } from "@/features/lessons/exerciseTypes/SequenceOrder";
-import { AudioChoice } from "@/features/lessons/exerciseTypes/AudioChoice";
-import { PictureChoice } from "@/features/lessons/exerciseTypes/PictureChoice";
-import { DelayedWordRecall } from "@/features/lessons/exerciseTypes/DelayedWordRecall";
-import { AttentionPattern } from "@/features/lessons/exerciseTypes/AttentionPattern";
-import { DigitSpanPractice } from "@/features/lessons/exerciseTypes/DigitSpanPractice";
-import { VerbalFluencyPractice } from "@/features/lessons/exerciseTypes/VerbalFluencyPractice";
-import { TrailSwitchingPractice } from "@/features/lessons/exerciseTypes/TrailSwitchingPractice";
-import { StroopTouchPractice } from "@/features/lessons/exerciseTypes/StroopTouchPractice";
-import { OrientationPractice } from "@/features/lessons/exerciseTypes/OrientationPractice";
-import { ShapeCopyPractice } from "@/features/lessons/exerciseTypes/ShapeCopyPractice";
-import { SpeechRepeatPractice } from "@/features/lessons/exerciseTypes/SpeechRepeatPractice";
 import {
   HaruScenarioQuestion,
   type HaruScenarioAdminResponse,
   type HaruScenarioLiveResponse,
 } from "@/features/lessons/exerciseTypes/HaruScenarioQuestion";
 import { useTranslation } from "react-i18next";
+
+const MultipleChoiceMeaning = lazy(() =>
+  import("@/features/lessons/exerciseTypes/MultipleChoiceMeaning").then((module) => ({
+    default: module.MultipleChoiceMeaning,
+  })),
+);
+const SituationMatch = lazy(() =>
+  import("@/features/lessons/exerciseTypes/SituationMatch").then((module) => ({
+    default: module.SituationMatch,
+  })),
+);
+const PairMatching = lazy(() =>
+  import("@/features/lessons/exerciseTypes/PairMatching").then((module) => ({
+    default: module.PairMatching,
+  })),
+);
+const PersonalMemoryRecall = lazy(() =>
+  import("@/features/lessons/exerciseTypes/PersonalMemoryRecall").then((module) => ({
+    default: module.PersonalMemoryRecall,
+  })),
+);
+const SequenceOrder = lazy(() =>
+  import("@/features/lessons/exerciseTypes/SequenceOrder").then((module) => ({
+    default: module.SequenceOrder,
+  })),
+);
+const AudioChoice = lazy(() =>
+  import("@/features/lessons/exerciseTypes/AudioChoice").then((module) => ({
+    default: module.AudioChoice,
+  })),
+);
+const PictureChoice = lazy(() =>
+  import("@/features/lessons/exerciseTypes/PictureChoice").then((module) => ({
+    default: module.PictureChoice,
+  })),
+);
+const DelayedWordRecall = lazy(() =>
+  import("@/features/lessons/exerciseTypes/DelayedWordRecall").then((module) => ({
+    default: module.DelayedWordRecall,
+  })),
+);
+const AttentionPattern = lazy(() =>
+  import("@/features/lessons/exerciseTypes/AttentionPattern").then((module) => ({
+    default: module.AttentionPattern,
+  })),
+);
+const DigitSpanPractice = lazy(() =>
+  import("@/features/lessons/exerciseTypes/DigitSpanPractice").then((module) => ({
+    default: module.DigitSpanPractice,
+  })),
+);
+const VerbalFluencyPractice = lazy(() =>
+  import("@/features/lessons/exerciseTypes/VerbalFluencyPractice").then((module) => ({
+    default: module.VerbalFluencyPractice,
+  })),
+);
+const TrailSwitchingPractice = lazy(() =>
+  import("@/features/lessons/exerciseTypes/TrailSwitchingPractice").then((module) => ({
+    default: module.TrailSwitchingPractice,
+  })),
+);
+const StroopTouchPractice = lazy(() =>
+  import("@/features/lessons/exerciseTypes/StroopTouchPractice").then((module) => ({
+    default: module.StroopTouchPractice,
+  })),
+);
+const OrientationPractice = lazy(() =>
+  import("@/features/lessons/exerciseTypes/OrientationPractice").then((module) => ({
+    default: module.OrientationPractice,
+  })),
+);
+const ShapeCopyPractice = lazy(() =>
+  import("@/features/lessons/exerciseTypes/ShapeCopyPractice").then((module) => ({
+    default: module.ShapeCopyPractice,
+  })),
+);
+const SpeechRepeatPractice = lazy(() =>
+  import("@/features/lessons/exerciseTypes/SpeechRepeatPractice").then((module) => ({
+    default: module.SpeechRepeatPractice,
+  })),
+);
 
 interface ExerciseRendererProps {
   exercise: Exercise;
@@ -39,7 +105,7 @@ interface ExerciseRendererProps {
 
 const ignoreHaruResponse = () => undefined;
 
-export function ExerciseRenderer({
+function ExerciseRendererContent({
   exercise,
   globalState,
   setGlobalState,
@@ -326,4 +392,19 @@ export function ExerciseRenderer({
         </div>
       );
   }
+}
+
+export function ExerciseRenderer(props: ExerciseRendererProps) {
+  const { t } = useTranslation();
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-48 items-center justify-center text-lg font-bold text-ink">
+          {t("app.loading")}
+        </div>
+      }
+    >
+      <ExerciseRendererContent {...props} />
+    </Suspense>
+  );
 }

@@ -42,15 +42,17 @@ export function writeJson<T>(key: string, value: T): boolean {
   }
 }
 
-export function removeKey(key: string): void {
+export function removeKey(key: string): boolean {
   if (!hasLocalStorage()) {
-    return;
+    return false;
   }
 
   try {
     window.localStorage.removeItem(key);
+    return window.localStorage.getItem(key) === null;
   } catch (error) {
     console.error(`safeStorage: failed to remove key "${key}"`, error);
+    return false;
   }
 }
 

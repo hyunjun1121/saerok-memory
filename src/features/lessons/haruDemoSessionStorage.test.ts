@@ -10,10 +10,13 @@ import {
   clearHaruDemoSessions,
   completeHaruDemoSession,
   getHaruDemoSessions,
+  patchHaruDemoVoiceResponse,
   recordHaruDemoResponse,
+  scrubHaruDemoVoiceData,
   startHaruDemoSession,
   type HaruDemoResponse,
 } from "@/features/lessons/haruDemoSessionStorage";
+import { HARU_CONSENT_STORAGE_KEY } from "@/features/profile/haruConsentStorage";
 import {
   canonicalHaruResponse,
   seedCompletedHaruDemoDay,
@@ -23,7 +26,22 @@ describe("haruDemoSessionStorage", () => {
   beforeEach(() => {
     localStorage.clear();
     vi.restoreAllMocks();
+    getHaruDemoSessions();
   });
+
+  function setLongitudinalConsent(enabled: boolean): void {
+    localStorage.setItem(
+      HARU_CONSENT_STORAGE_KEY,
+      JSON.stringify({
+        voiceRecording: true,
+        sttProcessing: true,
+        longitudinalUsageStorage: enabled,
+        personalizedQuestionUse: true,
+        consentedAt: "2026-07-18T00:00:00.000Z",
+        updatedAt: "2026-07-18T00:00:00.000Z",
+      }),
+    );
+  }
 
   it("records a complete synthetic-day lifecycle", () => {
     const startedAt = new Date("2026-07-20T01:00:00.000Z");
@@ -275,12 +293,93 @@ describe("haruDemoSessionStorage", () => {
     startHaruDemoSession(1, ["D1_Q1"]);
     listener.mockClear();
 
-    clearHaruDemoSessions();
+    expect(clearHaruDemoSessions()).toBe(true);
 
     expect(localStorage.getItem(HARU_DEMO_SESSION_STORAGE_KEY)).toBeNull();
     expect(getHaruDemoSessions()).toEqual([]);
     expect(listener).toHaveBeenCalledTimes(1);
     window.removeEventListener(HARU_DEMO_SESSION_UPDATED_EVENT, listener);
+  });
+
+  it("uses volatile sessions only and purges old persistence without longitudinal consent", () => {
+    localStorage.setItem(
+      HARU_DEMO_SESSION_STORAGE_KEY,
+      JSON.stringify([
+        {
+          day: 1,
+          status: "in_progress",
+          questionIds: ["D1_Q1"],
+          questionCount: 1,
+          startedAt: "2026-07-18T00:00:00.000Z",
+          endedAt: null,
+          durationSeconds: null,
+          completionMessage: null,
+          responses: [],
+        },
+      ]),
+    );
+    setLongitudinalConsent(false);
+
+    expect(getHaruDemoSessions()).toEqual([]);
+    expect(localStorage.getItem(HARU_DEMO_SESSION_STORAGE_KEY)).toBeNull();
+    expect(startHaruDemoSession(2, ["D2_Q1"]).day).toBe(2);
+    expect(getHaruDemoSessions()).toEqual([
+      expect.objectContaining({ day: 2, status: "in_progress" }),
+    ]);
+    expect(localStorage.getItem(HARU_DEMO_SESSION_STORAGE_KEY)).toBeNull();
+
+    setLongitudinalConsent(true);
+    expect(getHaruDemoSessions()).toEqual([]);
+    expect(localStorage.getItem(HARU_DEMO_SESSION_STORAGE_KEY)).toBeNull();
+  });
+
+  it("scrubs voice-derived response data without changing session completion", () => {
+    const completed = seedCompletedHaruDemoDay(1, {
+      responseOverrides: {
+        D1_Q5: {
+          sttStatus: "completed",
+          sttLanguage: "ko-KR",
+          sttConfidence: 0.92,
+          sttEngine: "qwen3-asr",
+          sttModel: "Qwen/Qwen3-ASR-1.7B",
+          sttModelRevision: "model-revision",
+          sttAlignerModel: "Qwen/Qwen3-ForcedAligner-0.6B",
+          sttAlignerRevision: "aligner-revision",
+          sttPreprocessingVersion: "haru-audio-v1",
+          recognitionError: "none",
+          derivedAnnotations: [{ entityType: "장소", value: "비밀 산책로" }],
+        },
+      },
+    });
+    expect(completed?.status).toBe("completed");
+
+    expect(scrubHaruDemoVoiceData()).toBe(true);
+
+    const session = getHaruDemoSessions()[0];
+    const voice = session.responses.find((response) => response.questionId === "D1_Q5");
+    expect(session.status).toBe("completed");
+    expect(session.endedAt).toBe(completed?.endedAt);
+    expect(voice).toEqual({
+      questionId: "D1_Q5",
+      responseType: "voice",
+      responseTimeMs: expect.any(Number),
+      isCorrect: null,
+      voiceDurationSeconds: expect.any(Number),
+      voiceDataScrubbed: true,
+    });
+    expect(localStorage.getItem(HARU_DEMO_SESSION_STORAGE_KEY)).not.toMatch(
+      /비밀 산책로|qwen3-asr|Qwen3-ASR|sttStatus|sttLanguage|sttConfidence|sttEngine|sttModel|sttAligner|sttPreprocessing|recognitionError|derivedAnnotations/,
+    );
+  });
+
+  it("returns false when clearing persisted sessions cannot be verified", () => {
+    startHaruDemoSession(1, ["D1_Q1"]);
+    vi.spyOn(console, "error").mockImplementation(() => undefined);
+    vi.spyOn(Storage.prototype, "removeItem").mockImplementation(() => {
+      throw new DOMException("blocked", "SecurityError");
+    });
+
+    expect(clearHaruDemoSessions()).toBe(false);
   });
 
   it("keeps one response per question and replaces the earlier record", () => {
@@ -323,6 +422,91 @@ describe("haruDemoSessionStorage", () => {
         ],
       },
     ]);
+  });
+
+  it("patches STT success onto an existing voice response without storing raw transcript", () => {
+    startHaruDemoSession(4, ["D4_Q5"]);
+    recordHaruDemoResponse(4, {
+      questionId: "D4_Q5",
+      responseType: "voice",
+      responseTimeMs: 10_000,
+      isCorrect: null,
+      voiceDurationSeconds: 8,
+      sttStatus: "failed",
+      recognitionError: "stt-pending",
+    });
+
+    expect(
+      patchHaruDemoVoiceResponse(4, "D4_Q5", {
+        transcript: "원문은 안전 저장소에 남기지 않습니다",
+        derivedAnnotations: [{ entityType: "장소", value: "갑천 산책로" }],
+        sttLanguage: "ko-KR",
+        sttConfidence: 0.91,
+        sttEngine: "qwen3-asr",
+        sttModel: "Qwen/Qwen3-ASR-1.7B",
+        sttModelRevision: "model-revision",
+        sttAlignerModel: "Qwen/Qwen3-ForcedAligner-0.6B",
+        sttAlignerRevision: "aligner-revision",
+        sttPreprocessingVersion: "haru-audio-v1",
+      }),
+    ).toBe(true);
+
+    expect(getHaruDemoSessions()[0].responses[0]).toEqual({
+      questionId: "D4_Q5",
+      responseType: "voice",
+      responseTimeMs: 10_000,
+      isCorrect: null,
+      voiceDurationSeconds: 8,
+      sttStatus: "completed",
+      sttLanguage: "ko-KR",
+      sttConfidence: 0.91,
+      sttEngine: "qwen3-asr",
+      sttModel: "Qwen/Qwen3-ASR-1.7B",
+      sttModelRevision: "model-revision",
+      sttAlignerModel: "Qwen/Qwen3-ForcedAligner-0.6B",
+      sttAlignerRevision: "aligner-revision",
+      sttPreprocessingVersion: "haru-audio-v1",
+      derivedAnnotations: [{ entityType: "장소", value: "갑천 산책로" }],
+    });
+    expect(localStorage.getItem(HARU_DEMO_SESSION_STORAGE_KEY)).not.toContain(
+      "원문은 안전 저장소에 남기지 않습니다",
+    );
+  });
+
+  it("never upserts a missing or deleted voice response during STT patch", () => {
+    startHaruDemoSession(4, ["D4_Q4", "D4_Q5"]);
+    recordHaruDemoResponse(4, {
+      questionId: "D4_Q4",
+      responseType: "single_choice",
+      selectedOptionId: "A",
+      responseTimeMs: 2_000,
+      isCorrect: true,
+    });
+
+    expect(
+      patchHaruDemoVoiceResponse(4, "D4_Q5", {
+        transcript: "missing target",
+        derivedAnnotations: [],
+        sttLanguage: "ko-KR",
+      }),
+    ).toBe(false);
+    expect(
+      patchHaruDemoVoiceResponse(4, "D4_Q4", {
+        transcript: "wrong type",
+        derivedAnnotations: [],
+        sttLanguage: "ko-KR",
+      }),
+    ).toBe(false);
+
+    expect(clearHaruDemoSessions()).toBe(true);
+    expect(
+      patchHaruDemoVoiceResponse(4, "D4_Q5", {
+        transcript: "deleted target",
+        derivedAnnotations: [],
+        sttLanguage: "ko-KR",
+      }),
+    ).toBe(false);
+    expect(getHaruDemoSessions()).toEqual([]);
   });
 
   it("resumes the same day without deleting recorded answers", () => {

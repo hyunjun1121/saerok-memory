@@ -23,7 +23,10 @@ describe("CounselorParticipantScreen", () => {
     });
 
     render(
-      <MemoryRouter initialEntries={["/connect/counselor/participant/1"]}>
+      <MemoryRouter
+        initialEntries={["/connect/counselor/participant/1"]}
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      >
         <Routes>
           <Route
             path="/connect/counselor/participant/:id"
@@ -45,7 +48,10 @@ describe("CounselorParticipantScreen", () => {
 
   it("keeps raw personal stories hidden", () => {
     render(
-      <MemoryRouter initialEntries={["/connect/counselor/participant/1"]}>
+      <MemoryRouter
+        initialEntries={["/connect/counselor/participant/1"]}
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      >
         <Routes>
           <Route
             path="/connect/counselor/participant/:id"

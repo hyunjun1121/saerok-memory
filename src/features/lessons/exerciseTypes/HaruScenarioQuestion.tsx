@@ -7,7 +7,6 @@ import {
   type ChoiceCardState,
   type ChoiceCardTone,
 } from "@/components/ChoiceCard";
-import { HARU_DEMO_PERSONA } from "@/data/haruDemoPersona";
 import type {
   HaruQuestionResponseType,
   HaruWeekQuestionMeta,
@@ -19,17 +18,19 @@ import {
   type HaruChoiceKeyBindings,
 } from "@/features/lessons/haruInputBindings";
 import { useHaruChoiceKeys } from "@/features/lessons/useHaruChoiceKeys";
-import {
-  extractHaruResponseFacts,
-  type HaruDerivedAnnotation,
-} from "@/features/lessons/haruResponseFacts";
-import {
-  formatSttEngine,
-  transcribeStory,
-  type TranscribeSegment,
-} from "@/features/speech/stt";
+import type { HaruDerivedAnnotation } from "@/features/lessons/haruResponseFacts";
+import type { TranscribeSegment } from "@/features/speech/stt";
 import { useVoiceRecorder } from "@/features/speech/useVoiceRecorder";
 import { VoiceWaveform } from "@/features/speech/VoiceWaveform";
+import {
+  getHaruConsent,
+  subscribeToHaruConsent,
+} from "@/features/profile/haruConsentStorage";
+import {
+  getHaruVoiceConsentError,
+  hasHaruVoicePipelineConsent,
+  useHaruConsent,
+} from "@/features/profile/useHaruConsent";
 import { speakCalmly } from "@/hooks/interactionFeedback";
 import { getLocalizedText, getSpeechLanguage } from "@/utils/localizedText";
 
@@ -160,7 +161,6 @@ function HaruScenarioQuestionContent({
   const [responseCorrectness, setResponseCorrectness] = useState<boolean | null>(null);
   const [isTranscribing, setIsTranscribing] = useState(false);
   const startedAtRef = useRef<number | null>(null);
-  const recordingStartedAtRef = useRef<string | null>(null);
   const selectedButtonEventRef = useRef<{
     optionId: string;
     pressedAt: string;
@@ -192,25 +192,47 @@ function HaruScenarioQuestionContent({
     Math.max(exercise.payload.requiredSelectionCount ?? items.length, 1),
     items.length,
   );
-  const voiceRecordingConsented = HARU_DEMO_PERSONA.consents.voiceRecording;
-  const sttProcessingConsented = HARU_DEMO_PERSONA.consents.sttProcessing;
+  const consent = useHaruConsent();
+  const speechConsentGranted = hasHaruVoicePipelineConsent(consent);
+  const captureAuthorizedRef = useRef(speechConsentGranted);
+  const consentRevisionRef = useRef(0);
+  const recordingConsentRevisionRef = useRef<number | null>(
+    speechConsentGranted ? 0 : null,
+  );
+  const pipelineConsentGrantedRef = useRef(speechConsentGranted);
   const recorderIsSupported = recorder.isSupported;
   const startRecording = recorder.start;
+  const stopRecording = recorder.stop;
 
   useEffect(() => {
     startedAtRef.current = Date.now();
   }, []);
 
   useEffect(() => {
+    return subscribeToHaruConsent((nextConsent) => {
+      const nextGranted = hasHaruVoicePipelineConsent(nextConsent);
+      if (pipelineConsentGrantedRef.current && !nextGranted) {
+        captureAuthorizedRef.current = false;
+        consentRevisionRef.current += 1;
+        recordingConsentRevisionRef.current = null;
+        stopRecording();
+      }
+      pipelineConsentGrantedRef.current = nextGranted;
+    });
+  }, [stopRecording]);
+
+  useEffect(() => {
     if (
       question.responseType === "voice" &&
-      voiceRecordingConsented &&
-      recorderIsSupported
+      speechConsentGranted &&
+      recorderIsSupported &&
+      hasHaruVoicePipelineConsent(getHaruConsent())
     ) {
-      recordingStartedAtRef.current = new Date().toISOString();
+      captureAuthorizedRef.current = true;
+      recordingConsentRevisionRef.current = consentRevisionRef.current;
       startRecording();
     }
-  }, [question.responseType, recorderIsSupported, startRecording, voiceRecordingConsented]);
+  }, [question.responseType, recorderIsSupported, speechConsentGranted, startRecording]);
 
   const responseTimeMs = () =>
     startedAtRef.current === null
@@ -387,7 +409,13 @@ function HaruScenarioQuestionContent({
     respondedRef.current = true;
     setIsTranscribing(true);
 
-    if (!voiceRecordingConsented) {
+    const consentAtFinish = getHaruConsent();
+    const recordingConsentRevision = recordingConsentRevisionRef.current;
+    if (
+      !captureAuthorizedRef.current ||
+      recordingConsentRevision === null ||
+      !hasHaruVoicePipelineConsent(consentAtFinish)
+    ) {
       setIsTranscribing(false);
       finishResponse(
         {
@@ -397,7 +425,8 @@ function HaruScenarioQuestionContent({
           isCorrect: null,
           voiceDurationSeconds: 0,
           sttStatus: "failed",
-          recognitionError: "voice-consent-required",
+          recognitionError:
+            getHaruVoiceConsentError(consentAtFinish) ?? "voice-consent-required",
           feedback: feedbackFor(null, false),
         },
         {},
@@ -405,99 +434,51 @@ function HaruScenarioQuestionContent({
       return;
     }
 
-    const recordingEndedAt = new Date().toISOString();
-    const blob = await recorder.stopAndGetBlob();
-    const durationSeconds = Math.max(0, recorder.getDurationMs() / 1000);
-    let sttStatus: "completed" | "failed" = "failed";
-    let sttNoSpeech: boolean | undefined;
-    let sttLanguage: string | undefined;
-    let sttConfidence: number | undefined;
-    let recognitionError: string | null | undefined = recorder.error ?? undefined;
-    let derivedAnnotations: HaruDerivedAnnotation[] | undefined;
-    let rawUserUtteranceTranscript: string | undefined;
-    let sttProcessedAt: string | undefined;
-    let sttEngine: string | undefined;
-    let sttModel: string | undefined;
-    let sttModelRevision: string | undefined;
-    let sttAlignerModel: string | undefined;
-    let sttAlignerRevision: string | undefined;
-    let sttPreprocessingVersion: string | undefined;
-    let sttSegments: TranscribeSegment[] | undefined;
-
-    if (!sttProcessingConsented) {
-      recognitionError = "stt-consent-required";
-    } else if (blob && blob.size > 0) {
-      try {
-        const result = await transcribeStory(blob);
-        sttProcessedAt = new Date().toISOString();
-        if (result) {
-          sttNoSpeech = result.noSpeech;
-          sttEngine = formatSttEngine(result);
-          sttModel = result.model ?? undefined;
-          sttModelRevision = result.modelRevision ?? undefined;
-          sttAlignerModel = result.alignerModel ?? undefined;
-          sttAlignerRevision = result.alignerRevision ?? undefined;
-          sttPreprocessingVersion = result.preprocessingVersion ?? undefined;
-          sttSegments = result.noSpeech ? [] : result.segments;
-          sttLanguage = result.language ?? undefined;
-          sttConfidence = result.confidence ?? undefined;
-        }
-        if (result?.noSpeech) {
-          recognitionError = "no-speech";
-        } else if (result?.text) {
-          sttStatus = "completed";
-          rawUserUtteranceTranscript = result.text;
-          const facts = extractHaruResponseFacts(question.exerciseId, result.text);
-          derivedAnnotations = facts.length > 0 ? facts : undefined;
-          recognitionError = undefined;
-        } else {
-          recognitionError = recognitionError ?? "transcribe-failed";
-        }
-      } catch {
-        recognitionError = recognitionError ?? "transcribe-failed";
-      }
-    } else {
-      recognitionError = recognitionError ?? "audio-unavailable";
-    }
+    const artifact = await recorder.stopAndFinalize();
+    const consentAfterFinalization = getHaruConsent();
+    const canRetainAudio =
+      captureAuthorizedRef.current &&
+      consentRevisionRef.current === recordingConsentRevision &&
+      recordingConsentRevisionRef.current === recordingConsentRevision &&
+      hasHaruVoicePipelineConsent(consentAfterFinalization);
+    const blob = canRetainAudio ? artifact?.blob ?? null : null;
+    const durationSeconds = Math.max(
+      0,
+      canRetainAudio ? (artifact?.durationMs ?? recorder.getDurationMs()) / 1000 : 0,
+    );
+    const recognitionError = !canRetainAudio
+      ? getHaruVoiceConsentError(consentAfterFinalization) ?? "voice-consent-required"
+      : blob && blob.size > 0
+        ? "stt-pending"
+        : recorder.error ?? "audio-unavailable";
 
     setIsTranscribing(false);
     finishResponse(
       {
         questionId: question.exerciseId,
         responseType: "voice",
-        responseTimeMs: responseTimeMs(),
-        isCorrect: null,
-        voiceDurationSeconds: durationSeconds,
-        sttStatus,
-        ...(sttNoSpeech !== undefined ? { sttNoSpeech } : {}),
-        ...(sttLanguage ? { sttLanguage } : {}),
-        ...(sttConfidence !== undefined ? { sttConfidence } : {}),
-        ...(recognitionError !== undefined ? { recognitionError } : {}),
-        ...(derivedAnnotations ? { derivedAnnotations } : {}),
-        feedback: feedbackFor(null, false),
+          responseTimeMs: responseTimeMs(),
+          isCorrect: null,
+          voiceDurationSeconds: durationSeconds,
+          sttStatus: "failed",
+          recognitionError,
+          feedback: feedbackFor(null, false),
       },
       {
-        ...(recordingStartedAtRef.current
-          ? { recordingStartedAt: recordingStartedAtRef.current }
+        ...(canRetainAudio && artifact?.startedAt
+          ? { recordingStartedAt: artifact.startedAt }
           : {}),
-        recordingEndedAt,
+        ...(canRetainAudio && artifact?.endedAt
+          ? { recordingEndedAt: artifact.endedAt }
+          : {}),
         ...(blob && blob.size > 0 ? { audioBlob: blob } : {}),
-        ...(recorder.sampleRateHz !== null
-          ? { audioSampleRateHz: recorder.sampleRateHz }
+        ...(canRetainAudio &&
+        (artifact?.sampleRateHz ?? recorder.sampleRateHz) !== null
+          ? { audioSampleRateHz: artifact?.sampleRateHz ?? recorder.sampleRateHz ?? undefined }
           : {}),
-        ...(recorder.channelCount !== null
-          ? { audioChannelCount: recorder.channelCount }
-          : {}),
-        ...(sttProcessedAt ? { sttProcessedAt } : {}),
-        ...(sttEngine ? { sttEngine } : {}),
-        ...(sttModel ? { sttModel } : {}),
-        ...(sttModelRevision ? { sttModelRevision } : {}),
-        ...(sttAlignerModel ? { sttAlignerModel } : {}),
-        ...(sttAlignerRevision ? { sttAlignerRevision } : {}),
-        ...(sttPreprocessingVersion ? { sttPreprocessingVersion } : {}),
-        ...(sttSegments ? { sttSegments } : {}),
-        ...(rawUserUtteranceTranscript
-          ? { rawUserUtteranceTranscript }
+        ...(canRetainAudio &&
+        (artifact?.channelCount ?? recorder.channelCount) !== null
+          ? { audioChannelCount: artifact?.channelCount ?? recorder.channelCount ?? undefined }
           : {}),
       },
     );
@@ -643,12 +624,12 @@ function HaruScenarioQuestionContent({
             </p>
           </div>
 
-          {!voiceRecordingConsented && (
+          {!speechConsentGranted && (
             <p className="rounded-2xl border-2 border-amber-200 bg-amber-50 p-4 text-base font-semibold leading-relaxed text-amber-900">
               {t("exercise.memory.story.privacy")}
             </p>
           )}
-          {voiceRecordingConsented && !recorder.isSupported && (
+          {speechConsentGranted && !recorder.isSupported && (
             <p className="rounded-2xl border-2 border-amber-200 bg-amber-50 p-4 text-base font-semibold leading-relaxed text-amber-900">
               {t("exercise.memory.story.unsupported")}
             </p>

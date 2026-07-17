@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   HARU_DEMO_PERSONA,
   HARU_WEEK_QUESTION_META,
+  getHaruWeekPlan,
   haru7DayExercises,
 } from "@/data/haru7DayExercises";
 import {
@@ -21,7 +22,16 @@ import {
   getHaruSttRetryOutbox,
   startHaruSttRetry,
 } from "@/features/lessons/haruSttRetry";
+import {
+  completeHaruDemoSession,
+  getHaruDemoSessions,
+  recordHaruDemoResponse,
+  startHaruDemoSession,
+} from "@/features/lessons/haruDemoSessionStorage";
+import { resolveHaruExercise } from "@/features/lessons/haruLivePersonalization";
+import { canonicalHaruResponse } from "@/test/haruDemoSessionFixtures";
 import type { TranscribeResult } from "@/features/speech/stt";
+import { updateHaruConsent } from "@/features/profile/haruConsentStorage";
 
 const audioMocks = vi.hoisted(() => ({
   store: vi.fn(async () => "stored" as const),
@@ -113,12 +123,18 @@ describe("durable Haru STT retry", () => {
     const before = getHaruAdminUsageRecord()?.sessions[0].question_records[0].response;
     expect(before?.input_mode).toBe("voice");
     const responseId = before?.response_id;
+    const objectKey = before?.input_mode === "voice"
+      ? before.audio_storage.object_key
+      : "";
+    expect(objectKey).toMatch(
+      /^voice\/USR-000001\/2026-07-20\/g-\d+-\d+\/D1_Q5-[A-Za-z0-9-]+\.webm$/,
+    );
     expect(getHaruSttRetryOutbox()).toEqual([
       expect.objectContaining({
         userId: "USR-000001",
         sessionDate: "2026-07-20",
         questionId: "D1_Q5",
-        objectKey: "voice/USR-000001/2026-07-20/D1_Q5.webm",
+        objectKey,
       }),
     ]);
 
@@ -128,6 +144,7 @@ describe("durable Haru STT retry", () => {
     expect(Object.keys(serializedOutbox[0]).sort()).toEqual(
       [
         "attempts",
+        "consentRevision",
         "createdAt",
         "key",
         "nextAttemptAt",
@@ -191,6 +208,62 @@ describe("durable Haru STT retry", () => {
     expect(JSON.parse(getHaruRagOutbox()[0].payload)).toEqual(
       getHaruAdminUsageRecord(),
     );
+  });
+
+  it("projects successful canonical STT facts into the existing safe demo response", async () => {
+    const audio = await saveFailedVoice();
+    startHaruDemoSession(1, getHaruWeekPlan(1).exerciseIds);
+    HARU_WEEK_QUESTION_META.filter((question) => question.day === 1).forEach(
+      (question) =>
+        recordHaruDemoResponse(
+          1,
+          question.exerciseId === "D1_Q5"
+            ? {
+                questionId: "D1_Q5",
+                responseType: "voice",
+                responseTimeMs: 4_500,
+                isCorrect: null,
+                voiceDurationSeconds: 3.2,
+                sttStatus: "failed",
+                recognitionError: "stt-pending",
+              }
+            : canonicalHaruResponse(question),
+        ),
+    );
+
+    await flushHaruSttRetryOutbox({
+      patchResponse: patchHaruAdminVoiceSttSuccess,
+      readAudioImpl: async () => audio,
+      transcribeImpl: async () => qwenSuccess(),
+      force: true,
+    });
+
+    const response = getHaruDemoSessions()[0].responses.find(
+      (candidate) => candidate.questionId === "D1_Q5",
+    );
+    expect(response).toEqual(
+      expect.objectContaining({
+        sttStatus: "completed",
+        sttModel: "Qwen/Qwen3-ASR-1.7B",
+        sttModelRevision: "qwen-revision",
+        derivedAnnotations: expect.arrayContaining([
+          { entityType: "장소", value: "유성시장" },
+          { entityType: "구매물품", value: "애호박" },
+        ]),
+      }),
+    );
+    expect(JSON.stringify(response)).not.toContain("유성시장에서 애호박과 대파를 샀어요");
+    expect(completeHaruDemoSession(1, "완료")?.status).toBe("completed");
+    const nextExercise = haru7DayExercises.find(
+      (candidate) => candidate.id === "D2_Q3",
+    );
+    expect(nextExercise).toBeDefined();
+    expect(
+      resolveHaruExercise(nextExercise!, getHaruDemoSessions()).personalization,
+    ).toEqual({
+      kind: "prior_response",
+      sourceQuestionIds: ["D1_Q5"],
+    });
   });
 
   it("drops a retry entry when its IndexedDB audio is missing", async () => {
@@ -293,5 +366,80 @@ describe("durable Haru STT retry", () => {
     expect(getHaruSttRetryOutbox()).toHaveLength(0);
     expect(localStorage.getItem(HARU_ADMIN_USAGE_RECORD_STORAGE_KEY)).toBeNull();
     expect(audioMocks.clear).toHaveBeenCalledTimes(1);
+  });
+
+  it("purges queued work without sending audio after runtime consent withdrawal", async () => {
+    const audio = await saveFailedVoice();
+    updateHaruConsent({ sttProcessing: false });
+    const transcribeImpl = vi.fn(async () => qwenSuccess());
+
+    await flushHaruSttRetryOutbox({
+      patchResponse: patchHaruAdminVoiceSttSuccess,
+      readAudioImpl: async () => audio,
+      transcribeImpl,
+      force: true,
+    });
+
+    expect(transcribeImpl).not.toHaveBeenCalled();
+    expect(getHaruSttRetryOutbox()).toHaveLength(0);
+  });
+
+  it("aborts active Qwen work when another tab withdraws consent", async () => {
+    const audio = await saveFailedVoice();
+    let observedSignal: AbortSignal | undefined;
+    const transcribeImpl = vi.fn(
+      (_blob: Blob, options?: { signal?: AbortSignal }) =>
+        new Promise<TranscribeResult | null>((resolve) => {
+          observedSignal = options?.signal;
+          options?.signal?.addEventListener("abort", () => resolve(null), {
+            once: true,
+          });
+        }),
+    );
+    const patchResponse = vi.fn(patchHaruAdminVoiceSttSuccess);
+    const stop = startHaruSttRetry(patchResponse, {
+      readAudioImpl: async () => audio,
+      transcribeImpl,
+    });
+    await vi.waitFor(() => expect(transcribeImpl).toHaveBeenCalledTimes(1));
+
+    updateHaruConsent({ voiceRecording: false });
+
+    await vi.waitFor(() => expect(observedSignal?.aborted).toBe(true));
+    await vi.waitFor(() => expect(getHaruSttRetryOutbox()).toHaveLength(0));
+    expect(patchResponse).not.toHaveBeenCalled();
+    stop();
+  });
+
+  it("never patches an old transcription after withdrawal and quick re-consent", async () => {
+    const audio = await saveFailedVoice();
+    let finishTranscription: ((result: TranscribeResult) => void) | undefined;
+    const transcribeImpl = vi.fn(
+      () =>
+        new Promise<TranscribeResult>((resolve) => {
+          finishTranscription = resolve;
+        }),
+    );
+    const patchResponse = vi.fn(patchHaruAdminVoiceSttSuccess);
+    const stop = startHaruSttRetry(patchResponse, {
+      readAudioImpl: async () => audio,
+      transcribeImpl,
+    });
+    await vi.waitFor(() => expect(transcribeImpl).toHaveBeenCalledTimes(1));
+
+    updateHaruConsent(
+      { voiceRecording: false },
+      new Date("2026-07-20T01:00:01.000Z"),
+    );
+    updateHaruConsent(
+      { voiceRecording: true },
+      new Date("2026-07-20T01:00:02.000Z"),
+    );
+    finishTranscription?.(qwenSuccess());
+
+    await vi.waitFor(() => expect(getHaruSttRetryOutbox()).toHaveLength(0));
+    await Promise.resolve();
+    expect(patchResponse).not.toHaveBeenCalled();
+    stop();
   });
 });

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 import { X } from "lucide-react";
@@ -17,6 +17,8 @@ import {
   getHaruWeekPlan,
   type HaruWeekDay,
 } from "@/data/haru7DayExercises";
+import { getHaruConsent } from "@/features/profile/haruConsentStorage";
+import { useHaruConsent } from "@/features/profile/useHaruConsent";
 import type { ExerciseState } from "@/features/lessons/exerciseTypes/types";
 import type {
   HaruScenarioAdminResponse,
@@ -74,26 +76,36 @@ interface LessonSessionProps {
 function LessonSession({ initialExerciseId, activeDay }: LessonSessionProps) {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const consent = useHaruConsent();
+  const personalizedQuestionUse = consent.personalizedQuestionUse;
   const weekPlan = activeDay ? getHaruWeekPlan(activeDay) : undefined;
-  const initialSessions = getHaruDemoSessions();
+  const [initialSessions] = useState(getHaruDemoSessions);
   const existingSession = activeDay
     ? initialSessions.find((session) => session.day === activeDay)
     : undefined;
 
-  const [resolvedExercises] = useState(() => {
-    const baseExercises = buildDailySessionExercises({
-      exercises: mockExercises,
-      initialExerciseId,
-      dayOverride: activeDay,
-    });
+  const baseExercises = useMemo(
+    () =>
+      buildDailySessionExercises({
+        exercises: mockExercises,
+        initialExerciseId,
+        dayOverride: activeDay,
+      }),
+    [activeDay, initialExerciseId],
+  );
+  const resolvedExercises = useMemo(() => {
     if (initialExerciseId || !activeDay) {
       return baseExercises.map((exercise) => ({
         exercise,
         personalization: { kind: "none" as const },
       }));
     }
-    return resolveHaruExercises(baseExercises, initialSessions);
-  });
+    return resolveHaruExercises(
+      baseExercises,
+      initialSessions,
+      personalizedQuestionUse,
+    );
+  }, [activeDay, baseExercises, initialExerciseId, initialSessions, personalizedQuestionUse]);
   const exercises = resolvedExercises.map((resolved) => resolved.exercise);
   const firstUnansweredIndex = exercises.findIndex(
     (exercise) =>
@@ -127,7 +139,7 @@ function LessonSession({ initialExerciseId, activeDay }: LessonSessionProps) {
         completionMessage,
       );
       if (
-        HARU_DEMO_PERSONA.consents.longitudinalUsageStorage &&
+        getHaruConsent().longitudinalUsageStorage &&
         completedAdminSession?.completion_status !== "completed"
       ) {
         return;
@@ -337,7 +349,7 @@ function LessonSession({ initialExerciseId, activeDay }: LessonSessionProps) {
           <MascotBubble
             mood="calm"
             message={
-              weekPlan
+              weekPlan && personalizedQuestionUse
                 ? getLocalizedText(weekPlan.greeting, i18n.language)
                 : t("lesson.start.mascotMessage")
             }
@@ -345,7 +357,7 @@ function LessonSession({ initialExerciseId, activeDay }: LessonSessionProps) {
             frameless
           />
         </div>
-        {activeDay === 1 && (
+        {activeDay === 1 && personalizedQuestionUse && (
           <section
             data-testid="registered-profile-context"
             className="mt-8 w-full max-w-sm rounded-3xl border-2 border-primary-200 bg-white px-5 py-4 text-left shadow-sm"
@@ -394,6 +406,7 @@ function LessonSession({ initialExerciseId, activeDay }: LessonSessionProps) {
 
       <main className="flex flex-col flex-1 w-full max-w-md mx-auto px-4 mt-2">
         <ExerciseRenderer
+          key={`${currentExercise.id}:${personalizedQuestionUse ? "personalized" : "generic"}`}
           exercise={currentExercise}
           globalState={globalState}
           setGlobalState={setGlobalState}

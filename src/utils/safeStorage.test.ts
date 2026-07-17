@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { readJson, readJsonArray, removeKey, writeJson } from "@/utils/safeStorage";
 
 describe("safeStorage", () => {
@@ -28,7 +28,18 @@ describe("safeStorage", () => {
 
   it("removeKey clears a value without throwing", () => {
     writeJson("temp", 42);
-    removeKey("temp");
+    expect(removeKey("temp")).toBe(true);
     expect(readJson("temp", "gone")).toBe("gone");
+  });
+
+  it("reports a removal failure instead of silently claiming success", () => {
+    writeJson("temp", 42);
+    vi.spyOn(console, "error").mockImplementation(() => undefined);
+    vi.spyOn(Storage.prototype, "removeItem").mockImplementation(() => {
+      throw new DOMException("blocked", "SecurityError");
+    });
+
+    expect(removeKey("temp")).toBe(false);
+    expect(localStorage.getItem("temp")).not.toBeNull();
   });
 });

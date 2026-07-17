@@ -9,6 +9,10 @@ import {
   transcribeStory,
   type TranscribeResult,
 } from "@/features/speech/stt";
+import {
+  getHaruConsent,
+  subscribeToHaruConsent,
+} from "@/features/profile/haruConsentStorage";
 import { readJson, removeKey, writeJson } from "@/utils/safeStorage";
 
 export const HARU_STT_RETRY_OUTBOX_STORAGE_KEY = "haruSttRetryOutbox";
@@ -23,6 +27,7 @@ export interface HaruSttRetryEntry {
   sessionDate: string;
   questionId: string;
   objectKey: string;
+  consentRevision: string;
   attempts: number;
   createdAt: string;
   updatedAt: string;
@@ -68,6 +73,8 @@ function isRetryEntry(value: unknown): value is HaruSttRetryEntry {
     typeof value.sessionDate === "string" &&
     typeof value.questionId === "string" &&
     typeof value.objectKey === "string" &&
+    typeof value.consentRevision === "string" &&
+    Number.isFinite(Date.parse(value.consentRevision)) &&
     typeof value.attempts === "number" &&
     Number.isFinite(value.attempts) &&
     typeof value.createdAt === "string" &&
@@ -82,8 +89,15 @@ function retryKey(
   sessionDate: string,
   questionId: string,
   objectKey: string,
+  consentRevision: string,
 ): string {
-  return JSON.stringify([userId, sessionDate, questionId, objectKey]);
+  return JSON.stringify([
+    userId,
+    sessionDate,
+    questionId,
+    objectKey,
+    consentRevision,
+  ]);
 }
 
 function readOutbox(): HaruSttRetryEntry[] {
@@ -93,8 +107,7 @@ function readOutbox(): HaruSttRetryEntry[] {
 
 function saveOutbox(entries: HaruSttRetryEntry[]): boolean {
   if (entries.length === 0) {
-    removeKey(HARU_STT_RETRY_OUTBOX_STORAGE_KEY);
-    return true;
+    return removeKey(HARU_STT_RETRY_OUTBOX_STORAGE_KEY);
   }
   return writeJson(HARU_STT_RETRY_OUTBOX_STORAGE_KEY, entries);
 }
@@ -113,7 +126,9 @@ function desiredEntries(record: HaruAdminUsageRecord): Array<{
   sessionDate: string;
   questionId: string;
   objectKey: string;
+  consentRevision: string;
 }> {
+  const consentRevision = getHaruConsent().updatedAt;
   if (
     !record.user.consents.voice_recording ||
     !record.user.consents.stt_processing ||
@@ -140,6 +155,7 @@ function desiredEntries(record: HaruAdminUsageRecord): Array<{
           sessionDate: session.session_date,
           questionId: questionRecord.question.question_id,
           objectKey: response.audio_storage.object_key,
+          consentRevision,
         },
       ];
     }),
@@ -150,8 +166,29 @@ export function getHaruSttRetryOutbox(): readonly HaruSttRetryEntry[] {
   return readOutbox();
 }
 
-export function clearHaruSttRetryOutbox(): void {
-  removeKey(HARU_STT_RETRY_OUTBOX_STORAGE_KEY);
+const activeTranscriptions = new Set<AbortController>();
+
+function hasSpeechStorageConsent(): boolean {
+  const consent = getHaruConsent();
+  return (
+    consent.voiceRecording &&
+    consent.sttProcessing &&
+    consent.longitudinalUsageStorage
+  );
+}
+
+function consentRevisionIsCurrent(entry: HaruSttRetryEntry): boolean {
+  return getHaruConsent().updatedAt === entry.consentRevision;
+}
+
+function abortActiveTranscriptions(): void {
+  for (const controller of activeTranscriptions) controller.abort();
+  activeTranscriptions.clear();
+}
+
+export function clearHaruSttRetryOutbox(): boolean {
+  abortActiveTranscriptions();
+  return removeKey(HARU_STT_RETRY_OUTBOX_STORAGE_KEY);
 }
 
 export function reconcileHaruSttRetryOutbox(
@@ -168,6 +205,7 @@ export function reconcileHaruSttRetryOutbox(
       candidate.sessionDate,
       candidate.questionId,
       candidate.objectKey,
+      candidate.consentRevision,
     );
     const previous = existingByKey.get(key);
     return {
@@ -211,12 +249,24 @@ let flushAgain = false;
 let nextFlushOptions: HaruSttRetryOptions | null = null;
 
 async function flushInternal(options: HaruSttRetryOptions): Promise<void> {
+  if (!hasSpeechStorageConsent()) {
+    clearHaruSttRetryOutbox();
+    return;
+  }
   const readAudio = options.readAudioImpl ?? readHaruAdminAudio;
   const transcribe = options.transcribeImpl ?? transcribeStory;
   const now = options.now ?? Date.now;
   const snapshot = readOutbox();
 
   for (const entry of snapshot) {
+    if (!hasSpeechStorageConsent()) {
+      clearHaruSttRetryOutbox();
+      return;
+    }
+    if (!consentRevisionIsCurrent(entry)) {
+      removeCurrentEntry(entry);
+      continue;
+    }
     if (!options.force && entry.nextAttemptAt > now()) continue;
 
     let audio: Blob | null;
@@ -230,15 +280,38 @@ async function flushInternal(options: HaruSttRetryOptions): Promise<void> {
       removeCurrentEntry(entry);
       continue;
     }
+    if (!hasSpeechStorageConsent()) {
+      clearHaruSttRetryOutbox();
+      return;
+    }
+    if (!consentRevisionIsCurrent(entry)) {
+      removeCurrentEntry(entry);
+      continue;
+    }
 
     let result: TranscribeResult | null;
+    const controller = new AbortController();
+    activeTranscriptions.add(controller);
     try {
-      result = await transcribe(audio);
+      result = await transcribe(audio, { signal: controller.signal });
     } catch {
       result = null;
+    } finally {
+      activeTranscriptions.delete(controller);
+    }
+    if (!hasSpeechStorageConsent()) {
+      clearHaruSttRetryOutbox();
+      return;
     }
     if (!result || (!result.noSpeech && result.text.trim().length === 0)) {
       deferCurrentEntry(entry, now());
+      continue;
+    }
+    if (
+      !consentRevisionIsCurrent(entry) ||
+      !readOutbox().some((candidate) => candidate.key === entry.key)
+    ) {
+      removeCurrentEntry(entry);
       continue;
     }
 
@@ -303,10 +376,20 @@ export function startHaruSttRetry(
   window.addEventListener(HARU_STT_RETRY_OUTBOX_UPDATED_EVENT, flush);
   window.addEventListener("online", flush);
   const retryTimer = window.setInterval(retryDue, RETRY_INTERVAL_MS);
+  const unsubscribeConsent = subscribeToHaruConsent((consent) => {
+    if (
+      !consent.voiceRecording ||
+      !consent.sttProcessing ||
+      !consent.longitudinalUsageStorage
+    ) {
+      clearHaruSttRetryOutbox();
+    }
+  });
   flush();
   return () => {
     window.removeEventListener(HARU_STT_RETRY_OUTBOX_UPDATED_EVENT, flush);
     window.removeEventListener("online", flush);
     window.clearInterval(retryTimer);
+    unsubscribeConsent();
   };
 }

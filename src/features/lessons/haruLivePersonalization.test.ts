@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import {
   HARU_WEEK_QUESTION_META,
   haru7DayExercises,
@@ -12,6 +12,7 @@ import {
   resolveHaruExercise,
 } from "@/features/lessons/haruLivePersonalization";
 import type { HaruDerivedAnnotation } from "@/features/lessons/haruResponseFacts";
+import { updateHaruConsent } from "@/features/profile/haruConsentStorage";
 import { getLocalizedText } from "@/utils/localizedText";
 
 function exerciseById(id: string) {
@@ -116,6 +117,10 @@ const canonicalSessions = (): HaruDemoSession[] => [
 ];
 
 describe("haruLivePersonalization", () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
   it("uses a neutral D2_Q3 fallback when its prior source is unavailable", () => {
     const resolved = resolveHaruExercise(exerciseById("D2_Q3"), []);
     const serialized = JSON.stringify(resolved.exercise);
@@ -187,6 +192,36 @@ describe("haruLivePersonalization", () => {
       kind: "prior_response",
       sourceQuestionIds: ["D1_Q1"],
     });
+  });
+
+  it("falls back instead of using a registered profile when personalization is off", () => {
+    updateHaruConsent({ personalizedQuestionUse: false });
+
+    const resolved = resolveHaruExercise(exerciseById("D1_Q3"), []);
+    const serialized = JSON.stringify(resolved.exercise);
+
+    expect(resolved.personalization).toEqual({ kind: "fallback" });
+    expect(getLocalizedText(resolved.exercise.prompt, "ko")).toBe(
+      "지금 가장 편하게 떠오르는 시간은 언제인가요?",
+    );
+    expect(resolved.exercise.correctAnswer).toBeNull();
+    expect(serialized).not.toContain("영자");
+    expect(serialized).not.toContain("부산 영도");
+  });
+
+  it("falls back instead of using a prior response when personalization is off", () => {
+    updateHaruConsent({ personalizedQuestionUse: false });
+    const sessions = [completedSession(1, [choiceResponse("D1_Q1", "A")])];
+
+    const resolved = resolveHaruExercise(exerciseById("D2_Q1"), sessions);
+
+    expect(resolved.personalization).toEqual({
+      kind: "fallback",
+      sourceQuestionIds: ["D1_Q1"],
+    });
+    expect(getLocalizedText(resolved.exercise.prompt, "ko")).toBe(
+      "오늘 기분은 어떠세요?",
+    );
   });
 
   it("resolves provenance for all four profile and fourteen prior-response questions", () => {

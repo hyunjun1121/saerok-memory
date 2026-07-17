@@ -1,13 +1,63 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { act, render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { PersonalMemoryRecall } from '@/features/lessons/exerciseTypes/PersonalMemoryRecall'
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import '@/i18n'
 import type { ExerciseState } from '@/features/lessons/exerciseTypes/types'
+import { HARU_DEMO_PERSONA } from '@/data/haru7DayExercises'
+import { updateHaruConsent } from '@/features/profile/haruConsentStorage'
+
+const mocks = vi.hoisted(() => ({
+  enqueue: vi.fn(async () => 'job-memory' as string | null),
+  recorder: {
+    isSupported: false,
+    isRecording: false,
+    isFinalizing: false,
+    levels: [] as number[],
+    durationMs: 0,
+    audioAssetUrl: null as string | null,
+    sampleRateHz: null as number | null,
+    channelCount: null as number | null,
+    error: null as string | null,
+    start: vi.fn(),
+    stop: vi.fn(),
+    getDurationMs: vi.fn(() => 0),
+    stopAndFinalize: vi.fn(() => Promise.resolve(null)),
+    stopAndGetBlob: vi.fn<() => Promise<Blob | null>>(() => Promise.resolve(null)),
+  },
+}))
+
+vi.mock('@/features/speech/useVoiceRecorder', () => ({
+  useVoiceRecorder: () => mocks.recorder,
+}))
+
+vi.mock('@/features/speech/sttJobQueue', () => ({
+  enqueueSttJob: mocks.enqueue,
+}))
+
+function setConsent(
+  key: 'voiceRecording' | 'sttProcessing' | 'longitudinalUsageStorage',
+  value: boolean,
+): void {
+  Object.defineProperty(HARU_DEMO_PERSONA.consents, key, {
+    configurable: true,
+    writable: true,
+    value,
+  })
+}
 
 describe('PersonalMemoryRecall', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     localStorage.clear()
+    mocks.enqueue.mockResolvedValue('job-memory')
+    mocks.recorder.isSupported = false
+    mocks.recorder.isRecording = false
+    mocks.recorder.audioAssetUrl = null
+    mocks.recorder.getDurationMs.mockReturnValue(0)
+    mocks.recorder.stopAndGetBlob.mockResolvedValue(null)
+    setConsent('voiceRecording', true)
+    setConsent('sttProcessing', true)
+    setConsent('longitudinalUsageStorage', true)
   })
 
   it('renders prompt and options without text input', () => {
@@ -110,6 +160,64 @@ describe('PersonalMemoryRecall', () => {
     expect(savedCards[0].inputMode).toBe("skipped")
     expect(savedCards[0].sensitivity).toBe("sensitive")
     expect(savedCards[0].shareWithFamily).toBe(false)
+  })
+
+  it('permanently discards a story capture revoked during finalization after quick re-consent', async () => {
+    let resolveBlob!: (blob: Blob | null) => void
+    mocks.recorder.isSupported = true
+    mocks.recorder.isRecording = true
+    mocks.recorder.audioAssetUrl = 'blob:revoked-memory'
+    mocks.recorder.getDurationMs.mockReturnValue(3_200)
+    mocks.recorder.stopAndGetBlob.mockReturnValueOnce(
+      new Promise((resolve) => {
+        resolveBlob = resolve
+      }),
+    )
+    const setGlobalState = vi.fn()
+
+    render(
+      <PersonalMemoryRecall
+        prompt="오늘 있었던 일을 말해주세요"
+        options={[]}
+        linkedConceptId="daily_memory_race"
+        memoryField="story"
+        onComplete={vi.fn()}
+        setGlobalState={setGlobalState}
+        globalState="awaiting_answer"
+      />,
+    )
+
+    await waitFor(() => expect(mocks.recorder.start).toHaveBeenCalledTimes(1))
+    fireEvent.click(screen.getByText('마치기'))
+    await waitFor(() => expect(mocks.recorder.stopAndGetBlob).toHaveBeenCalledTimes(1))
+
+    act(() => {
+      updateHaruConsent({ sttProcessing: false })
+    })
+    await waitFor(() => expect(mocks.recorder.stop).toHaveBeenCalledTimes(1))
+
+    mocks.recorder.isRecording = false
+    act(() => {
+      updateHaruConsent({ sttProcessing: true })
+    })
+    await waitFor(() => expect(mocks.recorder.start).toHaveBeenCalledTimes(2))
+
+    await act(async () => {
+      resolveBlob(new Blob(['revoked-memory'], { type: 'audio/webm' }))
+    })
+
+    await waitFor(() => expect(setGlobalState).toHaveBeenCalledWith('correct_feedback'))
+    const savedCards = JSON.parse(localStorage.getItem('memoryCards') || '[]')
+    expect(savedCards).toHaveLength(1)
+    expect(savedCards[0]).toEqual(
+      expect.objectContaining({
+        inputMode: 'skipped',
+        audioAssetUrl: null,
+        speechDurationMs: 0,
+        sttStatus: 'failed',
+      }),
+    )
+    expect(mocks.enqueue).not.toHaveBeenCalled()
   })
 })
 

@@ -1,16 +1,41 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { act, render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach, type Mock } from "vitest";
 import FamilyScreen from "@/app/family/FamilyScreen";
 import { getCognitiveRoutineResults } from "@/features/cognitive/cognitiveRoutineStorage";
 import { getMemoryCards } from "@/features/memory/memoryCardStorage";
+import {
+  getHaruConsent,
+  updateHaruConsent,
+} from "@/features/profile/haruConsentStorage";
+
+const storageSubscriptions = vi.hoisted(() => ({
+  routine: null as (() => void) | null,
+  memory: null as (() => void) | null,
+}));
 
 // Mock the storages
 vi.mock("@/features/cognitive/cognitiveRoutineStorage", () => ({
   getCognitiveRoutineResults: vi.fn(),
+  subscribeToCognitiveRoutineResults: vi.fn((listener: () => void) => {
+    storageSubscriptions.routine = listener;
+    return () => {
+      if (storageSubscriptions.routine === listener) {
+        storageSubscriptions.routine = null;
+      }
+    };
+  }),
 }));
 
 vi.mock("@/features/memory/memoryCardStorage", () => ({
   getMemoryCards: vi.fn(),
+  subscribeToMemoryCards: vi.fn((listener: () => void) => {
+    storageSubscriptions.memory = listener;
+    return () => {
+      if (storageSubscriptions.memory === listener) {
+        storageSubscriptions.memory = null;
+      }
+    };
+  }),
 }));
 
 // Mock react-i18next
@@ -27,6 +52,8 @@ describe("FamilyScreen", () => {
     localStorage.clear();
     (getCognitiveRoutineResults as Mock).mockReturnValue([]);
     (getMemoryCards as Mock).mockReturnValue([]);
+    storageSubscriptions.routine = null;
+    storageSubscriptions.memory = null;
   });
 
   it("renders the tabs and defaults to the gentle family view", () => {
@@ -128,5 +155,56 @@ describe("FamilyScreen", () => {
 
     expect(screen.getByText("family.observation.counselorTitle")).toBeInTheDocument();
     expect(screen.getByText("약속 시간을 여러 번 다시 확인했습니다.")).toBeInTheDocument();
+  });
+
+  it("invalidates cached personal report data while the tab stays open", async () => {
+    (getCognitiveRoutineResults as Mock).mockReturnValue(
+      Array.from({ length: 17 }, () => ({ completed: true })),
+    );
+    (getMemoryCards as Mock).mockReturnValue(
+      Array.from({ length: 13 }, () => ({ shareWithFamily: true })),
+    );
+
+    render(<FamilyScreen />);
+    fireEvent.click(screen.getByText("family.tabs.counselor"));
+    expect(screen.getByText("17")).toBeInTheDocument();
+    expect(screen.getByText("13")).toBeInTheDocument();
+
+    (getCognitiveRoutineResults as Mock).mockReturnValue([]);
+    (getMemoryCards as Mock).mockReturnValue([]);
+    act(() => {
+      storageSubscriptions.routine?.();
+      storageSubscriptions.memory?.();
+    });
+
+    await waitFor(() => {
+      expect(screen.queryByText("17")).not.toBeInTheDocument();
+      expect(screen.queryByText("13")).not.toBeInTheDocument();
+    });
+  });
+
+  it("invalidates cached personal report data when longitudinal consent is withdrawn", async () => {
+    const storedResults = Array.from({ length: 19 }, () => ({ completed: true }));
+    const storedCards = Array.from({ length: 11 }, () => ({ shareWithFamily: true }));
+    (getCognitiveRoutineResults as Mock).mockImplementation(() =>
+      getHaruConsent().longitudinalUsageStorage ? storedResults : [],
+    );
+    (getMemoryCards as Mock).mockImplementation(() =>
+      getHaruConsent().longitudinalUsageStorage ? storedCards : [],
+    );
+
+    render(<FamilyScreen />);
+    fireEvent.click(screen.getByText("family.tabs.counselor"));
+    expect(screen.getByText("19")).toBeInTheDocument();
+    expect(screen.getByText("11")).toBeInTheDocument();
+
+    act(() => {
+      updateHaruConsent({ longitudinalUsageStorage: false });
+    });
+
+    await waitFor(() => {
+      expect(screen.queryByText("19")).not.toBeInTheDocument();
+      expect(screen.queryByText("11")).not.toBeInTheDocument();
+    });
   });
 });

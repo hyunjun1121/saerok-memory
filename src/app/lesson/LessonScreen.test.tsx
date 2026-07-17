@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { act, render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import i18n from "@/i18n";
 import {
@@ -25,6 +25,7 @@ import {
   recordHaruAdminResponse,
   startHaruAdminUsageSession,
 } from "@/features/lessons/haruAdminUsageRecordStorage";
+import { updateHaruConsent } from "@/features/profile/haruConsentStorage";
 import "@/i18n";
 
 describe("LessonScreen", () => {
@@ -102,7 +103,10 @@ describe("LessonScreen", () => {
 
   const renderWithRoute = (path: string) => {
     return render(
-      <MemoryRouter initialEntries={[path]}>
+      <MemoryRouter
+        initialEntries={[path]}
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      >
         <Routes>
           <Route path="/lesson" element={<LessonScreen />} />
           <Route path="/" element={<div>Home</div>} />
@@ -137,6 +141,43 @@ describe("LessonScreen", () => {
     // The first exercise is not shown on the splash.
     const firstExercisePrompt = getLocalizedText(haru7DayExercises[0].prompt, i18n.language);
     expect(screen.queryByText(firstExercisePrompt)).not.toBeInTheDocument();
+  });
+
+  it("hides registered profile context and name when personalization is off", () => {
+    act(() => {
+      updateHaruConsent({ personalizedQuestionUse: false });
+    });
+
+    renderWithRoute("/lesson?day=1");
+
+    expect(screen.queryByTestId("registered-profile-context")).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(
+        getLocalizedText(HARU_DEMO_PERSONA.displayName, i18n.language),
+        { exact: false },
+      ),
+    ).not.toBeInTheDocument();
+  });
+
+  it("removes visible profile context when personalization is withdrawn live", async () => {
+    renderWithRoute("/lesson?day=1");
+    expect(screen.getByTestId("registered-profile-context")).toBeInTheDocument();
+
+    act(() => {
+      updateHaruConsent({ personalizedQuestionUse: false });
+    });
+
+    await waitFor(() =>
+      expect(
+        screen.queryByTestId("registered-profile-context"),
+      ).not.toBeInTheDocument(),
+    );
+    expect(
+      screen.queryByText(
+        getLocalizedText(HARU_DEMO_PERSONA.displayName, i18n.language),
+        { exact: false },
+      ),
+    ).not.toBeInTheDocument();
   });
 
   it("opens the canonical first day when no day query is supplied", () => {
@@ -195,14 +236,14 @@ describe("LessonScreen", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("skips intro when captureExerciseId is present", () => {
+  it("skips intro when captureExerciseId is present", async () => {
     const firstExercisePrompt = getLocalizedText(mockExercises[0].prompt, i18n.language);
     renderWithRoute("/lesson?captureExerciseId=ex_1");
 
     expect(
       screen.queryByRole("button", { name: i18n.t("lesson.start.startButton") }),
     ).not.toBeInTheDocument();
-    expect(screen.getByText(firstExercisePrompt)).toBeInTheDocument();
+    expect(await screen.findByText(firstExercisePrompt)).toBeInTheDocument();
   });
 
   it("does not show a positive answer explanation after a miss", () => {

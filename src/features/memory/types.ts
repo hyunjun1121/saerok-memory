@@ -52,7 +52,7 @@ export interface MemoryCard {
   speechDurationMs?: number;
   recognitionError?: string | null;
   audioAssetUrl?: string | null;
-  sttStatus?: "completed" | "failed";
+  sttStatus?: "pending" | "completed" | "failed";
   sttNoSpeech?: boolean;
   sttEngine?: string | null;
   sttModel?: string | null;

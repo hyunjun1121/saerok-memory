@@ -25,6 +25,7 @@ describe("ResultScreen", () => {
     render(
       <GamificationProvider>
         <MemoryRouter
+          future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
           initialEntries={[
             {
               pathname: "/result",
@@ -59,7 +60,10 @@ describe("ResultScreen", () => {
   it("does not record a direct or abandoned result visit as completed", async () => {
     render(
       <GamificationProvider>
-        <MemoryRouter initialEntries={["/result?day=4"]}>
+        <MemoryRouter
+          initialEntries={["/result?day=4"]}
+          future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+        >
           <Routes>
             <Route path="/result" element={<ResultScreen />} />
           </Routes>
@@ -113,7 +117,10 @@ describe("ResultScreen", () => {
 
     render(
       <GamificationProvider>
-        <MemoryRouter initialEntries={["/result?day=4"]}>
+        <MemoryRouter
+          initialEntries={["/result?day=4"]}
+          future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+        >
           <Routes>
             <Route path="/result" element={<ResultScreen />} />
           </Routes>

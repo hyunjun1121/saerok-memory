@@ -15,7 +15,7 @@ describe("CaregiverAppScreen", () => {
     seedCompletedHaruDemoDay(1);
 
     render(
-      <MemoryRouter>
+      <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <CaregiverAppScreen />
       </MemoryRouter>,
     );
@@ -28,7 +28,7 @@ describe("CaregiverAppScreen", () => {
 
   it("does not invent a completed week when no session exists", () => {
     render(
-      <MemoryRouter>
+      <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <CaregiverAppScreen />
       </MemoryRouter>,
     );
@@ -40,7 +40,7 @@ describe("CaregiverAppScreen", () => {
 
   it("does not expose private transcript or health details without sharing consent", () => {
     render(
-      <MemoryRouter>
+      <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <CaregiverAppScreen />
       </MemoryRouter>,
     );
@@ -53,7 +53,7 @@ describe("CaregiverAppScreen", () => {
 
   it("updates from a newly persisted session without reloading the screen", () => {
     render(
-      <MemoryRouter>
+      <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <CaregiverAppScreen />
       </MemoryRouter>,
     );

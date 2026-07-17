@@ -1,16 +1,28 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ChoiceCard } from "@/components/ChoiceCard";
 import { Button3D } from "@/components/Button3D";
-import { HARU_DEMO_PERSONA } from "@/data/haruDemoPersona";
 import { VoiceWaveform } from "@/features/speech/VoiceWaveform";
 import { useVoiceRecorder } from "@/features/speech/useVoiceRecorder";
 import type { ExerciseState } from "@/features/lessons/exerciseTypes/types";
 import type { MemoryCard, MemoryTopic } from "@/features/memory/types";
 import { calculateNextReviewState } from "@/features/memory/memoryScheduler";
-import { upsertMemoryCueCard, getMemoryCards, saveMemoryCards } from "@/features/memory/memoryCardStorage";
-import { summarizeMemoryStory, extractMemoryStoryCues } from "@/features/memory/memoryStory";
-import { formatSttEngine, transcribeStory } from "@/features/speech/stt";
+import {
+  getMemoryCards,
+  patchMemoryCueCardById,
+  saveMemoryCards,
+  upsertMemoryCueCard,
+} from "@/features/memory/memoryCardStorage";
+import {
+  getHaruConsent,
+  subscribeToHaruConsent,
+} from "@/features/profile/haruConsentStorage";
+import {
+  getHaruVoiceConsentError,
+  hasHaruVoicePipelineConsent,
+  useHaruConsent,
+} from "@/features/profile/useHaruConsent";
+import { enqueueSttJob } from "@/features/speech/sttJobQueue";
 
 function updateMemoryCard(cardId: string, result: "remembered" | "hint_used" | "missed") {
   const existing = getMemoryCards();
@@ -62,26 +74,53 @@ export function PersonalMemoryRecall({
   const [hiddenOptionIds, setHiddenOptionIds] = useState<Set<string>>(new Set());
   const [isTranscribing, setIsTranscribing] = useState(false);
   const recorder = useVoiceRecorder(maxDurationSeconds * 1000);
+  const recorderIsSupported = recorder.isSupported;
+  const startRecording = recorder.start;
+  const stopRecording = recorder.stop;
 
   const isReviewMode = !!memoryId && !!correctOptionId;
   const isStoryCreationMode = !isReviewMode && memoryField === "story";
-  const voiceRecordingConsented = HARU_DEMO_PERSONA.consents.voiceRecording;
-  const sttProcessingConsented = HARU_DEMO_PERSONA.consents.sttProcessing;
-  const speechConsentGranted = voiceRecordingConsented && sttProcessingConsented;
+  const consent = useHaruConsent();
+  const speechConsentGranted = hasHaruVoicePipelineConsent(consent);
+  const captureAuthorizedRef = useRef(speechConsentGranted);
+  const consentRevisionRef = useRef(0);
+  const recordingConsentRevisionRef = useRef<number | null>(
+    speechConsentGranted ? 0 : null,
+  );
+  const pipelineConsentGrantedRef = useRef(speechConsentGranted);
 
   // onComplete is owned by the parent; this component relies on global feedback
   // state for advancement.
   void onComplete;
 
+  useEffect(() => {
+    return subscribeToHaruConsent((nextConsent) => {
+      const nextGranted = hasHaruVoicePipelineConsent(nextConsent);
+      if (pipelineConsentGrantedRef.current && !nextGranted) {
+        captureAuthorizedRef.current = false;
+        consentRevisionRef.current += 1;
+        recordingConsentRevisionRef.current = null;
+        stopRecording();
+      }
+      pipelineConsentGrantedRef.current = nextGranted;
+    });
+  }, [stopRecording]);
+
   // Voice-only story routine: start capturing the moment the screen appears so
   // the learner just talks — no button to find, no typing. Safe no-op where the
   // mic is unavailable.
   useEffect(() => {
-    if (isStoryCreationMode && speechConsentGranted && recorder.isSupported) {
-      recorder.start();
+    if (
+      isStoryCreationMode &&
+      speechConsentGranted &&
+      recorderIsSupported &&
+      hasHaruVoicePipelineConsent(getHaruConsent())
+    ) {
+      captureAuthorizedRef.current = true;
+      recordingConsentRevisionRef.current = consentRevisionRef.current;
+      startRecording();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isStoryCreationMode, speechConsentGranted]);
+  }, [isStoryCreationMode, recorderIsSupported, speechConsentGranted, startRecording]);
 
   const handleSelect = (id: string) => {
     if (
@@ -138,59 +177,71 @@ export function PersonalMemoryRecall({
     }
   };
 
-  // Finish the voice story: stop recording, send the audio to the STT backend
-  // (Korean -> text), then store the transcript + summary + extracted cues on
-  // the memory card. STT is best-effort — on any failure we still save the card
-  // (empty transcript, recognitionError set) so the learner is never blocked.
+  // Persist the learner's card and audio first. Background Qwen work patches
+  // this same card later, so network latency never blocks lesson progression.
   const handleFinishStory = async () => {
     setIsTranscribing(true);
 
     // stopAndGetBlob resolves once MediaRecorder finalizes the blob; if the mic
     // was unsupported (jsdom / denied) it resolves immediately with null.
-    const blob = speechConsentGranted ? await recorder.stopAndGetBlob() : null;
+    const consentAtFinish = getHaruConsent();
+    const recordingConsentRevision = recordingConsentRevisionRef.current;
+    const hadConsentAtFinish =
+      captureAuthorizedRef.current &&
+      recordingConsentRevision !== null &&
+      hasHaruVoicePipelineConsent(consentAtFinish);
+    const capturedBlob = hadConsentAtFinish ? await recorder.stopAndGetBlob() : null;
+    const consentAfterFinalization = getHaruConsent();
+    const canRetainAudio =
+      hadConsentAtFinish &&
+      captureAuthorizedRef.current &&
+      consentRevisionRef.current === recordingConsentRevision &&
+      recordingConsentRevisionRef.current === recordingConsentRevision &&
+      hasHaruVoicePipelineConsent(consentAfterFinalization);
+    const blob = canRetainAudio ? capturedBlob : null;
 
-    let transcript = "";
-    let recognitionError: string | null = !voiceRecordingConsented
-      ? "voice-consent-required"
-      : !sttProcessingConsented
-        ? "stt-consent-required"
-        : recorder.error;
-    const result = blob && blob.size > 0 ? await transcribeStory(blob) : null;
-    if (result) {
-      if (result.noSpeech) {
-        recognitionError = "no-speech";
-      } else if (result.text) {
-        transcript = result.text;
-        recognitionError = null;
-      } else {
-        recognitionError = recognitionError ?? "transcribe-failed";
-      }
-    } else if (speechConsentGranted && blob && blob.size > 0) {
-      recognitionError = recognitionError ?? "transcribe-failed";
-    }
+    const linkedId = linkedConceptId || "daily_memory";
+    const hasAudio = Boolean(canRetainAudio && blob && blob.size > 0);
+    const recognitionError: string | null = !canRetainAudio
+      ? getHaruVoiceConsentError(consentAfterFinalization) ?? "voice-consent-required"
+      : hasAudio
+          ? "stt-pending"
+          : recorder.error ?? "recording-unavailable";
 
-    upsertMemoryCueCard({
-      linkedConceptId: linkedConceptId || "daily_memory",
-      originalTranscript: transcript,
-      textSummary: transcript ? summarizeMemoryStory(transcript) : "",
-      storyCues: transcript ? extractMemoryStoryCues(transcript) : undefined,
-      inputMode: transcript ? "speech" : "skipped",
-      speechDurationMs: speechConsentGranted ? recorder.getDurationMs() : 0,
+    const cardId = upsertMemoryCueCard({
+      linkedConceptId: linkedId,
+      originalTranscript: "",
+      textSummary: "",
+      inputMode: hasAudio ? "speech" : "skipped",
+      speechDurationMs: canRetainAudio ? recorder.getDurationMs() : 0,
       recognitionError,
-      audioAssetUrl: speechConsentGranted ? recorder.audioAssetUrl : null,
-      sttStatus: transcript ? "completed" : "failed",
-      sttNoSpeech: result?.noSpeech ?? false,
-      sttEngine: result ? formatSttEngine(result) : null,
-      sttModel: result?.model ?? null,
-      sttModelRevision: result?.modelRevision ?? null,
-      sttAlignerModel: result?.alignerModel ?? null,
-      sttAlignerRevision: result?.alignerRevision ?? null,
-      sttPreprocessingVersion: result?.preprocessingVersion ?? null,
-      sttLanguage: result?.language ?? null,
-      sttConfidence: result?.confidence ?? null,
-      sttSegments: result?.noSpeech ? [] : (result?.segments ?? []),
+      audioAssetUrl: canRetainAudio ? recorder.audioAssetUrl : null,
+      sttStatus: hasAudio ? "pending" : "failed",
+      sttNoSpeech: false,
+      sttEngine: null,
+      sttModel: null,
+      sttModelRevision: null,
+      sttAlignerModel: null,
+      sttAlignerRevision: null,
+      sttPreprocessingVersion: null,
+      sttLanguage: null,
+      sttConfidence: null,
+      sttSegments: [],
       sensitivity: "sensitive",
     });
+
+    if (hasAudio && blob && cardId) {
+      const jobId = await enqueueSttJob(blob, {
+        kind: "memory-story",
+        memoryCardId: cardId,
+      });
+      if (!jobId) {
+        patchMemoryCueCardById(cardId, {
+          recognitionError: "stt-queue-failed",
+          sttStatus: "failed",
+        });
+      }
+    }
 
     setIsTranscribing(false);
     setGlobalState("correct_feedback");

@@ -12,14 +12,26 @@ import {
   storeHaruAdminAudio,
   type HaruAdminAudioRetentionStatus,
 } from "@/features/lessons/haruAdminAudioStorage";
+import {
+  HARU_ADMIN_DELETION_FENCE_STORAGE_KEY,
+  hasHaruAdminDeletionFence,
+} from "@/features/lessons/haruAdminDeletionFenceStorage";
 import { parseHaruAdminUsageRecord } from "@/features/lessons/haruAdminUsageRecordParser";
-import type { HaruPersonalizationRecord } from "@/features/lessons/haruDemoSessionStorage";
+import {
+  patchHaruDemoVoiceResponse,
+  type HaruPersonalizationRecord,
+} from "@/features/lessons/haruDemoSessionStorage";
 import {
   clearHaruRagOutbox,
   enqueueHaruRagRecord,
   enqueueHaruRagUserDeletion,
 } from "@/features/lessons/haruRagSync";
 import type { HaruDerivedAnnotation } from "@/features/lessons/haruResponseFacts";
+import {
+  getHaruConsent,
+  type HaruConsentState,
+} from "@/features/profile/haruConsentStorage";
+import { clearSttJobQueue } from "@/features/speech/sttJobQueue";
 import {
   clearHaruSttRetryOutbox,
   reconcileHaruSttRetryOutbox,
@@ -31,15 +43,62 @@ import { readJson, removeKey, writeJson } from "@/utils/safeStorage";
 
 export const HARU_ADMIN_USAGE_RECORD_STORAGE_KEY = "haruAdminUsageRecord";
 export const HARU_ADMIN_USAGE_RECORD_UPDATED_EVENT = "haru:admin-usage-record-updated";
+export const HARU_ADMIN_WRITE_EPOCH_STORAGE_KEY = "haruAdminWriteEpoch";
+export { HARU_ADMIN_DELETION_FENCE_STORAGE_KEY };
+export const HARU_ADMIN_WRITE_INTENT_STORAGE_PREFIX = "haruAdminWriteIntent:";
 
 export type HaruAdminButton = "A" | "B" | "C" | "D";
 export type HaruAdminInputMode = "physical_button" | "touch" | "voice";
 
-const USER_ID = "USR-000001";
+export const HARU_ADMIN_USER_ID = "USR-000001";
+const USER_ID = HARU_ADMIN_USER_ID;
 const CARD_TOKEN_ID = "CARD-DEMO-000001";
 const DEVICE_ID = "KIOSK-DEMO-001";
 const DATASET_ID = "HARU-DEMO-USER-001-WEEK-01";
 const BUTTONS: readonly HaruAdminButton[] = ["A", "B", "C", "D"];
+const ADMIN_REALM_ID_STORAGE_KEY = "haruAdminRealmId";
+const ADMIN_WRITE_INTENT_STALE_MS = 2 * 60 * 1_000;
+const ADMIN_WRITE_INTENT_WAIT_MS = 10_000;
+const ADMIN_WRITE_INTENT_POLL_MS = 5;
+let volatileAdminWriteEpoch = 0;
+let volatileAudioResponseSequence = 0;
+let volatileAdminRealmId: string | null = null;
+let activeAdminRecordClearOperations = 0;
+let activeAdminVoiceDeletionOperations = 0;
+const pendingAdminAudioStores = new Set<
+  Promise<HaruAdminAudioRetentionStatus>
+>();
+const activeAdminDeletionFenceTokens = new Set<string>();
+
+interface HaruAdminWriteGuard {
+  consentRevision: string;
+  writeEpoch: string;
+}
+
+type HaruAdminDeletionKind = "clear" | "voice_scrub";
+type HaruAdminWriteIntentKind = "record" | "audio";
+
+interface HaruAdminDeletionFence {
+  version: 1;
+  token: string;
+  ownerRealmId: string;
+  kind: HaruAdminDeletionKind;
+  createdAt: string;
+}
+
+interface HaruAdminWriteIntent {
+  version: 1;
+  intentId: string;
+  ownerRealmId: string;
+  kind: HaruAdminWriteIntentKind;
+  writeEpoch: string;
+  createdAt: string;
+}
+
+interface PersistedAdminWriteIntent {
+  key: string;
+  intent: HaruAdminWriteIntent;
+}
 
 const BUTTON_LAYOUT = {
   A: { position: "왼쪽 위", color: "빨강" },
@@ -315,6 +374,7 @@ function normalizeOptionalTimestamp(value: string | undefined): string | null {
 
 function createEmptyRecord(now: Date): HaruAdminUsageRecord {
   const profile = HARU_DEMO_PERSONA.registeredProfileFields;
+  const consent = getHaruConsent();
   return {
     schema: {
       name: "haru_kiosk_usage_record",
@@ -358,11 +418,11 @@ function createEmptyRecord(now: Date): HaruAdminUsageRecord {
         복약시간: getLocalizedText(profile.medicationTime, "ko"),
       },
       consents: {
-        voice_recording: HARU_DEMO_PERSONA.consents.voiceRecording,
-        stt_processing: HARU_DEMO_PERSONA.consents.sttProcessing,
-        longitudinal_usage_storage: HARU_DEMO_PERSONA.consents.longitudinalUsageStorage,
-        personalized_question_use: HARU_DEMO_PERSONA.consents.personalizedQuestionUse,
-        consented_at: HARU_DEMO_PERSONA.consents.consentedAt,
+        voice_recording: consent.voiceRecording,
+        stt_processing: consent.sttProcessing,
+        longitudinal_usage_storage: consent.longitudinalUsageStorage,
+        personalized_question_use: consent.personalizedQuestionUse,
+        consented_at: consent.consentedAt,
       },
     },
     device: {
@@ -383,21 +443,470 @@ function dispatchUpdate(): void {
   window.dispatchEvent(new Event(HARU_ADMIN_USAGE_RECORD_UPDATED_EVENT));
 }
 
-function saveRecord(record: HaruAdminUsageRecord): boolean {
-  const saved = writeJson(HARU_ADMIN_USAGE_RECORD_STORAGE_KEY, record);
-  if (saved) {
-    reconcileHaruSttRetryOutbox(record);
-    if (
-      HARU_DEMO_PERSONA.consents.longitudinalUsageStorage &&
-      record.user.consents.longitudinal_usage_storage
-    ) {
-      enqueueHaruRagRecord(record);
-    } else {
-      clearHaruRagOutbox();
-    }
-    dispatchUpdate();
+function isObject(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+function readRawStorageValue(key: string): string | null | undefined {
+  try {
+    if (typeof window === "undefined" || !window.localStorage) return undefined;
+    return window.localStorage.getItem(key);
+  } catch {
+    return undefined;
   }
-  return saved;
+}
+
+function parseDeletionFence(value: unknown): HaruAdminDeletionFence | null {
+  if (!isObject(value)) return null;
+  if (
+    value.version !== 1 ||
+    typeof value.token !== "string" ||
+    value.token.trim().length === 0 ||
+    typeof value.ownerRealmId !== "string" ||
+    value.ownerRealmId.trim().length === 0 ||
+    (value.kind !== "clear" && value.kind !== "voice_scrub") ||
+    typeof value.createdAt !== "string" ||
+    !Number.isFinite(Date.parse(value.createdAt))
+  ) {
+    return null;
+  }
+  return value as unknown as HaruAdminDeletionFence;
+}
+
+function readDeletionFence(): HaruAdminDeletionFence | null {
+  const raw = readRawStorageValue(HARU_ADMIN_DELETION_FENCE_STORAGE_KEY);
+  if (raw === null || raw === undefined) return null;
+  try {
+    return parseDeletionFence(JSON.parse(raw) as unknown);
+  } catch {
+    return null;
+  }
+}
+
+function durableDeletionFenceExists(): boolean {
+  return hasHaruAdminDeletionFence();
+}
+
+function ownsDeletionFence(fence: HaruAdminDeletionFence): boolean {
+  const persisted = readDeletionFence();
+  return (
+    persisted?.token === fence.token &&
+    persisted.ownerRealmId === fence.ownerRealmId &&
+    persisted.kind === fence.kind
+  );
+}
+
+function getAdminRealmId(): string {
+  if (volatileAdminRealmId) return volatileAdminRealmId;
+  try {
+    const existing = window.sessionStorage.getItem(ADMIN_REALM_ID_STORAGE_KEY);
+    if (existing?.trim()) {
+      volatileAdminRealmId = existing.trim();
+      return volatileAdminRealmId;
+    }
+    const created = createAudioResponseInstanceId();
+    window.sessionStorage.setItem(ADMIN_REALM_ID_STORAGE_KEY, created);
+    const verified = window.sessionStorage.getItem(ADMIN_REALM_ID_STORAGE_KEY);
+    if (verified === created) {
+      volatileAdminRealmId = created;
+      return created;
+    }
+  } catch {
+    // Restricted browsers retain a realm-local opaque owner id.
+  }
+  volatileAdminRealmId = createAudioResponseInstanceId();
+  return volatileAdminRealmId;
+}
+
+function parseAdminWriteIntent(value: unknown): HaruAdminWriteIntent | null {
+  if (!isObject(value)) return null;
+  if (
+    value.version !== 1 ||
+    typeof value.intentId !== "string" ||
+    value.intentId.trim().length === 0 ||
+    typeof value.ownerRealmId !== "string" ||
+    value.ownerRealmId.trim().length === 0 ||
+    (value.kind !== "record" && value.kind !== "audio") ||
+    typeof value.writeEpoch !== "string" ||
+    value.writeEpoch.trim().length === 0 ||
+    typeof value.createdAt !== "string" ||
+    !Number.isFinite(Date.parse(value.createdAt))
+  ) {
+    return null;
+  }
+  return value as unknown as HaruAdminWriteIntent;
+}
+
+function readAdminWriteIntents(): {
+  intents: PersistedAdminWriteIntent[];
+  malformed: string[];
+} | null {
+  try {
+    if (typeof window === "undefined" || !window.localStorage) return null;
+    const intents: PersistedAdminWriteIntent[] = [];
+    const malformed: string[] = [];
+    for (let index = 0; index < window.localStorage.length; index += 1) {
+      const key = window.localStorage.key(index);
+      if (!key?.startsWith(HARU_ADMIN_WRITE_INTENT_STORAGE_PREFIX)) continue;
+      const raw = window.localStorage.getItem(key);
+      try {
+        const intent = raw === null
+          ? null
+          : parseAdminWriteIntent(JSON.parse(raw) as unknown);
+        if (intent) intents.push({ key, intent });
+        else malformed.push(key);
+      } catch {
+        malformed.push(key);
+      }
+    }
+    return { intents, malformed };
+  } catch {
+    return null;
+  }
+}
+
+function adminWriteIntentIsCurrent(
+  marker: PersistedAdminWriteIntent,
+  writeGuard: HaruAdminWriteGuard,
+): boolean {
+  const raw = readRawStorageValue(marker.key);
+  if (raw === null || raw === undefined || durableDeletionFenceExists()) return false;
+  try {
+    const persisted = parseAdminWriteIntent(JSON.parse(raw) as unknown);
+    return (
+      persisted?.intentId === marker.intent.intentId &&
+      persisted.ownerRealmId === marker.intent.ownerRealmId &&
+      persisted.writeEpoch === marker.intent.writeEpoch &&
+      adminWriteGuardCoreMatches(writeGuard)
+    );
+  } catch {
+    return false;
+  }
+}
+
+function beginAdminWriteIntent(
+  kind: HaruAdminWriteIntentKind,
+  writeGuard: HaruAdminWriteGuard,
+): PersistedAdminWriteIntent | null {
+  if (durableDeletionFenceExists() || !adminWriteGuardCoreMatches(writeGuard)) {
+    return null;
+  }
+  const intent: HaruAdminWriteIntent = {
+    version: 1,
+    intentId: createAudioResponseInstanceId(),
+    ownerRealmId: getAdminRealmId(),
+    kind,
+    writeEpoch: writeGuard.writeEpoch,
+    createdAt: new Date().toISOString(),
+  };
+  const key = `${HARU_ADMIN_WRITE_INTENT_STORAGE_PREFIX}${intent.intentId}`;
+  const marker = { key, intent };
+  if (!writeJson(key, intent) || !adminWriteIntentIsCurrent(marker, writeGuard)) {
+    finishAdminWriteIntent(marker);
+    return null;
+  }
+  return marker;
+}
+
+function finishAdminWriteIntent(marker: PersistedAdminWriteIntent): boolean {
+  const raw = readRawStorageValue(marker.key);
+  if (raw === null) return true;
+  if (raw === undefined) return false;
+  try {
+    const persisted = parseAdminWriteIntent(JSON.parse(raw) as unknown);
+    if (
+      persisted?.intentId !== marker.intent.intentId ||
+      persisted.ownerRealmId !== marker.intent.ownerRealmId
+    ) {
+      return false;
+    }
+  } catch {
+    return false;
+  }
+  return removeKey(marker.key);
+}
+
+function delay(milliseconds: number): Promise<void> {
+  return new Promise((resolve) => {
+    window.setTimeout(resolve, milliseconds);
+  });
+}
+
+async function acquireAdminDeletionFence(
+  kind: HaruAdminDeletionKind,
+): Promise<HaruAdminDeletionFence> {
+  const ownerRealmId = getAdminRealmId();
+  const rawExisting = readRawStorageValue(HARU_ADMIN_DELETION_FENCE_STORAGE_KEY);
+  if (rawExisting === undefined) {
+    throw new Error("haru-admin-deletion-fence-storage-unavailable");
+  }
+  if (rawExisting !== null) {
+    const existing = readDeletionFence();
+    if (
+      !existing ||
+      existing.ownerRealmId !== ownerRealmId ||
+      activeAdminDeletionFenceTokens.has(existing.token)
+    ) {
+      throw new Error("haru-admin-deletion-in-progress");
+    }
+    activeAdminDeletionFenceTokens.add(existing.token);
+    return existing;
+  }
+
+  const fence: HaruAdminDeletionFence = {
+    version: 1,
+    token: createAudioResponseInstanceId(),
+    ownerRealmId,
+    kind,
+    createdAt: new Date().toISOString(),
+  };
+  if (!writeJson(HARU_ADMIN_DELETION_FENCE_STORAGE_KEY, fence)) {
+    throw new Error("haru-admin-deletion-fence-write-failed");
+  }
+  await delay(0);
+  if (!ownsDeletionFence(fence)) {
+    throw new Error("haru-admin-deletion-fence-lost");
+  }
+  activeAdminDeletionFenceTokens.add(fence.token);
+  return fence;
+}
+
+async function waitForDurableAdminWriteIntents(
+  fence: HaruAdminDeletionFence,
+): Promise<void> {
+  const startedAt = Date.now();
+  while (true) {
+    if (!ownsDeletionFence(fence)) {
+      throw new Error("haru-admin-deletion-fence-lost");
+    }
+    const pending = readAdminWriteIntents();
+    if (!pending) throw new Error("haru-admin-write-intent-read-failed");
+    if (pending.malformed.length > 0) {
+      throw new Error("haru-admin-write-intent-stale");
+    }
+    const now = Date.now();
+    if (
+      pending.intents.some(
+        ({ intent }) => now - Date.parse(intent.createdAt) > ADMIN_WRITE_INTENT_STALE_MS,
+      )
+    ) {
+      throw new Error("haru-admin-write-intent-stale");
+    }
+    if (pending.intents.length === 0) return;
+    if (now - startedAt > ADMIN_WRITE_INTENT_WAIT_MS) {
+      throw new Error("haru-admin-write-intent-timeout");
+    }
+    await delay(ADMIN_WRITE_INTENT_POLL_MS);
+  }
+}
+
+function releaseAdminDeletionFence(fence: HaruAdminDeletionFence): boolean {
+  if (!ownsDeletionFence(fence)) return false;
+  return (
+    removeKey(HARU_ADMIN_DELETION_FENCE_STORAGE_KEY) &&
+    readRawStorageValue(HARU_ADMIN_DELETION_FENCE_STORAGE_KEY) === null
+  );
+}
+
+function consentRevision(consent: HaruConsentState): string {
+  return JSON.stringify([
+    consent.voiceRecording,
+    consent.sttProcessing,
+    consent.longitudinalUsageStorage,
+    consent.personalizedQuestionUse,
+    consent.consentedAt,
+    consent.updatedAt,
+  ]);
+}
+
+function persistedAdminWriteEpoch(): number {
+  const value = readJson<unknown>(HARU_ADMIN_WRITE_EPOCH_STORAGE_KEY, 0);
+  return typeof value === "number" && Number.isSafeInteger(value) && value >= 0
+    ? value
+    : 0;
+}
+
+function currentAdminWriteEpoch(): string {
+  return `${persistedAdminWriteEpoch()}:${volatileAdminWriteEpoch}`;
+}
+
+function captureAdminWriteGuard(): HaruAdminWriteGuard {
+  return {
+    consentRevision: consentRevision(getHaruConsent()),
+    writeEpoch: currentAdminWriteEpoch(),
+  };
+}
+
+function adminWriteGuardCoreMatches(guard: HaruAdminWriteGuard): boolean {
+  return (
+    guard.consentRevision === consentRevision(getHaruConsent()) &&
+    guard.writeEpoch === currentAdminWriteEpoch()
+  );
+}
+
+function adminWriteGuardMatches(guard: HaruAdminWriteGuard): boolean {
+  return !durableDeletionFenceExists() && adminWriteGuardCoreMatches(guard);
+}
+
+function advanceAdminWriteEpoch(): boolean {
+  const next = persistedAdminWriteEpoch() + 1;
+  volatileAdminWriteEpoch += 1;
+  return (
+    writeJson(HARU_ADMIN_WRITE_EPOCH_STORAGE_KEY, next) &&
+    persistedAdminWriteEpoch() === next
+  );
+}
+
+function safeAudioObjectKeySegment(value: string): string {
+  return value.replace(/[^A-Za-z0-9_-]/g, "-");
+}
+
+function createAudioResponseInstanceId(): string {
+  try {
+    const randomUuid = globalThis.crypto?.randomUUID?.();
+    if (randomUuid) return randomUuid;
+  } catch {
+    // Continue with the local collision-resistant fallback below.
+  }
+
+  volatileAudioResponseSequence += 1;
+  return [
+    Date.now().toString(36),
+    volatileAudioResponseSequence.toString(36),
+    Math.random().toString(36).slice(2, 12),
+  ].join("-");
+}
+
+function createVoiceAudioObjectKey(
+  questionId: string,
+  sessionDate: string,
+  writeGuard: HaruAdminWriteGuard,
+  mimeType: string | undefined,
+): string {
+  const extension = mimeType?.includes("ogg") ? "ogg" : "webm";
+  const generation = safeAudioObjectKeySegment(writeGuard.writeEpoch);
+  const responseInstanceId = safeAudioObjectKeySegment(
+    createAudioResponseInstanceId(),
+  );
+  return `voice/${USER_ID}/${sessionDate}/g-${generation}/${safeAudioObjectKeySegment(
+    questionId,
+  )}-${responseInstanceId}.${extension}`;
+}
+
+function storeTrackedHaruAdminAudio(
+  objectKey: string,
+  blob: Blob,
+  storedAt: string,
+  writeGuard: HaruAdminWriteGuard,
+): Promise<HaruAdminAudioRetentionStatus> {
+  const writeIntent = beginAdminWriteIntent("audio", writeGuard);
+  if (!writeIntent) return Promise.resolve("not_stored");
+  const pendingStore = (async (): Promise<HaruAdminAudioRetentionStatus> => {
+    let retentionStatus: HaruAdminAudioRetentionStatus = "not_stored";
+    try {
+      if (adminWriteIntentIsCurrent(writeIntent, writeGuard)) {
+        retentionStatus = await storeHaruAdminAudio(objectKey, blob, storedAt);
+      }
+      if (
+        retentionStatus === "stored" &&
+        !adminWriteIntentIsCurrent(writeIntent, writeGuard)
+      ) {
+        await deleteHaruAdminAudio(objectKey);
+        retentionStatus = "not_stored";
+      }
+    } finally {
+      if (!finishAdminWriteIntent(writeIntent) && retentionStatus === "stored") {
+        await deleteHaruAdminAudio(objectKey);
+        retentionStatus = "not_stored";
+      }
+    }
+    return retentionStatus;
+  })();
+  pendingAdminAudioStores.add(pendingStore);
+  const forgetStore = () => {
+    pendingAdminAudioStores.delete(pendingStore);
+  };
+  void pendingStore.then(forgetStore, forgetStore);
+  return pendingStore;
+}
+
+async function waitForPendingAdminAudioStores(): Promise<void> {
+  while (pendingAdminAudioStores.size > 0) {
+    await Promise.allSettled([...pendingAdminAudioStores]);
+  }
+}
+
+function purgeStaleAdminRecord(): void {
+  removeKey(HARU_ADMIN_USAGE_RECORD_STORAGE_KEY);
+  clearHaruSttRetryOutbox();
+  enqueueHaruRagUserDeletion(HARU_ADMIN_USER_ID);
+  dispatchUpdate();
+}
+
+function saveRecord(
+  record: HaruAdminUsageRecord,
+  options: {
+    requireBackgroundPersistence?: boolean;
+    expectedGuard?: HaruAdminWriteGuard;
+    deletionFence?: HaruAdminDeletionFence;
+  } = {},
+): boolean {
+  const writeGuard = options.expectedGuard ?? captureAdminWriteGuard();
+  const deletionFence = options.deletionFence;
+  if (deletionFence) {
+    if (!ownsDeletionFence(deletionFence)) return false;
+  } else if (
+    activeAdminRecordClearOperations > 0 ||
+    durableDeletionFenceExists()
+  ) {
+    return false;
+  }
+  const consent = getHaruConsent();
+  if (!consent.longitudinalUsageStorage) {
+    purgeStaleAdminRecord();
+    return false;
+  }
+  const writeIntent = deletionFence
+    ? null
+    : beginAdminWriteIntent("record", writeGuard);
+  if (!deletionFence && !writeIntent) return false;
+  const writeIsAuthorized = () =>
+    deletionFence
+      ? ownsDeletionFence(deletionFence)
+      : Boolean(writeIntent && adminWriteIntentIsCurrent(writeIntent, writeGuard));
+  let saved: boolean;
+  let backgroundSaved = true;
+  let intentRemoved = true;
+  try {
+    if (!writeIsAuthorized()) return false;
+    record.user.consents = {
+      voice_recording: consent.voiceRecording,
+      stt_processing: consent.sttProcessing,
+      longitudinal_usage_storage: consent.longitudinalUsageStorage,
+      personalized_question_use: consent.personalizedQuestionUse,
+      consented_at: consent.consentedAt,
+    };
+    saved = writeJson(HARU_ADMIN_USAGE_RECORD_STORAGE_KEY, record);
+    if (saved) {
+      if (!writeIsAuthorized()) {
+        if (!durableDeletionFenceExists()) purgeStaleAdminRecord();
+        return false;
+      }
+      const retryOutboxSaved = reconcileHaruSttRetryOutbox(record);
+      const ragOutboxSaved = enqueueHaruRagRecord(record);
+      if (!writeIsAuthorized()) {
+        if (!durableDeletionFenceExists()) purgeStaleAdminRecord();
+        return false;
+      }
+      dispatchUpdate();
+      backgroundSaved =
+        !options.requireBackgroundPersistence ||
+        (retryOutboxSaved && ragOutboxSaved);
+    }
+  } finally {
+    if (writeIntent) intentRemoved = finishAdminWriteIntent(writeIntent);
+  }
+  return saved && backgroundSaved && intentRemoved;
 }
 
 function buttonForOption(
@@ -484,7 +993,13 @@ export function startHaruAdminUsageSession(
   day: HaruWeekDay,
   now: Date = new Date(),
 ): HaruAdminUsageSession | null {
-  if (!HARU_DEMO_PERSONA.consents.longitudinalUsageStorage) {
+  if (
+    activeAdminRecordClearOperations > 0 ||
+    durableDeletionFenceExists()
+  ) {
+    return null;
+  }
+  if (!getHaruConsent().longitudinalUsageStorage) {
     clearHaruSttRetryOutbox();
     clearHaruRagOutbox();
     return null;
@@ -708,21 +1223,48 @@ async function voiceResponse(
   input: HaruAdminLiveResponseInput,
   sessionDate: string,
   respondedAt: string,
-): Promise<HaruAdminVoiceResponse> {
-  const objectKey = `voice/${USER_ID}/${sessionDate}/${input.questionId}.${
-    input.audioBlob?.type.includes("ogg") ? "ogg" : "webm"
-  }`;
+  writeGuard: HaruAdminWriteGuard,
+): Promise<HaruAdminVoiceResponse | null> {
+  const consent = getHaruConsent();
   const mayStoreAudio =
-    HARU_DEMO_PERSONA.consents.voiceRecording &&
-    HARU_DEMO_PERSONA.consents.longitudinalUsageStorage &&
+    activeAdminVoiceDeletionOperations === 0 &&
+    adminWriteGuardMatches(writeGuard) &&
+    consent.voiceRecording &&
+    consent.sttProcessing &&
+    consent.longitudinalUsageStorage &&
     input.audioBlob !== undefined &&
     input.audioBlob.size > 0;
-  const retentionStatus = mayStoreAudio
-    ? await storeHaruAdminAudio(objectKey, input.audioBlob!, respondedAt)
+  const objectKey = mayStoreAudio
+    ? createVoiceAudioObjectKey(
+        input.questionId,
+        sessionDate,
+        writeGuard,
+        input.audioBlob?.type,
+      )
+    : "";
+  let retentionStatus = mayStoreAudio
+    ? await storeTrackedHaruAdminAudio(
+        objectKey,
+        input.audioBlob!,
+        respondedAt,
+        writeGuard,
+      )
     : "not_stored";
+  const currentConsent = getHaruConsent();
+  const writeStillAuthorized = adminWriteGuardMatches(writeGuard);
+  const mayRetainVoice =
+    activeAdminVoiceDeletionOperations === 0 &&
+    writeStillAuthorized &&
+    currentConsent.voiceRecording &&
+    currentConsent.sttProcessing &&
+    currentConsent.longitudinalUsageStorage;
+  if (retentionStatus === "stored" && !mayRetainVoice) {
+    await deleteHaruAdminAudio(objectKey);
+    retentionStatus = "not_stored";
+  }
+  if (!writeStillAuthorized) return null;
   const mayStoreTranscript =
-    HARU_DEMO_PERSONA.consents.sttProcessing &&
-    HARU_DEMO_PERSONA.consents.longitudinalUsageStorage;
+    mayRetainVoice;
   const noSpeech = mayStoreTranscript && input.sttNoSpeech === true;
   const transcript = mayStoreTranscript && !noSpeech
     ? (input.rawUserUtteranceTranscript?.trim().slice(0, 10_000) || null)
@@ -742,15 +1284,17 @@ async function voiceResponse(
     recording_ended_at: normalizeOptionalTimestamp(input.recordingEndedAt),
     audio_duration_seconds: Math.max(0, input.voiceDurationSeconds ?? 0),
     audio_storage: {
-      object_key: objectKey,
-      mime_type: input.audioBlob?.type || null,
+      object_key: retentionStatus === "stored" ? objectKey : "",
+      mime_type: retentionStatus === "stored" ? (input.audioBlob?.type || null) : null,
       sample_rate_hz:
+        retentionStatus === "stored" &&
         input.audioSampleRateHz !== undefined &&
         Number.isFinite(input.audioSampleRateHz) &&
         input.audioSampleRateHz > 0
           ? Math.round(input.audioSampleRateHz)
           : null,
       channels:
+        retentionStatus === "stored" &&
         input.audioChannelCount !== undefined &&
         Number.isFinite(input.audioChannelCount) &&
         input.audioChannelCount > 0
@@ -760,19 +1304,25 @@ async function voiceResponse(
     },
     raw_user_utterance_transcript: transcript,
     stt: {
-      engine: input.sttEngine?.trim().slice(0, 240) || "haru-local-stt",
-      status: noSpeech ? "failed" : (input.sttStatus ?? "failed"),
+      engine: mayStoreTranscript
+        ? (input.sttEngine?.trim().slice(0, 240) || "haru-local-stt")
+        : "haru-local-stt",
+      status:
+        mayStoreTranscript && !noSpeech ? (input.sttStatus ?? "failed") : "failed",
       no_speech: noSpeech,
       transcript,
-      language: input.sttLanguage ?? null,
+      language: mayStoreTranscript ? (input.sttLanguage ?? null) : null,
       confidence:
+        mayStoreTranscript &&
         input.sttConfidence !== undefined &&
         Number.isFinite(input.sttConfidence) &&
         input.sttConfidence >= 0 &&
         input.sttConfidence <= 1
           ? input.sttConfidence
           : null,
-      processed_at: normalizeOptionalTimestamp(input.sttProcessedAt),
+      processed_at: mayStoreTranscript
+        ? normalizeOptionalTimestamp(input.sttProcessedAt)
+        : null,
       model: mayStoreTranscript
         ? (input.sttModel?.trim().slice(0, 240) || null)
         : null,
@@ -832,7 +1382,14 @@ export async function recordHaruAdminResponse(
   personalization?: HaruPersonalizationRecord,
   now: Date = new Date(),
 ): Promise<HaruAdminQuestionRecord | null> {
-  if (!HARU_DEMO_PERSONA.consents.longitudinalUsageStorage) {
+  if (
+    activeAdminRecordClearOperations > 0 ||
+    durableDeletionFenceExists()
+  ) {
+    return null;
+  }
+  const writeGuard = captureAdminWriteGuard();
+  if (!getHaruConsent().longitudinalUsageStorage) {
     clearHaruSttRetryOutbox();
     clearHaruRagOutbox();
     return null;
@@ -870,8 +1427,18 @@ export async function recordHaruAdminResponse(
       ? singleChoiceResponse(input, exercise, questionRecord, respondedAt)
       : input.responseType === "button_sequence"
         ? sequenceResponse(input, exercise, questionRecord, respondedAt)
-        : await voiceResponse(input, plan.dateISO, respondedAt);
+        : await voiceResponse(input, plan.dateISO, respondedAt, writeGuard);
   if (!response) return null;
+
+  if (!adminWriteGuardMatches(writeGuard)) {
+    if (
+      response.input_mode === "voice" &&
+      response.audio_storage.retention_status === "stored"
+    ) {
+      await deleteHaruAdminAudio(response.audio_storage.object_key);
+    }
+    return null;
+  }
 
   const latestRecord = getHaruAdminUsageRecord();
   const latestSession = latestRecord?.sessions.find(
@@ -894,7 +1461,15 @@ export async function recordHaruAdminResponse(
     }
     return null;
   }
-  if (latestQuestionRecord.response !== null) return latestQuestionRecord;
+  if (latestQuestionRecord.response !== null) {
+    if (
+      response.input_mode === "voice" &&
+      response.audio_storage.retention_status === "stored"
+    ) {
+      await deleteHaruAdminAudio(response.audio_storage.object_key);
+    }
+    return latestQuestionRecord;
+  }
 
   latestQuestionRecord.response = response;
   latestQuestionRecord.presentation.character_message = input.feedback;
@@ -902,7 +1477,7 @@ export async function recordHaruAdminResponse(
     feedback_text: input.feedback,
     shown_at: respondedAt,
   };
-  if (!saveRecord(latestRecord)) {
+  if (!saveRecord(latestRecord, { expectedGuard: writeGuard })) {
     if (
       response.input_mode === "voice" &&
       response.audio_storage.retention_status === "stored"
@@ -918,12 +1493,13 @@ export function patchHaruAdminVoiceSttSuccess(
   success: HaruSttRetrySuccess,
 ): HaruSttRetryPatchResult {
   const record = getHaruAdminUsageRecord();
+  const consent = getHaruConsent();
   if (
     !record ||
     record.user.user_id !== success.userId ||
-    !HARU_DEMO_PERSONA.consents.voiceRecording ||
-    !HARU_DEMO_PERSONA.consents.sttProcessing ||
-    !HARU_DEMO_PERSONA.consents.longitudinalUsageStorage ||
+    !consent.voiceRecording ||
+    !consent.sttProcessing ||
+    !consent.longitudinalUsageStorage ||
     !record.user.consents.voice_recording ||
     !record.user.consents.stt_processing ||
     !record.user.consents.longitudinal_usage_storage
@@ -1011,7 +1587,25 @@ export function patchHaruAdminVoiceSttSuccess(
       value: annotation.value.trim().slice(0, 120),
     })),
   };
-  return saveRecord(record) ? "patched" : "retry";
+  if (!saveRecord(record)) return "retry";
+  const questionMeta = HARU_WEEK_QUESTION_META.find(
+    (candidate) => candidate.exerciseId === success.questionId,
+  );
+  if (!noSpeech && transcript && consent.personalizedQuestionUse && questionMeta) {
+    patchHaruDemoVoiceResponse(questionMeta.day, success.questionId, {
+      transcript,
+      derivedAnnotations: annotations,
+      sttLanguage: success.result.language ?? undefined,
+      sttConfidence: success.result.confidence ?? undefined,
+      sttEngine: success.engine,
+      sttModel: success.result.model ?? undefined,
+      sttModelRevision: success.result.modelRevision ?? undefined,
+      sttAlignerModel: success.result.alignerModel ?? undefined,
+      sttAlignerRevision: success.result.alignerRevision ?? undefined,
+      sttPreprocessingVersion: success.result.preprocessingVersion ?? undefined,
+    });
+  }
+  return "patched";
 }
 
 export function completeHaruAdminUsageSession(
@@ -1088,14 +1682,162 @@ export function abandonHaruAdminUsageSession(
   return session;
 }
 
-export async function clearHaruAdminUsageRecords(): Promise<void> {
+async function scrubHaruAdminVoiceDataInternal(
+  deletionFence: HaruAdminDeletionFence,
+): Promise<void> {
+  if (!ownsDeletionFence(deletionFence)) {
+    throw new Error("haru-admin-deletion-fence-lost");
+  }
+  const writeEpochAdvanced = advanceAdminWriteEpoch();
+  if (!writeEpochAdvanced) throw new Error("haru-admin-consent-sync-failed");
+  await waitForDurableAdminWriteIntents(deletionFence);
+  await waitForPendingAdminAudioStores();
+  if (!ownsDeletionFence(deletionFence)) {
+    throw new Error("haru-admin-deletion-fence-lost");
+  }
   const record = getHaruAdminUsageRecord();
-  if (record && !enqueueHaruRagUserDeletion(record.user.user_id)) {
-    throw new Error("rag-deletion-outbox-write-failed");
+  const retryOutboxCleared = clearHaruSttRetryOutbox();
+  let recordSaveFailed = false;
+
+  if (record) {
+    for (const session of record.sessions) {
+      for (const questionRecord of session.question_records) {
+        const response = questionRecord.response;
+        if (response?.input_mode !== "voice") continue;
+        response.audio_storage = {
+          ...response.audio_storage,
+          object_key: "",
+          mime_type: null,
+          sample_rate_hz: null,
+          channels: null,
+          retention_status: "not_stored",
+        };
+        response.raw_user_utterance_transcript = null;
+        response.stt = {
+          engine: "haru-local-stt",
+          status: "failed",
+          no_speech: false,
+          transcript: null,
+          language: null,
+          confidence: null,
+          processed_at: null,
+          model: null,
+          model_revision: null,
+          aligner_model: null,
+          aligner_revision: null,
+          preprocessing_version: null,
+          segments: [],
+        };
+        response.user_correction = {
+          was_corrected: false,
+          corrected_transcript: null,
+        };
+        response.derived_annotations = {
+          status: "empty",
+          items: [],
+          note: "동의 철회 후 음성 원문과 파생 정보를 삭제함.",
+        };
+      }
+    }
+    recordSaveFailed = !saveRecord(record, {
+      requireBackgroundPersistence: true,
+      deletionFence,
+    });
+  }
+
+  const sttQueueCleared = await clearSttJobQueue();
+  await waitForDurableAdminWriteIntents(deletionFence);
+  await waitForPendingAdminAudioStores();
+  if (!ownsDeletionFence(deletionFence)) {
+    throw new Error("haru-admin-deletion-fence-lost");
   }
   await clearHaruAdminAudioStorage();
-  clearHaruSttRetryOutbox();
-  clearHaruRagOutbox();
-  removeKey(HARU_ADMIN_USAGE_RECORD_STORAGE_KEY);
+  if (
+    recordSaveFailed ||
+    !retryOutboxCleared ||
+    !sttQueueCleared
+  ) {
+    throw new Error("haru-admin-consent-sync-failed");
+  }
+}
+
+export async function scrubHaruAdminVoiceData(): Promise<void> {
+  const deletionFence = await acquireAdminDeletionFence("voice_scrub");
+  activeAdminVoiceDeletionOperations += 1;
+  try {
+    await scrubHaruAdminVoiceDataInternal(deletionFence);
+    if (!releaseAdminDeletionFence(deletionFence)) {
+      throw new Error("haru-admin-deletion-fence-release-failed");
+    }
+  } finally {
+    activeAdminDeletionFenceTokens.delete(deletionFence.token);
+    activeAdminVoiceDeletionOperations -= 1;
+  }
+}
+
+export function refreshHaruAdminUsageConsent(): boolean {
+  const record = getHaruAdminUsageRecord();
+  return record
+    ? saveRecord(record, { requireBackgroundPersistence: true })
+    : true;
+}
+
+async function clearHaruAdminUsageRecordsInternal(
+  deletionFence: HaruAdminDeletionFence,
+): Promise<void> {
+  if (!ownsDeletionFence(deletionFence)) {
+    throw new Error("haru-admin-deletion-fence-lost");
+  }
+  const writeEpochAdvanced = advanceAdminWriteEpoch();
+  if (!writeEpochAdvanced) throw new Error("haru-admin-clear-incomplete");
+  await waitForDurableAdminWriteIntents(deletionFence);
+  await waitForPendingAdminAudioStores();
+  if (!ownsDeletionFence(deletionFence)) {
+    throw new Error("haru-admin-deletion-fence-lost");
+  }
+  const ragDeletionQueued = enqueueHaruRagUserDeletion(HARU_ADMIN_USER_ID);
+  const retryOutboxCleared = clearHaruSttRetryOutbox();
+  const ragOutboxCleared = clearHaruRagOutbox();
+  const adminRecordInitiallyCleared = removeKey(
+    HARU_ADMIN_USAGE_RECORD_STORAGE_KEY,
+  );
   dispatchUpdate();
+
+  const sttQueueCleared = await clearSttJobQueue();
+  await waitForDurableAdminWriteIntents(deletionFence);
+  await waitForPendingAdminAudioStores();
+  if (!ownsDeletionFence(deletionFence)) {
+    throw new Error("haru-admin-deletion-fence-lost");
+  }
+  await clearHaruAdminAudioStorage();
+  const adminRecordFinallyCleared = removeKey(
+    HARU_ADMIN_USAGE_RECORD_STORAGE_KEY,
+  );
+  dispatchUpdate();
+  if (
+    !ragDeletionQueued ||
+    !retryOutboxCleared ||
+    !ragOutboxCleared ||
+    !adminRecordInitiallyCleared ||
+    !adminRecordFinallyCleared ||
+    !sttQueueCleared
+  ) {
+    throw new Error("haru-admin-clear-incomplete");
+  }
+}
+
+export async function clearHaruAdminUsageRecords(): Promise<void> {
+  const deletionFence = await acquireAdminDeletionFence("clear");
+  activeAdminRecordClearOperations += 1;
+  activeAdminVoiceDeletionOperations += 1;
+  try {
+    await clearHaruAdminUsageRecordsInternal(deletionFence);
+    if (!releaseAdminDeletionFence(deletionFence)) {
+      throw new Error("haru-admin-deletion-fence-release-failed");
+    }
+  } finally {
+    activeAdminDeletionFenceTokens.delete(deletionFence.token);
+    activeAdminVoiceDeletionOperations -= 1;
+    activeAdminRecordClearOperations -= 1;
+  }
 }

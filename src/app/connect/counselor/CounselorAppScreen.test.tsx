@@ -15,7 +15,7 @@ describe("CounselorAppScreen", () => {
     seedCompletedHaruDemoDay(1);
 
     render(
-      <MemoryRouter>
+      <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <CounselorAppScreen />
       </MemoryRouter>,
     );
@@ -31,7 +31,7 @@ describe("CounselorAppScreen", () => {
 
   it("renders an empty local record as zero instead of seven completed days", () => {
     render(
-      <MemoryRouter>
+      <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <CounselorAppScreen />
       </MemoryRouter>,
     );

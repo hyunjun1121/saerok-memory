@@ -40,10 +40,11 @@ export function VoiceWaveform({
               height: `${height}px`,
               transformOrigin: "bottom",
               opacity: active ? 1 : 0.35,
-              animation: active
-                ? `equalizer ${0.8 + (index % 5) * 0.12}s ease-in-out infinite`
-                : undefined,
-              animationDelay: `${index * 0.04}s`,
+              animationName: active ? "equalizer" : "none",
+              animationDuration: `${0.8 + (index % 5) * 0.12}s`,
+              animationTimingFunction: "ease-in-out",
+              animationIterationCount: active ? "infinite" : 1,
+              animationDelay: active ? `${index * 0.04}s` : "0s",
             }}
           />
         );

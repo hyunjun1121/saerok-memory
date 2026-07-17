@@ -103,6 +103,7 @@ try {
     root: repoRoot,
     appType: "custom",
     logLevel: "error",
+    optimizeDeps: { noDiscovery: true, include: [], entries: [] },
     server: { middlewareMode: true, hmr: false },
   });
 

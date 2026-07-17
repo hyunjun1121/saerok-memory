@@ -7,16 +7,25 @@ import {
 } from "@/data/haru7DayExercises";
 import {
   HARU_ADMIN_USAGE_RECORD_STORAGE_KEY,
+  HARU_ADMIN_DELETION_FENCE_STORAGE_KEY,
+  HARU_ADMIN_WRITE_INTENT_STORAGE_PREFIX,
   abandonHaruAdminUsageSession,
   clearHaruAdminUsageRecords,
   completeHaruAdminUsageSession,
   getHaruAdminUsageRecord,
   presentHaruAdminQuestion,
   recordHaruAdminResponse,
+  scrubHaruAdminVoiceData,
   startHaruAdminUsageSession,
 } from "@/features/lessons/haruAdminUsageRecordStorage";
 import { getHaruRagDeletionOutbox } from "@/features/lessons/haruRagSync";
 import { getHaruSttRetryOutbox } from "@/features/lessons/haruSttRetry";
+import { updateHaruConsent } from "@/features/profile/haruConsentStorage";
+import {
+  enqueueSttJob,
+  getSttJobQueue,
+  STT_JOB_GLOBAL_CLEAR_FENCE_STORAGE_KEY,
+} from "@/features/speech/sttJobQueue";
 
 const audioMocks = vi.hoisted(() => ({
   store: vi.fn(async () => "stored" as const),
@@ -39,6 +48,17 @@ function scenario(id: string) {
   );
   if (!exercise || !question) throw new Error(`Missing scenario ${id}`);
   return { exercise, question };
+}
+
+function storedAudioObjectKey(callIndex = 0): string {
+  const calls = audioMocks.store.mock.calls as unknown as Array<
+    [string, Blob, string]
+  >;
+  const objectKey = calls[callIndex]?.[0];
+  if (typeof objectKey !== "string") {
+    throw new Error(`Missing stored audio object key at call ${callIndex}`);
+  }
+  return objectKey;
 }
 
 function setConsent(
@@ -319,12 +339,16 @@ describe("haruAdminUsageRecordStorage", () => {
     });
 
     const response = getHaruAdminUsageRecord()?.sessions[0].question_records[0].response;
+    const objectKey = storedAudioObjectKey();
+    expect(objectKey).toMatch(
+      /^voice\/USR-000001\/2026-07-20\/g-\d+-\d+\/D1_Q5-[A-Za-z0-9-]+\.webm$/,
+    );
     expect(response).toEqual(
       expect.objectContaining({
         input_mode: "voice",
         audio_duration_seconds: 13.3,
         audio_storage: {
-          object_key: "voice/USR-000001/2026-07-20/D1_Q5.webm",
+          object_key: objectKey,
           mime_type: "audio/webm;codecs=opus",
           sample_rate_hz: 16_000,
           channels: 1,
@@ -360,7 +384,7 @@ describe("haruAdminUsageRecordStorage", () => {
       }),
     );
     expect(audioMocks.store).toHaveBeenCalledWith(
-      "voice/USR-000001/2026-07-20/D1_Q5.webm",
+      objectKey,
       audioBlob,
       expect.any(String),
     );
@@ -535,12 +559,192 @@ describe("haruAdminUsageRecordStorage", () => {
     releaseStore?.("stored");
 
     expect(await pendingWrite).toBeNull();
-    expect(audioMocks.delete).toHaveBeenCalledWith(
-      "voice/USR-000001/2026-07-20/D1_Q5.webm",
-    );
+    expect(audioMocks.delete).toHaveBeenCalledWith(storedAudioObjectKey());
     expect(
       getHaruAdminUsageRecord()?.sessions[0].question_records[0].response,
     ).toBeNull();
+  });
+
+  it("deletes the losing unique blob when two voice responses finish together", async () => {
+    const exercise = scenario("D1_Q5").exercise;
+    presentHaruAdminQuestion(1, exercise, "ko");
+    const input = {
+      questionId: "D1_Q5",
+      responseType: "voice" as const,
+      responseTimeMs: 5_000,
+      isCorrect: null,
+      feedback: "응답 완료",
+      voiceDurationSeconds: 3,
+      audioBlob: new Blob(["audio"], { type: "audio/webm" }),
+      sttStatus: "failed" as const,
+    };
+
+    const firstWrite = recordHaruAdminResponse(1, exercise, "ko", input);
+    const secondWrite = recordHaruAdminResponse(1, exercise, "ko", input);
+    await Promise.all([firstWrite, secondWrite]);
+
+    const firstObjectKey = storedAudioObjectKey(0);
+    const secondObjectKey = storedAudioObjectKey(1);
+    expect(firstObjectKey).not.toBe(secondObjectKey);
+    expect(
+      getHaruAdminUsageRecord()?.sessions[0].question_records[0].response,
+    ).toEqual(
+      expect.objectContaining({
+        input_mode: "voice",
+        audio_storage: expect.objectContaining({ object_key: firstObjectKey }),
+      }),
+    );
+    expect(audioMocks.delete).toHaveBeenCalledWith(secondObjectKey);
+    expect(audioMocks.delete).not.toHaveBeenCalledWith(firstObjectKey);
+  });
+
+  it("does not resurrect stored audio when consent changes during IndexedDB write", async () => {
+    let releaseStore: ((status: "stored") => void) | undefined;
+    audioMocks.store.mockReturnValueOnce(
+      new Promise<"stored">((resolve) => {
+        releaseStore = resolve;
+      }),
+    );
+    const exercise = scenario("D1_Q5").exercise;
+    presentHaruAdminQuestion(1, exercise, "ko");
+    const pendingWrite = recordHaruAdminResponse(1, exercise, "ko", {
+      questionId: "D1_Q5",
+      responseType: "voice",
+      responseTimeMs: 5_000,
+      isCorrect: null,
+      feedback: "응답 완료",
+      voiceDurationSeconds: 3,
+      audioBlob: new Blob(["audio"], { type: "audio/webm" }),
+      sttStatus: "failed",
+      rawUserUtteranceTranscript: "저장되면 안 되는 원문",
+    });
+    await vi.waitFor(() => expect(audioMocks.store).toHaveBeenCalledTimes(1));
+    updateHaruConsent({ sttProcessing: false });
+    const scrubbing = scrubHaruAdminVoiceData();
+    await Promise.resolve();
+    await Promise.resolve();
+
+    expect(audioMocks.clear).not.toHaveBeenCalled();
+    releaseStore?.("stored");
+
+    const questionRecord = await pendingWrite;
+    await scrubbing;
+
+    expect(audioMocks.delete).toHaveBeenCalledWith(storedAudioObjectKey());
+    expect(questionRecord).toBeNull();
+    expect(
+      getHaruAdminUsageRecord()?.sessions[0].question_records[0].response,
+    ).toBeNull();
+    expect(JSON.stringify(getHaruAdminUsageRecord())).not.toContain(
+      "저장되면 안 되는 원문",
+    );
+    expect(getHaruSttRetryOutbox()).toHaveLength(0);
+  });
+
+  it("does not attach pre-deletion audio to a recreated session after re-consent", async () => {
+    let releaseStore: ((status: "stored") => void) | undefined;
+    audioMocks.store.mockReturnValueOnce(
+      new Promise<"stored">((resolve) => {
+        releaseStore = resolve;
+      }),
+    );
+    const exercise = scenario("D1_Q5").exercise;
+    presentHaruAdminQuestion(1, exercise, "ko");
+    const pendingWrite = recordHaruAdminResponse(1, exercise, "ko", {
+      questionId: "D1_Q5",
+      responseType: "voice",
+      responseTimeMs: 5_000,
+      isCorrect: null,
+      feedback: "응답 완료",
+      voiceDurationSeconds: 3,
+      audioBlob: new Blob(["old audio"], { type: "audio/webm" }),
+      sttStatus: "completed",
+      rawUserUtteranceTranscript: "삭제 전 원문",
+    });
+    await vi.waitFor(() => expect(audioMocks.store).toHaveBeenCalledTimes(1));
+
+    updateHaruConsent(
+      { longitudinalUsageStorage: false },
+      new Date("2026-07-20T01:00:01.000Z"),
+    );
+    const deletion = clearHaruAdminUsageRecords();
+    await Promise.resolve();
+    await Promise.resolve();
+
+    expect(audioMocks.clear).not.toHaveBeenCalled();
+    releaseStore?.("stored");
+    expect(await pendingWrite).toBeNull();
+    await deletion;
+
+    updateHaruConsent(
+      { longitudinalUsageStorage: true },
+      new Date("2026-07-20T01:00:02.000Z"),
+    );
+    presentHaruAdminQuestion(1, exercise, "ko");
+    const recreatedWrite = await recordHaruAdminResponse(1, exercise, "ko", {
+      questionId: "D1_Q5",
+      responseType: "voice",
+      responseTimeMs: 4_000,
+      isCorrect: null,
+      feedback: "응답 완료",
+      voiceDurationSeconds: 2,
+      audioBlob: new Blob(["new audio"], { type: "audio/webm" }),
+      sttStatus: "failed",
+    });
+
+    const oldObjectKey = storedAudioObjectKey(0);
+    const newObjectKey = storedAudioObjectKey(1);
+    expect(oldObjectKey).toMatch(/\/g-\d+-\d+\/D1_Q5-[A-Za-z0-9-]+\.webm$/);
+    expect(newObjectKey).toMatch(/\/g-\d+-\d+\/D1_Q5-[A-Za-z0-9-]+\.webm$/);
+    expect(newObjectKey).not.toBe(oldObjectKey);
+    expect(audioMocks.delete).toHaveBeenCalledWith(oldObjectKey);
+    expect(audioMocks.delete).not.toHaveBeenCalledWith(newObjectKey);
+    expect(recreatedWrite?.response).toEqual(
+      expect.objectContaining({
+        input_mode: "voice",
+        audio_storage: expect.objectContaining({ object_key: newObjectKey }),
+      }),
+    );
+    expect(JSON.stringify(getHaruAdminUsageRecord())).not.toContain("삭제 전 원문");
+  });
+
+  it("purges a record when consent changes during the localStorage write", async () => {
+    const exercise = scenario("D1_Q1").exercise;
+    presentHaruAdminQuestion(1, exercise, "ko");
+    const originalSetItem = Storage.prototype.setItem;
+    let injectedWithdrawal = false;
+    const setItem = vi
+      .spyOn(Storage.prototype, "setItem")
+      .mockImplementation(function (this: Storage, key: string, value: string) {
+        originalSetItem.call(this, key, value);
+        if (
+          key === HARU_ADMIN_USAGE_RECORD_STORAGE_KEY &&
+          value.includes('"response_id":"RES-D1_Q1"') &&
+          !injectedWithdrawal
+        ) {
+          injectedWithdrawal = true;
+          updateHaruConsent({ longitudinalUsageStorage: false });
+        }
+      });
+
+    try {
+      const result = await recordHaruAdminResponse(1, exercise, "ko", {
+        questionId: "D1_Q1",
+        responseType: "single_choice",
+        selectedOptionId: "A",
+        responseTimeMs: 1_000,
+        isCorrect: null,
+        feedback: "응답 완료",
+      });
+
+      expect(result).toBeNull();
+      expect(getHaruAdminUsageRecord()).toBeNull();
+      expect(getHaruRagDeletionOutbox()).toEqual([
+        expect.objectContaining({ userId: "USR-000001" }),
+      ]);
+    } finally {
+      setItem.mockRestore();
+    }
   });
 
   it("clears raw metadata and IndexedDB audio together", async () => {
@@ -557,14 +761,223 @@ describe("haruAdminUsageRecordStorage", () => {
     ]);
   });
 
-  it("keeps raw metadata when IndexedDB audio deletion is blocked", async () => {
+  it("blocks record recreation until an in-progress deletion finishes", async () => {
+    let releaseAudioDeletion: (() => void) | undefined;
+    audioMocks.clear.mockReturnValueOnce(
+      new Promise<undefined>((resolve) => {
+        releaseAudioDeletion = () => resolve(undefined);
+      }),
+    );
+    startHaruAdminUsageSession(1);
+
+    const deletion = clearHaruAdminUsageRecords();
+    await vi.waitFor(() => expect(audioMocks.clear).toHaveBeenCalledTimes(1));
+    expect(getHaruAdminUsageRecord()).toBeNull();
+    expect(presentHaruAdminQuestion(1, scenario("D1_Q1").exercise, "ko")).toBeNull();
+    expect(getHaruAdminUsageRecord()).toBeNull();
+
+    releaseAudioDeletion?.();
+    await deletion;
+
+    expect(presentHaruAdminQuestion(1, scenario("D1_Q1").exercise, "ko")).not.toBeNull();
+  });
+
+  it("blocks second-realm STT enqueue through the final audio database purge", async () => {
+    let releaseAudioDeletion: (() => void) | undefined;
+    audioMocks.clear.mockReturnValueOnce(
+      new Promise<undefined>((resolve) => {
+        releaseAudioDeletion = () => resolve(undefined);
+      }),
+    );
+    startHaruAdminUsageSession(1);
+
+    const deletion = clearHaruAdminUsageRecords();
+    await vi.waitFor(() => expect(audioMocks.clear).toHaveBeenCalledTimes(1));
+    expect(
+      localStorage.getItem(HARU_ADMIN_DELETION_FENCE_STORAGE_KEY),
+    ).not.toBeNull();
+    expect(
+      localStorage.getItem(STT_JOB_GLOBAL_CLEAR_FENCE_STORAGE_KEY),
+    ).toBeNull();
+    const audioStoreCalls = audioMocks.store.mock.calls.length;
+
+    await expect(
+      enqueueSttJob(
+        new Blob([new Uint8Array([1, 2, 3])], { type: "audio/webm" }),
+        { kind: "speech-repeat", routineResultId: "remote-during-purge" },
+        { createId: () => "remote-during-purge" },
+      ),
+    ).resolves.toBeNull();
+    expect(audioMocks.store).toHaveBeenCalledTimes(audioStoreCalls);
+    expect(getSttJobQueue()).toEqual([]);
+
+    releaseAudioDeletion?.();
+    await deletion;
+
+    expect(getSttJobQueue()).toEqual([]);
+    expect(
+      localStorage.getItem(HARU_ADMIN_DELETION_FENCE_STORAGE_KEY),
+    ).toBeNull();
+  });
+
+  it("drains a durable write intent from another realm before final deletion", async () => {
+    const remoteIntentKey = `${HARU_ADMIN_WRITE_INTENT_STORAGE_PREFIX}remote-pending`;
+    startHaruAdminUsageSession(1);
+    const remoteRecordSnapshot = localStorage.getItem(
+      HARU_ADMIN_USAGE_RECORD_STORAGE_KEY,
+    );
+    expect(remoteRecordSnapshot).not.toBeNull();
+    localStorage.setItem(
+      remoteIntentKey,
+      JSON.stringify({
+        version: 1,
+        intentId: "remote-pending",
+        ownerRealmId: "remote-realm",
+        kind: "audio",
+        writeEpoch: "0:0",
+        createdAt: new Date().toISOString(),
+      }),
+    );
+
+    const deletion = clearHaruAdminUsageRecords();
+    await vi.waitFor(() =>
+      expect(
+        localStorage.getItem(HARU_ADMIN_DELETION_FENCE_STORAGE_KEY),
+      ).not.toBeNull(),
+    );
+    await Promise.resolve();
+    expect(audioMocks.clear).not.toHaveBeenCalled();
+
+    localStorage.setItem(
+      HARU_ADMIN_USAGE_RECORD_STORAGE_KEY,
+      remoteRecordSnapshot!,
+    );
+    localStorage.removeItem(remoteIntentKey);
+    await deletion;
+
+    expect(audioMocks.clear).toHaveBeenCalledTimes(1);
+    expect(getHaruAdminUsageRecord()).toBeNull();
+    expect(localStorage.getItem(HARU_ADMIN_DELETION_FENCE_STORAGE_KEY)).toBeNull();
+  });
+
+  it("blocks second-realm record writes while a durable deletion fence exists", () => {
+    localStorage.setItem(
+      HARU_ADMIN_DELETION_FENCE_STORAGE_KEY,
+      JSON.stringify({
+        version: 1,
+        token: "remote-fence",
+        ownerRealmId: "remote-realm",
+        kind: "clear",
+        createdAt: new Date().toISOString(),
+      }),
+    );
+
+    expect(startHaruAdminUsageSession(1)).toBeNull();
+    expect(getHaruAdminUsageRecord()).toBeNull();
+  });
+
+  it("keeps a durable audio intent until a fenced in-flight store is neutralized", async () => {
+    let releaseStore: ((status: "stored") => void) | undefined;
+    audioMocks.store.mockReturnValueOnce(
+      new Promise<"stored">((resolve) => {
+        releaseStore = resolve;
+      }),
+    );
+    const exercise = scenario("D1_Q5").exercise;
+    presentHaruAdminQuestion(1, exercise, "ko");
+    const pendingWrite = recordHaruAdminResponse(1, exercise, "ko", {
+      questionId: "D1_Q5",
+      responseType: "voice",
+      responseTimeMs: 5_000,
+      isCorrect: null,
+      feedback: "응답 완료",
+      voiceDurationSeconds: 3,
+      audioBlob: new Blob(["old audio"], { type: "audio/webm" }),
+      sttStatus: "failed",
+    });
+    await vi.waitFor(() => expect(audioMocks.store).toHaveBeenCalledTimes(1));
+    const intentKey = Array.from({ length: localStorage.length }, (_, index) =>
+      localStorage.key(index),
+    ).find((key) => key?.startsWith(HARU_ADMIN_WRITE_INTENT_STORAGE_PREFIX));
+    expect(intentKey).toEqual(expect.any(String));
+
+    localStorage.setItem(
+      HARU_ADMIN_DELETION_FENCE_STORAGE_KEY,
+      JSON.stringify({
+        version: 1,
+        token: "remote-fence",
+        ownerRealmId: "remote-realm",
+        kind: "clear",
+        createdAt: new Date().toISOString(),
+      }),
+    );
+    releaseStore?.("stored");
+
+    expect(await pendingWrite).toBeNull();
+    expect(audioMocks.delete).toHaveBeenCalledWith(storedAudioObjectKey());
+    expect(localStorage.getItem(intentKey!)).toBeNull();
+  });
+
+  it("fails closed and retains the fence for a stale foreign write intent", async () => {
+    localStorage.setItem(
+      `${HARU_ADMIN_WRITE_INTENT_STORAGE_PREFIX}stale-remote`,
+      JSON.stringify({
+        version: 1,
+        intentId: "stale-remote",
+        ownerRealmId: "closed-realm",
+        kind: "record",
+        writeEpoch: "0:0",
+        createdAt: "1970-01-01T00:00:00.000Z",
+      }),
+    );
+
+    await expect(clearHaruAdminUsageRecords()).rejects.toThrow(
+      "haru-admin-write-intent-stale",
+    );
+    expect(
+      localStorage.getItem(HARU_ADMIN_DELETION_FENCE_STORAGE_KEY),
+    ).not.toBeNull();
+    expect(audioMocks.clear).not.toHaveBeenCalled();
+  });
+
+  it("queues the stable remote deletion even when no local record remains", async () => {
+    expect(getHaruAdminUsageRecord()).toBeNull();
+
+    await clearHaruAdminUsageRecords();
+
+    expect(getHaruRagDeletionOutbox()).toEqual([
+      expect.objectContaining({ userId: "USR-000001" }),
+    ]);
+  });
+
+  it("reports incomplete deletion when verified local record removal fails", async () => {
+    startHaruAdminUsageSession(1);
+    const originalRemoveItem = Storage.prototype.removeItem;
+    const removeSpy = vi
+      .spyOn(Storage.prototype, "removeItem")
+      .mockImplementation(function (this: Storage, key) {
+        if (key === HARU_ADMIN_USAGE_RECORD_STORAGE_KEY) return;
+        originalRemoveItem.call(this, key);
+      });
+
+    await expect(clearHaruAdminUsageRecords()).rejects.toThrow(
+      "haru-admin-clear-incomplete",
+    );
+    expect(localStorage.getItem(HARU_ADMIN_USAGE_RECORD_STORAGE_KEY)).not.toBeNull();
+    expect(getHaruRagDeletionOutbox()).toEqual([
+      expect.objectContaining({ userId: "USR-000001" }),
+    ]);
+    removeSpy.mockRestore();
+  });
+
+  it("removes raw metadata even when IndexedDB audio deletion is blocked", async () => {
     startHaruAdminUsageSession(1);
     audioMocks.clear.mockRejectedValueOnce(new Error("indexeddb-delete-database-blocked"));
 
     await expect(clearHaruAdminUsageRecords()).rejects.toThrow(
       "indexeddb-delete-database-blocked",
     );
-    expect(getHaruAdminUsageRecord()).not.toBeNull();
+    expect(getHaruAdminUsageRecord()).toBeNull();
   });
 
   it("does not create raw records after longitudinal storage consent is withdrawn", () => {
@@ -602,6 +1015,79 @@ describe("haruAdminUsageRecordStorage", () => {
         derived_annotations: expect.objectContaining({ status: "empty", items: [] }),
       }),
     );
+  });
+
+  it("scrubs retained voice audio and transcript after runtime consent withdrawal", async () => {
+    const exercise = scenario("D1_Q5").exercise;
+    presentHaruAdminQuestion(1, exercise, "ko");
+    await recordHaruAdminResponse(1, exercise, "ko", {
+      questionId: "D1_Q5",
+      responseType: "voice",
+      responseTimeMs: 5_000,
+      isCorrect: null,
+      feedback: "응답 완료",
+      voiceDurationSeconds: 3,
+      audioBlob: new Blob(["audio"], { type: "audio/webm" }),
+      sttStatus: "completed",
+      sttEngine: "qwen3-asr",
+      sttModel: "Qwen/Qwen3-ASR-1.7B",
+      rawUserUtteranceTranscript: "철회 후 지워질 원문",
+      derivedAnnotations: [{ entityType: "인물", value: "철회 대상" }],
+    });
+
+    updateHaruConsent({ sttProcessing: false });
+    await scrubHaruAdminVoiceData();
+
+    expect(audioMocks.clear).toHaveBeenCalledTimes(1);
+    expect(getHaruSttRetryOutbox()).toHaveLength(0);
+    const record = getHaruAdminUsageRecord();
+    expect(record?.user.consents.stt_processing).toBe(false);
+    const response = record?.sessions[0].question_records[0].response;
+    expect(response).toEqual(
+      expect.objectContaining({
+        input_mode: "voice",
+        raw_user_utterance_transcript: null,
+        audio_storage: expect.objectContaining({ retention_status: "not_stored" }),
+        stt: expect.objectContaining({
+          status: "failed",
+          transcript: null,
+          model: null,
+          segments: [],
+        }),
+        derived_annotations: expect.objectContaining({ status: "empty", items: [] }),
+      }),
+    );
+    expect(JSON.stringify(record)).not.toContain("철회 후 지워질 원문");
+    expect(JSON.stringify(record)).not.toContain("철회 대상");
+  });
+
+  it("scrubs transcript before reporting blocked audio deletion", async () => {
+    const exercise = scenario("D1_Q5").exercise;
+    presentHaruAdminQuestion(1, exercise, "ko");
+    await recordHaruAdminResponse(1, exercise, "ko", {
+      questionId: "D1_Q5",
+      responseType: "voice",
+      responseTimeMs: 5_000,
+      isCorrect: null,
+      feedback: "응답 완료",
+      voiceDurationSeconds: 3,
+      audioBlob: new Blob(["audio"], { type: "audio/webm" }),
+      sttStatus: "completed",
+      rawUserUtteranceTranscript: "먼저 지워질 원문",
+    });
+    updateHaruConsent({ sttProcessing: false });
+    audioMocks.clear.mockRejectedValueOnce(
+      new Error("indexeddb-delete-database-blocked"),
+    );
+
+    await expect(scrubHaruAdminVoiceData()).rejects.toThrow(
+      "indexeddb-delete-database-blocked",
+    );
+
+    const persisted = localStorage.getItem(HARU_ADMIN_USAGE_RECORD_STORAGE_KEY) ?? "";
+    expect(persisted).not.toContain("먼저 지워질 원문");
+    expect(getHaruAdminUsageRecord()?.user.consents.stt_processing).toBe(false);
+    expect(getHaruSttRetryOutbox()).toHaveLength(0);
   });
 
   it("ignores malformed storage without throwing", () => {

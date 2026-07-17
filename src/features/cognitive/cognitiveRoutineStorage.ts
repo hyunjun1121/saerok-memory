@@ -1,4 +1,5 @@
-import { readJsonArray, removeKey, writeJson } from "@/utils/safeStorage";
+import { getHaruConsent } from "@/features/profile/haruConsentStorage";
+import { readJsonArray, writeJson } from "@/utils/safeStorage";
 
 export type RoutineType =
   | "delayed_word_recall"
@@ -20,8 +21,40 @@ export interface RoutineResult {
 }
 
 const STORAGE_KEY = "cognitiveRoutineResults";
+export const COGNITIVE_ROUTINE_RESULTS_UPDATED_EVENT =
+  "haru:cognitive-routine-results-updated";
 const MAX_RESULTS = 4_000;
 const RETENTION_MS = 365 * 24 * 60 * 60 * 1_000;
+
+const VOICE_ROUTINE_TYPES = new Set<RoutineType>([
+  "verbal_fluency_practice",
+  "speech_repeat_practice",
+]);
+
+const VOICE_DERIVED_METADATA_KEYS = new Set([
+  "entries",
+  "uniquecount",
+  "repetitioncount",
+  "wordcount",
+  "speechdurationms",
+  "recognitionerror",
+  "inputmode",
+  "audioasseturl",
+  "audioobjectkey",
+  "sampleratehz",
+  "channels",
+  "engine",
+  "model",
+  "modelrevision",
+  "alignermodel",
+  "alignerrevision",
+  "preprocessingversion",
+  "segments",
+  "language",
+  "confidence",
+  "nospeech",
+  "derivedannotations",
+]);
 
 const ROUTINE_TYPES = new Set<RoutineType>([
   "delayed_word_recall",
@@ -68,6 +101,70 @@ function compactPersistedValue(value: unknown): unknown {
   return compact;
 }
 
+function scrubVoiceDerivedValue(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(scrubVoiceDerivedValue);
+  if (!isRecord(value)) return value;
+
+  const scrubbed: Record<string, unknown> = {};
+  Object.entries(value).forEach(([key, nestedValue]) => {
+    const normalizedKey = key.toLowerCase();
+    if (
+      VOICE_DERIVED_METADATA_KEYS.has(normalizedKey) ||
+      normalizedKey.startsWith("stt") ||
+      normalizedKey.includes("transcript") ||
+      normalizedKey.includes("similarity") ||
+      normalizedKey.startsWith("recognized") ||
+      normalizedKey.includes("pronunciation")
+    ) {
+      return;
+    }
+    scrubbed[key] = scrubVoiceDerivedValue(nestedValue);
+  });
+  return scrubbed;
+}
+
+function notifyRoutineResultsChanged(): void {
+  if (typeof window === "undefined") return;
+  window.dispatchEvent(new Event(COGNITIVE_ROUTINE_RESULTS_UPDATED_EVENT));
+}
+
+function clearPersistedResults(notifyWhenAlreadyEmpty = false): boolean {
+  try {
+    if (typeof window === "undefined" || !window.localStorage) return false;
+    const hadPersistedResults = window.localStorage.getItem(STORAGE_KEY) !== null;
+    window.localStorage.removeItem(STORAGE_KEY);
+    const removed = window.localStorage.getItem(STORAGE_KEY) === null;
+    if (removed && (hadPersistedResults || notifyWhenAlreadyEmpty)) {
+      notifyRoutineResultsChanged();
+    }
+    return removed;
+  } catch {
+    return false;
+  }
+}
+
+function persistRoutineResults(results: readonly RoutineResult[]): boolean {
+  const saved = writeJson(STORAGE_KEY, results);
+  if (saved) notifyRoutineResultsChanged();
+  return saved;
+}
+
+export function subscribeToCognitiveRoutineResults(
+  listener: () => void,
+): () => void {
+  if (typeof window === "undefined") return () => undefined;
+  const onLocalUpdate = () => listener();
+  const onStorage = (event: StorageEvent) => {
+    if (event.key === STORAGE_KEY || event.key === null) listener();
+  };
+  window.addEventListener(COGNITIVE_ROUTINE_RESULTS_UPDATED_EVENT, onLocalUpdate);
+  window.addEventListener("storage", onStorage);
+  return () => {
+    window.removeEventListener(COGNITIVE_ROUTINE_RESULTS_UPDATED_EVENT, onLocalUpdate);
+    window.removeEventListener("storage", onStorage);
+  };
+}
+
 function isRoutineResult(value: unknown): value is RoutineResult {
   if (!isRecord(value)) return false;
   return (
@@ -99,28 +196,82 @@ function retainRecentResults(results: RoutineResult[], nowMs = Date.now()): Rout
 }
 
 export function getCognitiveRoutineResults(): RoutineResult[] {
+  if (!getHaruConsent().longitudinalUsageStorage) {
+    clearPersistedResults();
+    return [];
+  }
   const results = readJsonArray<unknown>(STORAGE_KEY)
     .filter(isRoutineResult)
     .map(compactResult);
   return retainRecentResults(results);
 }
 
-export function saveCognitiveRoutineResult(result: Omit<RoutineResult, "id" | "timestamp"> & Partial<Pick<RoutineResult, "timestamp">>): void {
+export function saveCognitiveRoutineResult(
+  result: Omit<RoutineResult, "id" | "timestamp"> &
+    Partial<Pick<RoutineResult, "timestamp">>,
+): string | null {
+  if (!getHaruConsent().longitudinalUsageStorage) {
+    clearPersistedResults();
+    return null;
+  }
   const results = getCognitiveRoutineResults();
 
   const newResult: RoutineResult = {
     id: `routine_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`,
     timestamp: result.timestamp || new Date().toISOString(),
-    ...result
+    ...result,
   };
 
   results.push(compactResult(newResult));
 
-  writeJson(STORAGE_KEY, retainRecentResults(results));
+  return persistRoutineResults(retainRecentResults(results)) ? newResult.id : null;
 }
 
-export function clearCognitiveRoutineResults(): void {
-  removeKey(STORAGE_KEY);
+/**
+ * Merge background-derived metadata into one existing routine record.
+ * Missing ids are deliberately not upserted: a delayed STT job must never
+ * recreate a record the learner deleted while transcription was pending.
+ */
+export function patchCognitiveRoutineResultById(
+  id: string,
+  metadataPatch: Record<string, unknown>,
+): boolean {
+  if (!id) return false;
+  if (!getHaruConsent().longitudinalUsageStorage) {
+    clearPersistedResults();
+    return false;
+  }
+  const results = getCognitiveRoutineResults();
+  const index = results.findIndex((result) => result.id === id);
+  if (index < 0) return false;
+
+  results[index] = compactResult({
+    ...results[index],
+    metadata: {
+      ...(results[index].metadata ?? {}),
+      ...metadataPatch,
+    },
+  });
+  return persistRoutineResults(retainRecentResults(results));
+}
+
+export function clearCognitiveRoutineResults(): boolean {
+  return clearPersistedResults(true);
+}
+
+export function scrubCognitiveVoiceData(): boolean {
+  if (!getHaruConsent().longitudinalUsageStorage) {
+    return clearPersistedResults();
+  }
+
+  const results = getCognitiveRoutineResults().map((result) => {
+    if (!VOICE_ROUTINE_TYPES.has(result.type) || !result.metadata) return result;
+    return {
+      ...result,
+      metadata: scrubVoiceDerivedValue(result.metadata) as Record<string, unknown>,
+    };
+  });
+  return persistRoutineResults(retainRecentResults(results));
 }
 
 /**

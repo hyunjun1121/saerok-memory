@@ -1,11 +1,13 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { act, render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { SpeechRepeatPractice } from '@/features/lessons/exerciseTypes/SpeechRepeatPractice';
 import { getCognitiveRoutineResults, clearCognitiveRoutineResults } from '@/features/cognitive/cognitiveRoutineStorage';
 import { HARU_DEMO_PERSONA } from '@/data/haru7DayExercises';
+import { updateHaruConsent } from '@/features/profile/haruConsentStorage';
 import '@/i18n';
 
 const mocks = vi.hoisted(() => ({
+  enqueue: vi.fn(async () => "job-speech" as string | null),
   transcribe: vi.fn(),
   recorder: {
     isSupported: false,
@@ -31,6 +33,9 @@ vi.mock('@/features/speech/stt', () => ({
   formatSttEngine: (result: { modelRevision: string }) =>
     `qwen3-asr:Qwen/Qwen3-ASR-1.7B@${result.modelRevision}`,
 }));
+vi.mock('@/features/speech/sttJobQueue', () => ({
+  enqueueSttJob: mocks.enqueue,
+}));
 
 function setConsent(key: 'voiceRecording' | 'sttProcessing', value: boolean): void {
   Object.defineProperty(HARU_DEMO_PERSONA.consents, key, {
@@ -46,11 +51,18 @@ describe('SpeechRepeatPractice', () => {
     localStorage.clear();
     clearCognitiveRoutineResults();
     mocks.transcribe.mockReset();
+    mocks.enqueue.mockResolvedValue('job-speech');
     mocks.recorder.isSupported = false;
     mocks.recorder.getDurationMs.mockReturnValue(0);
     mocks.recorder.stopAndGetBlob.mockResolvedValue(null);
     setConsent('voiceRecording', true);
     setConsent('sttProcessing', true);
+    Object.defineProperty(HARU_DEMO_PERSONA.consents, 'longitudinalUsageStorage', {
+      configurable: true,
+      writable: true,
+      value: true,
+    });
+    mocks.recorder.isRecording = false;
 
     // Mock speech APIs as unavailable for this test
     Object.defineProperty(window, 'speechSynthesis', {
@@ -105,7 +117,7 @@ describe('SpeechRepeatPractice', () => {
     );
   });
 
-  it('stores Qwen transcript and engine metadata for recorded speech', async () => {
+  it('stores a pending record and queues Qwen work without foreground transcription', async () => {
     mocks.recorder.isSupported = true;
     mocks.recorder.getDurationMs.mockReturnValue(3200);
     mocks.recorder.stopAndGetBlob.mockResolvedValue(
@@ -138,23 +150,22 @@ describe('SpeechRepeatPractice', () => {
     fireEvent.click(screen.getByRole('button', { name: '다 말했습니다' }));
 
     await waitFor(() => expect(getCognitiveRoutineResults()).toHaveLength(1));
-    expect(mocks.transcribe).toHaveBeenCalledTimes(1);
+    expect(mocks.transcribe).not.toHaveBeenCalled();
     const result = getCognitiveRoutineResults()[0];
+    expect(mocks.enqueue).toHaveBeenCalledWith(
+      expect.any(Blob),
+      { kind: 'speech-repeat', routineResultId: result.id },
+    );
     expect(result.metadata).toEqual(
       expect.objectContaining({
-        transcript: '테스트 문장',
-        sttStatus: 'completed',
-        sttConfidence: null,
-        sttEngine: 'qwen3-asr:Qwen/Qwen3-ASR-1.7B@revision',
-        sttModel: 'Qwen/Qwen3-ASR-1.7B',
-        sttModelRevision: 'revision',
-        sttAlignerRevision: 'aligner-revision',
-        sttPreprocessingVersion: 'haru-dc-hp80-rms-v1',
+        transcript: '',
+        sttStatus: 'pending',
+        recognitionError: 'stt-pending',
       }),
     );
   });
 
-  it('does not persist Qwen filler when the backend reports no speech', async () => {
+  it('marks the pending record failed when durable queueing fails', async () => {
     mocks.recorder.isSupported = true;
     mocks.recorder.stopAndGetBlob.mockResolvedValue(
       new Blob(['silence'], { type: 'audio/webm' }),
@@ -173,6 +184,7 @@ describe('SpeechRepeatPractice', () => {
       preprocessingVersion: 'haru-dc-hp80-rms-v1',
       segments: [{ id: 0, start: 0, end: 0.2, text: '그러니까' }],
     });
+    mocks.enqueue.mockResolvedValue(null);
     render(
       <SpeechRepeatPractice
         prompt="따라 말해보세요"
@@ -190,10 +202,10 @@ describe('SpeechRepeatPractice', () => {
     expect(metadata).toEqual(
       expect.objectContaining({
         transcript: '',
-        inputMode: 'skipped',
+        inputMode: 'speech',
         sttStatus: 'failed',
-        sttNoSpeech: true,
-        recognitionError: 'no-speech',
+        sttNoSpeech: false,
+        recognitionError: 'stt-queue-failed',
         sttSegments: [],
         pronunciationSimilarity: null,
       }),
@@ -228,4 +240,90 @@ describe('SpeechRepeatPractice', () => {
       expect(getCognitiveRoutineResults()[0].metadata?.transcript).toBe('');
     },
   );
+
+  it('stops active capture and persists no audio after live consent withdrawal', async () => {
+    mocks.recorder.isSupported = true;
+    mocks.recorder.isRecording = true;
+    render(
+      <SpeechRepeatPractice
+        prompt="따라 말해보세요"
+        phrase="테스트 문장"
+        onComplete={vi.fn()}
+        setGlobalState={vi.fn()}
+        globalState="awaiting_answer"
+      />,
+    );
+
+    act(() => {
+      updateHaruConsent({ voiceRecording: false });
+    });
+
+    await waitFor(() => expect(mocks.recorder.stop).toHaveBeenCalledTimes(1));
+    fireEvent.click(screen.getByRole('button', { name: '다 말했습니다' }));
+    await waitFor(() => expect(getCognitiveRoutineResults()).toHaveLength(1));
+
+    expect(mocks.recorder.stopAndGetBlob).not.toHaveBeenCalled();
+    expect(mocks.enqueue).not.toHaveBeenCalled();
+    expect(getCognitiveRoutineResults()[0].metadata).toEqual(
+      expect.objectContaining({
+        inputMode: 'skipped',
+        audioAssetUrl: null,
+        listeningDurationMs: 0,
+        sttStatus: 'failed',
+      }),
+    );
+  });
+
+  it('permanently discards a capture revoked during finalization after quick re-consent', async () => {
+    let resolveBlob!: (blob: Blob | null) => void;
+    mocks.recorder.isSupported = true;
+    mocks.recorder.isRecording = true;
+    mocks.recorder.audioAssetUrl = 'blob:revoked-repeat';
+    mocks.recorder.getDurationMs.mockReturnValue(3_200);
+    mocks.recorder.stopAndGetBlob.mockReturnValueOnce(
+      new Promise((resolve) => {
+        resolveBlob = resolve;
+      }),
+    );
+
+    render(
+      <SpeechRepeatPractice
+        prompt="따라 말해보세요"
+        phrase="테스트 문장"
+        onComplete={vi.fn()}
+        setGlobalState={vi.fn()}
+        globalState="awaiting_answer"
+      />,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: '다 말했습니다' }));
+    await waitFor(() => expect(mocks.recorder.stopAndGetBlob).toHaveBeenCalledTimes(1));
+
+    act(() => {
+      updateHaruConsent({ voiceRecording: false });
+    });
+    await waitFor(() => expect(mocks.recorder.stop).toHaveBeenCalledTimes(1));
+
+    mocks.recorder.isRecording = false;
+    act(() => {
+      updateHaruConsent({ voiceRecording: true });
+    });
+    fireEvent.click(screen.getByRole('button', { name: '말하기 시작' }));
+    expect(mocks.recorder.start).toHaveBeenCalledTimes(1);
+
+    await act(async () => {
+      resolveBlob(new Blob(['revoked-repeat'], { type: 'audio/webm' }));
+    });
+
+    await waitFor(() => expect(getCognitiveRoutineResults()).toHaveLength(1));
+    expect(getCognitiveRoutineResults()[0].metadata).toEqual(
+      expect.objectContaining({
+        inputMode: 'skipped',
+        audioAssetUrl: null,
+        listeningDurationMs: 0,
+        sttStatus: 'failed',
+      }),
+    );
+    expect(mocks.enqueue).not.toHaveBeenCalled();
+  });
 });
