@@ -1,8 +1,11 @@
 from __future__ import annotations
 
+import atexit
 import hashlib
 import os
+import shutil
 import sys
+import tempfile
 from pathlib import Path
 
 import numpy as np
@@ -11,7 +14,9 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-os.environ["DATABASE_URL"] = f"sqlite:///{(ROOT / 'data' / 'test_haru.db').as_posix()}"
+TEST_DATABASE_DIR = Path(tempfile.mkdtemp(prefix="haru-rag-tests-"))
+atexit.register(shutil.rmtree, TEST_DATABASE_DIR, True)
+os.environ["DATABASE_URL"] = f"sqlite:///{(TEST_DATABASE_DIR / 'test_haru.db').as_posix()}"
 os.environ["NEO4J_ENABLED"] = "false"
 os.environ["RAG_API_TOKEN"] = "test-local-token"
 
@@ -22,8 +27,10 @@ from app.services.embedding import EmbeddingService, set_embedding_service_for_t
 class FakeEncoder:
     def __init__(self) -> None:
         self.calls: list[str] = []
+        self.batches: list[list[str]] = []
 
     def encode(self, sentences: list[str], *, normalize_embeddings: bool):
+        self.batches.append(list(sentences))
         self.calls.extend(sentences)
         vectors = []
         for sentence in sentences:

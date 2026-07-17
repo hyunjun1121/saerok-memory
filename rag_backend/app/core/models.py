@@ -8,7 +8,9 @@ from sqlalchemy import (
     DateTime,
     Float,
     ForeignKey,
+    Index,
     Integer,
+    LargeBinary,
     String,
     Text,
     UniqueConstraint,
@@ -86,6 +88,7 @@ class Episode(Base):
     embedding: Mapped[list] = mapped_column(JSON, default=list)
     embedding_model: Mapped[str] = mapped_column(String)
     embedding_revision: Mapped[str] = mapped_column(String)
+    source_hash: Mapped[str | None] = mapped_column(String(64), nullable=True)
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
 
     __table_args__ = (
@@ -96,6 +99,18 @@ class Episode(Base):
             "question_id",
             "response_id",
             name="uq_episode_scope",
+        ),
+        Index(
+            "ix_episode_user_date",
+            "user_id",
+            "occurred_at",
+        ),
+        Index(
+            "ix_episode_search_scope",
+            "user_id",
+            "embedding_model",
+            "embedding_revision",
+            "sensitive",
         ),
     )
 
@@ -199,10 +214,28 @@ class CanonicalSnapshot(Base):
     body_sha256: Mapped[str] = mapped_column(String(64), index=True)
     content_hash_header: Mapped[str | None] = mapped_column(String, nullable=True)
     payload: Mapped[dict] = mapped_column(JSON)
+    raw_payload_gzip: Mapped[bytes | None] = mapped_column(LargeBinary, nullable=True)
+    raw_size_bytes: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    raw_sha256: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    storage_format: Mapped[str] = mapped_column(
+        String(32), default="byte_exact", server_default="legacy_structural"
+    )
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
 
     __table_args__ = (
         UniqueConstraint(
             "user_id", "dataset_id", "body_sha256", name="uq_canonical_snapshot"
         ),
+        Index("ix_snapshot_user_created", "user_id", "created_at"),
     )
+
+
+class DeletionTombstone(Base):
+    """Blocks stale clients from resurrecting data after a completed deletion."""
+
+    __tablename__ = "deletion_tombstones"
+
+    user_id: Mapped[str] = mapped_column(String, primary_key=True)
+    generation: Mapped[int] = mapped_column(Integer, default=1)
+    active: Mapped[bool] = mapped_column(Boolean, default=True, server_default="1")
+    deleted_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)

@@ -4,8 +4,9 @@ import json
 import re
 from typing import Any
 
-from fastapi import APIRouter, Body, Depends, Header, HTTPException, status
+from fastapi import APIRouter, Depends, Header, HTTPException, Request, Response, status
 from pydantic import ValidationError
+from starlette.concurrency import run_in_threadpool
 
 from app.core.config import settings
 from app.core.schemas import (
@@ -19,6 +20,8 @@ from app.services.deletion import delete_user_data
 from app.services.embedding import EmbeddingUnavailable, get_embedding_service
 from app.services.ingestion import (
     ConsentRequired,
+    DeletedUserConflict,
+    DerivedDataPurgeIncomplete,
     IdempotencyConflict,
     ingest_payload,
     ingest_seed_if_empty,
@@ -26,6 +29,7 @@ from app.services.ingestion import (
 from app.services.qa import answer
 from app.services.query import (
     canonical_snapshot,
+    canonical_snapshot_bytes,
     canonical_snapshots,
     evidence,
     galaxy,
@@ -54,16 +58,33 @@ def _validated_opaque_header(value: str | None, *, name: str, maximum: int) -> s
     response_model=IngestResponse,
     dependencies=[Depends(require_ingest_token)],
 )
-def ingest_json(
-    payload: dict[str, Any] = Body(...),
+async def ingest_json(
+    request: Request,
     idempotency_key: str | None = Header(default=None, alias="Idempotency-Key"),
     content_hash: str | None = Header(default=None, alias="X-Haru-Content-Hash"),
+    sync_generation: int | None = Header(default=None, alias="X-Haru-Sync-Generation"),
+    reenroll: bool = Header(default=False, alias="X-Haru-Reenroll"),
 ):
-    encoded_size = len(
-        json.dumps(payload, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
-    )
-    if encoded_size > settings.max_json_bytes:
-        raise HTTPException(status_code=413, detail="json_too_large")
+    content_type = request.headers.get("content-type", "").partition(";")[0].strip().lower()
+    if content_type != "application/json":
+        raise HTTPException(status_code=415, detail="application_json_required")
+    if sync_generation is not None and sync_generation < 0:
+        raise HTTPException(status_code=400, detail="invalid_sync_generation")
+    chunks: list[bytes] = []
+    encoded_size = 0
+    async for chunk in request.stream():
+        encoded_size += len(chunk)
+        if encoded_size > settings.max_json_bytes:
+            raise HTTPException(status_code=413, detail="json_too_large")
+        chunks.append(chunk)
+    raw_body = b"".join(chunks)
+    try:
+        decoded = json.loads(raw_body.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise HTTPException(status_code=422, detail="invalid_json") from exc
+    if not isinstance(decoded, dict):
+        raise HTTPException(status_code=422, detail="json_object_required")
+    payload: dict[str, Any] = decoded
     try:
         UsageRecordPayload.model_validate(payload)
     except ValidationError as exc:
@@ -83,15 +104,23 @@ def ingest_json(
         maximum=160,
     )
     try:
-        return ingest_payload(
+        return await run_in_threadpool(
+            ingest_payload,
             payload,
             idempotency_key=key,
             content_hash_header=supplied_hash,
+            raw_body=raw_body,
+            sync_generation=sync_generation,
+            reenroll=reenroll,
         )
     except IdempotencyConflict as exc:
         raise HTTPException(status_code=409, detail=str(exc)) from exc
     except ConsentRequired as exc:
         raise HTTPException(status_code=403, detail=str(exc)) from exc
+    except DeletedUserConflict as exc:
+        raise HTTPException(status_code=410, detail=str(exc)) from exc
+    except DerivedDataPurgeIncomplete as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
     except EmbeddingUnavailable as exc:
         raise HTTPException(status_code=503, detail=str(exc)) from exc
 
@@ -100,6 +129,12 @@ def ingest_json(
 def ingest_seed():
     try:
         return ingest_seed_if_empty()
+    except ConsentRequired as exc:
+        raise HTTPException(status_code=403, detail=str(exc)) from exc
+    except DeletedUserConflict as exc:
+        raise HTTPException(status_code=410, detail=str(exc)) from exc
+    except DerivedDataPurgeIncomplete as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
     except EmbeddingUnavailable as exc:
         raise HTTPException(status_code=503, detail=str(exc)) from exc
 
@@ -155,6 +190,22 @@ def get_snapshot(user_id: str, snapshot_id: str):
     if result is None:
         raise HTTPException(status_code=404, detail="snapshot_not_found")
     return result
+
+
+@router.get(
+    "/users/{user_id}/snapshots/{snapshot_id}/raw",
+    dependencies=[Depends(require_private_token)],
+)
+def get_raw_snapshot(user_id: str, snapshot_id: str):
+    result = canonical_snapshot_bytes(user_id, snapshot_id)
+    if result is None:
+        raise HTTPException(status_code=404, detail="snapshot_not_found")
+    raw_body, sha256 = result
+    return Response(
+        content=raw_body,
+        media_type="application/json",
+        headers={"X-Haru-Body-SHA256": sha256},
+    )
 
 
 @router.post("/users/{user_id}/qa", dependencies=[Depends(require_private_token)])

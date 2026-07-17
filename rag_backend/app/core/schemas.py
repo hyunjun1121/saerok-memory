@@ -140,3 +140,5 @@ class IngestResponse(BaseModel):
     idempotent_replay: bool
     projection: dict[str, Any]
     neo4j_synced: bool
+    neo4j_purged: bool = False
+    sync_generation: int = 0

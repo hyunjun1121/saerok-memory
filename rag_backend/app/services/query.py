@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import gzip
+from collections import defaultdict
+
 from sqlalchemy import select
 
 from app.core.database import SessionLocal
@@ -10,6 +13,7 @@ from app.core.models import (
     EventEntity,
     Projection,
     ReviewItem,
+    User,
 )
 from app.services.embedding import cosine, get_embedding_service
 
@@ -22,6 +26,20 @@ def _entity_rows(db, episode_id: str):
     ).all()
 
 
+def _entities_by_episode(db, episode_ids: list[str]) -> dict[str, list[tuple]]:
+    grouped: dict[str, list[tuple]] = defaultdict(list)
+    if not episode_ids:
+        return grouped
+    rows = db.execute(
+        select(EventEntity, Entity)
+        .join(Entity, Entity.id == EventEntity.entity_id)
+        .where(EventEntity.episode_id.in_(episode_ids))
+    ).all()
+    for link, entity in rows:
+        grouped[link.episode_id].append((link, entity))
+    return grouped
+
+
 def timeline(user_id: str) -> list[dict]:
     with SessionLocal() as db:
         episodes = list(
@@ -30,6 +48,9 @@ def timeline(user_id: str) -> list[dict]:
                 .where(Episode.user_id == user_id)
                 .order_by(Episode.occurred_at, Episode.id)
             )
+        )
+        entities_by_episode = _entities_by_episode(
+            db, [episode.id for episode in episodes]
         )
         return [
             {
@@ -50,7 +71,7 @@ def timeline(user_id: str) -> list[dict]:
                         "value": entity.value,
                         "relation": link.relation,
                     }
-                    for link, entity in _entity_rows(db, episode.id)
+                    for link, entity in entities_by_episode.get(episode.id, [])
                 ],
             }
             for episode in episodes
@@ -234,6 +255,9 @@ def canonical_snapshots(user_id: str) -> list[dict]:
                 "dataset_id": row.dataset_id,
                 "body_sha256": row.body_sha256,
                 "content_hash": row.content_hash_header,
+                "raw_sha256": row.raw_sha256,
+                "raw_size_bytes": row.raw_size_bytes,
+                "storage_format": row.storage_format,
                 "created_at": row.created_at.isoformat(),
             }
             for row in rows
@@ -250,9 +274,21 @@ def canonical_snapshot(user_id: str, snapshot_id: str) -> dict | None:
             "dataset_id": row.dataset_id,
             "body_sha256": row.body_sha256,
             "content_hash": row.content_hash_header,
+            "raw_sha256": row.raw_sha256,
+            "raw_size_bytes": row.raw_size_bytes,
+            "storage_format": row.storage_format,
             "created_at": row.created_at.isoformat(),
             "payload": row.payload,
         }
+
+
+def canonical_snapshot_bytes(user_id: str, snapshot_id: str) -> tuple[bytes, str] | None:
+    with SessionLocal() as db:
+        row = db.get(CanonicalSnapshot, snapshot_id)
+        if row is None or row.user_id != user_id or row.raw_payload_gzip is None:
+            return None
+        raw_body = gzip.decompress(row.raw_payload_gzip)
+        return raw_body, row.raw_sha256 or row.body_sha256
 
 
 def semantic_search(
@@ -264,8 +300,11 @@ def semantic_search(
     include_sensitive: bool = False,
 ) -> list[tuple[float, Episode]]:
     embedder = get_embedding_service()
-    query_vector = embedder.embed_query(text)
     with SessionLocal() as db:
+        user = db.get(User, user_id)
+        if user is None or user.consent.get("personalized_question_use") is not True:
+            return []
+        query_vector = embedder.embed_query(text)
         statement = select(Episode).where(
             Episode.user_id == user_id,
             Episode.embedding_model == embedder.model_id,

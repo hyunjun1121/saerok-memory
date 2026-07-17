@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from collections import Counter
+from collections import Counter, defaultdict
 
 from sqlalchemy import select
 
@@ -32,14 +32,18 @@ def answer(
     accepted_hits = [hit for hit in hits if hit[0] >= threshold]
 
     with SessionLocal() as db:
-        for score, episode in accepted_hits:
-            rows = db.execute(
+        episode_ids = [episode.id for _, episode in accepted_hits]
+        grouped_entities: dict[str, list[tuple]] = defaultdict(list)
+        if episode_ids:
+            for relation, entity in db.execute(
                 select(EventEntity, Entity)
                 .join(Entity, Entity.id == EventEntity.entity_id)
-                .where(EventEntity.episode_id == episode.id)
-            ).all()
+                .where(EventEntity.episode_id.in_(episode_ids))
+            ).all():
+                grouped_entities[relation.episode_id].append((relation, entity))
+        for score, episode in accepted_hits:
             entities = []
-            for relation, entity in rows:
+            for relation, entity in grouped_entities.get(episode.id, []):
                 entities.append(
                     {
                         "type": entity.entity_type,

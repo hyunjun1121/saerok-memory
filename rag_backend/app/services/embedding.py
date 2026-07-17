@@ -124,23 +124,37 @@ class EmbeddingService:
             error=self._error,
         )
 
-    def _encode_prefixed(self, prefix: str, text: str) -> list[float]:
+    def _encode_prefixed_many(self, prefix: str, texts: list[str]) -> list[list[float]]:
         if self._encoder is None:
             raise EmbeddingUnavailable(self._error or "embedding model is not loaded")
-        value = str(text).strip()
+        if not texts:
+            return []
+        values = [str(text).strip() for text in texts]
         vectors = self._encoder.encode(
-            [f"{prefix}: {value}"],
+            [f"{prefix}: {value}" for value in values],
             normalize_embeddings=True,
         )
-        vector = np.asarray(vectors[0], dtype=np.float32)
-        if vector.ndim != 1 or not np.all(np.isfinite(vector)):
+        matrix = np.asarray(vectors, dtype=np.float32)
+        if (
+            matrix.ndim != 2
+            or matrix.shape[0] != len(values)
+            or not np.all(np.isfinite(matrix))
+        ):
             raise EmbeddingUnavailable("embedding model returned an invalid vector")
-        return vector.astype(float).tolist()
+        return matrix.astype(float).tolist()
+
+    def _encode_prefixed(self, prefix: str, text: str) -> list[float]:
+        return self._encode_prefixed_many(prefix, [text])[0]
 
     def embed_passage(self, text: str) -> list[float]:
         if not self.ready:
             raise EmbeddingUnavailable(self._error or "embedding model is not ready")
         return self._encode_prefixed("passage", text)
+
+    def embed_passages(self, texts: list[str]) -> list[list[float]]:
+        if not self.ready:
+            raise EmbeddingUnavailable(self._error or "embedding model is not ready")
+        return self._encode_prefixed_many("passage", texts)
 
     def embed_query(self, text: str) -> list[float]:
         if not self.ready:

@@ -37,6 +37,8 @@ app.add_middleware(
         "Idempotency-Key",
         "X-Haru-Content-Hash",
         "X-Haru-Local-Token",
+        "X-Haru-Sync-Generation",
+        "X-Haru-Reenroll",
     ],
 )
 app.include_router(router)

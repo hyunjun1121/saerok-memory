@@ -2,7 +2,7 @@ from datetime import date, timedelta
 import random
 from sqlalchemy import select
 from app.core.database import SessionLocal
-from app.core.models import Episode, Entity, EventEntity
+from app.core.models import Episode, Entity, EventEntity, User
 from app.core.config import settings
 
 TEMPLATES = {
@@ -17,7 +17,12 @@ TEMPLATES = {
 def _distractors(db, user_id: str, entity_type: str, answer: str, limit: int = 3):
     values = db.scalars(
         select(Entity.value)
-        .where(Entity.user_id == user_id, Entity.entity_type == entity_type, Entity.value != answer)
+        .where(
+            Entity.user_id == user_id,
+            Entity.entity_type == entity_type,
+            Entity.value != answer,
+            Entity.sensitive.is_(False),
+        )
         .distinct()
     ).all()
     safe = [v for v in values if v != answer]
@@ -37,6 +42,9 @@ def generate(user_id: str, target_date: str, count: int = 4):
     generated = []
 
     with SessionLocal() as db:
+        user = db.get(User, user_id)
+        if user is None or user.consent.get("personalized_question_use") is not True:
+            return []
         episodes = db.scalars(
             select(Episode)
             .where(Episode.user_id == user_id, Episode.occurred_at == source_date)

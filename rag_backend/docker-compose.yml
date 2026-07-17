@@ -2,13 +2,13 @@ services:
   neo4j:
     image: neo4j:5.26-community
     environment:
-      NEO4J_AUTH: neo4j/haru-demo-password
+      NEO4J_AUTH: neo4j/${NEO4J_PASSWORD:?set NEO4J_PASSWORD in rag_backend/.env}
       NEO4J_server_memory_heap_initial__size: 512m
       NEO4J_server_memory_heap_max__size: 1G
       NEO4J_server_memory_pagecache_size: 512m
     ports:
-      - "7474:7474"
-      - "7687:7687"
+      - "127.0.0.1:7474:7474"
+      - "127.0.0.1:7687:7687"
     volumes:
       - neo4j_data:/data
     healthcheck:
@@ -27,11 +27,13 @@ services:
       EMBEDDING_MODEL_REVISION: 614241f622f53c4eeff9890bdc4f31cfecc418b3
       NEO4J_ENABLED: "true"
       NEO4J_URI: bolt://neo4j:7687
+      NEO4J_PASSWORD: ${NEO4J_PASSWORD:?set NEO4J_PASSWORD in rag_backend/.env}
+      RAG_API_TOKEN: ${RAG_API_TOKEN:?set RAG_API_TOKEN in rag_backend/.env}
     ports:
-      - "8000:8000"
+      - "127.0.0.1:8000:8000"
     volumes:
       - ./data:/app/data
-      - ./models:/app/models
+      - ./models:/app/models:ro
     depends_on:
       neo4j:
         condition: service_healthy

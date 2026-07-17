@@ -44,7 +44,4 @@ def require_ingest_token(
     authorization: str | None = Header(default=None),
     x_haru_local_token: str | None = Header(default=None),
 ) -> None:
-    expected = settings.rag_api_token
-    if expected is None or not expected.strip():
-        return
     _validate_configured_token(_provided_token(authorization, x_haru_local_token))
