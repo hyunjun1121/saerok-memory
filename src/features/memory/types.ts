@@ -25,6 +25,13 @@ export interface MemoryStoryCues {
   timeHints?: string[];
 }
 
+export interface MemorySttSegment {
+  id: number;
+  start: number;
+  end: number;
+  text: string;
+}
+
 export interface MemoryCard {
   id: string;
   userId: string;
@@ -45,6 +52,17 @@ export interface MemoryCard {
   speechDurationMs?: number;
   recognitionError?: string | null;
   audioAssetUrl?: string | null;
+  sttStatus?: "completed" | "failed";
+  sttNoSpeech?: boolean;
+  sttEngine?: string | null;
+  sttModel?: string | null;
+  sttModelRevision?: string | null;
+  sttAlignerModel?: string | null;
+  sttAlignerRevision?: string | null;
+  sttPreprocessingVersion?: string | null;
+  sttLanguage?: string | null;
+  sttConfidence?: number | null;
+  sttSegments?: MemorySttSegment[];
   sensitivity: "low" | "personal" | "sensitive";
   shareWithFamily: boolean;
   reviewState: ReviewState;

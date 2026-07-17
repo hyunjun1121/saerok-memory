@@ -1,77 +1,139 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
-import { Button3D } from "../../components/Button3D";
-import { WeeklyRewardCard } from "../../components/WeeklyRewardCard";
-import { MascotBubble } from "../../components/MascotBubble";
-import { Flame } from "lucide-react";
-import { useGamification } from "../../features/gamification/useGamification";
-import { getCognitiveRoutineResults } from "../../features/cognitive/cognitiveRoutineStorage";
-import { getCompletedDaysThisWeek } from "../../features/gamification/weeklyRewards";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Button3D } from "@/components/Button3D";
+import { getHaruWeekPlan } from "@/data/haru7DayExercises";
+import { useGamification } from "@/features/gamification/useGamification";
+import { getHaruDemoSessions } from "@/features/lessons/haruDemoSessionStorage";
+import { parseHaruWeekDay } from "@/features/lessons/sessionBuilder";
+import { getLocalizedText } from "@/utils/localizedText";
+
+type ConnectRole = "caregiver" | "counselor";
+type ResultLocationState = { completed?: boolean };
+
+// Demo post-lesson screen. The whole "routine summary / garden points /
+// reward / report" block is gone — one screen, two big buttons. Tapping either
+// reveals a {4}-{4} pairing code the learner reads out. Gamification still
+// ticks over silently (completeSession) so Home/Garden reflect progress.
+function makePairCode(): string {
+  const block = () =>
+    Array.from({ length: 4 }, () => Math.floor(Math.random() * 10)).join("");
+  return `${block()}-${block()}`;
+}
 
 export default function ResultScreen() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const location = useLocation();
   const navigate = useNavigate();
-  const { streakState, gardenState, completeSession } = useGamification();
+  const { completeSession } = useGamification();
   const hasCompleted = useRef(false);
 
+  const isFreshCompletion =
+    (location.state as ResultLocationState | null)?.completed === true;
+  const requestedDay = parseHaruWeekDay(
+    new URLSearchParams(location.search).get("day"),
+  );
+  const hasStoredCompletion = requestedDay
+    ? getHaruDemoSessions().some(
+        (session) => session.day === requestedDay && session.status === "completed",
+      )
+    : false;
+  const completedDay = requestedDay && (isFreshCompletion || hasStoredCompletion)
+    ? requestedDay
+    : undefined;
+  const completionMessage = completedDay
+    ? getLocalizedText(getHaruWeekPlan(completedDay).completionMessage, i18n.language)
+    : t("result.encouragement");
+  const nextDay = completedDay && completedDay < 7 ? completedDay + 1 : undefined;
+
+  const [revealed, setRevealed] = useState<ConnectRole | null>(null);
+  const [codes, setCodes] = useState<Partial<Record<ConnectRole, string>>>({});
+
   useEffect(() => {
-    if (!hasCompleted.current) {
+    if (isFreshCompletion && !hasCompleted.current) {
       completeSession();
       hasCompleted.current = true;
     }
-  }, [completeSession]);
+  }, [completeSession, isFreshCompletion]);
 
-  const completedDaysThisWeek = getCompletedDaysThisWeek(getCognitiveRoutineResults()).length;
-
-  const handleFinish = () => {
-    navigate("/");
+  const handleReveal = (role: ConnectRole) => {
+    setCodes((current) => (current[role] ? current : { ...current, [role]: makePairCode() }));
+    setRevealed(role);
   };
 
+  const roleLabel =
+    revealed === "caregiver" ? t("result.connect.caregiver") : t("result.connect.counselor");
+
   return (
-    <div data-screen="result" className="flex flex-col items-center justify-between min-h-[100dvh] pt-12 pb-8 px-6 bg-[var(--color-surface-warm)]">
-      <div className="flex flex-col items-center gap-6 w-full max-w-md mt-8">
-        <h1 className="text-4xl font-extrabold text-primary-800 text-center drop-shadow-sm">
-          {t("result.title")}
-        </h1>
+    <div
+      data-screen="result"
+      className="flex min-h-[100dvh] flex-col items-center justify-center px-6 py-10 bg-[var(--color-surface-warm)]"
+    >
+      {!revealed ? (
+        <div className="flex w-full max-w-md flex-col items-center gap-10">
+          <div className="flex flex-col items-center gap-3 text-center">
+            <h1 className="text-4xl font-extrabold text-primary-800">
+              {t("result.connect.heading")}
+            </h1>
+            <p className="text-lg font-bold text-ink">{completionMessage}</p>
+          </div>
 
-        <p className="text-center text-lg font-bold text-ink">
-          {t("result.encouragement")}
-        </p>
-
-        <MascotBubble mood="praising" message={t("result.mascotPraise")} />
-
-        <div className="relative w-48 h-48 flex items-center justify-center bg-white rounded-full border-4 border-primary-200 shadow-xl my-6 overflow-hidden">
-          <div className="absolute inset-0 rounded-full animate-pulseSlow bg-primary-50 opacity-50" />
-          <img src="/assets/haru/memory_bloom.png" alt="" className="w-32 h-32 object-contain z-10" />
+          <div className="flex w-full flex-col gap-5">
+            {nextDay && (
+              <Button3D
+                variant="primary"
+                size="xl"
+                fullWidth
+                onClick={() => navigate(`/lesson?day=${nextDay}`)}
+              >
+                {t("result.nextDay", { day: nextDay })}
+              </Button3D>
+            )}
+            <Button3D variant="primary" size="xl" fullWidth onClick={() => handleReveal("caregiver")}>
+              {t("result.connect.caregiver")}
+            </Button3D>
+            <Button3D variant="secondary" size="xl" fullWidth onClick={() => handleReveal("counselor")}>
+              {t("result.connect.counselor")}
+            </Button3D>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="flex w-full max-w-md flex-col items-center gap-8 text-center">
+          <div className="flex flex-col items-center gap-2">
+            <span className="text-base font-extrabold uppercase tracking-wide text-primary-600">
+              {roleLabel}
+            </span>
+            <h2 className="text-2xl font-extrabold text-ink">{t("result.connect.codeLabel")}</h2>
+          </div>
 
-      <div className="flex w-full max-w-md gap-4 mt-4">
-        <div className="flex-1 flex flex-col items-center justify-center p-4 bg-white rounded-2xl border-2 border-orange-200 shadow-sm">
-          <Flame className="w-10 h-10 text-orange-500 fill-orange-500 mb-2" aria-hidden="true" />
-          <span className="text-base font-bold text-ink text-center">
-            {t("result.streak", { streak: streakState.currentStreak || 1 })}
-          </span>
+          <div className="w-full rounded-3xl border-4 border-primary-200 bg-white px-6 py-10 shadow-xl">
+            <p
+              className="font-mono text-6xl font-extrabold tracking-[0.12em] tabular-nums text-primary-800"
+              aria-label={codes[revealed]}
+            >
+              {codes[revealed]}
+            </p>
+          </div>
+
+          <p className="text-lg font-bold leading-relaxed text-ink">
+            {t("result.connect.codeHint")}
+          </p>
+
+          <div className="flex w-full flex-col gap-3">
+            <Button3D
+              variant="secondary"
+              size="lg"
+              fullWidth
+              onClick={() => navigate(`/connect/${revealed}`)}
+            >
+              {t("result.connect.preview")}
+            </Button3D>
+            <Button3D variant="primary" size="xl" fullWidth onClick={() => setRevealed(null)}>
+              {t("result.done")}
+            </Button3D>
+          </div>
         </div>
-
-        <div className="flex-1 flex flex-col items-center justify-center p-4 bg-white rounded-2xl border-2 border-blue-200 shadow-sm">
-          <img src="/assets/haru/water_drop.png" alt={t("garden.waterDrops")} className="w-10 h-10 object-contain mb-2" />
-          <span className="text-base font-bold text-ink text-center">
-            {t("result.points", { points: gardenState.waterDrops || 1 })}
-          </span>
-        </div>
-      </div>
-
-      <div className="w-full max-w-md mt-4">
-        <WeeklyRewardCard completedDays={completedDaysThisWeek} />
-      </div>
-
-      <div className="w-full max-w-md mt-auto pt-8">
-        <Button3D variant="primary" fullWidth size="xl" onClick={handleFinish}>
-          {t("result.done")}
-        </Button3D>
-      </div>
+      )}
     </div>
   );
 }

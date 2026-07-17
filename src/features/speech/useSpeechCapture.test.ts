@@ -1,6 +1,6 @@
 import { describe, expect, it, beforeEach } from "vitest";
 import { renderHook, act } from "@testing-library/react";
-import { useSpeechCapture } from "./useSpeechCapture";
+import { useSpeechCapture } from "@/features/speech/useSpeechCapture";
 
 describe("useSpeechCapture", () => {
   beforeEach(() => {

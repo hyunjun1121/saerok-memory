@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "choiceBindings": [
+    { "key": "1", "code": "Digit1" },
+    { "key": "2", "code": "Digit2" },
+    { "key": "3", "code": "Digit3" },
+    { "key": "4", "code": "Digit4" }
+  ]
+}

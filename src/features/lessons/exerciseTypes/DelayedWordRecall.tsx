@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button3D } from "../../../components/Button3D";
-import { ChoiceCard } from "../../../components/ChoiceCard";
-import { getCognitiveRoutineResults, saveCognitiveRoutineResult } from "../../cognitive/cognitiveRoutineStorage";
-import type { ExerciseState } from "./types";
+import { Button3D } from "@/components/Button3D";
+import { ChoiceCard } from "@/components/ChoiceCard";
+import { getCognitiveRoutineResults, saveCognitiveRoutineResult } from "@/features/cognitive/cognitiveRoutineStorage";
+import type { ExerciseState } from "@/features/lessons/exerciseTypes/types";
 
 interface WordCategoryCue {
   word: string;

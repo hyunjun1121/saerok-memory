@@ -1,9 +1,9 @@
 import { useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import { Button3D } from "../../../components/Button3D";
+import { Button3D } from "@/components/Button3D";
 import { useTranslation } from "react-i18next";
-import { useInteractionFeedback } from "../../../hooks/useInteractionFeedback";
-import type { ExerciseState } from "./types";
+import { useInteractionFeedback } from "@/hooks/useInteractionFeedback";
+import type { ExerciseState } from "@/features/lessons/exerciseTypes/types";
 
 interface Pair {
   id: string;

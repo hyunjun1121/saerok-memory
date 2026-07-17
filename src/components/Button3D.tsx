@@ -1,6 +1,6 @@
 import type { ButtonHTMLAttributes, MouseEventHandler } from "react";
 import { twMerge } from "tailwind-merge";
-import { useInteractionFeedback } from "../hooks/useInteractionFeedback";
+import { useInteractionFeedback } from "@/hooks/useInteractionFeedback";
 
 export interface Button3DProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary" | "danger" | "neutral" | "disabled";

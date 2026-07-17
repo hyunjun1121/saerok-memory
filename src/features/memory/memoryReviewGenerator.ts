@@ -1,8 +1,8 @@
-import type { MemoryCard } from "./types";
-import type { Exercise } from "../../data/mockExercises";
-import i18n from "../../i18n";
-import { normalizeLanguage, type SupportedLanguage } from "../../utils/localizedText";
-import { extractMemoryStoryCues, summarizeMemoryStory } from "./memoryStory";
+import type { MemoryCard } from "@/features/memory/types";
+import type { Exercise } from "@/data/mockExercises";
+import i18n from "@/i18n";
+import { normalizeLanguage, type SupportedLanguage } from "@/utils/localizedText";
+import { extractMemoryStoryCues, summarizeMemoryStory } from "@/features/memory/memoryStory";
 
 type LabelMap = Record<SupportedLanguage, Record<string, string>>;
 type OptionSource = Record<SupportedLanguage, string[]>;

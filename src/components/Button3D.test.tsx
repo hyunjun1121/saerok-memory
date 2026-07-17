@@ -1,17 +1,17 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { Button3D } from "./Button3D";
-import "../i18n";
+import { Button3D } from "@/components/Button3D";
+import "@/i18n";
 
 // SP-04 step 1: every Button3D tap fires the soft tap tone (unless disabled).
-vi.mock("../utils/interactionFeedback", () => ({
+vi.mock("@/hooks/interactionFeedback", () => ({
   playSoftTapTone: vi.fn(),
   playSoftSuccessTone: vi.fn(),
   vibrateLightly: vi.fn(),
   speakCalmly: vi.fn(),
 }));
 
-import { playSoftTapTone } from "../utils/interactionFeedback";
+import { playSoftTapTone } from "@/hooks/interactionFeedback";
 
 /**
  * SP-02: high-contrast warm palette for presbyopia.

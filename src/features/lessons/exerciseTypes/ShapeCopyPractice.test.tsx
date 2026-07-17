@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { clearCognitiveRoutineResults, getCognitiveRoutineResults } from "../../cognitive/cognitiveRoutineStorage";
-import i18n from "../../../i18n";
-import { ShapeCopyPractice } from "./ShapeCopyPractice";
+import { clearCognitiveRoutineResults, getCognitiveRoutineResults } from "@/features/cognitive/cognitiveRoutineStorage";
+import i18n from "@/i18n";
+import { ShapeCopyPractice } from "@/features/lessons/exerciseTypes/ShapeCopyPractice";
 
 describe("ShapeCopyPractice", () => {
   beforeEach(() => {

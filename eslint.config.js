@@ -8,6 +8,9 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 export default defineConfig([
   globalIgnores([
     'dist',
+    '**/.venv/**',
+    '**/models/**',
+    '**/__pycache__/**',
     'cognitve-reference/**',
     'cognitive-reference/**',
     '피우다프로젝트/application_assets/**',

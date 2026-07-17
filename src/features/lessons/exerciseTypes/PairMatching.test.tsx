@@ -1,8 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react'
-import { PairMatching } from './PairMatching'
+import { PairMatching } from '@/features/lessons/exerciseTypes/PairMatching'
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import '../../../i18n'
-import type { ExerciseState } from './types'
+import '@/i18n'
+import type { ExerciseState } from '@/features/lessons/exerciseTypes/types'
 
 describe('PairMatching', () => {
   const mockProps = {

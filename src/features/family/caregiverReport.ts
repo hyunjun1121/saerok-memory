@@ -1,13 +1,13 @@
-﻿import type { MemoryCard } from "../memory/types";
-import type { RoutineResult } from "../cognitive/cognitiveRoutineStorage";
+﻿import type { MemoryCard } from "@/features/memory/types";
+import type { RoutineResult } from "@/features/cognitive/cognitiveRoutineStorage";
 import type {
   CaregiverObservationDomain,
   CaregiverObservationRecord,
-} from "./caregiverObservationStorage";
+} from "@/features/family/caregiverObservationStorage";
 import {
   generateHaruAdvisorySummary,
   type HaruAdvisorySummary,
-} from "./haruAdvisory";
+} from "@/features/family/haruAdvisory";
 
 export interface ReportCopyItem {
   key: string;

@@ -1,0 +1,21 @@
+# Haru Qwen3-ASR service — local RTX 3090 (24GB), CUDA 12.8.
+# qwen-asr 0.0.6 is the official Qwen inference package and pins its compatible
+# Transformers runtime.  The extra index supplies the CUDA-enabled PyTorch wheel.
+--extra-index-url https://download.pytorch.org/whl/cu128
+
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+python-multipart==0.0.20
+pydantic==2.10.4
+numpy==1.26.4
+av==14.1.0
+torch==2.7.1+cu128
+qwen-asr==0.0.6
+transformers==4.57.6
+accelerate==1.12.0
+requests==2.32.3
+tqdm==4.67.1
+
+# dev / test
+pytest==8.3.4
+httpx==0.28.1

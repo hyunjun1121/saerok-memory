@@ -1,6 +1,11 @@
 import { expect, test, type Page } from "@playwright/test";
 import { mkdir } from "node:fs/promises";
 import path from "node:path";
+import {
+  HARU_WEEK_PLAN,
+  HARU_WEEK_QUESTION_META,
+} from "../src/data/haru7DayExercises";
+import { mockExercises } from "../src/data/mockExercises";
 
 type Locale = "ko" | "ja" | "en";
 
@@ -20,8 +25,122 @@ const locales = (process.env.SCREENSHOT_LOCALES ?? "ko,ja,en")
   .map((locale) => locale.trim())
   .filter((locale): locale is Locale => ["ko", "ja", "en"].includes(locale));
 const isFlatOutput = process.env.SCREENSHOT_FLAT_OUTPUT === "1";
-const captureViewportWidth = Number(process.env.SCREENSHOT_VIEWPORT_WIDTH ?? "390");
+const captureViewportWidth = Number(process.env.SCREENSHOT_VIEWPORT_WIDTH ?? "540");
 const captureViewportHeight = Number(process.env.SCREENSHOT_VIEWPORT_HEIGHT ?? "960");
+
+type CapturePersonalization = {
+  kind: "none" | "profile" | "prior_response";
+  sourceQuestionIds?: string[];
+};
+
+type CaptureHaruResponse = {
+  questionId: string;
+  responseType: "single_choice" | "voice" | "button_sequence";
+  selectedOptionId?: string;
+  submittedSequence?: string[];
+  responseTimeMs: number;
+  isCorrect: boolean | null;
+  voiceDurationSeconds?: number;
+  sttStatus?: "completed" | "failed";
+  sttConfidence?: number;
+  personalization: CapturePersonalization;
+};
+
+type CaptureHaruSession = {
+  day: number;
+  status: "completed";
+  questionIds: string[];
+  questionCount: number;
+  startedAt: string;
+  endedAt: string;
+  durationSeconds: number;
+  completionMessage: string;
+  responses: CaptureHaruResponse[];
+};
+
+function localizedText(
+  value: string | { ko: string; ja: string; en: string },
+  locale: Locale,
+): string {
+  return typeof value === "string" ? value : (value[locale] ?? value.ko);
+}
+
+function capturePersonalization(
+  scriptedSource: (typeof HARU_WEEK_QUESTION_META)[number]["scriptedSource"],
+): CapturePersonalization {
+  if (!scriptedSource) return { kind: "none" };
+  if (scriptedSource.kind === "profile") return { kind: "profile" };
+  return {
+    kind: "prior_response",
+    sourceQuestionIds: [scriptedSource.sourceQuestionId],
+  };
+}
+
+function assertCanonicalHaruSessions(sessions: readonly CaptureHaruSession[]): void {
+  const responses = sessions.flatMap((session) => session.responses);
+  const evaluatedResponses = responses.filter(
+    (response) => typeof response.isCorrect === "boolean",
+  );
+  const totals = [
+    sessions.length,
+    responses.length,
+    evaluatedResponses.length,
+    evaluatedResponses.filter((response) => response.isCorrect).length,
+    responses.filter((response) => response.responseType === "voice").length,
+  ];
+
+  if (totals.join("/") !== "7/42/28/27/7") {
+    throw new Error(`Invalid canonical Haru capture fixture: ${totals.join("/")}`);
+  }
+}
+
+function buildCanonicalHaruSessions(locale: Locale): CaptureHaruSession[] {
+  const sessions = HARU_WEEK_PLAN.map((plan) => {
+    const questions = HARU_WEEK_QUESTION_META
+      .filter((question) => question.day === plan.day)
+      .sort((left, right) => left.order - right.order);
+    const startedAt = new Date(`${plan.dateISO}T10:00:00+09:00`);
+    const endedAt = new Date(
+      startedAt.getTime() + plan.recordedSummary.durationSeconds * 1_000,
+    );
+
+    return {
+      day: plan.day,
+      status: "completed",
+      questionIds: [...plan.exerciseIds],
+      questionCount: plan.exerciseIds.length,
+      startedAt: startedAt.toISOString(),
+      endedAt: endedAt.toISOString(),
+      durationSeconds: plan.recordedSummary.durationSeconds,
+      completionMessage: localizedText(plan.completionMessage, locale),
+      responses: questions.map((question) => {
+        const recorded = question.recordedResponse;
+        return {
+          questionId: question.exerciseId,
+          responseType: question.responseType,
+          responseTimeMs: recorded.responseTimeMs,
+          isCorrect: recorded.isCorrect,
+          ...(recorded.selectedOptionId
+            ? { selectedOptionId: recorded.selectedOptionId }
+            : {}),
+          ...(recorded.submittedSequence
+            ? { submittedSequence: [...recorded.submittedSequence] }
+            : {}),
+          ...(recorded.voiceDurationSeconds !== undefined
+            ? { voiceDurationSeconds: recorded.voiceDurationSeconds }
+            : {}),
+          ...(recorded.sttStatus ? { sttStatus: recorded.sttStatus } : {}),
+          ...(recorded.sttConfidence !== undefined
+            ? { sttConfidence: recorded.sttConfidence }
+            : {}),
+          personalization: capturePersonalization(question.scriptedSource),
+        };
+      }),
+    };
+  });
+  assertCanonicalHaruSessions(sessions);
+  return sessions;
+}
 
 function screenshotPath(locale: string, fileName: string) {
   if (isFlatOutput) {
@@ -30,23 +149,29 @@ function screenshotPath(locale: string, fileName: string) {
   return path.join(outputRoot, locale, fileName);
 }
 
-function storyText(locale: Locale) {
-  if (locale === "ja") {
-    return "昨日、娘と近所の公園をゆっくり歩きました。ベンチでお茶を飲みながら、春の花を見て昔の遠足を思い出しました。";
-  }
-
-  if (locale === "en") {
-    return "Yesterday, I walked slowly with my daughter in the neighborhood park and drank tea on a bench while remembering a spring picnic.";
-  }
-
-  return "어제 딸과 동네 공원을 천천히 걸었습니다. 벤치에서 차를 마시며 봄꽃을 보니 예전 소풍 생각이 났습니다.";
-}
-
 async function seedCaptureState(page: Page, locale: Locale) {
+  const canonicalHaruSessions = buildCanonicalHaruSessions(locale);
   await page.addInitScript(
-    ({ captureLocale }) => {
+    ({ captureLocale, haruDemoSessions }) => {
       localStorage.clear();
       localStorage.setItem("memoryGardenLang", captureLocale);
+      localStorage.setItem("haruDemoSessions", JSON.stringify(haruDemoSessions));
+      // App has no Home hub: "/" redirects to /lesson (the routine start screen).
+      // Seed an onboarded learner profile so deep links to /lesson stay put
+      // (LaunchGate no longer auto-navigates).
+      localStorage.setItem(
+        "learnerProfile",
+        JSON.stringify({
+          preferredInputMode: "mixed",
+          largeTextMode: false,
+          kioskModePreferred: false,
+          autoStartTodayRoutine: false,
+          soundFeedbackEnabled: true,
+          onboarded: true,
+          createdAt: "2026-05-01T00:00:00.000Z",
+          updatedAt: "2026-05-01T00:00:00.000Z",
+        }),
+      );
       localStorage.setItem(
         "streakState",
         JSON.stringify({
@@ -88,7 +213,7 @@ async function seedCaptureState(page: Page, locale: Locale) {
         ]),
       );
     },
-    { captureLocale: locale },
+    { captureLocale: locale, haruDemoSessions: canonicalHaruSessions },
   );
 }
 
@@ -106,6 +231,18 @@ async function drawOnCanvas(page: Page) {
   await page.mouse.move(box.x + 80, box.y + 175);
   await page.mouse.move(box.x + 80, box.y + 130);
   await page.mouse.up();
+}
+
+// Start the speech panel's recording so the listening state (red pulse +
+// equalizer) is visible in the screenshot. Chromium lacks Web Speech
+// Recognition, so SpeechCapturePanel falls back to MediaRecorder with the fake
+// mic stream — isListening flips on once getUserMedia resolves.
+async function startListening(page: Page) {
+  const toggle = page.locator("[data-recording-toggle]").first();
+  if ((await toggle.count()) > 0) {
+    await toggle.click();
+    await page.waitForTimeout(600);
+  }
 }
 
 async function capture(page: Page, locale: Locale, fileName: string, selector: string) {
@@ -154,174 +291,98 @@ async function capture(page: Page, locale: Locale, fileName: string, selector: s
   });
 }
 
-function tabName(locale: Locale, tab: "caregiver" | "counselor") {
-  if (tab === "caregiver") {
-    if (locale === "ja") return "見守り";
-    if (locale === "en") return "Caregiver";
-    return "보호자";
+// Per-exercise prepare step. Voice screens (verbal fluency / speech repeat,
+// and personal_memory_recall "story" mode which auto-records) get the listening
+// state captured; shape-copy gets a traced stroke. Everything else is static.
+function prepareFor(ex: (typeof mockExercises)[number]): CaptureScreen["prepare"] {
+  if (ex.type === "shape_copy_practice") {
+    return async (page) => {
+      await drawOnCanvas(page);
+    };
   }
-
-  if (locale === "ja") return "相談員";
-  if (locale === "en") return "Counselor";
-  return "상담사";
+  const isVoice =
+    ex.type === "verbal_fluency_practice" ||
+    ex.type === "speech_repeat_practice" ||
+    (ex.type === "personal_memory_recall" && ex.payload?.memoryField === "story");
+  if (isVoice) {
+    return async (page) => {
+      await startListening(page);
+    };
+  }
+  return undefined;
 }
+
+// Demo deck: lesson intro, EVERY exercise in the catalog (captured by deeplink,
+// which renders each exactly as authored regardless of whether it is in the
+// live routine — so the deck stays complete as exercises are added), then the
+// post-routine connect flow. /result has two buttons; pressing each reveals a
+// pairing code — both reveal states are captured, plus the two /connect
+// destinations reached via "미리보기".
+let deckNo = 0;
+const nextDeckNo = () => String(++deckNo).padStart(2, "0");
 
 const screens: CaptureScreen[] = [
   {
     name: "lesson-start",
-    fileNameKo: "01_레슨_시작화면.png",
-    path: "/lesson",
-    selector: '[data-screen="lesson-start"], [data-screen="lesson"], [data-screen="home"] main',
+    fileNameKo: `${nextDeckNo()}_레슨_시작화면.png`,
+    path: "/lesson?day=1",
+    selector: '[data-screen="lesson-start"], [data-screen="lesson"] main',
   },
-  {
-    name: "home",
-    fileNameKo: "02_메인_홈화면.png",
-    path: "/",
-    selector: '[data-screen="home"]',
-  },
-  {
-    name: "lesson-delayed-word-encode",
-    fileNameKo: "03_지연회상_단어_암기.png",
-    path: "/lesson?captureExerciseId=ex_1",
-    selector: '[data-exercise-id="ex_1"]',
-  },
-  {
-    name: "lesson-meaning-choice",
-    fileNameKo: "04_의미_선택.png",
-    path: "/lesson?captureExerciseId=ex_2",
-    selector: '[data-exercise-id="ex_2"]',
-  },
-  {
-    name: "lesson-situation-match",
-    fileNameKo: "05_상황_매칭.png",
-    path: "/lesson?captureExerciseId=ex_3",
-    selector: '[data-exercise-id="ex_3"]',
-  },
-  {
-    name: "lesson-attention-pattern",
-    fileNameKo: "06_주의집중_숫자_패턴.png",
-    path: "/lesson?captureExerciseId=ex_attention",
-    selector: '[data-exercise-id="ex_attention"]',
-  },
-  {
-    name: "lesson-orientation",
-    fileNameKo: "07_일상일정_인증.png",
-    path: "/lesson?captureExerciseId=ex_orientation",
-    selector: '[data-exercise-id="ex_orientation"]',
-  },
-  {
-    name: "lesson-digit-span",
-    fileNameKo: "08_작업기억_숫자기억.png",
-    path: "/lesson?captureExerciseId=ex_digit_span",
-    selector: '[data-exercise-id="ex_digit_span"]',
-  },
-  {
-    name: "lesson-verbal-fluency",
-    fileNameKo: "09_단어_연상_연습.png",
-    path: "/lesson?captureExerciseId=ex_verbal_fluency",
-    selector: '[data-exercise-id="ex_verbal_fluency"]',
-  },
-  {
-    name: "lesson-trail-switching",
-    fileNameKo: "10_주의전환_선_잇기.png",
-    path: "/lesson?captureExerciseId=ex_trail_switching",
-    selector: '[data-exercise-id="ex_trail_switching"]',
-  },
-  {
-    name: "lesson-pair-matching",
-    fileNameKo: "11_단어쌍_매칭.png",
-    path: "/lesson?captureExerciseId=ex_5",
-    selector: '[data-exercise-id="ex_5"]',
-  },
-  {
-    name: "lesson-sequence-order",
-    fileNameKo: "12_순서_기억_정렬.png",
-    path: "/lesson?captureExerciseId=ex_sequence",
-    selector: '[data-exercise-id="ex_sequence"]',
-  },
-  {
-    name: "lesson-audio-choice",
-    fileNameKo: "13_듣기_선택.png",
-    path: "/lesson?captureExerciseId=ex_audio",
-    selector: '[data-exercise-id="ex_audio"]',
-  },
-  {
-    name: "lesson-picture-choice",
-    fileNameKo: "14_그림_선택.png",
-    path: "/lesson?captureExerciseId=ex_picture",
-    selector: '[data-exercise-id="ex_picture"]',
-  },
-  {
-    name: "lesson-shape-copy",
-    fileNameKo: "15_도형_그리기.png",
-    path: "/lesson?captureExerciseId=ex_shape",
-    selector: '[data-exercise-id="ex_shape"]',
-    prepare: async (page) => {
-      await drawOnCanvas(page);
-    },
-  },
-  {
-    name: "lesson-speech-repeat",
-    fileNameKo: "16_음성_반복.png",
-    path: "/lesson?captureExerciseId=ex_speech",
-    selector: '[data-exercise-id="ex_speech"]',
-  },
-  {
-    name: "lesson-delayed-word-recall",
-    fileNameKo: "17_지연회상_단어_회상.png",
-    path: "/lesson?captureExerciseId=ex_recall",
-    selector: '[data-exercise-id="ex_recall"]',
-  },
-  {
-    name: "lesson-memory-story",
-    fileNameKo: "18_개인기억_이야기.png",
-    path: "/lesson?captureExerciseId=ex_6",
-    selector: '[data-exercise-id="ex_6"]',
-    prepare: async (page, locale) => {
-      await page.locator("#memory-story-text").fill(storyText(locale));
-    },
-  },
-  {
-    name: "lesson-memory-emotion",
-    fileNameKo: "19_개인기억_감정_선택.png",
-    path: "/lesson?captureExerciseId=ex_7",
-    selector: '[data-exercise-id="ex_7"]',
-  },
+  ...mockExercises.map((ex) => ({
+    name: `lesson-${ex.id}`,
+    fileNameKo: `${nextDeckNo()}_${ex.id}.png`,
+    path: `/lesson?captureExerciseId=${ex.id}`,
+    selector: `[data-exercise-id="${ex.id}"]`,
+    prepare: prepareFor(ex),
+  })),
   {
     name: "result",
-    fileNameKo: "20_세션_결과.png",
+    fileNameKo: `${nextDeckNo()}_세션_결과.png`,
     path: "/result",
     selector: '[data-screen="result"]',
   },
   {
-    name: "garden",
-    fileNameKo: "21_기억_정원.png",
-    path: "/garden",
-    selector: '[data-screen="garden"]',
-  },
-  {
-    name: "report-counselor",
-    fileNameKo: "22_상담사_보고서.png",
-    path: "/family",
-    selector: '[data-screen="family"]',
-    prepare: async (page, locale) => {
-      await page.getByRole("tab", { name: tabName(locale, "counselor") }).click();
+    // /result → press caregiver button (1st) → pairing-code reveal.
+    name: "result-caregiver-code",
+    fileNameKo: `${nextDeckNo()}_결과_보호자연결.png`,
+    path: "/result",
+    selector: '[data-screen="result"]',
+    prepare: async (page) => {
+      await page.locator('[data-screen="result"]').getByRole("button").nth(0).click();
+      await page.waitForTimeout(300);
     },
   },
   {
-    name: "report-caregiver",
-    fileNameKo: "23_보호자_보고서.png",
-    path: "/family",
-    selector: '[data-screen="family"]',
-    prepare: async (page, locale) => {
-      await page.getByRole("tab", { name: tabName(locale, "caregiver") }).click();
+    // /result → press counselor button (2nd) → pairing-code reveal.
+    name: "result-counselor-code",
+    fileNameKo: `${nextDeckNo()}_결과_상담사연결.png`,
+    path: "/result",
+    selector: '[data-screen="result"]',
+    prepare: async (page) => {
+      await page.locator('[data-screen="result"]').getByRole("button").nth(1).click();
+      await page.waitForTimeout(300);
     },
   },
   {
-    name: "settings",
-    fileNameKo: "24_설정_삭제_영역.png",
-    path: "/settings",
-    selector: '[data-screen="settings"]',
+    // Standalone caregiver view (/connect/caregiver). Tall — zoom-to-fit.
+    name: "connect-caregiver",
+    fileNameKo: `${nextDeckNo()}_보호자_앱.png`,
+    path: "/connect/caregiver",
+    selector: '[data-screen="caregiver-app"]',
+  },
+  {
+    // Standalone counselor ops view (/connect/counselor). Tall — zoom-to-fit.
+    name: "connect-counselor",
+    fileNameKo: `${nextDeckNo()}_상담사_앱.png`,
+    path: "/connect/counselor",
+    selector: '[data-screen="counselor-app"]',
+  },
+  {
+    // One-week participant detail. Tall — zoom-to-fit.
+    name: "connect-counselor-participant",
+    fileNameKo: `${nextDeckNo()}_상담사_참여자_상세.png`,
+    path: "/connect/counselor/participant/1",
+    selector: '[data-screen="counselor-participant"]',
   },
 ];
 

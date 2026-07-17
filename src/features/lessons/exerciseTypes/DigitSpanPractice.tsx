@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Button3D } from "../../../components/Button3D";
-import { ScenarioCard } from "../../../components/ScenarioCard";
-import type { ExerciseState } from "./types";
-import { saveCognitiveRoutineResult } from "../../cognitive/cognitiveRoutineStorage";
+import { Button3D } from "@/components/Button3D";
+import { ScenarioCard } from "@/features/lessons/ui/ScenarioCard";
+import type { ExerciseState } from "@/features/lessons/exerciseTypes/types";
+import { saveCognitiveRoutineResult } from "@/features/cognitive/cognitiveRoutineStorage";
 import { useTranslation } from "react-i18next";
-import { useInteractionFeedback } from "../../../hooks/useInteractionFeedback";
+import { useInteractionFeedback } from "@/hooks/useInteractionFeedback";
 
 interface DigitSpanPracticeProps {
   prompt: string;

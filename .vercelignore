@@ -1,6 +1,16 @@
 node_modules
 dist
 
+# Backend is a separate local GPU service (Korean STT) — not deployable to Vercel.
+# Exclude its venv/model cache so they never get uploaded.
+backend
+backend/**
+
+# Personal-memory RAG is also a local-only service. Keep its model, SQLite DB,
+# and API implementation out of the static SPA deployment bundle.
+rag_backend
+rag_backend/**
+
 # Grant application workspace and generated documents are not part of the web demo.
 피우다프로젝트
 피우다프로젝트/**

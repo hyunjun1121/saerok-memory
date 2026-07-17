@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { clearCognitiveRoutineResults, getCognitiveRoutineResults } from "../../cognitive/cognitiveRoutineStorage";
-import i18n from "../../../i18n";
-import { OrientationPractice } from "./OrientationPractice";
+import { clearCognitiveRoutineResults, getCognitiveRoutineResults } from "@/features/cognitive/cognitiveRoutineStorage";
+import i18n from "@/i18n";
+import { OrientationPractice } from "@/features/lessons/exerciseTypes/OrientationPractice";
 
 describe("OrientationPractice", () => {
   beforeEach(() => {
@@ -12,13 +12,13 @@ describe("OrientationPractice", () => {
     i18n.changeLanguage("ko");
   });
 
-  it("stores a matched date-weekday routine as activity metadata", () => {
+  it("stores a matched date-weekday routine the moment the choice is tapped", () => {
     vi.useFakeTimers();
     vi.setSystemTime(new Date("2026-05-23T09:00:00.000Z"));
 
     const setGlobalState = vi.fn();
 
-    const { rerender } = render(
+    render(
       <OrientationPractice
         prompt="오늘 날짜를 골라보세요"
         targetDateISO="2026-05-23"
@@ -35,20 +35,8 @@ describe("OrientationPractice", () => {
     }).format(new Date("2026-05-23T12:00:00"));
 
     fireEvent.click(screen.getByRole("button", { name: expectedLabel }));
-    expect(setGlobalState).toHaveBeenCalledWith("answer_selected");
 
-    rerender(
-      <OrientationPractice
-        prompt="오늘 날짜를 골라보세요"
-        targetDateISO="2026-05-23"
-        setGlobalState={setGlobalState}
-        globalState="answer_selected"
-      />,
-    );
-
-    vi.setSystemTime(new Date("2026-05-23T09:00:05.000Z"));
-    fireEvent.click(screen.getByRole("button", { name: i18n.t("exercise.check") }));
-
+    // Immediate result — no separate confirm step.
     expect(setGlobalState).toHaveBeenCalledWith("correct_feedback");
 
     const results = getCognitiveRoutineResults();
@@ -59,7 +47,6 @@ describe("OrientationPractice", () => {
         kind: "date_weekday",
         targetDateISO: "2026-05-23",
         matchedExpected: true,
-        responseMs: 5000,
       }),
     );
     expect(results[0].metadata?.selectedOption).toEqual(
@@ -70,10 +57,10 @@ describe("OrientationPractice", () => {
     );
   });
 
-  it("stores an unmatched answer without using diagnostic labels", () => {
+  it("stores an unmatched answer immediately without diagnostic labels", () => {
     const setGlobalState = vi.fn();
 
-    const { rerender } = render(
+    render(
       <OrientationPractice
         prompt="오늘 날짜를 골라보세요"
         targetDateISO="2026-05-23"
@@ -88,15 +75,6 @@ describe("OrientationPractice", () => {
     expect(wrongOption).toBeTruthy();
 
     fireEvent.click(wrongOption as HTMLElement);
-    rerender(
-      <OrientationPractice
-        prompt="오늘 날짜를 골라보세요"
-        targetDateISO="2026-05-23"
-        setGlobalState={setGlobalState}
-        globalState="answer_selected"
-      />,
-    );
-    fireEvent.click(screen.getByRole("button", { name: i18n.t("exercise.check") }));
 
     expect(setGlobalState).toHaveBeenCalledWith("incorrect_feedback");
 

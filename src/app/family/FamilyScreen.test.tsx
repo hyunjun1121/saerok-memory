@@ -1,15 +1,15 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach, type Mock } from "vitest";
-import FamilyScreen from "./FamilyScreen";
-import { getCognitiveRoutineResults } from "../../features/cognitive/cognitiveRoutineStorage";
-import { getMemoryCards } from "../../features/memory/memoryCardStorage";
+import FamilyScreen from "@/app/family/FamilyScreen";
+import { getCognitiveRoutineResults } from "@/features/cognitive/cognitiveRoutineStorage";
+import { getMemoryCards } from "@/features/memory/memoryCardStorage";
 
 // Mock the storages
-vi.mock("../../features/cognitive/cognitiveRoutineStorage", () => ({
+vi.mock("@/features/cognitive/cognitiveRoutineStorage", () => ({
   getCognitiveRoutineResults: vi.fn(),
 }));
 
-vi.mock("../../features/memory/memoryCardStorage", () => ({
+vi.mock("@/features/memory/memoryCardStorage", () => ({
   getMemoryCards: vi.fn(),
 }));
 

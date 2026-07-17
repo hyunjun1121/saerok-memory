@@ -1,4 +1,4 @@
-import { readJsonArray, removeKey, writeJson } from "../../utils/safeStorage";
+import { readJsonArray, removeKey, writeJson } from "@/utils/safeStorage";
 
 export type RoutineType =
   | "delayed_word_recall"

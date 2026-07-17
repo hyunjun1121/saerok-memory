@@ -1,4 +1,4 @@
-import type { MemoryStoryCues } from "./types";
+import type { MemoryStoryCues } from "@/features/memory/types";
 
 const PEOPLE_CUES = [
   "딸", "아들", "배우자", "남편", "아내", "손자", "손녀", "친구", "동료", "가족", "어머니", "아버지",

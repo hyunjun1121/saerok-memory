@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
-import { FileText, Home, TreePine } from "lucide-react";
+import { FileText, TreePine } from "lucide-react";
 
 export interface BottomNavigationProps {
   className?: string;
@@ -12,12 +12,6 @@ export function BottomNavigation({ className }: BottomNavigationProps) {
   const location = useLocation();
 
   const navItems = [
-    {
-      id: "home",
-      path: "/",
-      label: t("navigation.home"),
-      icon: <Home className="w-8 h-8" strokeWidth={2.5} />,
-    },
     {
       id: "garden",
       path: "/garden",

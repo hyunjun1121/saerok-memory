@@ -4,6 +4,8 @@ export interface MascotBubbleProps {
   mood: "happy" | "thinking" | "encouraging" | "calm" | "praising";
   message: string;
   showMascot?: boolean;
+  mascotSrc?: string;
+  frameless?: boolean;
   className?: string;
 }
 
@@ -11,6 +13,8 @@ export function MascotBubble({
   mood,
   message,
   showMascot = true,
+  mascotSrc = "/assets/haru/mascot.png",
+  frameless = false,
   className,
 }: MascotBubbleProps) {
   const moodConfig = {
@@ -40,11 +44,18 @@ export function MascotBubble({
 
   return (
     <div className={twMerge("flex items-end gap-4", className)}>
-      {showMascot && (
-        <div className="flex shrink-0 items-center justify-center w-16 h-16 overflow-hidden rounded-full bg-white border-2 border-primary-200 shadow-sm">
-          <img src="/assets/haru/mascot.png" alt="" className="w-14 h-14 object-contain mt-2" />
-        </div>
-      )}
+      {showMascot &&
+        (frameless ? (
+          <img
+            src={mascotSrc}
+            alt=""
+            className="shrink-0 h-28 w-28 object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.18)]"
+          />
+        ) : (
+          <div className="flex shrink-0 items-center justify-center w-16 h-16 overflow-hidden rounded-full bg-white border-2 border-primary-200 shadow-sm">
+            <img src={mascotSrc} alt="" className="w-14 h-14 object-contain mt-2" />
+          </div>
+        ))}
 
       <div className="relative">
         {showMascot && (

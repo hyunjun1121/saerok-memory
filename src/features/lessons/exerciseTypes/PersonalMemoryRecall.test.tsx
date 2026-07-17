@@ -1,8 +1,8 @@
-import { render, screen, fireEvent } from '@testing-library/react'
-import { PersonalMemoryRecall } from './PersonalMemoryRecall'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { PersonalMemoryRecall } from '@/features/lessons/exerciseTypes/PersonalMemoryRecall'
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import '../../../i18n'
-import type { ExerciseState } from './types'
+import '@/i18n'
+import type { ExerciseState } from '@/features/lessons/exerciseTypes/types'
 
 describe('PersonalMemoryRecall', () => {
   beforeEach(() => {
@@ -81,9 +81,9 @@ describe('PersonalMemoryRecall', () => {
     expect(savedCards[0].emotionTag).toBe("뿌듯함")
   })
 
-  it('saves a spoken memory story as transcript and concrete cues', () => {
+  it('records a memory story by voice and saves a card without any typing', async () => {
     const mockProps = {
-      prompt: "Story Prompt",
+      prompt: "오늘 있었던 일을 말해주세요",
       options: [],
       linkedConceptId: "daily_memory_1",
       memoryField: "story" as const,
@@ -94,23 +94,20 @@ describe('PersonalMemoryRecall', () => {
 
     render(<PersonalMemoryRecall {...mockProps} />)
 
-    fireEvent.change(screen.getByLabelText("저장될 기억 이야기"), {
-      target: {
-        value: "지난봄에 딸과 병원에 다녀온 뒤 국밥집에서 밥을 먹었어요. 비가 와서 딸이 우산을 챙겨줘 고마웠어요."
-      }
-    })
-    fireEvent.click(screen.getByText("이야기 저장하기"))
+    // Voice only — there is no text input anywhere on the story screen.
+    expect(screen.queryByRole("textbox")).not.toBeInTheDocument()
+    expect(screen.getByText("마치기")).toBeInTheDocument()
 
-    expect(mockProps.setGlobalState).toHaveBeenCalledWith("correct_feedback")
+    fireEvent.click(screen.getByText("마치기"))
+
+    await waitFor(() => {
+      expect(mockProps.setGlobalState).toHaveBeenCalledWith("correct_feedback")
+    })
 
     const savedCards = JSON.parse(localStorage.getItem("memoryCards") || "[]")
     expect(savedCards).toHaveLength(1)
     expect(savedCards[0].linkedConceptId).toBe("daily_memory_1")
-    expect(savedCards[0].originalTranscript).toContain("딸과 병원")
-    expect(savedCards[0].textSummary).toBeTruthy()
-    expect(savedCards[0].storyCues.people).toContain("딸")
-    expect(savedCards[0].storyCues.places).toEqual(expect.arrayContaining(["병원", "국밥집"]))
-    expect(savedCards[0].storyCues.objects).toContain("우산")
+    expect(savedCards[0].inputMode).toBe("skipped")
     expect(savedCards[0].sensitivity).toBe("sensitive")
     expect(savedCards[0].shareWithFamily).toBe(false)
   })

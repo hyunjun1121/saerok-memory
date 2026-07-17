@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Droplets, Leaf, Flower, Award } from "lucide-react";
-import { useGamification } from "../../features/gamification/useGamification";
+import { useGamification } from "@/features/gamification/useGamification";
 
 export default function GardenScreen() {
   const { t } = useTranslation();

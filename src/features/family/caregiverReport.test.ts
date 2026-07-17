@@ -1,8 +1,8 @@
 ﻿import { describe, expect, it } from "vitest";
-import type { MemoryCard } from "../memory/types";
-import type { RoutineResult } from "../cognitive/cognitiveRoutineStorage";
-import type { CaregiverObservationRecord } from "./caregiverObservationStorage";
-import { generateCaregiverCounselorReport } from "./caregiverReport";
+import type { MemoryCard } from "@/features/memory/types";
+import type { RoutineResult } from "@/features/cognitive/cognitiveRoutineStorage";
+import type { CaregiverObservationRecord } from "@/features/family/caregiverObservationStorage";
+import { generateCaregiverCounselorReport } from "@/features/family/caregiverReport";
 
 describe("generateCaregiverCounselorReport", () => {
   const baseCard: MemoryCard = {

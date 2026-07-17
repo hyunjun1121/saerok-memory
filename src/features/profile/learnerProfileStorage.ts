@@ -1,7 +1,7 @@
 // Lightweight local learner profile. Supports SP-11 (today-only routine,
 // minimal onboarding) and SP-03 (sound feedback toggle). All defaults keep the
 // app usable with no explicit setup; nothing here ever implies a deficit.
-import { readJson, writeJson } from "../../utils/safeStorage";
+import { readJson, writeJson } from "@/utils/safeStorage";
 
 const PROFILE_KEY = "learnerProfile";
 

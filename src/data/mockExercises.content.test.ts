@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { mockExercises } from "./mockExercises";
+import { mockExercises } from "@/data/mockExercises";
 
 /**
  * SP-06 content guardrails: the everyday rewrite must hold. No idiom-knowledge

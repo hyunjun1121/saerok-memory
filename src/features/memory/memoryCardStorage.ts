@@ -1,21 +1,50 @@
-import type { MemoryCard } from "./types";
+import type { MemoryCard } from "@/features/memory/types";
+import { readJsonArray, writeJson } from "@/utils/safeStorage";
+
+const STORAGE_KEY = "memoryCards";
 
 export function getMemoryCards(): MemoryCard[] {
-  try {
-    const data = localStorage.getItem("memoryCards");
-    return data ? JSON.parse(data) : [];
-  } catch (error) {
-    console.error("Failed to parse memoryCards from localStorage", error);
-    return [];
-  }
+  return readJsonArray<MemoryCard>(STORAGE_KEY);
 }
 
 export function saveMemoryCards(cards: MemoryCard[]): void {
-  try {
-    localStorage.setItem("memoryCards", JSON.stringify(cards));
-  } catch (error) {
-    console.error("Failed to save memoryCards to localStorage", error);
+  writeJson(STORAGE_KEY, cards);
+}
+
+// Demo seed: a single pre-existing memory card so the recall question
+// ("you mentioned eating out with your family yesterday...") has real
+// grounding. Idempotent — only seeds once, so it never clobbers user data.
+export function ensureDemoSeedCards(): void {
+  const cards = getMemoryCards();
+  if (cards.some((card) => card.id === "seed_dining_memory")) {
+    return;
   }
+
+  const now = new Date().toISOString();
+  cards.push({
+    id: "seed_dining_memory",
+    userId: "local_user",
+    createdAt: now,
+    updatedAt: now,
+    source: "daily_lesson",
+    linkedConceptId: "seed_dining_memory",
+    topic: "food",
+    peopleTags: ["가족"],
+    textSummary: "어제 가족과 함께 외식했다",
+    storyCues: { people: ["가족"], timeHints: ["어제"] },
+    inputMode: "speech",
+    sensitivity: "personal",
+    shareWithFamily: false,
+    reviewState: {
+      dueAt: now,
+      intervalDays: 1,
+      ease: 2.5,
+      reviewCount: 1,
+      lastResult: "remembered",
+    },
+  });
+
+  saveMemoryCards(cards);
 }
 
 export function upsertMemoryCueCard(
@@ -32,10 +61,12 @@ export function upsertMemoryCueCard(
 
   if (existingIndex >= 0) {
     const existing = cards[existingIndex];
-    // Merge fields carefully: do not aggressively overwrite non-empty fields with undefined or null
-    // Specifically spread the update but filter out undefined values to preserve existing data
+    // Merge fields, writing through every provided value. Only `undefined` is
+    // skipped (the caller chose not to set it). An explicit `null` is
+    // meaningful — e.g. recognitionError: null means "no error" and MUST
+    // overwrite a stale prior error on the same card (STT-1).
     const safeUpdate = Object.fromEntries(
-      Object.entries(cardUpdate).filter(([, v]) => v !== undefined && v !== null)
+      Object.entries(cardUpdate).filter(([, v]) => v !== undefined),
     );
 
     cards[existingIndex] = {

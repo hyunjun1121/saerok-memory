@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button3D } from "../../../components/Button3D";
-import { useInteractionFeedback } from "../../../hooks/useInteractionFeedback";
-import type { ExerciseState } from "./types";
+import { useInteractionFeedback } from "@/hooks/useInteractionFeedback";
+import type { ExerciseState } from "@/features/lessons/exerciseTypes/types";
 
 interface PictureOption {
   id: string;
@@ -37,13 +36,8 @@ export function PictureChoice({
 
     tap();
     setSelectedId(id);
-    setGlobalState("answer_selected");
-  };
 
-  const handleCheck = () => {
-    if (!selectedId) return;
-
-    if (selectedId === correctOptionId) {
+    if (id === correctOptionId) {
       setGlobalState("correct_feedback");
       return;
     }
@@ -104,17 +98,6 @@ export function PictureChoice({
         ))}
       </div>
 
-      {(globalState === "awaiting_answer" || globalState === "answer_selected") && (
-        <div className="fixed bottom-[96px] left-0 right-0 z-30 mx-auto max-w-md px-4">
-          <Button3D
-            variant={globalState === "answer_selected" ? "primary" : "disabled"}
-            fullWidth
-            onClick={handleCheck}
-          >
-            {t("exercise.check")}
-          </Button3D>
-        </div>
-      )}
     </div>
   );
 }

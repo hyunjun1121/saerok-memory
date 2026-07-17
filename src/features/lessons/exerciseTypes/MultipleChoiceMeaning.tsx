@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { ChoiceCard } from "../../../components/ChoiceCard";
-import { Button3D } from "../../../components/Button3D";
+import { ChoiceCard } from "@/components/ChoiceCard";
 import { useTranslation } from "react-i18next";
-import type { ExerciseState } from "./types";
+import type { ExerciseState } from "@/features/lessons/exerciseTypes/types";
 
 interface Option {
   id: string;
@@ -11,6 +10,7 @@ interface Option {
 
 interface MultipleChoiceMeaningProps {
   prompt: string;
+  instructionText?: string;
   options: Option[];
   correctOptionId: string;
   explanation?: string;
@@ -21,6 +21,7 @@ interface MultipleChoiceMeaningProps {
 
 export function MultipleChoiceMeaning({
   prompt,
+  instructionText,
   options,
   correctOptionId,
   setGlobalState,
@@ -30,6 +31,8 @@ export function MultipleChoiceMeaning({
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [missCount, setMissCount] = useState(0);
 
+  // Evaluate the moment a choice is tapped — no separate confirm step. Elderly
+  // users see the result immediately, then the screen auto-advances.
   const handleSelect = (id: string) => {
     if (
       globalState === "correct_feedback" ||
@@ -38,31 +41,24 @@ export function MultipleChoiceMeaning({
     ) {
       return;
     }
+
     setSelectedId(id);
-    setGlobalState("answer_selected");
-  };
 
-  const handleCheck = () => {
-    if (!selectedId) return;
-
-    if (selectedId === correctOptionId) {
+    if (id === correctOptionId) {
       setGlobalState("correct_feedback");
-    } else {
-      const newMissCount = missCount + 1;
-      setMissCount(newMissCount);
-      if (newMissCount === 1) {
-        setGlobalState("hint_feedback");
-      } else {
-        setGlobalState("incorrect_feedback");
-      }
+      return;
     }
+
+    const newMissCount = missCount + 1;
+    setMissCount(newMissCount);
+    setGlobalState(newMissCount === 1 ? "hint_feedback" : "incorrect_feedback");
   };
 
   return (
     <div className="flex flex-col w-full gap-8">
       <div className="flex flex-col gap-2">
         <span className="text-sm font-bold text-gray-500 uppercase tracking-wide">
-          {t("exercise.multipleChoice.prompt")}
+          {instructionText || t("exercise.multipleChoice.prompt")}
         </span>
         <h2 className="text-3xl font-extrabold text-ink">{prompt}</h2>
       </div>
@@ -71,9 +67,7 @@ export function MultipleChoiceMeaning({
         {options.map((option) => {
           let state: "idle" | "selected" | "correct" | "incorrect" | "disabled" = "idle";
 
-          if (globalState === "answer_selected" && selectedId === option.id) {
-            state = "selected";
-          } else if (globalState === "correct_feedback") {
+          if (globalState === "correct_feedback") {
             if (option.id === correctOptionId) state = "correct";
             else state = "disabled";
           } else if (
@@ -99,18 +93,6 @@ export function MultipleChoiceMeaning({
           );
         })}
       </div>
-
-      {(globalState === "awaiting_answer" || globalState === "answer_selected") && (
-        <div className="fixed bottom-[96px] left-0 right-0 px-4 max-w-md mx-auto z-30">
-          <Button3D
-            variant={globalState === "answer_selected" ? "primary" : "disabled"}
-            fullWidth
-            onClick={handleCheck}
-          >
-            {t("exercise.check")}
-          </Button3D>
-        </div>
-      )}
     </div>
   );
 }

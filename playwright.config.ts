@@ -25,8 +25,13 @@ export default defineConfig({
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
-        viewport: { width: 390, height: 844 },
-        deviceScaleFactor: 1,
+        viewport: { width: 540, height: 960 },
+        deviceScaleFactor: 2,
+        // Auto-grant mic capture so the voice-memory screen can auto-record and
+        // show its live waveform during screenshot capture (fake media stream).
+        launchOptions: {
+          args: ['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream'],
+        },
       },
     },
   ],

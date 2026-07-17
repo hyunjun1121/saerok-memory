@@ -1,7 +1,7 @@
-import type { RoutineResult } from "../cognitive/cognitiveRoutineStorage";
-import type { CaregiverObservationRecord } from "./caregiverObservationStorage";
-import type { MemoryCard, MemoryTopic } from "../memory/types";
-import { normalizeLanguage, type SupportedLanguage } from "../../utils/localizedText";
+import type { RoutineResult } from "@/features/cognitive/cognitiveRoutineStorage";
+import type { CaregiverObservationRecord } from "@/features/family/caregiverObservationStorage";
+import type { MemoryCard, MemoryTopic } from "@/features/memory/types";
+import { normalizeLanguage, type SupportedLanguage } from "@/utils/localizedText";
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 

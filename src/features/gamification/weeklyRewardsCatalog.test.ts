@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { REWARD_CATALOG } from "./weeklyRewards";
-import ko from "../../locales/ko.json";
-import en from "../../locales/en.json";
-import ja from "../../locales/ja.json";
+import { REWARD_CATALOG } from "@/features/gamification/weeklyRewards";
+import ko from "@/locales/ko.json";
+import en from "@/locales/en.json";
+import ja from "@/locales/ja.json";
 
 // SP-08: every catalog titleKey/descriptionKey must resolve to a real string in
 // all three locales, so WeeklyRewardCard never shows a raw i18n key.

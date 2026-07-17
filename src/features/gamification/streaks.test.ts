@@ -1,4 +1,4 @@
-import { updateStreak, type StreakState } from './streaks';
+import { updateStreak, type StreakState } from '@/features/gamification/streaks';
 import { describe, it, expect } from 'vitest';
 
 describe('streaks', () => {

@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Play } from "lucide-react";
-import { Button3D } from "../../../components/Button3D";
-import { SpeechCapturePanel } from "../../speech/SpeechCapturePanel";
-import { useSpeechCapture } from "../../speech/useSpeechCapture";
-import type { ExerciseState } from "./types";
-import { saveCognitiveRoutineResult } from "../../cognitive/cognitiveRoutineStorage";
-import { getSpeechLanguage } from "../../../utils/localizedText";
-import { useInteractionFeedback } from "../../../hooks/useInteractionFeedback";
+import { Button3D } from "@/components/Button3D";
+import { HARU_DEMO_PERSONA } from "@/data/haru7DayExercises";
+import { SpeechCapturePanel } from "@/features/speech/SpeechCapturePanel";
+import { formatSttEngine, transcribeStory } from "@/features/speech/stt";
+import { useVoiceRecorder } from "@/features/speech/useVoiceRecorder";
+import type { ExerciseState } from "@/features/lessons/exerciseTypes/types";
+import { saveCognitiveRoutineResult } from "@/features/cognitive/cognitiveRoutineStorage";
+import { getSpeechLanguage } from "@/utils/localizedText";
+import { useInteractionFeedback } from "@/hooks/useInteractionFeedback";
 
 // SP-05: token-overlap similarity between the target phrase and the recognized
 // transcript. Stored as metadata only — never shown as a score/diagnosis (HL-1).
@@ -46,7 +48,12 @@ export function SpeechRepeatPractice({
   const { t, i18n } = useTranslation();
   const { speak } = useInteractionFeedback();
   const [isPlaying, setIsPlaying] = useState(false);
-  const capture = useSpeechCapture(i18n.language);
+  const [transcript, setTranscript] = useState("");
+  const [isTranscribing, setIsTranscribing] = useState(false);
+  const capture = useVoiceRecorder();
+  const voiceRecordingConsented = HARU_DEMO_PERSONA.consents.voiceRecording;
+  const sttProcessingConsented = HARU_DEMO_PERSONA.consents.sttProcessing;
+  const speechConsentGranted = voiceRecordingConsented && sttProcessingConsented;
 
   // Let the learner proceed at any time (speech is optional). We intentionally
   // do NOT auto-advance on save — the learner reviews feedback first, then
@@ -67,27 +74,51 @@ export function SpeechRepeatPractice({
     window.setTimeout(() => setIsPlaying(false), 1500);
   };
 
-  const handleFinish = () => {
-    capture.stop();
+  const handleFinish = async () => {
+    if (isTranscribing) return;
+    setIsTranscribing(true);
+    const blob = speechConsentGranted ? await capture.stopAndGetBlob() : null;
+    const result = blob && blob.size > 0 ? await transcribeStory(blob) : null;
+    const qwenTranscript = result && !result.noSpeech ? result.text : "";
+    const recognitionError = !voiceRecordingConsented
+      ? "voice-consent-required"
+      : !sttProcessingConsented
+        ? "stt-consent-required"
+        : result?.noSpeech
+          ? "no-speech"
+          : capture.error ?? (blob && !result ? "transcribe-failed" : null);
+    setTranscript(qwenTranscript);
     saveCognitiveRoutineResult({
       type: "speech_repeat_practice",
       completed: true,
       metadata: {
         phrase,
-        transcript: capture.transcript,
+        transcript: qwenTranscript,
         speechSupported: capture.isSupported,
-        listeningDurationMs: capture.durationMs,
-        recognitionError: capture.error,
-        audioAssetUrl: capture.audioAssetUrl,
+        listeningDurationMs: capture.getDurationMs(),
+        recognitionError,
+        audioAssetUrl: speechConsentGranted ? capture.audioAssetUrl : null,
         locale: i18n.language,
-        inputMode: capture.transcript ? "speech" : "skipped",
-        pronunciationSimilarity: capture.transcript
-          ? computePronunciationSimilarity(phrase, capture.transcript)
+        inputMode: qwenTranscript ? "speech" : "skipped",
+        sttStatus: qwenTranscript ? "completed" : "failed",
+        sttNoSpeech: result?.noSpeech ?? false,
+        sttEngine: result ? formatSttEngine(result) : null,
+        sttModel: result?.model ?? null,
+        sttModelRevision: result?.modelRevision ?? null,
+        sttAlignerModel: result?.alignerModel ?? null,
+        sttAlignerRevision: result?.alignerRevision ?? null,
+        sttPreprocessingVersion: result?.preprocessingVersion ?? null,
+        sttLanguage: result?.language ?? null,
+        sttConfidence: result?.confidence ?? null,
+        sttSegments: result?.noSpeech ? [] : (result?.segments ?? []),
+        pronunciationSimilarity: qwenTranscript
+          ? computePronunciationSimilarity(phrase, qwenTranscript)
           : null,
       },
     });
 
     // Feedback first; advancement happens when the learner taps Continue.
+    setIsTranscribing(false);
     setGlobalState("correct_feedback");
   };
 
@@ -121,28 +152,35 @@ export function SpeechRepeatPractice({
       </div>
 
       <SpeechCapturePanel
-        isSupported={capture.isSupported}
-        isListening={capture.isListening}
-        onStart={capture.start}
+        isSupported={capture.isSupported && speechConsentGranted}
+        isListening={capture.isRecording}
+        onStart={speechConsentGranted ? capture.start : () => undefined}
         onStop={capture.stop}
         startLabel={t("speech.start")}
         stopLabel={t("speech.stop")}
         listeningTitle={t("speech.listeningTitle")}
         listeningBody={t("speech.listeningBody")}
-        unsupportedNote={t("speech.unsupported")}
+        unsupportedNote={
+          speechConsentGranted ? t("speech.unsupported") : t("speech.consentRequired")
+        }
         durationHint={t("speech.durationHint")}
+        levels={capture.levels}
       />
 
-      {capture.transcript && (
+      {transcript && (
         <div className="rounded-2xl border-2 border-gray-200 bg-white p-4">
           <p className="text-sm font-bold text-gray-500">{t("speech.recognized")}</p>
-          <p className="mt-1 text-lg font-semibold text-ink">{capture.transcript}</p>
+          <p className="mt-1 text-lg font-semibold text-ink">{transcript}</p>
         </div>
       )}
 
       <div className="fixed bottom-[96px] left-0 right-0 px-4 max-w-md mx-auto z-30">
-        <Button3D variant="primary" fullWidth onClick={handleFinish}>
-          {t("exercise.cognitive.doneSpeaking")}
+        <Button3D
+          variant={isTranscribing ? "disabled" : "primary"}
+          fullWidth
+          onClick={handleFinish}
+        >
+          {isTranscribing ? t("speech.transcribing") : t("exercise.cognitive.doneSpeaking")}
         </Button3D>
       </div>
     </div>

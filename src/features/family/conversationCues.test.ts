@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
-import { generateConversationCues } from "./conversationCues";
-import type { MemoryCard } from "../memory/types";
+import { generateConversationCues } from "@/features/family/conversationCues";
+import type { MemoryCard } from "@/features/memory/types";
 
 describe("generateConversationCues", () => {
   const mockT = vi.fn((key: string, options?: Record<string, string>) => {

@@ -2,8 +2,8 @@ import { describe, expect, it } from "vitest";
 import type {
   CaregiverObservationDomain,
   CaregiverObservationRecord,
-} from "./caregiverObservationStorage";
-import { generateFamilySupportSummary } from "./familySupportSummary";
+} from "@/features/family/caregiverObservationStorage";
+import { generateFamilySupportSummary } from "@/features/family/familySupportSummary";
 
 const now = new Date("2026-01-15T12:00:00.000Z");
 

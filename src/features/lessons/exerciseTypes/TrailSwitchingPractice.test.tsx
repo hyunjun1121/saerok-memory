@@ -1,11 +1,11 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import "../../../i18n";
+import "@/i18n";
 import {
   clearCognitiveRoutineResults,
   getCognitiveRoutineResults,
-} from "../../cognitive/cognitiveRoutineStorage";
-import { TrailSwitchingPractice, type RenderedTrailNode } from "./TrailSwitchingPractice";
+} from "@/features/cognitive/cognitiveRoutineStorage";
+import { TrailSwitchingPractice, type RenderedTrailNode } from "@/features/lessons/exerciseTypes/TrailSwitchingPractice";
 
 const nodes: RenderedTrailNode[] = [
   { id: "n1", label: "1", group: "number", x: 20, y: 20 },

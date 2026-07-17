@@ -1,97 +1,89 @@
-import { describe, expect, it, beforeEach } from "vitest";
-import { mockExercises } from "../../data/mockExercises";
-import type { MemoryCard } from "../memory/types";
-import { buildDailySessionExercises } from "./sessionBuilder";
-
-function makeCard(overrides: Partial<MemoryCard> = {}): MemoryCard {
-  return {
-    id: "mem_test",
-    userId: "local_user",
-    createdAt: "2026-06-01T00:00:00.000Z",
-    updatedAt: "2026-06-01T00:00:00.000Z",
-    source: "daily_lesson",
-    sensitivity: "personal",
-    shareWithFamily: false,
-    reviewState: {
-      dueAt: "2026-06-01T00:00:00.000Z",
-      intervalDays: 1,
-      ease: 2.5,
-      reviewCount: 0,
-    },
-    ...overrides,
-  };
-}
+import { describe, expect, it } from "vitest";
+import {
+  HARU_WEEK_PLAN,
+  type HaruWeekDay,
+} from "@/data/haru7DayExercises";
+import { mockExercises } from "@/data/mockExercises";
+import {
+  DEMO_ROUTINE_IDS,
+  buildDailySessionExercises,
+  getHaruDemoDay,
+  parseHaruWeekDay,
+} from "@/features/lessons/sessionBuilder";
 
 describe("buildDailySessionExercises", () => {
-  beforeEach(() => {
-    localStorage.clear();
+  it("returns each authored six-question day in order", () => {
+    for (const plan of HARU_WEEK_PLAN) {
+      const session = buildDailySessionExercises({
+        exercises: mockExercises,
+        dayOverride: plan.day,
+      });
+
+      expect(session.map((exercise) => exercise.id)).toEqual([...plan.exerciseIds]);
+    }
   });
 
-  it("keeps the warm-up exercise first and caps the normal session length", () => {
+  it("selects the authored day only during its Korea demo date", () => {
+    const mondayInKorea = new Date("2026-07-19T15:30:00.000Z");
     const session = buildDailySessionExercises({
       exercises: mockExercises,
-      memoryCards: [],
+      now: mondayInKorea,
     });
 
-    expect(session.length).toBeLessThanOrEqual(8);
-    expect(session[0].id).toBe(mockExercises[0].id);
+    expect(getHaruDemoDay(mondayInKorea)).toBe(1);
+    expect(session.map((exercise) => exercise.id)).toEqual([
+      ...HARU_WEEK_PLAN[0].exerciseIds,
+    ]);
   });
 
-  it("prioritizes a due memory card by inserting a review exercise", () => {
-    const dueCard = makeCard({ id: "mem_due", topic: "family" });
+  it("keeps the regular routine outside the fixed-date persona demo", () => {
+    const beforeDemo = new Date("2026-07-17T03:00:00.000Z");
     const session = buildDailySessionExercises({
       exercises: mockExercises,
-      memoryCards: [dueCard],
+      now: beforeDemo,
     });
 
-    // A generated review exercise is inserted near the front; the warm-up stays first.
-    const reviewInserted = session.some(
-      (exercise) => exercise.payload.memoryId === "mem_due",
-    );
-    expect(reviewInserted).toBe(true);
-    expect(session[0].id).toBe(mockExercises[0].id);
+    expect(getHaruDemoDay(beforeDemo)).toBeUndefined();
+    expect(session.map((exercise) => exercise.id)).toEqual(DEMO_ROUTINE_IDS);
   });
 
-  it("returns an uncapped slice from the requested exercise in capture mode", () => {
+  it("starts uncapped at the requested exercise in capture/deeplink mode", () => {
     const session = buildDailySessionExercises({
       exercises: mockExercises,
-      memoryCards: [],
       initialExerciseId: "ex_2",
+      dayOverride: 7,
     });
 
+    const expectedIndex = mockExercises.findIndex((exercise) => exercise.id === "ex_2");
     expect(session[0].id).toBe("ex_2");
-    // Capture path is uncapped: it must reach well beyond the 8-item normal cap.
-    expect(session.length).toBeGreaterThan(8);
-    expect(session.length).toBeLessThanOrEqual(mockExercises.length);
+    expect(session.length).toBe(mockExercises.length - expectedIndex);
   });
 
-  it("brings today's-domain exercises to the front on a themed weekday (Mon=attention)", () => {
-    // 2026-06-22 is a Monday (getDay()===1 -> attention domain).
-    const monday = new Date("2026-06-22T10:00:00");
+  it("falls back to the selected day when the requested id is unknown", () => {
     const session = buildDailySessionExercises({
       exercises: mockExercises,
-      memoryCards: [],
-      now: monday,
+      initialExerciseId: "does_not_exist",
+      dayOverride: 4,
     });
 
-    // Warm-up stays first.
-    expect(session[0].id).toBe(mockExercises[0].id);
-    expect(session.length).toBeLessThanOrEqual(8);
-    // The first post-warm-up slot is an attention-domain exercise.
-    expect(session[1].payload.domain).toBe("attention");
+    expect(session.map((exercise) => exercise.id)).toEqual([
+      ...HARU_WEEK_PLAN[3].exerciseIds,
+    ]);
   });
+});
 
-  it("preserves the original order on a review weekday (Sun=review fallback)", () => {
-    // 2026-06-21 is a Sunday (getDay()===0 -> review domain, no reorder).
-    const sunday = new Date("2026-06-21T10:00:00");
-    const session = buildDailySessionExercises({
-      exercises: mockExercises,
-      memoryCards: [],
-      now: sunday,
-    });
+describe("parseHaruWeekDay", () => {
+  it.each([1, 2, 3, 4, 5, 6, 7] as HaruWeekDay[])(
+    "accepts day %i",
+    (day) => {
+      expect(parseHaruWeekDay(String(day))).toBe(day);
+    },
+  );
 
-    expect(session[0].id).toBe(mockExercises[0].id);
-    // No reorder => second slot is the raw exercise order.
-    expect(session[1].id).toBe(mockExercises[1].id);
-  });
+  it.each([null, undefined, "", "0", "8", "1.5", "monday"])(
+    "rejects invalid value %s",
+    (value) => {
+      expect(parseHaruWeekDay(value)).toBeUndefined();
+    },
+  );
 });

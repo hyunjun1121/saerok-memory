@@ -1,8 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react'
-import { SituationMatch } from './SituationMatch'
+import { SituationMatch } from '@/features/lessons/exerciseTypes/SituationMatch'
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import '../../../i18n'
-import type { ExerciseState } from './types'
+import '@/i18n'
+import type { ExerciseState } from '@/features/lessons/exerciseTypes/types'
 
 describe('SituationMatch', () => {
   const mockProps = {
@@ -27,13 +27,9 @@ describe('SituationMatch', () => {
     expect(screen.getByText("Correct Situation")).toBeInTheDocument()
   })
 
-  it('selects option and triggers check', () => {
-    const { rerender } = render(<SituationMatch {...mockProps} />)
+  it('shows the result immediately when a choice is tapped', () => {
+    render(<SituationMatch {...mockProps} />)
     fireEvent.click(screen.getByText("Correct Situation"))
-    expect(mockProps.setGlobalState).toHaveBeenCalledWith("answer_selected")
-
-    rerender(<SituationMatch {...mockProps} globalState="answer_selected" />)
-    fireEvent.click(screen.getByText("확인하기"))
     expect(mockProps.setGlobalState).toHaveBeenCalledWith("correct_feedback")
   })
 })

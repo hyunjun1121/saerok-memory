@@ -1,10 +1,12 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button3D } from "../../../components/Button3D";
-import { SpeechCapturePanel } from "../../speech/SpeechCapturePanel";
-import { useSpeechCapture } from "../../speech/useSpeechCapture";
-import { saveCognitiveRoutineResult } from "../../cognitive/cognitiveRoutineStorage";
-import type { ExerciseState } from "./types";
+import { Button3D } from "@/components/Button3D";
+import { HARU_DEMO_PERSONA } from "@/data/haru7DayExercises";
+import { SpeechCapturePanel } from "@/features/speech/SpeechCapturePanel";
+import { formatSttEngine, transcribeStory } from "@/features/speech/stt";
+import { useVoiceRecorder } from "@/features/speech/useVoiceRecorder";
+import { saveCognitiveRoutineResult } from "@/features/cognitive/cognitiveRoutineStorage";
+import type { ExerciseState } from "@/features/lessons/exerciseTypes/types";
 
 interface VerbalFluencyPracticeProps {
   prompt: string;
@@ -15,17 +17,10 @@ interface VerbalFluencyPracticeProps {
   globalState: ExerciseState;
 }
 
-function normalizeEntry(value: string) {
-  return value.trim().replace(/\s+/g, " ").toLocaleLowerCase();
-}
-
-function splitEntries(value: string) {
-  return value
-    .split(/[,，、\n]+/)
-    .map((entry) => entry.trim())
-    .filter(Boolean);
-}
-
+// Voice-only: the learner just talks into the mic (reactive waveform confirms
+// capture). No text box, no word list, no countdown — speak, then finish. The
+// topic card gives the cue. Recorded as a non-diagnostic routine entry; the
+// audio asset + duration are kept for later (backend) STT.
 export function VerbalFluencyPractice({
   prompt,
   category,
@@ -35,246 +30,104 @@ export function VerbalFluencyPractice({
   globalState,
 }: VerbalFluencyPracticeProps) {
   const { t } = useTranslation();
-  const [phase, setPhase] = useState<"intro" | "active" | "finished">("intro");
-  const [remainingSeconds, setRemainingSeconds] = useState(durationSeconds);
-  const [inputValue, setInputValue] = useState("");
-  const [entries, setEntries] = useState<string[]>([]);
-  const [startedAt, setStartedAt] = useState<number | null>(null);
-  const capture = useSpeechCapture();
-  const usedSpeechRef = useRef(false);
-  const usedTypedRef = useRef(false);
-
-  // When speech recognition returns words, drop them into the editable input so
-  // the learner can review/correct before adding. Speech never auto-submits.
-  useEffect(() => {
-    if (!capture.transcript) {
-      return;
-    }
-    usedSpeechRef.current = true;
-    // External speech-API transcript merged into the editable input so the
-    // learner can review/correct before adding. This is the legitimate
-    // "subscribe to external system" case the lint rule warns about.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setInputValue((prev) => {
-      const joined = splitEntries(`${prev} ${capture.transcript}`).join(", ");
-      return joined;
-    });
-  }, [capture.transcript]);
-
-  const normalizedEntries = useMemo(
-    () => entries.map(normalizeEntry).filter(Boolean),
-    [entries],
-  );
-  const uniqueCount = new Set(normalizedEntries).size;
-  const repetitionCount = Math.max(0, normalizedEntries.length - uniqueCount);
-  const canSave = entries.length > 0;
-
-  useEffect(() => {
-    if (phase !== "active") {
-      return undefined;
-    }
-
-    const timerId = window.setInterval(() => {
-      setRemainingSeconds((current) => {
-        if (current <= 1) {
-          window.clearInterval(timerId);
-          setPhase("finished");
-          setGlobalState(entries.length > 0 ? "answer_selected" : "awaiting_answer");
-          return 0;
-        }
-
-        return current - 1;
-      });
-    }, 1000);
-
-    return () => window.clearInterval(timerId);
-  }, [entries.length, phase, setGlobalState]);
+  const [isTranscribing, setIsTranscribing] = useState(false);
+  const capture = useVoiceRecorder(durationSeconds * 1000);
+  const voiceRecordingConsented = HARU_DEMO_PERSONA.consents.voiceRecording;
+  const sttProcessingConsented = HARU_DEMO_PERSONA.consents.sttProcessing;
+  const speechConsentGranted = voiceRecordingConsented && sttProcessingConsented;
 
   useEffect(() => {
     if (globalState === "correct_feedback" || globalState === "incorrect_feedback") {
       return;
     }
+    setGlobalState(capture.isRecording ? "answer_selected" : "awaiting_answer");
+  }, [capture.isRecording, globalState, setGlobalState]);
 
-    if (phase === "active" && canSave) {
-      setGlobalState("answer_selected");
-      return;
-    }
-
-    if (phase === "intro" || !canSave) {
-      setGlobalState("awaiting_answer");
-    }
-  }, [canSave, globalState, phase, setGlobalState]);
-
-  const startPractice = () => {
-    setStartedAt(Date.now());
-    setRemainingSeconds(durationSeconds);
-    setPhase("active");
-    setGlobalState("awaiting_answer");
-  };
-
-  const addInputEntries = () => {
-    const nextEntries = splitEntries(inputValue);
-    if (nextEntries.length === 0) {
-      return;
-    }
-
-    usedTypedRef.current = true;
-    setEntries((current) => [...current, ...nextEntries]);
-    setInputValue("");
-    setGlobalState("answer_selected");
-  };
-
-  const removeEntry = (index: number) => {
-    setEntries((current) => current.filter((_, itemIndex) => itemIndex !== index));
-  };
-
-  const finishPractice = () => {
-    const now = Date.now();
-    const elapsedSeconds =
-      startedAt === null
-        ? durationSeconds - remainingSeconds
-        : Math.min(durationSeconds, Math.round((now - startedAt) / 1000));
+  const handleFinish = async () => {
+    if (isTranscribing) return;
+    setIsTranscribing(true);
+    const blob = speechConsentGranted ? await capture.stopAndGetBlob() : null;
+    const result = blob && blob.size > 0 ? await transcribeStory(blob) : null;
+    const transcript = result && !result.noSpeech ? result.text : "";
+    const recognitionError = !voiceRecordingConsented
+      ? "voice-consent-required"
+      : !sttProcessingConsented
+        ? "stt-consent-required"
+        : result?.noSpeech
+          ? "no-speech"
+          : capture.error ?? (blob && !result ? "transcribe-failed" : null);
+    const entries = transcript
+      .split(/[\s,，、]+/u)
+      .map((entry) => entry.trim())
+      .filter(Boolean);
+    const uniqueCount = new Set(entries).size;
 
     saveCognitiveRoutineResult({
       type: "verbal_fluency_practice",
-      completed: canSave,
+      completed: true,
       metadata: {
         category,
         durationSeconds,
-        elapsedSeconds,
+        transcript,
         entries,
         uniqueCount,
-        repetitionCount,
-        inputMode: usedSpeechRef.current && usedTypedRef.current
-          ? "mixed"
-          : usedSpeechRef.current
-            ? "speech"
-            : "typed",
+        repetitionCount: Math.max(0, entries.length - uniqueCount),
+        inputMode: transcript ? "speech" : "skipped",
         speechSupported: capture.isSupported,
-        speechDurationMs: capture.durationMs,
+        speechDurationMs: capture.getDurationMs(),
+        audioAssetUrl: speechConsentGranted ? capture.audioAssetUrl : null,
+        recognitionError,
+        sttStatus: transcript ? "completed" : "failed",
+        sttNoSpeech: result?.noSpeech ?? false,
+        sttEngine: result ? formatSttEngine(result) : null,
+        sttModel: result?.model ?? null,
+        sttModelRevision: result?.modelRevision ?? null,
+        sttAlignerModel: result?.alignerModel ?? null,
+        sttAlignerRevision: result?.alignerRevision ?? null,
+        sttPreprocessingVersion: result?.preprocessingVersion ?? null,
+        sttLanguage: result?.language ?? null,
+        sttConfidence: result?.confidence ?? null,
+        sttSegments: result?.noSpeech ? [] : (result?.segments ?? []),
       },
     });
 
-    setGlobalState(canSave ? "correct_feedback" : "incorrect_feedback");
-    if (canSave) {
-      onComplete();
-    }
+    setIsTranscribing(false);
+    setGlobalState("correct_feedback");
+    onComplete();
   };
 
   return (
     <div className="flex w-full flex-col gap-8">
       <div className="flex flex-col gap-2">
-        <span className="text-sm font-bold uppercase tracking-wide text-blue-500">
+        <span className="text-base font-bold uppercase tracking-wide text-blue-500">
           {t("exercise.cognitive.verbalFluency")}
         </span>
-        <h2 className="text-3xl font-extrabold leading-snug text-ink">{prompt}</h2>
+        <h2 className="text-4xl font-extrabold leading-snug text-ink">{prompt}</h2>
       </div>
 
-      <div className="flex flex-col gap-5 rounded-2xl border-2 border-green-100 bg-green-50 p-5">
-        <div className="flex items-center justify-between gap-4">
-          <div>
-            <p className="text-sm font-bold text-green-700">
-              {t("exercise.cognitive.category")}
-            </p>
-            <p className="text-3xl font-extrabold text-ink">{category}</p>
-          </div>
-          <div className="flex h-16 w-16 items-center justify-center rounded-2xl border-2 border-green-200 bg-white text-2xl font-extrabold text-green-700">
-            {remainingSeconds}
-          </div>
-        </div>
-        <p className="text-base font-bold leading-relaxed text-green-900">
-          {t("exercise.cognitive.verbalFluencyGuide")}
-        </p>
-      </div>
-
-      {phase === "intro" ? (
-        <div className="rounded-2xl border-2 border-gray-200 bg-white p-5 text-base font-bold leading-relaxed text-gray-700">
-          {t("exercise.cognitive.verbalFluencyIntro")}
-        </div>
-      ) : (
-        <div className="flex flex-col gap-4">
-          <SpeechCapturePanel
-            isSupported={capture.isSupported}
-            isListening={capture.isListening}
-            onStart={capture.start}
-            onStop={capture.stop}
-            startLabel={t("speech.start")}
-            stopLabel={t("speech.stop")}
-            listeningTitle={t("speech.listeningTitle")}
-            listeningBody={t("speech.listeningBody")}
-            unsupportedNote={t("speech.unsupported")}
-            durationHint={t("exercise.memory.story.speakBody")}
-          />
-
-          <label className="flex flex-col gap-2 text-sm font-bold text-gray-700">
-            {t("exercise.cognitive.wordInputLabel")}
-            <textarea
-              value={inputValue}
-              onChange={(event) => setInputValue(event.target.value)}
-              onKeyDown={(event) => {
-                if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
-                  addInputEntries();
-                }
-              }}
-              rows={3}
-              className="min-h-[88px] rounded-2xl border-2 border-gray-200 bg-white p-4 text-lg font-bold text-ink outline-none transition focus:border-green-400"
-              placeholder={t("exercise.cognitive.wordInputPlaceholder")}
-            />
-          </label>
-
-          <Button3D variant="neutral" fullWidth onClick={addInputEntries}>
-            {t("exercise.cognitive.addWords")}
-          </Button3D>
-
-          {entries.length > 0 && (
-            <div className="flex flex-wrap gap-2" aria-label={t("exercise.cognitive.enteredWords")}>
-              {entries.map((entry, index) => (
-                <button
-                  key={`${entry}-${index}`}
-                  type="button"
-                  onClick={() => removeEntry(index)}
-                  className="rounded-full border-2 border-amber-300 bg-white min-h-[48px] px-4 py-2 text-base font-extrabold text-amber-800"
-                  aria-label={t("exercise.cognitive.removeWord", { word: entry })}
-                >
-                  {entry}
-                </button>
-              ))}
-            </div>
-          )}
-
-          <div className="grid grid-cols-2 gap-3">
-            <div className="rounded-2xl border-2 border-gray-200 bg-white p-4 text-center">
-              <p className="text-sm font-bold text-gray-500">
-                {t("exercise.cognitive.uniqueWords")}
-              </p>
-              <p className="text-2xl font-extrabold text-ink">{uniqueCount}</p>
-            </div>
-            <div className="rounded-2xl border-2 border-gray-200 bg-white p-4 text-center">
-              <p className="text-sm font-bold text-gray-500">
-                {t("exercise.cognitive.repeatedWords")}
-              </p>
-              <p className="text-2xl font-extrabold text-ink">{repetitionCount}</p>
-            </div>
-          </div>
-        </div>
-      )}
+      <SpeechCapturePanel
+        isSupported={capture.isSupported && speechConsentGranted}
+        isListening={capture.isRecording}
+        onStart={speechConsentGranted ? capture.start : () => undefined}
+        onStop={capture.stop}
+        startLabel={t("speech.start")}
+        stopLabel={t("speech.stop")}
+        listeningTitle={t("speech.listeningTitle")}
+        listeningBody={t("speech.listeningBody")}
+        unsupportedNote={
+          speechConsentGranted ? t("speech.unsupported") : t("speech.consentRequired")
+        }
+        levels={capture.levels}
+      />
 
       <div className="fixed bottom-[96px] left-0 right-0 z-30 mx-auto max-w-md px-4">
-        {phase === "intro" ? (
-          <Button3D variant="primary" fullWidth onClick={startPractice}>
-            {t("exercise.cognitive.startFluency")}
-          </Button3D>
-        ) : (
-          <Button3D
-            variant={canSave ? "primary" : "disabled"}
-            fullWidth
-            onClick={finishPractice}
-          >
-            {phase === "finished"
-              ? t("exercise.cognitive.saveFluency")
-              : t("exercise.cognitive.finishFluency")}
-          </Button3D>
-        )}
+        <Button3D
+          variant={isTranscribing ? "disabled" : "primary"}
+          fullWidth
+          onClick={handleFinish}
+        >
+          {isTranscribing ? t("speech.transcribing") : t("exercise.cognitive.finishFluency")}
+        </Button3D>
       </div>
     </div>
   );

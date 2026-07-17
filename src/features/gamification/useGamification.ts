@@ -10,11 +10,11 @@ import {
 } from "react";
 import {
   type StreakState, updateStreak
-} from "./streaks";
+} from "@/features/gamification/streaks";
 import {
   type GardenState, addGardenReward, type RewardEvent, initialGardenState
-} from "./gardenProgress";
-import { recordWeeklyCompletion } from "./weeklyRewards";
+} from "@/features/gamification/gardenProgress";
+import { recordWeeklyCompletion } from "@/features/gamification/weeklyRewards";
 
 interface GamificationContextValue {
   streakState: StreakState;

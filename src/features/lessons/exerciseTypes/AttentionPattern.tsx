@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button3D } from "../../../components/Button3D";
-import { ChoiceCard } from "../../../components/ChoiceCard";
-import { ScenarioCard } from "../../../components/ScenarioCard";
-import type { ExerciseState } from "./types";
-import { saveCognitiveRoutineResult } from "../../cognitive/cognitiveRoutineStorage";
+import { ChoiceCard } from "@/components/ChoiceCard";
+import { ScenarioCard } from "@/features/lessons/ui/ScenarioCard";
+import type { ExerciseState } from "@/features/lessons/exerciseTypes/types";
+import { saveCognitiveRoutineResult } from "@/features/cognitive/cognitiveRoutineStorage";
 
 interface AttentionPatternProps {
   prompt: string;
@@ -36,35 +35,31 @@ export function AttentionPattern({
 
   const handleSelect = (id: string) => {
     if (globalState === "correct_feedback" || globalState === "incorrect_feedback" || globalState === "hint_feedback") return;
+
     setSelectedId(id);
-    setGlobalState("answer_selected");
-  };
 
-  const handleCheck = () => {
-    if (!selectedId) return;
-
-    if (selectedId === correctOptionId) {
+    if (id === correctOptionId) {
       setGlobalState("correct_feedback");
       saveCognitiveRoutineResult({
         type: "attention_pattern",
         completed: true,
-        metadata: { pattern, selectedId, correctOptionId, missCount }
+        metadata: { pattern, selectedId: id, correctOptionId, missCount },
       });
-    } else {
-      const newMissCount = missCount + 1;
-      setMissCount(newMissCount);
+      return;
+    }
 
-      if (newMissCount === 1) {
-        setGlobalState("hint_feedback");
-        setSelectedId(null);
-      } else {
-        setGlobalState("incorrect_feedback");
-        saveCognitiveRoutineResult({
-          type: "attention_pattern",
-          completed: false,
-          metadata: { pattern, selectedId, correctOptionId, missCount: newMissCount }
-        });
-      }
+    const newMissCount = missCount + 1;
+    setMissCount(newMissCount);
+
+    if (newMissCount === 1) {
+      setGlobalState("hint_feedback");
+    } else {
+      setGlobalState("incorrect_feedback");
+      saveCognitiveRoutineResult({
+        type: "attention_pattern",
+        completed: false,
+        metadata: { pattern, selectedId: id, correctOptionId, missCount: newMissCount },
+      });
     }
   };
 
@@ -120,17 +115,6 @@ export function AttentionPattern({
         })}
       </div>
 
-      {(globalState === "awaiting_answer" || globalState === "answer_selected") && (
-        <div className="fixed bottom-[96px] left-0 right-0 px-4 max-w-md mx-auto z-30">
-          <Button3D
-            variant={globalState === "answer_selected" ? "primary" : "disabled"}
-            fullWidth
-            onClick={handleCheck}
-          >
-            {t("exercise.check")}
-          </Button3D>
-        </div>
-      )}
     </div>
   );
 }

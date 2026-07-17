@@ -1,11 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button3D } from "../../../components/Button3D";
-import { ChoiceCard } from "../../../components/ChoiceCard";
-import { saveCognitiveRoutineResult } from "../../cognitive/cognitiveRoutineStorage";
-import type { ExerciseState } from "./types";
+import { ChoiceCard } from "@/components/ChoiceCard";
+import { saveCognitiveRoutineResult } from "@/features/cognitive/cognitiveRoutineStorage";
+import type { ExerciseState } from "@/features/lessons/exerciseTypes/types";
 
-type OrientationKind = "date_weekday";
+// date_weekday = full date picker (back-compat: used by tests + catalog).
+// month / weekday / season = the three orientation questions the demo randomly
+// picks between ("오늘 몇 월이에요?" / "무슨 요일이에요?" / "계절이 뭐에요?").
+// "random" (from the exercise payload) picks one of those three on mount.
+type OrientationMode = "date_weekday" | "month" | "weekday" | "season";
+type OrientationKind = OrientationMode | "random";
 
 interface OrientationPracticeProps {
   prompt: string;
@@ -15,14 +19,20 @@ interface OrientationPracticeProps {
   globalState: ExerciseState;
 }
 
-interface OrientationOption {
+interface OrientationChoice {
   id: string;
   label: string;
-  offsetDays: number;
-  isoDate: string;
+  isCorrect: boolean;
+  // date_weekday metadata
+  offsetDays?: number;
+  isoDate?: string;
+  // month / weekday / season metadata
+  value?: string;
 }
 
-const OPTION_OFFSETS = [0, -1, 1, -7];
+const DATE_OFFSETS = [0, -1, 1, -7];
+const RANDOM_MODES: OrientationMode[] = ["month", "weekday", "season"];
+const SEASONS = ["spring", "summer", "autumn", "winter"] as const;
 
 function getCurrentTimestampMs() {
   return Date.now();
@@ -51,7 +61,6 @@ function parseTargetDate(targetDateISO?: string) {
   if (!targetDateISO) {
     return new Date();
   }
-
   const parsed = new Date(`${targetDateISO}T12:00:00`);
   return Number.isNaN(parsed.getTime()) ? new Date() : parsed;
 }
@@ -65,19 +74,96 @@ function formatDateWeekday(date: Date, language: string) {
   }).format(date);
 }
 
-function buildOrientationOptions(targetDate: Date, language: string): OrientationOption[] {
-  const options = OPTION_OFFSETS.map((offsetDays) => {
-    const optionDate = addDays(targetDate, offsetDays);
-    return {
-      id: `offset_${offsetDays}`,
-      label: formatDateWeekday(optionDate, language),
-      offsetDays,
-      isoDate: toIsoDate(optionDate),
-    };
-  });
+// Format a month name (0-based index) without depending on the current date.
+function monthLabel(monthIndex0: number, language: string) {
+  const ref = new Date(2026, monthIndex0, 15, 12, 0, 0);
+  return new Intl.DateTimeFormat(localeForDate(language), { month: "long" }).format(ref);
+}
 
-  const rotation = targetDate.getDate() % options.length;
-  return [...options.slice(rotation), ...options.slice(0, rotation)];
+// Format a weekday name (0=Sunday). 1970-01-04 was a Sunday, so day 4+w lands on
+// weekday w — a stable anchor independent of "today".
+function weekdayLabel(weekdayIndex0: number, language: string) {
+  const ref = new Date(1970, 0, 4 + weekdayIndex0, 12, 0, 0);
+  return new Intl.DateTimeFormat(localeForDate(language), { weekday: "long" }).format(ref);
+}
+
+function seasonForMonth(month1to12: number): (typeof SEASONS)[number] {
+  if (month1to12 >= 3 && month1to12 <= 5) return "spring";
+  if (month1to12 >= 6 && month1to12 <= 8) return "summer";
+  if (month1to12 >= 9 && month1to12 <= 11) return "autumn";
+  return "winter";
+}
+
+function rotateBy<T>(items: T[], seed: number): T[] {
+  const rotation = ((seed % items.length) + items.length) % items.length;
+  return [...items.slice(rotation), ...items.slice(0, rotation)];
+}
+
+function buildChoices(
+  mode: OrientationMode,
+  targetDate: Date,
+  language: string,
+): OrientationChoice[] {
+  if (mode === "date_weekday") {
+    const options: OrientationChoice[] = DATE_OFFSETS.map((offsetDays) => {
+      const optionDate = addDays(targetDate, offsetDays);
+      return {
+        id: `offset_${offsetDays}`,
+        label: formatDateWeekday(optionDate, language),
+        isCorrect: offsetDays === 0,
+        offsetDays,
+        isoDate: toIsoDate(optionDate),
+      };
+    });
+    return rotateBy(options, targetDate.getDate());
+  }
+
+  if (mode === "month") {
+    const correctMonth = targetDate.getMonth(); // 0-based
+    const monthIndices = [
+      correctMonth,
+      (correctMonth + 3) % 12,
+      (correctMonth + 6) % 12,
+      (correctMonth + 9) % 12,
+    ];
+    const deduped = Array.from(new Set(monthIndices));
+    const options: OrientationChoice[] = deduped.map((m) => ({
+      id: `month_${m}`,
+      label: monthLabel(m, language),
+      isCorrect: m === correctMonth,
+      value: `${m + 1}`,
+    }));
+    return rotateBy(options, targetDate.getDate());
+  }
+
+  if (mode === "weekday") {
+    const correctWeekday = targetDate.getDay(); // 0 = Sunday
+    const weekdayIndices = [
+      correctWeekday,
+      (correctWeekday + 2) % 7,
+      (correctWeekday + 4) % 7,
+      (correctWeekday + 6) % 7,
+    ];
+    const deduped = Array.from(new Set(weekdayIndices));
+    const options: OrientationChoice[] = deduped.map((w) => ({
+      id: `weekday_${w}`,
+      label: weekdayLabel(w, language),
+      isCorrect: w === correctWeekday,
+      value: `${w}`,
+    }));
+    return rotateBy(options, targetDate.getDate());
+  }
+
+  // season
+  const correctSeason = seasonForMonth(targetDate.getMonth() + 1);
+  const options: OrientationChoice[] = SEASONS.map((season) => ({
+    id: `season_${season}`,
+    // Raw season id; localized at render time via t() so it follows the locale.
+    label: season,
+    isCorrect: season === correctSeason,
+    value: season,
+  }));
+  return rotateBy(options, targetDate.getDate());
 }
 
 export function OrientationPractice({
@@ -92,12 +178,34 @@ export function OrientationPractice({
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [checkedId, setCheckedId] = useState<string | null>(null);
   const [targetDate] = useState(() => parseTargetDate(targetDateISO));
-  const options = useMemo(
-    () => buildOrientationOptions(targetDate, i18n.language),
-    [targetDate, i18n.language],
+  // Pick the random orientation question once on mount. date_weekday (tests +
+  // catalog) is preserved exactly; "random" (demo payload) picks one of the
+  // three so each launch can surface a different question.
+  const [mode] = useState<OrientationMode>(() => {
+    if (kind === "random") {
+      return RANDOM_MODES[Math.floor(Math.random() * RANDOM_MODES.length)];
+    }
+    return kind;
+  });
+  const choices = useMemo(
+    () => buildChoices(mode, targetDate, i18n.language),
+    [mode, targetDate, i18n.language],
   );
-  const expectedOption = options.find((option) => option.offsetDays === 0) ?? options[0];
-  const selectedOption = options.find((option) => option.id === selectedId);
+  const expectedChoice = choices.find((choice) => choice.isCorrect) ?? choices[0];
+
+  const questionText =
+    mode === "month"
+      ? t("exercise.cognitive.orientationMonth")
+      : mode === "weekday"
+        ? t("exercise.cognitive.orientationWeekday")
+        : mode === "season"
+          ? t("exercise.cognitive.orientationSeason")
+          : prompt;
+
+  // Season labels are stored as ids; translate them for display. Other modes
+  // are already formatted via Intl in the user's locale.
+  const labelFor = (choice: OrientationChoice) =>
+    mode === "season" ? t(`exercise.cognitive.seasons.${choice.value}`) : choice.label;
 
   useEffect(() => {
     startedAtRef.current = getCurrentTimestampMs();
@@ -108,37 +216,34 @@ export function OrientationPractice({
       return;
     }
 
-    setSelectedId(id);
-    setGlobalState("answer_selected");
-  };
+    const choice = choices.find((item) => item.id === id);
+    if (!choice) return;
 
-  const handleCheck = () => {
-    if (!selectedOption) {
-      return;
-    }
-
-    const matchedExpected = selectedOption.offsetDays === 0;
+    const matchedExpected = choice.isCorrect;
     const responseMs = Math.max(0, getCurrentTimestampMs() - startedAtRef.current);
 
-    setCheckedId(selectedOption.id);
+    setSelectedId(choice.id);
+    setCheckedId(choice.id);
     saveCognitiveRoutineResult({
       type: "orientation_practice",
       completed: true,
       metadata: {
-        kind,
+        kind: mode,
         targetDateISO: toIsoDate(targetDate),
         locale: i18n.language,
         expectedOption: {
-          id: expectedOption.id,
-          label: expectedOption.label,
-          isoDate: expectedOption.isoDate,
-          offsetDays: expectedOption.offsetDays,
+          id: expectedChoice.id,
+          label: labelFor(expectedChoice),
+          value: expectedChoice.value,
+          offsetDays: expectedChoice.offsetDays,
+          isoDate: expectedChoice.isoDate,
         },
         selectedOption: {
-          id: selectedOption.id,
-          label: selectedOption.label,
-          isoDate: selectedOption.isoDate,
-          offsetDays: selectedOption.offsetDays,
+          id: choice.id,
+          label: labelFor(choice),
+          value: choice.value,
+          offsetDays: choice.offsetDays,
+          isoDate: choice.isoDate,
         },
         matchedExpected,
         responseMs,
@@ -151,63 +256,53 @@ export function OrientationPractice({
   return (
     <div className="flex w-full flex-col gap-8">
       <div className="flex flex-col gap-2">
-        <span className="text-sm font-bold uppercase tracking-wide text-blue-500">
+        <span className="text-base font-bold uppercase tracking-wide text-blue-500">
           {t("exercise.cognitive.orientation")}
         </span>
-        <h2 className="text-3xl font-extrabold leading-snug text-ink">{prompt}</h2>
+        <h2 className="text-4xl font-extrabold leading-snug text-ink">{questionText}</h2>
         <p className="text-base font-bold leading-relaxed text-gray-600">
           {t("exercise.cognitive.orientationGuide")}
         </p>
       </div>
 
-      <div className="rounded-2xl border-2 border-blue-100 bg-blue-50 p-4">
-        <p className="text-sm font-extrabold uppercase tracking-wide text-blue-600">
-          {t("exercise.cognitive.orientationTodayLabel")}
-        </p>
-        <p className="mt-1 text-2xl font-extrabold text-ink">
-          {t("exercise.cognitive.orientationTodayHelper")}
-        </p>
-      </div>
+      {mode === "date_weekday" && (
+        <div className="rounded-2xl border-2 border-blue-100 bg-blue-50 p-4">
+          <p className="text-sm font-extrabold uppercase tracking-wide text-blue-600">
+            {t("exercise.cognitive.orientationTodayLabel")}
+          </p>
+          <p className="mt-1 text-2xl font-extrabold text-ink">
+            {t("exercise.cognitive.orientationTodayHelper")}
+          </p>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 gap-3">
-        {options.map((option) => {
+        {choices.map((choice) => {
           let state: "idle" | "selected" | "correct" | "incorrect" | "disabled" = "idle";
 
           if (checkedId) {
-            if (option.offsetDays === 0) {
+            if (choice.isCorrect) {
               state = "correct";
-            } else if (option.id === checkedId) {
+            } else if (choice.id === checkedId) {
               state = "incorrect";
             } else {
               state = "disabled";
             }
-          } else if (option.id === selectedId) {
+          } else if (choice.id === selectedId) {
             state = "selected";
           }
 
           return (
             <ChoiceCard
-              key={option.id}
-              id={option.id}
-              label={option.label}
+              key={choice.id}
+              id={choice.id}
+              label={labelFor(choice)}
               state={state}
               onSelect={handleSelect}
             />
           );
         })}
       </div>
-
-      {(globalState === "awaiting_answer" || globalState === "answer_selected") && (
-        <div className="mt-1">
-          <Button3D
-            variant={globalState === "answer_selected" ? "primary" : "disabled"}
-            fullWidth
-            onClick={handleCheck}
-          >
-            {t("exercise.check")}
-          </Button3D>
-        </div>
-      )}
     </div>
   );
 }

@@ -21,6 +21,86 @@ The product should feel like a warm daily routine. It may provide Haru-branded, 
 - Learner-facing screens should remain mobile-first, friendly, sparse, and click-first.
 - Caregiver/counselor-facing screens may be denser and may include Haru's own advisory attention/risk levels, while remaining calm and explainable.
 
+## Current Demo Focus (2026-07-16)
+
+> **⚠ Git state — read before ANY git operation.** The entire state described in this section (the `@/` alias, the directory refactor, the removed Home hub, the `/` → `/lesson` launch, the copy-safety/demo copy, and the unused-file cleanup) exists **only in the uncommitted working tree**. The last commit is `553bc5b` (`SP-09`), which still has relative imports, `src/app/home/HomeScreen.tsx`, `/` → Home, and onboarding auto-navigation. **304 files currently differ from HEAD** (166 deleted, 105 modified, 29 untracked); there is no stash. Do **not** run `git stash`, `git reset`, `git checkout --`, `git clean`, or `git restore` against these paths without explicit instruction — it will destroy the work below. Commit only when the user asks.
+
+Active branch: `feat/mentor-ui-revamp`. Recent work is a demo-first polish pass (`SP-01`..`SP-09` are committed; HEAD is `SP-09`). Work since `SP-09` — the structure refactor, the unused-file cleanup, and further polish — is uncommitted in the working tree (see the warning above). The bar is "looks like a polished working app" — appearance and flow outrank deep correctness for the demo. Read this section before planning or editing; it supersedes older status notes elsewhere in this file for live-state questions.
+
+Demo direction (explicit gaps being closed):
+
+- Launch lands directly on the routine start screen. `/` redirects to `/lesson`. `LaunchGate` only restores language and seeds the demo memory card — it no longer auto-navigates to onboarding. Onboarding stays reachable from Settings but is not a wall.
+- Text must stay large for low-vision users (root rem floors, large touch targets, clear selection states — `SP-03`).
+- On-screen copy must be short, one-line imperatives, learner-facing. Brain-activation / motivation copy is allowed (`SP-01`) but kept calm.
+- The live demo routine is action-only: tap, trace, draw, speak, record. Knowledge quizzes and math stay in the catalog, reachable by deep link / capture, but are excluded from the everyday routine so the demo stays simple and varied.
+
+### Current live routine
+
+`DEMO_ROUTINE_IDS` in `src/features/lessons/sessionBuilder.ts` — 11 exercises, in order:
+
+`ex_orientation → ex_recall_dining → ex_market_money → ex_number_pattern → ex_stroop_touch → ex_verbal_fluency → ex_audio → ex_shape → ex_proverb → ex_mood_voice → ex_6`
+
+`buildDailySessionExercises` has two paths: with `initialExerciseId` it slices the full catalog uncapped from that exercise (capture / deep-link path — every authored exercise stays reachable exactly as written); otherwise it returns the fixed routine above. The capture deck and the live routine are separate concerns; do not conflate them.
+
+### Current routes (verified in src/App.tsx)
+
+- `/kiosk` — standalone tablet/kiosk mode (no app-shell nav, wider layout)
+- `/` → redirects to `/lesson`
+- `/lesson` — routine start screen, then exercise flow (deep link `?captureExerciseId=ex_xxx` forces one exercise to render)
+- `/result` — post-routine screen; two `Button3D` buttons each reveal a pairing code (not navigation); a separate 미리보기 button navigates to `/connect/<role>`
+- `/connect/caregiver` — caregiver report view (`data-screen="caregiver-app"`)
+- `/connect/counselor` — counselor ops view (`data-screen="counselor-app"`)
+- `/connect/counselor/participant/:id` — per-participant counselor detail
+- `/garden`, `/family`, `/settings`, `/onboarding` — still routed. The Home hub was removed (`src/app/home/` was deleted).
+- `*` (catch-all) → redirects to `/lesson` (unknown URLs fall through to the routine start).
+
+### Screenshot capture system
+
+`e2e/capture-application-screenshots.spec.ts` is the capture engine. It builds the deck dynamically from `mockExercises` (lesson-start + every catalog exercise via deep link + `/result` reveal states + both `/connect` destinations), so it stays complete as exercises are added or renamed.
+
+- Viewport 540×960 (exact 9:16), `deviceScaleFactor: 2` → 1080×1920 PNG, `fullPage: false`, `animations: disabled`.
+- Tall screens (caregiver / counselor) use a smart `document.body.style.zoom` to fit (floor 0.7), reset after capture.
+- Per-exercise `prepare` steps: shape-copy traces a canvas stroke; voice screens (verbal fluency, speech repeat, `personal_memory_recall` story mode) start the listening state via `[data-recording-toggle]` + the fake mic stream.
+- i18n sanity asserts before each shot: body must not contain `??`, `family.report`, `family.cues`, `family.observation`, `family.advisory`, or `exercise.` (these signal unrendered keys).
+- Env knobs: `SCREENSHOT_LOCALES` (default `ko,ja,en`), `SCREENSHOT_OUTPUT_DIR`, `SCREENSHOT_FLAT_OUTPUT=1`, `SCREENSHOT_VIEWPORT_WIDTH` / `SCREENSHOT_VIEWPORT_HEIGHT`, `PLAYWRIGHT_BASE_URL` (point at a warm dev/preview server to avoid cold-start `불러오는 중…` timeouts).
+- Output: `피우다프로젝트/application_assets/auto_screenshots/<locale>/`.
+- Run: `npm run capture:screens` (uses `playwright.config.ts`; default baseURL `127.0.0.1:4173` with an auto-managed Vite preview unless `PLAYWRIGHT_BASE_URL` overrides).
+
+Note: the Korean directory name `피우다프로젝트` has hit Unicode NFC/NFD normalization quirks on Windows where `ls`, `Glob`, and PowerShell enumerate different file counts. If a capture count looks wrong, verify with multiple tools before assuming files are missing.
+
+### Copy safety (enforced by test)
+
+`src/locales/copySafety.test.ts` gates all copy and must stay green. `GLOBAL_BANS` (banned everywhere): `mmse`, `moca`, `cist`, `ad8`, `gpcog`, `tics`, `sage`, `slums`, `ace-iii`, `k-mmse`, `medical-grade`. `LEARNER_BANS` are banned in learner-facing namespaces only (`navigation`, `home`, `lesson`, `result`, `exercise`, `routine`, `speech`, `weekly`, `choice`, `feedback`, `topbar`, `garden`, `common`): **ko** 검사 / 스크리닝 / 선별 / 진단 / 위험도 / 치매 위험 / 점수; **en** diagnosis / screening / dementia risk / risk score / medical test; **ja** 診断 / スクリーニング / 検査 / リスク / スコア. Keep this list in sync with the test. Richer risk/advisory wording is allowed only in caregiver / counselor / report contexts (the `support` and `family` namespaces are scanned for `GLOBAL_BANS` only) and must stay calm and explainable.
+
+### Deployment
+
+- Vercel project: `hyunjun-kims-projects/haru`. Stable production alias: `https://saerok-memory.vercel.app`.
+- Deploy from the working tree with the Vercel CLI: `vercel --prod --yes`. No git commit is required by the maintainer's workflow; commit only when explicitly asked. Deploy is outward-facing — only on explicit request.
+- Latest verified deploy (2026-07-16): id `dpl_j6paLsQ2eXDXuXwjKipRMQMU16c8`, `readyState: READY`, target production. (Deploy IDs and ready-state are Vercel-side metadata, not checkable from the repo — confirm via the Vercel dashboard/CLI before relying on them.)
+
+### Speech / STT backend
+
+The STT backend (`backend/`, FastAPI on `127.0.0.1:8765`; scripts `stt:install` / `stt:dev` / `stt:test` / `stt:smoke`) is local-GPU only and must NOT be deployed to Vercel. Voice exercises must degrade gracefully when the backend is unreachable (MediaRecorder fallback; completion must still be possible without speech recognition).
+
+### Validation baseline
+
+- `npm run typecheck` clean (strict TypeScript).
+- `npm test` → 142 tests across 41 files.
+- `npm run lint` and `npm run build` green (`build` ≈ 4s).
+- Re-verified green on 2026-07-17.
+
+### SP-01..SP-09 commit trail (feat/mentor-ui-revamp)
+
+- `SP-01` brain-activation motivation copy + copySafety support/family scan
+- `SP-02` warm/ink surfaces — amber contrast tokens, Button3D AA palette, Home/Lesson/Result/FeedbackTray visuals
+- `SP-03` large-text floors, clear selection, larger touch targets
+- `SP-04` immediate interaction feedback (tap + centralized success + calm TTS)
+- `SP-05` real-time waveform, 60s cap, MediaRecorder fallback, pronunciation metadata
+- `SP-06` everyday content rewrite + weekday sessionBuilder + Stroop/Trail a11y
+- `SP-07` launch auto-start to /lesson + single CTA + short onboarding
+- `SP-08` weekly reward catalog render, brag card, Result mascot praise, reward events
+- `SP-09` conservative caregiver advisory + family tab decoupled from report
+
 ## Evidence-Informed Advisory Direction
 
 The product direction is no longer purely defensive. Haru should make reasonable, useful decisions from credible medical and cognitive-science references, while being honest about what has and has not been clinically validated.
@@ -44,15 +124,12 @@ Required guardrails:
 
 ## Tech Stack
 
-- React 18
-- TypeScript strict mode
-- Vite
-- React Router v6
-- Tailwind CSS with custom tokens
-- `react-i18next` with Korean, Japanese, and English locales
+- React 18, TypeScript strict mode, Vite 6, React Router v6
+- Tailwind CSS with custom tokens (`src/styles/tokens.css`)
+- `react-i18next` with Korean, Japanese, and English locales (`src/locales/`)
 - React Context and reducer-style state where already established
-- Vitest and React Testing Library for unit/component tests
-- Playwright may exist for browser-level checks
+- Vitest + React Testing Library for unit/component tests; Playwright for the screenshot-capture deck
+- **Path alias `@/` → `src/`** is wired into `tsconfig.app.json` (`compilerOptions.paths`) AND both `vite.config.ts` and `vitest.config.ts` (`resolve.alias`). Prefer `@/…` imports over relative paths; never go deeper than one `../`. Gotcha: `vitest.config.ts` is standalone — it does NOT inherit `vite.config.ts` — so any resolver/alias change must be mirrored in both configs or tests fail to collect.
 
 ## Setup And Validation Commands
 
@@ -74,46 +151,69 @@ Jules usually runs inside a short-lived Linux VM. Do not rely on Windows-only pa
 
 ```text
 src/
-  app/
-    home/
-    lesson/
-    result/
-    garden/
-    family/
-    settings/
-  components/
-  data/
-  features/
-    cognitive/
-    gamification/
-    lessons/
-      ExerciseRenderer.tsx
-      exerciseTypes/
-    memory/
-  locales/
-  styles/
-  utils/
+  main.tsx, App.tsx            app entry + router (every screen is lazy-loaded)
+  i18n.ts                      i18next bootstrap
+  index.css, styles/tokens.css global stylesheet + design tokens
+  setupTests.ts, vite-env.d.ts test setup + Vite ambient types
+  app/                         one folder per route screen (mirrors the route tree)
+    lesson/  result/  garden/  family/  settings/  onboarding/
+    kiosk/                       standalone tablet/kiosk shell (/kiosk)
+    connect/
+      caregiver/  CaregiverAppScreen.tsx                 -> /connect/caregiver
+      counselor/  CounselorAppScreen.tsx,
+                   CounselorParticipantScreen.tsx,
+                   counselorData.ts                       -> /connect/counselor, /connect/counselor/participant/:id
+  components/                  shared app-chrome / primitives ONLY (7 widgets)
+    AppShell  TopStatusBar  BottomNavigation  ProgressBar
+    Button3D  ChoiceCard  MascotBubble
+  data/                        content catalog
+    mockExercises.ts  dailyRoutinePlan.ts  supportResources.ts
+  features/                    one folder per domain
+    buddy/      buddyConfig.ts, BuddyMascot.tsx
+    cognitive/  cognitiveRoutineStorage.ts
+    family/     caregiverObservationStorage, caregiverReport, conversationCues,
+                 demoReportData, familySupportSummary, haruAdvisory
+                 ui/SupportResourceCard.tsx
+    gamification/ gardenProgress, streaks, useGamification,
+                 weeklyRewards.ts (also exports REWARD_CATALOG; covered by weeklyRewardsCatalog.test.ts)
+    kiosk/      useKioskControls.ts
+    lessons/    ExerciseRenderer.tsx, sessionBuilder.ts
+                 exerciseTypes/   16 exercise components + types.ts
+                 ui/              FeedbackTray.tsx, ScenarioCard.tsx
+    memory/     memoryCardStorage, memoryReviewGenerator, memoryScheduler,
+                 memoryStory, types
+    profile/    learnerProfileStorage.ts
+    speech/     SpeechCapturePanel, stt.ts (+test), useSpeechCapture,
+                 useVoiceRecorder, VoiceWaveform
+  hooks/                       interactionFeedback.ts, useInteractionFeedback.ts
+  utils/                       localizedText.ts, safeStorage.ts
+  locales/                     ko.json, en.json, ja.json, copySafety.test.ts
 
-image/
-  Haru visual source assets and image-generation prompts
-
-public/
-  Static assets served by Vite
-
-피우다프로젝트/
-  Grant application sources, generated documents, screenshots, and application work artifacts
+backend/                       local-GPU STT FastAPI service (NOT deployed; see Speech / STT backend)
+e2e/                           capture-application-screenshots.spec.ts (screenshot-capture engine)
+image/                         Haru visual source assets and image-generation prompts
+public/                        static assets served by Vite
+피우다프로젝트/                  grant application sources, generated documents, screenshots
+cognitve-reference/            local evidence archive (papers, official-tools, data, code)
+elements/, docs/, mentoring/, specifie_plan/   scratch / working folders, not part of the app build
 ```
 
 Grant application files, generated documents, videos, HWP/HWPX/DOCX/PDF render artifacts, and application screenshots are not part of routine web-app implementation. Do not edit them unless the user explicitly asks for grant/document work.
 
+## Import & Layout Conventions
+
+A structure refactor was applied to the working tree on 2026-07-17 (branch `feat/mentor-ui-revamp`, **uncommitted** — see the git warning in Current Demo Focus) — it added the `@/` alias, rewrote every import to `@/`-absolute, and co-located modules with their features. Rules that follow from it (keep these when adding or moving code):
+
+- **Import with `@/…`, not deep relatives.** Every import under `src/` is `@/`-absolute; nothing is deeper than one `../`. New code must follow suit.
+- **`app/` mirrors the route tree.** Each route screen lives in its own folder named after the route. The `/connect/*` screens live in `app/connect/{caregiver,counselor}/` — not in `app/result/`.
+- **`components/` is app-chrome and shared primitives only** (the 7 listed above). A widget with a single consumer lives under that feature's `ui/` folder instead: `features/lessons/ui/{FeedbackTray,ScenarioCard}.tsx`, `features/family/ui/SupportResourceCard.tsx`.
+- **`hooks/` is the home for cross-cutting hooks and their helpers.** `interactionFeedback.ts` and its hook `useInteractionFeedback.ts` are siblings there.
+- **There is no `services/` directory.** `stt.ts` lives in `features/speech/`. Do not re-introduce `services/`.
+- **Moves are safe:** because every import is `@/`-absolute, moving a module only requires updating one path segment at each import site (typecheck catches them all). Keep both `vite.config.ts` and `vitest.config.ts` resolvers in sync.
+
 ## Main Routes
 
-- `/` - learning home
-- `/lesson` - daily lesson session
-- `/result` - session result
-- `/garden` - memory garden reward view
-- `/family` - family/caregiver/counselor support view
-- `/settings` - language and local data management
+Current route map is maintained in the **Current Demo Focus** section above (verified against `src/App.tsx`). Summary: `/` → `/lesson`; `/lesson`, `/result`, `/connect/caregiver`, `/connect/counselor`, `/connect/counselor/participant/:id`, `/garden`, `/family`, `/settings`, `/onboarding`, `/kiosk`, plus a `*` catch-all → `/lesson`. The Home hub was removed (`src/app/home/` was deleted).
 
 ## Jules Task Workflow
 
@@ -158,7 +258,8 @@ If a prompt conflicts with this file, follow the stricter medical, privacy, i18n
 - Use PascalCase for React components.
 - Use camelCase for functions and variables.
 - Keep component props explicit and typed.
-- Prefer existing components such as `Button3D`, `ChoiceCard`, `FeedbackTray`, `ProgressBar`, and `MascotBubble`.
+- Import with the `@/` alias (`@/features/…`, `@/components/…`, `@/app/…`), never deeper than one `../`. See Import & Layout Conventions.
+- Prefer existing primitives such as `Button3D`, `ChoiceCard`, `ProgressBar`, `MascotBubble`, and the app-chrome (`AppShell`, `TopStatusBar`, `BottomNavigation`). Feature-specific widgets live with their feature: `FeedbackTray`/`ScenarioCard` under `features/lessons/ui/`, `SupportResourceCard` under `features/family/ui/`.
 - Prefer small typed helper modules over scattered `JSON.parse(localStorage.getItem(...))` calls.
 - Storage code must tolerate missing storage, invalid JSON, and unavailable browser APIs.
 - Do not introduce a backend for MVP features unless explicitly requested.
@@ -310,6 +411,8 @@ Recommended product application:
 
 ## Current In-Progress Work Ledger
 
+Historical snapshot (2026-06-02). For current live state — branch, routine, routes, capture, deploy, copy-safety rules — read the **Current Demo Focus (2026-07-16)** section above instead.
+
 Status as of 2026-06-02 16:38 KST: The Git-tracked app was restored after local-folder loss, dependencies were reinstalled, `cognitve-reference` was rebuilt from its manifest, the Haru advisory/report flow was reimplemented and validated, final DOCX/PDF reports were regenerated, and the Vercel production deployment was refreshed.
 
 Features completed and verified:
@@ -356,7 +459,7 @@ Reference archive restore:
 - Final manifest local-path missing count: 0.
 - Rebuilt inventory count: 2023 files.
 - Top-level restored counts: `code` 1947, `data` 14, `metadata` 17, `official-tools` 6, `papers` 8, `web-pages` 30, plus archive `README.md` and `agents.md`.
-- Recovery audit artifacts live under `recovery_audit/`.
+- Recovery audit artifacts were generated under `recovery_audit/` at the time (gitignored, local-only — not present in the current repo).
 
 Known remaining roadmap work:
 - Advanced visual polish for new cognitive routines.

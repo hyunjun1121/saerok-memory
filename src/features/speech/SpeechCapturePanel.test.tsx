@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { render } from "@testing-library/react";
-import { SpeechCapturePanel } from "./SpeechCapturePanel";
+import { SpeechCapturePanel } from "@/features/speech/SpeechCapturePanel";
 
 describe("SpeechCapturePanel SP-05 waveform", () => {
-  it("renders a multi-bar waveform (role=img, 5 bars) while listening", () => {
+  it("renders a reactive multi-bar waveform (role=img) while listening", () => {
     const { container } = render(
       <SpeechCapturePanel
         isSupported
@@ -16,11 +16,13 @@ describe("SpeechCapturePanel SP-05 waveform", () => {
         listeningBody="천천히 말씀해 주세요."
         unsupportedNote="지원되지 않음"
         durationHint="20초 정도"
+        levels={[]}
       />,
     );
 
     const waveform = container.querySelector('[role="img"]');
     expect(waveform).not.toBeNull();
-    expect(waveform?.children.length).toBe(5);
+    // With no mic data yet, VoiceWaveform falls back to 24 resting bars.
+    expect(waveform?.children.length).toBe(24);
   });
 });

@@ -1,7 +1,13 @@
 import { describe, expect, it } from "vitest";
-import ko from "./ko.json";
-import en from "./en.json";
-import ja from "./ja.json";
+import ko from "@/locales/ko.json";
+import en from "@/locales/en.json";
+import ja from "@/locales/ja.json";
+import { mockExercises } from "@/data/mockExercises";
+import {
+  HARU_WEEK_PLAN,
+  HARU_WEEK_QUESTION_META,
+} from "@/data/haru7DayExercises";
+import { getLocalizedText, type LocalizedText } from "@/utils/localizedText";
 
 // SP-01 / SP-13: learner-facing copy must not read like a medical test,
 // screening, diagnosis, or official cognitive score. Caregiver/counselor and
@@ -75,6 +81,77 @@ function gatherLearnerCopy(locale: Record<string, unknown>): { path: string; val
   return leaves;
 }
 
+function gatherExerciseCopy(locale: Locale): { path: string; value: string }[] {
+  const leaves: { path: string; value: string }[] = [];
+  const add = (path: string, value: LocalizedText | undefined) => {
+    const text = getLocalizedText(value, locale);
+    if (text) leaves.push({ path, value: text });
+  };
+
+  for (const exercise of mockExercises) {
+    const root = `exerciseCatalog.${exercise.id}`;
+    add(`${root}.prompt`, exercise.prompt);
+    add(`${root}.explanation`, exercise.explanation);
+    add(`${root}.audioText`, exercise.payload.audioText);
+    add(`${root}.instructionText`, exercise.payload.instructionText);
+    add(`${root}.phrase`, exercise.payload.phrase);
+    add(`${root}.fluencyCategory`, exercise.payload.fluencyCategory);
+    add(`${root}.scenarioTitle`, exercise.payload.scenarioTitle);
+    add(`${root}.scenarioBody`, exercise.payload.scenarioBody);
+    add(`${root}.benefitCopy`, exercise.payload.benefitCopy);
+    exercise.payload.options?.forEach((option, index) => {
+      add(`${root}.options.${index}.label`, option.label);
+      add(`${root}.options.${index}.accessibilityLabel`, option.accessibilityLabel);
+    });
+    exercise.payload.items?.forEach((item, index) => {
+      add(`${root}.items.${index}.label`, item.label);
+      add(`${root}.items.${index}.accessibilityLabel`, item.accessibilityLabel);
+    });
+    exercise.payload.pairs?.forEach((pair, index) => {
+      add(`${root}.pairs.${index}.left`, pair.left);
+      add(`${root}.pairs.${index}.right`, pair.right);
+    });
+    exercise.payload.words?.forEach((word, index) => add(`${root}.words.${index}`, word));
+    exercise.payload.wordCategoryCues?.forEach((cue, index) => {
+      add(`${root}.wordCategoryCues.${index}.word`, cue.word);
+      add(`${root}.wordCategoryCues.${index}.category`, cue.category);
+    });
+    exercise.payload.trailNodes?.forEach((node, index) => {
+      add(`${root}.trailNodes.${index}.label`, node.label);
+    });
+    exercise.payload.stroopTrials?.forEach((trial, index) => {
+      add(`${root}.stroopTrials.${index}.word`, trial.word);
+    });
+  }
+
+  return leaves;
+}
+
+function gatherWeekPlanCopy(locale: Locale): { path: string; value: string }[] {
+  const leaves: { path: string; value: string }[] = [];
+  const add = (path: string, value: LocalizedText) => {
+    leaves.push({ path, value: getLocalizedText(value, locale) });
+  };
+
+  for (const plan of HARU_WEEK_PLAN) {
+    const root = `weekPlan.day${plan.day}`;
+    add(`${root}.weekday`, plan.weekday);
+    add(`${root}.title`, plan.title);
+    add(`${root}.greeting`, plan.greeting);
+    add(`${root}.completionMessage`, plan.completionMessage);
+  }
+
+  for (const question of HARU_WEEK_QUESTION_META) {
+    const root = `weekQuestion.${question.exerciseId}`;
+    if (question.personalizationSourceNote) {
+      add(`${root}.personalizationSourceNote`, question.personalizationSourceNote);
+    }
+    add(`${root}.recordedFeedback`, question.recordedResponse.feedback);
+  }
+
+  return leaves;
+}
+
 describe("learner-facing copy safety", () => {
   const cases: { locale: Locale; data: Record<string, unknown> }[] = [
     { locale: "ko", data: ko },
@@ -114,20 +191,13 @@ describe("learner-facing copy safety", () => {
     expect(jaKeys).toEqual(koKeys);
   });
 
-  // SP-01: support and family namespaces are not learner-facing, so
-  // LEARNER_BANS (clinical framing) are allowed there contextually, but the
-  // GLOBAL_BANS (official instrument names / medical-grade claims) must never
-  // leak into any user-facing copy.
-  it("support and family namespaces contain no official test names (GLOBAL_BANS)", () => {
-    const SCAN_NAMESPACES = ["support", "family"];
+  // GLOBAL_BANS are absolute: scan every locale leaf, including caregiver and
+  // counselor copy added for the 7-day persona views.
+  it("all locale copy contains no official test names (GLOBAL_BANS)", () => {
     const offenders: string[] = [];
     for (const { locale, data } of cases) {
       const leaves: { path: string; value: string }[] = [];
-      for (const ns of SCAN_NAMESPACES) {
-        if (data[ns] !== undefined) {
-          collectLeaves(data[ns], ns, leaves);
-        }
-      }
+      collectLeaves(data, "", leaves);
       for (const { path, value } of leaves) {
         const lowered = value.toLowerCase();
         for (const ban of GLOBAL_BANS) {
@@ -137,6 +207,28 @@ describe("learner-facing copy safety", () => {
         }
       }
     }
+    expect(offenders, offenders.join("\n")).toEqual([]);
+  });
+
+  it("typed learner exercise and week-plan copy follows the same bans", () => {
+    const offenders: string[] = [];
+    for (const { locale } of cases) {
+      const typedCopy = [...gatherExerciseCopy(locale), ...gatherWeekPlanCopy(locale)];
+      for (const { path, value } of typedCopy) {
+        const lowered = value.toLowerCase();
+        for (const ban of GLOBAL_BANS) {
+          if (lowered.includes(ban)) {
+            offenders.push(`${locale} ${path}: "${value}" (contains "${ban}")`);
+          }
+        }
+        for (const ban of LEARNER_BANS[locale]) {
+          if (value.includes(ban)) {
+            offenders.push(`${locale} ${path}: "${value}" (contains "${ban}")`);
+          }
+        }
+      }
+    }
+
     expect(offenders, offenders.join("\n")).toEqual([]);
   });
 

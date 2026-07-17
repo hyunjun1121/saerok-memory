@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button3D } from "../../../components/Button3D";
-import { ChoiceCard } from "../../../components/ChoiceCard";
-import type { ExerciseState } from "./types";
+import { Volume2 } from "lucide-react";
+import { Button3D } from "@/components/Button3D";
+import { ChoiceCard } from "@/components/ChoiceCard";
+import type { ExerciseState } from "@/features/lessons/exerciseTypes/types";
+import { speakCalmly } from "@/hooks/interactionFeedback";
+import { getSpeechLanguage } from "@/utils/localizedText";
 
 interface SequenceItem {
   id: string;
@@ -13,6 +16,7 @@ interface SequenceOrderProps {
   prompt: string;
   items: SequenceItem[];
   correctOrder: string[];
+  requiredSelectionCount?: number;
   setGlobalState: (state: ExerciseState) => void;
   globalState: ExerciseState;
 }
@@ -21,36 +25,87 @@ export function SequenceOrder({
   prompt,
   items,
   correctOrder,
+  requiredSelectionCount = items.length,
   setGlobalState,
   globalState,
 }: SequenceOrderProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [missCount, setMissCount] = useState(0);
+  const [visualSequence, setVisualSequence] = useState<string | null>(null);
+  const visualSequenceTimerRef = useRef<number | null>(null);
 
   const isFeedbackVisible = [
     "correct_feedback",
     "incorrect_feedback",
     "hint_feedback",
   ].includes(globalState);
+  const selectionTarget = Math.min(Math.max(requiredSelectionCount, 1), items.length);
+
+  const handlePlaySequence = () => {
+    const orderedLabels = correctOrder
+      .map((id) => items.find((item) => item.id === id)?.label)
+      .filter((label): label is string => Boolean(label));
+    const spokenSequence = orderedLabels.join(", ");
+
+    if (!spokenSequence) return;
+    if (visualSequenceTimerRef.current !== null) {
+      window.clearTimeout(visualSequenceTimerRef.current);
+      visualSequenceTimerRef.current = null;
+    }
+    setVisualSequence(null);
+
+    const canSpeak =
+      typeof window !== "undefined" &&
+      typeof window.speechSynthesis !== "undefined" &&
+      typeof SpeechSynthesisUtterance !== "undefined";
+    if (canSpeak) {
+      // Instruction audio is task content, so it remains available even when
+      // optional tap/success sounds are disabled in learner settings.
+      speakCalmly(spokenSequence, getSpeechLanguage(i18n.language));
+      return;
+    }
+
+    // Visual fallback keeps the activity usable when system speech is absent.
+    // It disappears after a short viewing window, matching the memory task.
+    setVisualSequence(orderedLabels.join(" → "));
+    visualSequenceTimerRef.current = window.setTimeout(() => {
+      setVisualSequence(null);
+      visualSequenceTimerRef.current = null;
+    }, 4000);
+  };
+
+  useEffect(
+    () => () => {
+      if (visualSequenceTimerRef.current !== null) {
+        window.clearTimeout(visualSequenceTimerRef.current);
+      }
+    },
+    [],
+  );
 
   const handleSelect = (id: string) => {
     if (isFeedbackVisible) return;
 
-    setSelectedIds((prev) => {
-      const next = prev.includes(id)
-        ? prev.filter((selectedId) => selectedId !== id)
-        : [...prev, id];
+    const isAlreadySelected = selectedIds.includes(id);
+    const next = isAlreadySelected
+      ? selectedIds.filter((selectedId) => selectedId !== id)
+      : selectedIds.length < selectionTarget
+        ? [...selectedIds, id]
+        : selectedIds;
 
-      setGlobalState(next.length === items.length ? "answer_selected" : "awaiting_answer");
-      return next;
-    });
+    setSelectedIds(next);
+    setGlobalState(
+      next.length === selectionTarget ? "answer_selected" : "awaiting_answer",
+    );
   };
 
   const handleCheck = () => {
-    if (selectedIds.length !== items.length) return;
+    if (selectedIds.length !== selectionTarget) return;
 
-    const isCorrect = correctOrder.every((id, index) => selectedIds[index] === id);
+    const isCorrect =
+      correctOrder.length === selectionTarget &&
+      correctOrder.every((id, index) => selectedIds[index] === id);
     if (isCorrect) {
       setGlobalState("correct_feedback");
       return;
@@ -68,6 +123,18 @@ export function SequenceOrder({
           {t("exercise.sequenceOrder.prompt")}
         </span>
         <h2 className="text-3xl font-extrabold leading-snug text-ink">{prompt}</h2>
+        <Button3D variant="secondary" onClick={handlePlaySequence}>
+          <Volume2 className="mr-2 h-5 w-5" />
+          {t("exercise.sequenceOrder.listen")}
+        </Button3D>
+        {visualSequence && (
+          <p
+            className="rounded-2xl border-2 border-purple-200 bg-purple-50 px-4 py-3 text-center text-xl font-extrabold text-purple-900"
+            role="status"
+          >
+            {t("exercise.sequenceOrder.visualFallback", { words: visualSequence })}
+          </p>
+        )}
       </div>
 
       <div className="flex flex-col gap-4">

@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button3D } from "../../../components/Button3D";
-import { saveCognitiveRoutineResult } from "../../cognitive/cognitiveRoutineStorage";
-import type { ExerciseState } from "./types";
+import { Button3D } from "@/components/Button3D";
+import { saveCognitiveRoutineResult } from "@/features/cognitive/cognitiveRoutineStorage";
+import type { ExerciseState } from "@/features/lessons/exerciseTypes/types";
 
 interface DrawingPoint {
   x: number;
@@ -247,10 +247,10 @@ export function ShapeCopyPractice({
       </div>
 
       <div className="flex flex-col items-center justify-center gap-4 py-4">
-        <div className="relative flex h-32 w-32 items-center justify-center rounded-lg border-4 border-gray-400 bg-gray-50">
+        <div className="relative flex h-48 w-48 items-center justify-center rounded-xl border-4 border-gray-400 bg-gray-50">
           <svg
             viewBox="0 0 100 100"
-            className="h-24 w-24 fill-none stroke-gray-600 stroke-[4] [stroke-linecap:round] [stroke-linejoin:round]"
+            className="h-40 w-40 fill-none stroke-gray-600 stroke-[4] [stroke-linecap:round] [stroke-linejoin:round]"
             aria-hidden="true"
           >
             <path d="M 20 50 L 50 20 L 80 50 L 80 80 L 20 80 Z M 20 50 L 80 50" />
@@ -261,9 +261,9 @@ export function ShapeCopyPractice({
       <div className="relative flex flex-col gap-2">
         <canvas
           ref={canvasRef}
-          width={300}
-          height={200}
-          className="h-[200px] w-full touch-none rounded-2xl border-2 border-gray-300 bg-white"
+          width={540}
+          height={380}
+          className="h-[380px] w-full touch-none rounded-2xl border-2 border-gray-300 bg-white"
           onMouseDown={startDrawing}
           onMouseMove={draw}
           onMouseUp={stopDrawing}

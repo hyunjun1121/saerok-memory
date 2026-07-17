@@ -1,5 +1,5 @@
 import type { TFunction } from "i18next";
-import type { MemoryCard } from "../memory/types";
+import type { MemoryCard } from "@/features/memory/types";
 
 export interface ConversationCue {
   id: string;

@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import { mockExercises, type Exercise } from '../../data/mockExercises';
-import { ExerciseRenderer } from './ExerciseRenderer';
-import { getLocalizedText } from '../../utils/localizedText';
-import i18n from '../../i18n';
+import { mockExercises, type Exercise } from '@/data/mockExercises';
+import { ExerciseRenderer } from '@/features/lessons/ExerciseRenderer';
+import { getLocalizedText } from '@/utils/localizedText';
+import i18n from '@/i18n';
 
 const baseExercise = {
   id: 'ex_test',

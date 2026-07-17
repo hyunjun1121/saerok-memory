@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Keyboard } from "lucide-react";
-import { ChoiceCard } from "../../../components/ChoiceCard";
-import { Button3D } from "../../../components/Button3D";
-import { SpeechCapturePanel } from "../../speech/SpeechCapturePanel";
-import { useSpeechCapture } from "../../speech/useSpeechCapture";
-import type { ExerciseState } from "./types";
-import type { MemoryCard, MemoryTopic } from "../../memory/types";
-import { calculateNextReviewState } from "../../memory/memoryScheduler";
-import { upsertMemoryCueCard, getMemoryCards, saveMemoryCards } from "../../memory/memoryCardStorage";
-import { extractMemoryStoryCues, normalizeMemoryStory, summarizeMemoryStory } from "../../memory/memoryStory";
+import { ChoiceCard } from "@/components/ChoiceCard";
+import { Button3D } from "@/components/Button3D";
+import { HARU_DEMO_PERSONA } from "@/data/haru7DayExercises";
+import { VoiceWaveform } from "@/features/speech/VoiceWaveform";
+import { useVoiceRecorder } from "@/features/speech/useVoiceRecorder";
+import type { ExerciseState } from "@/features/lessons/exerciseTypes/types";
+import type { MemoryCard, MemoryTopic } from "@/features/memory/types";
+import { calculateNextReviewState } from "@/features/memory/memoryScheduler";
+import { upsertMemoryCueCard, getMemoryCards, saveMemoryCards } from "@/features/memory/memoryCardStorage";
+import { summarizeMemoryStory, extractMemoryStoryCues } from "@/features/memory/memoryStory";
+import { formatSttEngine, transcribeStory } from "@/features/speech/stt";
 
 function updateMemoryCard(cardId: string, result: "remembered" | "hint_used" | "missed") {
   const existing = getMemoryCards();
@@ -37,6 +38,7 @@ interface PersonalMemoryRecallProps {
   linkedConceptId?: string;
   memoryField?: MemoryField;
   correctOptionId?: string;
+  maxDurationSeconds?: number;
   onComplete: () => void;
   setGlobalState: (state: ExerciseState) => void;
   globalState: ExerciseState;
@@ -49,37 +51,37 @@ export function PersonalMemoryRecall({
   linkedConceptId,
   memoryField = "topic",
   correctOptionId,
+  maxDurationSeconds = 60,
   onComplete,
   setGlobalState,
   globalState,
 }: PersonalMemoryRecallProps) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [missCount, setMissCount] = useState(0);
   const [hiddenOptionIds, setHiddenOptionIds] = useState<Set<string>>(new Set());
-  const [storyText, setStoryText] = useState("");
-  const capture = useSpeechCapture(i18n.language);
+  const [isTranscribing, setIsTranscribing] = useState(false);
+  const recorder = useVoiceRecorder(maxDurationSeconds * 1000);
 
   const isReviewMode = !!memoryId && !!correctOptionId;
   const isStoryCreationMode = !isReviewMode && memoryField === "story";
+  const voiceRecordingConsented = HARU_DEMO_PERSONA.consents.voiceRecording;
+  const sttProcessingConsented = HARU_DEMO_PERSONA.consents.sttProcessing;
+  const speechConsentGranted = voiceRecordingConsented && sttProcessingConsented;
 
   // onComplete is owned by the parent; this component relies on global feedback
   // state for advancement.
   void onComplete;
 
-  // Mirror recognized speech into the editable story field so the learner can
-  // review and correct before saving. External speech-API state is being merged
-  // into local editable state — the legitimate subscribe-to-external case.
+  // Voice-only story routine: start capturing the moment the screen appears so
+  // the learner just talks — no button to find, no typing. Safe no-op where the
+  // mic is unavailable.
   useEffect(() => {
-    if (capture.transcript) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setStoryText((prev) => {
-        const merged = prev ? `${prev} ${capture.transcript}` : capture.transcript;
-        return normalizeMemoryStory(merged);
-      });
-      setGlobalState("answer_selected");
+    if (isStoryCreationMode && speechConsentGranted && recorder.isSupported) {
+      recorder.start();
     }
-  }, [capture.transcript, setGlobalState]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isStoryCreationMode, speechConsentGranted]);
 
   const handleSelect = (id: string) => {
     if (
@@ -136,37 +138,69 @@ export function PersonalMemoryRecall({
     }
   };
 
-  const handleStoryTextChange = (value: string) => {
-    setStoryText(value);
-    setGlobalState(normalizeMemoryStory(value) ? "answer_selected" : "awaiting_answer");
-  };
+  // Finish the voice story: stop recording, send the audio to the STT backend
+  // (Korean -> text), then store the transcript + summary + extracted cues on
+  // the memory card. STT is best-effort — on any failure we still save the card
+  // (empty transcript, recognitionError set) so the learner is never blocked.
+  const handleFinishStory = async () => {
+    setIsTranscribing(true);
 
-  const handleSaveStory = () => {
-    const normalizedStory = normalizeMemoryStory(storyText);
-    if (!normalizedStory) return;
+    // stopAndGetBlob resolves once MediaRecorder finalizes the blob; if the mic
+    // was unsupported (jsdom / denied) it resolves immediately with null.
+    const blob = speechConsentGranted ? await recorder.stopAndGetBlob() : null;
+
+    let transcript = "";
+    let recognitionError: string | null = !voiceRecordingConsented
+      ? "voice-consent-required"
+      : !sttProcessingConsented
+        ? "stt-consent-required"
+        : recorder.error;
+    const result = blob && blob.size > 0 ? await transcribeStory(blob) : null;
+    if (result) {
+      if (result.noSpeech) {
+        recognitionError = "no-speech";
+      } else if (result.text) {
+        transcript = result.text;
+        recognitionError = null;
+      } else {
+        recognitionError = recognitionError ?? "transcribe-failed";
+      }
+    } else if (speechConsentGranted && blob && blob.size > 0) {
+      recognitionError = recognitionError ?? "transcribe-failed";
+    }
 
     upsertMemoryCueCard({
       linkedConceptId: linkedConceptId || "daily_memory",
-      originalTranscript: normalizedStory,
-      textSummary: summarizeMemoryStory(normalizedStory),
-      storyCues: extractMemoryStoryCues(normalizedStory),
-      inputMode: capture.transcript ? "speech" : "typed",
-      speechDurationMs: capture.durationMs,
-      recognitionError: capture.error,
-      audioAssetUrl: capture.audioAssetUrl,
+      originalTranscript: transcript,
+      textSummary: transcript ? summarizeMemoryStory(transcript) : "",
+      storyCues: transcript ? extractMemoryStoryCues(transcript) : undefined,
+      inputMode: transcript ? "speech" : "skipped",
+      speechDurationMs: speechConsentGranted ? recorder.getDurationMs() : 0,
+      recognitionError,
+      audioAssetUrl: speechConsentGranted ? recorder.audioAssetUrl : null,
+      sttStatus: transcript ? "completed" : "failed",
+      sttNoSpeech: result?.noSpeech ?? false,
+      sttEngine: result ? formatSttEngine(result) : null,
+      sttModel: result?.model ?? null,
+      sttModelRevision: result?.modelRevision ?? null,
+      sttAlignerModel: result?.alignerModel ?? null,
+      sttAlignerRevision: result?.alignerRevision ?? null,
+      sttPreprocessingVersion: result?.preprocessingVersion ?? null,
+      sttLanguage: result?.language ?? null,
+      sttConfidence: result?.confidence ?? null,
+      sttSegments: result?.noSpeech ? [] : (result?.segments ?? []),
       sensitivity: "sensitive",
     });
 
+    setIsTranscribing(false);
     setGlobalState("correct_feedback");
   };
 
   const visibleOptions = options.filter(opt => !hiddenOptionIds.has(opt.id));
 
   if (isStoryCreationMode) {
-    const canSaveStory = !!normalizeMemoryStory(storyText);
-
     return (
-      <div className="flex flex-col w-full gap-7">
+      <div className="flex flex-col w-full gap-8">
         <div className="flex flex-col gap-2">
           <span className="text-sm font-bold text-pink-500 uppercase tracking-wide">
             {t("exercise.memory.story.label")}
@@ -177,45 +211,72 @@ export function PersonalMemoryRecall({
           </p>
         </div>
 
-        <SpeechCapturePanel
-          isSupported={capture.isSupported}
-          isListening={capture.isListening}
-          onStart={capture.start}
-          onStop={capture.stop}
-          startLabel={t("exercise.memory.story.start")}
-          stopLabel={t("exercise.memory.story.stop")}
-          listeningTitle={t("speech.listeningTitle")}
-          listeningBody={t("exercise.memory.story.speakBody")}
-          unsupportedNote={t("exercise.memory.story.unsupported")}
-          durationHint={t("speech.durationHint")}
-        />
-
-        <section className="flex flex-col gap-3">
-          <label className="flex items-center gap-2 text-base font-extrabold text-ink" htmlFor="memory-story-text">
-            <Keyboard className="h-5 w-5 text-gray-500" aria-hidden="true" />
-            {t("exercise.memory.story.transcriptLabel")}
-          </label>
-          <textarea
-            id="memory-story-text"
-            aria-label={t("exercise.memory.story.inputLabel")}
-            value={storyText}
-            onChange={(event) => handleStoryTextChange(event.target.value)}
-            placeholder={t("exercise.memory.story.placeholder")}
-            className="min-h-[132px] w-full resize-none rounded-2xl border-2 border-gray-200 bg-white p-4 text-lg font-semibold leading-relaxed text-ink outline-none transition focus:border-primary-500"
-          />
-          <p className="text-sm font-semibold leading-relaxed text-blue-700">
-            {t("exercise.memory.story.privacy")}
-          </p>
-        </section>
-
-        <div className="fixed bottom-[96px] left-0 right-0 px-4 max-w-md mx-auto z-30">
-          <Button3D
-            variant={canSaveStory ? "primary" : "disabled"}
-            fullWidth
-            onClick={handleSaveStory}
+        <div
+          className={`flex flex-col items-center gap-4 rounded-2xl border-[3px] p-6 ring-4 ${
+            recorder.isRecording
+              ? "border-red-500 bg-red-50 ring-red-200"
+              : "border-primary-500 bg-primary-50 ring-primary-200"
+          }`}
+        >
+          <span
+            className={`flex items-center gap-3 text-2xl font-extrabold ${
+              recorder.isRecording ? "text-red-600" : "text-primary-700"
+            }`}
           >
-            {t("exercise.memory.story.save")}
-          </Button3D>
+            {recorder.isRecording && (
+              <span className="relative flex h-5 w-5" aria-hidden="true">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-75" />
+                <span className="relative inline-flex h-5 w-5 rounded-full bg-red-600" />
+              </span>
+            )}
+            {recorder.isRecording
+              ? t("speech.listeningTitle")
+              : recorder.isFinalizing
+                ? t("exercise.memory.story.finalizingLabel")
+                : recorder.audioAssetUrl
+                  ? t("exercise.memory.story.recordedLabel")
+                  : t("exercise.memory.story.readyLabel")}
+          </span>
+          <VoiceWaveform
+            levels={recorder.levels}
+            active={recorder.isRecording}
+            ariaLabel={t("speech.listeningTitle")}
+          />
+          <p className="text-base font-semibold text-gray-600">
+            {t("speech.durationLimit", { seconds: maxDurationSeconds })}
+          </p>
+        </div>
+
+        {!speechConsentGranted && (
+          <p className="rounded-2xl border-2 border-amber-200 bg-amber-50 p-4 text-base font-semibold leading-relaxed text-amber-800">
+            {t("speech.consentRequired")}
+          </p>
+        )}
+
+        {speechConsentGranted && !recorder.isSupported && (
+          <p className="rounded-2xl border-2 border-amber-200 bg-amber-50 p-4 text-base font-semibold leading-relaxed text-amber-800">
+            {t("exercise.memory.story.unsupported")}
+          </p>
+        )}
+
+        <div className="fixed bottom-[96px] left-0 right-0 px-4 max-w-md mx-auto z-30" data-story-finish>
+          {isTranscribing ? (
+            <div
+              className="flex w-full items-center justify-center gap-3 rounded-2xl border-2 border-primary-500 bg-primary-50 px-6 py-5 text-xl font-extrabold text-primary-700 shadow-md"
+              role="status"
+              aria-live="polite"
+            >
+              <span
+                className="h-5 w-5 animate-spin rounded-full border-4 border-primary-300 border-t-primary-700"
+                aria-hidden="true"
+              />
+              {t("speech.transcribing")}
+            </div>
+          ) : (
+            <Button3D variant="primary" fullWidth onClick={handleFinishStory}>
+              {t("exercise.memory.story.finish")}
+            </Button3D>
+          )}
         </div>
       </div>
     );

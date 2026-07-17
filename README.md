@@ -20,6 +20,50 @@ Haru는 60-80대 고령 사용자를 위한 Duolingo 스타일의 일일 인지�
 
 현재 MVP는 일일 루틴, 기억 단서, 로컬 활동 기록, 보호자·상담사 리포트에 집중합니다.
 
+## 멘토링 기반 개정 (2026-06-23)
+
+권효순 멘토링 메모와 첨부 논문을 바탕으로, “기능이 많고 평가처럼 보일 수 있는 앱”을 “어르신이 매일 쉽게 쓰고 보호자·복지관이 부담 없이 쓰는 일상 기억/뇌 자극 루틴”으로 재정렬했다. 주요 변경:
+
+- 학습자 화면에서 검사/선별/진단/점수/위험도 표현 제거 → “오늘 루틴 / 기억 운동 / 말하기 연습 / 하루 회상 / 대화 준비” 언어로 전환(한국어/영어/일본어 동기화).
+- 고령자 친화 UI: 큰 버튼/글자, 고대비, 색이 아닌 테두리/아이콘/상태 라벨/`aria-pressed`로 상태 전달, `prefers-reduced-motion` 대응.
+- 음성 우선 회상: 공통 `useSpeechCapture` + `SpeechCapturePanel`(“듣고 있어요” 상태, 미지원 시 글 입력 폴백, 입력 모드 메타데이터).
+- 건조한 숫자/주의 루틴을 일상 맥락(장보기, 버스 번호, 복지관 가는 길)으로 재구성.
+- 보호자 화면은 raw 점수 대신 참여 흐름/대화 제안/상담 자원 안내; 상담사 화면은 비임상 활동 기록. Haru advisory는 단일 낮은 결과만으로 경고하지 않도록 보수화.
+- 주간 참여 보상(비경쟁), 요일별 루틴 이름, `/kiosk` 복지관 모드 골격, localStorage 방어 코드 강화.
+- 공식 인지 검사(MMSE/MoCA/CIST 등) 문항/채점/컷오프는 복제하지 않으며 Haru 자체 루틴만 사용.
+
+상세는 `docs/mentoring-implementation-log.md`, `high_level_plan.md`, `specifie_plan.md` 참고.
+
+## 음성 인식(로컬 GPU STT 백엔드)
+
+모든 음성 응답은 `backend/`의 로컬 Qwen 서비스로 전사합니다.
+
+- 전사: `Qwen/Qwen3-ASR-1.7B` 고정 revision, `cuda:0`, BF16.
+- 타임스탬프: `Qwen/Qwen3-ForcedAligner-0.6B` 고정 revision.
+- API: `POST http://127.0.0.1:8765/api/stt`.
+- 프론트엔드: `src/features/speech/stt.ts`가 녹음 Blob을 업로드합니다.
+- Qwen이 보정된 confidence를 제공하지 않으므로 JSON에는 `null`을 저장합니다.
+- DC 제거, 80 Hz high-pass, bounded RMS 뒤 전체 발화 무응답만 차단합니다. 조용한 발화와 긴 쉼은 자르지 않습니다.
+- 모델·revision·aligner·전처리·segment·실제 capture sample rate/channel을 JSON에 남깁니다.
+- STT 장애 시에도 루틴 완료는 막지 않습니다. 동의한 음성 Blob과 실패 메타데이터를 남기고 durable outbox가 Qwen을 재시도합니다.
+
+두 모델과 STT 서비스는 로컬 GPU 전용이며 Vercel 배포 대상이 아닙니다. 상세 계약은 `backend/README.md`를 참고하십시오.
+
+## 개인 기억 RAG(로컬 서비스)
+
+`rag_backend/`는 앱의 전체 `haru_kiosk_usage_record` 1.0.0 JSON을 받아 모든 선택형·순서형·음성 응답을 SQLite 근거 문서로 저장하고, `intfloat/multilingual-e5-small`로 검색합니다.
+
+- API: `POST http://127.0.0.1:8000/api/ingest/json`.
+- SPA는 canonical JSON, content hash, idempotency key를 가진 durable outbox로 재시도합니다.
+- 문서는 `passage:` prefix, 검색어는 `query:` prefix를 사용합니다.
+- 음성의 명시적 `derived_annotations`만 관계로 만들며 선택 오답을 개인 사실로 승격하지 않습니다.
+- 원문·QA·삭제 API는 로컬 token으로 보호합니다.
+- 전체 canonical JSON은 사용자·dataset·body SHA-256별 immutable snapshot으로 보존합니다.
+- SQLite가 원본이고 Neo4j는 선택적 파생 미러입니다. RAG 서비스와 개인 기억 DB도 Vercel 배포 대상이 아닙니다.
+- 관련성 threshold 미만 질문은 근거 없음으로 반환하고 민감 transcript는 기본 검색·자동 문항에서 제외합니다.
+
+생성형 LLM이 임의 답을 만드는 구조가 아니라 저장된 응답과 원문 근거를 반환하는 구조입니다. 상세 계약은 `rag_backend/README.md`를 참고하십시오.
+
 ## 기술 스택
 
 - React 18
@@ -34,12 +78,15 @@ Haru는 60-80대 고령 사용자를 위한 Duolingo 스타일의 일일 인지�
 
 ## 주요 화면
 
-- `/` 학습 홈
+- `/` → `/lesson`
 - `/lesson` 일일 학습 세션
 - `/result` 세션 완료 결과
+- `/connect/caregiver` 보호자 화면
+- `/connect/counselor` 상담사 화면
 - `/garden` 기억 정원
-- `/family` 보호자 및 상담사 리포트
+- `/family` 가족 지원 화면
 - `/settings` 언어 및 데이터 관리
+- `/kiosk` 복지관 태블릿/키오스크 모드(골격)
 
 ## 주요 설계
 
@@ -93,17 +140,31 @@ Haru는 60-80대 고령 사용자를 위한 Duolingo 스타일의 일일 인지�
 
 ## 설치
 
-```bash
+```powershell
 npm install
+npm run stt:install
+npm run rag:install
+npm run stt:download
+npm run rag:download
 ```
+
+모델 weight는 각각 `backend/models/`, `rag_backend/models/`에 저장되며 Git에서 제외됩니다.
 
 ## 개발 서버
 
-```bash
+프론트엔드만 실행:
+
+```powershell
 npm run dev
 ```
 
-기본 Vite 주소는 `http://localhost:5173/`입니다.
+Qwen STT, E5 RAG, Vite를 함께 실행:
+
+```powershell
+npm run dev:local
+```
+
+주소는 SPA `http://127.0.0.1:5173`, RAG `:8000`, STT `:8765`입니다. `dev:local`은 프로세스 생명주기 동안만 쓰는 RAG token을 세 서비스에 일치시켜 주입합니다.
 
 ## 검증 명령
 
@@ -118,7 +179,9 @@ npm run build
 
 - TypeScript build mode 통과
 - ESLint 통과
-- Vitest 26개 파일, 79개 테스트 통과
+- Vitest 59개 파일, 303개 테스트 통과
+- STT 30개 테스트 통과, 실제 GPU/model smoke 1개는 기본 suite에서 제외
+- RAG 24개 테스트 통과
 - Vite production build 통과
 - Playwright 화면 캡처 69개 통과. 기본 webServer 방식은 Windows에서 worker 종료 지연이 발생해, 최종 검증은 Vite preview 서버를 별도로 띄우고 `PLAYWRIGHT_BASE_URL`을 지정해 exit code 0으로 완료함
 - Vercel production 배포 완료
@@ -156,7 +219,7 @@ src/
 
 ## 로컬 데이터
 
-앱은 현재 MVP 상태로 서버 없이 동작하며 다음 값을 브라우저 `localStorage`에 저장합니다.
+기본 화면과 루틴 완료는 로컬 서비스 장애 때도 동작합니다. 다음 값은 브라우저 `localStorage`에 저장됩니다.
 
 - `memoryGardenLang`
 - `memoryCards`
@@ -164,8 +227,12 @@ src/
 - `caregiverObservationRecords`
 - `streakState`
 - `gardenState`
+- `haruAdminUsageRecord`
+- `haruRagSyncOutbox` (전송 성공 후 제거)
+- `haruRagDeletionOutbox` (원격 삭제가 `complete=true`일 때 제거)
+- `haruSttRetryOutbox` (음성 Blob 자체가 아닌 재시도 참조만 저장)
 
-설정 화면에서 기억 카드와 인지 루틴 기록을 삭제할 수 있습니다.
+동의한 원시 음성은 브라우저 IndexedDB에 별도 저장됩니다. 로컬 RAG가 실행 중이면 동의한 관리자 JSON snapshot은 `rag_backend/data/haru.db`에도 축적됩니다.
 
 ## 참고 문서
 

@@ -1,13 +1,14 @@
 import { Outlet, useLocation } from "react-router-dom";
-import { TopStatusBar } from "./TopStatusBar";
-import { BottomNavigation } from "./BottomNavigation";
-import { useGamification } from "../features/gamification/useGamification";
+import { TopStatusBar } from "@/components/TopStatusBar";
+import { BottomNavigation } from "@/components/BottomNavigation";
+import { BuddyMascot } from "@/features/buddy/BuddyMascot";
+import { useGamification } from "@/features/gamification/useGamification";
 
 export function AppShell() {
   const location = useLocation();
   const { streakState, gardenState } = useGamification();
 
-  const hideNavigationOnRoutes = ["/lesson", "/result"];
+  const hideNavigationOnRoutes = ["/lesson", "/result", "/connect"];
   const isNavigationHidden = hideNavigationOnRoutes.some((route) =>
     location.pathname.startsWith(route)
   );
@@ -23,6 +24,9 @@ export function AppShell() {
       </main>
 
       {!isNavigationHidden && <BottomNavigation />}
+
+      {/* Exercise-buddy mascot. Renders nothing while BUDDY_ENABLED is false. */}
+      <BuddyMascot />
     </div>
   );
 }

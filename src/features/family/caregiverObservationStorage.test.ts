@@ -3,7 +3,7 @@ import {
   clearCaregiverObservationRecords,
   getCaregiverObservationRecords,
   saveCaregiverObservationRecord,
-} from "./caregiverObservationStorage";
+} from "@/features/family/caregiverObservationStorage";
 
 describe("caregiverObservationStorage", () => {
   beforeEach(() => {

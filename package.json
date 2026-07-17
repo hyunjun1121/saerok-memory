@@ -5,12 +5,24 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:local": "node scripts/dev-local-services.mjs",
     "build": "tsc -b && vite build",
     "capture:screens": "playwright test e2e/capture-application-screenshots.spec.ts --project=chromium",
+    "check:haru-data": "node scripts/check-haru-7day-contract.mjs",
     "lint": "eslint .",
-    "test": "vitest run",
+    "test": "npm run check:haru-data && vitest run",
     "typecheck": "tsc -b",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "stt:install": "node scripts/run-python-service.mjs stt install",
+    "stt:download": "node scripts/run-python-service.mjs stt download",
+    "stt:dev": "node scripts/run-python-service.mjs stt dev",
+    "stt:test": "node scripts/run-python-service.mjs stt test",
+    "stt:smoke": "node scripts/run-python-service.mjs stt smoke",
+    "rag:install": "node scripts/run-python-service.mjs rag install",
+    "rag:download": "node scripts/run-python-service.mjs rag download",
+    "rag:dev": "node scripts/run-python-service.mjs rag dev",
+    "rag:test": "node scripts/run-python-service.mjs rag test",
+    "rag:bootstrap": "node scripts/run-python-service.mjs rag bootstrap"
   },
   "dependencies": {
     "clsx": "^2.1.1",

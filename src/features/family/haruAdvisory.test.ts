@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
-import type { RoutineResult } from "../cognitive/cognitiveRoutineStorage";
-import type { MemoryCard } from "../memory/types";
-import type { CaregiverObservationRecord } from "./caregiverObservationStorage";
-import { generateHaruAdvisorySummary } from "./haruAdvisory";
+import type { RoutineResult } from "@/features/cognitive/cognitiveRoutineStorage";
+import type { MemoryCard } from "@/features/memory/types";
+import type { CaregiverObservationRecord } from "@/features/family/caregiverObservationStorage";
+import { generateHaruAdvisorySummary } from "@/features/family/haruAdvisory";
 
 describe("generateHaruAdvisorySummary", () => {
   const now = new Date("2026-01-15T12:00:00.000Z");

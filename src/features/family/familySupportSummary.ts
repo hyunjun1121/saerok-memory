@@ -2,14 +2,14 @@
 // it exposes participation flow, recent activity, and gentle conversation
 // starters, but NOT raw performance counts, error counts, or response times
 // (SP-08). Nothing here reads as a diagnosis or screening result.
-import type { MemoryCard } from "../memory/types";
-import type { RoutineResult } from "../cognitive/cognitiveRoutineStorage";
+import type { MemoryCard } from "@/features/memory/types";
+import type { RoutineResult } from "@/features/cognitive/cognitiveRoutineStorage";
 import type {
   CaregiverObservationDomain,
   CaregiverObservationRecord,
-} from "./caregiverObservationStorage";
-import type { ReportCopyItem } from "./caregiverReport";
-import { generateHaruAdvisorySummary } from "./haruAdvisory";
+} from "@/features/family/caregiverObservationStorage";
+import type { ReportCopyItem } from "@/features/family/caregiverReport";
+import { generateHaruAdvisorySummary } from "@/features/family/haruAdvisory";
 
 const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 const WINDOW_DAYS = 7;

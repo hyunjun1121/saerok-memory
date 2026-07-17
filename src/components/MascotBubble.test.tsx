@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { render } from "@testing-library/react";
-import { MascotBubble } from "./MascotBubble";
+import { MascotBubble } from "@/components/MascotBubble";
 
 describe("MascotBubble SP-03", () => {
   it("praising mood is announced via role=status + aria-live", () => {

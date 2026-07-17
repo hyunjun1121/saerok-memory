@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { saveCognitiveRoutineResult, getCognitiveRoutineResults, clearCognitiveRoutineResults, isTodayRoutineCompleted } from "./cognitiveRoutineStorage";
+import { saveCognitiveRoutineResult, getCognitiveRoutineResults, clearCognitiveRoutineResults, isTodayRoutineCompleted } from "@/features/cognitive/cognitiveRoutineStorage";
 
 describe("cognitiveRoutineStorage", () => {
   it("should save and retrieve cognitive routine results", () => {

@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Volume2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { Button3D } from "../../../components/Button3D";
-import { ChoiceCard } from "../../../components/ChoiceCard";
-import type { ExerciseState } from "./types";
-import { getSpeechLanguage } from "../../../utils/localizedText";
-import { useInteractionFeedback } from "../../../hooks/useInteractionFeedback";
+import { Button3D } from "@/components/Button3D";
+import { ChoiceCard } from "@/components/ChoiceCard";
+import type { ExerciseState } from "@/features/lessons/exerciseTypes/types";
+import { getSpeechLanguage } from "@/utils/localizedText";
+import { useInteractionFeedback } from "@/hooks/useInteractionFeedback";
 
 interface Option {
   id: string;
@@ -45,13 +45,8 @@ export function AudioChoice({
     }
 
     setSelectedId(id);
-    setGlobalState("answer_selected");
-  };
 
-  const handleCheck = () => {
-    if (!selectedId) return;
-
-    if (selectedId === correctOptionId) {
+    if (id === correctOptionId) {
       setGlobalState("correct_feedback");
       return;
     }
@@ -105,17 +100,6 @@ export function AudioChoice({
         })}
       </div>
 
-      {(globalState === "awaiting_answer" || globalState === "answer_selected") && (
-        <div className="fixed bottom-[96px] left-0 right-0 z-30 mx-auto max-w-md px-4">
-          <Button3D
-            variant={globalState === "answer_selected" ? "primary" : "disabled"}
-            fullWidth
-            onClick={handleCheck}
-          >
-            {t("exercise.check")}
-          </Button3D>
-        </div>
-      )}
     </div>
   );
 }

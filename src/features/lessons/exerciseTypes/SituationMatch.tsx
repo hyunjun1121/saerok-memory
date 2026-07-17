@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { ChoiceCard } from "../../../components/ChoiceCard";
-import { Button3D } from "../../../components/Button3D";
+import { ChoiceCard } from "@/components/ChoiceCard";
 import { useTranslation } from "react-i18next";
-import type { ExerciseState } from "./types";
+import type { ExerciseState } from "@/features/lessons/exerciseTypes/types";
 
 interface Option {
   id: string;
@@ -30,6 +29,7 @@ export function SituationMatch({
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [missCount, setMissCount] = useState(0);
 
+  // Evaluate the moment a choice is tapped — no separate confirm step.
   const handleSelect = (id: string) => {
     if (
       globalState === "correct_feedback" ||
@@ -38,24 +38,17 @@ export function SituationMatch({
     ) {
       return;
     }
+
     setSelectedId(id);
-    setGlobalState("answer_selected");
-  };
 
-  const handleCheck = () => {
-    if (!selectedId) return;
-
-    if (selectedId === correctOptionId) {
+    if (id === correctOptionId) {
       setGlobalState("correct_feedback");
-    } else {
-      const newMissCount = missCount + 1;
-      setMissCount(newMissCount);
-      if (newMissCount === 1) {
-        setGlobalState("hint_feedback");
-      } else {
-        setGlobalState("incorrect_feedback");
-      }
+      return;
     }
+
+    const newMissCount = missCount + 1;
+    setMissCount(newMissCount);
+    setGlobalState(newMissCount === 1 ? "hint_feedback" : "incorrect_feedback");
   };
 
   return (
@@ -71,9 +64,7 @@ export function SituationMatch({
         {options.map((option) => {
           let state: "idle" | "selected" | "correct" | "incorrect" | "disabled" = "idle";
 
-          if (globalState === "answer_selected" && selectedId === option.id) {
-            state = "selected";
-          } else if (globalState === "correct_feedback") {
+          if (globalState === "correct_feedback") {
             if (option.id === correctOptionId) state = "correct";
             else state = "disabled";
           } else if (
@@ -99,18 +90,6 @@ export function SituationMatch({
           );
         })}
       </div>
-
-      {(globalState === "awaiting_answer" || globalState === "answer_selected") && (
-        <div className="fixed bottom-[96px] left-0 right-0 px-4 max-w-md mx-auto z-30">
-          <Button3D
-            variant={globalState === "answer_selected" ? "primary" : "disabled"}
-            fullWidth
-            onClick={handleCheck}
-          >
-            {t("exercise.check")}
-          </Button3D>
-        </div>
-      )}
     </div>
   );
 }

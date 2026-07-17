@@ -1,7 +1,7 @@
-import { generateMemoryReviewExercise } from './memoryReviewGenerator';
-import type { MemoryCard } from './types';
+import { generateMemoryReviewExercise } from '@/features/memory/memoryReviewGenerator';
+import type { MemoryCard } from '@/features/memory/types';
 import { afterEach, describe, it, expect } from 'vitest';
-import i18n from '../../i18n';
+import i18n from '@/i18n';
 
 describe('memoryReviewGenerator', () => {
   afterEach(async () => {

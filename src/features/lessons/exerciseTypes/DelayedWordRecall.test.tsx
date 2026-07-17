@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { clearCognitiveRoutineResults, getCognitiveRoutineResults } from "../../cognitive/cognitiveRoutineStorage";
-import i18n from "../../../i18n";
-import { DelayedWordRecall } from "./DelayedWordRecall";
+import { clearCognitiveRoutineResults, getCognitiveRoutineResults } from "@/features/cognitive/cognitiveRoutineStorage";
+import i18n from "@/i18n";
+import { DelayedWordRecall } from "@/features/lessons/exerciseTypes/DelayedWordRecall";
 
 describe("DelayedWordRecall", () => {
   beforeEach(() => {

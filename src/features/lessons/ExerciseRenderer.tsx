@@ -1,22 +1,31 @@
-import type { Exercise } from "../../data/mockExercises";
-import type { ExerciseState } from "./exerciseTypes/types";
-import { getLocalizedText } from "../../utils/localizedText";
-import { MultipleChoiceMeaning } from "./exerciseTypes/MultipleChoiceMeaning";
-import { SituationMatch } from "./exerciseTypes/SituationMatch";
-import { PairMatching } from "./exerciseTypes/PairMatching";
-import { PersonalMemoryRecall } from "./exerciseTypes/PersonalMemoryRecall";
-import { SequenceOrder } from "./exerciseTypes/SequenceOrder";
-import { AudioChoice } from "./exerciseTypes/AudioChoice";
-import { PictureChoice } from "./exerciseTypes/PictureChoice";
-import { DelayedWordRecall } from "./exerciseTypes/DelayedWordRecall";
-import { AttentionPattern } from "./exerciseTypes/AttentionPattern";
-import { DigitSpanPractice } from "./exerciseTypes/DigitSpanPractice";
-import { VerbalFluencyPractice } from "./exerciseTypes/VerbalFluencyPractice";
-import { TrailSwitchingPractice } from "./exerciseTypes/TrailSwitchingPractice";
-import { StroopTouchPractice } from "./exerciseTypes/StroopTouchPractice";
-import { OrientationPractice } from "./exerciseTypes/OrientationPractice";
-import { ShapeCopyPractice } from "./exerciseTypes/ShapeCopyPractice";
-import { SpeechRepeatPractice } from "./exerciseTypes/SpeechRepeatPractice";
+import type { Exercise } from "@/data/mockExercises";
+import {
+  HARU_WEEK_QUESTION_META,
+  haru7DayExercises,
+} from "@/data/haru7DayExercises";
+import type { ExerciseState } from "@/features/lessons/exerciseTypes/types";
+import { getLocalizedText } from "@/utils/localizedText";
+import { MultipleChoiceMeaning } from "@/features/lessons/exerciseTypes/MultipleChoiceMeaning";
+import { SituationMatch } from "@/features/lessons/exerciseTypes/SituationMatch";
+import { PairMatching } from "@/features/lessons/exerciseTypes/PairMatching";
+import { PersonalMemoryRecall } from "@/features/lessons/exerciseTypes/PersonalMemoryRecall";
+import { SequenceOrder } from "@/features/lessons/exerciseTypes/SequenceOrder";
+import { AudioChoice } from "@/features/lessons/exerciseTypes/AudioChoice";
+import { PictureChoice } from "@/features/lessons/exerciseTypes/PictureChoice";
+import { DelayedWordRecall } from "@/features/lessons/exerciseTypes/DelayedWordRecall";
+import { AttentionPattern } from "@/features/lessons/exerciseTypes/AttentionPattern";
+import { DigitSpanPractice } from "@/features/lessons/exerciseTypes/DigitSpanPractice";
+import { VerbalFluencyPractice } from "@/features/lessons/exerciseTypes/VerbalFluencyPractice";
+import { TrailSwitchingPractice } from "@/features/lessons/exerciseTypes/TrailSwitchingPractice";
+import { StroopTouchPractice } from "@/features/lessons/exerciseTypes/StroopTouchPractice";
+import { OrientationPractice } from "@/features/lessons/exerciseTypes/OrientationPractice";
+import { ShapeCopyPractice } from "@/features/lessons/exerciseTypes/ShapeCopyPractice";
+import { SpeechRepeatPractice } from "@/features/lessons/exerciseTypes/SpeechRepeatPractice";
+import {
+  HaruScenarioQuestion,
+  type HaruScenarioAdminResponse,
+  type HaruScenarioLiveResponse,
+} from "@/features/lessons/exerciseTypes/HaruScenarioQuestion";
 import { useTranslation } from "react-i18next";
 
 interface ExerciseRendererProps {
@@ -24,16 +33,43 @@ interface ExerciseRendererProps {
   globalState: ExerciseState;
   setGlobalState: (state: ExerciseState) => void;
   onComplete: () => void;
+  onHaruResponse?: (response: HaruScenarioLiveResponse) => void;
+  onHaruAdminResponse?: (response: HaruScenarioAdminResponse) => void;
 }
+
+const ignoreHaruResponse = () => undefined;
 
 export function ExerciseRenderer({
   exercise,
   globalState,
   setGlobalState,
   onComplete,
+  onHaruResponse,
+  onHaruAdminResponse,
 }: ExerciseRendererProps) {
   const { i18n } = useTranslation();
   const language = i18n.language;
+  const haruQuestion = HARU_WEEK_QUESTION_META.find(
+    (question) => question.exerciseId === exercise.id,
+  );
+
+  if (haruQuestion) {
+    const canonicalExercise = haru7DayExercises.find(
+      (candidate) => candidate.id === exercise.id,
+    );
+    return (
+      <HaruScenarioQuestion
+        exercise={exercise}
+        question={haruQuestion}
+        globalState={globalState}
+        setGlobalState={setGlobalState}
+        onResponse={onHaruResponse ?? ignoreHaruResponse}
+        onAdminResponse={onHaruAdminResponse}
+        useRecordedFeedback={canonicalExercise === exercise}
+      />
+    );
+  }
+
   const prompt = getLocalizedText(exercise.prompt, language);
   const explanation = getLocalizedText(exercise.explanation, language);
   const options = (exercise.payload.options ?? []).map((option) => ({
@@ -57,8 +93,12 @@ export function ExerciseRenderer({
     category: getLocalizedText(cue.category, language),
   }));
   const audioText = getLocalizedText(exercise.payload.audioText, language);
+  const instructionText = getLocalizedText(exercise.payload.instructionText, language);
   const phrase = getLocalizedText(exercise.payload.phrase, language);
   const fluencyCategory = getLocalizedText(exercise.payload.fluencyCategory, language);
+  const scenarioTitle = getLocalizedText(exercise.payload.scenarioTitle, language);
+  const scenarioBody = getLocalizedText(exercise.payload.scenarioBody, language);
+  const benefitCopy = getLocalizedText(exercise.payload.benefitCopy, language);
   const trailNodes = (exercise.payload.trailNodes ?? []).map((node) => ({
     ...node,
     label: getLocalizedText(node.label, language),
@@ -73,6 +113,7 @@ export function ExerciseRenderer({
       return (
         <MultipleChoiceMeaning
           prompt={prompt}
+          instructionText={instructionText}
           options={options}
           correctOptionId={typeof exercise.correctAnswer === "string" ? exercise.correctAnswer : ""}
           explanation={explanation}
@@ -113,6 +154,7 @@ export function ExerciseRenderer({
           prompt={prompt}
           items={items}
           correctOrder={Array.isArray(exercise.correctAnswer) ? exercise.correctAnswer : []}
+          requiredSelectionCount={exercise.payload.requiredSelectionCount}
           globalState={globalState}
           setGlobalState={setGlobalState}
         />
@@ -150,6 +192,7 @@ export function ExerciseRenderer({
           linkedConceptId={exercise.payload.linkedConceptId}
           memoryField={exercise.payload.memoryField}
           correctOptionId={typeof exercise.correctAnswer === "string" ? exercise.correctAnswer : undefined}
+          maxDurationSeconds={exercise.payload.durationSeconds}
           globalState={globalState}
           setGlobalState={setGlobalState}
           onComplete={onComplete}
@@ -181,6 +224,9 @@ export function ExerciseRenderer({
           pattern={exercise.payload.pattern ?? []}
           options={options}
           correctOptionId={typeof exercise.correctAnswer === "string" ? exercise.correctAnswer : ""}
+          scenarioTitle={scenarioTitle}
+          scenarioBody={scenarioBody}
+          benefitCopy={benefitCopy}
           onComplete={onComplete}
           setGlobalState={setGlobalState}
           globalState={globalState}
@@ -193,6 +239,9 @@ export function ExerciseRenderer({
           prompt={prompt}
           digits={exercise.payload.digits ?? []}
           direction={exercise.payload.direction ?? "backward"}
+          scenarioTitle={scenarioTitle}
+          scenarioBody={scenarioBody}
+          benefitCopy={benefitCopy}
           setGlobalState={setGlobalState}
           globalState={globalState}
         />
@@ -216,6 +265,9 @@ export function ExerciseRenderer({
           prompt={prompt}
           nodes={trailNodes}
           expectedTrail={exercise.payload.expectedTrail ?? []}
+          scenarioTitle={scenarioTitle}
+          scenarioBody={scenarioBody}
+          benefitCopy={benefitCopy}
           setGlobalState={setGlobalState}
           globalState={globalState}
         />
@@ -227,6 +279,9 @@ export function ExerciseRenderer({
           prompt={prompt}
           trials={stroopTrials}
           colorOptions={exercise.payload.stroopColorOptions ?? []}
+          scenarioTitle={scenarioTitle}
+          scenarioBody={scenarioBody}
+          benefitCopy={benefitCopy}
           setGlobalState={setGlobalState}
           globalState={globalState}
         />

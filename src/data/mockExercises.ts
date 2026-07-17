@@ -1,4 +1,5 @@
-import type { LocalizedText } from "../utils/localizedText";
+import type { LocalizedText } from "@/utils/localizedText";
+import { haru7DayExercises } from "@/data/haru7DayExercises";
 
 export type ExerciseType =
   | "multiple_choice_meaning"
@@ -63,6 +64,7 @@ export type RoutineDomain =
 
 export interface ExercisePayload {
   audioText?: LocalizedText;
+  instructionText?: LocalizedText;
   conceptId?: string;
   items?: AnswerOption[];
   linkedConceptId?: string;
@@ -86,7 +88,7 @@ export interface ExercisePayload {
   expectedTrail?: string[];
   stroopTrials?: StroopTrial[];
   stroopColorOptions?: StroopColor[];
-  orientationKind?: "date_weekday";
+  orientationKind?: "date_weekday" | "month" | "weekday" | "season" | "random";
   targetDateISO?: string;
   // Haru-original everyday framing (never copies official test items/cutoffs).
   domain?: RoutineDomain;
@@ -282,23 +284,13 @@ export const mockExercises: Exercise[] = [
     lessonId: "lesson_1",
     type: "digit_span_practice",
     prompt: {
-      ko: "버스 번호 482를 천천히 기억한 뒤, 그대로 다시 눌러볼게요.",
-      ja: "バス番号482をゆっくり覚えて、同じ順番に押してみましょう。",
-      en: "Remember the bus number 482 slowly, then tap it back in the same order.",
+      ko: "버스 번호를 눌러보세요.",
+      ja: "バスの番号を押してみましょう。",
+      en: "Tap the bus number.",
     },
     payload: {
       domain: "memory",
       recommendedDays: [2, 4],
-      scenarioTitle: {
-        ko: "버스 번호 표",
-        ja: "バスの番号표",
-        en: "A bus number sign",
-      },
-      scenarioBody: {
-        ko: "정류장 전광판에 잠깐 뜬 번호를 확인하는 일상 장면이에요.",
-        ja: "停留所の案内板に少し表示された番号を確かめる日常の場面です。",
-        en: "An everyday moment of checking a number that briefly appears on a stop sign.",
-      },
       digits: ["4", "8", "2"],
       direction: "forward",
     },
@@ -315,24 +307,14 @@ export const mockExercises: Exercise[] = [
     lessonId: "lesson_1",
     type: "orientation_practice",
     prompt: {
-      ko: "오늘 날짜와 요일로 가장 알맞은 것을 골라보세요.",
-      ja: "今日の日付と曜日として、いちばん合うものを選んでください。",
-      en: "Choose the date and weekday that best match today.",
+      ko: "오늘 날짜를 골라보세요.",
+      ja: "今日の日付を選んでください。",
+      en: "Choose today's date.",
     },
     payload: {
       domain: "dailyFlow",
       recommendedDays: [0, 3, 6],
-      scenarioTitle: {
-        ko: "오늘의 달력",
-        ja: "今日のカレンダー",
-        en: "Today's calendar",
-      },
-      scenarioBody: {
-        ko: "아침에 달력을 보며 오늘이 며칠, 무슨 요일인지 가볍게 확인해요.",
-        ja: "朝にカレンダーを見て、今日が何日で何曜日かを軽く確かめます。",
-        en: "A light morning check of today's date and weekday on the calendar.",
-      },
-      orientationKind: "date_weekday",
+      orientationKind: "random",
     },
     correctAnswer: null,
     explanation: {
@@ -347,27 +329,17 @@ export const mockExercises: Exercise[] = [
     lessonId: "lesson_1",
     type: "verbal_fluency_practice",
     prompt: {
-      ko: "떠오르는 동물 이름을 가능한 만큼 말하거나 적어보세요.",
-      ja: "思いつく動物の名前を、できるだけ話すか書いてみましょう。",
-      en: "Say or write as many animal names as you can think of.",
+      ko: "지금 떠오르는 과일 이름을 최대한 많이 말하세요.",
+      ja: "今思い浮かぶ果物の名前をできるだけ多く言ってください。",
+      en: "Say as many fruit names as you can, one after another.",
     },
     payload: {
       domain: "language",
       recommendedDays: [3, 5],
-      scenarioTitle: {
-        ko: "시장 가격표 떠올리기",
-        ja: "市場の値段表思い出し",
-        en: "Recalling a market price list",
-      },
-      scenarioBody: {
-        ko: "한 주제 안에서 떠오르는 단어를 편하게 말하거나 적어보세요.",
-        ja: "一つのお題の中で思いつく言葉を気軽に話すか書いてみましょう。",
-        en: "Comfortably say or write words that come to mind within one topic.",
-      },
       fluencyCategory: {
-        ko: "동물",
-        ja: "動物",
-        en: "animals",
+        ko: "과일",
+        ja: "果物",
+        en: "fruit",
       },
       durationSeconds: 30,
     },
@@ -384,34 +356,22 @@ export const mockExercises: Exercise[] = [
     lessonId: "lesson_1",
     type: "trail_switching_practice",
     prompt: {
-      ko: "복지관 가는 길을 번호표와 장소 그림을 번갈아 눌러 완성해 보세요.",
-      ja: "福祉施設へ行く道を、番号표と場所の絵を交互に押して完成させましょう。",
-      en: "Complete the route to the welfare center by alternating between number signs and place pictures.",
+      ko: "순서대로 눌러보세요.",
+      ja: "順番に押してみましょう。",
+      en: "Tap them in order.",
     },
     payload: {
       domain: "attention",
       recommendedDays: [1, 4],
-      scenarioTitle: {
-        ko: "복지관 가는 길",
-        ja: "福祉施設へ行く道",
-        en: "Route to the welfare center",
-      },
-      scenarioBody: {
-        ko: "1번 정류장에서 시작해 꽃집, 2번 약국을 차례로 지나가요.",
-        ja: "1番の停留所から始まり、花屋、2番の薬局を順に通ります。",
-        en: "Start at stop 1, then pass the flower shop and pharmacy stop 2 in order.",
-      },
       trailNodes: [
-        { id: "n1", label: "1", group: "number", x: 16, y: 20 },
-        { id: "s1", label: { ko: "꽃집", ja: "花屋", en: "flower shop" }, group: "symbol", x: 74, y: 18 },
-        { id: "n2", label: "2", group: "number", x: 54, y: 42 },
-        { id: "s2", label: { ko: "약국", ja: "薬局", en: "pharmacy" }, group: "symbol", x: 22, y: 60 },
-        { id: "n3", label: "3", group: "number", x: 70, y: 72 },
-        { id: "s3", label: { ko: "복지관", ja: "福祉施設", en: "welfare center" }, group: "symbol", x: 34, y: 84 },
+        { id: "n1", label: "1", group: "number", x: 24, y: 28 },
+        { id: "s1", label: { ko: "꽃집", ja: "花屋", en: "flower shop" }, group: "symbol", x: 74, y: 26 },
+        { id: "n2", label: "2", group: "number", x: 74, y: 74 },
+        { id: "s2", label: { ko: "약국", ja: "薬局", en: "pharmacy" }, group: "symbol", x: 26, y: 76 },
       ],
-      expectedTrail: ["n1", "s1", "n2", "s2", "n3", "s3"],
+      expectedTrail: ["n1", "s1", "n2", "s2"],
     },
-    correctAnswer: ["n1", "s1", "n2", "s2", "n3", "s3"],
+    correctAnswer: ["n1", "s1", "n2", "s2"],
     explanation: {
       ko: "번호표와 장소 그림을 번갈아 따라가는 가벼운 활동이에요. 선택 순서와 다시 누른 횟수를 활동 흐름으로 저장해요.",
       ja: "番号表と場所の絵を交互にたどる軽い活動です。選択の順番と押し直した回数を活動の流れとして保存します。",
@@ -577,23 +537,13 @@ export const mockExercises: Exercise[] = [
     lessonId: "lesson_1",
     type: "shape_copy_practice",
     prompt: {
-      ko: "위의 그림을 보고 아래에 비슷하게 그려보세요.",
-      ja: "上の形を見て、下に似た形を描いてください。",
-      en: "Look at the shape above and draw a similar one below.",
+      ko: "따라 그리세요.",
+      ja: "形をなぞってください。",
+      en: "Trace the shape.",
     },
     payload: {
       domain: "visuospatial",
       recommendedDays: [4, 6],
-      scenarioTitle: {
-        ko: "손글씨 연습장",
-        ja: "手書きの練習帳",
-        en: "A handwriting practice sheet",
-      },
-      scenarioBody: {
-        ko: "보이는 도형을 천천히 따라 그리며 손을 가볍게 움직여요.",
-        ja: "見える形をゆっくりなぞり、手を軽く動かします。",
-        en: "Slowly trace the shown shape to move the hand gently.",
-      },
     },
     correctAnswer: null,
     difficulty: 1,
@@ -603,23 +553,13 @@ export const mockExercises: Exercise[] = [
     lessonId: "lesson_1",
     type: "speech_repeat_practice",
     prompt: {
-      ko: "문장을 소리 내어 따라 읽어보세요.",
-      ja: "文を声に出して読んでください。",
-      en: "Please read this sentence aloud.",
+      ko: "따라 말해보세요.",
+      ja: "声に出して言ってみましょう。",
+      en: "Say it out loud.",
     },
     payload: {
       domain: "language",
       recommendedDays: [3, 5],
-      scenarioTitle: {
-        ko: "아침 인사",
-        ja: "朝のあいさつ",
-        en: "A morning greeting",
-      },
-      scenarioBody: {
-        ko: "짧은 문장을 입 밖으로 천천히 내보며 말하기를 깨워요.",
-        ja: "短い文をゆっくり声に出して、話すことを目覚めさせます。",
-        en: "Say a short sentence slowly out loud to warm up talking.",
-      },
       phrase: {
         ko: "오늘 하루도 천천히 잘 시작했습니다.",
         ja: "今日もゆっくり始められました。",
@@ -689,9 +629,9 @@ export const mockExercises: Exercise[] = [
     lessonId: "lesson_1",
     type: "personal_memory_recall",
     prompt: {
-      ko: "오늘 또는 어제 있었던 일을 세 문장만 천천히 말해볼까요? 누구와 있었는지, 어디였는지, 어떤 기분이었는지만 말해도 좋아요.",
-      ja: "今日または昨日あったことを、三文だけゆっくり話してみましょう。誰といたか、どこだったか、どんな気分だったかだけでも大丈夫です。",
-      en: "Could you tell me, in about three sentences, what happened today or yesterday? Just who you were with, where you were, and how you felt is enough.",
+      ko: "오늘 하루를 말씀해 주세요.",
+      ja: "今日の一日を話してください。",
+      en: "Please tell me about your day.",
     },
     payload: {
       domain: "moodSocial",
@@ -735,4 +675,151 @@ export const mockExercises: Exercise[] = [
     },
     difficulty: 1,
   },
+  {
+    // 🔖 기억(개인 회상, 음성): 사전에 시드된 "어제 외식" 기억카드를
+    // 바탕으로 한 회상 질문. story 모드라 화면 진입 즉시 음성 녹음 시작.
+    id: "ex_recall_dining",
+    lessonId: "lesson_1",
+    type: "personal_memory_recall",
+    prompt: {
+      ko: "어제 가족과 외식하셨다고 했는데, 무엇을 드셨는지 기억나시나요?",
+      ja: "昨日ご家族と外食なさったと聞いています。何をお食べになりましたか、覚えていますか?",
+      en: "You mentioned eating out with your family yesterday. Do you remember what you had?",
+    },
+    payload: {
+      domain: "memory",
+      recommendedDays: [2, 5],
+      linkedConceptId: "demo_dining_recall",
+      memoryField: "story",
+      options: [],
+    },
+    correctAnswer: null,
+    explanation: {
+      ko: "말씀해주신 이야기를 기억 카드에 남겼어요.",
+      ja: "お話しいただいたことを記憶カードに残しました。",
+      en: "I saved what you shared to your memory card.",
+    },
+    difficulty: 1,
+  },
+  {
+    // 🧮 주의·계산: 시장 거스름돈. ex_attention(사과)은 카탈로그에 잔류.
+    id: "ex_market_money",
+    lessonId: "lesson_1",
+    type: "attention_pattern",
+    prompt: {
+      ko: "거스름돈을 골라보세요.",
+      ja: "おつりを選んでください。",
+      en: "Choose the change.",
+    },
+    payload: {
+      domain: "attention",
+      recommendedDays: [1, 4],
+      scenarioTitle: {
+        ko: "장보기",
+        ja: "買い物",
+        en: "Shopping",
+      },
+      scenarioBody: {
+        ko: "시장에서 과일을 3,000원어치 샀습니다. 5,000원을 냈다면 거스름돈은 얼마일까요?",
+        ja: "市場で果物を3,000ウォン分買いました。5,000ウォン出したなら、おつりはいくらでしょうか?",
+        en: "You bought 3,000 won worth of fruit at the market. If you paid 5,000 won, how much is the change?",
+      },
+      options: [
+        { id: "opt_1000", label: { ko: "1,000원", ja: "1,000ウォン", en: "1,000 won" } },
+        { id: "opt_2000", label: { ko: "2,000원", ja: "2,000ウォン", en: "2,000 won" } },
+        { id: "opt_3000", label: { ko: "3,000원", ja: "3,000ウォン", en: "3,000 won" } },
+        { id: "opt_4000", label: { ko: "4,000원", ja: "4,000ウォン", en: "4,000 won" } },
+      ],
+    },
+    correctAnswer: "opt_2000",
+    explanation: {
+      ko: "5,000원에서 3,000원을 빼면 2,000원이에요.",
+      ja: "5,000ウォンから3,000ウォンを引くと2,000ウォンです。",
+      en: "5,000 minus 3,000 is 2,000 won.",
+    },
+    difficulty: 2,
+  },
+  {
+    // 🧮 주의(숫자 패턴): 1 3 5 7 ? → 9. attention_pattern의 pattern 렌더링 사용.
+    id: "ex_number_pattern",
+    lessonId: "lesson_1",
+    type: "attention_pattern",
+    prompt: {
+      ko: "다음 숫자를 골라보세요.",
+      ja: "次の数を選んでください。",
+      en: "Choose the next number.",
+    },
+    payload: {
+      domain: "attention",
+      recommendedDays: [1, 5],
+      pattern: [1, 3, 5, 7],
+      options: [
+        { id: "opt_8", label: { ko: "8", ja: "8", en: "8" } },
+        { id: "opt_9", label: { ko: "9", ja: "9", en: "9" } },
+        { id: "opt_10", label: { ko: "10", ja: "10", en: "10" } },
+        { id: "opt_11", label: { ko: "11", ja: "11", en: "11" } },
+      ],
+    },
+    correctAnswer: "opt_9",
+    explanation: {
+      ko: "2씩 커지는 규칙이라 다음은 9이에요.",
+      ja: "2ずつ大きくなるので、次は9です。",
+      en: "It grows by 2 each step, so the next is 9.",
+    },
+    difficulty: 2,
+  },
+  {
+    // 🗣️ 언어(이해): 속담 뜻 고르기. 비의료 일상 어휘.
+    id: "ex_proverb",
+    lessonId: "lesson_1",
+    type: "multiple_choice_meaning",
+    prompt: {
+      ko: "속담 '티끌 모아 태산'의 뜻을 골라보세요.",
+      ja: "ことわざ「塵も積もれば山となる」の意味を選んでください。",
+      en: "Choose the meaning of the proverb \"Many a little makes a mickle.\"",
+    },
+    payload: {
+      domain: "language",
+      recommendedDays: [3, 5],
+      options: [
+        { id: "opt_small", label: { ko: "작은 것이 모이면 커져요", ja: "小さなものが集まると大きくなります", en: "Small things add up to something big" } },
+        { id: "opt_hurry", label: { ko: "빨리 서둘러야 해요", ja: "急いだ方がいいです", en: "You should hurry up" } },
+        { id: "opt_alone", label: { ko: "혼자 있는 게 좋아요", ja: "一人がいいです", en: "Being alone is nice" } },
+        { id: "opt_high", label: { ko: "높은 곳에 올라가요", ja: "高い所に登ります", en: "Climb to a high place" } },
+      ],
+    },
+    correctAnswer: "opt_small",
+    explanation: {
+      ko: "작은 것이 모이면 큰산이 된다는 뜻이에요.",
+      ja: "小さなものが積もると大きな山になるという意味です。",
+      en: "It means small things pile up into something great.",
+    },
+    difficulty: 2,
+  },
+  {
+    // 🙂 감정(음성): 요즘 기분 편하게 말하기. story 모드 음성 녹음.
+    id: "ex_mood_voice",
+    lessonId: "lesson_1",
+    type: "personal_memory_recall",
+    prompt: {
+      ko: "요즘 기분이 어떠신지 편하게 말씀해 주세요.",
+      ja: "最近のお気持ちはいかがですか。気楽にお話しください。",
+      en: "How have you been feeling lately? Please share comfortably.",
+    },
+    payload: {
+      domain: "moodSocial",
+      recommendedDays: [2, 6],
+      linkedConceptId: "demo_mood_check",
+      memoryField: "story",
+      options: [],
+    },
+    correctAnswer: null,
+    explanation: {
+      ko: "말씀해주신 기분을 기록에 남겼어요.",
+      ja: "お話しいただいた気持ちは記録に残しました。",
+      en: "I noted how you've been feeling.",
+    },
+    difficulty: 1,
+  },
+  ...haru7DayExercises,
 ];

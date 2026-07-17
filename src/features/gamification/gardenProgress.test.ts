@@ -1,4 +1,4 @@
-import { addGardenReward, initialGardenState } from './gardenProgress';
+import { addGardenReward, initialGardenState } from '@/features/gamification/gardenProgress';
 import { describe, it, expect } from 'vitest';
 
 describe('gardenProgress', () => {

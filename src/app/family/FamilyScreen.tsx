@@ -13,31 +13,31 @@ import {
   UserPlus,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { Button3D } from "../../components/Button3D";
-import { SupportResourceCard } from "../../components/SupportResourceCard";
-import { getCognitiveRoutineResults } from "../../features/cognitive/cognitiveRoutineStorage";
-import { getMemoryCards } from "../../features/memory/memoryCardStorage";
+import { Button3D } from "@/components/Button3D";
+import { SupportResourceCard } from "@/features/family/ui/SupportResourceCard";
+import { getCognitiveRoutineResults } from "@/features/cognitive/cognitiveRoutineStorage";
+import { getMemoryCards } from "@/features/memory/memoryCardStorage";
 import { twMerge } from "tailwind-merge";
 import {
   generateCaregiverCounselorReport,
   type ReportCopyItem,
-} from "../../features/family/caregiverReport";
+} from "@/features/family/caregiverReport";
 import {
   generateFamilySupportSummary,
-} from "../../features/family/familySupportSummary";
-import { getVerifiedSupportResources } from "../../data/supportResources";
+} from "@/features/family/familySupportSummary";
+import { getVerifiedSupportResources } from "@/data/supportResources";
 import {
   buildDemoCaregiverObservationRecords,
   buildDemoMemoryCards,
   buildDemoRoutineResults,
-} from "../../features/family/demoReportData";
+} from "@/features/family/demoReportData";
 import {
   getCaregiverObservationRecords,
   saveCaregiverObservationRecord,
   type CaregiverObservationDomain,
   type CaregiverObservationResponse,
   type CaregiverObservationResponseMap,
-} from "../../features/family/caregiverObservationStorage";
+} from "@/features/family/caregiverObservationStorage";
 
 const OBSERVATION_DOMAINS: CaregiverObservationDomain[] = [
   "dailyRoutine",

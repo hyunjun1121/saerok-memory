@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { Button3D } from "../../components/Button3D";
+import { Button3D } from "@/components/Button3D";
 import {
   saveLearnerProfile,
   type PreferredInputMode,
-} from "../../features/profile/learnerProfileStorage";
+} from "@/features/profile/learnerProfileStorage";
 
 const LANGUAGES = [
   { code: "ko", label: "한국어" },

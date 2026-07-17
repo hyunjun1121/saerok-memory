@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react'
-import App from './App'
+import App from '@/App'
 import { beforeEach, describe, it, expect } from 'vitest'
-import './i18n'
+import '@/i18n'
 
 function setProfile(profile: Record<string, unknown>) {
   localStorage.setItem('learnerProfile', JSON.stringify(profile))
@@ -30,14 +30,14 @@ describe('App Smoke Test', () => {
   })
 })
 
-describe('LaunchGate routing (SP-07)', () => {
+describe('Default routing — no Home hub', () => {
   beforeEach(() => {
     localStorage.clear()
     window.history.pushState({}, '', '/')
   })
 
-  it('auto-starts today routine: / -> /lesson when enabled and not done today', async () => {
-    setProfile({ onboarded: true, autoStartTodayRoutine: true })
+  it('redirects / to the routine start (lesson) screen', async () => {
+    setProfile({ onboarded: true, autoStartTodayRoutine: false })
     render(<App />)
 
     await waitFor(() => {
@@ -45,22 +45,15 @@ describe('LaunchGate routing (SP-07)', () => {
     })
   })
 
-  it('sends a brand-new learner to /onboarding first', async () => {
-    // No profile => onboarded defaults to false.
+  it('lands a brand-new learner on the routine start screen (no home)', async () => {
+    // No profile — app still lands on the routine start screen.
     render(<App />)
 
     await waitFor(() => {
-      expect(window.location.pathname).toBe('/onboarding')
+      expect(window.location.pathname).toBe('/lesson')
     })
-  })
-
-  it('stays on Home when auto-start is off', () => {
-    setProfile({ onboarded: true, autoStartTodayRoutine: false })
-    render(<App />)
-
-    expect(window.location.pathname).toBe('/')
     expect(
-      screen.getByRole('button', { name: '오늘 루틴 시작하기' }),
+      await screen.findByTestId('lesson-start-screen', {}, { timeout: 10_000 }),
     ).toBeInTheDocument()
   })
 })

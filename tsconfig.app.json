@@ -7,6 +7,12 @@
     "types": ["vite/client", "vitest/globals"],
     "skipLibCheck": true,
 
+    /* Path alias: @ → src (depth-independent imports) */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,

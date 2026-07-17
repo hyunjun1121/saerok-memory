@@ -2,9 +2,11 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { Globe, ArrowLeft, Trash2, Shield, Settings2, Zap } from "lucide-react";
-import { Button3D } from "../../components/Button3D";
-import { clearCognitiveRoutineResults } from "../../features/cognitive/cognitiveRoutineStorage";
-import { getLearnerProfile, saveLearnerProfile } from "../../features/profile/learnerProfileStorage";
+import { Button3D } from "@/components/Button3D";
+import { clearCognitiveRoutineResults } from "@/features/cognitive/cognitiveRoutineStorage";
+import { clearHaruAdminUsageRecords } from "@/features/lessons/haruAdminUsageRecordStorage";
+import { clearHaruDemoSessions } from "@/features/lessons/haruDemoSessionStorage";
+import { getLearnerProfile, saveLearnerProfile } from "@/features/profile/learnerProfileStorage";
 
 export default function SettingsScreen() {
   const { t, i18n } = useTranslation();
@@ -12,6 +14,8 @@ export default function SettingsScreen() {
   const [autoStart, setAutoStart] = useState(
     () => getLearnerProfile().autoStartTodayRoutine,
   );
+  const [isDeletingCognitiveData, setIsDeletingCognitiveData] = useState(false);
+  const [deletionStatus, setDeletionStatus] = useState<"success" | "error" | null>(null);
 
   const toggleAutoStart = (next: boolean) => {
     saveLearnerProfile({ autoStartTodayRoutine: next });
@@ -25,6 +29,23 @@ export default function SettingsScreen() {
 
   const handleBack = () => {
     navigate(-1);
+  };
+
+  const handleClearCognitiveData = async () => {
+    if (isDeletingCognitiveData) return;
+    setIsDeletingCognitiveData(true);
+    setDeletionStatus(null);
+    try {
+      await clearHaruAdminUsageRecords();
+      clearHaruDemoSessions();
+      clearCognitiveRoutineResults();
+      setDeletionStatus("success");
+    } catch (error) {
+      console.error("Failed to delete Haru activity data", error);
+      setDeletionStatus("error");
+    } finally {
+      setIsDeletingCognitiveData(false);
+    }
   };
 
   return (
@@ -133,9 +154,32 @@ export default function SettingsScreen() {
           {t("settings.deleteMemoryCards")} <Trash2 size={20} />
         </Button3D>
 
-        <Button3D variant="neutral" className="flex justify-between items-center text-red-500 mt-2" onClick={clearCognitiveRoutineResults}>
-          {t("settings.deleteCognitiveData")} <Trash2 size={20} />
+        <Button3D
+          variant="neutral"
+          className="flex justify-between items-center text-red-500 mt-2"
+          disabled={isDeletingCognitiveData}
+          onClick={handleClearCognitiveData}
+        >
+          {t(
+            isDeletingCognitiveData
+              ? "settings.deletingCognitiveData"
+              : "settings.deleteCognitiveData",
+          )}{" "}
+          <Trash2 size={20} />
         </Button3D>
+        {deletionStatus && (
+          <p
+            className={`text-base font-semibold ${deletionStatus === "success" ? "text-green-700" : "text-red-600"}`}
+            role={deletionStatus === "error" ? "alert" : "status"}
+            aria-live="polite"
+          >
+            {t(
+              deletionStatus === "success"
+                ? "settings.deleteCognitiveDataSuccess"
+                : "settings.deleteCognitiveDataError",
+            )}
+          </p>
+        )}
       </section>
     </div>
   );

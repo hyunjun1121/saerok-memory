@@ -15,7 +15,13 @@
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
-  font: 18px/145% var(--sans);
+  font-family: var(--sans);
+  /* Fluid portrait scale: the app is rem-based (Tailwind), so tying the root
+     font to the viewport makes text, spacing, choice cards, and the content
+     column grow together on bigger screens (iPad) and floor for small phones.
+     Floor 24px preserves the large-text-for-elderly baseline. */
+  font-size: clamp(24px, 15px + 2.2vw, 32px);
+  line-height: 145%;
   letter-spacing: 0.18px;
   color-scheme: light dark;
   color: var(--text);
@@ -24,10 +30,6 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -108,4 +110,15 @@ code {
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
+}
+
+/* Voice-memory equalizer: keeps the waveform visibly alive while recording. */
+@keyframes equalizer {
+  0%,
+  100% {
+    transform: scaleY(0.45);
+  }
+  50% {
+    transform: scaleY(1);
+  }
 }

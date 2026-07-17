@@ -1,11 +1,11 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import i18n from "../../../i18n";
+import i18n from "@/i18n";
 import {
   clearCognitiveRoutineResults,
   getCognitiveRoutineResults,
-} from "../../cognitive/cognitiveRoutineStorage";
-import { StroopTouchPractice } from "./StroopTouchPractice";
+} from "@/features/cognitive/cognitiveRoutineStorage";
+import { StroopTouchPractice } from "@/features/lessons/exerciseTypes/StroopTouchPractice";
 
 describe("StroopTouchPractice", () => {
   beforeEach(async () => {

@@ -1,8 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react'
-import { MultipleChoiceMeaning } from './MultipleChoiceMeaning'
+import { MultipleChoiceMeaning } from '@/features/lessons/exerciseTypes/MultipleChoiceMeaning'
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import '../../../i18n'
-import type { ExerciseState } from './types'
+import '@/i18n'
+import type { ExerciseState } from '@/features/lessons/exerciseTypes/types'
 
 describe('MultipleChoiceMeaning', () => {
   const mockProps = {
@@ -29,13 +29,9 @@ describe('MultipleChoiceMeaning', () => {
     expect(screen.getByText("Wrong Option")).toBeInTheDocument()
   })
 
-  it('selects option and triggers check', () => {
-    const { rerender } = render(<MultipleChoiceMeaning {...mockProps} />)
+  it('shows the result immediately when a choice is tapped', () => {
+    render(<MultipleChoiceMeaning {...mockProps} />)
     fireEvent.click(screen.getByText("Correct Option"))
-    expect(mockProps.setGlobalState).toHaveBeenCalledWith("answer_selected")
-
-    rerender(<MultipleChoiceMeaning {...mockProps} globalState="answer_selected" />)
-    fireEvent.click(screen.getByText("확인하기"))
     expect(mockProps.setGlobalState).toHaveBeenCalledWith("correct_feedback")
   })
 })

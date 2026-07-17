@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import type { StroopColor } from "../../../data/mockExercises";
-import { ScenarioCard } from "../../../components/ScenarioCard";
-import { saveCognitiveRoutineResult } from "../../cognitive/cognitiveRoutineStorage";
-import { useInteractionFeedback } from "../../../hooks/useInteractionFeedback";
-import type { ExerciseState } from "./types";
+import type { StroopColor } from "@/data/mockExercises";
+import { ScenarioCard } from "@/features/lessons/ui/ScenarioCard";
+import { saveCognitiveRoutineResult } from "@/features/cognitive/cognitiveRoutineStorage";
+import { useInteractionFeedback } from "@/hooks/useInteractionFeedback";
+import type { ExerciseState } from "@/features/lessons/exerciseTypes/types";
 
 export interface RenderedStroopTrial {
   id: string;

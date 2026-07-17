@@ -1,10 +1,10 @@
-import type { RoutineResult } from "../cognitive/cognitiveRoutineStorage";
-import type { MemoryCard } from "../memory/types";
+import type { RoutineResult } from "@/features/cognitive/cognitiveRoutineStorage";
+import type { MemoryCard } from "@/features/memory/types";
 import type {
   CaregiverObservationDomain,
   CaregiverObservationRecord,
   CaregiverObservationResponse,
-} from "./caregiverObservationStorage";
+} from "@/features/family/caregiverObservationStorage";
 
 export type HaruAdvisoryLevel = "steady" | "watch" | "needsConversation";
 
