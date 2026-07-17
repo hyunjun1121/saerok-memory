@@ -11,6 +11,7 @@ import math
 
 import av
 import numpy as np
+from scipy.signal import lfilter
 
 
 TARGET_SAMPLE_RATE = 16000
@@ -39,6 +40,16 @@ ACTIVITY_MIN_ZCR = 0.005
 ACTIVITY_MAX_ZCR = 0.35
 
 
+class AudioDurationExceeded(ValueError):
+    """Decoded audio exceeds the configured hard duration limit."""
+
+    def __init__(self, *, max_duration_seconds: float) -> None:
+        super().__init__(
+            f"decoded audio exceeds {max_duration_seconds:g} seconds"
+        )
+        self.max_duration_seconds = float(max_duration_seconds)
+
+
 def remove_dc(audio: np.ndarray) -> np.ndarray:
     """Remove constant offset without changing sample count."""
     signal = np.asarray(audio, dtype=np.float32)
@@ -63,19 +74,16 @@ def high_pass_filter(
     rc = 1.0 / (2.0 * math.pi * cutoff_hz)
     dt = 1.0 / float(sample_rate)
     alpha = rc / (rc + dt)
-    output = np.empty_like(signal)
-    output[0] = 0.0
-    previous_input = float(signal[0])
-    previous_output = 0.0
-    for index in range(1, signal.size):
-        current_input = float(signal[index])
-        current_output = alpha * (
-            previous_output + current_input - previous_input
-        )
-        output[index] = current_output
-        previous_input = current_input
-        previous_output = current_output
-    return output
+    # Match the historical recurrence exactly, including y[0] = 0. scipy's
+    # compiled IIR avoids a Python loop while the initial state preserves the
+    # existing response and soft-speech behavior.
+    output, _ = lfilter(
+        [alpha, -alpha],
+        [1.0, -alpha],
+        signal.astype(np.float64, copy=False),
+        zi=[-alpha * float(signal[0])],
+    )
+    return output.astype(np.float32, copy=False)
 
 
 def normalize_rms(
@@ -110,6 +118,39 @@ def preprocess_audio(audio: np.ndarray, sample_rate: int = TARGET_SAMPLE_RATE) -
     return normalize_rms(conditioned)
 
 
+def _frame_rms_levels(
+    audio: np.ndarray,
+    *,
+    sample_rate: int = TARGET_SAMPLE_RATE,
+) -> np.ndarray:
+    """Return overlapping frame RMS levels using cumulative energy."""
+    if sample_rate <= 0:
+        raise ValueError("sample rate must be positive")
+    signal = np.asarray(audio, dtype=np.float32).reshape(-1)
+    if signal.size == 0:
+        return np.asarray([], dtype=np.float64)
+
+    frame_size = max(1, int(sample_rate * ACTIVITY_FRAME_MS / 1000))
+    hop_size = max(1, int(sample_rate * ACTIVITY_HOP_MS / 1000))
+    if signal.size <= frame_size:
+        rms = float(np.sqrt(np.mean(np.square(signal, dtype=np.float64))))
+        return np.asarray([rms], dtype=np.float64)
+
+    # Cumulative energy computes all overlapping windows in O(n) time and
+    # memory without materializing a large strided frame matrix.
+    squared = np.square(signal, dtype=np.float64)
+    cumulative = np.empty(signal.size + 1, dtype=np.float64)
+    cumulative[0] = 0.0
+    np.cumsum(squared, out=cumulative[1:])
+    starts = np.arange(
+        0, signal.size - frame_size + 1, hop_size, dtype=np.int64
+    )
+    energies = (
+        cumulative[starts + frame_size] - cumulative[starts]
+    ) / float(frame_size)
+    return np.sqrt(energies)
+
+
 def has_speech_activity(
     audio: np.ndarray,
     sample_rate: int = TARGET_SAMPLE_RATE,
@@ -131,19 +172,7 @@ def has_speech_activity(
     if peak < ACTIVITY_PEAK_FLOOR or global_rms < ACTIVITY_GLOBAL_RMS_FLOOR:
         return False
 
-    frame_size = max(1, int(sample_rate * ACTIVITY_FRAME_MS / 1000))
-    hop_size = max(1, int(sample_rate * ACTIVITY_HOP_MS / 1000))
-    frame_rms: list[float] = []
-    if signal.size <= frame_size:
-        frame_rms.append(global_rms)
-    else:
-        for start in range(0, signal.size - frame_size + 1, hop_size):
-            frame = signal[start : start + frame_size]
-            frame_rms.append(
-                float(np.sqrt(np.mean(np.square(frame, dtype=np.float64))))
-            )
-
-    levels = np.asarray(frame_rms, dtype=np.float64)
+    levels = _frame_rms_levels(signal, sample_rate=sample_rate)
     noise_floor = float(np.percentile(levels, 20))
     active_threshold = max(
         ACTIVITY_FRAME_RMS_FLOOR,
@@ -167,20 +196,45 @@ def has_speech_activity(
     )
 
 
-def decode_audio(data: bytes, target_sr: int = TARGET_SAMPLE_RATE) -> np.ndarray:
+def decode_audio(
+    data: bytes,
+    target_sr: int = TARGET_SAMPLE_RATE,
+    *,
+    max_duration_seconds: float | None = None,
+) -> np.ndarray:
     """Decode any PyAV-supported audio bytes to conditioned mono float32."""
     if not data:
         raise ValueError("empty audio payload")
+    if max_duration_seconds is not None and max_duration_seconds <= 0:
+        raise ValueError("max duration must be positive")
+
+    max_samples = (
+        int(target_sr * max_duration_seconds)
+        if max_duration_seconds is not None
+        else None
+    )
 
     container = av.open(io.BytesIO(data))
     resampler = av.AudioResampler(format="fltp", layout="mono", rate=target_sr)
     chunks: list[np.ndarray] = []
+    decoded_samples = 0
+
+    def append_resampled(frame: av.AudioFrame) -> None:
+        nonlocal decoded_samples
+        chunk = frame.to_ndarray()
+        decoded_samples += int(chunk.shape[-1])
+        if max_samples is not None and decoded_samples > max_samples:
+            raise AudioDurationExceeded(
+                max_duration_seconds=float(max_duration_seconds)
+            )
+        chunks.append(chunk)
+
     try:
         for frame in container.decode(audio=0):
             for resampled in resampler.resample(frame):
-                chunks.append(resampled.to_ndarray())
+                append_resampled(resampled)
         for resampled in resampler.resample(None):
-            chunks.append(resampled.to_ndarray())
+            append_resampled(resampled)
     finally:
         container.close()
 

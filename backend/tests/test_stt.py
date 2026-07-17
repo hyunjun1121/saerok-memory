@@ -9,7 +9,7 @@ import numpy as np
 import pytest
 
 from app.config import get_settings
-from app.stt import STTEngine
+from app.stt import PREPROCESSING_VERSION, STTEngine
 
 
 class FakeTimestamp:
@@ -65,6 +65,24 @@ def test_transcribe_maps_qwen_result_to_haru_contract():
         {"id": 0, "start": 0.1, "end": 0.4, "text": "오늘"},
         {"id": 1, "start": 0.5, "end": 1.2, "text": "산책했어요"},
     ]
+    assert result["preprocessingVersion"] == PREPROCESSING_VERSION
+
+
+def test_transcribe_bytes_enforces_configured_decoded_duration_cap(monkeypatch):
+    settings = replace(get_settings(), max_audio_duration_seconds=65.0)
+    engine = STTEngine(settings)
+    engine._model = object()
+    captured: dict[str, float] = {}
+
+    def fake_decode(data: bytes, *, max_duration_seconds: float):
+        captured["max_duration_seconds"] = max_duration_seconds
+        return np.zeros(16000, dtype=np.float32)
+
+    monkeypatch.setattr("app.stt.decode_audio", fake_decode)
+    monkeypatch.setattr(engine, "_transcribe", lambda audio: {"ok": True})
+
+    assert engine.transcribe_bytes(b"audio") == {"ok": True}
+    assert captured == {"max_duration_seconds": 65.0}
 
 
 def test_no_speech_returns_explicit_empty_result_without_calling_qwen():

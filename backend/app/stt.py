@@ -25,7 +25,7 @@ from .config import Settings, torch_device_count
 
 log = logging.getLogger("haru.stt")
 ENGINE_NAME = "qwen3-asr"
-PREPROCESSING_VERSION = "haru-dc-hp80-rms-v1"
+PREPROCESSING_VERSION = "haru-dc-hp80-rms-v2"
 _WARMUP_SAMPLES = TARGET_SAMPLE_RATE
 
 
@@ -123,7 +123,10 @@ class STTEngine:
             self._model = None
 
     def transcribe_bytes(self, data: bytes) -> dict[str, Any]:
-        audio = decode_audio(data)
+        audio = decode_audio(
+            data,
+            max_duration_seconds=self.settings.max_audio_duration_seconds,
+        )
         return self._transcribe(audio)
 
     def _transcribe(

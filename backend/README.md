@@ -57,7 +57,7 @@ Example response:
   "modelRevision": "7278e1e70fe206f11671096ffdd38061171dd6e5",
   "alignerModel": "Qwen/Qwen3-ForcedAligner-0.6B",
   "alignerRevision": "c7cbfc2048c462b0d63a45797104fc9db3ad62b7",
-  "preprocessingVersion": "haru-dc-hp80-rms-v1"
+  "preprocessingVersion": "haru-dc-hp80-rms-v2"
 }
 ```
 
@@ -90,6 +90,34 @@ Endpoints:
 - `POST /api/transcribe`, compatibility alias
 
 Upload size defaults to 25 MB and is enforced while reading the request.
+Decoded audio has an independent 65-second hard limit. Over-limit recordings
+are rejected without trimming. GPU admission allows one active request and two
+pending requests; excess requests receive `429`, `Retry-After`, and a versioned
+error body. Multipart parsing is separately capped at three concurrent
+requests. Cancellation while waiting removes the request before inference;
+cancellation after inference starts keeps its slot until the worker finishes.
+`/health` remains available with `lifecycle: "loading"` while local model
+startup runs, then changes to `ready` or `failed`.
+
+Shutdown changes lifecycle to `draining`, cancels requests still waiting for
+GPU admission, then waits for non-interruptible model loading or active Qwen
+inference before closing the executor. Python cannot safely kill those worker
+threads; process supervisors should use an external hard-stop policy for a
+truly hung CUDA/runtime call instead of allowing new work to start.
+
+Known failures retain the existing `detail` code and add stable metadata:
+
+```json
+{
+  "detail": "busy",
+  "error": {
+    "version": "1.0.0",
+    "code": "busy",
+    "retryable": true,
+    "requestId": "..."
+  }
+}
+```
 
 ## Docker
 
@@ -97,7 +125,7 @@ Weights are excluded from the build context and mounted read-only:
 
 ```powershell
 docker build -t haru-stt ./backend
-docker run --gpus all --rm -p 8765:8765 `
+docker run --gpus all --rm -p 127.0.0.1:8765:8765 `
   -e STT_CORS_ORIGINS=http://127.0.0.1:5173 `
   -v "${PWD}/backend/models:/models:ro" haru-stt
 ```
@@ -135,9 +163,14 @@ block routine completion. Only consented transcripts and audio may be retained.
 
 ## Exposure safety
 
-Defaults assume a trusted local machine/LAN. Before wider exposure:
+Non-container defaults bind to `127.0.0.1`. Browser POST requests with an
+unlisted `Origin` are rejected before multipart parsing. Default origins cover
+Vite's local dev (`5173`) and preview (`4173`) servers on `localhost` and
+`127.0.0.1`. Docker must publish with the loopback-qualified mapping shown
+above; `-p 8765:8765` exposes the unauthenticated service to the host network.
+Before wider exposure:
 
-- Replace `STT_CORS_ORIGINS=*` with exact origins.
+- Add only exact trusted values to `STT_CORS_ORIGINS`.
 - Keep the service behind authentication or an authenticated reverse proxy.
 - Do not publish port 8765 directly to the internet.
 - Preserve audio/transcript consent, revocation, and deletion propagation.

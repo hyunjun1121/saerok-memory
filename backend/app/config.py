@@ -98,7 +98,17 @@ class Settings:
     warmup: bool
     host: str
     port: int
-    cors_origins: list[str] = field(default_factory=lambda: ["*"])
+    max_audio_duration_seconds: float
+    max_pending_requests: int
+    queue_retry_after_seconds: int
+    cors_origins: list[str] = field(
+        default_factory=lambda: [
+            "http://127.0.0.1:5173",
+            "http://localhost:5173",
+            "http://127.0.0.1:4173",
+            "http://localhost:4173",
+        ]
+    )
     max_upload_bytes: int = 25 * 1024 * 1024
 
 
@@ -106,8 +116,17 @@ def get_settings() -> Settings:
     _load_dotenv()
     device = _resolve_device(os.getenv("STT_DEVICE", "auto"))
     dtype = _resolve_dtype(os.getenv("STT_DTYPE", "auto"), device)
-    origins_raw = os.getenv("STT_CORS_ORIGINS", "*")
-    origins = [origin.strip() for origin in origins_raw.split(",") if origin.strip()] or ["*"]
+    origins_raw = os.getenv(
+        "STT_CORS_ORIGINS",
+        "http://127.0.0.1:5173,http://localhost:5173,"
+        "http://127.0.0.1:4173,http://localhost:4173",
+    )
+    origins = [origin.strip() for origin in origins_raw.split(",") if origin.strip()] or [
+        "http://127.0.0.1:5173",
+        "http://localhost:5173",
+        "http://127.0.0.1:4173",
+        "http://localhost:4173",
+    ]
     return Settings(
         model_id=os.getenv("STT_MODEL_ID", DEFAULT_MODEL_ID),
         model_revision=os.getenv("STT_MODEL_REVISION", DEFAULT_MODEL_REVISION),
@@ -128,8 +147,15 @@ def get_settings() -> Settings:
         ),
         max_new_tokens=max(1, int(os.getenv("STT_MAX_NEW_TOKENS", "256"))),
         warmup=_truthy(os.getenv("STT_WARMUP", "true")),
-        host=os.getenv("STT_HOST", "0.0.0.0"),
+        host=os.getenv("STT_HOST", "127.0.0.1"),
         port=int(os.getenv("STT_PORT", "8765")),
+        max_audio_duration_seconds=max(
+            0.1, float(os.getenv("STT_MAX_AUDIO_SECONDS", "65"))
+        ),
+        max_pending_requests=max(0, int(os.getenv("STT_MAX_PENDING_REQUESTS", "2"))),
+        queue_retry_after_seconds=max(
+            1, int(os.getenv("STT_QUEUE_RETRY_AFTER_SECONDS", "1"))
+        ),
         cors_origins=origins,
         max_upload_bytes=int(os.getenv("STT_MAX_UPLOAD_MB", "25")) * 1024 * 1024,
     )

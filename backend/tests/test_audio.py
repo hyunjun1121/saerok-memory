@@ -15,6 +15,8 @@ import numpy as np
 import pytest
 
 from app.audio import (
+    _frame_rms_levels,
+    AudioDurationExceeded,
     TARGET_RMS,
     TARGET_SAMPLE_RATE,
     decode_audio,
@@ -109,6 +111,21 @@ def test_decode_webm_opus_roundtrip():
     assert 14000 <= len(decoded) <= 18000
 
 
+def test_decode_rejects_audio_longer_than_hard_duration_cap_without_trimming():
+    pcm = _tone(65.1)
+    with pytest.raises(AudioDurationExceeded) as caught:
+        decode_audio(_encode_wav(pcm), max_duration_seconds=65.0)
+
+    assert caught.value.max_duration_seconds == 65.0
+
+
+def test_decode_accepts_audio_exactly_at_hard_duration_cap():
+    pcm = _tone(65.0)
+    decoded = decode_audio(_encode_wav(pcm), max_duration_seconds=65.0)
+
+    assert len(decoded) == TARGET_SAMPLE_RATE * 65
+
+
 def test_duration_seconds():
     pcm = np.zeros(TARGET_SAMPLE_RATE, dtype=np.float32)
     assert duration_seconds(pcm) == pytest.approx(1.0)
@@ -131,6 +148,31 @@ def test_high_pass_attenuates_20hz_more_than_voice_band():
     low_rms = float(np.sqrt(np.mean(low_filtered[start:] ** 2)))
     voice_rms = float(np.sqrt(np.mean(voice_filtered[start:] ** 2)))
     assert low_rms < voice_rms * 0.4
+
+
+def test_vectorized_high_pass_matches_reference_recurrence():
+    rng = np.random.default_rng(19)
+    signal = rng.normal(0.0, 0.05, TARGET_SAMPLE_RATE * 2).astype(np.float32)
+    cutoff_hz = 80.0
+    rc = 1.0 / (2.0 * np.pi * cutoff_hz)
+    alpha = rc / (rc + (1.0 / TARGET_SAMPLE_RATE))
+    expected = np.empty_like(signal)
+    expected[0] = 0.0
+    previous_input = float(signal[0])
+    previous_output = 0.0
+    for index in range(1, signal.size):
+        current_input = float(signal[index])
+        current_output = alpha * (
+            previous_output + current_input - previous_input
+        )
+        expected[index] = current_output
+        previous_input = current_input
+        previous_output = current_output
+
+    actual = high_pass_filter(signal)
+
+    assert actual.dtype == np.float32
+    assert np.max(np.abs(actual - expected)) < 1e-6
 
 
 def test_rms_normalization_is_bounded_and_peak_safe():
@@ -165,6 +207,22 @@ def test_activity_gate_rejects_silence_and_steady_low_room_noise():
 
     assert has_speech_activity(silence) is False
     assert has_speech_activity(room_noise) is False
+
+
+def test_vectorized_frame_rms_matches_reference_windows():
+    rng = np.random.default_rng(23)
+    signal = rng.normal(0.0, 0.02, TARGET_SAMPLE_RATE * 2).astype(np.float32)
+    frame_size = int(TARGET_SAMPLE_RATE * 30 / 1000)
+    hop_size = int(TARGET_SAMPLE_RATE * 10 / 1000)
+    expected = []
+    for start in range(0, signal.size - frame_size + 1, hop_size):
+        frame = signal[start : start + frame_size]
+        expected.append(float(np.sqrt(np.mean(np.square(frame, dtype=np.float64)))))
+
+    actual = _frame_rms_levels(signal, sample_rate=TARGET_SAMPLE_RATE)
+
+    assert actual.shape == (len(expected),)
+    assert np.allclose(actual, expected, rtol=1e-12, atol=1e-12)
 
 
 def test_activity_gate_keeps_very_soft_voiced_audio_and_pauses():

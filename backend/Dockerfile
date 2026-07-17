@@ -1,6 +1,6 @@
 # Haru Qwen3-ASR GPU service. Model weights are mounted read-only at /models.
 # Build: docker build -t haru-stt ./backend
-# Run:   docker run --gpus all -p 8765:8765 -v <host-model-dir>:/models:ro haru-stt
+# Run:   docker run --gpus all -p 127.0.0.1:8765:8765 -v <host-model-dir>:/models:ro haru-stt
 FROM nvidia/cuda:12.8.1-cudnn-runtime-ubuntu22.04
 
 ENV DEBIAN_FRONTEND=noninteractive \

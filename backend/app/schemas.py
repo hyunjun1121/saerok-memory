@@ -1,6 +1,8 @@
 """Pydantic response contracts for the Haru Qwen3-ASR API."""
 from __future__ import annotations
 
+from typing import Literal
+
 from pydantic import BaseModel, Field
 
 
@@ -39,3 +41,4 @@ class HealthResponse(BaseModel):
     dtype: str
     cuda_devices: int
     ready: bool
+    lifecycle: Literal["loading", "ready", "draining", "failed"]
