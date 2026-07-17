@@ -1,0 +1,43 @@
+You are continuing work on the **Haru / 피우다** elderly cognitive-care React SPA.
+Repo root: C:\project\saerok-memory · branch: feat/mentor-ui-revamp.
+You have NO prior context. Follow this bootstrap workflow exactly before editing anything.
+
+## STEP 0 — Read these files IN THIS ORDER (do not skip)
+1. `AGENTS.md` (repo root) — THE source of truth. Read it fully. Internalize especially:
+   - "Current Demo Focus (2026-07-16)" and the **⚠ Git state warning** at its top.
+   - "Import & Layout Conventions" (the `@/` alias + post-refactor layout).
+   - "Copy safety", "Medical And Copyright Safety", "Privacy And Family Sharing", "Out Of Scope Unless Explicitly Requested".
+2. `package.json` — scripts: `dev`, `build`, `test`, `typecheck`, `lint`, `capture:screens`, `stt:install/dev/test/smoke`.
+3. `src/App.tsx` — the route tree (lazy screens; `/`->/lesson; `*`->/lesson catch-all).
+4. `README.md` and `design.md` — product + UI/UX reference.
+
+## HARD RULES (non-negotiable — obey even before you finish reading)
+- **Git:** the ENTIRE current state is UNCOMMITTED in the working tree. HEAD is `553bc5b` (SP-09) and lags far behind (~304 files diverge; no stash). NEVER run `git stash`, `git reset`, `git checkout --`, `git restore`, or `git clean` — you will destroy the work. Commit ONLY when the maintainer explicitly asks.
+- **No auto-deploy.** Deploy to Vercel only on explicit request. The STT `backend/` is local-GPU only — never deployable to Vercel.
+- **copySafety** — `src/locales/copySafety.test.ts` must stay green:
+  - GLOBAL_BANS (everywhere): mmse, moca, cist, k-mmse, ad8, gpcog, tics, sage, slums, ace-iii, medical-grade.
+  - Learner-facing namespaces (navigation/home/lesson/result/exercise/routine/speech/weekly/choice/feedback/topbar/garden/common) must NOT contain:
+    ko: 검사·스크리닝·선별·진단·위험도·치매 위험·점수
+    en: diagnosis·screening·dementia risk·risk score·medical test
+    ja: 診断·スクリーニング·検査·リスク·スコア
+  - Do NOT copy official MMSE/MoCA/CIST items, wording, scoring, or cutoffs — only the broad domain structure. Haru's own `steady/watch/needsConversation` advisory levels are allowed; never label them as a clinical score.
+- **Imports:** use the `@/` alias; never deeper than one `../`. If you change resolving, mirror it in BOTH `vite.config.ts` and `vitest.config.ts` (vitest config is standalone).
+- All visible text -> i18n (`src/locales/{ko,en,ja}.json`). Grant/doc assets under `피우다프로젝트/` and `cognitve-reference/` — do not edit unless explicitly asked.
+
+## CURRENT VERIFIED BASELINE (re-confirm before you start; re-run after every change)
+Last verified green 2026-07-17: `npm run typecheck` clean · `npm test` 142/142 across 41 files · `npm run lint` clean · `npm run build` ✓ (~4s).
+
+## ORIENTATION MAP (so you know where things live)
+- `src/app/<route>/` — one folder per route screen: lesson, result, garden, family, settings, onboarding, kiosk, connect/{caregiver,counselor}.
+- `src/components/` — 7 shared widgets ONLY: AppShell, TopStatusBar, BottomNavigation, ProgressBar, Button3D, ChoiceCard, MascotBubble.
+- `src/features/` — domains: lessons (ExerciseRenderer.tsx + exerciseTypes/ [16 exercise components + types.ts] + ui/{FeedbackTray,ScenarioCard}), memory, family (+ui/SupportResourceCard), gamification, speech (incl. stt.ts), cognitive, buddy, kiosk, profile.
+- `src/data/mockExercises.ts` — catalog + `ExerciseType` union. `src/features/lessons/sessionBuilder.ts` — `DEMO_ROUTINE_IDS` (11-exercise live routine) + `buildDailySessionExercises` (two paths: `initialExerciseId` = uncapped catalog slice for capture; else fixed routine).
+
+## WHAT TO DO NEXT
+The previous session finished: AGENTS.md refresh, unused-file cleanup, and a structure refactor (alias + module moves) — all verified green, all UNCOMMITTED. Confirm with the maintainer which task to take (some touch git or are outward-facing):
+1. **Commit** the refactor + cleanup — only if the maintainer asks; never commit unprompted.
+2. **Verify screens post-move** (read-only, safe to run freely): `npm run dev`, then `SCREENSHOT_LOCALES=ko PLAYWRIGHT_BASE_URL=http://localhost:5173 npm run capture:screens`.
+3. **Prune dead fields** in `src/data/mockExercises.ts` (conceptId / recommendedDays / domain) — but first confirm capture still renders the full catalog by deep link.
+4. **Refresh/prune** the stale "Current In-Progress Work Ledger (2026-06-02)" block in AGENTS.md (caregiver-domain labels have drifted).
+
+START: run STEP 0 reads -> re-run the validation baseline -> report status in one short summary. Do NOT edit anything until the maintainer names the task.

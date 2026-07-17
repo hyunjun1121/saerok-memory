@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Haru Memory Galaxy</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+  <script src="https://unpkg.com/three"></script>
+  <script src="https://unpkg.com/3d-force-graph"></script>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Haru Memory Galaxy</h1>
+      <p>개인 기억의 3D semantic projection과 근거 그래프</p>
+    </div>
+    <div class="controls">
+      <label>사용자 <input id="userId" value="USR-000001"></label>
+      <button id="reload">새로고침</button>
+      <a href="/admin">전문가 화면</a>
+    </div>
+  </header>
+  <main>
+    <section id="graph"></section>
+    <aside id="panel">
+      <h2>기억 근거</h2>
+      <p class="muted">노드를 선택하세요.</p>
+    </aside>
+  </main>
+  <footer>
+    점선은 임베딩 유사도, 노드는 UMAP/PCA 투영입니다. 공간 거리는 원래 벡터 공간의 완전한 보존을 의미하지 않습니다.
+  </footer>
+<script src="/static/galaxy.js"></script>
+</body>
+</html>

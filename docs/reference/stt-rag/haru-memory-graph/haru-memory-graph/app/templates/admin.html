@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Haru Expert Console</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body class="admin">
+<header>
+  <div>
+    <h1>전문가 상담 지원 콘솔</h1>
+    <p>근거 기반 개인 기록 검색. 진단 기능이 아닙니다.</p>
+  </div>
+  <a href="/">3D Memory Galaxy</a>
+</header>
+<main class="admin-grid">
+  <section class="card">
+    <h2>질문</h2>
+    <textarea id="question">최근 일주일 동안 만난 사람과 함께 한 활동을 근거와 함께 알려줘</textarea>
+    <button id="ask">근거 검색</button>
+    <pre id="answer"></pre>
+  </section>
+  <section class="card">
+    <h2>다음 문항 생성</h2>
+    <input id="targetDate" type="date" value="2026-07-27">
+    <button id="generate">생성</button>
+    <pre id="questions"></pre>
+  </section>
+  <section class="card wide">
+    <h2>타임라인</h2>
+    <div id="timeline"></div>
+  </section>
+</main>
+<script src="/static/admin.js"></script>
+</body>
+</html>
