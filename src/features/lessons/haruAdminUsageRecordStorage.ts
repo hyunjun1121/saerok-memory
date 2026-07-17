@@ -12,6 +12,7 @@ import {
   storeHaruAdminAudio,
   type HaruAdminAudioRetentionStatus,
 } from "@/features/lessons/haruAdminAudioStorage";
+import { parseHaruAdminUsageRecord } from "@/features/lessons/haruAdminUsageRecordParser";
 import type { HaruPersonalizationRecord } from "@/features/lessons/haruDemoSessionStorage";
 import {
   clearHaruRagOutbox,
@@ -312,25 +313,6 @@ function normalizeOptionalTimestamp(value: string | undefined): string | null {
   return Number.isNaN(parsed.getTime()) ? null : toSeoulIsoString(parsed);
 }
 
-function isStoredRecord(value: unknown): value is HaruAdminUsageRecord {
-  if (!value || typeof value !== "object" || Array.isArray(value)) return false;
-  const candidate = value as Partial<HaruAdminUsageRecord>;
-  return (
-    candidate.schema?.name === "haru_kiosk_usage_record" &&
-    candidate.schema.version === "1.0.0" &&
-    candidate.user?.user_id === USER_ID &&
-    candidate.device?.device_id === DEVICE_ID &&
-    Array.isArray(candidate.sessions) &&
-    candidate.sessions.every(
-      (session) =>
-        session !== null &&
-        typeof session === "object" &&
-        typeof session.session_date === "string" &&
-        Array.isArray(session.question_records),
-    )
-  );
-}
-
 function createEmptyRecord(now: Date): HaruAdminUsageRecord {
   const profile = HARU_DEMO_PERSONA.registeredProfileFields;
   return {
@@ -492,7 +474,10 @@ function hasCompleteValidResponses(
 
 export function getHaruAdminUsageRecord(): HaruAdminUsageRecord | null {
   const stored = readJson<unknown>(HARU_ADMIN_USAGE_RECORD_STORAGE_KEY, null);
-  return isStoredRecord(stored) ? stored : null;
+  return parseHaruAdminUsageRecord(stored, {
+    expectedUserId: USER_ID,
+    expectedDeviceId: DEVICE_ID,
+  });
 }
 
 export function startHaruAdminUsageSession(

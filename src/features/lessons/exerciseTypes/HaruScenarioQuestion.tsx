@@ -7,10 +7,10 @@ import {
   type ChoiceCardState,
   type ChoiceCardTone,
 } from "@/components/ChoiceCard";
-import {
-  HARU_DEMO_PERSONA,
-  type HaruQuestionResponseType,
-  type HaruWeekQuestionMeta,
+import { HARU_DEMO_PERSONA } from "@/data/haruDemoPersona";
+import type {
+  HaruQuestionResponseType,
+  HaruWeekQuestionMeta,
 } from "@/data/haru7DayExercises";
 import type { Exercise } from "@/data/mockExercises";
 import type { ExerciseState } from "@/features/lessons/exerciseTypes/types";

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ChoiceCard } from "@/components/ChoiceCard";
 import { Button3D } from "@/components/Button3D";
-import { HARU_DEMO_PERSONA } from "@/data/haru7DayExercises";
+import { HARU_DEMO_PERSONA } from "@/data/haruDemoPersona";
 import { VoiceWaveform } from "@/features/speech/VoiceWaveform";
 import { useVoiceRecorder } from "@/features/speech/useVoiceRecorder";
 import type { ExerciseState } from "@/features/lessons/exerciseTypes/types";

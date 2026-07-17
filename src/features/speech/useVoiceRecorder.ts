@@ -9,6 +9,17 @@ import { useCallback, useEffect, useRef, useState } from "react";
 const DEFAULT_MAX_DURATION_MS = 60_000;
 export const VOICE_BAR_COUNT = 24;
 
+export interface VoiceCaptureArtifact {
+  blob: Blob;
+  previewUrl: string | null;
+  mimeType: string;
+  durationMs: number;
+  sampleRateHz: number | null;
+  channelCount: number | null;
+  startedAt: string;
+  endedAt: string;
+}
+
 export interface VoiceRecorder {
   isSupported: boolean;
   isRecording: boolean;
@@ -22,6 +33,8 @@ export interface VoiceRecorder {
   start: () => void;
   stop: () => void;
   getDurationMs: () => number;
+  /** Finalize one immutable capture with its audio and matching metadata. */
+  stopAndFinalize: () => Promise<VoiceCaptureArtifact | null>;
   /** Stop the recorder and resolve with the captured audio Blob (or null). */
   stopAndGetBlob: () => Promise<Blob | null>;
 }
@@ -39,8 +52,7 @@ function recorderAvailable(): boolean {
   return (
     typeof navigator !== "undefined" &&
     typeof navigator.mediaDevices?.getUserMedia === "function" &&
-    typeof MediaRecorder !== "undefined" &&
-    getAudioContextCtor() !== null
+    typeof MediaRecorder !== "undefined"
   );
 }
 
@@ -57,17 +69,23 @@ export function useVoiceRecorder(maxDurationMs = DEFAULT_MAX_DURATION_MS): Voice
   const streamRef = useRef<MediaStream | null>(null);
   const recorderRef = useRef<MediaRecorder | null>(null);
   const audioBlobRef = useRef<Blob | null>(null);
+  const artifactRef = useRef<VoiceCaptureArtifact | null>(null);
+  const previewUrlRef = useRef<string | null>(null);
   const startPromiseRef = useRef<Promise<void> | null>(null);
   const startGenerationRef = useRef(0);
   const isMountedRef = useRef(true);
-  const finalizationPromiseRef = useRef<Promise<Blob | null> | null>(null);
-  const finalizationResolveRef = useRef<((blob: Blob | null) => void) | null>(null);
+  const finalizationPromiseRef = useRef<Promise<VoiceCaptureArtifact | null> | null>(null);
+  const finalizationResolveRef = useRef<
+    ((artifact: VoiceCaptureArtifact | null) => void) | null
+  >(null);
   const audioCtxRef = useRef<AudioContext | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
   const freqRef = useRef<Uint8Array<ArrayBuffer> | null>(null);
   const rafRef = useRef<number | null>(null);
   const startedAtRef = useRef<number | null>(null);
   const durationMsRef = useRef(0);
+  const sampleRateHzRef = useRef<number | null>(null);
+  const channelCountRef = useRef<number | null>(null);
   const maxTimerRef = useRef<number | null>(null);
 
   const isSupported = recorderAvailable();
@@ -83,6 +101,18 @@ export function useVoiceRecorder(maxDurationMs = DEFAULT_MAX_DURATION_MS): Voice
     if (maxTimerRef.current !== null) {
       window.clearTimeout(maxTimerRef.current);
       maxTimerRef.current = null;
+    }
+  }, []);
+
+  const revokePreviewUrl = useCallback(() => {
+    const previewUrl = previewUrlRef.current;
+    previewUrlRef.current = null;
+    if (previewUrl && typeof URL.revokeObjectURL === "function") {
+      try {
+        URL.revokeObjectURL(previewUrl);
+      } catch {
+        // Preview cleanup must never block recorder lifecycle cleanup.
+      }
     }
   }, []);
 
@@ -107,11 +137,11 @@ export function useVoiceRecorder(maxDurationMs = DEFAULT_MAX_DURATION_MS): Voice
     }
   }, [clearRaf]);
 
-  const resolveFinalization = useCallback((blob: Blob | null) => {
+  const resolveFinalization = useCallback((artifact: VoiceCaptureArtifact | null) => {
     const resolve = finalizationResolveRef.current;
     finalizationResolveRef.current = null;
     finalizationPromiseRef.current = null;
-    resolve?.(blob);
+    resolve?.(artifact);
   }, []);
 
   const cancelPendingStart = useCallback(() => {
@@ -150,11 +180,17 @@ export function useVoiceRecorder(maxDurationMs = DEFAULT_MAX_DURATION_MS): Voice
   // Stop the recorder and resolve with the captured audio Blob once onstop
   // finalizes it. The memory-story flow awaits this to upload audio to the STT
   // backend. Resolves immediately (with any prior blob) if not recording.
-  const stopAndGetBlob = useCallback((): Promise<Blob | null> => {
+  const stopAndFinalize = useCallback((): Promise<VoiceCaptureArtifact | null> => {
     const pendingFinalization = finalizationPromiseRef.current;
     stop();
-    return pendingFinalization ?? Promise.resolve(audioBlobRef.current);
+    return pendingFinalization ?? Promise.resolve(artifactRef.current);
   }, [stop]);
+
+  const stopAndGetBlob = useCallback(
+    (): Promise<Blob | null> =>
+      stopAndFinalize().then((artifact) => artifact?.blob ?? audioBlobRef.current),
+    [stopAndFinalize],
+  );
 
   const getDurationMs = useCallback(() => durationMsRef.current, []);
 
@@ -177,10 +213,14 @@ export function useVoiceRecorder(maxDurationMs = DEFAULT_MAX_DURATION_MS): Voice
     setIsFinalizing(false);
     setDurationMs(0);
     durationMsRef.current = 0;
+    revokePreviewUrl();
     setAudioAssetUrl(null);
     setSampleRateHz(null);
     setChannelCount(null);
+    sampleRateHzRef.current = null;
+    channelCountRef.current = null;
     audioBlobRef.current = null;
+    artifactRef.current = null;
     finalizationPromiseRef.current = null;
     finalizationResolveRef.current = null;
 
@@ -209,6 +249,7 @@ export function useVoiceRecorder(maxDurationMs = DEFAULT_MAX_DURATION_MS): Voice
           Number.isFinite(trackSampleRate) &&
           trackSampleRate > 0
         ) {
+          sampleRateHzRef.current = Math.round(trackSampleRate);
           setSampleRateHz(Math.round(trackSampleRate));
         }
         if (
@@ -216,18 +257,22 @@ export function useVoiceRecorder(maxDurationMs = DEFAULT_MAX_DURATION_MS): Voice
           Number.isFinite(trackChannelCount) &&
           trackChannelCount > 0
         ) {
+          channelCountRef.current = Math.round(trackChannelCount);
           setChannelCount(Math.round(trackChannelCount));
         }
 
         const Ctor = getAudioContextCtor();
         if (Ctor) {
+          let pendingContext: AudioContext | null = null;
           try {
             const ctx = new Ctor();
+            pendingContext = ctx;
             if (
               !(typeof trackSampleRate === "number" && trackSampleRate > 0) &&
               Number.isFinite(ctx.sampleRate) &&
               ctx.sampleRate > 0
             ) {
+              sampleRateHzRef.current = Math.round(ctx.sampleRate);
               setSampleRateHz(Math.round(ctx.sampleRate));
             }
             const source = ctx.createMediaStreamSource(stream);
@@ -260,9 +305,19 @@ export function useVoiceRecorder(maxDurationMs = DEFAULT_MAX_DURATION_MS): Voice
             };
             rafRef.current = requestAnimationFrame(loop);
           } catch {
-            teardownAudio();
-            setError("audio-unavailable");
-            return;
+            // Waveform is optional. Keep MediaRecorder running even when the
+            // Web Audio graph is unsupported, blocked, or fails to initialize.
+            clearRaf();
+            analyserRef.current = null;
+            freqRef.current = null;
+            audioCtxRef.current = null;
+            if (pendingContext) {
+              try {
+                void pendingContext.close();
+              } catch {
+                // no-op
+              }
+            }
           }
         }
 
@@ -283,15 +338,36 @@ export function useVoiceRecorder(maxDurationMs = DEFAULT_MAX_DURATION_MS): Voice
         };
         recorder.onstop = () => {
           recorderRef.current = null;
-          let blob: Blob | null = null;
+          let artifact: VoiceCaptureArtifact | null = null;
           if (chunks.length > 0) {
-            blob = new Blob(chunks, { type: recorder.mimeType || "audio/webm" });
+            const blob = new Blob(chunks, { type: recorder.mimeType || "audio/webm" });
             audioBlobRef.current = blob;
-            setAudioAssetUrl(URL.createObjectURL(blob));
+            revokePreviewUrl();
+            let previewUrl: string | null = null;
+            try {
+              previewUrl = URL.createObjectURL(blob);
+            } catch {
+              // Recording remains usable for STT even without a preview URL.
+            }
+            previewUrlRef.current = previewUrl;
+            setAudioAssetUrl(previewUrl);
+            const endedAtMs = Date.now();
+            const startedAtMs = startedAtRef.current ?? endedAtMs - durationMsRef.current;
+            artifact = {
+              blob,
+              previewUrl,
+              mimeType: blob.type || recorder.mimeType || "audio/webm",
+              durationMs: durationMsRef.current,
+              sampleRateHz: sampleRateHzRef.current,
+              channelCount: channelCountRef.current,
+              startedAt: new Date(startedAtMs).toISOString(),
+              endedAt: new Date(endedAtMs).toISOString(),
+            };
+            artifactRef.current = artifact;
           }
           teardownAudio();
           setIsFinalizing(false);
-          resolveFinalization(blob);
+          resolveFinalization(artifact);
         };
         recorderRef.current = recorder;
         startedAtRef.current = Date.now();
@@ -325,7 +401,15 @@ export function useVoiceRecorder(maxDurationMs = DEFAULT_MAX_DURATION_MS): Voice
         }
       });
     startPromiseRef.current = startPromise;
-  }, [clearMaxTimer, clearRaf, maxDurationMs, resolveFinalization, teardownAudio, stop]);
+  }, [
+    clearMaxTimer,
+    clearRaf,
+    maxDurationMs,
+    resolveFinalization,
+    revokePreviewUrl,
+    teardownAudio,
+    stop,
+  ]);
 
   useEffect(() => {
     isMountedRef.current = true;
@@ -347,8 +431,16 @@ export function useVoiceRecorder(maxDurationMs = DEFAULT_MAX_DURATION_MS): Voice
       }
       resolveFinalization(null);
       teardownAudio();
+      revokePreviewUrl();
     };
-  }, [cancelPendingStart, clearMaxTimer, clearRaf, resolveFinalization, teardownAudio]);
+  }, [
+    cancelPendingStart,
+    clearMaxTimer,
+    clearRaf,
+    resolveFinalization,
+    revokePreviewUrl,
+    teardownAudio,
+  ]);
 
   return {
     isSupported,
@@ -363,6 +455,7 @@ export function useVoiceRecorder(maxDurationMs = DEFAULT_MAX_DURATION_MS): Voice
     start,
     stop,
     getDurationMs,
+    stopAndFinalize,
     stopAndGetBlob,
   };
 }

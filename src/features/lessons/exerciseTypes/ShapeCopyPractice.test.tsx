@@ -54,6 +54,8 @@ describe("ShapeCopyPractice", () => {
     expect(results[0].metadata?.sampledPointCount).toBeGreaterThanOrEqual(2);
     expect(results[0].metadata?.pathLengthPx).toBeGreaterThan(0);
     expect(results[0].metadata?.clearCount).toBe(0);
-    expect(Array.isArray(results[0].metadata?.sampledPath)).toBe(true);
+    expect(results[0].metadata).not.toHaveProperty("sampledPath");
+    expect(results[0].metadata).not.toHaveProperty("dataUrl");
+    expect(localStorage.getItem("cognitiveRoutineResults")).not.toContain("data:image/png");
   });
 });

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button3D } from "@/components/Button3D";
-import { HARU_DEMO_PERSONA } from "@/data/haru7DayExercises";
+import { HARU_DEMO_PERSONA } from "@/data/haruDemoPersona";
 import { SpeechCapturePanel } from "@/features/speech/SpeechCapturePanel";
 import { formatSttEngine, transcribeStory } from "@/features/speech/stt";
 import { useVoiceRecorder } from "@/features/speech/useVoiceRecorder";

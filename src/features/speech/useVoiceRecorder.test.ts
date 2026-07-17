@@ -52,6 +52,7 @@ class FakeMediaRecorder {
 describe("useVoiceRecorder", () => {
   const originalMediaDevices = Object.getOwnPropertyDescriptor(navigator, "mediaDevices");
   const originalCreateObjectURL = Object.getOwnPropertyDescriptor(URL, "createObjectURL");
+  const originalRevokeObjectURL = Object.getOwnPropertyDescriptor(URL, "revokeObjectURL");
   let trackStop: ReturnType<typeof vi.fn>;
   let getUserMedia: ReturnType<typeof vi.fn>;
   let stream: MediaStream;
@@ -78,6 +79,10 @@ describe("useVoiceRecorder", () => {
       value: vi.fn(() => "blob:voice"),
       configurable: true,
     });
+    Object.defineProperty(URL, "revokeObjectURL", {
+      value: vi.fn(),
+      configurable: true,
+    });
     vi.stubGlobal("AudioContext", FakeAudioContext);
     vi.stubGlobal("MediaRecorder", FakeMediaRecorder);
     vi.stubGlobal("requestAnimationFrame", vi.fn(() => 1));
@@ -96,6 +101,11 @@ describe("useVoiceRecorder", () => {
       Object.defineProperty(URL, "createObjectURL", originalCreateObjectURL);
     } else {
       Reflect.deleteProperty(URL, "createObjectURL");
+    }
+    if (originalRevokeObjectURL) {
+      Object.defineProperty(URL, "revokeObjectURL", originalRevokeObjectURL);
+    } else {
+      Reflect.deleteProperty(URL, "revokeObjectURL");
     }
   });
 
@@ -207,5 +217,83 @@ describe("useVoiceRecorder", () => {
 
     expect(trackStop).toHaveBeenCalledTimes(1);
     expect(FakeMediaRecorder.instances).toHaveLength(0);
+  });
+
+  it("records without AudioContext when MediaRecorder is available", async () => {
+    vi.stubGlobal("AudioContext", undefined);
+    const { result } = renderHook(() => useVoiceRecorder(5_000));
+
+    expect(result.current.isSupported).toBe(true);
+
+    await act(async () => {
+      result.current.start();
+      await Promise.resolve();
+      await Promise.resolve();
+    });
+
+    expect(result.current.isRecording).toBe(true);
+    expect(result.current.levels).toEqual([]);
+
+    let artifactPromise!: ReturnType<typeof result.current.stopAndFinalize>;
+    act(() => {
+      artifactPromise = result.current.stopAndFinalize();
+    });
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(20);
+    });
+
+    const artifact = await artifactPromise;
+    expect(artifact).toMatchObject({
+      mimeType: "audio/webm",
+      durationMs: 0,
+      sampleRateHz: 16_000,
+      channelCount: 1,
+      previewUrl: "blob:voice",
+    });
+    expect(artifact?.blob).toBeInstanceOf(Blob);
+  });
+
+  it("revokes preview object URLs when replaced and on unmount", async () => {
+    const createObjectURL = vi
+      .fn()
+      .mockReturnValueOnce("blob:first")
+      .mockReturnValueOnce("blob:second");
+    Object.defineProperty(URL, "createObjectURL", {
+      value: createObjectURL,
+      configurable: true,
+    });
+    const revokeObjectURL = vi.fn();
+    Object.defineProperty(URL, "revokeObjectURL", {
+      value: revokeObjectURL,
+      configurable: true,
+    });
+    const { result, unmount } = renderHook(() => useVoiceRecorder(5_000));
+
+    await act(async () => {
+      result.current.start();
+      await Promise.resolve();
+      await Promise.resolve();
+    });
+    act(() => result.current.stop());
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(20);
+    });
+    expect(result.current.audioAssetUrl).toBe("blob:first");
+
+    await act(async () => {
+      result.current.start();
+      await Promise.resolve();
+      await Promise.resolve();
+    });
+    expect(revokeObjectURL).toHaveBeenCalledWith("blob:first");
+
+    act(() => result.current.stop());
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(20);
+    });
+    expect(result.current.audioAssetUrl).toBe("blob:second");
+
+    unmount();
+    expect(revokeObjectURL).toHaveBeenCalledWith("blob:second");
   });
 });

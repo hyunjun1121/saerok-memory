@@ -614,6 +614,59 @@ describe("haruAdminUsageRecordStorage", () => {
     expect(getHaruAdminUsageRecord()?.sessions).toHaveLength(1);
   });
 
+  it("rejects malformed nested sessions and responses at the storage boundary", async () => {
+    const { exercise } = scenario("D1_Q1");
+    presentHaruAdminQuestion(1, exercise, "ko");
+    await recordHaruAdminResponse(1, exercise, "ko", {
+      questionId: exercise.id,
+      responseType: "single_choice",
+      selectedOptionId: "A",
+      responseTimeMs: 1_000,
+      isCorrect: true,
+      feedback: "응답 완료",
+    });
+    const valid = getHaruAdminUsageRecord();
+    expect(valid).not.toBeNull();
+
+    const malformedRecords: unknown[] = [
+      { ...valid, sessions: [{ ...(valid?.sessions[0] ?? {}), question_records: "bad" }] },
+      {
+        ...valid,
+        sessions: [
+          ...(valid?.sessions ?? []),
+          { ...(valid?.sessions[0] ?? {}), session_id: "duplicate-session-id" },
+        ],
+      },
+      {
+        ...valid,
+        sessions: (valid?.sessions ?? []).map((session) => ({
+          ...session,
+          question_records: [
+            ...session.question_records,
+            { ...session.question_records[0] },
+          ],
+        })),
+      },
+      {
+        ...valid,
+        sessions: (valid?.sessions ?? []).map((session) => ({
+          ...session,
+          question_records: session.question_records.map((record) => ({
+            ...record,
+            response: record.response
+              ? { ...record.response, input_mode: "unsupported-mode" }
+              : null,
+          })),
+        })),
+      },
+    ];
+
+    for (const malformed of malformedRecords) {
+      localStorage.setItem(HARU_ADMIN_USAGE_RECORD_STORAGE_KEY, JSON.stringify(malformed));
+      expect(getHaruAdminUsageRecord()).toBeNull();
+    }
+  });
+
   it("matches the canonical seven-day question count contract", () => {
     expect(HARU_WEEK_PLAN).toHaveLength(7);
     expect(HARU_WEEK_PLAN.every((plan) => plan.exerciseIds.length === 6)).toBe(true);

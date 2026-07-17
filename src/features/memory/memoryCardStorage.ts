@@ -3,12 +3,80 @@ import { readJsonArray, writeJson } from "@/utils/safeStorage";
 
 const STORAGE_KEY = "memoryCards";
 
+const MEMORY_SOURCES = new Set<MemoryCard["source"]>([
+  "daily_lesson",
+  "family_upload",
+  "voice_note",
+  "manual_entry",
+]);
+const SENSITIVITY_LEVELS = new Set<MemoryCard["sensitivity"]>([
+  "low",
+  "personal",
+  "sensitive",
+]);
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function isMemoryCard(value: unknown): value is MemoryCard {
+  if (!isRecord(value) || !isRecord(value.reviewState)) return false;
+  const reviewState = value.reviewState;
+  return (
+    typeof value.id === "string" &&
+    value.id.length > 0 &&
+    typeof value.userId === "string" &&
+    typeof value.createdAt === "string" &&
+    Number.isFinite(Date.parse(value.createdAt)) &&
+    typeof value.updatedAt === "string" &&
+    Number.isFinite(Date.parse(value.updatedAt)) &&
+    typeof value.source === "string" &&
+    MEMORY_SOURCES.has(value.source as MemoryCard["source"]) &&
+    typeof value.sensitivity === "string" &&
+    SENSITIVITY_LEVELS.has(value.sensitivity as MemoryCard["sensitivity"]) &&
+    typeof value.shareWithFamily === "boolean" &&
+    typeof reviewState.dueAt === "string" &&
+    Number.isFinite(Date.parse(reviewState.dueAt)) &&
+    typeof reviewState.intervalDays === "number" &&
+    Number.isFinite(reviewState.intervalDays) &&
+    typeof reviewState.ease === "number" &&
+    Number.isFinite(reviewState.ease) &&
+    typeof reviewState.reviewCount === "number" &&
+    Number.isFinite(reviewState.reviewCount)
+  );
+}
+
+function sanitizeMemoryCard(card: MemoryCard): MemoryCard {
+  if (
+    typeof card.audioAssetUrl !== "string" ||
+    !card.audioAssetUrl.startsWith("blob:")
+  ) {
+    return card;
+  }
+  const durableCard = { ...card };
+  delete durableCard.audioAssetUrl;
+  return durableCard;
+}
+
 export function getMemoryCards(): MemoryCard[] {
-  return readJsonArray<MemoryCard>(STORAGE_KEY);
+  const stored = readJsonArray<unknown>(STORAGE_KEY);
+  const cards = stored.filter(isMemoryCard).map(sanitizeMemoryCard);
+  const needsCleanup =
+    cards.length !== stored.length ||
+    stored.some(
+      (value) =>
+        isMemoryCard(value) &&
+        typeof value.audioAssetUrl === "string" &&
+        value.audioAssetUrl.startsWith("blob:"),
+    );
+  if (needsCleanup) {
+    writeJson(STORAGE_KEY, cards);
+  }
+  return cards;
 }
 
 export function saveMemoryCards(cards: MemoryCard[]): void {
-  writeJson(STORAGE_KEY, cards);
+  writeJson(STORAGE_KEY, cards.filter(isMemoryCard).map(sanitizeMemoryCard));
 }
 
 // Demo seed: a single pre-existing memory card so the recall question
