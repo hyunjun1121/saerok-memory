@@ -58,7 +58,9 @@ export default function SettingsScreen() {
   };
 
   const toggleSoundFeedback = (next: boolean) => {
-    setSoundFeedbackEnabled(next);
+    if (!setSoundFeedbackEnabled(next)) {
+      return;
+    }
     setSoundFeedback(next);
     if (next) {
       void playInteractionCue("select");

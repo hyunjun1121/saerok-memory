@@ -37,7 +37,9 @@ export function getLearnerProfile(): LearnerProfile {
   return withDefaults(readJson<Partial<LearnerProfile>>(PROFILE_KEY, {}));
 }
 
-export function saveLearnerProfile(update: Partial<LearnerProfile>): LearnerProfile {
+export function saveLearnerProfile(
+  update: Partial<LearnerProfile>,
+): LearnerProfile | null {
   const previous = getLearnerProfile();
   const now = new Date().toISOString();
   const next: LearnerProfile = {
@@ -46,12 +48,11 @@ export function saveLearnerProfile(update: Partial<LearnerProfile>): LearnerProf
     createdAt: previous.createdAt || now,
     updatedAt: now,
   };
-  writeJson(PROFILE_KEY, next);
-  return next;
+  return writeJson(PROFILE_KEY, next) ? next : null;
 }
 
-export function setSoundFeedbackEnabled(enabled: boolean): void {
-  saveLearnerProfile({ soundFeedbackEnabled: enabled });
+export function setSoundFeedbackEnabled(enabled: boolean): boolean {
+  return saveLearnerProfile({ soundFeedbackEnabled: enabled }) !== null;
 }
 
 export function isSoundFeedbackEnabled(): boolean {

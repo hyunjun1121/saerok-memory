@@ -142,9 +142,15 @@ describe("interaction sound assets", () => {
     const playback = playInteractionCue("recordStart").then(() => {
       settled = true;
     });
+    const audio = FakeAudio.instances.at(-1);
+    if (audio) {
+      audio.currentTime = 0.25;
+    }
     await vi.advanceTimersByTimeAsync(349);
 
     expect(settled).toBe(true);
+    expect(audio?.pause).toHaveBeenCalledTimes(1);
+    expect(audio?.currentTime).toBe(0);
     await playback;
   });
 

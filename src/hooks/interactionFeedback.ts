@@ -134,11 +134,22 @@ export function playInteractionCue(cue: InteractionCue): Promise<void> {
       }
       resolve();
     };
+    const haltAndSettle = () => {
+      try {
+        audio.pause();
+        audio.currentTime = 0;
+      } catch {
+        // The timeout still releases recording/UI flow when media cleanup fails.
+      }
+      settle();
+    };
 
     audio.addEventListener("ended", settle);
     audio.addEventListener("error", settle);
     activePlayback = { audio, settle };
-    timeoutId = setTimeout(settle, INTERACTION_CUE_CONFIG[cue].timeoutMs);
+    // Boundaries such as recordStart await this promise. Stop late playback at
+    // the deadline too, so a cold audio load cannot begin after capture starts.
+    timeoutId = setTimeout(haltAndSettle, INTERACTION_CUE_CONFIG[cue].timeoutMs);
 
     try {
       const playback = audio.play();

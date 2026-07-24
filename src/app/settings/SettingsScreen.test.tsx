@@ -182,6 +182,10 @@ describe("SettingsScreen sound feedback", () => {
     await i18n.changeLanguage("ko");
   });
 
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
   it("persists sound feedback from a large accessible switch", () => {
     render(
       <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
@@ -222,5 +226,27 @@ describe("SettingsScreen sound feedback", () => {
     expect(soundSwitch).toHaveAttribute("aria-checked", "true");
     expect(getLearnerProfile().soundFeedbackEnabled).toBe(true);
     expect(feedbackMocks.playInteractionCue).toHaveBeenCalledWith("select");
+  });
+
+  it("keeps the displayed and effective setting unchanged when persistence fails", () => {
+    vi.spyOn(console, "error").mockImplementation(() => undefined);
+    vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => {
+      throw new DOMException("Storage unavailable", "QuotaExceededError");
+    });
+    render(
+      <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+        <SettingsScreen />
+      </MemoryRouter>,
+    );
+    const soundSwitch = screen.getByRole("switch", {
+      name: i18n.t("settings.soundFeedback"),
+    });
+
+    fireEvent.click(soundSwitch);
+
+    expect(soundSwitch).toHaveAttribute("aria-checked", "true");
+    expect(getLearnerProfile().soundFeedbackEnabled).toBe(true);
+    expect(feedbackMocks.stopInteractionCue).not.toHaveBeenCalled();
+    expect(feedbackMocks.playInteractionCue).not.toHaveBeenCalled();
   });
 });
