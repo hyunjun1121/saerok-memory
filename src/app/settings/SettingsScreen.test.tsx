@@ -5,12 +5,25 @@ import SettingsScreen from "@/app/settings/SettingsScreen";
 import { HARU_ADMIN_USAGE_RECORD_STORAGE_KEY } from "@/features/lessons/haruAdminUsageRecordStorage";
 import { HARU_DEMO_SESSION_STORAGE_KEY } from "@/features/lessons/haruDemoSessionStorage";
 import { getHaruConsent } from "@/features/profile/haruConsentStorage";
+import { getLearnerProfile } from "@/features/profile/learnerProfileStorage";
 import { STT_JOB_OUTBOX_STORAGE_KEY } from "@/features/speech/sttJobQueue";
 import i18n from "@/i18n";
+
+const feedbackMocks = vi.hoisted(() => ({
+  playInteractionCue: vi.fn(() => Promise.resolve()),
+  stopInteractionCue: vi.fn(),
+  playSoftTapTone: vi.fn(),
+  playSoftSuccessTone: vi.fn(),
+  vibrateLightly: vi.fn(),
+  speakCalmly: vi.fn(),
+}));
+
+vi.mock("@/hooks/interactionFeedback", () => feedbackMocks);
 
 describe("SettingsScreen data deletion", () => {
   beforeEach(async () => {
     localStorage.clear();
+    vi.clearAllMocks();
     await i18n.changeLanguage("ko");
   });
 
@@ -159,5 +172,55 @@ describe("SettingsScreen data deletion", () => {
     expect(
       screen.getByText(i18n.t("settings.privacyUpdateSuccess")),
     ).toBeInTheDocument();
+  });
+});
+
+describe("SettingsScreen sound feedback", () => {
+  beforeEach(async () => {
+    localStorage.clear();
+    vi.clearAllMocks();
+    await i18n.changeLanguage("ko");
+  });
+
+  it("persists sound feedback from a large accessible switch", () => {
+    render(
+      <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+        <SettingsScreen />
+      </MemoryRouter>,
+    );
+    const soundSwitch = screen.getByRole("switch", {
+      name: i18n.t("settings.soundFeedback"),
+    });
+
+    expect(soundSwitch).toHaveAttribute("aria-checked", "true");
+    expect(soundSwitch.className).toContain("min-h-[56px]");
+
+    fireEvent.click(soundSwitch);
+
+    expect(soundSwitch).toHaveAttribute("aria-checked", "false");
+    expect(getLearnerProfile().soundFeedbackEnabled).toBe(false);
+    expect(feedbackMocks.stopInteractionCue).toHaveBeenCalledTimes(1);
+    expect(feedbackMocks.playInteractionCue).not.toHaveBeenCalled();
+  });
+
+  it("plays one preview after sound feedback is enabled again", () => {
+    localStorage.setItem(
+      "learnerProfile",
+      JSON.stringify({ soundFeedbackEnabled: false }),
+    );
+    render(
+      <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+        <SettingsScreen />
+      </MemoryRouter>,
+    );
+    const soundSwitch = screen.getByRole("switch", {
+      name: i18n.t("settings.soundFeedback"),
+    });
+
+    fireEvent.click(soundSwitch);
+
+    expect(soundSwitch).toHaveAttribute("aria-checked", "true");
+    expect(getLearnerProfile().soundFeedbackEnabled).toBe(true);
+    expect(feedbackMocks.playInteractionCue).toHaveBeenCalledWith("select");
   });
 });

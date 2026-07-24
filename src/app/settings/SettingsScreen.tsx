@@ -1,7 +1,15 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { Globe, ArrowLeft, Trash2, Shield, Settings2, Zap } from "lucide-react";
+import {
+  Globe,
+  ArrowLeft,
+  Trash2,
+  Shield,
+  Settings2,
+  Volume2,
+  Zap,
+} from "lucide-react";
 import { Button3D } from "@/components/Button3D";
 import { clearCognitiveRoutineResults } from "@/features/cognitive/cognitiveRoutineStorage";
 import { clearHaruAdminUsageRecords } from "@/features/lessons/haruAdminUsageRecordStorage";
@@ -13,13 +21,24 @@ import {
   getHaruConsent,
   type HaruConsentPermissions,
 } from "@/features/profile/haruConsentStorage";
-import { getLearnerProfile, saveLearnerProfile } from "@/features/profile/learnerProfileStorage";
+import {
+  getLearnerProfile,
+  saveLearnerProfile,
+  setSoundFeedbackEnabled,
+} from "@/features/profile/learnerProfileStorage";
+import {
+  playInteractionCue,
+  stopInteractionCue,
+} from "@/hooks/interactionFeedback";
 
 export default function SettingsScreen() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [autoStart, setAutoStart] = useState(
     () => getLearnerProfile().autoStartTodayRoutine,
+  );
+  const [soundFeedback, setSoundFeedback] = useState(
+    () => getLearnerProfile().soundFeedbackEnabled,
   );
   const [isDeletingCognitiveData, setIsDeletingCognitiveData] = useState(false);
   const [deletionStatus, setDeletionStatus] = useState<"success" | "error" | null>(null);
@@ -36,6 +55,16 @@ export default function SettingsScreen() {
   const toggleAutoStart = (next: boolean) => {
     saveLearnerProfile({ autoStartTodayRoutine: next });
     setAutoStart(next);
+  };
+
+  const toggleSoundFeedback = (next: boolean) => {
+    setSoundFeedbackEnabled(next);
+    setSoundFeedback(next);
+    if (next) {
+      void playInteractionCue("select");
+    } else {
+      stopInteractionCue();
+    }
   };
 
   const handleLanguageChange = (lng: string) => {
@@ -196,6 +225,40 @@ export default function SettingsScreen() {
           >
             {t("settings.autoStartOff")}
           </Button3D>
+        </div>
+      </section>
+
+      <section className="bg-white p-6 rounded-3xl border-2 border-gray-200 shadow-sm flex flex-col gap-4 mb-6">
+        <div className="flex items-center gap-3 border-b-2 border-gray-100 pb-4">
+          <div className="p-2 bg-violet-50 rounded-xl">
+            <Volume2 className="w-6 h-6 text-violet-700" />
+          </div>
+          <h2 className="text-xl font-bold text-ink">
+            {t("settings.accessibilityTitle")}
+          </h2>
+        </div>
+        <div className="flex items-center justify-between gap-4 py-2">
+          <span className="text-lg font-bold leading-snug text-ink">
+            {t("settings.soundFeedback")}
+          </span>
+          <button
+            type="button"
+            role="switch"
+            aria-checked={soundFeedback}
+            aria-label={t("settings.soundFeedback")}
+            onClick={() => toggleSoundFeedback(!soundFeedback)}
+            className={`min-h-[56px] min-w-[112px] rounded-2xl border-2 px-4 text-base font-extrabold transition active:scale-95 ${
+              soundFeedback
+                ? "border-violet-700 bg-violet-100 text-violet-950"
+                : "border-gray-400 bg-gray-100 text-gray-800"
+            }`}
+          >
+            {t(
+              soundFeedback
+                ? "settings.soundFeedbackOn"
+                : "settings.soundFeedbackOff",
+            )}
+          </button>
         </div>
       </section>
 
