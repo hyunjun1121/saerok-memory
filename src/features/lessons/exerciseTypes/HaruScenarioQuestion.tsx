@@ -642,6 +642,9 @@ function HaruScenarioQuestionContent({
           <div className="fixed bottom-[96px] left-0 right-0 z-30 mx-auto max-w-md px-4">
             <Button3D
               variant={isTranscribing || hasResponded ? "disabled" : "primary"}
+              feedbackCue={
+                recorder.isRecording || recorder.isFinalizing ? "none" : "confirm"
+              }
               fullWidth
               onClick={handleVoiceFinish}
             >

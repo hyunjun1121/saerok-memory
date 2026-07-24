@@ -324,7 +324,14 @@ export function PersonalMemoryRecall({
               {t("speech.transcribing")}
             </div>
           ) : (
-            <Button3D variant="primary" fullWidth onClick={handleFinishStory}>
+            <Button3D
+              variant="primary"
+              feedbackCue={
+                recorder.isRecording || recorder.isFinalizing ? "none" : "confirm"
+              }
+              fullWidth
+              onClick={handleFinishStory}
+            >
               {t("exercise.memory.story.finish")}
             </Button3D>
           )}

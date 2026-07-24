@@ -2,6 +2,24 @@ import { act, renderHook } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useVoiceRecorder } from "@/features/speech/useVoiceRecorder";
 
+const feedbackMocks = vi.hoisted(() => ({
+  playInteractionCue: vi.fn(
+    async (cue: string): Promise<void> => {
+      void cue;
+    },
+  ),
+  speakCalmly: vi.fn(),
+  vibrateLightly: vi.fn(),
+}));
+
+vi.mock("@/hooks/interactionFeedback", () => feedbackMocks);
+
+async function flushMicrotasks(count = 8): Promise<void> {
+  for (let index = 0; index < count; index += 1) {
+    await Promise.resolve();
+  }
+}
+
 class FakeAudioContext {
   state = "running";
   sampleRate = 48_000;
@@ -59,6 +77,11 @@ describe("useVoiceRecorder", () => {
 
   beforeEach(() => {
     vi.useFakeTimers();
+    localStorage.clear();
+    feedbackMocks.playInteractionCue.mockReset();
+    feedbackMocks.playInteractionCue.mockResolvedValue(undefined);
+    feedbackMocks.speakCalmly.mockClear();
+    feedbackMocks.vibrateLightly.mockClear();
     FakeMediaRecorder.instances = [];
     trackStop = vi.fn();
     const track = {
@@ -114,8 +137,7 @@ describe("useVoiceRecorder", () => {
 
     await act(async () => {
       result.current.start();
-      await Promise.resolve();
-      await Promise.resolve();
+      await flushMicrotasks();
     });
     expect(result.current.isRecording).toBe(true);
     expect(getUserMedia).toHaveBeenCalledWith({
@@ -158,6 +180,109 @@ describe("useVoiceRecorder", () => {
     expect(result.current.sampleRateHz).toBe(16_000);
     expect(result.current.channelCount).toBe(1);
     expect(result.current.getDurationMs()).toBe(5_000);
+    expect(
+      feedbackMocks.playInteractionCue.mock.calls.filter(
+        ([cue]) => cue === "recordStop",
+      ),
+    ).toHaveLength(1);
+  });
+
+  it("waits for record-start feedback and collapses repeated start requests", async () => {
+    let releaseStartCue: (() => void) | undefined;
+    feedbackMocks.playInteractionCue.mockImplementation(
+      (cue) =>
+        cue === "recordStart"
+          ? new Promise<void>((resolve) => {
+              releaseStartCue = resolve;
+            })
+          : Promise.resolve(),
+    );
+    const { result } = renderHook(() => useVoiceRecorder(5_000));
+
+    await act(async () => {
+      result.current.start();
+      result.current.start();
+      await flushMicrotasks();
+    });
+
+    expect(feedbackMocks.playInteractionCue).toHaveBeenCalledTimes(1);
+    expect(feedbackMocks.playInteractionCue).toHaveBeenCalledWith("recordStart");
+    expect(getUserMedia).not.toHaveBeenCalled();
+    expect(result.current.isRecording).toBe(false);
+
+    await act(async () => {
+      releaseStartCue?.();
+      await flushMicrotasks();
+    });
+
+    expect(getUserMedia).toHaveBeenCalledTimes(1);
+    expect(FakeMediaRecorder.instances).toHaveLength(1);
+    expect(result.current.isRecording).toBe(true);
+  });
+
+  it("continues recording when optional start feedback rejects", async () => {
+    feedbackMocks.playInteractionCue.mockRejectedValueOnce(
+      new Error("audio unavailable"),
+    );
+    const { result } = renderHook(() => useVoiceRecorder(5_000));
+
+    await act(async () => {
+      result.current.start();
+      await flushMicrotasks();
+    });
+
+    expect(getUserMedia).toHaveBeenCalledTimes(1);
+    expect(result.current.isRecording).toBe(true);
+  });
+
+  it("plays record-stop only after requesting a real recorder stop", async () => {
+    const { result } = renderHook(() => useVoiceRecorder(5_000));
+    await act(async () => {
+      result.current.start();
+      await flushMicrotasks();
+    });
+    const recorder = FakeMediaRecorder.instances[0];
+    const stopSpy = vi.spyOn(recorder, "stop");
+    feedbackMocks.playInteractionCue.mockClear();
+
+    act(() => {
+      result.current.stop();
+    });
+
+    expect(stopSpy).toHaveBeenCalledTimes(1);
+    expect(feedbackMocks.playInteractionCue).toHaveBeenCalledTimes(1);
+    expect(feedbackMocks.playInteractionCue).toHaveBeenCalledWith("recordStop");
+    expect(stopSpy.mock.invocationCallOrder[0]).toBeLessThan(
+      feedbackMocks.playInteractionCue.mock.invocationCallOrder[0],
+    );
+
+    act(() => {
+      result.current.stop();
+    });
+    expect(feedbackMocks.playInteractionCue).toHaveBeenCalledTimes(1);
+  });
+
+  it("cancels a start still waiting on feedback when unmounted", async () => {
+    let releaseStartCue: (() => void) | undefined;
+    feedbackMocks.playInteractionCue.mockImplementation(
+      () =>
+        new Promise<void>((resolve) => {
+          releaseStartCue = resolve;
+        }),
+    );
+    const { result, unmount } = renderHook(() => useVoiceRecorder(5_000));
+
+    await act(async () => {
+      result.current.start();
+      await flushMicrotasks();
+    });
+    unmount();
+
+    releaseStartCue?.();
+    await flushMicrotasks();
+
+    expect(getUserMedia).not.toHaveBeenCalled();
+    expect(FakeMediaRecorder.instances).toHaveLength(0);
   });
 
   it("cancels a pending microphone start when Finish is pressed", async () => {
@@ -172,9 +297,10 @@ describe("useVoiceRecorder", () => {
     });
     const { result } = renderHook(() => useVoiceRecorder(5_000));
 
-    act(() => {
+    await act(async () => {
       result.current.start();
       result.current.start();
+      await flushMicrotasks();
     });
     expect(getUserMedia).toHaveBeenCalledTimes(1);
 
@@ -187,7 +313,7 @@ describe("useVoiceRecorder", () => {
     await act(async () => {
       resolveUserMedia?.(stream);
       await pendingUserMedia;
-      await Promise.resolve();
+      await flushMicrotasks();
     });
 
     expect(trackStop).toHaveBeenCalledTimes(1);
@@ -206,14 +332,15 @@ describe("useVoiceRecorder", () => {
     });
     const { result, unmount } = renderHook(() => useVoiceRecorder(5_000));
 
-    act(() => {
+    await act(async () => {
       result.current.start();
+      await flushMicrotasks();
     });
     unmount();
 
     resolveUserMedia?.(stream);
     await pendingUserMedia;
-    await Promise.resolve();
+    await flushMicrotasks();
 
     expect(trackStop).toHaveBeenCalledTimes(1);
     expect(FakeMediaRecorder.instances).toHaveLength(0);
@@ -227,8 +354,7 @@ describe("useVoiceRecorder", () => {
 
     await act(async () => {
       result.current.start();
-      await Promise.resolve();
-      await Promise.resolve();
+      await flushMicrotasks();
     });
 
     expect(result.current.isRecording).toBe(true);
@@ -271,8 +397,7 @@ describe("useVoiceRecorder", () => {
 
     await act(async () => {
       result.current.start();
-      await Promise.resolve();
-      await Promise.resolve();
+      await flushMicrotasks();
     });
     act(() => result.current.stop());
     await act(async () => {
@@ -282,8 +407,7 @@ describe("useVoiceRecorder", () => {
 
     await act(async () => {
       result.current.start();
-      await Promise.resolve();
-      await Promise.resolve();
+      await flushMicrotasks();
     });
     expect(revokeObjectURL).toHaveBeenCalledWith("blob:first");
 

@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import type { InteractionCue } from "@/hooks/interactionFeedback";
+import { useInteractionFeedback } from "@/hooks/useInteractionFeedback";
 
 // Voice recorder for the daily memory routine. It records mic audio and exposes
 // a live frequency `levels` feed so the UI can render a reactive waveform, plus
@@ -57,6 +59,7 @@ function recorderAvailable(): boolean {
 }
 
 export function useVoiceRecorder(maxDurationMs = DEFAULT_MAX_DURATION_MS): VoiceRecorder {
+  const { playCue } = useInteractionFeedback();
   const [isRecording, setIsRecording] = useState(false);
   const [isFinalizing, setIsFinalizing] = useState(false);
   const [levels, setLevels] = useState<number[]>([]);
@@ -89,6 +92,17 @@ export function useVoiceRecorder(maxDurationMs = DEFAULT_MAX_DURATION_MS): Voice
   const maxTimerRef = useRef<number | null>(null);
 
   const isSupported = recorderAvailable();
+
+  const playOptionalCue = useCallback(
+    async (cue: InteractionCue): Promise<void> => {
+      try {
+        await playCue(cue);
+      } catch {
+        // Optional feedback must never block or abort microphone capture.
+      }
+    },
+    [playCue],
+  );
 
   const clearRaf = useCallback(() => {
     if (rafRef.current !== null) {
@@ -158,6 +172,7 @@ export function useVoiceRecorder(maxDurationMs = DEFAULT_MAX_DURATION_MS): Voice
       try {
         setIsFinalizing(true);
         recorder.stop(); // onstop finalizes audio + tears down the stream
+        void playOptionalCue("recordStop");
       } catch {
         recorderRef.current = null;
         setIsFinalizing(false);
@@ -175,7 +190,14 @@ export function useVoiceRecorder(maxDurationMs = DEFAULT_MAX_DURATION_MS): Voice
     }
     setIsRecording(false);
     setLevels([]);
-  }, [cancelPendingStart, clearMaxTimer, clearRaf, resolveFinalization, teardownAudio]);
+  }, [
+    cancelPendingStart,
+    clearMaxTimer,
+    clearRaf,
+    playOptionalCue,
+    resolveFinalization,
+    teardownAudio,
+  ]);
 
   // Stop the recorder and resolve with the captured audio Blob once onstop
   // finalizes it. The memory-story flow awaits this to upload audio to the STT
@@ -224,18 +246,26 @@ export function useVoiceRecorder(maxDurationMs = DEFAULT_MAX_DURATION_MS): Voice
     finalizationPromiseRef.current = null;
     finalizationResolveRef.current = null;
 
-    const startPromise = navigator.mediaDevices
-      .getUserMedia({
-        audio: {
-          echoCancellation: true,
-          // Preserve soft elderly speech. Backend whole-utterance activity
-          // detection rejects no-response audio without trimming pauses; browser
-          // AGC/noise suppression can erase low-volume consonants before upload.
-          autoGainControl: false,
-          noiseSuppression: false,
-        },
+    const startPromise = playOptionalCue("recordStart")
+      .then(() => {
+        if (!isMountedRef.current || startGenerationRef.current !== startGeneration) {
+          return null;
+        }
+        return navigator.mediaDevices.getUserMedia({
+          audio: {
+            echoCancellation: true,
+            // Preserve soft elderly speech. Backend whole-utterance activity
+            // detection rejects no-response audio without trimming pauses; browser
+            // AGC/noise suppression can erase low-volume consonants before upload.
+            autoGainControl: false,
+            noiseSuppression: false,
+          },
+        });
       })
       .then((stream) => {
+        if (!stream) {
+          return;
+        }
         if (!isMountedRef.current || startGenerationRef.current !== startGeneration) {
           stream.getTracks().forEach((track) => track.stop());
           return;
@@ -405,6 +435,7 @@ export function useVoiceRecorder(maxDurationMs = DEFAULT_MAX_DURATION_MS): Voice
     clearMaxTimer,
     clearRaf,
     maxDurationMs,
+    playOptionalCue,
     resolveFinalization,
     revokePreviewUrl,
     teardownAudio,

@@ -216,6 +216,9 @@ export function SpeechRepeatPractice({
       <div className="fixed bottom-[96px] left-0 right-0 px-4 max-w-md mx-auto z-30">
         <Button3D
           variant={isTranscribing ? "disabled" : "primary"}
+          feedbackCue={
+            capture.isRecording || capture.isFinalizing ? "none" : "confirm"
+          }
           fullWidth
           onClick={handleFinish}
         >

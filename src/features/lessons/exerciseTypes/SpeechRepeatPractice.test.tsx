@@ -9,6 +9,9 @@ import '@/i18n';
 const mocks = vi.hoisted(() => ({
   enqueue: vi.fn(async () => "job-speech" as string | null),
   transcribe: vi.fn(),
+  playCue: vi.fn(async (cue: string) => {
+    void cue;
+  }),
   recorder: {
     isSupported: false,
     isRecording: false,
@@ -35,6 +38,11 @@ vi.mock('@/features/speech/stt', () => ({
 }));
 vi.mock('@/features/speech/sttJobQueue', () => ({
   enqueueSttJob: mocks.enqueue,
+}));
+vi.mock('@/hooks/interactionFeedback', () => ({
+  playInteractionCue: mocks.playCue,
+  speakCalmly: vi.fn(),
+  vibrateLightly: vi.fn(),
 }));
 
 function setConsent(key: 'voiceRecording' | 'sttProcessing', value: boolean): void {
@@ -163,6 +171,30 @@ describe('SpeechRepeatPractice', () => {
         recognitionError: 'stt-pending',
       }),
     );
+  });
+
+  it('does not stack confirm feedback when Finish stops an active recording', async () => {
+    mocks.recorder.isSupported = true;
+    mocks.recorder.isRecording = true;
+    mocks.recorder.stopAndGetBlob.mockResolvedValue(
+      new Blob(['voice'], { type: 'audio/webm' }),
+    );
+    render(
+      <SpeechRepeatPractice
+        prompt="따라 말해보세요"
+        phrase="테스트 문장"
+        onComplete={vi.fn()}
+        setGlobalState={vi.fn()}
+        globalState="awaiting_answer"
+      />,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: '다 말했습니다' }));
+
+    await waitFor(() =>
+      expect(mocks.recorder.stopAndGetBlob).toHaveBeenCalledTimes(1),
+    );
+    expect(mocks.playCue).not.toHaveBeenCalledWith('confirm');
   });
 
   it('marks the pending record failed when durable queueing fails', async () => {

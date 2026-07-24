@@ -178,6 +178,9 @@ export function VerbalFluencyPractice({
       <div className="fixed bottom-[96px] left-0 right-0 z-30 mx-auto max-w-md px-4">
         <Button3D
           variant={isTranscribing ? "disabled" : "primary"}
+          feedbackCue={
+            capture.isRecording || capture.isFinalizing ? "none" : "confirm"
+          }
           fullWidth
           onClick={handleFinish}
         >

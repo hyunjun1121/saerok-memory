@@ -104,6 +104,7 @@ export function SpeechCapturePanel({
 
       <Button3D
         variant={isListening ? "danger" : "primary"}
+        feedbackCue="none"
         fullWidth
         size="lg"
         aria-pressed={isListening}
