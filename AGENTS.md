@@ -23,9 +23,9 @@ The product should feel like a warm daily routine. It may provide Haru-branded, 
 
 ## Current Demo Focus (2026-07-16)
 
-> **⚠ Git state — read before ANY git operation.** The entire state described in this section (the `@/` alias, the directory refactor, the removed Home hub, the `/` → `/lesson` launch, the copy-safety/demo copy, and the unused-file cleanup) exists **only in the uncommitted working tree**. The last commit is `553bc5b` (`SP-09`), which still has relative imports, `src/app/home/HomeScreen.tsx`, `/` → Home, and onboarding auto-navigation. **304 files currently differ from HEAD** (166 deleted, 105 modified, 29 untracked); there is no stash. Do **not** run `git stash`, `git reset`, `git checkout --`, `git clean`, or `git restore` against these paths without explicit instruction — it will destroy the work below. Commit only when the user asks.
+> **⚠ Git state — read before ANY git operation.** The structure refactor, cleanup, local STT/RAG integration, and consent-aware runtime are committed through baseline `e1ea674`. That baseline was verified clean on `feat/mentor-ui-revamp` on 2026-07-24 and is preserved locally as `backup/pre-sfx-e1ea674`. Sound-feedback work is isolated on `feat/haru-sound-feedback`. Always inspect the live branch, HEAD, index, and worktree before acting; do not assume this dated snapshot is still current. Do **not** run `git stash`, `git reset`, `git checkout --`, `git clean`, or `git restore` against user work. Commit only when the user asks.
 
-Active branch: `feat/mentor-ui-revamp`. Recent work is a demo-first polish pass (`SP-01`..`SP-09` are committed; HEAD is `SP-09`). Work since `SP-09` — the structure refactor, the unused-file cleanup, and further polish — is uncommitted in the working tree (see the warning above). The bar is "looks like a polished working app" — appearance and flow outrank deep correctness for the demo. Read this section before planning or editing; it supersedes older status notes elsewhere in this file for live-state questions.
+Active work branch: `feat/haru-sound-feedback`, based on clean commit `e1ea674`. The earlier demo-first polish pass and subsequent structure/runtime work are committed. The bar is "looks like a polished working app" — appearance and flow outrank deep correctness for the demo. Read this section before planning or editing; it supersedes older status notes elsewhere in this file for live-state questions.
 
 Demo direction (explicit gaps being closed):
 
@@ -85,9 +85,9 @@ The STT backend (`backend/`, FastAPI on `127.0.0.1:8765`; scripts `stt:install` 
 ### Validation baseline
 
 - `npm run typecheck` clean (strict TypeScript).
-- `npm test` → 142 tests across 41 files.
-- `npm run lint` and `npm run build` green (`build` ≈ 4s).
-- Re-verified green on 2026-07-17.
+- `npm test` → 442 tests across 62 files.
+- `npm run lint` and `npm run build` green.
+- Re-verified green on 2026-07-24.
 
 ### SP-01..SP-09 commit trail (feat/mentor-ui-revamp)
 
@@ -202,7 +202,7 @@ Grant application files, generated documents, videos, HWP/HWPX/DOCX/PDF render a
 
 ## Import & Layout Conventions
 
-A structure refactor was applied to the working tree on 2026-07-17 (branch `feat/mentor-ui-revamp`, **uncommitted** — see the git warning in Current Demo Focus) — it added the `@/` alias, rewrote every import to `@/`-absolute, and co-located modules with their features. Rules that follow from it (keep these when adding or moving code):
+A structure refactor was applied on 2026-07-17 and is committed in the `e1ea674` baseline — it added the `@/` alias, rewrote every import to `@/`-absolute, and co-located modules with their features. Rules that follow from it (keep these when adding or moving code):
 
 - **Import with `@/…`, not deep relatives.** Every import under `src/` is `@/`-absolute; nothing is deeper than one `../`. New code must follow suit.
 - **`app/` mirrors the route tree.** Each route screen lives in its own folder named after the route. The `/connect/*` screens live in `app/connect/{caregiver,counselor}/` — not in `app/result/`.
