@@ -1,12 +1,14 @@
 import type { ButtonHTMLAttributes, MouseEventHandler } from "react";
 import { twMerge } from "tailwind-merge";
 import { useInteractionFeedback } from "@/hooks/useInteractionFeedback";
+import type { InteractionCue } from "@/hooks/interactionFeedback";
 
 export interface Button3DProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary" | "danger" | "neutral" | "disabled";
   size?: "md" | "lg" | "xl";
   pressed?: boolean;
   fullWidth?: boolean;
+  feedbackCue?: InteractionCue | "none";
 }
 
 export function Button3D({
@@ -14,18 +16,21 @@ export function Button3D({
   size = "lg",
   pressed = false,
   fullWidth = false,
+  feedbackCue = "confirm",
   disabled = false,
   children,
   className,
   onClick,
   ...props
 }: Button3DProps) {
-  const { tap } = useInteractionFeedback();
+  const { playCue } = useInteractionFeedback();
   const isActuallyDisabled = disabled || variant === "disabled";
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = (event) => {
     if (isActuallyDisabled) return;
-    tap();
+    if (feedbackCue !== "none") {
+      void playCue(feedbackCue);
+    }
     onClick?.(event);
   };
 

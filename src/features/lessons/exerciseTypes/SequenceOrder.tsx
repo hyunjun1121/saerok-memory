@@ -123,7 +123,11 @@ export function SequenceOrder({
           {t("exercise.sequenceOrder.prompt")}
         </span>
         <h2 className="text-3xl font-extrabold leading-snug text-ink">{prompt}</h2>
-        <Button3D variant="secondary" onClick={handlePlaySequence}>
+        <Button3D
+          variant="secondary"
+          feedbackCue="none"
+          onClick={handlePlaySequence}
+        >
           <Volume2 className="mr-2 h-5 w-5" />
           {t("exercise.sequenceOrder.listen")}
         </Button3D>

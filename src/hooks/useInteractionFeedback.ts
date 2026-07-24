@@ -2,8 +2,6 @@ import { useCallback } from "react";
 import {
   type InteractionCue,
   playInteractionCue,
-  playSoftSuccessTone,
-  playSoftTapTone,
   speakCalmly,
   vibrateLightly,
 } from "@/hooks/interactionFeedback";
@@ -26,21 +24,9 @@ export function useInteractionFeedback() {
     return playInteractionCue(cue);
   }, []);
 
-  const tap = useCallback(() => {
-    if (!isSoundFeedbackEnabled()) return;
-    playSoftTapTone();
-    vibrateLightly(15);
-  }, []);
-
-  const success = useCallback(() => {
-    if (!isSoundFeedbackEnabled()) return;
-    playSoftSuccessTone();
-    vibrateLightly([18, 40, 18]);
-  }, []);
-
   const speak = useCallback((text: string, lang?: string) => {
     speakCalmly(text, lang);
   }, []);
 
-  return { playCue, tap, success, speak };
+  return { playCue, speak };
 }

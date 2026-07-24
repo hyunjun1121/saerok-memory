@@ -5,13 +5,14 @@ import "@/i18n";
 
 // SP-04 step 1: every Button3D tap fires the soft tap tone (unless disabled).
 vi.mock("@/hooks/interactionFeedback", () => ({
+  playInteractionCue: vi.fn(() => Promise.resolve()),
   playSoftTapTone: vi.fn(),
   playSoftSuccessTone: vi.fn(),
   vibrateLightly: vi.fn(),
   speakCalmly: vi.fn(),
 }));
 
-import { playSoftTapTone } from "@/hooks/interactionFeedback";
+import { playInteractionCue } from "@/hooks/interactionFeedback";
 
 /**
  * SP-02: high-contrast warm palette for presbyopia.
@@ -50,24 +51,30 @@ describe("Button3D SP-02 high-contrast palette", () => {
   });
 });
 
-describe("Button3D SP-04 tap feedback", () => {
+describe("Button3D semantic feedback", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     localStorage.clear();
   });
 
-  it("fires the tap tone on click and forwards onClick", () => {
+  it("plays confirm by default and forwards onClick", () => {
     const onClick = vi.fn();
     render(<Button3D variant="primary" onClick={onClick}>계속</Button3D>);
     fireEvent.click(screen.getByRole("button", { name: "계속" }));
-    expect(playSoftTapTone).toHaveBeenCalledTimes(1);
+    expect(playInteractionCue).toHaveBeenCalledWith("confirm");
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 
-  it("does not fire tap when disabled", () => {
+  it("supports explicit silent actions such as speech replay", () => {
+    render(<Button3D feedbackCue="none">문장 듣기</Button3D>);
+    fireEvent.click(screen.getByRole("button", { name: "문장 듣기" }));
+    expect(playInteractionCue).not.toHaveBeenCalled();
+  });
+
+  it("does not play feedback when disabled", () => {
     render(<Button3D variant="disabled">계속</Button3D>);
     fireEvent.click(screen.getByRole("button", { name: "계속" }));
-    expect(playSoftTapTone).not.toHaveBeenCalled();
+    expect(playInteractionCue).not.toHaveBeenCalled();
   });
 
   it("SP-03: exposes aria-pressed only when pressed is true", () => {

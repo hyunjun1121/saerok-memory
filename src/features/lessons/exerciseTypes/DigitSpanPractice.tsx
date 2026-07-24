@@ -39,7 +39,7 @@ export function DigitSpanPractice({
   globalState,
 }: DigitSpanPracticeProps) {
   const { t } = useTranslation();
-  const { tap } = useInteractionFeedback();
+  const { playCue } = useInteractionFeedback();
   const [phase, setPhase] = useState<"study" | "answer">("study");
   const [enteredDigits, setEnteredDigits] = useState<string[]>([]);
   const [missCount, setMissCount] = useState(0);
@@ -58,7 +58,7 @@ export function DigitSpanPractice({
       return;
     }
 
-    tap();
+    void playCue("select");
 
     setEnteredDigits((current) => {
       if (current.length >= expectedDigits.length) {

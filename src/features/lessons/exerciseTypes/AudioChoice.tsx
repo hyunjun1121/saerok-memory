@@ -64,7 +64,11 @@ export function AudioChoice({
         </span>
         <h2 className="text-3xl font-extrabold leading-snug text-ink">{prompt}</h2>
         {audioText && (
-          <Button3D variant="secondary" onClick={playAudio}>
+          <Button3D
+            variant="secondary"
+            feedbackCue="none"
+            onClick={playAudio}
+          >
             <Volume2 className="mr-2 h-5 w-5" />
             {t("exercise.audioChoice.play")}
           </Button3D>

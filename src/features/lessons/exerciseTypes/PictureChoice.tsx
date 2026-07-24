@@ -25,7 +25,7 @@ export function PictureChoice({
   globalState,
 }: PictureChoiceProps) {
   const { t } = useTranslation();
-  const { tap } = useInteractionFeedback();
+  const { playCue } = useInteractionFeedback();
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [missCount, setMissCount] = useState(0);
 
@@ -34,7 +34,7 @@ export function PictureChoice({
       return;
     }
 
-    tap();
+    void playCue("select");
     setSelectedId(id);
 
     if (id === correctOptionId) {

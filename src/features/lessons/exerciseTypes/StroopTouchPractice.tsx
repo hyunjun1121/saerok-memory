@@ -92,7 +92,7 @@ export function StroopTouchPractice({
   globalState,
 }: StroopTouchPracticeProps) {
   const { t } = useTranslation();
-  const { tap } = useInteractionFeedback();
+  const { playCue } = useInteractionFeedback();
   const trialStartedAtRef = useRef(getCurrentTimestampMs());
   const [currentIndex, setCurrentIndex] = useState(0);
   const [responses, setResponses] = useState<StroopTrialResult[]>([]);
@@ -121,7 +121,7 @@ export function StroopTouchPractice({
       return;
     }
 
-    tap();
+    void playCue("select");
 
     const responseMs = Math.max(0, getCurrentTimestampMs() - trialStartedAtRef.current);
     const trialResult: StroopTrialResult = {

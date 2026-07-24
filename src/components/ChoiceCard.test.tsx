@@ -1,9 +1,24 @@
-import { describe, expect, it, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { ChoiceCard } from "@/components/ChoiceCard";
 import "@/i18n";
 
+const feedbackMocks = vi.hoisted(() => ({
+  playInteractionCue: vi.fn(() => Promise.resolve()),
+  playSoftTapTone: vi.fn(),
+  playSoftSuccessTone: vi.fn(),
+  vibrateLightly: vi.fn(),
+  speakCalmly: vi.fn(),
+}));
+
+vi.mock("@/hooks/interactionFeedback", () => feedbackMocks);
+
 describe("ChoiceCard accessibility", () => {
+  beforeEach(() => {
+    localStorage.clear();
+    vi.clearAllMocks();
+  });
+
   it("conveys selection without color: aria-pressed + visible status label", () => {
     render(
       <ChoiceCard
@@ -125,5 +140,17 @@ describe("ChoiceCard accessibility", () => {
       "aspect-square",
       "text-center",
     );
+  });
+
+  it("plays the select cue before forwarding a choice", () => {
+    const onSelect = vi.fn();
+    render(
+      <ChoiceCard id="apple" label="사과" state="idle" onSelect={onSelect} />,
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: "사과" }));
+
+    expect(feedbackMocks.playInteractionCue).toHaveBeenCalledWith("select");
+    expect(onSelect).toHaveBeenCalledWith("apple");
   });
 });

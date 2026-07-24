@@ -79,7 +79,7 @@ export function ChoiceCard({
   tone = "neutral",
 }: ChoiceCardProps) {
   const { t } = useTranslation();
-  const { tap } = useInteractionFeedback();
+  const { playCue } = useInteractionFeedback();
   const isTile = layout === "tile";
 
   const baseClasses =
@@ -109,7 +109,7 @@ export function ChoiceCard({
           : "";
 
   const handleSelect = () => {
-    tap();
+    void playCue("select");
     onSelect(id);
   };
 

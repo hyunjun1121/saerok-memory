@@ -45,7 +45,7 @@ export function TrailSwitchingPractice({
   globalState,
 }: TrailSwitchingPracticeProps) {
   const { t } = useTranslation();
-  const { tap } = useInteractionFeedback();
+  const { playCue } = useInteractionFeedback();
   const startedAtRef = useRef(0);
   const [clickedNodeIds, setClickedNodeIds] = useState<string[]>([]);
   const [errorCount, setErrorCount] = useState(0);
@@ -79,7 +79,7 @@ export function TrailSwitchingPractice({
       return;
     }
 
-    tap();
+    void playCue("select");
 
     if (node.id !== currentExpectedId) {
       setErrorCount((current) => current + 1);

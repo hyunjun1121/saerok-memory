@@ -6,6 +6,7 @@ import { getHaruWeekPlan } from "@/data/haru7DayExercises";
 import { useGamification } from "@/features/gamification/useGamification";
 import { getHaruDemoSessions } from "@/features/lessons/haruDemoSessionStorage";
 import { parseHaruWeekDay } from "@/features/lessons/sessionBuilder";
+import { useInteractionFeedback } from "@/hooks/useInteractionFeedback";
 import { getLocalizedText } from "@/utils/localizedText";
 
 type ConnectRole = "caregiver" | "counselor";
@@ -26,6 +27,7 @@ export default function ResultScreen() {
   const location = useLocation();
   const navigate = useNavigate();
   const { completeSession } = useGamification();
+  const { playCue } = useInteractionFeedback();
   const hasCompleted = useRef(false);
 
   const isFreshCompletion =
@@ -52,9 +54,10 @@ export default function ResultScreen() {
   useEffect(() => {
     if (isFreshCompletion && !hasCompleted.current) {
       completeSession();
+      void playCue("routineComplete");
       hasCompleted.current = true;
     }
-  }, [completeSession, isFreshCompletion]);
+  }, [completeSession, isFreshCompletion, playCue]);
 
   const handleReveal = (role: ConnectRole) => {
     setCodes((current) => (current[role] ? current : { ...current, [role]: makePairCode() }));

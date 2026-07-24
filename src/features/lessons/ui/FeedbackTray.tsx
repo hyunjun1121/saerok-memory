@@ -25,15 +25,16 @@ export function FeedbackTray({
   onSecondaryAction,
   className,
 }: FeedbackTrayProps) {
-  const { success } = useInteractionFeedback();
+  const { playCue } = useInteractionFeedback();
 
-  // Centralize the correct-answer cue: every exercise that sets correct_feedback
-  // now gets the success tone + vibration in one place (HL-4 immediate feedback).
+  // Centralize semantic outcome cues so exercises do not stack duplicate sounds.
   useEffect(() => {
     if (variant === "correct") {
-      success();
+      void playCue("success");
+    } else if (variant === "incorrect" || variant === "hint") {
+      void playCue("retry");
     }
-  }, [variant, success]);
+  }, [playCue, variant]);
 
   const config = {
     correct: {

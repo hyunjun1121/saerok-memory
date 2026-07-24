@@ -27,7 +27,7 @@ export function PairMatching({
   globalState,
 }: PairMatchingProps) {
   const { t } = useTranslation();
-  const { tap, success } = useInteractionFeedback();
+  const { playCue } = useInteractionFeedback();
 
   const leftItems = useMemo(
     () => pairs.map((p) => ({ id: p.id, text: p.left })),
@@ -51,7 +51,7 @@ export function PairMatching({
       setMatchedIds((prev) => prev.includes(leftId) ? prev : [...prev, leftId]);
       setSelectedLeft(null);
       setSelectedRight(null);
-      success();
+      void playCue("success");
 
       if (nextMatchedCount === pairs.length) {
         setGlobalState("answer_selected");
@@ -70,7 +70,7 @@ export function PairMatching({
   };
 
   const handleLeftSelect = (id: string) => {
-    tap();
+    void playCue("select");
     if (selectedRight) {
       resolveSelection(id, selectedRight);
       return;
@@ -80,7 +80,7 @@ export function PairMatching({
   };
 
   const handleRightSelect = (id: string) => {
-    tap();
+    void playCue("select");
     if (selectedLeft) {
       resolveSelection(selectedLeft, id);
       return;

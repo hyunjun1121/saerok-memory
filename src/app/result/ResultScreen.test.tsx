@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import i18n from "@/i18n";
@@ -16,9 +16,20 @@ import {
 import { getLocalizedText } from "@/utils/localizedText";
 import "@/i18n";
 
+const feedbackMocks = vi.hoisted(() => ({
+  playInteractionCue: vi.fn(() => Promise.resolve()),
+  playSoftTapTone: vi.fn(),
+  playSoftSuccessTone: vi.fn(),
+  vibrateLightly: vi.fn(),
+  speakCalmly: vi.fn(),
+}));
+
+vi.mock("@/hooks/interactionFeedback", () => feedbackMocks);
+
 describe("ResultScreen", () => {
   beforeEach(() => {
     localStorage.clear();
+    vi.clearAllMocks();
   });
 
   it("shows the authored message and records a verified demo-day completion", async () => {
@@ -55,6 +66,10 @@ describe("ResultScreen", () => {
       } | null;
       expect(gardenState?.waterDrops).toBe(1);
     });
+    expect(feedbackMocks.playInteractionCue).toHaveBeenCalledTimes(1);
+    expect(feedbackMocks.playInteractionCue).toHaveBeenCalledWith(
+      "routineComplete",
+    );
   });
 
   it("does not record a direct or abandoned result visit as completed", async () => {
@@ -83,6 +98,7 @@ describe("ResultScreen", () => {
         getLocalizedText(HARU_WEEK_PLAN[3].completionMessage, i18n.language),
       ),
     ).not.toBeInTheDocument();
+    expect(feedbackMocks.playInteractionCue).not.toHaveBeenCalled();
   });
 
   it("restores a completed day's message and next step after navigation state is lost", async () => {
@@ -142,5 +158,6 @@ describe("ResultScreen", () => {
       } | null;
       expect(gardenState?.waterDrops).toBe(0);
     });
+    expect(feedbackMocks.playInteractionCue).not.toHaveBeenCalled();
   });
 });

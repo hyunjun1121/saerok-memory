@@ -76,8 +76,8 @@ export function SpeechRepeatPractice({
   }, [globalState, setGlobalState]);
 
   const handlePlay = () => {
-    // Use the shared calm-TTS primitive so speech respects the learner's sound
-    // setting and is a safe no-op where speechSynthesis is missing.
+    // Explicit listen actions remain available independently of optional UI
+    // effects and are a safe no-op where speechSynthesis is missing.
     speak(phrase, getSpeechLanguage(i18n.language));
     setIsPlaying(true);
     // speakCalmly cancels prior utterances and does not expose onend, so clear

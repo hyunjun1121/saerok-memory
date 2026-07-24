@@ -509,7 +509,11 @@ function HaruScenarioQuestionContent({
           {t(overlineKey)}
         </span>
         <h2 className="text-3xl font-extrabold leading-snug text-ink">{prompt}</h2>
-        <Button3D variant="secondary" onClick={handleReplay}>
+        <Button3D
+          variant="secondary"
+          feedbackCue="none"
+          onClick={handleReplay}
+        >
           <Volume2 className="mr-2 h-5 w-5" aria-hidden="true" />
           {t(
             question.responseType === "button_sequence"

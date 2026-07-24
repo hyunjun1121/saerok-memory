@@ -149,15 +149,6 @@ export function playInteractionCue(cue: InteractionCue): Promise<void> {
   });
 }
 
-// Legacy names remain during component migration.
-export function playSoftTapTone(): void {
-  void playInteractionCue("select");
-}
-
-export function playSoftSuccessTone(): void {
-  void playInteractionCue("success");
-}
-
 // Light vibration. No-op where Vibration API is unsupported (iOS/desktop).
 export function vibrateLightly(pattern: number | number[] = 18): void {
   try {

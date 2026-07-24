@@ -6,13 +6,14 @@ import "@/i18n";
 // Centralized success cue (SP-04 step 2): the success tone must fire exactly
 // when the tray mounts as the "correct" variant, and never for other variants.
 vi.mock("@/hooks/interactionFeedback", () => ({
+  playInteractionCue: vi.fn(() => Promise.resolve()),
   playSoftTapTone: vi.fn(),
   playSoftSuccessTone: vi.fn(),
   vibrateLightly: vi.fn(),
   speakCalmly: vi.fn(),
 }));
 
-import { playSoftSuccessTone } from "@/hooks/interactionFeedback";
+import { playInteractionCue } from "@/hooks/interactionFeedback";
 
 describe("FeedbackTray SP-04 success centralization", () => {
   beforeEach(() => {
@@ -29,18 +30,33 @@ describe("FeedbackTray SP-04 success centralization", () => {
         onPrimaryAction={vi.fn()}
       />,
     );
-    expect(playSoftSuccessTone).toHaveBeenCalledTimes(1);
+    expect(playInteractionCue).toHaveBeenCalledWith("success");
   });
 
-  it("does not fire the success cue for incorrect variant", () => {
+  it.each(["incorrect", "hint"] as const)(
+    "fires the retry cue for %s feedback",
+    (variant) => {
+      render(
+        <FeedbackTray
+          variant={variant}
+          title="한 번 더 살펴봐요"
+          primaryActionLabel="다시 해볼까요?"
+          onPrimaryAction={vi.fn()}
+        />,
+      );
+      expect(playInteractionCue).toHaveBeenCalledWith("retry");
+    },
+  );
+
+  it("does not play an automatic cue for neutral feedback", () => {
     render(
       <FeedbackTray
-        variant="incorrect"
-        title="조금 아쉬워요"
-        primaryActionLabel="다시 해볼까요?"
+        variant="neutral"
+        title="다음으로 갈까요?"
+        primaryActionLabel="계속하기"
         onPrimaryAction={vi.fn()}
       />,
     );
-    expect(playSoftSuccessTone).not.toHaveBeenCalled();
+    expect(playInteractionCue).not.toHaveBeenCalled();
   });
 });
