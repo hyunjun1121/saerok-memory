@@ -1,72 +1,161 @@
-// Defensive interaction-feedback primitives (tap tone, success tone, vibration,
-// calm speech). Every function is a safe no-op when the browser API is missing,
-// so routines stay completable without audio/haptics. Sound is *additive* —
+// Defensive interaction-feedback primitives (licensed UI sounds, vibration,
+// calm speech). Every function is a safe no-op when a browser API is missing,
+// so routines stay completable without audio/haptics. Sound is additive:
 // choice/answer state is always conveyed by text, icon, and border too.
 
-interface WebkitAudioWindow extends Window {
-  webkitAudioContext?: typeof AudioContext;
+export type InteractionCue =
+  | "select"
+  | "confirm"
+  | "success"
+  | "retry"
+  | "routineComplete"
+  | "recordStart"
+  | "recordStop";
+
+interface InteractionCueConfig {
+  src: string;
+  volume: number;
+  timeoutMs: number;
 }
 
-let sharedAudioContext: AudioContext | null = null;
+const INTERACTION_CUE_CONFIG: Record<InteractionCue, InteractionCueConfig> = {
+  select: {
+    src: "/assets/audio/ui/select.wav",
+    volume: 0.18,
+    timeoutMs: 240,
+  },
+  confirm: {
+    src: "/assets/audio/ui/confirm.wav",
+    volume: 0.18,
+    timeoutMs: 300,
+  },
+  success: {
+    src: "/assets/audio/ui/success.wav",
+    volume: 0.22,
+    timeoutMs: 550,
+  },
+  retry: {
+    src: "/assets/audio/ui/retry.wav",
+    volume: 0.12,
+    timeoutMs: 350,
+  },
+  routineComplete: {
+    src: "/assets/audio/ui/routine-complete.wav",
+    volume: 0.24,
+    timeoutMs: 900,
+  },
+  recordStart: {
+    src: "/assets/audio/ui/record-start.wav",
+    volume: 0.16,
+    timeoutMs: 330,
+  },
+  recordStop: {
+    src: "/assets/audio/ui/record-stop.wav",
+    volume: 0.16,
+    timeoutMs: 330,
+  },
+};
 
-function getAudioContext(): AudioContext | null {
-  if (typeof window === "undefined") {
+const cueAudioCache = new Map<InteractionCue, HTMLAudioElement>();
+
+interface ActivePlayback {
+  audio: HTMLAudioElement;
+  settle: () => void;
+}
+
+let activePlayback: ActivePlayback | null = null;
+
+function getCueAudio(cue: InteractionCue): HTMLAudioElement | null {
+  const cached = cueAudioCache.get(cue);
+  if (cached) {
+    return cached;
+  }
+
+  if (typeof Audio === "undefined") {
     return null;
   }
 
-  if (sharedAudioContext) {
-    return sharedAudioContext;
-  }
-
   try {
-    const Ctor = window.AudioContext || (window as WebkitAudioWindow).webkitAudioContext;
-    if (!Ctor) {
-      return null;
-    }
-    sharedAudioContext = new Ctor();
-    return sharedAudioContext;
+    const config = INTERACTION_CUE_CONFIG[cue];
+    const audio = new Audio(config.src);
+    audio.preload = "auto";
+    audio.volume = config.volume;
+    cueAudioCache.set(cue, audio);
+    return audio;
   } catch {
     return null;
   }
 }
 
-function playTone(frequency: number, durationMs: number, gainValue: number): void {
-  const ctx = getAudioContext();
-  if (!ctx) {
+export function stopInteractionCue(): void {
+  const playback = activePlayback;
+  if (!playback) {
     return;
   }
 
   try {
-    if (ctx.state === "suspended") {
-      void ctx.resume().catch(() => {});
-    }
-
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.type = "sine";
-    osc.frequency.value = frequency;
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-
-    const now = ctx.currentTime;
-    gain.gain.setValueAtTime(gainValue, now);
-    gain.gain.exponentialRampToValueAtTime(0.0001, now + durationMs / 1000);
-    osc.start(now);
-    osc.stop(now + durationMs / 1000 + 0.02);
+    playback.audio.pause();
+    playback.audio.currentTime = 0;
   } catch {
     // no-op: audio is optional
   }
+  playback.settle();
 }
 
-// Soft, short confirmation for a tap/selection.
+export function playInteractionCue(cue: InteractionCue): Promise<void> {
+  stopInteractionCue();
+  const audio = getCueAudio(cue);
+  if (!audio) {
+    return Promise.resolve();
+  }
+
+  try {
+    audio.currentTime = 0;
+  } catch {
+    // Continue: some browser media implementations reject time changes.
+  }
+
+  return new Promise((resolve) => {
+    let settled = false;
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+    const settle = () => {
+      if (settled) {
+        return;
+      }
+      settled = true;
+      audio.removeEventListener("ended", settle);
+      audio.removeEventListener("error", settle);
+      if (timeoutId !== null) {
+        clearTimeout(timeoutId);
+      }
+      if (activePlayback?.settle === settle) {
+        activePlayback = null;
+      }
+      resolve();
+    };
+
+    audio.addEventListener("ended", settle);
+    audio.addEventListener("error", settle);
+    activePlayback = { audio, settle };
+    timeoutId = setTimeout(settle, INTERACTION_CUE_CONFIG[cue].timeoutMs);
+
+    try {
+      const playback = audio.play();
+      void Promise.resolve(playback).catch(settle);
+    } catch {
+      settle();
+    }
+  });
+}
+
+// Legacy names remain during component migration.
 export function playSoftTapTone(): void {
-  playTone(520, 120, 0.05);
+  void playInteractionCue("select");
 }
 
-// Gentle ascending success cue for a correct/complete action.
 export function playSoftSuccessTone(): void {
-  playTone(587, 130, 0.06);
-  window.setTimeout(() => playTone(784, 170, 0.05), 90);
+  void playInteractionCue("success");
 }
 
 // Light vibration. No-op where Vibration API is unsupported (iOS/desktop).
