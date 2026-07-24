@@ -85,7 +85,7 @@ The STT backend (`backend/`, FastAPI on `127.0.0.1:8765`; scripts `stt:install` 
 ### Validation baseline
 
 - `npm run typecheck` clean (strict TypeScript).
-- `npm test` → 474 tests across 65 files.
+- `npm test` → 475 tests across 65 files.
 - `npm run lint` and `npm run build` green.
 - Re-verified green on 2026-07-24.
 
