@@ -7,6 +7,7 @@ import {
   OnboardingScreen,
   PagedReportScreen,
   SettingsScreen,
+  SupportConnectionScreen,
 } from "@/app/OverviewScreens";
 import { loadRuntimeInputConfig, type RuntimeInputConfigResult } from "@/config/runtimeConfig";
 import { audioManager } from "@/features/audio";
@@ -28,12 +29,13 @@ function AppRoutes() {
           <InfoScreen
             title={getUiCopy(language, "gardenTitle")}
             body={getUiCopy(language, "gardenBody")}
-            image="/assets/haru/garden_scene.png"
+            image="/assets/haru/mascot_turtle.jpg"
             nextPath="/kiosk"
           />
         )}
       />
       <Route path="/family" element={<FamilyMenuScreen />} />
+      <Route path="/connect" element={<SupportConnectionScreen />} />
       <Route path="/settings" element={<SettingsScreen />} />
       <Route path="/onboarding" element={<OnboardingScreen />} />
       <Route

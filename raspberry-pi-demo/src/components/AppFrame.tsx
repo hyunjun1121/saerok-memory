@@ -19,7 +19,7 @@ export function AppFrame({
   reserveLessonBottomSpace = false,
 }: AppFrameProps) {
   const language = getBuildLanguage();
-  const logo = "/assets/haru/app_icon.png";
+  const logo = "/assets/haru/haru_logo_color.png";
   return (
     <div
       className={`offline-app${reserveLessonBottomSpace ? " offline-app--lesson-spacing" : ""}`}
@@ -29,7 +29,6 @@ export function AppFrame({
         <header className="screen-header">
           <img className="screen-header__logo" src={logo} alt={getUiCopy(language, "appName")} />
           <div className="screen-header__brand">
-            <strong>{getUiCopy(language, "appName")}</strong>
             <span>{getUiCopy(language, "brandLine")}</span>
           </div>
           <div className="screen-header__day">{dayLabel ?? getUiCopy(language, "buttonLabel")}</div>

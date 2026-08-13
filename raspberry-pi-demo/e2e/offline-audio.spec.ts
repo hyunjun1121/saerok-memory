@@ -222,6 +222,11 @@ test("plays representative narration and UI cues from local HTTP 200 assets", as
     "exercise.D1_Q6.sequence",
   ]);
   await expectPlayedWithHttp200(page, [narrationPaths["day.1.greeting"]], audioResponses);
+  const greetingUrl = absoluteAssetUrl(page, narrationPaths["day.1.greeting"]);
+  await expect.poll(async () => {
+    const { plays } = await getAudioProbe(page);
+    return plays.filter((path) => path === greetingUrl).length;
+  }).toBe(1);
 
   await pressPhysicalButton(page, "topRight");
   await expect(page.locator('[data-screen="lesson-question"][data-exercise-id="D1_Q1"]')).toBeVisible();

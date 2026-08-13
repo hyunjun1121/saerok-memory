@@ -1,5 +1,5 @@
-import { useCallback, useMemo, useState } from "react";
-import { Flower2, HeartHandshake, HelpCircle, PlayCircle } from "lucide-react";
+import { useCallback, useMemo, useRef, useState } from "react";
+import { Flower2, HeartHandshake, HelpCircle, PlayCircle, UserRoundCheck } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { AppFrame } from "@/components/AppFrame";
 import type { GuideItem } from "@/components/PhysicalButtonGuide";
@@ -66,25 +66,27 @@ function SpatialMenu({
 
   return (
     <AppFrame guideItems={guide} activeSlot={activeSlot}>
-      <div className="question-copy" data-screen={screenId}>
-        <h1>{title}</h1>
-        <p>{hint}</p>
-      </div>
-      <div className="menu-grid">
-        {items.map((item, index) => {
-          const Icon = item.icon;
-          return (
-            <div
-              key={item.path}
-              className={`menu-tile ${selected === slotOrder[index] ? "is-selected" : ""}`}
-              data-path={item.path}
-            >
-              <Icon aria-hidden="true" />
-              <strong>{item.label}</strong>
-            </div>
-          );
-        })}
-      </div>
+      <section className="spatial-menu" data-screen={screenId}>
+        <div className="question-copy">
+          <h1>{title}</h1>
+          <p>{hint}</p>
+        </div>
+        <div className="menu-grid">
+          {items.map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={item.path}
+                className={`menu-tile ${selected === slotOrder[index] ? "is-selected" : ""}`}
+                data-path={item.path}
+              >
+                <Icon aria-hidden="true" />
+                <strong>{item.label}</strong>
+              </div>
+            );
+          })}
+        </div>
+      </section>
     </AppFrame>
   );
 }
@@ -93,11 +95,116 @@ export function KioskMenuScreen() {
   const language = getBuildLanguage();
   const items = useMemo<readonly MenuItem[]>(() => [
     { label: getUiCopy(language, "menuLesson"), path: "/lesson?restart=1", icon: PlayCircle },
-    { label: getUiCopy(language, "menuGarden"), path: "/garden", icon: Flower2 },
+    { label: getUiCopy(language, "menuSupportConnection"), path: "/connect", icon: UserRoundCheck },
     { label: getUiCopy(language, "menuFamily"), path: "/family", icon: HeartHandshake },
     { label: getUiCopy(language, "menuSettings"), path: "/settings", icon: HelpCircle },
   ], [language]);
   return <SpatialMenu title={getUiCopy(language, "menuTitle")} hint={getUiCopy(language, "menuHint")} items={items} screenId="kiosk-menu" />;
+}
+
+type SupportRole = "caregiver" | "counselor";
+
+function createPairingCode(): string {
+  const digits = new Uint16Array(8);
+  globalThis.crypto.getRandomValues(digits);
+  const value = Array.from(digits, (digit) => digit % 10).join("");
+  return `${value.slice(0, 4)}-${value.slice(4)}`;
+}
+
+export function SupportConnectionScreen() {
+  const language = getBuildLanguage();
+  const navigate = useNavigate();
+  const { activeSlot } = useFourButtonStatus();
+  const [selectedRole, setSelectedRole] = useState<SupportRole | null>(null);
+  const [revealedRole, setRevealedRole] = useState<SupportRole | null>(null);
+  const [codes, setCodes] = useState<Partial<Record<SupportRole, string>>>({});
+  const codesRef = useRef<Partial<Record<SupportRole, string>>>({});
+
+  const reveal = useCallback((role: SupportRole) => {
+    if (!codesRef.current[role]) {
+      codesRef.current = { ...codesRef.current, [role]: createPairingCode() };
+      setCodes(codesRef.current);
+    }
+    setSelectedRole(role);
+    setRevealedRole(role);
+  }, []);
+
+  const handleSlot = useCallback((slot: ButtonSlot) => {
+    if (isLeft(slot)) {
+      navigate("/kiosk");
+      return;
+    }
+    const role = slot === "topRight" ? "caregiver" : "counselor";
+    if (selectedRole === role) {
+      reveal(role);
+      return;
+    }
+    setSelectedRole(role);
+    setRevealedRole(null);
+  }, [navigate, reveal, selectedRole]);
+  useFourButtonHandler(handleSlot);
+
+  const guide: readonly [GuideItem, GuideItem, GuideItem, GuideItem] = [
+    { slot: "topLeft", badge: "A", tone: "red", label: getUiCopy(language, "back") },
+    { slot: "topRight", badge: "B", tone: "yellow", label: getUiCopy(language, "connectCaregiver") },
+    { slot: "bottomLeft", badge: "C", tone: "green", label: getUiCopy(language, "back") },
+    { slot: "bottomRight", badge: "D", tone: "blue", label: getUiCopy(language, "connectCounselor") },
+  ];
+
+  const revealedCode = revealedRole ? codes[revealedRole] : undefined;
+  const revealedLabel = revealedRole === "caregiver"
+    ? getUiCopy(language, "connectCaregiver")
+    : getUiCopy(language, "connectCounselor");
+
+  return (
+    <AppFrame guideItems={guide} activeSlot={activeSlot}>
+      <section
+        className={`support-connect${revealedRole ? " has-code" : ""}`}
+        data-screen="support-connection"
+      >
+        <div className={`question-copy${revealedRole ? " support-connect__role-heading" : ""}`}>
+          <h1>{revealedRole ? revealedLabel : getUiCopy(language, "supportConnectionTitle")}</h1>
+          <p>
+            {revealedRole
+              ? getUiCopy(language, "connectCodeLabel")
+              : getUiCopy(language, selectedRole ? "selectedHint" : "supportConnectionHint")}
+          </p>
+        </div>
+        <div className="support-connect__actions">
+          <button
+            type="button"
+            className={`support-connect__button${selectedRole === "caregiver" ? " is-selected" : ""}`}
+            data-support-action="caregiver"
+            aria-pressed={selectedRole === "caregiver"}
+            onClick={() => reveal("caregiver")}
+          >
+            {getUiCopy(language, "connectCaregiver")}
+          </button>
+          <button
+            type="button"
+            className={`support-connect__button support-connect__button--secondary${selectedRole === "counselor" ? " is-selected" : ""}`}
+            data-support-action="counselor"
+            aria-pressed={selectedRole === "counselor"}
+            onClick={() => reveal("counselor")}
+          >
+            {getUiCopy(language, "connectCounselor")}
+          </button>
+        </div>
+        {revealedRole && revealedCode ? (
+          <div className="support-connect__code-card" data-connect-role={revealedRole}>
+            <output
+              data-support-code={revealedRole}
+              aria-label={`${revealedLabel} ${getUiCopy(language, "connectCodeLabel")} ${revealedCode}`}
+            >
+              {revealedCode}
+            </output>
+            <p>{getUiCopy(language, "connectCodeHint")}</p>
+          </div>
+        ) : null}
+        <img className="support-connect__mascot" src="/assets/haru/mascot_turtle.jpg" alt="" />
+      </section>
+    </AppFrame>
+  );
 }
 
 export function FamilyMenuScreen() {
@@ -193,7 +300,7 @@ export function SettingsScreen() {
     { title: getUiCopy(language, "buttonTest"), body: getUiCopy(language, "onboardingBody") },
     { title: getUiCopy(language, "soundReady"), body: getUiCopy(language, "privacyLocal") },
   ];
-  return <StaticPages pages={pages} returnPath="/kiosk" image="/assets/haru/mascot.png" />;
+  return <StaticPages pages={pages} returnPath="/kiosk" image="/assets/haru/mascot_turtle.jpg" />;
 }
 
 export function OnboardingScreen() {
@@ -203,7 +310,7 @@ export function OnboardingScreen() {
     { title: getUiCopy(language, "buttonTest"), body: getUiCopy(language, "selectHint") },
     { title: getUiCopy(language, "voiceReady"), body: getUiCopy(language, "voiceReviewBody") },
   ];
-  return <StaticPages pages={pages} returnPath="/kiosk" image="/assets/haru/mascot_pose_sheet.png" />;
+  return <StaticPages pages={pages} returnPath="/kiosk" image="/assets/haru/mascot_turtle.jpg" />;
 }
 
 function StaticPages({ pages, returnPath, image }: { pages: readonly { title: string; body: string }[]; returnPath: string; image: string }) {

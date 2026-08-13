@@ -128,7 +128,7 @@ html[lang="ja"] .offline-app--lesson-spacing .offline-app__stage {
 
 .screen-header {
   display: grid;
-  grid-template-columns: 54px 1fr 64px;
+  grid-template-columns: 120px 1fr 64px;
   align-items: center;
   gap: 10px;
   min-height: 72px;
@@ -136,23 +136,14 @@ html[lang="ja"] .offline-app--lesson-spacing .offline-app__stage {
 }
 
 .screen-header__logo {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
+  width: 120px;
+  height: 54px;
   object-fit: contain;
 }
 
 .screen-header__brand {
   min-width: 0;
   text-align: center;
-}
-
-.screen-header__brand strong {
-  display: block;
-  color: var(--green);
-  font-size: 26px;
-  font-weight: 900;
-  letter-spacing: -0.04em;
 }
 
 .screen-header__brand span {
@@ -508,6 +499,13 @@ html[lang="ja"] .offline-app--lesson-spacing .offline-app__stage {
   filter: drop-shadow(0 8px 12px rgba(38, 45, 34, 0.15));
 }
 
+.hero-card__mascot[src$="mascot_turtle.jpg"],
+.info-card__image[src$="mascot_turtle.jpg"] {
+  border-radius: 20px;
+  background: #fff;
+  filter: none;
+}
+
 .hero-card h1,
 .info-card h1,
 .feedback-card h1,
@@ -644,6 +642,13 @@ html[lang="ja"] .offline-app--lesson-spacing .offline-app__stage {
   gap: 13px;
 }
 
+.spatial-menu {
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
+}
+
 .menu-tile {
   display: flex;
   min-height: 0;
@@ -679,6 +684,124 @@ html[lang="ja"] .offline-app--lesson-spacing .offline-app__stage {
   line-height: 1.15;
 }
 
+.support-connect {
+  position: relative;
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 18px 8px;
+}
+
+.support-connect.has-code {
+  padding-top: 34px;
+}
+
+.support-connect__role-heading {
+  margin-bottom: 2px;
+}
+
+.support-connect__actions {
+  display: grid;
+  width: min(100%, 400px);
+  gap: 14px;
+}
+
+.support-connect.has-code .support-connect__actions {
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.support-connect.has-code .support-connect__button {
+  min-height: 58px;
+  border-width: 3px;
+  border-radius: 18px;
+  padding: 8px 10px;
+  font-size: 20px;
+}
+
+.support-connect__button {
+  min-height: 76px;
+  border: 4px solid #914b09;
+  border-radius: 22px;
+  background: #bd6207;
+  padding: 12px 20px;
+  box-shadow: 0 6px 0 #783d06;
+  color: #fff;
+  font: inherit;
+  font-size: 25px;
+  font-weight: 950;
+  transition: transform 100ms ease-out, box-shadow 100ms ease-out;
+}
+
+.support-connect__button--secondary {
+  border-color: var(--black-border);
+  background: #fffdf7;
+  box-shadow: 0 6px 0 #282b24;
+  color: var(--ink);
+}
+
+.support-connect__button:active,
+.support-connect__button.is-selected {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 #282b24, 0 0 0 5px rgba(67, 137, 47, 0.24);
+}
+
+.support-connect__button:focus-visible {
+  outline: 5px solid #2c71bd;
+  outline-offset: 4px;
+}
+
+.support-connect__code-card {
+  display: grid;
+  width: min(100%, 400px);
+  place-items: center;
+  gap: 6px;
+  border: 4px solid var(--green);
+  border-radius: 24px;
+  background: #fff;
+  padding: 14px 18px;
+  text-align: center;
+}
+
+.support-connect__code-card span,
+.support-connect__code-card strong {
+  color: var(--green);
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.support-connect__code-card output {
+  color: var(--ink);
+  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  font-size: clamp(38px, 9vw, 50px);
+  font-weight: 950;
+  letter-spacing: 0.08em;
+  line-height: 1.08;
+  font-variant-numeric: tabular-nums;
+}
+
+.support-connect__code-card p {
+  margin: 0;
+  color: #555950;
+  font-size: 15px;
+  font-weight: 750;
+  line-height: 1.35;
+  text-wrap: balance;
+}
+
+.support-connect__mascot {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  width: 72px;
+  max-height: 104px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -701,7 +824,7 @@ html[lang="ja"] .offline-app--lesson-spacing .offline-app__stage {
 
 @media (max-height: 780px) {
   .screen-header { min-height: 68px; padding-top: 9px; padding-bottom: 6px; }
-  .screen-header__logo { width: 50px; height: 50px; }
+  .screen-header__logo { width: 110px; height: 50px; }
   .question-copy h1 { font-size: 26px; }
   .choice-card__label { font-size: 23px; }
   .button-guide { padding-top: 5px; padding-bottom: 6px; }

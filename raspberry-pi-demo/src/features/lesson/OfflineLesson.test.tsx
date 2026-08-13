@@ -1,3 +1,4 @@
+import { StrictMode } from "react";
 import { act, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { MemoryRouter, Route, Routes, useNavigate } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -83,6 +84,26 @@ describe("OfflineLessonScreen", () => {
   afterEach(() => {
     vi.useRealTimers();
     restoreMonotonicNow();
+  });
+
+  it("plays the startup greeting exactly once under StrictMode", async () => {
+    render(
+      <StrictMode>
+        <MemoryRouter initialEntries={["/lesson?day=1&restart=1"]}>
+          <FourButtonProvider>
+            <Routes>
+              <Route path="/lesson" element={<OfflineLessonScreen />} />
+            </Routes>
+          </FourButtonProvider>
+        </MemoryRouter>
+      </StrictMode>,
+    );
+
+    await act(async () => Promise.resolve());
+    const greetingCalls = vi.mocked(audioManager.playNarration).mock.calls.filter(
+      ([id, language]) => id === "day.1.greeting" && language === "ko",
+    );
+    expect(greetingCalls).toHaveLength(1);
   });
 
   it("requires a second press on the same physical button before saving a choice", async () => {

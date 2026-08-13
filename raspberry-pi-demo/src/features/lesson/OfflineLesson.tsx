@@ -170,8 +170,14 @@ function OfflineLessonSession() {
 
   useEffect(() => {
     if (shouldRecoverCompletedDay) return undefined;
-    playNarration(`day.${day}.greeting`);
-    return () => audioManager.stopNarration();
+    let active = true;
+    queueMicrotask(() => {
+      if (active) playNarration(`day.${day}.greeting`);
+    });
+    return () => {
+      active = false;
+      audioManager.stopNarration();
+    };
   }, [day, playNarration, shouldRecoverCompletedDay]);
 
   const persistResponse = useCallback((record: OfflineResponseRecord) => {
@@ -339,7 +345,7 @@ function OfflineLessonSession() {
         reserveLessonBottomSpace
       >
         <section className="hero-card" data-screen="lesson-start">
-          <img className="hero-card__mascot" src="/assets/haru/mascot.png" alt="" />
+          <img className="hero-card__mascot" src="/assets/haru/mascot_turtle.jpg" alt="" />
           <span className="question-copy__eyebrow">{getLocalizedText(plan.weekday, language)}</span>
           <h1>{getLocalizedText(plan.greeting, language)}</h1>
           <p>{getUiCopy(language, "startDuration")}</p>
@@ -521,7 +527,7 @@ export function OfflineResultScreen() {
       dayLabel={getUiCopy(language, "day", { day })}
     >
       <section className="hero-card" data-screen="result">
-        <img className="hero-card__mascot" src="/assets/haru/mascot.png" alt="" />
+        <img className="hero-card__mascot" src="/assets/haru/mascot_turtle.jpg" alt="" />
         <CheckCircle2 className="feedback-card__icon" aria-hidden="true" />
         <h1>{getUiCopy(language, "completedTitle")}</h1>
         <p>{getLocalizedText(plan.completionMessage, language)}</p>

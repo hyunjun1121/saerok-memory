@@ -157,6 +157,37 @@ async function expectQuestionViewportFit(page: Page): Promise<void> {
   }
 }
 
+async function expectSupportConnectionViewportFit(page: Page): Promise<void> {
+  await page.evaluate(() => document.fonts.ready);
+  const metrics = await page.evaluate(() => {
+    const screen = document.querySelector<HTMLElement>('[data-screen="support-connection"]');
+    const guide = document.querySelector<HTMLElement>(".button-guide");
+    if (!screen || !guide) throw new Error("Missing supporter connection layout elements.");
+    const guideTop = guide.getBoundingClientRect().top;
+    const visibleElements = [
+      ...screen.querySelectorAll<HTMLElement>("h1, p, button, output, img"),
+    ].filter((element) => element.getClientRects().length > 0);
+    return {
+      documentHeight: document.documentElement.scrollHeight,
+      viewportHeight: window.innerHeight,
+      scrollX: window.scrollX,
+      scrollY: window.scrollY,
+      screenClientHeight: screen.clientHeight,
+      screenScrollHeight: screen.scrollHeight,
+      overflowCount: visibleElements.filter((element) => (
+        element.scrollWidth > element.clientWidth + 1
+        || element.scrollHeight > element.clientHeight + 5
+        || element.getBoundingClientRect().bottom > guideTop + 1
+      )).length,
+    };
+  });
+  expect(metrics.documentHeight).toBe(metrics.viewportHeight);
+  expect(metrics.scrollX).toBe(0);
+  expect(metrics.scrollY).toBe(0);
+  expect(metrics.overflowCount).toBe(0);
+  expect(metrics.screenScrollHeight).toBeLessThanOrEqual(metrics.screenClientHeight + 1);
+}
+
 test.beforeEach(async ({ page }) => {
   await page.addInitScript((storageKey) => localStorage.removeItem(storageKey), OFFLINE_PROGRESS_KEY);
 });
@@ -185,6 +216,22 @@ test("runs at physical 1080x1920 output geometry without touch input", async ({ 
   expect(geometry.height * geometry.dpr).toBe(1920);
   expect(await page.locator("html").getAttribute("lang")).toBe(EXPECTED_LANGUAGE);
   await expect(page.locator(".offline-app")).toHaveCSS("cursor", "none");
+  await expect(page.locator(".screen-header__logo")).toHaveAttribute(
+    "src",
+    "/assets/haru/haru_logo_color.png",
+  );
+  await expect(page.locator('[data-screen="lesson-start"] .hero-card__mascot')).toHaveAttribute(
+    "src",
+    "/assets/haru/mascot_turtle.jpg",
+  );
+  const brandAssets = await page.evaluate(async (paths) => Promise.all(paths.map(async (path) => {
+    const response = await fetch(path, { cache: "no-store" });
+    return { path, status: response.status, bytes: (await response.arrayBuffer()).byteLength };
+  })), ["/assets/haru/haru_logo_color.png", "/assets/haru/mascot_turtle.jpg"]);
+  expect(brandAssets).toEqual([
+    { path: "/assets/haru/haru_logo_color.png", status: 200, bytes: 791_832 },
+    { path: "/assets/haru/mascot_turtle.jpg", status: 200, bytes: 20_185 },
+  ]);
 });
 
 test("stacks the question and physical-button guide at the top with only bottom whitespace", async ({ page }) => {
@@ -440,6 +487,7 @@ test("renders every supported hash route and unknown routes without external req
     "/kiosk",
     "/garden",
     "/family",
+    "/connect",
     "/settings",
     "/onboarding",
     "/connect/caregiver",
@@ -469,6 +517,39 @@ test("navigates kiosk menu using select-then-confirm keyboard input only", async
   await pressPhysicalButton(page, "topLeft");
   await expect(page).toHaveURL(/#\/lesson(?:\?|$)/);
   await expect(page.locator('[data-screen="lesson-start"]')).toBeVisible();
+});
+
+test("opens caregiver and counselor demo codes from the kiosk connection tile", async ({ page }) => {
+  const externalRequests = watchExternalRequests(page);
+  await openHashRoute(page, "/kiosk");
+
+  await pressPhysicalButton(page, "topRight");
+  await expect(page.locator('[data-path="/connect"]')).toHaveClass(/is-selected/);
+  await pressPhysicalButton(page, "topRight");
+  await expect(page).toHaveURL(/#\/connect$/);
+
+  const connectionScreen = page.locator('[data-screen="support-connection"]');
+  await expect(connectionScreen).toBeVisible();
+  await expectSupportConnectionViewportFit(page);
+  await pressPhysicalButton(page, "topRight");
+  await expect(connectionScreen.locator('[data-support-action="caregiver"]')).toHaveClass(/is-selected/);
+  await expect(connectionScreen.locator('[data-support-code="caregiver"]')).toHaveCount(0);
+  await expectSupportConnectionViewportFit(page);
+  await pressPhysicalButton(page, "topRight");
+  await expect(connectionScreen.locator('[data-support-code="caregiver"]')).toHaveText(/^\d{4}-\d{4}$/);
+  await expect(connectionScreen.locator('[data-support-code="counselor"]')).toHaveCount(0);
+  await expectSupportConnectionViewportFit(page);
+
+  await pressPhysicalButton(page, "bottomLeft");
+  await expect(page).toHaveURL(/#\/kiosk$/);
+  await openHashRoute(page, "/connect");
+  await connectionScreen.locator('[data-support-action="counselor"]').click();
+  await expect(connectionScreen.locator('[data-support-code="counselor"]')).toHaveText(/^\d{4}-\d{4}$/);
+  await expect(connectionScreen.locator('[data-support-code="caregiver"]')).toHaveCount(0);
+  await expectSupportConnectionViewportFit(page);
+  expect(await page.evaluate(() => JSON.stringify(localStorage))).not.toMatch(/\d{4}-\d{4}/);
+
+  expect(externalRequests).toEqual([]);
 });
 
 for (const day of [2, 3, 4, 5, 6, 7]) {
