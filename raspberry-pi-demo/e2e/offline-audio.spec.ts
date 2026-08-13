@@ -1,5 +1,7 @@
 import { expect, test, type Page, type Request, type Response } from "@playwright/test";
 
+import { isAppAudioAsset, isAppHttpRequest } from "./appOrigin";
+
 const KEY_BY_SLOT = {
   topLeft: "1",
   topRight: "2",
@@ -118,7 +120,7 @@ function watchNetwork(page: Page): {
   page.on("request", (request: Request) => {
     const url = new URL(request.url());
     if (url.protocol !== "http:" && url.protocol !== "https:") return;
-    if (url.hostname === "127.0.0.1" || url.hostname === "localhost" || url.hostname === "::1") return;
+    if (isAppHttpRequest(request.url())) return;
     externalRequests.push(request.url());
   });
   page.on("response", (response: Response) => {
@@ -171,13 +173,6 @@ async function getNarrationPaths(
 
 function absoluteAssetUrl(page: Page, path: string): string {
   return new URL(path, page.url()).href;
-}
-
-function isLoopbackAsset(urlValue: string): boolean {
-  const url = new URL(urlValue);
-  return url.protocol === "http:" &&
-    (url.hostname === "127.0.0.1" || url.hostname === "localhost" || url.hostname === "::1") &&
-    /\.(?:ogg|wav)$/i.test(url.pathname);
 }
 
 async function expectPlayedWithHttp200(
@@ -280,7 +275,7 @@ test("plays representative narration and UI cues from local HTTP 200 assets", as
 
   const probe = await getAudioProbe(page);
   expect(probe.plays.length).toBeGreaterThanOrEqual(expectedPaths.length);
-  expect(probe.plays.every(isLoopbackAsset)).toBe(true);
+  expect(probe.plays.every(isAppAudioAsset)).toBe(true);
   expect(probe.pauses.length).toBeGreaterThan(0);
   expect(pageErrors).toEqual([]);
   expect(externalRequests).toEqual([]);
@@ -308,7 +303,7 @@ test("keeps four-key progress available when every audio play rejects", async ({
   const probe = await getAudioProbe(page);
   expect(probe.failPlayback).toBe(true);
   expect(probe.plays.length).toBeGreaterThanOrEqual(6);
-  expect(probe.plays.every(isLoopbackAsset)).toBe(true);
+  expect(probe.plays.every(isAppAudioAsset)).toBe(true);
   expect(pageErrors).toEqual([]);
   expect(externalRequests).toEqual([]);
 });

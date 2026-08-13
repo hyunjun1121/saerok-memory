@@ -1,5 +1,7 @@
 import { expect, test, type Page, type Request } from "@playwright/test";
 
+import { isAppHttpRequest } from "./appOrigin";
+
 const KEY_BY_SLOT = {
   topLeft: "1",
   topRight: "2",
@@ -28,12 +30,12 @@ async function selectAndConfirm(page: Page, slot: PhysicalSlot): Promise<void> {
   await pressPhysicalButton(page, slot);
 }
 
-function watchNonLoopbackRequests(page: Page): string[] {
+function watchExternalRequests(page: Page): string[] {
   const externalRequests: string[] = [];
   page.on("request", (request: Request) => {
     const url = new URL(request.url());
     if (url.protocol === "data:" || url.protocol === "blob:") return;
-    if (url.hostname === "127.0.0.1" || url.hostname === "localhost" || url.hostname === "::1") return;
+    if (isAppHttpRequest(request.url())) return;
     externalRequests.push(request.url());
   });
   return externalRequests;
@@ -374,7 +376,7 @@ test("completes all six day-one activities with four physical keys and stores no
       },
     });
   });
-  const externalRequests = watchNonLoopbackRequests(page);
+  const externalRequests = watchExternalRequests(page);
   await openHashRoute(page, "/lesson?day=1");
   await pressPhysicalButton(page, "topRight");
 
@@ -427,7 +429,7 @@ test("completes all six day-one activities with four physical keys and stores no
 });
 
 test("renders every supported hash route and unknown routes without external requests", async ({ page }) => {
-  const externalRequests = watchNonLoopbackRequests(page);
+  const externalRequests = watchExternalRequests(page);
   const pageErrors: string[] = [];
   page.on("pageerror", (error) => pageErrors.push(error.message));
 

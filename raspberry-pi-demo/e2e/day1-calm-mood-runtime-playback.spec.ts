@@ -2,6 +2,8 @@ import { readFileSync } from "node:fs";
 
 import { expect, test, type Page, type Request, type Response } from "@playwright/test";
 
+import { isAppHttpRequest } from "./appOrigin";
+
 const OFFLINE_PROGRESS_KEY = "haru:offline:progress:v1";
 const DEBOUNCE_SETTLE_MS = 230;
 
@@ -85,7 +87,7 @@ test("plays all four selected calm Q1 options through physical keys and never pl
   page.on("request", (request: Request) => {
     const url = new URL(request.url());
     if (url.protocol !== "http:" && url.protocol !== "https:") return;
-    if (["127.0.0.1", "localhost", "::1"].includes(url.hostname)) return;
+    if (isAppHttpRequest(request.url())) return;
     externalRequests.push(request.url());
   });
   page.on("response", (response: Response) => {

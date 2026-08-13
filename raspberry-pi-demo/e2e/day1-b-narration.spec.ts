@@ -2,6 +2,8 @@ import { readFileSync } from "node:fs";
 
 import { expect, test, type Request } from "@playwright/test";
 
+import { isAppHttpRequest } from "./appOrigin";
+
 interface AuditEntry {
   id: string;
   text: string;
@@ -40,7 +42,7 @@ test("serves the final 27 B plus 4 selected calm narrations from the Korean buil
   page.on("request", (request: Request) => {
     const url = new URL(request.url());
     if (url.protocol === "data:" || url.protocol === "blob:") return;
-    if (["127.0.0.1", "localhost", "::1"].includes(url.hostname)) return;
+    if (isAppHttpRequest(request.url())) return;
     externalRequests.push(request.url());
   });
 

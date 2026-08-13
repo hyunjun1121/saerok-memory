@@ -2,6 +2,8 @@ import { readFileSync } from "node:fs";
 
 import { expect, test, type Page, type Request, type Response } from "@playwright/test";
 
+import { isAppHttpRequest } from "./appOrigin";
+
 const KEY_BY_SLOT = {
   topLeft: "1",
   topRight: "2",
@@ -101,7 +103,7 @@ function watchNetwork(page: Page): {
   page.on("request", (request: Request) => {
     const url = new URL(request.url());
     if (url.protocol !== "http:" && url.protocol !== "https:") return;
-    if (["127.0.0.1", "localhost", "::1"].includes(url.hostname)) return;
+    if (isAppHttpRequest(request.url())) return;
     externalRequests.push(request.url());
   });
   page.on("response", (response: Response) => {
