@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "server": {
+    "host": "127.0.0.1",
+    "port": 4173
+  },
+  "display": {
+    "width": 1080,
+    "height": 1920,
+    "deviceScaleFactor": 2
+  },
+  "chromium": {
+    "profileDirectory": "runtime/chromium-profile",
+    "startRoute": "/lesson"
+  },
+  "input": {
+    "version": 1,
+    "debounceMs": 200,
+    "bindings": {
+      "topLeft": {
+        "key": "1",
+        "code": "Digit1"
+      },
+      "topRight": {
+        "key": "2",
+        "code": "Digit2"
+      },
+      "bottomLeft": {
+        "key": "3",
+        "code": "Digit3"
+      },
+      "bottomRight": {
+        "key": "4",
+        "code": "Digit4"
+      }
+    }
+  },
+  "audio": {
+    "microphoneMode": "amplitude-only",
+    "useDeterministicFallback": true,
+    "narrationEnabled": true
+  }
+}

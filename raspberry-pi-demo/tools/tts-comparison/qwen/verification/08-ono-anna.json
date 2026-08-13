@@ -1,0 +1,29 @@
+{
+  "speaker": "Ono_Anna",
+  "text": "春子さん、今日の気分はいかがですか。",
+  "language": "Japanese",
+  "seed": 20260811,
+  "loudnessWithinShortClipRange": true,
+  "wav": {
+    "path": "audio/08-ono-anna.wav",
+    "sha256": "fd148592a4fe48058c3cdca68bb3053f6b6621b372dc676295a32375d0b51f18",
+    "codec": "pcm_s16le",
+    "sampleRateHz": 24000,
+    "channels": 1,
+    "channelLayout": null,
+    "durationMs": 3120,
+    "sizeBytes": 149804
+  },
+  "ogg": {
+    "path": "audio/08-ono-anna.ogg",
+    "sha256": "6fd05720cb20499a7dcb1d1c234cecc127c9dd587402f1cf476a17621ad262f0",
+    "codec": "opus",
+    "sampleRateHz": 48000,
+    "channels": 1,
+    "channelLayout": "mono",
+    "durationMs": 3206,
+    "sizeBytes": 18820,
+    "integratedLufs": -15.8,
+    "truePeakDbtp": -0.9
+  }
+}

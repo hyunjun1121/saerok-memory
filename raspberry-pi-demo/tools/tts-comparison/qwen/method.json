@@ -1,0 +1,141 @@
+{
+  "id": "qwen",
+  "name": "Qwen3-TTS CustomVoice preset comparison",
+  "model": {
+    "id": "Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice",
+    "revision": "0c0e3051f131929182e2c023b9537f8b1c68adfe",
+    "license": "Apache-2.0",
+    "sourceUrl": "https://huggingface.co/Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice"
+  },
+  "voiceInventory": {
+    "kind": "finite",
+    "total": 9,
+    "selectionRationale": "Official model inventory contains 9 preset speakers, so all 9 were generated."
+  },
+  "reportPath": "qwen/REPORT.md",
+  "samples": [
+    {
+      "id": "qwen-vivian",
+      "voice": "Vivian",
+      "label": "Vivian",
+      "path": "qwen/audio/01-vivian.ogg",
+      "sha256": "0036a848e5b88675901f42bd2ed4606037ee68f44dbc857417a8b26feee158a1",
+      "durationMs": 3606,
+      "codec": "opus",
+      "container": "ogg",
+      "channels": 1,
+      "sampleRateHz": 48000,
+      "sourceSampleRateHz": 24000
+    },
+    {
+      "id": "qwen-serena",
+      "voice": "Serena",
+      "label": "Serena",
+      "path": "qwen/audio/02-serena.ogg",
+      "sha256": "7fa4d581c24a3bf15f3787a0ec0139743f0b5a67d172463127cd407cd0b12b40",
+      "durationMs": 2886,
+      "codec": "opus",
+      "container": "ogg",
+      "channels": 1,
+      "sampleRateHz": 48000,
+      "sourceSampleRateHz": 24000
+    },
+    {
+      "id": "qwen-uncle-fu",
+      "voice": "Uncle_Fu",
+      "label": "Uncle_Fu",
+      "path": "qwen/audio/03-uncle-fu.ogg",
+      "sha256": "9796d06b0442f2947e068ec28f54dfc63aa68b310ee02366ba39040cc0c6ee7d",
+      "durationMs": 2646,
+      "codec": "opus",
+      "container": "ogg",
+      "channels": 1,
+      "sampleRateHz": 48000,
+      "sourceSampleRateHz": 24000
+    },
+    {
+      "id": "qwen-dylan",
+      "voice": "Dylan",
+      "label": "Dylan",
+      "path": "qwen/audio/04-dylan.ogg",
+      "sha256": "3bdc996616c8d8e121e2cc14099b3a4ee7d078f45fe36f620207e0c6fc1ef09b",
+      "durationMs": 2726,
+      "codec": "opus",
+      "container": "ogg",
+      "channels": 1,
+      "sampleRateHz": 48000,
+      "sourceSampleRateHz": 24000,
+      "normalizationException": "Production single loudnorm was applied; measured -21.2 LUFS / -1.8 dBTP. Source WAV passed finite-value and PCM format checks; short high-crest speech made the true-peak ceiling binding. No manual gain or extra compression.",
+      "note": "생산용 단일 loudnorm을 적용했으나 짧고 피크가 큰 발화 특성으로 -21.2 LUFS가 측정됨. 원본 WAV는 정상이며 수동 gain·추가 압축은 적용하지 않음."
+    },
+    {
+      "id": "qwen-eric",
+      "voice": "Eric",
+      "label": "Eric",
+      "path": "qwen/audio/05-eric.ogg",
+      "sha256": "2482d94d8e8bb1503add9b4f98e04b8d7561a70c23f766a49a407afb6e5b5f80",
+      "durationMs": 2566,
+      "codec": "opus",
+      "container": "ogg",
+      "channels": 1,
+      "sampleRateHz": 48000,
+      "sourceSampleRateHz": 24000,
+      "normalizationException": "Production single loudnorm was applied; measured -19.1 LUFS / -1.3 dBTP. Source WAV passed finite-value and PCM format checks; short high-crest speech made the true-peak ceiling binding. No manual gain or extra compression.",
+      "note": "생산용 단일 loudnorm을 적용했으나 짧고 피크가 큰 발화 특성으로 -19.1 LUFS가 측정됨. 원본 WAV는 정상이며 수동 gain·추가 압축은 적용하지 않음."
+    },
+    {
+      "id": "qwen-ryan",
+      "voice": "Ryan",
+      "label": "Ryan",
+      "path": "qwen/audio/06-ryan.ogg",
+      "sha256": "da4e887419ffe5705cb571ef5240cf9116825ca080ba7e9454934879677d22a5",
+      "durationMs": 2486,
+      "codec": "opus",
+      "container": "ogg",
+      "channels": 1,
+      "sampleRateHz": 48000,
+      "sourceSampleRateHz": 24000,
+      "normalizationException": "Production single loudnorm was applied; measured -18.4 LUFS / -1.2 dBTP. Source WAV passed finite-value and PCM format checks; short high-crest speech made the true-peak ceiling binding. No manual gain or extra compression.",
+      "note": "생산용 단일 loudnorm을 적용했으나 짧고 피크가 큰 발화 특성으로 -18.4 LUFS가 측정됨. 원본 WAV는 정상이며 수동 gain·추가 압축은 적용하지 않음."
+    },
+    {
+      "id": "qwen-aiden",
+      "voice": "Aiden",
+      "label": "Aiden",
+      "path": "qwen/audio/07-aiden.ogg",
+      "sha256": "436fb1fd5a4c839fdd8ad2bd3cac87786bfb4f228ea5248d9c66d3ce9ac40ac2",
+      "durationMs": 2566,
+      "codec": "opus",
+      "container": "ogg",
+      "channels": 1,
+      "sampleRateHz": 48000,
+      "sourceSampleRateHz": 24000
+    },
+    {
+      "id": "qwen-ono-anna",
+      "voice": "Ono_Anna",
+      "label": "Ono_Anna",
+      "path": "qwen/audio/08-ono-anna.ogg",
+      "sha256": "6fd05720cb20499a7dcb1d1c234cecc127c9dd587402f1cf476a17621ad262f0",
+      "durationMs": 3206,
+      "codec": "opus",
+      "container": "ogg",
+      "channels": 1,
+      "sampleRateHz": 48000,
+      "sourceSampleRateHz": 24000
+    },
+    {
+      "id": "qwen-sohee",
+      "voice": "Sohee",
+      "label": "Sohee",
+      "path": "qwen/audio/09-sohee.ogg",
+      "sha256": "d7e6687c55d07e2527e297c76fd05fd231a44ed2f96a3d4df6f963d78c3f7326",
+      "durationMs": 3306,
+      "codec": "opus",
+      "container": "ogg",
+      "channels": 1,
+      "sampleRateHz": 48000,
+      "sourceSampleRateHz": 24000
+    }
+  ]
+}

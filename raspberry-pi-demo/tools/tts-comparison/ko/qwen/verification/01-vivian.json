@@ -1,0 +1,29 @@
+{
+  "speaker": "Vivian",
+  "text": "영자 어르신, 오늘 기분은 어떠세요?",
+  "language": "Korean",
+  "seed": 20260811,
+  "loudnessWithinShortClipRange": true,
+  "wav": {
+    "path": "audio/01-vivian.wav",
+    "sha256": "093c7e5f4bd4f4af62b75660cf72ef568bf900f56f350d63767ccd2d51fde44b",
+    "codec": "pcm_s16le",
+    "sampleRateHz": 24000,
+    "channels": 1,
+    "channelLayout": null,
+    "durationMs": 3280,
+    "sizeBytes": 157484
+  },
+  "ogg": {
+    "path": "audio/01-vivian.ogg",
+    "sha256": "c714d763e004e2f422dfbbdd51b52f3b7c9ca7d80d4ea4b27584e95fd2716cb9",
+    "codec": "opus",
+    "sampleRateHz": 48000,
+    "channels": 1,
+    "channelLayout": "mono",
+    "durationMs": 3306,
+    "sizeBytes": 20042,
+    "integratedLufs": -15.6,
+    "truePeakDbtp": -0.9
+  }
+}

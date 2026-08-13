@@ -1,0 +1,29 @@
+{
+  "speaker": "Uncle_Fu",
+  "text": "春子さん、今日の気分はいかがですか。",
+  "language": "Japanese",
+  "seed": 20260811,
+  "loudnessWithinShortClipRange": true,
+  "wav": {
+    "path": "audio/03-uncle-fu.wav",
+    "sha256": "7331e5e2bb28c7132e4d36d4c48007e353bbd35655f5b3556b00a8ea08e30b04",
+    "codec": "pcm_s16le",
+    "sampleRateHz": 24000,
+    "channels": 1,
+    "channelLayout": null,
+    "durationMs": 2640,
+    "sizeBytes": 126764
+  },
+  "ogg": {
+    "path": "audio/03-uncle-fu.ogg",
+    "sha256": "9796d06b0442f2947e068ec28f54dfc63aa68b310ee02366ba39040cc0c6ee7d",
+    "codec": "opus",
+    "sampleRateHz": 48000,
+    "channels": 1,
+    "channelLayout": "mono",
+    "durationMs": 2646,
+    "sizeBytes": 16001,
+    "integratedLufs": -17.1,
+    "truePeakDbtp": -1.1
+  }
+}

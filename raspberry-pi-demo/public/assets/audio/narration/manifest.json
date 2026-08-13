@@ -1,0 +1,4345 @@
+{
+  "schemaVersion": 1,
+  "sourceSha256": "ce728186452a40b0c2f9220dfe0b506f3bbc40993621a978d141424df1f660d8",
+  "model": {
+    "id": "Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice",
+    "revision": "0c0e3051f131929182e2c023b9537f8b1c68adfe",
+    "license": "Apache-2.0",
+    "sourceUrl": "https://huggingface.co/Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice"
+  },
+  "audio": {
+    "codec": "opus",
+    "container": "ogg",
+    "channels": 1,
+    "loudnessTargetLufs": -16,
+    "truePeakDbtp": -1
+  },
+  "entries": [
+    {
+      "id": "action.back",
+      "locale": "ja",
+      "text": "戻る",
+      "path": "assets/audio/narration/ja/35ea02f8c3108858eecf6545.ogg",
+      "audioPath": "assets/audio/narration/ja/35ea02f8c3108858eecf6545.ogg",
+      "sha256": "79442f7caa64e35b3fa99710e15d4d11e9066f8dfccda60abd9954bbff6d4902",
+      "durationMs": 726
+    },
+    {
+      "id": "action.confirm",
+      "locale": "ja",
+      "text": "決める",
+      "path": "assets/audio/narration/ja/3f45e4203adc8f29a9029c81.ogg",
+      "audioPath": "assets/audio/narration/ja/3f45e4203adc8f29a9029c81.ogg",
+      "sha256": "914580929454649ab94fa14ada0b0d888a919f78ccae4004557ddf4c359bd866",
+      "durationMs": 2166
+    },
+    {
+      "id": "action.finish",
+      "locale": "ja",
+      "text": "終わる",
+      "path": "assets/audio/narration/ja/b7846725d9547e26b39b5672.ogg",
+      "audioPath": "assets/audio/narration/ja/b7846725d9547e26b39b5672.ogg",
+      "sha256": "6987e1fad6daba20e14fba1b156217c2a4b85efc021f5b231780f21ed999afe8",
+      "durationMs": 726
+    },
+    {
+      "id": "action.next",
+      "locale": "ja",
+      "text": "次へ",
+      "path": "assets/audio/narration/ja/af7876c3aee3213216d82cd2.ogg",
+      "audioPath": "assets/audio/narration/ja/af7876c3aee3213216d82cd2.ogg",
+      "sha256": "0840c45deb02413365db3be8a8dc19d7b6cc0d46b58a0547a5a93b569e9b8ada",
+      "durationMs": 2326
+    },
+    {
+      "id": "action.replay",
+      "locale": "ja",
+      "text": "もう一度聞く",
+      "path": "assets/audio/narration/ja/a46a04b96d94fbebe7c27051.ogg",
+      "audioPath": "assets/audio/narration/ja/a46a04b96d94fbebe7c27051.ogg",
+      "sha256": "138e88db54309a46665e60a655787830867eb2f42a929af6cabf03a99fe8f5ff",
+      "durationMs": 1846
+    },
+    {
+      "id": "action.reset",
+      "locale": "ja",
+      "text": "最初から",
+      "path": "assets/audio/narration/ja/372caba88e2f59f66791debf.ogg",
+      "audioPath": "assets/audio/narration/ja/372caba88e2f59f66791debf.ogg",
+      "sha256": "5f3d0660b339965fa57ceeffaa4569c9089625181203b3e42dd19f62dde57f03",
+      "durationMs": 1046
+    },
+    {
+      "id": "action.retry",
+      "locale": "ja",
+      "text": "やり直す",
+      "path": "assets/audio/narration/ja/70e0dbdc2c22031224cc1fb8.ogg",
+      "audioPath": "assets/audio/narration/ja/70e0dbdc2c22031224cc1fb8.ogg",
+      "sha256": "91316b8454da7d644ad5849f59ed716becf944ed11ac46af6fe47168e7deb931",
+      "durationMs": 3606
+    },
+    {
+      "id": "action.start",
+      "locale": "ja",
+      "text": "始める",
+      "path": "assets/audio/narration/ja/c9b7778c1b77596ff64b7b3a.ogg",
+      "audioPath": "assets/audio/narration/ja/c9b7778c1b77596ff64b7b3a.ogg",
+      "sha256": "f2fa27ad59b9a2720fdc73c710d6e02da4f2a6ec89fa9ad3ad1351996e6cf6d0",
+      "durationMs": 1366
+    },
+    {
+      "id": "day.1.completion",
+      "locale": "ja",
+      "text": "今日の活動をすべて終えました。また明日お会いしましょう。",
+      "path": "assets/audio/narration/ja/b8903e6447051c4fbe2a9a36.ogg",
+      "audioPath": "assets/audio/narration/ja/b8903e6447051c4fbe2a9a36.ogg",
+      "sha256": "cb340febbbccd673d55264a49f2caba4ff57c2fa9857d157d1bc1e8d2c4d68a1",
+      "durationMs": 4706
+    },
+    {
+      "id": "day.1.greeting",
+      "locale": "ja",
+      "text": "春子さん、月曜日の活動を始めましょう。",
+      "path": "assets/audio/narration/ja/90ba8549ef91d0e3006339c1.ogg",
+      "audioPath": "assets/audio/narration/ja/90ba8549ef91d0e3006339c1.ogg",
+      "sha256": "a6c313613525590cab2a31998ede1fdb4b25fbd33220dd679b97191a70243636",
+      "durationMs": 3506
+    },
+    {
+      "id": "day.1.title",
+      "locale": "ja",
+      "text": "1日目・今日の私",
+      "path": "assets/audio/narration/ja/34d6bf740962124a4f9a4749.ogg",
+      "audioPath": "assets/audio/narration/ja/34d6bf740962124a4f9a4749.ogg",
+      "sha256": "e253962c73b2dba8b83ee277ee16b77b4760c2d7724d4c82ad04c72ec99ffd73",
+      "durationMs": 3406
+    },
+    {
+      "id": "day.2.completion",
+      "locale": "ja",
+      "text": "今日の活動をすべて終えました。明日も気軽に取り組みましょう。",
+      "path": "assets/audio/narration/ja/2b3eec93cefd3ed10282d415.ogg",
+      "audioPath": "assets/audio/narration/ja/2b3eec93cefd3ed10282d415.ogg",
+      "sha256": "8cbcdb5174d958f614dfd401bd0d06fdd833d432ff1b50564e288b8b4d04c277",
+      "durationMs": 6306
+    },
+    {
+      "id": "day.2.greeting",
+      "locale": "ja",
+      "text": "春子さん、昨日のお話を続けてみましょう。",
+      "path": "assets/audio/narration/ja/51603587e493c2779f44c707.ogg",
+      "audioPath": "assets/audio/narration/ja/51603587e493c2779f44c707.ogg",
+      "sha256": "7fb1cfffb181fa0e31c7ea38a16bb2148b081c72d81bac592cd3ad78b880e0f1",
+      "durationMs": 4506
+    },
+    {
+      "id": "day.2.title",
+      "locale": "ja",
+      "text": "2日目・昨日と今日",
+      "path": "assets/audio/narration/ja/9992c35a14b99119239717a3.ogg",
+      "audioPath": "assets/audio/narration/ja/9992c35a14b99119239717a3.ogg",
+      "sha256": "2c958578cf498a2ec41ef6f69ae6c1a703912aed3c30594a067eb290bb71837a",
+      "durationMs": 2726
+    },
+    {
+      "id": "day.3.completion",
+      "locale": "ja",
+      "text": "今日の活動をすべて終えました。穏やかな一日をお過ごしください。",
+      "path": "assets/audio/narration/ja/8d13e90bfcaa5cb19566b5bc.ogg",
+      "audioPath": "assets/audio/narration/ja/8d13e90bfcaa5cb19566b5bc.ogg",
+      "sha256": "c752861b0bbadf44b1cd3b25cc16742d35d3c8a80d0722b87bc1eeb129ca1436",
+      "durationMs": 5906
+    },
+    {
+      "id": "day.3.greeting",
+      "locale": "ja",
+      "text": "春子さん、今日もゆっくり始めましょう。",
+      "path": "assets/audio/narration/ja/01301b11f907c34de674d4ab.ogg",
+      "audioPath": "assets/audio/narration/ja/01301b11f907c34de674d4ab.ogg",
+      "sha256": "e32068cd71777bac44568e2c49173f1d307fb2f2c67ee4904203a9bcfca90c10",
+      "durationMs": 3606
+    },
+    {
+      "id": "day.3.title",
+      "locale": "ja",
+      "text": "3日目・暮らしの記憶",
+      "path": "assets/audio/narration/ja/1e12f659ddcd857b539275f4.ogg",
+      "audioPath": "assets/audio/narration/ja/1e12f659ddcd857b539275f4.ogg",
+      "sha256": "e427793b803eaabd40d97821c2a8d082a131faa1ae4d85e7d7692f390ea9a888",
+      "durationMs": 4606
+    },
+    {
+      "id": "day.4.completion",
+      "locale": "ja",
+      "text": "今日の活動をすべて終えました。答えが一つ違っていても大丈夫です。また明日お会いしましょう。",
+      "path": "assets/audio/narration/ja/cb29e94c4ba2a1a0a58b43b9.ogg",
+      "audioPath": "assets/audio/narration/ja/cb29e94c4ba2a1a0a58b43b9.ogg",
+      "sha256": "9596cf075c643bce985d4a8048883de19d48634b9b0e862664b467d809b91491",
+      "durationMs": 7506
+    },
+    {
+      "id": "day.4.greeting",
+      "locale": "ja",
+      "text": "春子さん、今日の心と体はいかがですか。",
+      "path": "assets/audio/narration/ja/494c3da021ea24e85e37aa7b.ogg",
+      "audioPath": "assets/audio/narration/ja/494c3da021ea24e85e37aa7b.ogg",
+      "sha256": "dceb3b0a41cad76159371f39be88bfaf7bc605f1b4e1653b540463f40fd8ba84",
+      "durationMs": 4006
+    },
+    {
+      "id": "day.4.title",
+      "locale": "ja",
+      "text": "4日目・心と体",
+      "path": "assets/audio/narration/ja/abec5da357c922d7d01fbb6e.ogg",
+      "audioPath": "assets/audio/narration/ja/abec5da357c922d7d01fbb6e.ogg",
+      "sha256": "b83c839fc67191f4db9419364a3590d977899438849cf5259bc8d8c9b861889b",
+      "durationMs": 3206
+    },
+    {
+      "id": "day.5.completion",
+      "locale": "ja",
+      "text": "今日の活動をすべて終えました。ご家族と穏やかな時間をお過ごしください。",
+      "path": "assets/audio/narration/ja/20636ae2337489c3f3e63a6e.ogg",
+      "audioPath": "assets/audio/narration/ja/20636ae2337489c3f3e63a6e.ogg",
+      "sha256": "4dad6ea4269bc0b85e57332d2b3b4599ea1a96a3343faee66f92977f9ad0ed54",
+      "durationMs": 6406
+    },
+    {
+      "id": "day.5.greeting",
+      "locale": "ja",
+      "text": "春子さん、金曜日の活動をゆっくり始めましょう。",
+      "path": "assets/audio/narration/ja/9f477471bcdc2e4e42192044.ogg",
+      "audioPath": "assets/audio/narration/ja/9f477471bcdc2e4e42192044.ogg",
+      "sha256": "1a61fa629b9509feb4f8452441c59b4150fc67185e137a02deff9c92cd33a0a5",
+      "durationMs": 3406
+    },
+    {
+      "id": "day.5.title",
+      "locale": "ja",
+      "text": "5日目・一緒に過ごした時間",
+      "path": "assets/audio/narration/ja/4d1c78b55f1ffd037fcc1944.ogg",
+      "audioPath": "assets/audio/narration/ja/4d1c78b55f1ffd037fcc1944.ogg",
+      "sha256": "55f549c5bb0f2ce19b3e3c8343ae0c4a381f832da669eb5d646825aa6cbdf0d3",
+      "durationMs": 2646
+    },
+    {
+      "id": "day.6.completion",
+      "locale": "ja",
+      "text": "今日の活動をすべて終えました。ゆっくりお休みください。",
+      "path": "assets/audio/narration/ja/0aa623838ce10ee032f0168c.ogg",
+      "audioPath": "assets/audio/narration/ja/0aa623838ce10ee032f0168c.ogg",
+      "sha256": "8f58fc5f1e62eb4721b39e3019343f61bbf6736ea5d3f1a7255b43d1471e874f",
+      "durationMs": 3906
+    },
+    {
+      "id": "day.6.greeting",
+      "locale": "ja",
+      "text": "春子さん、土曜日のお話を聞かせてください。",
+      "path": "assets/audio/narration/ja/143f3951d760a3ad93c24618.ogg",
+      "audioPath": "assets/audio/narration/ja/143f3951d760a3ad93c24618.ogg",
+      "sha256": "48f3f1016dfb4c43c4b8a5862588e8ac7e904caf77f7fbd0c0edf8e26422b49e",
+      "durationMs": 3606
+    },
+    {
+      "id": "day.6.title",
+      "locale": "ja",
+      "text": "6日目・週末の一日",
+      "path": "assets/audio/narration/ja/d2ca5e526bb11a487189dd99.ogg",
+      "audioPath": "assets/audio/narration/ja/d2ca5e526bb11a487189dd99.ogg",
+      "sha256": "7069dadd6b94df7531c5615da190382990eb26a5a5aeadae89f39b2d1c5598c3",
+      "durationMs": 2246
+    },
+    {
+      "id": "day.7.completion",
+      "locale": "ja",
+      "text": "一週間の活動をすべて終えました。来週も気軽に取り組みましょう。",
+      "path": "assets/audio/narration/ja/90df9f47ada641a24f3115f2.ogg",
+      "audioPath": "assets/audio/narration/ja/90df9f47ada641a24f3115f2.ogg",
+      "sha256": "37b01cf5f362257ffe8b0018e2b33c9fd32b25ea9f7789370fc876419f4624fa",
+      "durationMs": 6906
+    },
+    {
+      "id": "day.7.greeting",
+      "locale": "ja",
+      "text": "春子さん、今週の思い出を一緒に振り返りましょう。",
+      "path": "assets/audio/narration/ja/325a88a1a0c89ea499ffd276.ogg",
+      "audioPath": "assets/audio/narration/ja/325a88a1a0c89ea499ffd276.ogg",
+      "sha256": "6569d1532620956550e2286e7bc1ff449cafe0460ee43c030224f9f95978b59f",
+      "durationMs": 3606
+    },
+    {
+      "id": "day.7.title",
+      "locale": "ja",
+      "text": "7日目・一週間を振り返る",
+      "path": "assets/audio/narration/ja/b405bc447a2d51cb980b9a20.ogg",
+      "audioPath": "assets/audio/narration/ja/b405bc447a2d51cb980b9a20.ogg",
+      "sha256": "aa9bb3aee094b4cd088ac25b05957b41c9c949cfeae2ca706de27b5c8ca69a53",
+      "durationMs": 2326
+    },
+    {
+      "id": "exercise.D1_Q1.option.A",
+      "locale": "ja",
+      "text": "とても良い",
+      "path": "assets/audio/narration/ja/7350c55cf68b8963056ff263.ogg",
+      "audioPath": "assets/audio/narration/ja/7350c55cf68b8963056ff263.ogg",
+      "sha256": "fd678e1c082557c025474e671fd7a751d65ca0b33b681c53bfaf1dd35cb342d5",
+      "durationMs": 2166
+    },
+    {
+      "id": "exercise.D1_Q1.option.B",
+      "locale": "ja",
+      "text": "良い",
+      "path": "assets/audio/narration/ja/26efe21d96a4a0e7bc169a58.ogg",
+      "audioPath": "assets/audio/narration/ja/26efe21d96a4a0e7bc169a58.ogg",
+      "sha256": "d37febdf0fad68f700d111b8047614003435b38cd984535ade832e8bdc6286de",
+      "durationMs": 1206
+    },
+    {
+      "id": "exercise.D1_Q1.option.C",
+      "locale": "ja",
+      "text": "まあまあ",
+      "path": "assets/audio/narration/ja/9f027ca6909a7647842ea34e.ogg",
+      "audioPath": "assets/audio/narration/ja/9f027ca6909a7647842ea34e.ogg",
+      "sha256": "873efa18b4754b2feec1cc604819ecc7b29b42430ee66557fdf26062689bc3cf",
+      "durationMs": 3706
+    },
+    {
+      "id": "exercise.D1_Q1.option.D",
+      "locale": "ja",
+      "text": "あまり良くない",
+      "path": "assets/audio/narration/ja/8399b6f8d6da5e8a317e050a.ogg",
+      "audioPath": "assets/audio/narration/ja/8399b6f8d6da5e8a317e050a.ogg",
+      "sha256": "0a3c0af66a69e0cd3bb5bcc34c6ff7cb878260b25c55dbdd013e9b283f6bbb5e",
+      "durationMs": 1766
+    },
+    {
+      "id": "exercise.D1_Q1.prompt",
+      "locale": "ja",
+      "text": "春子さん、今日の気分はいかがですか。",
+      "path": "assets/audio/narration/ja/227d6c10527a6bf3cafd21e4.ogg",
+      "audioPath": "assets/audio/narration/ja/227d6c10527a6bf3cafd21e4.ogg",
+      "sha256": "78a160b4da71f1bad0eb95d6b6b8793e5090d3323e38f874ee301011bc5c5e85",
+      "durationMs": 3106
+    },
+    {
+      "id": "exercise.D1_Q2.option.A",
+      "locale": "ja",
+      "text": "月曜日",
+      "path": "assets/audio/narration/ja/01670993ffdbea91a9e80e90.ogg",
+      "audioPath": "assets/audio/narration/ja/01670993ffdbea91a9e80e90.ogg",
+      "sha256": "2f9f9b093778159351aad7edf0c547553e5c88450da4e823e3b17985ce8dc994",
+      "durationMs": 3206
+    },
+    {
+      "id": "exercise.D1_Q2.option.B",
+      "locale": "ja",
+      "text": "火曜日",
+      "path": "assets/audio/narration/ja/2399e0e2e232170a973bd5b4.ogg",
+      "audioPath": "assets/audio/narration/ja/2399e0e2e232170a973bd5b4.ogg",
+      "sha256": "84fafa5b29e7df8c2f62ab4a78aba1ee9de96de12712ad695a9cb825c5974435",
+      "durationMs": 1046
+    },
+    {
+      "id": "exercise.D1_Q2.option.C",
+      "locale": "ja",
+      "text": "土曜日",
+      "path": "assets/audio/narration/ja/87444eed057791a852bcf63d.ogg",
+      "audioPath": "assets/audio/narration/ja/87444eed057791a852bcf63d.ogg",
+      "sha256": "f4913554fad28a4f5398fdfe45af0e3b7e9b7eb9b41b28ebd44ac8fbf956bd2f",
+      "durationMs": 1286
+    },
+    {
+      "id": "exercise.D1_Q2.option.D",
+      "locale": "ja",
+      "text": "日曜日",
+      "path": "assets/audio/narration/ja/a207d4148d7f5c0eccf23ef5.ogg",
+      "audioPath": "assets/audio/narration/ja/a207d4148d7f5c0eccf23ef5.ogg",
+      "sha256": "010702439ec3150e927cd6bd9da603e1ed01b4a12d37f2ad3a93858ef9d58867",
+      "durationMs": 1046
+    },
+    {
+      "id": "exercise.D1_Q2.prompt",
+      "locale": "ja",
+      "text": "今日は何曜日ですか。",
+      "path": "assets/audio/narration/ja/d08c464163a27120089caf68.ogg",
+      "audioPath": "assets/audio/narration/ja/d08c464163a27120089caf68.ogg",
+      "sha256": "2eda66d6b974fe4c420c39f16ee7bbd56a46b50926c81fb6c66bff3b2d1f0dd1",
+      "durationMs": 2006
+    },
+    {
+      "id": "exercise.D1_Q3.option.A",
+      "locale": "ja",
+      "text": "長野県松本市",
+      "path": "assets/audio/narration/ja/07e0e9e9634d971e8f82405f.ogg",
+      "audioPath": "assets/audio/narration/ja/07e0e9e9634d971e8f82405f.ogg",
+      "sha256": "caeda2e093fa363572584ef81038a28ee5e2f34f671ae0806006f6b4425a039a",
+      "durationMs": 1846
+    },
+    {
+      "id": "exercise.D1_Q3.option.B",
+      "locale": "ja",
+      "text": "北海道札幌市",
+      "path": "assets/audio/narration/ja/47da2a48ecfbcb6526d9ea28.ogg",
+      "audioPath": "assets/audio/narration/ja/47da2a48ecfbcb6526d9ea28.ogg",
+      "sha256": "1ad39218861e710bf9439d92ad832b30329dbff9eae699f1ab38e54153b2b282",
+      "durationMs": 1526
+    },
+    {
+      "id": "exercise.D1_Q3.option.C",
+      "locale": "ja",
+      "text": "東京都",
+      "path": "assets/audio/narration/ja/2c298e402f724daf8fe92ce1.ogg",
+      "audioPath": "assets/audio/narration/ja/2c298e402f724daf8fe92ce1.ogg",
+      "sha256": "246f5cf469a052a1cb27fb3fa1c745ba0b600db3cc876c701029773c78a854f7",
+      "durationMs": 1126
+    },
+    {
+      "id": "exercise.D1_Q3.option.D",
+      "locale": "ja",
+      "text": "青森県青森市",
+      "path": "assets/audio/narration/ja/e38724eff99a3aedb629a544.ogg",
+      "audioPath": "assets/audio/narration/ja/e38724eff99a3aedb629a544.ogg",
+      "sha256": "c4532855d6f53c77c43736817f09eec23b3a5a3f3c995d1972f1f28dabf3ca8b",
+      "durationMs": 1926
+    },
+    {
+      "id": "exercise.D1_Q3.prompt",
+      "locale": "ja",
+      "text": "春子さんの故郷はどこですか。",
+      "path": "assets/audio/narration/ja/9a11eef53d0c51b20cde57d5.ogg",
+      "audioPath": "assets/audio/narration/ja/9a11eef53d0c51b20cde57d5.ogg",
+      "sha256": "551a08c335df65ce0000fe7ab9876d1f8d03d31b0c4c51de65b36cf42ae6b98c",
+      "durationMs": 2806
+    },
+    {
+      "id": "exercise.D1_Q4.option.A",
+      "locale": "ja",
+      "text": "0円",
+      "path": "assets/audio/narration/ja/00f1f5c47c741772cb214c7b.ogg",
+      "audioPath": "assets/audio/narration/ja/00f1f5c47c741772cb214c7b.ogg",
+      "sha256": "9bc79437aa44f9fa3b7e56c58910b44714a4e231476071ca1274c95d701f44ac",
+      "durationMs": 1126
+    },
+    {
+      "id": "exercise.D1_Q4.option.B",
+      "locale": "ja",
+      "text": "50円",
+      "path": "assets/audio/narration/ja/4656a4eaf749f77cff26a5aa.ogg",
+      "audioPath": "assets/audio/narration/ja/4656a4eaf749f77cff26a5aa.ogg",
+      "sha256": "2129335a86d4ece9dd8995f19a1d579466ef3c547b79be48331fa756f5656f19",
+      "durationMs": 2566
+    },
+    {
+      "id": "exercise.D1_Q4.option.C",
+      "locale": "ja",
+      "text": "100円",
+      "path": "assets/audio/narration/ja/64120dd28a98d24f575f7bd1.ogg",
+      "audioPath": "assets/audio/narration/ja/64120dd28a98d24f575f7bd1.ogg",
+      "sha256": "353bf38bd03b43a2789c5178faa9a3d8b09e31a121a682e2b5d7e56514f7dff7",
+      "durationMs": 1046
+    },
+    {
+      "id": "exercise.D1_Q4.option.D",
+      "locale": "ja",
+      "text": "150円",
+      "path": "assets/audio/narration/ja/c884fb3020ac72abf8604fc4.ogg",
+      "audioPath": "assets/audio/narration/ja/c884fb3020ac72abf8604fc4.ogg",
+      "sha256": "17591360eabc745ca3d64ca35cad953075b2f8fa2d4766862771aa2cdc624fa9",
+      "durationMs": 1286
+    },
+    {
+      "id": "exercise.D1_Q4.prompt",
+      "locale": "ja",
+      "text": "豆腐を150円、卵を250円で買い、500円を払いました。おつりはいくらですか。",
+      "path": "assets/audio/narration/ja/3de6efbac921bf9605aaa903.ogg",
+      "audioPath": "assets/audio/narration/ja/3de6efbac921bf9605aaa903.ogg",
+      "sha256": "204f7bee8b4c6f0f05377c587819e6912c3def7cabe4af18735ed90e50f64d24",
+      "durationMs": 11206
+    },
+    {
+      "id": "exercise.D1_Q5.prompt",
+      "locale": "ja",
+      "text": "今日行った場所と、したことをゆっくり話してください。",
+      "path": "assets/audio/narration/ja/69036bddd6113dbaab953571.ogg",
+      "audioPath": "assets/audio/narration/ja/69036bddd6113dbaab953571.ogg",
+      "sha256": "b0369bb12fd476fb0eb1ef1ef52fe29fd5e80a7018932389e47bb98a53682fd9",
+      "durationMs": 5106
+    },
+    {
+      "id": "exercise.D1_Q6.option.A",
+      "locale": "ja",
+      "text": "りんご",
+      "path": "assets/audio/narration/ja/daf3df33006d8de390cfe148.ogg",
+      "audioPath": "assets/audio/narration/ja/daf3df33006d8de390cfe148.ogg",
+      "sha256": "8c54992c3f7993c0fc627df1ccfea106034cfe1dfac054638a3ccf40a8b63d87",
+      "durationMs": 1126
+    },
+    {
+      "id": "exercise.D1_Q6.option.B",
+      "locale": "ja",
+      "text": "傘",
+      "path": "assets/audio/narration/ja/e6cea0a8bb3aefc579b85dc5.ogg",
+      "audioPath": "assets/audio/narration/ja/e6cea0a8bb3aefc579b85dc5.ogg",
+      "sha256": "68fb03ad2076cc4ec023b26117c209fa1a3711d0e11b79a2a400332c325646cd",
+      "durationMs": 2086
+    },
+    {
+      "id": "exercise.D1_Q6.option.C",
+      "locale": "ja",
+      "text": "バス",
+      "path": "assets/audio/narration/ja/570507126319b5daaaaa61d2.ogg",
+      "audioPath": "assets/audio/narration/ja/570507126319b5daaaaa61d2.ogg",
+      "sha256": "6f7c8b5c9102c67facfc3c8566b13dfabdb96274967a9bf73a5df7f46b8d0933",
+      "durationMs": 1046
+    },
+    {
+      "id": "exercise.D1_Q6.option.D",
+      "locale": "ja",
+      "text": "帽子",
+      "path": "assets/audio/narration/ja/07388f87fc3dcf5d8ddec7ce.ogg",
+      "audioPath": "assets/audio/narration/ja/07388f87fc3dcf5d8ddec7ce.ogg",
+      "sha256": "911f90e90c0f5ecc06b3218ea4ac73f1dfa3c942bad8b20b702ca9ec4e91edc8",
+      "durationMs": 1606
+    },
+    {
+      "id": "exercise.D1_Q6.prompt",
+      "locale": "ja",
+      "text": "最初に聞いた順番どおりにボタンを押してください。",
+      "path": "assets/audio/narration/ja/b13a0d6ef227f4b69aa1655d.ogg",
+      "audioPath": "assets/audio/narration/ja/b13a0d6ef227f4b69aa1655d.ogg",
+      "sha256": "374f6839b4c6f9e6f2933c01a3c5e1f05d29bad0b0ed133ca5b07df3fa5d368a",
+      "durationMs": 3406
+    },
+    {
+      "id": "exercise.D1_Q6.sequence",
+      "locale": "ja",
+      "text": "りんご、傘、バス",
+      "path": "assets/audio/narration/ja/624a0d5574c9e66f2e35c321.ogg",
+      "audioPath": "assets/audio/narration/ja/624a0d5574c9e66f2e35c321.ogg",
+      "sha256": "c5aab111c67180146933e4eda63bf117501f8093632adaea8d4b24ab9a2a0dac",
+      "durationMs": 2406
+    },
+    {
+      "id": "exercise.D2_Q1.option.A",
+      "locale": "ja",
+      "text": "とても良い",
+      "path": "assets/audio/narration/ja/7350c55cf68b8963056ff263.ogg",
+      "audioPath": "assets/audio/narration/ja/7350c55cf68b8963056ff263.ogg",
+      "sha256": "fd678e1c082557c025474e671fd7a751d65ca0b33b681c53bfaf1dd35cb342d5",
+      "durationMs": 2166
+    },
+    {
+      "id": "exercise.D2_Q1.option.B",
+      "locale": "ja",
+      "text": "良い",
+      "path": "assets/audio/narration/ja/26efe21d96a4a0e7bc169a58.ogg",
+      "audioPath": "assets/audio/narration/ja/26efe21d96a4a0e7bc169a58.ogg",
+      "sha256": "d37febdf0fad68f700d111b8047614003435b38cd984535ade832e8bdc6286de",
+      "durationMs": 1206
+    },
+    {
+      "id": "exercise.D2_Q1.option.C",
+      "locale": "ja",
+      "text": "まあまあ",
+      "path": "assets/audio/narration/ja/9f027ca6909a7647842ea34e.ogg",
+      "audioPath": "assets/audio/narration/ja/9f027ca6909a7647842ea34e.ogg",
+      "sha256": "873efa18b4754b2feec1cc604819ecc7b29b42430ee66557fdf26062689bc3cf",
+      "durationMs": 3706
+    },
+    {
+      "id": "exercise.D2_Q1.option.D",
+      "locale": "ja",
+      "text": "あまり良くない",
+      "path": "assets/audio/narration/ja/8399b6f8d6da5e8a317e050a.ogg",
+      "audioPath": "assets/audio/narration/ja/8399b6f8d6da5e8a317e050a.ogg",
+      "sha256": "0a3c0af66a69e0cd3bb5bcc34c6ff7cb878260b25c55dbdd013e9b283f6bbb5e",
+      "durationMs": 1766
+    },
+    {
+      "id": "exercise.D2_Q1.prompt",
+      "locale": "ja",
+      "text": "昨日は気分が良いとおっしゃいました。今日の気分はいかがですか。",
+      "path": "assets/audio/narration/ja/69d345062ce32f59ae0b4349.ogg",
+      "audioPath": "assets/audio/narration/ja/69d345062ce32f59ae0b4349.ogg",
+      "sha256": "9be3e3c0274526798b66fbebcb19529db46027fa939199e5d50707be7f58acac",
+      "durationMs": 7206
+    },
+    {
+      "id": "exercise.D2_Q2.option.A",
+      "locale": "ja",
+      "text": "月曜日",
+      "path": "assets/audio/narration/ja/01670993ffdbea91a9e80e90.ogg",
+      "audioPath": "assets/audio/narration/ja/01670993ffdbea91a9e80e90.ogg",
+      "sha256": "2f9f9b093778159351aad7edf0c547553e5c88450da4e823e3b17985ce8dc994",
+      "durationMs": 3206
+    },
+    {
+      "id": "exercise.D2_Q2.option.B",
+      "locale": "ja",
+      "text": "水曜日",
+      "path": "assets/audio/narration/ja/afdedd1411d20b41efda165e.ogg",
+      "audioPath": "assets/audio/narration/ja/afdedd1411d20b41efda165e.ogg",
+      "sha256": "c01676343c02639eeede3f89311d9588733ed634345c01fc6a7c9344f0a2928a",
+      "durationMs": 1046
+    },
+    {
+      "id": "exercise.D2_Q2.option.C",
+      "locale": "ja",
+      "text": "金曜日",
+      "path": "assets/audio/narration/ja/5f9c53c6b0849c95a963392f.ogg",
+      "audioPath": "assets/audio/narration/ja/5f9c53c6b0849c95a963392f.ogg",
+      "sha256": "10769690fc76ea102fa51b51d5f178351ba0044c9632203cdda54537656ed300",
+      "durationMs": 1766
+    },
+    {
+      "id": "exercise.D2_Q2.option.D",
+      "locale": "ja",
+      "text": "日曜日",
+      "path": "assets/audio/narration/ja/a207d4148d7f5c0eccf23ef5.ogg",
+      "audioPath": "assets/audio/narration/ja/a207d4148d7f5c0eccf23ef5.ogg",
+      "sha256": "010702439ec3150e927cd6bd9da603e1ed01b4a12d37f2ad3a93858ef9d58867",
+      "durationMs": 1046
+    },
+    {
+      "id": "exercise.D2_Q2.prompt",
+      "locale": "ja",
+      "text": "明日は何曜日ですか。",
+      "path": "assets/audio/narration/ja/d16f6e24594c661d6199bbe4.ogg",
+      "audioPath": "assets/audio/narration/ja/d16f6e24594c661d6199bbe4.ogg",
+      "sha256": "a8190248181d42b340e7fa949187801a6f9cebf81d13464cb07974fa9be6a3fe",
+      "durationMs": 2246
+    },
+    {
+      "id": "exercise.D2_Q3.option.A",
+      "locale": "ja",
+      "text": "かぼちゃ",
+      "path": "assets/audio/narration/ja/91938bcb5284ab40ad1d2214.ogg",
+      "audioPath": "assets/audio/narration/ja/91938bcb5284ab40ad1d2214.ogg",
+      "sha256": "25c660314e9a9595fdbdde5183a7c91d799b6f77488cb723c77f8b756fe654cf",
+      "durationMs": 1206
+    },
+    {
+      "id": "exercise.D2_Q3.option.B",
+      "locale": "ja",
+      "text": "じゃがいも",
+      "path": "assets/audio/narration/ja/439e627cc4095992bb2754ec.ogg",
+      "audioPath": "assets/audio/narration/ja/439e627cc4095992bb2754ec.ogg",
+      "sha256": "142a2d49719ccbf7ddfb9ecb24ce874d029b6142ea683e09f89d1b247f623a0c",
+      "durationMs": 2806
+    },
+    {
+      "id": "exercise.D2_Q3.option.C",
+      "locale": "ja",
+      "text": "玉ねぎ",
+      "path": "assets/audio/narration/ja/1bee8767c4cda1194c65c6a9.ogg",
+      "audioPath": "assets/audio/narration/ja/1bee8767c4cda1194c65c6a9.ogg",
+      "sha256": "35d74ecdb50f13df7d64d9703a6e60d8d1f9b23ceb5e720745725a3f22d1d760",
+      "durationMs": 1206
+    },
+    {
+      "id": "exercise.D2_Q3.option.D",
+      "locale": "ja",
+      "text": "大根",
+      "path": "assets/audio/narration/ja/674ac229b143cb92b52aee3f.ogg",
+      "audioPath": "assets/audio/narration/ja/674ac229b143cb92b52aee3f.ogg",
+      "sha256": "63e47646bb0f5d534a6b6baf525c47a29943d23b12d817004fe08bb3d2041f6f",
+      "durationMs": 886
+    },
+    {
+      "id": "exercise.D2_Q3.prompt",
+      "locale": "ja",
+      "text": "昨日、近所のスーパーで買ったと話した野菜はどれですか。",
+      "path": "assets/audio/narration/ja/d3dbc3450fe42e3da10bc3d4.ogg",
+      "audioPath": "assets/audio/narration/ja/d3dbc3450fe42e3da10bc3d4.ogg",
+      "sha256": "a891780cec619f492083c6bfa49c0d505cbfed56a77b52f390466dc684ef1db1",
+      "durationMs": 3806
+    },
+    {
+      "id": "exercise.D2_Q4.option.A",
+      "locale": "ja",
+      "text": "福来る",
+      "path": "assets/audio/narration/ja/6e4e77951638fbde23e153b6.ogg",
+      "audioPath": "assets/audio/narration/ja/6e4e77951638fbde23e153b6.ogg",
+      "sha256": "b9c6da8c63cd4d4fb7cd24fc9503de0b4ba8bba3e739d20466b0ef61e42bcb28",
+      "durationMs": 1206
+    },
+    {
+      "id": "exercise.D2_Q4.option.B",
+      "locale": "ja",
+      "text": "足が軽くなる",
+      "path": "assets/audio/narration/ja/c831789c253fd689e815789f.ogg",
+      "audioPath": "assets/audio/narration/ja/c831789c253fd689e815789f.ogg",
+      "sha256": "c2147468fbd216dabe212c5e56664f6acebbe1f973d8ec66a04db057c7789a09",
+      "durationMs": 1846
+    },
+    {
+      "id": "exercise.D2_Q4.option.C",
+      "locale": "ja",
+      "text": "ご飯がおいしくなる",
+      "path": "assets/audio/narration/ja/9eed51a153d348a007c9aa2c.ogg",
+      "audioPath": "assets/audio/narration/ja/9eed51a153d348a007c9aa2c.ogg",
+      "sha256": "753201882f6db5e85a57420401148c62b7d0cb4eae54e513ae46a14bed286f0c",
+      "durationMs": 2006
+    },
+    {
+      "id": "exercise.D2_Q4.option.D",
+      "locale": "ja",
+      "text": "道が開ける",
+      "path": "assets/audio/narration/ja/86653e5236811639c5b225b7.ogg",
+      "audioPath": "assets/audio/narration/ja/86653e5236811639c5b225b7.ogg",
+      "sha256": "9516f8cb790e3a5756008bdd60f54aad62ef77a48f51160345a3af3b28c3abe3",
+      "durationMs": 1526
+    },
+    {
+      "id": "exercise.D2_Q4.prompt",
+      "locale": "ja",
+      "text": "ことわざ「笑う門には」に続く言葉はどれですか。",
+      "path": "assets/audio/narration/ja/c71b5be8a93ec2adc5ba9644.ogg",
+      "audioPath": "assets/audio/narration/ja/c71b5be8a93ec2adc5ba9644.ogg",
+      "sha256": "2bc2a2d93645051bc186fc70d394f5afa35be6874c6b2da015de2c2062062ec0",
+      "durationMs": 4006
+    },
+    {
+      "id": "exercise.D2_Q5.option.A",
+      "locale": "ja",
+      "text": "左上",
+      "path": "assets/audio/narration/ja/80fe0167b057f6fe3bd83de2.ogg",
+      "audioPath": "assets/audio/narration/ja/80fe0167b057f6fe3bd83de2.ogg",
+      "sha256": "e6e19f0251bff316543041aa30494bc76bcfbf77952b04403476ed341f2b4dc3",
+      "durationMs": 1526
+    },
+    {
+      "id": "exercise.D2_Q5.option.B",
+      "locale": "ja",
+      "text": "右上",
+      "path": "assets/audio/narration/ja/247b5d65bb8b91aca3022193.ogg",
+      "audioPath": "assets/audio/narration/ja/247b5d65bb8b91aca3022193.ogg",
+      "sha256": "a007db45f461e5303cc4dc39a7add31a8e8321217735262939697d1d17f370f6",
+      "durationMs": 2806
+    },
+    {
+      "id": "exercise.D2_Q5.option.C",
+      "locale": "ja",
+      "text": "左下",
+      "path": "assets/audio/narration/ja/a5020de8b2c2f1fe18e2c226.ogg",
+      "audioPath": "assets/audio/narration/ja/a5020de8b2c2f1fe18e2c226.ogg",
+      "sha256": "dbe99ce2dc41ff33ffc62c07c801e4f9cf66637948ecf4afd75796bc9f8b4710",
+      "durationMs": 1286
+    },
+    {
+      "id": "exercise.D2_Q5.option.D",
+      "locale": "ja",
+      "text": "右下",
+      "path": "assets/audio/narration/ja/0d9d71a476e20ba6622d930c.ogg",
+      "audioPath": "assets/audio/narration/ja/0d9d71a476e20ba6622d930c.ogg",
+      "sha256": "00ce3399d364f43bd5758b2efb33035da214fe53e2f6312e4482306ba9744581",
+      "durationMs": 1286
+    },
+    {
+      "id": "exercise.D2_Q5.prompt",
+      "locale": "ja",
+      "text": "点が左上、右上、右下の順に動きました。同じ向きに動き続けると、次はどこですか。",
+      "path": "assets/audio/narration/ja/42c9185eb3c4a11c7844bd66.ogg",
+      "audioPath": "assets/audio/narration/ja/42c9185eb3c4a11c7844bd66.ogg",
+      "sha256": "497a38e49b2915d9a75c13b5f89e1165863a0ac36e9d5d9cd47da9f4ebe2d22c",
+      "durationMs": 8706
+    },
+    {
+      "id": "exercise.D2_Q6.prompt",
+      "locale": "ja",
+      "text": "今日、誰に会って何をし、何を食べたか話してください。",
+      "path": "assets/audio/narration/ja/eea597228f0e905c01b8ce26.ogg",
+      "audioPath": "assets/audio/narration/ja/eea597228f0e905c01b8ce26.ogg",
+      "sha256": "af9428f65e969e7c5d8ecfdb578a27d49c351c9fe6a26c0937bb3852d5c1f287",
+      "durationMs": 5406
+    },
+    {
+      "id": "exercise.D3_Q1.option.A",
+      "locale": "ja",
+      "text": "とても良い",
+      "path": "assets/audio/narration/ja/7350c55cf68b8963056ff263.ogg",
+      "audioPath": "assets/audio/narration/ja/7350c55cf68b8963056ff263.ogg",
+      "sha256": "fd678e1c082557c025474e671fd7a751d65ca0b33b681c53bfaf1dd35cb342d5",
+      "durationMs": 2166
+    },
+    {
+      "id": "exercise.D3_Q1.option.B",
+      "locale": "ja",
+      "text": "良い",
+      "path": "assets/audio/narration/ja/26efe21d96a4a0e7bc169a58.ogg",
+      "audioPath": "assets/audio/narration/ja/26efe21d96a4a0e7bc169a58.ogg",
+      "sha256": "d37febdf0fad68f700d111b8047614003435b38cd984535ade832e8bdc6286de",
+      "durationMs": 1206
+    },
+    {
+      "id": "exercise.D3_Q1.option.C",
+      "locale": "ja",
+      "text": "まあまあ",
+      "path": "assets/audio/narration/ja/9f027ca6909a7647842ea34e.ogg",
+      "audioPath": "assets/audio/narration/ja/9f027ca6909a7647842ea34e.ogg",
+      "sha256": "873efa18b4754b2feec1cc604819ecc7b29b42430ee66557fdf26062689bc3cf",
+      "durationMs": 3706
+    },
+    {
+      "id": "exercise.D3_Q1.option.D",
+      "locale": "ja",
+      "text": "あまり良くない",
+      "path": "assets/audio/narration/ja/8399b6f8d6da5e8a317e050a.ogg",
+      "audioPath": "assets/audio/narration/ja/8399b6f8d6da5e8a317e050a.ogg",
+      "sha256": "0a3c0af66a69e0cd3bb5bcc34c6ff7cb878260b25c55dbdd013e9b283f6bbb5e",
+      "durationMs": 1766
+    },
+    {
+      "id": "exercise.D3_Q1.prompt",
+      "locale": "ja",
+      "text": "昨日はとても気分が良いとおっしゃいました。今日の気分はいかがですか。",
+      "path": "assets/audio/narration/ja/25ee5a5954218c38dda8d4f3.ogg",
+      "audioPath": "assets/audio/narration/ja/25ee5a5954218c38dda8d4f3.ogg",
+      "sha256": "b8872ffb20455f8dcc26bf10a5b6b2c43b0ca0fdb8a8722ee3ee91460ace9971",
+      "durationMs": 6306
+    },
+    {
+      "id": "exercise.D3_Q2.option.A",
+      "locale": "ja",
+      "text": "月曜日",
+      "path": "assets/audio/narration/ja/01670993ffdbea91a9e80e90.ogg",
+      "audioPath": "assets/audio/narration/ja/01670993ffdbea91a9e80e90.ogg",
+      "sha256": "2f9f9b093778159351aad7edf0c547553e5c88450da4e823e3b17985ce8dc994",
+      "durationMs": 3206
+    },
+    {
+      "id": "exercise.D3_Q2.option.B",
+      "locale": "ja",
+      "text": "火曜日",
+      "path": "assets/audio/narration/ja/2399e0e2e232170a973bd5b4.ogg",
+      "audioPath": "assets/audio/narration/ja/2399e0e2e232170a973bd5b4.ogg",
+      "sha256": "84fafa5b29e7df8c2f62ab4a78aba1ee9de96de12712ad695a9cb825c5974435",
+      "durationMs": 1046
+    },
+    {
+      "id": "exercise.D3_Q2.option.C",
+      "locale": "ja",
+      "text": "水曜日",
+      "path": "assets/audio/narration/ja/afdedd1411d20b41efda165e.ogg",
+      "audioPath": "assets/audio/narration/ja/afdedd1411d20b41efda165e.ogg",
+      "sha256": "c01676343c02639eeede3f89311d9588733ed634345c01fc6a7c9344f0a2928a",
+      "durationMs": 1046
+    },
+    {
+      "id": "exercise.D3_Q2.option.D",
+      "locale": "ja",
+      "text": "木曜日",
+      "path": "assets/audio/narration/ja/057dbb4d83314f97b3dd8a6c.ogg",
+      "audioPath": "assets/audio/narration/ja/057dbb4d83314f97b3dd8a6c.ogg",
+      "sha256": "221bb20f4b72266af41b016eb7ed8f306e7ea67095d0dd477a360e8a41b0aeeb",
+      "durationMs": 886
+    },
+    {
+      "id": "exercise.D3_Q2.prompt",
+      "locale": "ja",
+      "text": "昨日は何曜日でしたか。",
+      "path": "assets/audio/narration/ja/fcaa3d137593de6c3a27f7be.ogg",
+      "audioPath": "assets/audio/narration/ja/fcaa3d137593de6c3a27f7be.ogg",
+      "sha256": "87a7ab380b32e018ecd9fa7cf051f579b05d5cf89bf251b4e5ddf2530a297227",
+      "durationMs": 4406
+    },
+    {
+      "id": "exercise.D3_Q3.option.A",
+      "locale": "ja",
+      "text": "田中和子さん",
+      "path": "assets/audio/narration/ja/47b739498dbcd7425f6994bb.ogg",
+      "audioPath": "assets/audio/narration/ja/47b739498dbcd7425f6994bb.ogg",
+      "sha256": "7b0deee005d5b53db8e6c5303e313a9d4057ea9170170c0a9a7478172a157c39",
+      "durationMs": 1046
+    },
+    {
+      "id": "exercise.D3_Q3.option.B",
+      "locale": "ja",
+      "text": "佐藤由美さん",
+      "path": "assets/audio/narration/ja/57587056e139476b25535c4a.ogg",
+      "audioPath": "assets/audio/narration/ja/57587056e139476b25535c4a.ogg",
+      "sha256": "b3b2fe9fc757b28b286366ffe2964324c0ccaef6009c3a46171b44cb738bc653",
+      "durationMs": 1526
+    },
+    {
+      "id": "exercise.D3_Q3.option.C",
+      "locale": "ja",
+      "text": "佐藤健太さん",
+      "path": "assets/audio/narration/ja/62cad3e738666a5d8e51f01f.ogg",
+      "audioPath": "assets/audio/narration/ja/62cad3e738666a5d8e51f01f.ogg",
+      "sha256": "f6fa4614020d17434f34f54f9d565b96f16dd48b956ffe8b267734dfec493586",
+      "durationMs": 2006
+    },
+    {
+      "id": "exercise.D3_Q3.option.D",
+      "locale": "ja",
+      "text": "鈴木恵子さん",
+      "path": "assets/audio/narration/ja/64dbd51c8d314d3aa2263027.ogg",
+      "audioPath": "assets/audio/narration/ja/64dbd51c8d314d3aa2263027.ogg",
+      "sha256": "0c836d76a7cc42f94da07330a22b8c36dbb964a846e7ce8571ee0cdfe12525dc",
+      "durationMs": 3606
+    },
+    {
+      "id": "exercise.D3_Q3.prompt",
+      "locale": "ja",
+      "text": "昨日、地域の交流センターで一緒に輪投げをした人は誰ですか。",
+      "path": "assets/audio/narration/ja/4c95e15b6ea099c75f3fe6a9.ogg",
+      "audioPath": "assets/audio/narration/ja/4c95e15b6ea099c75f3fe6a9.ogg",
+      "sha256": "9cf30efe7b1040ce1aa79744c358b4f4fa48ff8674f46a72f97c8bd9f57e3048",
+      "durationMs": 4706
+    },
+    {
+      "id": "exercise.D3_Q4.option.A",
+      "locale": "ja",
+      "text": "午前8時15分",
+      "path": "assets/audio/narration/ja/4b0eca66eb642d7d80aa4fd1.ogg",
+      "audioPath": "assets/audio/narration/ja/4b0eca66eb642d7d80aa4fd1.ogg",
+      "sha256": "571151e186bbdffcb459d88f153bbc626b002cb7cb4af0836ffa4c3baab533a2",
+      "durationMs": 3206
+    },
+    {
+      "id": "exercise.D3_Q4.option.B",
+      "locale": "ja",
+      "text": "午前8時30分",
+      "path": "assets/audio/narration/ja/a12cc4320f7e3b31937aa538.ogg",
+      "audioPath": "assets/audio/narration/ja/a12cc4320f7e3b31937aa538.ogg",
+      "sha256": "7a2a65e89d8be873f00be3af2904c4ba0c26eb1443722c0ed215f61c032cc202",
+      "durationMs": 1686
+    },
+    {
+      "id": "exercise.D3_Q4.option.C",
+      "locale": "ja",
+      "text": "午前9時",
+      "path": "assets/audio/narration/ja/b2cb587ce945d3f6a0fa0213.ogg",
+      "audioPath": "assets/audio/narration/ja/b2cb587ce945d3f6a0fa0213.ogg",
+      "sha256": "5ef56f3b328ab9ee1a1df4edebf1567254e495b77be70ff20af30e8abbe80f8e",
+      "durationMs": 2806
+    },
+    {
+      "id": "exercise.D3_Q4.option.D",
+      "locale": "ja",
+      "text": "午前9時30分",
+      "path": "assets/audio/narration/ja/d994a5502bab36f4e1464bc8.ogg",
+      "audioPath": "assets/audio/narration/ja/d994a5502bab36f4e1464bc8.ogg",
+      "sha256": "b16d5dfc07c71ad6468a96de8f66911e6df177446ade831e7d89379dd14a4c89",
+      "durationMs": 1526
+    },
+    {
+      "id": "exercise.D3_Q4.prompt",
+      "locale": "ja",
+      "text": "血圧の薬を午前8時に飲み、30分後に朝食を取ります。朝食は何時ですか。",
+      "path": "assets/audio/narration/ja/6ad0d916e5f58e47ce35885c.ogg",
+      "audioPath": "assets/audio/narration/ja/6ad0d916e5f58e47ce35885c.ogg",
+      "sha256": "febeb7b359fd3874b9b3b8d82217a76df46e2f1e395cafce6ebd0d064333fc3f",
+      "durationMs": 7706
+    },
+    {
+      "id": "exercise.D3_Q5.option.A",
+      "locale": "ja",
+      "text": "小学校の給食調理員",
+      "path": "assets/audio/narration/ja/05641d1e1a04a38ed9bd493f.ogg",
+      "audioPath": "assets/audio/narration/ja/05641d1e1a04a38ed9bd493f.ogg",
+      "sha256": "7532816ff5c8558d4260210d29ece57146e2886ad70b1faabc0269ea659e50f4",
+      "durationMs": 2486
+    },
+    {
+      "id": "exercise.D3_Q5.option.B",
+      "locale": "ja",
+      "text": "バス運転手",
+      "path": "assets/audio/narration/ja/41d4d5b973ac699b7e203cb9.ogg",
+      "audioPath": "assets/audio/narration/ja/41d4d5b973ac699b7e203cb9.ogg",
+      "sha256": "b49a5694bc4ba877950b5f3be22f8433d70e768c5c09ae0e10c88fe4ca742352",
+      "durationMs": 1926
+    },
+    {
+      "id": "exercise.D3_Q5.option.C",
+      "locale": "ja",
+      "text": "銀行員",
+      "path": "assets/audio/narration/ja/5a309b1fa31ea7727ef6eabd.ogg",
+      "audioPath": "assets/audio/narration/ja/5a309b1fa31ea7727ef6eabd.ogg",
+      "sha256": "3acc9c211e34ee26c1fb57efb617ed754a95946572312b88435484d2dd4b37ef",
+      "durationMs": 2406
+    },
+    {
+      "id": "exercise.D3_Q5.option.D",
+      "locale": "ja",
+      "text": "美容師",
+      "path": "assets/audio/narration/ja/05f4e743122ce5c2f040f1ad.ogg",
+      "audioPath": "assets/audio/narration/ja/05f4e743122ce5c2f040f1ad.ogg",
+      "sha256": "4a1b9262eed8c034c01995dbbdf5203b475955eabbb68e417f862d4b7766fcc9",
+      "durationMs": 2806
+    },
+    {
+      "id": "exercise.D3_Q5.prompt",
+      "locale": "ja",
+      "text": "春子さんが以前していた仕事は何ですか。",
+      "path": "assets/audio/narration/ja/ef9a4c5f5389d34e8a4c4d27.ogg",
+      "audioPath": "assets/audio/narration/ja/ef9a4c5f5389d34e8a4c4d27.ogg",
+      "sha256": "d782e536289dc8bd34e35ac809c36f815f1280d9a3cbf4f59a18d8d9476e2b69",
+      "durationMs": 3206
+    },
+    {
+      "id": "exercise.D3_Q6.prompt",
+      "locale": "ja",
+      "text": "今日行った場所と体の調子を話してください。",
+      "path": "assets/audio/narration/ja/dcbc92961a3833f5ab7017bc.ogg",
+      "audioPath": "assets/audio/narration/ja/dcbc92961a3833f5ab7017bc.ogg",
+      "sha256": "13418497f681dcd59564a04f7213e76c4f1916c2ccde3be08f65756f56972568",
+      "durationMs": 4306
+    },
+    {
+      "id": "exercise.D4_Q1.option.A",
+      "locale": "ja",
+      "text": "とても良い",
+      "path": "assets/audio/narration/ja/7350c55cf68b8963056ff263.ogg",
+      "audioPath": "assets/audio/narration/ja/7350c55cf68b8963056ff263.ogg",
+      "sha256": "fd678e1c082557c025474e671fd7a751d65ca0b33b681c53bfaf1dd35cb342d5",
+      "durationMs": 2166
+    },
+    {
+      "id": "exercise.D4_Q1.option.B",
+      "locale": "ja",
+      "text": "良い",
+      "path": "assets/audio/narration/ja/26efe21d96a4a0e7bc169a58.ogg",
+      "audioPath": "assets/audio/narration/ja/26efe21d96a4a0e7bc169a58.ogg",
+      "sha256": "d37febdf0fad68f700d111b8047614003435b38cd984535ade832e8bdc6286de",
+      "durationMs": 1206
+    },
+    {
+      "id": "exercise.D4_Q1.option.C",
+      "locale": "ja",
+      "text": "まあまあ",
+      "path": "assets/audio/narration/ja/9f027ca6909a7647842ea34e.ogg",
+      "audioPath": "assets/audio/narration/ja/9f027ca6909a7647842ea34e.ogg",
+      "sha256": "873efa18b4754b2feec1cc604819ecc7b29b42430ee66557fdf26062689bc3cf",
+      "durationMs": 3706
+    },
+    {
+      "id": "exercise.D4_Q1.option.D",
+      "locale": "ja",
+      "text": "あまり良くない",
+      "path": "assets/audio/narration/ja/8399b6f8d6da5e8a317e050a.ogg",
+      "audioPath": "assets/audio/narration/ja/8399b6f8d6da5e8a317e050a.ogg",
+      "sha256": "0a3c0af66a69e0cd3bb5bcc34c6ff7cb878260b25c55dbdd013e9b283f6bbb5e",
+      "durationMs": 1766
+    },
+    {
+      "id": "exercise.D4_Q1.prompt",
+      "locale": "ja",
+      "text": "昨日は少し疲れたけれど気持ちは落ち着いているとおっしゃいました。今日の気分はいかがですか。",
+      "path": "assets/audio/narration/ja/4fc6e0ff1fd6593c1e0a9edf.ogg",
+      "audioPath": "assets/audio/narration/ja/4fc6e0ff1fd6593c1e0a9edf.ogg",
+      "sha256": "675b800a0019c8eda8f3aaac9620f7a2b91e77b9a7a37723f98e30a89e07c0f6",
+      "durationMs": 6606
+    },
+    {
+      "id": "exercise.D4_Q2.option.A",
+      "locale": "ja",
+      "text": "6月",
+      "path": "assets/audio/narration/ja/9f4b5e57d554b9796484fca9.ogg",
+      "audioPath": "assets/audio/narration/ja/9f4b5e57d554b9796484fca9.ogg",
+      "sha256": "518e71b86e6e886e389b9a91e7c65ac1bfef9c100fdffa613abc91da2bb3ad4c",
+      "durationMs": 2726
+    },
+    {
+      "id": "exercise.D4_Q2.option.B",
+      "locale": "ja",
+      "text": "7月",
+      "path": "assets/audio/narration/ja/6bb6dd475dd9a11a077c81f9.ogg",
+      "audioPath": "assets/audio/narration/ja/6bb6dd475dd9a11a077c81f9.ogg",
+      "sha256": "b6f3bcecdc947efe57e0d9540c53fb738ec70c39cee89dd616e84a5688722c91",
+      "durationMs": 2806
+    },
+    {
+      "id": "exercise.D4_Q2.option.C",
+      "locale": "ja",
+      "text": "8月",
+      "path": "assets/audio/narration/ja/0daaf3009ed39dc0c73e69bd.ogg",
+      "audioPath": "assets/audio/narration/ja/0daaf3009ed39dc0c73e69bd.ogg",
+      "sha256": "7c8a4d25d58c2ae045cd892a57aa35336ac496bd4fce2307fda870dba8d2cc5c",
+      "durationMs": 1526
+    },
+    {
+      "id": "exercise.D4_Q2.option.D",
+      "locale": "ja",
+      "text": "9月",
+      "path": "assets/audio/narration/ja/c86c26996860877657effe5e.ogg",
+      "audioPath": "assets/audio/narration/ja/c86c26996860877657effe5e.ogg",
+      "sha256": "c807e0f11e79a9bf98ecdfe590401552540dd027f662c9d4812638bb4dc4bd6c",
+      "durationMs": 3306
+    },
+    {
+      "id": "exercise.D4_Q2.prompt",
+      "locale": "ja",
+      "text": "今は何月ですか。",
+      "path": "assets/audio/narration/ja/024c71e9c2f9234dff7ea08a.ogg",
+      "audioPath": "assets/audio/narration/ja/024c71e9c2f9234dff7ea08a.ogg",
+      "sha256": "3dcabee12a6996edfb145ae9ac0fbc4891c11e2feddf182f497641b20aac96e8",
+      "durationMs": 1606
+    },
+    {
+      "id": "exercise.D4_Q3.option.A",
+      "locale": "ja",
+      "text": "地域の保健センター",
+      "path": "assets/audio/narration/ja/fb373d6e55f817118c591dd2.ogg",
+      "audioPath": "assets/audio/narration/ja/fb373d6e55f817118c591dd2.ogg",
+      "sha256": "9392e54ab512d38131b402719a839032aec27015e63eba087fc53e0bb8b25372",
+      "durationMs": 4106
+    },
+    {
+      "id": "exercise.D4_Q3.option.B",
+      "locale": "ja",
+      "text": "地域の交流センター",
+      "path": "assets/audio/narration/ja/762e7209f9b10ed1e9deb8fa.ogg",
+      "audioPath": "assets/audio/narration/ja/762e7209f9b10ed1e9deb8fa.ogg",
+      "sha256": "33d83a074ad017dfe6fe5d4a921ebcc073f39887a669f0a82629480d3279b437",
+      "durationMs": 3206
+    },
+    {
+      "id": "exercise.D4_Q3.option.C",
+      "locale": "ja",
+      "text": "近所のスーパー",
+      "path": "assets/audio/narration/ja/8cba106c501b12c0b28267d8.ogg",
+      "audioPath": "assets/audio/narration/ja/8cba106c501b12c0b28267d8.ogg",
+      "sha256": "9255ed2b9b3663ac90e557d43bf052b0952e2bdf395126a2d0f0d1c4d70827fd",
+      "durationMs": 1446
+    },
+    {
+      "id": "exercise.D4_Q3.option.D",
+      "locale": "ja",
+      "text": "銀行",
+      "path": "assets/audio/narration/ja/cca09ff71be40af6907907c1.ogg",
+      "audioPath": "assets/audio/narration/ja/cca09ff71be40af6907907c1.ogg",
+      "sha256": "effa72b90472954b6acde7f218ef760a78aa5bd0699cfe297eb04977b45c0076",
+      "durationMs": 726
+    },
+    {
+      "id": "exercise.D4_Q3.prompt",
+      "locale": "ja",
+      "text": "昨日、血圧を測った場所はどこですか。",
+      "path": "assets/audio/narration/ja/e2a18172ac993a60ce4bbdbd.ogg",
+      "audioPath": "assets/audio/narration/ja/e2a18172ac993a60ce4bbdbd.ogg",
+      "sha256": "a0bbadd1d85f90a8e17905e00318e9c614038173bac89bdee2e4bca7bbfd5ee0",
+      "durationMs": 3206
+    },
+    {
+      "id": "exercise.D4_Q4.option.A",
+      "locale": "ja",
+      "text": "午後1時15分",
+      "path": "assets/audio/narration/ja/c4dea220abb020eed13324f3.ogg",
+      "audioPath": "assets/audio/narration/ja/c4dea220abb020eed13324f3.ogg",
+      "sha256": "f63e21f44b70d26090a30a62519112a00c41d83c22313ecf36d078f0e6a1c312",
+      "durationMs": 1926
+    },
+    {
+      "id": "exercise.D4_Q4.option.B",
+      "locale": "ja",
+      "text": "午後1時20分",
+      "path": "assets/audio/narration/ja/4cee4a71fd844dad4ae1b18c.ogg",
+      "audioPath": "assets/audio/narration/ja/4cee4a71fd844dad4ae1b18c.ogg",
+      "sha256": "fb3e41a4586cc4a19d98ee473c4faa6599210a22e116d299cb6bbd996de436c8",
+      "durationMs": 4006
+    },
+    {
+      "id": "exercise.D4_Q4.option.C",
+      "locale": "ja",
+      "text": "午後1時25分",
+      "path": "assets/audio/narration/ja/d0143aa2ee8e26b51cff9cea.ogg",
+      "audioPath": "assets/audio/narration/ja/d0143aa2ee8e26b51cff9cea.ogg",
+      "sha256": "cbe774562702d332123dce839a47bbef71fe462ce3e2f7b8147905a25e81052a",
+      "durationMs": 2086
+    },
+    {
+      "id": "exercise.D4_Q4.option.D",
+      "locale": "ja",
+      "text": "午後1時30分",
+      "path": "assets/audio/narration/ja/02cb508ca03636881392b95b.ogg",
+      "audioPath": "assets/audio/narration/ja/02cb508ca03636881392b95b.ogg",
+      "sha256": "6f9bd03615b85ab7e4cbd5e09a370c872ef659fbf345b98e08fccaac3bfa05af",
+      "durationMs": 1766
+    },
+    {
+      "id": "exercise.D4_Q4.prompt",
+      "locale": "ja",
+      "text": "電車は15分間隔で来ます。前の電車が午後1時10分に出発した場合、次は何時に来ますか。",
+      "path": "assets/audio/narration/ja/c33c4148d4ca14b69f06e4ca.ogg",
+      "audioPath": "assets/audio/narration/ja/c33c4148d4ca14b69f06e4ca.ogg",
+      "sha256": "c001f0a5fbd79d9ce006387129fb524b4ef4d6343c53e51f79171de9e9d6bfcb",
+      "durationMs": 8506
+    },
+    {
+      "id": "exercise.D4_Q5.prompt",
+      "locale": "ja",
+      "text": "今日どこを歩き、誰に会ったか話してください。",
+      "path": "assets/audio/narration/ja/2cc9b6115aca34c323d4ea94.ogg",
+      "audioPath": "assets/audio/narration/ja/2cc9b6115aca34c323d4ea94.ogg",
+      "sha256": "1e4f86a0d228e825aa05f06fa546de58da299a2333a2e777135268e163466738",
+      "durationMs": 4306
+    },
+    {
+      "id": "exercise.D4_Q6.option.A",
+      "locale": "ja",
+      "text": "鍵",
+      "path": "assets/audio/narration/ja/09132738df7ad7fea675e4e7.ogg",
+      "audioPath": "assets/audio/narration/ja/09132738df7ad7fea675e4e7.ogg",
+      "sha256": "9526f3eb06c3ca6a6bf9ca32ab943e9b8329b527476e3f21b7a5c9fe44191808",
+      "durationMs": 966
+    },
+    {
+      "id": "exercise.D4_Q6.option.B",
+      "locale": "ja",
+      "text": "ぶどう",
+      "path": "assets/audio/narration/ja/dbe5d3648c6566aeca1cae41.ogg",
+      "audioPath": "assets/audio/narration/ja/dbe5d3648c6566aeca1cae41.ogg",
+      "sha256": "27e661a22abab8b5e3905c5fed0aad897c0441fdfa3fd45ef30db81f2c2dc7a3",
+      "durationMs": 1606
+    },
+    {
+      "id": "exercise.D4_Q6.option.C",
+      "locale": "ja",
+      "text": "電車",
+      "path": "assets/audio/narration/ja/f54f4e23ee791110717fa19c.ogg",
+      "audioPath": "assets/audio/narration/ja/f54f4e23ee791110717fa19c.ogg",
+      "sha256": "82eab924b995864efcca3e703717998ff92277c856cb51a5393db18ffea4d747",
+      "durationMs": 646
+    },
+    {
+      "id": "exercise.D4_Q6.option.D",
+      "locale": "ja",
+      "text": "傘",
+      "path": "assets/audio/narration/ja/e6cea0a8bb3aefc579b85dc5.ogg",
+      "audioPath": "assets/audio/narration/ja/e6cea0a8bb3aefc579b85dc5.ogg",
+      "sha256": "68fb03ad2076cc4ec023b26117c209fa1a3711d0e11b79a2a400332c325646cd",
+      "durationMs": 2086
+    },
+    {
+      "id": "exercise.D4_Q6.prompt",
+      "locale": "ja",
+      "text": "最初に聞いた順番どおりにボタンを押してください。",
+      "path": "assets/audio/narration/ja/b13a0d6ef227f4b69aa1655d.ogg",
+      "audioPath": "assets/audio/narration/ja/b13a0d6ef227f4b69aa1655d.ogg",
+      "sha256": "374f6839b4c6f9e6f2933c01a3c5e1f05d29bad0b0ed133ca5b07df3fa5d368a",
+      "durationMs": 3406
+    },
+    {
+      "id": "exercise.D4_Q6.sequence",
+      "locale": "ja",
+      "text": "鍵、ぶどう、電車",
+      "path": "assets/audio/narration/ja/a4ff6d6e6389c5c4397b6ba8.ogg",
+      "audioPath": "assets/audio/narration/ja/a4ff6d6e6389c5c4397b6ba8.ogg",
+      "sha256": "5c38aadb51601905285f2de2eb86bbc5d7f369b8c58bf1e482adb13fc80e641e",
+      "durationMs": 3906
+    },
+    {
+      "id": "exercise.D5_Q1.option.A",
+      "locale": "ja",
+      "text": "とても良い",
+      "path": "assets/audio/narration/ja/7350c55cf68b8963056ff263.ogg",
+      "audioPath": "assets/audio/narration/ja/7350c55cf68b8963056ff263.ogg",
+      "sha256": "fd678e1c082557c025474e671fd7a751d65ca0b33b681c53bfaf1dd35cb342d5",
+      "durationMs": 2166
+    },
+    {
+      "id": "exercise.D5_Q1.option.B",
+      "locale": "ja",
+      "text": "良い",
+      "path": "assets/audio/narration/ja/26efe21d96a4a0e7bc169a58.ogg",
+      "audioPath": "assets/audio/narration/ja/26efe21d96a4a0e7bc169a58.ogg",
+      "sha256": "d37febdf0fad68f700d111b8047614003435b38cd984535ade832e8bdc6286de",
+      "durationMs": 1206
+    },
+    {
+      "id": "exercise.D5_Q1.option.C",
+      "locale": "ja",
+      "text": "まあまあ",
+      "path": "assets/audio/narration/ja/9f027ca6909a7647842ea34e.ogg",
+      "audioPath": "assets/audio/narration/ja/9f027ca6909a7647842ea34e.ogg",
+      "sha256": "873efa18b4754b2feec1cc604819ecc7b29b42430ee66557fdf26062689bc3cf",
+      "durationMs": 3706
+    },
+    {
+      "id": "exercise.D5_Q1.option.D",
+      "locale": "ja",
+      "text": "あまり良くない",
+      "path": "assets/audio/narration/ja/8399b6f8d6da5e8a317e050a.ogg",
+      "audioPath": "assets/audio/narration/ja/8399b6f8d6da5e8a317e050a.ogg",
+      "sha256": "0a3c0af66a69e0cd3bb5bcc34c6ff7cb878260b25c55dbdd013e9b283f6bbb5e",
+      "durationMs": 1766
+    },
+    {
+      "id": "exercise.D5_Q1.prompt",
+      "locale": "ja",
+      "text": "昨日、散歩のあと体が軽くなったとおっしゃいました。今日の気分はいかがですか。",
+      "path": "assets/audio/narration/ja/e95ccfd67a0307269f71a8d9.ogg",
+      "audioPath": "assets/audio/narration/ja/e95ccfd67a0307269f71a8d9.ogg",
+      "sha256": "b12d62fb7f5265301c8a9757d378f7749b37bab670257382bdf09cae84f0b93d",
+      "durationMs": 7206
+    },
+    {
+      "id": "exercise.D5_Q2.option.A",
+      "locale": "ja",
+      "text": "金曜日",
+      "path": "assets/audio/narration/ja/5f9c53c6b0849c95a963392f.ogg",
+      "audioPath": "assets/audio/narration/ja/5f9c53c6b0849c95a963392f.ogg",
+      "sha256": "10769690fc76ea102fa51b51d5f178351ba0044c9632203cdda54537656ed300",
+      "durationMs": 1766
+    },
+    {
+      "id": "exercise.D5_Q2.option.B",
+      "locale": "ja",
+      "text": "土曜日",
+      "path": "assets/audio/narration/ja/87444eed057791a852bcf63d.ogg",
+      "audioPath": "assets/audio/narration/ja/87444eed057791a852bcf63d.ogg",
+      "sha256": "f4913554fad28a4f5398fdfe45af0e3b7e9b7eb9b41b28ebd44ac8fbf956bd2f",
+      "durationMs": 1286
+    },
+    {
+      "id": "exercise.D5_Q2.option.C",
+      "locale": "ja",
+      "text": "日曜日",
+      "path": "assets/audio/narration/ja/a207d4148d7f5c0eccf23ef5.ogg",
+      "audioPath": "assets/audio/narration/ja/a207d4148d7f5c0eccf23ef5.ogg",
+      "sha256": "010702439ec3150e927cd6bd9da603e1ed01b4a12d37f2ad3a93858ef9d58867",
+      "durationMs": 1046
+    },
+    {
+      "id": "exercise.D5_Q2.option.D",
+      "locale": "ja",
+      "text": "月曜日",
+      "path": "assets/audio/narration/ja/01670993ffdbea91a9e80e90.ogg",
+      "audioPath": "assets/audio/narration/ja/01670993ffdbea91a9e80e90.ogg",
+      "sha256": "2f9f9b093778159351aad7edf0c547553e5c88450da4e823e3b17985ce8dc994",
+      "durationMs": 3206
+    },
+    {
+      "id": "exercise.D5_Q2.prompt",
+      "locale": "ja",
+      "text": "明日は何曜日ですか。",
+      "path": "assets/audio/narration/ja/d16f6e24594c661d6199bbe4.ogg",
+      "audioPath": "assets/audio/narration/ja/d16f6e24594c661d6199bbe4.ogg",
+      "sha256": "a8190248181d42b340e7fa949187801a6f9cebf81d13464cb07974fa9be6a3fe",
+      "durationMs": 2246
+    },
+    {
+      "id": "exercise.D5_Q3.option.A",
+      "locale": "ja",
+      "text": "麦茶",
+      "path": "assets/audio/narration/ja/c8d4ac11a70adaf074af22fd.ogg",
+      "audioPath": "assets/audio/narration/ja/c8d4ac11a70adaf074af22fd.ogg",
+      "sha256": "b97f7a1383cd0939481e21722ac3d05065814f302934447778649339cb480910",
+      "durationMs": 2806
+    },
+    {
+      "id": "exercise.D5_Q3.option.B",
+      "locale": "ja",
+      "text": "コーヒー",
+      "path": "assets/audio/narration/ja/5ab165a2bc5501b804b0d6c2.ogg",
+      "audioPath": "assets/audio/narration/ja/5ab165a2bc5501b804b0d6c2.ogg",
+      "sha256": "25d8353073623b213eb5edbe29feea5622423fc2dd6d20667a4f3b520f4b3b29",
+      "durationMs": 726
+    },
+    {
+      "id": "exercise.D5_Q3.option.C",
+      "locale": "ja",
+      "text": "牛乳",
+      "path": "assets/audio/narration/ja/640f6e14ce0b9f2f238f0b3d.ogg",
+      "audioPath": "assets/audio/narration/ja/640f6e14ce0b9f2f238f0b3d.ogg",
+      "sha256": "5743886551c0feb70eba80b7e443ff07092cd217848ffc571d16c2770f07f00b",
+      "durationMs": 726
+    },
+    {
+      "id": "exercise.D5_Q3.option.D",
+      "locale": "ja",
+      "text": "オレンジジュース",
+      "path": "assets/audio/narration/ja/d02ce37b5b0968a7b7d5998c.ogg",
+      "audioPath": "assets/audio/narration/ja/d02ce37b5b0968a7b7d5998c.ogg",
+      "sha256": "0cff85721aabea6eefb7ae908d09fd10c53916d301b1c58a4cbc3ffd181aaa82",
+      "durationMs": 1206
+    },
+    {
+      "id": "exercise.D5_Q3.prompt",
+      "locale": "ja",
+      "text": "昨日、散歩を終えて家で飲んだものは何ですか。",
+      "path": "assets/audio/narration/ja/2d604353d4265fa8766d88cc.ogg",
+      "audioPath": "assets/audio/narration/ja/2d604353d4265fa8766d88cc.ogg",
+      "sha256": "faaf3327b1679ae2e0d4c62a218051d4c006cc881f4684165de0e28e5cdb0c18",
+      "durationMs": 6706
+    },
+    {
+      "id": "exercise.D5_Q4.option.A",
+      "locale": "ja",
+      "text": "力を合わせると、よい考えが生まれる",
+      "path": "assets/audio/narration/ja/05e91bd241ee3d15ba17d8ec.ogg",
+      "audioPath": "assets/audio/narration/ja/05e91bd241ee3d15ba17d8ec.ogg",
+      "sha256": "842656294ffda78fbe5337823236d745b2bf82ff6734724491afc8c4adb9406b",
+      "durationMs": 3206
+    },
+    {
+      "id": "exercise.D5_Q4.option.B",
+      "locale": "ja",
+      "text": "人数が多いほど、すぐ終わる",
+      "path": "assets/audio/narration/ja/2a6fd28f5be6e35d04ec6c55.ogg",
+      "audioPath": "assets/audio/narration/ja/2a6fd28f5be6e35d04ec6c55.ogg",
+      "sha256": "9dd2b9607e56fde79410b986e3a429cec605938e96dfad55a76aa915fc518754",
+      "durationMs": 4606
+    },
+    {
+      "id": "exercise.D5_Q4.option.C",
+      "locale": "ja",
+      "text": "一人で考えるほうがよい",
+      "path": "assets/audio/narration/ja/1582b03d4902a990b3859f02.ogg",
+      "audioPath": "assets/audio/narration/ja/1582b03d4902a990b3859f02.ogg",
+      "sha256": "f4a039f16b5082c541678f4dc74004ec14b0ae3bd033e2a514c8e7e0aa11aed8",
+      "durationMs": 1766
+    },
+    {
+      "id": "exercise.D5_Q4.option.D",
+      "locale": "ja",
+      "text": "難しいことは後回しにする",
+      "path": "assets/audio/narration/ja/59bf67a2f1ed6462dbb31572.ogg",
+      "audioPath": "assets/audio/narration/ja/59bf67a2f1ed6462dbb31572.ogg",
+      "sha256": "946c7665d0eee905486220163f9bda59bbd9677c281a0ed6a7da879aef8e5645",
+      "durationMs": 2646
+    },
+    {
+      "id": "exercise.D5_Q4.prompt",
+      "locale": "ja",
+      "text": "ことわざ「三人寄れば文殊の知恵」に最も近い意味はどれですか。",
+      "path": "assets/audio/narration/ja/23883a883c1f1fa422b9eeec.ogg",
+      "audioPath": "assets/audio/narration/ja/23883a883c1f1fa422b9eeec.ogg",
+      "sha256": "4f4a6a10f05ef8aa54b468b0fc199afa9510ac63928d3de6828751d5423d9dab",
+      "durationMs": 6006
+    },
+    {
+      "id": "exercise.D5_Q5.option.A",
+      "locale": "ja",
+      "text": "丸、三角",
+      "path": "assets/audio/narration/ja/8966ba336706f0685772e194.ogg",
+      "audioPath": "assets/audio/narration/ja/8966ba336706f0685772e194.ogg",
+      "sha256": "5f30771f2b8de9d569cd539ceb7d6ca1ee70f6356fb6634207bfedf6475c71cc",
+      "durationMs": 1846
+    },
+    {
+      "id": "exercise.D5_Q5.option.B",
+      "locale": "ja",
+      "text": "三角、丸",
+      "path": "assets/audio/narration/ja/4790e4b87cf2fc5bec9455d8.ogg",
+      "audioPath": "assets/audio/narration/ja/4790e4b87cf2fc5bec9455d8.ogg",
+      "sha256": "44ade924a42c68980ffa8c1bbd8a4463f7a37fb51cf5ebe190f70f424bcd228f",
+      "durationMs": 1606
+    },
+    {
+      "id": "exercise.D5_Q5.option.C",
+      "locale": "ja",
+      "text": "丸、丸",
+      "path": "assets/audio/narration/ja/8d3f95c9ab97d6ec947621be.ogg",
+      "audioPath": "assets/audio/narration/ja/8d3f95c9ab97d6ec947621be.ogg",
+      "sha256": "db877ad3180d2ef3279d1e81cf5ae063a92209eb9e99db48333a3e54e9001103",
+      "durationMs": 2406
+    },
+    {
+      "id": "exercise.D5_Q5.option.D",
+      "locale": "ja",
+      "text": "三角、三角",
+      "path": "assets/audio/narration/ja/cafad30d7e06d9f3b02c373d.ogg",
+      "audioPath": "assets/audio/narration/ja/cafad30d7e06d9f3b02c373d.ogg",
+      "sha256": "6e528fa62f860684fb757ab799cf399e4e7c4ee288bc20ca210e534800d1a6fe",
+      "durationMs": 3606
+    },
+    {
+      "id": "exercise.D5_Q5.prompt",
+      "locale": "ja",
+      "text": "上に見える形とまったく同じものを選んでください。",
+      "path": "assets/audio/narration/ja/a510b29f8a799dee6289f926.ogg",
+      "audioPath": "assets/audio/narration/ja/a510b29f8a799dee6289f926.ogg",
+      "sha256": "888661677403b21513f5c161e597aee957883609e544a2169692104c346d436d",
+      "durationMs": 4906
+    },
+    {
+      "id": "exercise.D5_Q6.prompt",
+      "locale": "ja",
+      "text": "今日、家に来た人と一緒に食べたものを話してください。",
+      "path": "assets/audio/narration/ja/afb78cf6fc31f62089b237da.ogg",
+      "audioPath": "assets/audio/narration/ja/afb78cf6fc31f62089b237da.ogg",
+      "sha256": "a5249429d159bdc9cc21d018db8d498e75d08b70d122c16dc09e0c5994666978",
+      "durationMs": 3706
+    },
+    {
+      "id": "exercise.D6_Q1.option.A",
+      "locale": "ja",
+      "text": "とても良い",
+      "path": "assets/audio/narration/ja/7350c55cf68b8963056ff263.ogg",
+      "audioPath": "assets/audio/narration/ja/7350c55cf68b8963056ff263.ogg",
+      "sha256": "fd678e1c082557c025474e671fd7a751d65ca0b33b681c53bfaf1dd35cb342d5",
+      "durationMs": 2166
+    },
+    {
+      "id": "exercise.D6_Q1.option.B",
+      "locale": "ja",
+      "text": "良い",
+      "path": "assets/audio/narration/ja/26efe21d96a4a0e7bc169a58.ogg",
+      "audioPath": "assets/audio/narration/ja/26efe21d96a4a0e7bc169a58.ogg",
+      "sha256": "d37febdf0fad68f700d111b8047614003435b38cd984535ade832e8bdc6286de",
+      "durationMs": 1206
+    },
+    {
+      "id": "exercise.D6_Q1.option.C",
+      "locale": "ja",
+      "text": "まあまあ",
+      "path": "assets/audio/narration/ja/9f027ca6909a7647842ea34e.ogg",
+      "audioPath": "assets/audio/narration/ja/9f027ca6909a7647842ea34e.ogg",
+      "sha256": "873efa18b4754b2feec1cc604819ecc7b29b42430ee66557fdf26062689bc3cf",
+      "durationMs": 3706
+    },
+    {
+      "id": "exercise.D6_Q1.option.D",
+      "locale": "ja",
+      "text": "あまり良くない",
+      "path": "assets/audio/narration/ja/8399b6f8d6da5e8a317e050a.ogg",
+      "audioPath": "assets/audio/narration/ja/8399b6f8d6da5e8a317e050a.ogg",
+      "sha256": "0a3c0af66a69e0cd3bb5bcc34c6ff7cb878260b25c55dbdd013e9b283f6bbb5e",
+      "durationMs": 1766
+    },
+    {
+      "id": "exercise.D6_Q1.prompt",
+      "locale": "ja",
+      "text": "昨日は家族に会えてうれしかったとおっしゃいました。今日の気分はいかがですか。",
+      "path": "assets/audio/narration/ja/ec0a6f58dec912a25b5953fa.ogg",
+      "audioPath": "assets/audio/narration/ja/ec0a6f58dec912a25b5953fa.ogg",
+      "sha256": "54d3ccea36d4d2b42309efd4fa65e8cc8b058a806f6af8a4ea1fede2b237133e",
+      "durationMs": 15006
+    },
+    {
+      "id": "exercise.D6_Q2.option.A",
+      "locale": "ja",
+      "text": "木曜日",
+      "path": "assets/audio/narration/ja/057dbb4d83314f97b3dd8a6c.ogg",
+      "audioPath": "assets/audio/narration/ja/057dbb4d83314f97b3dd8a6c.ogg",
+      "sha256": "221bb20f4b72266af41b016eb7ed8f306e7ea67095d0dd477a360e8a41b0aeeb",
+      "durationMs": 886
+    },
+    {
+      "id": "exercise.D6_Q2.option.B",
+      "locale": "ja",
+      "text": "金曜日",
+      "path": "assets/audio/narration/ja/5f9c53c6b0849c95a963392f.ogg",
+      "audioPath": "assets/audio/narration/ja/5f9c53c6b0849c95a963392f.ogg",
+      "sha256": "10769690fc76ea102fa51b51d5f178351ba0044c9632203cdda54537656ed300",
+      "durationMs": 1766
+    },
+    {
+      "id": "exercise.D6_Q2.option.C",
+      "locale": "ja",
+      "text": "土曜日",
+      "path": "assets/audio/narration/ja/87444eed057791a852bcf63d.ogg",
+      "audioPath": "assets/audio/narration/ja/87444eed057791a852bcf63d.ogg",
+      "sha256": "f4913554fad28a4f5398fdfe45af0e3b7e9b7eb9b41b28ebd44ac8fbf956bd2f",
+      "durationMs": 1286
+    },
+    {
+      "id": "exercise.D6_Q2.option.D",
+      "locale": "ja",
+      "text": "日曜日",
+      "path": "assets/audio/narration/ja/a207d4148d7f5c0eccf23ef5.ogg",
+      "audioPath": "assets/audio/narration/ja/a207d4148d7f5c0eccf23ef5.ogg",
+      "sha256": "010702439ec3150e927cd6bd9da603e1ed01b4a12d37f2ad3a93858ef9d58867",
+      "durationMs": 1046
+    },
+    {
+      "id": "exercise.D6_Q2.prompt",
+      "locale": "ja",
+      "text": "昨日は何曜日でしたか。",
+      "path": "assets/audio/narration/ja/fcaa3d137593de6c3a27f7be.ogg",
+      "audioPath": "assets/audio/narration/ja/fcaa3d137593de6c3a27f7be.ogg",
+      "sha256": "87a7ab380b32e018ecd9fa7cf051f579b05d5cf89bf251b4e5ddf2530a297227",
+      "durationMs": 4406
+    },
+    {
+      "id": "exercise.D6_Q3.option.A",
+      "locale": "ja",
+      "text": "娘の由美さんと孫の健太さん",
+      "path": "assets/audio/narration/ja/e2eaecf21a1a3934748a200e.ogg",
+      "audioPath": "assets/audio/narration/ja/e2eaecf21a1a3934748a200e.ogg",
+      "sha256": "e3ba2a350499181d01cf19f7bb06c5bd3cb05a35a4fbb8372ed60fbe8eed2ad9",
+      "durationMs": 4106
+    },
+    {
+      "id": "exercise.D6_Q3.option.B",
+      "locale": "ja",
+      "text": "友人の和子さんと近所の恵子さん",
+      "path": "assets/audio/narration/ja/e8237f88461022f53763c2f3.ogg",
+      "audioPath": "assets/audio/narration/ja/e8237f88461022f53763c2f3.ogg",
+      "sha256": "22eee30a3197b08704a87fb6ba12809fb8a50b0a729e8d80dfa39253ee82290a",
+      "durationMs": 2726
+    },
+    {
+      "id": "exercise.D6_Q3.option.C",
+      "locale": "ja",
+      "text": "保健センターの職員",
+      "path": "assets/audio/narration/ja/09ab7be38a56814796074f69.ogg",
+      "audioPath": "assets/audio/narration/ja/09ab7be38a56814796074f69.ogg",
+      "sha256": "97c73f7bf5ede83d93f76fc876a596384a4ff3b603bffd5c02b0d7e95a04273e",
+      "durationMs": 1606
+    },
+    {
+      "id": "exercise.D6_Q3.option.D",
+      "locale": "ja",
+      "text": "一人",
+      "path": "assets/audio/narration/ja/c5e8084ccbeb738adde09e36.ogg",
+      "audioPath": "assets/audio/narration/ja/c5e8084ccbeb738adde09e36.ogg",
+      "sha256": "546bb40b6308801fd4dd03e0f7597e10b52cb185649dd5737b919cc504aab00f",
+      "durationMs": 1046
+    },
+    {
+      "id": "exercise.D6_Q3.prompt",
+      "locale": "ja",
+      "text": "昨日、一緒にお好み焼きを食べた人は誰ですか。",
+      "path": "assets/audio/narration/ja/0368dc8f4bf6a0d958993cb4.ogg",
+      "audioPath": "assets/audio/narration/ja/0368dc8f4bf6a0d958993cb4.ogg",
+      "sha256": "a662d5129fb01551e0b75f4b2aadafa46b13cc98f89d7728d7ae62e896b48369",
+      "durationMs": 11806
+    },
+    {
+      "id": "exercise.D6_Q4.option.A",
+      "locale": "ja",
+      "text": "午前10時20分",
+      "path": "assets/audio/narration/ja/427f8e0b2b21ae169cc93d0f.ogg",
+      "audioPath": "assets/audio/narration/ja/427f8e0b2b21ae169cc93d0f.ogg",
+      "sha256": "02833aafa973854455f0c47fe46aa9813422de86cfab18b5b783e64ad946988b",
+      "durationMs": 3106
+    },
+    {
+      "id": "exercise.D6_Q4.option.B",
+      "locale": "ja",
+      "text": "午前10時30分",
+      "path": "assets/audio/narration/ja/ec8ddfeeb782985d1e1340ce.ogg",
+      "audioPath": "assets/audio/narration/ja/ec8ddfeeb782985d1e1340ce.ogg",
+      "sha256": "f70b602f95b1b927744fde8a1cefe990caaf6565e6018b395588de59d9540ab9",
+      "durationMs": 1926
+    },
+    {
+      "id": "exercise.D6_Q4.option.C",
+      "locale": "ja",
+      "text": "午前10時40分",
+      "path": "assets/audio/narration/ja/b63c6e9966d29e5214e134c5.ogg",
+      "audioPath": "assets/audio/narration/ja/b63c6e9966d29e5214e134c5.ogg",
+      "sha256": "52d9f67ff9bc39a9f4e58cd2ea121b5ac82551bfd1cc857f16b4b6efe0bacd54",
+      "durationMs": 2006
+    },
+    {
+      "id": "exercise.D6_Q4.option.D",
+      "locale": "ja",
+      "text": "午前11時10分",
+      "path": "assets/audio/narration/ja/95c103605eb7121b017b9701.ogg",
+      "audioPath": "assets/audio/narration/ja/95c103605eb7121b017b9701.ogg",
+      "sha256": "22657306ab8d247ba1e8a6b3a44b2f417ab7ffa4f90a24c068ae5249b416ac5d",
+      "durationMs": 3606
+    },
+    {
+      "id": "exercise.D6_Q4.prompt",
+      "locale": "ja",
+      "text": "バスは20分間隔で来ます。前のバスが午前10時10分に出発したなら、次は何時に来ますか。",
+      "path": "assets/audio/narration/ja/4f35bc50b2b02d87c770dab6.ogg",
+      "audioPath": "assets/audio/narration/ja/4f35bc50b2b02d87c770dab6.ogg",
+      "sha256": "ac6fbcd0a12a527edcc2ac67eeace1c0952f048c00564afa7cde7adaa9783a8e",
+      "durationMs": 7806
+    },
+    {
+      "id": "exercise.D6_Q5.option.A",
+      "locale": "ja",
+      "text": "佐藤由美",
+      "path": "assets/audio/narration/ja/983d33e58a6cd54da0ed827c.ogg",
+      "audioPath": "assets/audio/narration/ja/983d33e58a6cd54da0ed827c.ogg",
+      "sha256": "d67ae673da09970382b72c449b8119de402fd4d93f131d2580ee037088fc8903",
+      "durationMs": 1126
+    },
+    {
+      "id": "exercise.D6_Q5.option.B",
+      "locale": "ja",
+      "text": "田中和子",
+      "path": "assets/audio/narration/ja/fb1967b89f9ddd94501cbc84.ogg",
+      "audioPath": "assets/audio/narration/ja/fb1967b89f9ddd94501cbc84.ogg",
+      "sha256": "7c47b9548aa190dc665b0d6b29045af60643eceea72ced49a1c5be869adff705",
+      "durationMs": 1846
+    },
+    {
+      "id": "exercise.D6_Q5.option.C",
+      "locale": "ja",
+      "text": "鈴木恵子",
+      "path": "assets/audio/narration/ja/ac4b93087b3c8e3d992268ca.ogg",
+      "audioPath": "assets/audio/narration/ja/ac4b93087b3c8e3d992268ca.ogg",
+      "sha256": "b260d816df4aec03d77e896b89b146baba0ddfb63480d140eaf5f2e23d99fd9e",
+      "durationMs": 1846
+    },
+    {
+      "id": "exercise.D6_Q5.option.D",
+      "locale": "ja",
+      "text": "高橋美幸",
+      "path": "assets/audio/narration/ja/292d43aaf96c02c4d9cc8667.ogg",
+      "audioPath": "assets/audio/narration/ja/292d43aaf96c02c4d9cc8667.ogg",
+      "sha256": "0781775eb613650ab9b813b583e4b14cb986748cbeac1f34e19aa2368416adae",
+      "durationMs": 1126
+    },
+    {
+      "id": "exercise.D6_Q5.prompt",
+      "locale": "ja",
+      "text": "春子さんの娘の名前は何ですか。",
+      "path": "assets/audio/narration/ja/62d94d363f5778cc8178dbd6.ogg",
+      "audioPath": "assets/audio/narration/ja/62d94d363f5778cc8178dbd6.ogg",
+      "sha256": "223c6a765c951344acd02e5077ceeb130904eaac80619196dcdb16527ef00ae9",
+      "durationMs": 3106
+    },
+    {
+      "id": "exercise.D6_Q6.prompt",
+      "locale": "ja",
+      "text": "今日行った場所と、帰り道に買ったものを話してください。",
+      "path": "assets/audio/narration/ja/96c6a8215700b913f8f3d582.ogg",
+      "audioPath": "assets/audio/narration/ja/96c6a8215700b913f8f3d582.ogg",
+      "sha256": "298caafbaaf6cc12e3ede246c86825c22c03213f14e2f54e3bdd3e79d0a6243c",
+      "durationMs": 4206
+    },
+    {
+      "id": "exercise.D7_Q1.option.A",
+      "locale": "ja",
+      "text": "とても良い",
+      "path": "assets/audio/narration/ja/7350c55cf68b8963056ff263.ogg",
+      "audioPath": "assets/audio/narration/ja/7350c55cf68b8963056ff263.ogg",
+      "sha256": "fd678e1c082557c025474e671fd7a751d65ca0b33b681c53bfaf1dd35cb342d5",
+      "durationMs": 2166
+    },
+    {
+      "id": "exercise.D7_Q1.option.B",
+      "locale": "ja",
+      "text": "良い",
+      "path": "assets/audio/narration/ja/26efe21d96a4a0e7bc169a58.ogg",
+      "audioPath": "assets/audio/narration/ja/26efe21d96a4a0e7bc169a58.ogg",
+      "sha256": "d37febdf0fad68f700d111b8047614003435b38cd984535ade832e8bdc6286de",
+      "durationMs": 1206
+    },
+    {
+      "id": "exercise.D7_Q1.option.C",
+      "locale": "ja",
+      "text": "まあまあ",
+      "path": "assets/audio/narration/ja/9f027ca6909a7647842ea34e.ogg",
+      "audioPath": "assets/audio/narration/ja/9f027ca6909a7647842ea34e.ogg",
+      "sha256": "873efa18b4754b2feec1cc604819ecc7b29b42430ee66557fdf26062689bc3cf",
+      "durationMs": 3706
+    },
+    {
+      "id": "exercise.D7_Q1.option.D",
+      "locale": "ja",
+      "text": "あまり良くない",
+      "path": "assets/audio/narration/ja/8399b6f8d6da5e8a317e050a.ogg",
+      "audioPath": "assets/audio/narration/ja/8399b6f8d6da5e8a317e050a.ogg",
+      "sha256": "0a3c0af66a69e0cd3bb5bcc34c6ff7cb878260b25c55dbdd013e9b283f6bbb5e",
+      "durationMs": 1766
+    },
+    {
+      "id": "exercise.D7_Q1.prompt",
+      "locale": "ja",
+      "text": "昨日の午後は家で休んだとおっしゃいました。今日の気分はいかがですか。",
+      "path": "assets/audio/narration/ja/6495b1b26ce6f802c27a23ac.ogg",
+      "audioPath": "assets/audio/narration/ja/6495b1b26ce6f802c27a23ac.ogg",
+      "sha256": "e31ad9ef036292307ae27055865f0f98479341799c9b2606b6bceaf9cdd42421",
+      "durationMs": 5306
+    },
+    {
+      "id": "exercise.D7_Q2.option.A",
+      "locale": "ja",
+      "text": "月曜日",
+      "path": "assets/audio/narration/ja/01670993ffdbea91a9e80e90.ogg",
+      "audioPath": "assets/audio/narration/ja/01670993ffdbea91a9e80e90.ogg",
+      "sha256": "2f9f9b093778159351aad7edf0c547553e5c88450da4e823e3b17985ce8dc994",
+      "durationMs": 3206
+    },
+    {
+      "id": "exercise.D7_Q2.option.B",
+      "locale": "ja",
+      "text": "火曜日",
+      "path": "assets/audio/narration/ja/2399e0e2e232170a973bd5b4.ogg",
+      "audioPath": "assets/audio/narration/ja/2399e0e2e232170a973bd5b4.ogg",
+      "sha256": "84fafa5b29e7df8c2f62ab4a78aba1ee9de96de12712ad695a9cb825c5974435",
+      "durationMs": 1046
+    },
+    {
+      "id": "exercise.D7_Q2.option.C",
+      "locale": "ja",
+      "text": "水曜日",
+      "path": "assets/audio/narration/ja/afdedd1411d20b41efda165e.ogg",
+      "audioPath": "assets/audio/narration/ja/afdedd1411d20b41efda165e.ogg",
+      "sha256": "c01676343c02639eeede3f89311d9588733ed634345c01fc6a7c9344f0a2928a",
+      "durationMs": 1046
+    },
+    {
+      "id": "exercise.D7_Q2.option.D",
+      "locale": "ja",
+      "text": "木曜日",
+      "path": "assets/audio/narration/ja/057dbb4d83314f97b3dd8a6c.ogg",
+      "audioPath": "assets/audio/narration/ja/057dbb4d83314f97b3dd8a6c.ogg",
+      "sha256": "221bb20f4b72266af41b016eb7ed8f306e7ea67095d0dd477a360e8a41b0aeeb",
+      "durationMs": 886
+    },
+    {
+      "id": "exercise.D7_Q2.prompt",
+      "locale": "ja",
+      "text": "今日は日曜日です。あさっては何曜日ですか。",
+      "path": "assets/audio/narration/ja/acd2afd8d027b7893a85277d.ogg",
+      "audioPath": "assets/audio/narration/ja/acd2afd8d027b7893a85277d.ogg",
+      "sha256": "76f7733cd21244aa7f8d3d313fff2ad5dfc8f16630898f3eb8002ca09f92d959",
+      "durationMs": 4006
+    },
+    {
+      "id": "exercise.D7_Q3.option.A",
+      "locale": "ja",
+      "text": "あんパン2個",
+      "path": "assets/audio/narration/ja/70c5950794762cc06258212e.ogg",
+      "audioPath": "assets/audio/narration/ja/70c5950794762cc06258212e.ogg",
+      "sha256": "cae4ae0dfc0e48416c86c8f5218f0f0f32cd89f6fb1e4e91cc16a1cf6a6bed08",
+      "durationMs": 3206
+    },
+    {
+      "id": "exercise.D7_Q3.option.B",
+      "locale": "ja",
+      "text": "食パン1斤",
+      "path": "assets/audio/narration/ja/d567dd0533f886e7cd2339ff.ogg",
+      "audioPath": "assets/audio/narration/ja/d567dd0533f886e7cd2339ff.ogg",
+      "sha256": "7e698cb766965aef33bd25aa18b69181d15f2320c25af8fac54a5cf756e8634e",
+      "durationMs": 1606
+    },
+    {
+      "id": "exercise.D7_Q3.option.C",
+      "locale": "ja",
+      "text": "メロンパン3個",
+      "path": "assets/audio/narration/ja/d96dbe9ea51e5b946b073880.ogg",
+      "audioPath": "assets/audio/narration/ja/d96dbe9ea51e5b946b073880.ogg",
+      "sha256": "840016149bb90bc7d8faa53d17ea10de1efbac3b93cf45a2a8fcbf57835dcef8",
+      "durationMs": 4306
+    },
+    {
+      "id": "exercise.D7_Q3.option.D",
+      "locale": "ja",
+      "text": "ケーキ1個",
+      "path": "assets/audio/narration/ja/912a531d95470015fbc322b3.ogg",
+      "audioPath": "assets/audio/narration/ja/912a531d95470015fbc322b3.ogg",
+      "sha256": "3d4ea3d907a4bf1e9e37aa782d5838f43114076cb10ba4896c0880d23d6d6498",
+      "durationMs": 1206
+    },
+    {
+      "id": "exercise.D7_Q3.prompt",
+      "locale": "ja",
+      "text": "昨日、パン屋で買ったものは何ですか。",
+      "path": "assets/audio/narration/ja/57ddf5509fd59a3d5af38895.ogg",
+      "audioPath": "assets/audio/narration/ja/57ddf5509fd59a3d5af38895.ogg",
+      "sha256": "5ce5ebbe5b7bacd79f3272dbce941ac131c78464e6550a73ec6a5f736ba391ab",
+      "durationMs": 2886
+    },
+    {
+      "id": "exercise.D7_Q4.option.A",
+      "locale": "ja",
+      "text": "お好み焼き",
+      "path": "assets/audio/narration/ja/616917aabc10a59cb437b5bd.ogg",
+      "audioPath": "assets/audio/narration/ja/616917aabc10a59cb437b5bd.ogg",
+      "sha256": "19a5d3faad7cf19e6b21ed9e85da742a2c69cc6e67e9af7f60790d132c032deb",
+      "durationMs": 1446
+    },
+    {
+      "id": "exercise.D7_Q4.option.B",
+      "locale": "ja",
+      "text": "そうめん",
+      "path": "assets/audio/narration/ja/efa9b021017da33fc6adb61f.ogg",
+      "audioPath": "assets/audio/narration/ja/efa9b021017da33fc6adb61f.ogg",
+      "sha256": "f441c6a9443aaecae00dd6ff86252ca437737f86891c1040ae10cf7f4d2f8cb1",
+      "durationMs": 1206
+    },
+    {
+      "id": "exercise.D7_Q4.option.C",
+      "locale": "ja",
+      "text": "味噌汁",
+      "path": "assets/audio/narration/ja/54ca73987fa47ee0dc389bbd.ogg",
+      "audioPath": "assets/audio/narration/ja/54ca73987fa47ee0dc389bbd.ogg",
+      "sha256": "0d823d7440018efdc6ad3a05a5027dd52da784729d33df4ab19a7671f8b4724c",
+      "durationMs": 1126
+    },
+    {
+      "id": "exercise.D7_Q4.option.D",
+      "locale": "ja",
+      "text": "あんパン",
+      "path": "assets/audio/narration/ja/9a6be3db05bd6c089d113fef.ogg",
+      "audioPath": "assets/audio/narration/ja/9a6be3db05bd6c089d113fef.ogg",
+      "sha256": "a3dadada027bc6e035f0579fc01625fd18673404ce8b1bf64fac660e9e309b35",
+      "durationMs": 1126
+    },
+    {
+      "id": "exercise.D7_Q4.prompt",
+      "locale": "ja",
+      "text": "今週、娘の由美さんと孫の健太さんが家に来たとき、一緒に食べたものは何ですか。",
+      "path": "assets/audio/narration/ja/37524d03f81490a4947e81d7.ogg",
+      "audioPath": "assets/audio/narration/ja/37524d03f81490a4947e81d7.ogg",
+      "sha256": "0ca6cd88e8fae08a23885525c889471841ed1dd0cffccd74cb0f121b0c39f284",
+      "durationMs": 5906
+    },
+    {
+      "id": "exercise.D7_Q5.option.A",
+      "locale": "ja",
+      "text": "0個",
+      "path": "assets/audio/narration/ja/aeb1b2b19c94b1e1459a394c.ogg",
+      "audioPath": "assets/audio/narration/ja/aeb1b2b19c94b1e1459a394c.ogg",
+      "sha256": "f7f0cddf4d557584f32f51f9efe0bfb49ea50fb4dc413a0fcfa58742c19d3d7d",
+      "durationMs": 2326
+    },
+    {
+      "id": "exercise.D7_Q5.option.B",
+      "locale": "ja",
+      "text": "1個",
+      "path": "assets/audio/narration/ja/bc0a0a82ae03012aeea3e48c.ogg",
+      "audioPath": "assets/audio/narration/ja/bc0a0a82ae03012aeea3e48c.ogg",
+      "sha256": "90a9c8c0b65f58266425ef0902f221a3e353aadf2e13b8e3ddd1080ce44a11db",
+      "durationMs": 1206
+    },
+    {
+      "id": "exercise.D7_Q5.option.C",
+      "locale": "ja",
+      "text": "2個",
+      "path": "assets/audio/narration/ja/c663239ad8dbfd7f146effa3.ogg",
+      "audioPath": "assets/audio/narration/ja/c663239ad8dbfd7f146effa3.ogg",
+      "sha256": "927c3616265dc7b024989ed7085e11fcb52720b076a426aad0966cf85f3aeaa7",
+      "durationMs": 1046
+    },
+    {
+      "id": "exercise.D7_Q5.option.D",
+      "locale": "ja",
+      "text": "3個",
+      "path": "assets/audio/narration/ja/1c691816c6b99736a54461ea.ogg",
+      "audioPath": "assets/audio/narration/ja/1c691816c6b99736a54461ea.ogg",
+      "sha256": "36c25d959327f1a356682ce538b23bb49f596be96867dc8f3893d78f6709ab11",
+      "durationMs": 1286
+    },
+    {
+      "id": "exercise.D7_Q5.prompt",
+      "locale": "ja",
+      "text": "昨日買ったあんパン2個のうち、今日1個食べると何個残りますか。",
+      "path": "assets/audio/narration/ja/f4a68815b732526d603d0568.ogg",
+      "audioPath": "assets/audio/narration/ja/f4a68815b732526d603d0568.ogg",
+      "sha256": "e10a1f067b54b57071bfbbc5984cd11ecd114cc735e281197894a559568fd044",
+      "durationMs": 5106
+    },
+    {
+      "id": "exercise.D7_Q6.prompt",
+      "locale": "ja",
+      "text": "今日したことと、今週いちばん心に残ったことを一緒に話してください。",
+      "path": "assets/audio/narration/ja/50da218763cde9dff2e36038.ogg",
+      "audioPath": "assets/audio/narration/ja/50da218763cde9dff2e36038.ogg",
+      "sha256": "f3a4fc03e8ccb9ed767ca003e0571c84887b1a51637f3a23587e7c6d5b8f1e0f",
+      "durationMs": 5606
+    },
+    {
+      "id": "feedback.saved",
+      "locale": "ja",
+      "text": "きちんと残せました。",
+      "path": "assets/audio/narration/ja/0100f79f90a4f5b7f76c106f.ogg",
+      "audioPath": "assets/audio/narration/ja/0100f79f90a4f5b7f76c106f.ogg",
+      "sha256": "7ab26e1e308d6d547f2fa5d7f75b53c2bd641b2f0758c6ee498666d78acbf5b3",
+      "durationMs": 1686
+    },
+    {
+      "id": "feedback.selected",
+      "locale": "ja",
+      "text": "選びました。同じボタンをもう一度押してください。",
+      "path": "assets/audio/narration/ja/fa8196cf44b936627117412f.ogg",
+      "audioPath": "assets/audio/narration/ja/fa8196cf44b936627117412f.ogg",
+      "sha256": "f1c3d9d7afb35a35b7f138fe1244cf25c55474d204d4eb7f80962afb17065cf5",
+      "durationMs": 4206
+    },
+    {
+      "id": "feedback.try_again",
+      "locale": "ja",
+      "text": "大丈夫です。ゆっくり、もう一度やってみましょう。",
+      "path": "assets/audio/narration/ja/e52e024db06f29c2e2fbef83.ogg",
+      "audioPath": "assets/audio/narration/ja/e52e024db06f29c2e2fbef83.ogg",
+      "sha256": "f62417b90e861ec3c13d0cebb0d6e8798d8d398220cc32b81d6165894d23c407",
+      "durationMs": 4106
+    },
+    {
+      "id": "guide.button_test",
+      "locale": "ja",
+      "text": "画面で光っている位置と同じボタンを押してください。",
+      "path": "assets/audio/narration/ja/cc664aad1eea1abff23e31e5.ogg",
+      "audioPath": "assets/audio/narration/ja/cc664aad1eea1abff23e31e5.ogg",
+      "sha256": "47896e18a8ce21201d985f62e2fd2a1c591cc096e3ff2e20a41e775a01f629b4",
+      "durationMs": 3606
+    },
+    {
+      "id": "guide.choice",
+      "locale": "ja",
+      "text": "答えと同じ位置にあるボタンを押してください。",
+      "path": "assets/audio/narration/ja/a07fc0a0ff72fead306c38d5.ogg",
+      "audioPath": "assets/audio/narration/ja/a07fc0a0ff72fead306c38d5.ogg",
+      "sha256": "7185a5021207eab94fda55bbe93f99b3a0bec2fa507c64bac50a63cc2a778407",
+      "durationMs": 2966
+    },
+    {
+      "id": "guide.choice_confirm",
+      "locale": "ja",
+      "text": "選んだボタンをもう一度押すと決まります。",
+      "path": "assets/audio/narration/ja/2482b602485fff3b2275b112.ogg",
+      "audioPath": "assets/audio/narration/ja/2482b602485fff3b2275b112.ogg",
+      "sha256": "5effb2f290f6f58ad2a28bd95532990a83962a7c18acc0fab87c8946eb80664a",
+      "durationMs": 2886
+    },
+    {
+      "id": "guide.day_complete",
+      "locale": "ja",
+      "text": "今日の活動はこれで終わりです。ご一緒いただき、ありがとうございました。",
+      "path": "assets/audio/narration/ja/e0761685b89fc3542eb4b877.ogg",
+      "audioPath": "assets/audio/narration/ja/e0761685b89fc3542eb4b877.ogg",
+      "sha256": "c6d09326bebc2a774edeb7c8e3cc8bf9960237d2bb572dedce5af9eca1a71ebc",
+      "durationMs": 4406
+    },
+    {
+      "id": "guide.feedback",
+      "locale": "ja",
+      "text": "右側のボタンを押すと次へ進みます。",
+      "path": "assets/audio/narration/ja/ddde528cbe9c0b82bf25a2d1.ogg",
+      "audioPath": "assets/audio/narration/ja/ddde528cbe9c0b82bf25a2d1.ogg",
+      "sha256": "954a5e6de6418aa47164a8f63dad453f079d4c489be95642f12b8de42aac969b",
+      "durationMs": 2726
+    },
+    {
+      "id": "guide.microphone_unavailable",
+      "locale": "ja",
+      "text": "マイクが見つかりませんが、体験はそのまま続けられます。",
+      "path": "assets/audio/narration/ja/60c08c3718288a1d2c8b41a1.ogg",
+      "audioPath": "assets/audio/narration/ja/60c08c3718288a1d2c8b41a1.ogg",
+      "sha256": "8768bf827356990eea7f619a09a04cadb0a851305fff62824a72eb3cef655ef6",
+      "durationMs": 4406
+    },
+    {
+      "id": "guide.sequence",
+      "locale": "ja",
+      "text": "順番にボタンを選び、同じボタンをもう一度押してください。",
+      "path": "assets/audio/narration/ja/c8718164cc533017564ca11b.ogg",
+      "audioPath": "assets/audio/narration/ja/c8718164cc533017564ca11b.ogg",
+      "sha256": "2c51f56c816a6dfb0908f5e475260b28eba38ea993b3e3cdadda0ccee2ef055d",
+      "durationMs": 4306
+    },
+    {
+      "id": "guide.voice_ready",
+      "locale": "ja",
+      "text": "右側のボタンを押したら、いつものようにお話しください。",
+      "path": "assets/audio/narration/ja/a7c0814babdacd4822719c6a.ogg",
+      "audioPath": "assets/audio/narration/ja/a7c0814babdacd4822719c6a.ogg",
+      "sha256": "36685f1396b06a295c5114776817debf32b65966d30f068f9118dd894c8664f3",
+      "durationMs": 5106
+    },
+    {
+      "id": "guide.voice_recording",
+      "locale": "ja",
+      "text": "いつものようにお話しください。終わったら右側のボタンを押してください。",
+      "path": "assets/audio/narration/ja/a5b37519f36ab57018b0ad92.ogg",
+      "audioPath": "assets/audio/narration/ja/a5b37519f36ab57018b0ad92.ogg",
+      "sha256": "35e346c22a2dd12a8ab5393a5923ecbc0dd01e63f62283aa36550185b5014ff5",
+      "durationMs": 7306
+    },
+    {
+      "id": "guide.voice_review",
+      "locale": "ja",
+      "text": "話し直すときは左、このまま確定するときは右のボタンを押してください。",
+      "path": "assets/audio/narration/ja/6e4c9ee9c0fcfaadfc81364e.ogg",
+      "audioPath": "assets/audio/narration/ja/6e4c9ee9c0fcfaadfc81364e.ogg",
+      "sha256": "695cd44d415e3570b14515b8d66b6e79c3fddab796067ad354b9db662986ac69",
+      "durationMs": 5706
+    },
+    {
+      "id": "guide.welcome",
+      "locale": "ja",
+      "text": "画面と同じ位置にある4つのボタンで、今日のHaruを始めましょう。",
+      "path": "assets/audio/narration/ja/b41a9f4b674aca248b102faf.ogg",
+      "audioPath": "assets/audio/narration/ja/b41a9f4b674aca248b102faf.ogg",
+      "sha256": "ce3cb496c4c128de47e089b7821256ac3fac8bc3129ad7f79298ecbf63c7b574",
+      "durationMs": 5106
+    },
+    {
+      "id": "action.back",
+      "locale": "ko",
+      "text": "뒤로 가기",
+      "path": "assets/audio/narration/ko/9de1b5d9ed15dc7a78f3fa7d.ogg",
+      "audioPath": "assets/audio/narration/ko/9de1b5d9ed15dc7a78f3fa7d.ogg",
+      "sha256": "a32db765038f184736d57d300faf8c6ad561db70d7255386162d09f7a31219c1",
+      "durationMs": 1046
+    },
+    {
+      "id": "action.confirm",
+      "locale": "ko",
+      "text": "확정하기",
+      "path": "assets/audio/narration/ko/cef8434f8dd2a8afcac956b8.ogg",
+      "audioPath": "assets/audio/narration/ko/cef8434f8dd2a8afcac956b8.ogg",
+      "sha256": "12bbd6a3efbd421b18767002e1f5df534bb34745a341484babce17bbee0a9f25",
+      "durationMs": 1046
+    },
+    {
+      "id": "action.finish",
+      "locale": "ko",
+      "text": "마치기",
+      "path": "assets/audio/narration/ko/bf08378154e9770b8c5404de.ogg",
+      "audioPath": "assets/audio/narration/ko/bf08378154e9770b8c5404de.ogg",
+      "sha256": "abbf4869816e1a65818d0b54c467ffcaf1eff99b8e22ea79b100e71de7d45af2",
+      "durationMs": 886
+    },
+    {
+      "id": "action.next",
+      "locale": "ko",
+      "text": "다음으로",
+      "path": "assets/audio/narration/ko/54b6da0e06c5ec4f6344c064.ogg",
+      "audioPath": "assets/audio/narration/ko/54b6da0e06c5ec4f6344c064.ogg",
+      "sha256": "a300c18177a1dfc95cbab42793f1bde92da9be866d81fb8090da58c24e9be195",
+      "durationMs": 1046
+    },
+    {
+      "id": "action.replay",
+      "locale": "ko",
+      "text": "다시 듣기",
+      "path": "assets/audio/narration/ko/32451a2140cb5b7bdccd64fb.ogg",
+      "audioPath": "assets/audio/narration/ko/32451a2140cb5b7bdccd64fb.ogg",
+      "sha256": "a9c9234d334210c14859ba94c9d73422f0551cdd41886b57d13d18ac27adee32",
+      "durationMs": 886
+    },
+    {
+      "id": "action.reset",
+      "locale": "ko",
+      "text": "처음부터",
+      "path": "assets/audio/narration/ko/d4a4bb455f288beb8804e2ab.ogg",
+      "audioPath": "assets/audio/narration/ko/d4a4bb455f288beb8804e2ab.ogg",
+      "sha256": "40d2b8f3e1db7c1dab23ae125eb52124e60758c89f937380ae498485154929f4",
+      "durationMs": 886
+    },
+    {
+      "id": "action.retry",
+      "locale": "ko",
+      "text": "다시 하기",
+      "path": "assets/audio/narration/ko/a88ba8e1c4e89c5a19e105d2.ogg",
+      "audioPath": "assets/audio/narration/ko/a88ba8e1c4e89c5a19e105d2.ogg",
+      "sha256": "50cc896c73b5a529a8ddbeeed58b4cae86ff861582567b55aca0b7ff38b110ca",
+      "durationMs": 886
+    },
+    {
+      "id": "action.start",
+      "locale": "ko",
+      "text": "시작하기",
+      "path": "assets/audio/narration/ko/9ab2e153d66811f151a1b7ec.ogg",
+      "audioPath": "assets/audio/narration/ko/9ab2e153d66811f151a1b7ec.ogg",
+      "sha256": "01e21928136c3a56e358b22deeddf9006af947c84a06a1ea92604e4107d49430",
+      "durationMs": 2086
+    },
+    {
+      "id": "day.1.completion",
+      "locale": "ko",
+      "text": "오늘 활동을 모두 마쳤어요. 내일 또 만나요.",
+      "path": "assets/audio/narration/ko/c1bf5699b300a7c16f7e1e03.ogg",
+      "audioPath": "assets/audio/narration/ko/c1bf5699b300a7c16f7e1e03.ogg",
+      "sha256": "c1bf5699b300a7c16f7e1e03409c6dc01dbacb26f973e24471b55c4f585bcbe1",
+      "durationMs": 3107,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "right",
+        "sourcePath": "tools/fish-day1-browser/audio/31_day_1_completion_right.mp3",
+        "sourceSha256": "06f1dd23efd640ccc3b04553ded51c1100ee02985ac71235ff5955ba78226c63"
+      }
+    },
+    {
+      "id": "day.1.greeting",
+      "locale": "ko",
+      "text": "영자 어르신, 월요일 활동을 시작해요.",
+      "path": "assets/audio/narration/ko/946314ac465df1492178f54a.ogg",
+      "audioPath": "assets/audio/narration/ko/946314ac465df1492178f54a.ogg",
+      "sha256": "946314ac465df1492178f54a53fdded6fb8dfc9cda40c1d4d18acc6ea912c6ab",
+      "durationMs": 3507,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "right",
+        "sourcePath": "tools/fish-day1-browser/audio/01_day_1_greeting_right.mp3",
+        "sourceSha256": "12e030369000d42a221de6c7f69f0fa75382b6399b33cd23511aaa85069790d5"
+      }
+    },
+    {
+      "id": "day.1.title",
+      "locale": "ko",
+      "text": "1일차 · 나의 오늘",
+      "path": "assets/audio/narration/ko/db3f71130460a3d64a40a9cd.ogg",
+      "audioPath": "assets/audio/narration/ko/db3f71130460a3d64a40a9cd.ogg",
+      "sha256": "df9fbaf528c3b8caea0320a1b4dc55188e1ec6466247ba96d846118c9f273077",
+      "durationMs": 2806
+    },
+    {
+      "id": "day.2.completion",
+      "locale": "ko",
+      "text": "오늘 활동을 모두 마쳤어요. 내일도 편하게 들러 주세요.",
+      "path": "assets/audio/narration/ko/c27693fdc66e2cb6322d1111.ogg",
+      "audioPath": "assets/audio/narration/ko/c27693fdc66e2cb6322d1111.ogg",
+      "sha256": "3eef6e8f6c6f67fb3d4ab3cfa49fe29d7cedbdcc642a6b94cf9d5b3fb2f5ac5b",
+      "durationMs": 4206
+    },
+    {
+      "id": "day.2.greeting",
+      "locale": "ko",
+      "text": "영자 어르신, 어제 이야기를 이어가 볼까요?",
+      "path": "assets/audio/narration/ko/99ee008442315e4f45527c18.ogg",
+      "audioPath": "assets/audio/narration/ko/99ee008442315e4f45527c18.ogg",
+      "sha256": "8c668f0a2f752695732c3c4fcf5e3c4100152a9ea3174b4574e92157463f6bc3",
+      "durationMs": 3506
+    },
+    {
+      "id": "day.2.title",
+      "locale": "ko",
+      "text": "2일차 · 어제와 오늘",
+      "path": "assets/audio/narration/ko/8519bb0d37153ab83daed443.ogg",
+      "audioPath": "assets/audio/narration/ko/8519bb0d37153ab83daed443.ogg",
+      "sha256": "33927dfde848c63b5e81d2b5bef2c66fdf25782fd1137958f2eadc8d28632b73",
+      "durationMs": 2486
+    },
+    {
+      "id": "day.3.completion",
+      "locale": "ko",
+      "text": "오늘 활동을 모두 마쳤어요. 편안한 하루 보내세요.",
+      "path": "assets/audio/narration/ko/befe29d0cc7bc01a344bcd8f.ogg",
+      "audioPath": "assets/audio/narration/ko/befe29d0cc7bc01a344bcd8f.ogg",
+      "sha256": "1613a8377af6b2851c7bbe2790f6dec65a467c5640a46dedc62fed17221e8c52",
+      "durationMs": 7306
+    },
+    {
+      "id": "day.3.greeting",
+      "locale": "ko",
+      "text": "영자 어르신, 오늘도 천천히 시작해요.",
+      "path": "assets/audio/narration/ko/ad74326b56357c3c04280fbc.ogg",
+      "audioPath": "assets/audio/narration/ko/ad74326b56357c3c04280fbc.ogg",
+      "sha256": "ceeeb43c3eb38cd442cc3a20d0d552fe42c9a3282a9b18bca8b3e078244cfdaf",
+      "durationMs": 2966
+    },
+    {
+      "id": "day.3.title",
+      "locale": "ko",
+      "text": "3일차 · 생활 기억",
+      "path": "assets/audio/narration/ko/0c172ae2b15e1c93f89eff7e.ogg",
+      "audioPath": "assets/audio/narration/ko/0c172ae2b15e1c93f89eff7e.ogg",
+      "sha256": "93c7cafae973b5535619ab03928c5c571eeb814eef5a5c868b6be427a0269dc5",
+      "durationMs": 2326
+    },
+    {
+      "id": "day.4.completion",
+      "locale": "ko",
+      "text": "오늘 활동을 모두 마쳤어요. 한 문제는 틀려도 괜찮아요. 내일 또 만나요.",
+      "path": "assets/audio/narration/ko/4e99db0c6bb3bc2cfe07fd76.ogg",
+      "audioPath": "assets/audio/narration/ko/4e99db0c6bb3bc2cfe07fd76.ogg",
+      "sha256": "77f2ca43a3cfc98bed8ffcba9a6e86f792e3617fdbada0b448ce38e76f814589",
+      "durationMs": 6806
+    },
+    {
+      "id": "day.4.greeting",
+      "locale": "ko",
+      "text": "영자 어르신, 오늘 몸과 마음은 어떠신가요?",
+      "path": "assets/audio/narration/ko/d0619fbf0927efef68bb2091.ogg",
+      "audioPath": "assets/audio/narration/ko/d0619fbf0927efef68bb2091.ogg",
+      "sha256": "872ccb07403e54a73bb277bd9d2251c096e2c2a1bfaa397a23a3ab975ddda6e9",
+      "durationMs": 3606
+    },
+    {
+      "id": "day.4.title",
+      "locale": "ko",
+      "text": "4일차 · 몸과 마음",
+      "path": "assets/audio/narration/ko/2ba771f1012f43be71162a46.ogg",
+      "audioPath": "assets/audio/narration/ko/2ba771f1012f43be71162a46.ogg",
+      "sha256": "c28591ea6a791feb7b9fd0a91a7ec09f5c2b1ef1f8d5ad57aeb1efe1acaafafd",
+      "durationMs": 2806
+    },
+    {
+      "id": "day.5.completion",
+      "locale": "ko",
+      "text": "오늘 활동을 모두 마쳤어요. 가족과 편안한 시간 보내세요.",
+      "path": "assets/audio/narration/ko/cf0652b369f7b7b6263f66c9.ogg",
+      "audioPath": "assets/audio/narration/ko/cf0652b369f7b7b6263f66c9.ogg",
+      "sha256": "cf8c8c48c464aaf278ea0a4b949795971e2f003960441e95c9069d49d4c3e2a0",
+      "durationMs": 4406
+    },
+    {
+      "id": "day.5.greeting",
+      "locale": "ko",
+      "text": "영자 어르신, 금요일 활동을 편하게 시작해요.",
+      "path": "assets/audio/narration/ko/df7b85ddf63f0f33c7764fd6.ogg",
+      "audioPath": "assets/audio/narration/ko/df7b85ddf63f0f33c7764fd6.ogg",
+      "sha256": "fb03cec7dbe0b0cd8460b8af7e6600223a9a7bdca71a7d0ac07335c18b85b549",
+      "durationMs": 3406
+    },
+    {
+      "id": "day.5.title",
+      "locale": "ko",
+      "text": "5일차 · 함께한 시간",
+      "path": "assets/audio/narration/ko/513649ae24b0b8b40842b4f8.ogg",
+      "audioPath": "assets/audio/narration/ko/513649ae24b0b8b40842b4f8.ogg",
+      "sha256": "875b8b311c143d03e9a0a8d3570ddc356c79da9ab7a240abc4005f43c7224e1e",
+      "durationMs": 1766
+    },
+    {
+      "id": "day.6.completion",
+      "locale": "ko",
+      "text": "오늘 활동을 모두 마쳤어요. 편안히 쉬세요.",
+      "path": "assets/audio/narration/ko/9d33eed726940345facca045.ogg",
+      "audioPath": "assets/audio/narration/ko/9d33eed726940345facca045.ogg",
+      "sha256": "dcbd94be3677e5c9d12385d155d902ff67d5233d149782c57d4c70d5320076ca",
+      "durationMs": 4206
+    },
+    {
+      "id": "day.6.greeting",
+      "locale": "ko",
+      "text": "영자 어르신, 토요일 이야기를 들려주세요.",
+      "path": "assets/audio/narration/ko/77963af8623612f4ca4784da.ogg",
+      "audioPath": "assets/audio/narration/ko/77963af8623612f4ca4784da.ogg",
+      "sha256": "4770d668c224bd11aacb230f36c798f4ffb9c24d82c22efd6f80bd990fff6375",
+      "durationMs": 5506
+    },
+    {
+      "id": "day.6.title",
+      "locale": "ko",
+      "text": "6일차 · 주말의 하루",
+      "path": "assets/audio/narration/ko/41b22fec5b69d8d1ffc465c6.ogg",
+      "audioPath": "assets/audio/narration/ko/41b22fec5b69d8d1ffc465c6.ogg",
+      "sha256": "777903f815130654a38f967c6c2f88d33bd7de4e63debaa109c783e25516d21e",
+      "durationMs": 1926
+    },
+    {
+      "id": "day.7.completion",
+      "locale": "ko",
+      "text": "일주일 활동을 모두 마쳤어요. 다음 주에도 편하게 만나요.",
+      "path": "assets/audio/narration/ko/dd5a8f2a2a36e35cd436fa32.ogg",
+      "audioPath": "assets/audio/narration/ko/dd5a8f2a2a36e35cd436fa32.ogg",
+      "sha256": "8c92a807e9366a67c4e7ef964bb1b5095150b2dcd593e5611fbf1814bcd043f0",
+      "durationMs": 4206
+    },
+    {
+      "id": "day.7.greeting",
+      "locale": "ko",
+      "text": "영자 어르신, 이번 주의 기억을 함께 돌아봐요.",
+      "path": "assets/audio/narration/ko/03afa8ed5b5c4a759bcb64de.ogg",
+      "audioPath": "assets/audio/narration/ko/03afa8ed5b5c4a759bcb64de.ogg",
+      "sha256": "a016478a4484875b9877cfd5d16009d0581101a681b42754e2bbd63b95acb661",
+      "durationMs": 3206
+    },
+    {
+      "id": "day.7.title",
+      "locale": "ko",
+      "text": "7일차 · 한 주 돌아보기",
+      "path": "assets/audio/narration/ko/aa0cef900d51fe72f861aebb.ogg",
+      "audioPath": "assets/audio/narration/ko/aa0cef900d51fe72f861aebb.ogg",
+      "sha256": "bac8dea4dd7b2d112e5a2d7dc0301a781123961e98c20964005c584b1e8d6e31",
+      "durationMs": 2166
+    },
+    {
+      "id": "exercise.D1_Q1.option.A",
+      "locale": "ko",
+      "text": "매우 좋음",
+      "path": "assets/audio/narration/ko/aaafeb8e18309918a5af726a.ogg",
+      "audioPath": "assets/audio/narration/ko/aaafeb8e18309918a5af726a.ogg",
+      "sha256": "aaafeb8e18309918a5af726afe1e5b5efedac9f0dc7df3393499148a5f94ae9d",
+      "durationMs": 1104,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "left",
+        "sourcePath": "tools/fish-day1-browser/calm-mood-candidates/audio/A_very_good_calm_soft_left.mp3",
+        "sourceSha256": "8142fbe2876ebc608b3472d4aca68a20c7a8e8d37a5d576b74a8be93c74440a2",
+        "candidateId": "A_very_good_calm_soft_left",
+        "tagId": "calm_soft",
+        "tagText": "차분하고 부드럽게"
+      }
+    },
+    {
+      "id": "exercise.D1_Q1.option.B",
+      "locale": "ko",
+      "text": "좋음",
+      "path": "assets/audio/narration/ko/97c38496b999b310c8785888.ogg",
+      "audioPath": "assets/audio/narration/ko/97c38496b999b310c8785888.ogg",
+      "sha256": "97c38496b999b310c87858886364f3fbb790a2be20eeafb0236d8d41a2473244",
+      "durationMs": 816,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "left",
+        "sourcePath": "tools/fish-day1-browser/calm-mood-candidates/audio/B_good_calm_soft_left.mp3",
+        "sourceSha256": "4751dabfd409bfdeaa23e42efd41707fecf2d7722fa6027bebe672a0956ad2cf",
+        "candidateId": "B_good_calm_soft_left",
+        "tagId": "calm_soft",
+        "tagText": "차분하고 부드럽게"
+      }
+    },
+    {
+      "id": "exercise.D1_Q1.option.C",
+      "locale": "ko",
+      "text": "그저 그럼",
+      "path": "assets/audio/narration/ko/9dfb826f2c2d4d980bdc5856.ogg",
+      "audioPath": "assets/audio/narration/ko/9dfb826f2c2d4d980bdc5856.ogg",
+      "sha256": "9dfb826f2c2d4d980bdc5856511ecc736e38fedca7386b377b792b019c2b7b8e",
+      "durationMs": 1130,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "left",
+        "sourcePath": "tools/fish-day1-browser/calm-mood-candidates/audio/C_so_so_relaxed_clear_left.mp3",
+        "sourceSha256": "a8147002c9572410ca3fb89b7c9b1da31b498edf50419f471f3d35ed4b77dc8e",
+        "candidateId": "C_so_so_relaxed_clear_left",
+        "tagId": "relaxed_clear",
+        "tagText": "편안하고 또렷하게"
+      }
+    },
+    {
+      "id": "exercise.D1_Q1.option.D",
+      "locale": "ko",
+      "text": "좋지 않음",
+      "path": "assets/audio/narration/ko/56d27e03a91e9921dde06ffc.ogg",
+      "audioPath": "assets/audio/narration/ko/56d27e03a91e9921dde06ffc.ogg",
+      "sha256": "56d27e03a91e9921dde06ffc3cb73d3680236eef5a56f6c5125f231184de8d70",
+      "durationMs": 1130,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "left",
+        "sourcePath": "tools/fish-day1-browser/calm-mood-candidates/audio/D_not_good_relaxed_clear_left.mp3",
+        "sourceSha256": "3c4724141be63c177962245662ae87954075603b14c181639cf2387953e82557",
+        "candidateId": "D_not_good_relaxed_clear_left",
+        "tagId": "relaxed_clear",
+        "tagText": "편안하고 또렷하게"
+      }
+    },
+    {
+      "id": "exercise.D1_Q1.prompt",
+      "locale": "ko",
+      "text": "영자 어르신, 오늘 기분은 어떠세요?",
+      "path": "assets/audio/narration/ko/c3a92ee06b9c02b86425c0f5.ogg",
+      "audioPath": "assets/audio/narration/ko/c3a92ee06b9c02b86425c0f5.ogg",
+      "sha256": "c3a92ee06b9c02b86425c0f50b79e28cb1fd28e074fef9d7b8063302981c781e",
+      "durationMs": 2984,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "right",
+        "sourcePath": "tools/fish-day1-browser/audio/02_exercise_d1_q1_prompt_right.mp3",
+        "sourceSha256": "bce16e09754cdcc626e983f64e5649362b32487e39d20d5e82290e89acb33c8f"
+      }
+    },
+    {
+      "id": "exercise.D1_Q2.option.A",
+      "locale": "ko",
+      "text": "월요일",
+      "path": "assets/audio/narration/ko/4c3f8cb4bba819c9df26e464.ogg",
+      "audioPath": "assets/audio/narration/ko/4c3f8cb4bba819c9df26e464.ogg",
+      "sha256": "4c3f8cb4bba819c9df26e464bca6eee5a9e5e94f89e49c492a9b85e00ac82813",
+      "durationMs": 895,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "right",
+        "sourcePath": "tools/fish-day1-browser/audio/08_exercise_d1_q2_option_a_right.mp3",
+        "sourceSha256": "df4db3a42082ecbc6d1397ed5caad273163e3e180f23a72458b06ff90c36c5d0"
+      }
+    },
+    {
+      "id": "exercise.D1_Q2.option.B",
+      "locale": "ko",
+      "text": "화요일",
+      "path": "assets/audio/narration/ko/9b966edaa5fc0606f8af492c.ogg",
+      "audioPath": "assets/audio/narration/ko/9b966edaa5fc0606f8af492c.ogg",
+      "sha256": "9b966edaa5fc0606f8af492c74fe05721c40b6e6988890f40cc9b553f3b6820b",
+      "durationMs": 869,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "right",
+        "sourcePath": "tools/fish-day1-browser/audio/09_exercise_d1_q2_option_b_right.mp3",
+        "sourceSha256": "26bc94da5525259cb59ea53c68027383eb5ae8a73a623cea246980d9b05f00cd"
+      }
+    },
+    {
+      "id": "exercise.D1_Q2.option.C",
+      "locale": "ko",
+      "text": "토요일",
+      "path": "assets/audio/narration/ko/8f18bcbb922ad221f185171a.ogg",
+      "audioPath": "assets/audio/narration/ko/8f18bcbb922ad221f185171a.ogg",
+      "sha256": "8f18bcbb922ad221f185171a0844fc9382d0171d62a171c200eee9eeea7f7c20",
+      "durationMs": 999,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "right",
+        "sourcePath": "tools/fish-day1-browser/audio/10_exercise_d1_q2_option_c_right.mp3",
+        "sourceSha256": "9c8eeefcd4914e84da03f96d0f66bf1f52f36edecae256d060ad3512aa9e56ea"
+      }
+    },
+    {
+      "id": "exercise.D1_Q2.option.D",
+      "locale": "ko",
+      "text": "일요일",
+      "path": "assets/audio/narration/ko/0b6537a5996d1be09579e4d4.ogg",
+      "audioPath": "assets/audio/narration/ko/0b6537a5996d1be09579e4d4.ogg",
+      "sha256": "0b6537a5996d1be09579e4d4c4cdbf9e010783a84b3f026210a5949f40ae393d",
+      "durationMs": 869,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "right",
+        "sourcePath": "tools/fish-day1-browser/audio/11_exercise_d1_q2_option_d_right.mp3",
+        "sourceSha256": "1d69154bcc69560d0c5b95bb60e87227b24bcec9e386bafa6b853ad6ae01e01d"
+      }
+    },
+    {
+      "id": "exercise.D1_Q2.prompt",
+      "locale": "ko",
+      "text": "오늘은 무슨 요일인가요?",
+      "path": "assets/audio/narration/ko/9d2e2dcae0193a4fe7497203.ogg",
+      "audioPath": "assets/audio/narration/ko/9d2e2dcae0193a4fe7497203.ogg",
+      "sha256": "9d2e2dcae0193a4fe749720307d005b358169057b174b78ff0e26d8344b6b81c",
+      "durationMs": 1887,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "right",
+        "sourcePath": "tools/fish-day1-browser/audio/07_exercise_d1_q2_prompt_right.mp3",
+        "sourceSha256": "99586e34622adb6ed4531ec52ea83da09d1115cb57b52ae9b2236c7cb40306ac"
+      }
+    },
+    {
+      "id": "exercise.D1_Q3.option.A",
+      "locale": "ko",
+      "text": "부산 영도",
+      "path": "assets/audio/narration/ko/c6ff7ee4f9e4da2a5927b5a1.ogg",
+      "audioPath": "assets/audio/narration/ko/c6ff7ee4f9e4da2a5927b5a1.ogg",
+      "sha256": "c6ff7ee4f9e4da2a5927b5a12cf19b91d7e3fc88cfbaa8382db2f7b706d85ab1",
+      "durationMs": 1234,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "right",
+        "sourcePath": "tools/fish-day1-browser/audio/13_exercise_d1_q3_option_a_right.mp3",
+        "sourceSha256": "68b1ff17f113c80f99f715de048dc6a7808d990c0de787d31e4961f8f4352c5c"
+      }
+    },
+    {
+      "id": "exercise.D1_Q3.option.B",
+      "locale": "ko",
+      "text": "대전 유성",
+      "path": "assets/audio/narration/ko/100e57ec12b74a955247a5c7.ogg",
+      "audioPath": "assets/audio/narration/ko/100e57ec12b74a955247a5c7.ogg",
+      "sha256": "100e57ec12b74a955247a5c70c107736e23483698aecc4433b2029a0d96638de",
+      "durationMs": 1417,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "right",
+        "sourcePath": "tools/fish-day1-browser/audio/14_exercise_d1_q3_option_b_right.mp3",
+        "sourceSha256": "79c4113471be22215ba03d5efbd0426de2ee60165a903cb9b892f5daf2a253fe"
+      }
+    },
+    {
+      "id": "exercise.D1_Q3.option.C",
+      "locale": "ko",
+      "text": "전주 완산",
+      "path": "assets/audio/narration/ko/8bdb721dd9b28057dac92863.ogg",
+      "audioPath": "assets/audio/narration/ko/8bdb721dd9b28057dac92863.ogg",
+      "sha256": "8bdb721dd9b28057dac928631386bc52cc2311e509ef730bc435b952c09f7e49",
+      "durationMs": 2018,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "right",
+        "sourcePath": "tools/fish-day1-browser/audio/15_exercise_d1_q3_option_c_right.mp3",
+        "sourceSha256": "e4b93a47693e7a56d448ec5ef8b411d9e98fdcc826b6765a3089cefed2dcacbb"
+      }
+    },
+    {
+      "id": "exercise.D1_Q3.option.D",
+      "locale": "ko",
+      "text": "서울 종로",
+      "path": "assets/audio/narration/ko/de7fc8badbd2298d7721cfe4.ogg",
+      "audioPath": "assets/audio/narration/ko/de7fc8badbd2298d7721cfe4.ogg",
+      "sha256": "de7fc8badbd2298d7721cfe420a7a4670993fd83dd27dec33ecbf9c117f13113",
+      "durationMs": 1365,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "right",
+        "sourcePath": "tools/fish-day1-browser/audio/16_exercise_d1_q3_option_d_right.mp3",
+        "sourceSha256": "18e7164e02548f582b291f4493c1bd05d753e18decd3a14c737cde139da4c506"
+      }
+    },
+    {
+      "id": "exercise.D1_Q3.prompt",
+      "locale": "ko",
+      "text": "영자 어르신이 태어나고 자란 고향은 어디인가요?",
+      "path": "assets/audio/narration/ko/b1129d0de16cb715e078cf04.ogg",
+      "audioPath": "assets/audio/narration/ko/b1129d0de16cb715e078cf04.ogg",
+      "sha256": "b1129d0de16cb715e078cf040ad069a7e56a5fb22859d62cf0e55f957bf229ea",
+      "durationMs": 4007,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "right",
+        "sourcePath": "tools/fish-day1-browser/audio/12_exercise_d1_q3_prompt_right.mp3",
+        "sourceSha256": "c875a75ebcf5851c332775964da17b6fcd0de9a030af56e29e822c25196ba9c8"
+      }
+    },
+    {
+      "id": "exercise.D1_Q4.option.A",
+      "locale": "ko",
+      "text": "2,000원",
+      "path": "assets/audio/narration/ko/2d646dd5e89a5aa31a7f08c3.ogg",
+      "audioPath": "assets/audio/narration/ko/2d646dd5e89a5aa31a7f08c3.ogg",
+      "sha256": "2d646dd5e89a5aa31a7f08c3b1c77bed4e78c862c5e622f4d4d227c078cf5b69",
+      "durationMs": 999,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "right",
+        "sourcePath": "tools/fish-day1-browser/audio/18_exercise_d1_q4_option_a_right.mp3",
+        "sourceSha256": "119f75600aac0b3e57e6f53157e96c4a1bcd53d88c32e89d7d07cea65acf2ea8"
+      }
+    },
+    {
+      "id": "exercise.D1_Q4.option.B",
+      "locale": "ko",
+      "text": "3,000원",
+      "path": "assets/audio/narration/ko/272920e1f756943c1fedae82.ogg",
+      "audioPath": "assets/audio/narration/ko/272920e1f756943c1fedae82.ogg",
+      "sha256": "272920e1f756943c1fedae827eef1c861cd6cfef9396c5f4339f5662b5f584e9",
+      "durationMs": 1104,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "right",
+        "sourcePath": "tools/fish-day1-browser/audio/19_exercise_d1_q4_option_b_right.mp3",
+        "sourceSha256": "79b04d04244edcd645f714888906c3c5cbb483fafdcd5fe0dafba89bbc05abe0"
+      }
+    },
+    {
+      "id": "exercise.D1_Q4.option.C",
+      "locale": "ko",
+      "text": "4,000원",
+      "path": "assets/audio/narration/ko/5697eb11b205ce49ae493b23.ogg",
+      "audioPath": "assets/audio/narration/ko/5697eb11b205ce49ae493b23.ogg",
+      "sha256": "5697eb11b205ce49ae493b23c6fcccbd9e6a3a72fce7eaccda73bac767436852",
+      "durationMs": 947,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "right",
+        "sourcePath": "tools/fish-day1-browser/audio/20_exercise_d1_q4_option_c_right.mp3",
+        "sourceSha256": "a8d7acbe4abf3e41b22ca7e164ea2fd897f0cb11a9765cec96860e91e7835554"
+      }
+    },
+    {
+      "id": "exercise.D1_Q4.option.D",
+      "locale": "ko",
+      "text": "5,000원",
+      "path": "assets/audio/narration/ko/0ca85c23a45b561d2934ef80.ogg",
+      "audioPath": "assets/audio/narration/ko/0ca85c23a45b561d2934ef80.ogg",
+      "sha256": "0ca85c23a45b561d2934ef8095f01f2cf8e0716d4e9f742e07d3a3953340d4da",
+      "durationMs": 1104,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "right",
+        "sourcePath": "tools/fish-day1-browser/audio/21_exercise_d1_q4_option_d_right.mp3",
+        "sourceSha256": "fd6b0fa701611f92a30e7e3d20991614f7f818a2a5fe6066caf1eb10c7220520"
+      }
+    },
+    {
+      "id": "exercise.D1_Q4.prompt",
+      "locale": "ko",
+      "text": "두부 2,000원과 달걀 4,000원을 사고 10,000원을 냈습니다. 거스름돈은 얼마일까요?",
+      "path": "assets/audio/narration/ko/501f59e87cd845c2c23c72d9.ogg",
+      "audioPath": "assets/audio/narration/ko/501f59e87cd845c2c23c72d9.ogg",
+      "sha256": "501f59e87cd845c2c23c72d9c25c6f5e23dc2c6d98f5d97c635725f284ef5c35",
+      "durationMs": 5507,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "right",
+        "sourcePath": "tools/fish-day1-browser/audio/17_exercise_d1_q4_prompt_right.mp3",
+        "sourceSha256": "b5dc82b11790f278143044a973564c1ba7eab406123fdad40d58af5fe8b34a83"
+      }
+    },
+    {
+      "id": "exercise.D1_Q5.prompt",
+      "locale": "ko",
+      "text": "오늘 다녀온 곳과 한 일을 천천히 말씀해 주세요.",
+      "path": "assets/audio/narration/ko/b5426227dc2ef4552c7c9115.ogg",
+      "audioPath": "assets/audio/narration/ko/b5426227dc2ef4552c7c9115.ogg",
+      "sha256": "b5426227dc2ef4552c7c911539873e96150dac46e726ab7296b50b4a9cee60d5",
+      "durationMs": 3607,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "right",
+        "sourcePath": "tools/fish-day1-browser/audio/22_exercise_d1_q5_prompt_right.mp3",
+        "sourceSha256": "990f9cf4445902a0f6df2d571bd8c845be7f4c990c6e756150143a26e6d3230d"
+      }
+    },
+    {
+      "id": "exercise.D1_Q6.option.A",
+      "locale": "ko",
+      "text": "사과",
+      "path": "assets/audio/narration/ko/cad1f41d1f3211aa83e6e932.ogg",
+      "audioPath": "assets/audio/narration/ko/cad1f41d1f3211aa83e6e932.ogg",
+      "sha256": "cad1f41d1f3211aa83e6e932bd3c430e69eb2407d1cacd3f0fe7806e2a4dec53",
+      "durationMs": 764,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "right",
+        "sourcePath": "tools/fish-day1-browser/audio/25_exercise_d1_q6_option_a_right.mp3",
+        "sourceSha256": "14257235bd20ac99235a1005b96955bcdaef97552044bfda9f863731fcb5a174"
+      }
+    },
+    {
+      "id": "exercise.D1_Q6.option.B",
+      "locale": "ko",
+      "text": "우산",
+      "path": "assets/audio/narration/ko/a68f213ce24dc978114679f1.ogg",
+      "audioPath": "assets/audio/narration/ko/a68f213ce24dc978114679f1.ogg",
+      "sha256": "a68f213ce24dc978114679f1aebdb3ae4f4e13c0e76b9aeb9451a6ebc9568c7c",
+      "durationMs": 869,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "right",
+        "sourcePath": "tools/fish-day1-browser/audio/26_exercise_d1_q6_option_b_right.mp3",
+        "sourceSha256": "996dc160f0038c4ffa9043eef8e0a319357c3f7b94b87b1745b7ce38058e3b36"
+      }
+    },
+    {
+      "id": "exercise.D1_Q6.option.C",
+      "locale": "ko",
+      "text": "버스",
+      "path": "assets/audio/narration/ko/ef23b646f7faf65d5b54836f.ogg",
+      "audioPath": "assets/audio/narration/ko/ef23b646f7faf65d5b54836f.ogg",
+      "sha256": "ef23b646f7faf65d5b54836fadc0b16d0e1d155cc166d53ed8d5d8f5f433ca4b",
+      "durationMs": 895,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "right",
+        "sourcePath": "tools/fish-day1-browser/audio/27_exercise_d1_q6_option_c_right.mp3",
+        "sourceSha256": "2c528912c10b95c562bbdcb8d4d8c585863ce316aa60250d8380900b0b2a3ec5"
+      }
+    },
+    {
+      "id": "exercise.D1_Q6.option.D",
+      "locale": "ko",
+      "text": "모자",
+      "path": "assets/audio/narration/ko/55658158e731f7d03a3ac541.ogg",
+      "audioPath": "assets/audio/narration/ko/55658158e731f7d03a3ac541.ogg",
+      "sha256": "55658158e731f7d03a3ac541f8f3e538c54cce6e2f85acca907b03b02039ebb0",
+      "durationMs": 895,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "right",
+        "sourcePath": "tools/fish-day1-browser/audio/28_exercise_d1_q6_option_d_right.mp3",
+        "sourceSha256": "847bd52bb8aacb009a9ce380239a25b946208154b52242d9bae5e650cfece7c8"
+      }
+    },
+    {
+      "id": "exercise.D1_Q6.prompt",
+      "locale": "ko",
+      "text": "처음 들은 순서대로 버튼을 눌러 주세요.",
+      "path": "assets/audio/narration/ko/7910a9572572d8d30eaada60.ogg",
+      "audioPath": "assets/audio/narration/ko/7910a9572572d8d30eaada60.ogg",
+      "sha256": "4ac647bcf1ab0f34b4aff93a1554442ca727d2ed0f0170327543d121350d1614",
+      "durationMs": 2886
+    },
+    {
+      "id": "exercise.D1_Q6.sequence",
+      "locale": "ko",
+      "text": "사과, 우산, 버스",
+      "path": "assets/audio/narration/ko/4052e093205ccbd4b65ad455.ogg",
+      "audioPath": "assets/audio/narration/ko/4052e093205ccbd4b65ad455.ogg",
+      "sha256": "4052e093205ccbd4b65ad4558bd705c454401d0f48ebb772b6d115909b52e761",
+      "durationMs": 2201,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "right",
+        "sourcePath": "tools/fish-day1-browser/audio/24_exercise_d1_q6_sequence_right.mp3",
+        "sourceSha256": "9d6a949fd897f2699c5ffc83b3ee0cf98df055b6de5d6a51c3458a79969818f1"
+      }
+    },
+    {
+      "id": "exercise.D2_Q1.option.A",
+      "locale": "ko",
+      "text": "매우 좋음",
+      "path": "assets/audio/narration/ko/a1a23e6be7e27ec74eeabe22.ogg",
+      "audioPath": "assets/audio/narration/ko/a1a23e6be7e27ec74eeabe22.ogg",
+      "sha256": "abe8a2d1bdae3ef5804bcab5df6d32b23e6f2c3f630e1ba18c77d33f5e66b20a",
+      "durationMs": 966
+    },
+    {
+      "id": "exercise.D2_Q1.option.B",
+      "locale": "ko",
+      "text": "좋음",
+      "path": "assets/audio/narration/ko/d222f989a905dac8482cb192.ogg",
+      "audioPath": "assets/audio/narration/ko/d222f989a905dac8482cb192.ogg",
+      "sha256": "4f415cc057d24687784146f755c61bfe641c32af5d5f2986fdcf2e614fe1c92f",
+      "durationMs": 806
+    },
+    {
+      "id": "exercise.D2_Q1.option.C",
+      "locale": "ko",
+      "text": "그저 그럼",
+      "path": "assets/audio/narration/ko/22abb8a9a71330c84aa3846d.ogg",
+      "audioPath": "assets/audio/narration/ko/22abb8a9a71330c84aa3846d.ogg",
+      "sha256": "82785d9648daf4dd5c830fdbfef043fe631625084eeab61354022f4ff52a4717",
+      "durationMs": 1126
+    },
+    {
+      "id": "exercise.D2_Q1.option.D",
+      "locale": "ko",
+      "text": "좋지 않음",
+      "path": "assets/audio/narration/ko/311d508755af5df0dc1570de.ogg",
+      "audioPath": "assets/audio/narration/ko/311d508755af5df0dc1570de.ogg",
+      "sha256": "b2ee55daa8303e6ed9b9311936a88f0b52edaa9e9f054803e611985326b39c59",
+      "durationMs": 2966
+    },
+    {
+      "id": "exercise.D2_Q1.prompt",
+      "locale": "ko",
+      "text": "어제는 기분이 좋다고 하셨어요. 오늘 기분은 어떠세요?",
+      "path": "assets/audio/narration/ko/f4c2a83c532cc6bc090e6871.ogg",
+      "audioPath": "assets/audio/narration/ko/f4c2a83c532cc6bc090e6871.ogg",
+      "sha256": "df82b35a51741d459dc7e8353d6d34530bef76195805a178c5df68ba6754cc8a",
+      "durationMs": 4606
+    },
+    {
+      "id": "exercise.D2_Q2.option.A",
+      "locale": "ko",
+      "text": "월요일",
+      "path": "assets/audio/narration/ko/5f6ddab1c4dd9a8e350375b5.ogg",
+      "audioPath": "assets/audio/narration/ko/5f6ddab1c4dd9a8e350375b5.ogg",
+      "sha256": "537c55fa7d7924ba9e19faf38b6f538286dd009f160c1e0781d1d85cff6b7184",
+      "durationMs": 726
+    },
+    {
+      "id": "exercise.D2_Q2.option.B",
+      "locale": "ko",
+      "text": "수요일",
+      "path": "assets/audio/narration/ko/a58be33b2549e45b37efc338.ogg",
+      "audioPath": "assets/audio/narration/ko/a58be33b2549e45b37efc338.ogg",
+      "sha256": "6429f859cab5515c1998731f64ba80a2443c3b3909e5377ca96f4136560b8985",
+      "durationMs": 886
+    },
+    {
+      "id": "exercise.D2_Q2.option.C",
+      "locale": "ko",
+      "text": "금요일",
+      "path": "assets/audio/narration/ko/5be7c42d063edfdb6ac00f71.ogg",
+      "audioPath": "assets/audio/narration/ko/5be7c42d063edfdb6ac00f71.ogg",
+      "sha256": "e8740f70b11b1679f8f099591f96396cea78f05d5d7d8b5df87eaf50da9a102b",
+      "durationMs": 726
+    },
+    {
+      "id": "exercise.D2_Q2.option.D",
+      "locale": "ko",
+      "text": "일요일",
+      "path": "assets/audio/narration/ko/0ddf4869072a48a1294700bb.ogg",
+      "audioPath": "assets/audio/narration/ko/0ddf4869072a48a1294700bb.ogg",
+      "sha256": "7126b892dcfa89febfa94dfdb9191659bbd559eee6e43acb1c3dacf565e30706",
+      "durationMs": 886
+    },
+    {
+      "id": "exercise.D2_Q2.prompt",
+      "locale": "ko",
+      "text": "내일은 무슨 요일인가요?",
+      "path": "assets/audio/narration/ko/16bff9bd1ccab5d9bdae50d6.ogg",
+      "audioPath": "assets/audio/narration/ko/16bff9bd1ccab5d9bdae50d6.ogg",
+      "sha256": "5cb7c61eb934ad355ae5248893db7cb41b4e7d0c7c8934f916b655c53943c630",
+      "durationMs": 1766
+    },
+    {
+      "id": "exercise.D2_Q3.option.A",
+      "locale": "ko",
+      "text": "애호박",
+      "path": "assets/audio/narration/ko/821ea7faabf90a520d366649.ogg",
+      "audioPath": "assets/audio/narration/ko/821ea7faabf90a520d366649.ogg",
+      "sha256": "7e0750b1d6d0dab7be02d8019aa295c7ab09edc198eac946f363cc026118fd92",
+      "durationMs": 1366
+    },
+    {
+      "id": "exercise.D2_Q3.option.B",
+      "locale": "ko",
+      "text": "감자",
+      "path": "assets/audio/narration/ko/af5dd41611a20772bac9b962.ogg",
+      "audioPath": "assets/audio/narration/ko/af5dd41611a20772bac9b962.ogg",
+      "sha256": "1bb546fc6de1badd162a11d7ff08a0dfca72a8457c6466a630c63f2bda5d7dd3",
+      "durationMs": 966
+    },
+    {
+      "id": "exercise.D2_Q3.option.C",
+      "locale": "ko",
+      "text": "양파",
+      "path": "assets/audio/narration/ko/ecba57659aa6bd58861fbdff.ogg",
+      "audioPath": "assets/audio/narration/ko/ecba57659aa6bd58861fbdff.ogg",
+      "sha256": "7d9a9ca6f5f26e4a08edcb0756a326f2e2aa5e036dc39c9e748c34b42faceb65",
+      "durationMs": 966
+    },
+    {
+      "id": "exercise.D2_Q3.option.D",
+      "locale": "ko",
+      "text": "무",
+      "path": "assets/audio/narration/ko/1c35a8a7d6dde9b567743c64.ogg",
+      "audioPath": "assets/audio/narration/ko/1c35a8a7d6dde9b567743c64.ogg",
+      "sha256": "0e7d90e1c529aff65ff887600ce9acedd57074f235aae88ee99580941339c4c8",
+      "durationMs": 1286
+    },
+    {
+      "id": "exercise.D2_Q3.prompt",
+      "locale": "ko",
+      "text": "다음 중 어제 유성시장에서 샀다고 말씀하신 채소 하나는 무엇인가요?",
+      "path": "assets/audio/narration/ko/dc5ef417d1b5f4057cf35ae6.ogg",
+      "audioPath": "assets/audio/narration/ko/dc5ef417d1b5f4057cf35ae6.ogg",
+      "sha256": "56d3631378af7ed0858498adfdc32893ab136b2666de062b31ef45be4e6744c7",
+      "durationMs": 6006
+    },
+    {
+      "id": "exercise.D2_Q4.option.A",
+      "locale": "ko",
+      "text": "오는 말이 곱다",
+      "path": "assets/audio/narration/ko/cebec537e79dc5b987605598.ogg",
+      "audioPath": "assets/audio/narration/ko/cebec537e79dc5b987605598.ogg",
+      "sha256": "d36b931195f6a112b846bcaf514877d647852b17b15a50903d0117f008e4051c",
+      "durationMs": 1526
+    },
+    {
+      "id": "exercise.D2_Q4.option.B",
+      "locale": "ko",
+      "text": "발이 편하다",
+      "path": "assets/audio/narration/ko/9ea7480f3166432b75225b8d.ogg",
+      "audioPath": "assets/audio/narration/ko/9ea7480f3166432b75225b8d.ogg",
+      "sha256": "f6a73f0c82e495f33c53db6ea67f2249f64b685bd92fd899f6d117079da4c26c",
+      "durationMs": 3306
+    },
+    {
+      "id": "exercise.D2_Q4.option.C",
+      "locale": "ko",
+      "text": "밥이 맛있다",
+      "path": "assets/audio/narration/ko/e56ba98fbe8bb42e1e6a634b.ogg",
+      "audioPath": "assets/audio/narration/ko/e56ba98fbe8bb42e1e6a634b.ogg",
+      "sha256": "1ab2da0c32887f986f17eb5eed386ebc056bc652008cebe576a25bbb5c008069",
+      "durationMs": 1206
+    },
+    {
+      "id": "exercise.D2_Q4.option.D",
+      "locale": "ko",
+      "text": "길이 보인다",
+      "path": "assets/audio/narration/ko/bfa7141fd755a009e1c822b8.ogg",
+      "audioPath": "assets/audio/narration/ko/bfa7141fd755a009e1c822b8.ogg",
+      "sha256": "de62f7442f978eedf6b093c5084b25f940a82c7f8a18eab05c5427de64ea2c14",
+      "durationMs": 1126
+    },
+    {
+      "id": "exercise.D2_Q4.prompt",
+      "locale": "ko",
+      "text": "속담 '가는 말이 고와야' 뒤에 이어지는 말은 무엇인가요?",
+      "path": "assets/audio/narration/ko/dd4dd8801403ae429910b562.ogg",
+      "audioPath": "assets/audio/narration/ko/dd4dd8801403ae429910b562.ogg",
+      "sha256": "9d0fa1f0dfd9d937e7b36504dd7aa4ae9f87157e21608d8bb3261076a5e4850d",
+      "durationMs": 3806
+    },
+    {
+      "id": "exercise.D2_Q5.option.A",
+      "locale": "ko",
+      "text": "왼쪽 위",
+      "path": "assets/audio/narration/ko/09e661e60f5f5cec3f3ac255.ogg",
+      "audioPath": "assets/audio/narration/ko/09e661e60f5f5cec3f3ac255.ogg",
+      "sha256": "0949c5e0a59414df3aa7661cb67d991a1363a170fb8ffc67a2b7cc1aa96f0584",
+      "durationMs": 1126
+    },
+    {
+      "id": "exercise.D2_Q5.option.B",
+      "locale": "ko",
+      "text": "오른쪽 위",
+      "path": "assets/audio/narration/ko/a80312a94197cdb5b21479b4.ogg",
+      "audioPath": "assets/audio/narration/ko/a80312a94197cdb5b21479b4.ogg",
+      "sha256": "db8e8b03f39e1126a5a5b831da3dfe990bca270e274f89043133ecdeb564d0d6",
+      "durationMs": 1046
+    },
+    {
+      "id": "exercise.D2_Q5.option.C",
+      "locale": "ko",
+      "text": "왼쪽 아래",
+      "path": "assets/audio/narration/ko/c0cabd10557a3c1f18ad8d66.ogg",
+      "audioPath": "assets/audio/narration/ko/c0cabd10557a3c1f18ad8d66.ogg",
+      "sha256": "11d3dce11209cfa4dcd5481d9e438b521894464ea935dbdebf588a6e34cdb04b",
+      "durationMs": 1046
+    },
+    {
+      "id": "exercise.D2_Q5.option.D",
+      "locale": "ko",
+      "text": "오른쪽 아래",
+      "path": "assets/audio/narration/ko/8b8d31a08a6452a0b6a8a800.ogg",
+      "audioPath": "assets/audio/narration/ko/8b8d31a08a6452a0b6a8a800.ogg",
+      "sha256": "d0bfb28cd337dbdca409edd54f567e862a05761fd3a4fc0afdf5eecc48ea7720",
+      "durationMs": 1126
+    },
+    {
+      "id": "exercise.D2_Q5.prompt",
+      "locale": "ko",
+      "text": "점이 왼쪽 위, 오른쪽 위, 오른쪽 아래 순서로 움직였습니다. 같은 방향으로 계속 움직이면 다음 위치는 어디일까요?",
+      "path": "assets/audio/narration/ko/29e985a9953d72743afca584.ogg",
+      "audioPath": "assets/audio/narration/ko/29e985a9953d72743afca584.ogg",
+      "sha256": "1d4882be163ac46715624060defda5d0ac4905f3bb911b22892ef88acd332038",
+      "durationMs": 10706
+    },
+    {
+      "id": "exercise.D2_Q6.prompt",
+      "locale": "ko",
+      "text": "오늘 누구를 만나 무엇을 했고, 무엇을 드셨는지 말씀해 주세요.",
+      "path": "assets/audio/narration/ko/69e1359c9c15cc5db97067bf.ogg",
+      "audioPath": "assets/audio/narration/ko/69e1359c9c15cc5db97067bf.ogg",
+      "sha256": "961fa7b3a3fb8e99d98e0182d3d50e6e587a840dbf40d5b2ff72f037ca1aa968",
+      "durationMs": 5706
+    },
+    {
+      "id": "exercise.D3_Q1.option.A",
+      "locale": "ko",
+      "text": "매우 좋음",
+      "path": "assets/audio/narration/ko/a1a23e6be7e27ec74eeabe22.ogg",
+      "audioPath": "assets/audio/narration/ko/a1a23e6be7e27ec74eeabe22.ogg",
+      "sha256": "abe8a2d1bdae3ef5804bcab5df6d32b23e6f2c3f630e1ba18c77d33f5e66b20a",
+      "durationMs": 966
+    },
+    {
+      "id": "exercise.D3_Q1.option.B",
+      "locale": "ko",
+      "text": "좋음",
+      "path": "assets/audio/narration/ko/d222f989a905dac8482cb192.ogg",
+      "audioPath": "assets/audio/narration/ko/d222f989a905dac8482cb192.ogg",
+      "sha256": "4f415cc057d24687784146f755c61bfe641c32af5d5f2986fdcf2e614fe1c92f",
+      "durationMs": 806
+    },
+    {
+      "id": "exercise.D3_Q1.option.C",
+      "locale": "ko",
+      "text": "그저 그럼",
+      "path": "assets/audio/narration/ko/22abb8a9a71330c84aa3846d.ogg",
+      "audioPath": "assets/audio/narration/ko/22abb8a9a71330c84aa3846d.ogg",
+      "sha256": "82785d9648daf4dd5c830fdbfef043fe631625084eeab61354022f4ff52a4717",
+      "durationMs": 1126
+    },
+    {
+      "id": "exercise.D3_Q1.option.D",
+      "locale": "ko",
+      "text": "좋지 않음",
+      "path": "assets/audio/narration/ko/311d508755af5df0dc1570de.ogg",
+      "audioPath": "assets/audio/narration/ko/311d508755af5df0dc1570de.ogg",
+      "sha256": "b2ee55daa8303e6ed9b9311936a88f0b52edaa9e9f054803e611985326b39c59",
+      "durationMs": 2966
+    },
+    {
+      "id": "exercise.D3_Q1.prompt",
+      "locale": "ko",
+      "text": "어제는 기분이 매우 좋다고 하셨어요. 오늘 기분은 어떠세요?",
+      "path": "assets/audio/narration/ko/bd8c2958b37190600fb5260b.ogg",
+      "audioPath": "assets/audio/narration/ko/bd8c2958b37190600fb5260b.ogg",
+      "sha256": "79f362d5ea66b1d232dbca2eeeac0837601bf523410f80743b44b40b307e82ee",
+      "durationMs": 5506
+    },
+    {
+      "id": "exercise.D3_Q2.option.A",
+      "locale": "ko",
+      "text": "월요일",
+      "path": "assets/audio/narration/ko/5f6ddab1c4dd9a8e350375b5.ogg",
+      "audioPath": "assets/audio/narration/ko/5f6ddab1c4dd9a8e350375b5.ogg",
+      "sha256": "537c55fa7d7924ba9e19faf38b6f538286dd009f160c1e0781d1d85cff6b7184",
+      "durationMs": 726
+    },
+    {
+      "id": "exercise.D3_Q2.option.B",
+      "locale": "ko",
+      "text": "화요일",
+      "path": "assets/audio/narration/ko/62ca16a9808b4f3613ffba20.ogg",
+      "audioPath": "assets/audio/narration/ko/62ca16a9808b4f3613ffba20.ogg",
+      "sha256": "dd015c41e792e1c2b391818a9c9656a256c5790d1eb293bf879d10c6c6cd37be",
+      "durationMs": 806
+    },
+    {
+      "id": "exercise.D3_Q2.option.C",
+      "locale": "ko",
+      "text": "수요일",
+      "path": "assets/audio/narration/ko/a58be33b2549e45b37efc338.ogg",
+      "audioPath": "assets/audio/narration/ko/a58be33b2549e45b37efc338.ogg",
+      "sha256": "6429f859cab5515c1998731f64ba80a2443c3b3909e5377ca96f4136560b8985",
+      "durationMs": 886
+    },
+    {
+      "id": "exercise.D3_Q2.option.D",
+      "locale": "ko",
+      "text": "목요일",
+      "path": "assets/audio/narration/ko/b9ae4f9462fc8ef3c7439462.ogg",
+      "audioPath": "assets/audio/narration/ko/b9ae4f9462fc8ef3c7439462.ogg",
+      "sha256": "01c7f26eefc407606f8040e22405ceb8d933ac66a555db89de89ef1c12199f9d",
+      "durationMs": 726
+    },
+    {
+      "id": "exercise.D3_Q2.prompt",
+      "locale": "ko",
+      "text": "어제는 무슨 요일이었나요?",
+      "path": "assets/audio/narration/ko/3a2b37273d4247bddce0f4ee.ogg",
+      "audioPath": "assets/audio/narration/ko/3a2b37273d4247bddce0f4ee.ogg",
+      "sha256": "3fc29a1a627568f42fa7693c35b900b16d0a50295d1a18c9758942e142df1f6a",
+      "durationMs": 2806
+    },
+    {
+      "id": "exercise.D3_Q3.option.A",
+      "locale": "ko",
+      "text": "이순자",
+      "path": "assets/audio/narration/ko/d9c7e4b0a83b08fbc9129691.ogg",
+      "audioPath": "assets/audio/narration/ko/d9c7e4b0a83b08fbc9129691.ogg",
+      "sha256": "7161eeb1238451ddd83c67ee45677de9d737c6039edd7d4d34821cc55df1c569",
+      "durationMs": 806
+    },
+    {
+      "id": "exercise.D3_Q3.option.B",
+      "locale": "ko",
+      "text": "김민지",
+      "path": "assets/audio/narration/ko/4b25259b7300786b951ae928.ogg",
+      "audioPath": "assets/audio/narration/ko/4b25259b7300786b951ae928.ogg",
+      "sha256": "a6ad603d83bb4250ee40cd77ad8abcb28f3d369c7d5a636e52c5cb61babb19ed",
+      "durationMs": 1366
+    },
+    {
+      "id": "exercise.D3_Q3.option.C",
+      "locale": "ko",
+      "text": "김준호",
+      "path": "assets/audio/narration/ko/9c5c67b1650d02938c14a390.ogg",
+      "audioPath": "assets/audio/narration/ko/9c5c67b1650d02938c14a390.ogg",
+      "sha256": "9baa302150dda9f9c287b7ed2f9f904d094aefedff3e5aec961078132d5b97bd",
+      "durationMs": 1366
+    },
+    {
+      "id": "exercise.D3_Q3.option.D",
+      "locale": "ko",
+      "text": "최정희",
+      "path": "assets/audio/narration/ko/d71d7076bf16ca2f06fd8f7d.ogg",
+      "audioPath": "assets/audio/narration/ko/d71d7076bf16ca2f06fd8f7d.ogg",
+      "sha256": "5fb7ec8c871dbf1d0ae4ac871fef13f4ef6d679c7b35f6a3f8ae1d9272c9a9ae",
+      "durationMs": 806
+    },
+    {
+      "id": "exercise.D3_Q3.prompt",
+      "locale": "ko",
+      "text": "어제 복지관에서 함께 윷놀이한 사람은 누구인가요?",
+      "path": "assets/audio/narration/ko/5af7bc7cf2f63a12b3b0bf9b.ogg",
+      "audioPath": "assets/audio/narration/ko/5af7bc7cf2f63a12b3b0bf9b.ogg",
+      "sha256": "eda345aa50f6bed1a28cae957224b191dcb79048fed0f0e424fd8d6dc9ad6dc6",
+      "durationMs": 3806
+    },
+    {
+      "id": "exercise.D3_Q4.option.A",
+      "locale": "ko",
+      "text": "오전 8시 15분",
+      "path": "assets/audio/narration/ko/640f669aa42bae771d806080.ogg",
+      "audioPath": "assets/audio/narration/ko/640f669aa42bae771d806080.ogg",
+      "sha256": "c2303d03053153b4e51f45727cc6bda5615fbe21ef196e8e6b7b77bed227931b",
+      "durationMs": 1846
+    },
+    {
+      "id": "exercise.D3_Q4.option.B",
+      "locale": "ko",
+      "text": "오전 8시 30분",
+      "path": "assets/audio/narration/ko/839cd0be7459e82606b2fee8.ogg",
+      "audioPath": "assets/audio/narration/ko/839cd0be7459e82606b2fee8.ogg",
+      "sha256": "ca92c9b89f068bba28209955ec4acdece39c981213777a94b7674486a4af9dd0",
+      "durationMs": 2006
+    },
+    {
+      "id": "exercise.D3_Q4.option.C",
+      "locale": "ko",
+      "text": "오전 9시",
+      "path": "assets/audio/narration/ko/96b9a969ea398fcd696202d4.ogg",
+      "audioPath": "assets/audio/narration/ko/96b9a969ea398fcd696202d4.ogg",
+      "sha256": "a68ef701f3e22a557ea6f86edda279d2181aeabccf0f149ce2b68e844c988f43",
+      "durationMs": 3106
+    },
+    {
+      "id": "exercise.D3_Q4.option.D",
+      "locale": "ko",
+      "text": "오전 9시 30분",
+      "path": "assets/audio/narration/ko/44aae4f11ce05a46dd4b92f1.ogg",
+      "audioPath": "assets/audio/narration/ko/44aae4f11ce05a46dd4b92f1.ogg",
+      "sha256": "4f71e87b50ed3be744bbbe11ade7bc60c1089ad1bff1978188779bcce9ce38d3",
+      "durationMs": 1446
+    },
+    {
+      "id": "exercise.D3_Q4.prompt",
+      "locale": "ko",
+      "text": "혈압약을 오전 8시에 먹고 30분 뒤에 아침을 먹습니다. 아침은 몇 시에 먹을까요?",
+      "path": "assets/audio/narration/ko/d3ebc01cbedf21304a99b556.ogg",
+      "audioPath": "assets/audio/narration/ko/d3ebc01cbedf21304a99b556.ogg",
+      "sha256": "7fbdc8fe6ea900ed95d6118c80539355a1cfdbba21c5b8076fb52c90b7c75a7e",
+      "durationMs": 10006
+    },
+    {
+      "id": "exercise.D3_Q5.option.A",
+      "locale": "ko",
+      "text": "초등학교 급식 조리사",
+      "path": "assets/audio/narration/ko/3738668b390ecc196e6957ec.ogg",
+      "audioPath": "assets/audio/narration/ko/3738668b390ecc196e6957ec.ogg",
+      "sha256": "f234d6a23a07cfc6cd08c42947cf018217da9f3394504b9a36b3e85dc61f8f9f",
+      "durationMs": 2086
+    },
+    {
+      "id": "exercise.D3_Q5.option.B",
+      "locale": "ko",
+      "text": "버스 기사",
+      "path": "assets/audio/narration/ko/12483520660157025bf77fb4.ogg",
+      "audioPath": "assets/audio/narration/ko/12483520660157025bf77fb4.ogg",
+      "sha256": "47bf8f3d9d0ce3a85c2850fcc97004e5a5bee05577e26a99cd42f06ec9ca5d13",
+      "durationMs": 806
+    },
+    {
+      "id": "exercise.D3_Q5.option.C",
+      "locale": "ko",
+      "text": "은행원",
+      "path": "assets/audio/narration/ko/7cdcbd3a5d178fedbe0f6ddf.ogg",
+      "audioPath": "assets/audio/narration/ko/7cdcbd3a5d178fedbe0f6ddf.ogg",
+      "sha256": "608a35d69a4d7808f8bc744da4d3a992aba033bcb3a4afe11ec177818091bbb3",
+      "durationMs": 886
+    },
+    {
+      "id": "exercise.D3_Q5.option.D",
+      "locale": "ko",
+      "text": "미용사",
+      "path": "assets/audio/narration/ko/76e56a897accec3ece482800.ogg",
+      "audioPath": "assets/audio/narration/ko/76e56a897accec3ece482800.ogg",
+      "sha256": "54b87c0e96863860e6c20fb6905500013a67e51129341e1831717b8ff289b078",
+      "durationMs": 806
+    },
+    {
+      "id": "exercise.D3_Q5.prompt",
+      "locale": "ko",
+      "text": "영자 어르신이 예전에 하셨던 일은 무엇인가요?",
+      "path": "assets/audio/narration/ko/6e0391efdceca1c1d90ca443.ogg",
+      "audioPath": "assets/audio/narration/ko/6e0391efdceca1c1d90ca443.ogg",
+      "sha256": "da4e048d2701d61231546d7493dc2076a571c1bbbd6019a42686ced8ffe18344",
+      "durationMs": 3506
+    },
+    {
+      "id": "exercise.D3_Q6.prompt",
+      "locale": "ko",
+      "text": "오늘 다녀온 곳과 몸 상태를 말씀해 주세요.",
+      "path": "assets/audio/narration/ko/eb0f2f3e0775661ca607605a.ogg",
+      "audioPath": "assets/audio/narration/ko/eb0f2f3e0775661ca607605a.ogg",
+      "sha256": "8502432dfc2d94130d081da4d811f917f4fd62e3478433976ea37d25e0227b6e",
+      "durationMs": 3306
+    },
+    {
+      "id": "exercise.D4_Q1.option.A",
+      "locale": "ko",
+      "text": "매우 좋음",
+      "path": "assets/audio/narration/ko/a1a23e6be7e27ec74eeabe22.ogg",
+      "audioPath": "assets/audio/narration/ko/a1a23e6be7e27ec74eeabe22.ogg",
+      "sha256": "abe8a2d1bdae3ef5804bcab5df6d32b23e6f2c3f630e1ba18c77d33f5e66b20a",
+      "durationMs": 966
+    },
+    {
+      "id": "exercise.D4_Q1.option.B",
+      "locale": "ko",
+      "text": "좋음",
+      "path": "assets/audio/narration/ko/d222f989a905dac8482cb192.ogg",
+      "audioPath": "assets/audio/narration/ko/d222f989a905dac8482cb192.ogg",
+      "sha256": "4f415cc057d24687784146f755c61bfe641c32af5d5f2986fdcf2e614fe1c92f",
+      "durationMs": 806
+    },
+    {
+      "id": "exercise.D4_Q1.option.C",
+      "locale": "ko",
+      "text": "그저 그럼",
+      "path": "assets/audio/narration/ko/22abb8a9a71330c84aa3846d.ogg",
+      "audioPath": "assets/audio/narration/ko/22abb8a9a71330c84aa3846d.ogg",
+      "sha256": "82785d9648daf4dd5c830fdbfef043fe631625084eeab61354022f4ff52a4717",
+      "durationMs": 1126
+    },
+    {
+      "id": "exercise.D4_Q1.option.D",
+      "locale": "ko",
+      "text": "좋지 않음",
+      "path": "assets/audio/narration/ko/311d508755af5df0dc1570de.ogg",
+      "audioPath": "assets/audio/narration/ko/311d508755af5df0dc1570de.ogg",
+      "sha256": "b2ee55daa8303e6ed9b9311936a88f0b52edaa9e9f054803e611985326b39c59",
+      "durationMs": 2966
+    },
+    {
+      "id": "exercise.D4_Q1.prompt",
+      "locale": "ko",
+      "text": "어제는 조금 피곤하지만 마음은 편하다고 하셨어요. 오늘 기분은 어떠세요?",
+      "path": "assets/audio/narration/ko/54242575b325be27155c1786.ogg",
+      "audioPath": "assets/audio/narration/ko/54242575b325be27155c1786.ogg",
+      "sha256": "fb991cb570cc472ebeb8c9b372c5ff385b234820be6ef304c376e04e74f9b470",
+      "durationMs": 6606
+    },
+    {
+      "id": "exercise.D4_Q2.option.A",
+      "locale": "ko",
+      "text": "6월",
+      "path": "assets/audio/narration/ko/b2f4b0cf848e4177d4a55af1.ogg",
+      "audioPath": "assets/audio/narration/ko/b2f4b0cf848e4177d4a55af1.ogg",
+      "sha256": "90d3738addf0a6666f199811807d0d6893ef574065b704ae19f657bb0277f830",
+      "durationMs": 726
+    },
+    {
+      "id": "exercise.D4_Q2.option.B",
+      "locale": "ko",
+      "text": "7월",
+      "path": "assets/audio/narration/ko/cc9872fa586dd187a030f70d.ogg",
+      "audioPath": "assets/audio/narration/ko/cc9872fa586dd187a030f70d.ogg",
+      "sha256": "26fdf6ddc5ad859fd69aedaf171b15adb610abac2c9f9557d2a5f3f5f9ec0548",
+      "durationMs": 726
+    },
+    {
+      "id": "exercise.D4_Q2.option.C",
+      "locale": "ko",
+      "text": "8월",
+      "path": "assets/audio/narration/ko/33ff7ba46d3531c1e7832055.ogg",
+      "audioPath": "assets/audio/narration/ko/33ff7ba46d3531c1e7832055.ogg",
+      "sha256": "2c174eff1d522b592f3e984496ba40215c66576a9c306e4a862c87e808017900",
+      "durationMs": 1206
+    },
+    {
+      "id": "exercise.D4_Q2.option.D",
+      "locale": "ko",
+      "text": "9월",
+      "path": "assets/audio/narration/ko/f8eb509711f32297b3969c80.ogg",
+      "audioPath": "assets/audio/narration/ko/f8eb509711f32297b3969c80.ogg",
+      "sha256": "49aa851299e9fa7e536d2f5f7913348ca3672da56e2f988e0681a3f019873d2b",
+      "durationMs": 726
+    },
+    {
+      "id": "exercise.D4_Q2.prompt",
+      "locale": "ko",
+      "text": "지금은 몇 월인가요?",
+      "path": "assets/audio/narration/ko/6d866ee90d0c546621e6640c.ogg",
+      "audioPath": "assets/audio/narration/ko/6d866ee90d0c546621e6640c.ogg",
+      "sha256": "a39f614c3fe9d6fa8a48f6fe2d90067f97cd43bd7396e709c3349b89fe797dc2",
+      "durationMs": 3206
+    },
+    {
+      "id": "exercise.D4_Q3.option.A",
+      "locale": "ko",
+      "text": "유성구 보건소",
+      "path": "assets/audio/narration/ko/404191dfe20a399583c1c752.ogg",
+      "audioPath": "assets/audio/narration/ko/404191dfe20a399583c1c752.ogg",
+      "sha256": "662cca2f4ea9501cf9610c8a460fa0047edc27925be11bec2629dbd5271abee8",
+      "durationMs": 1526
+    },
+    {
+      "id": "exercise.D4_Q3.option.B",
+      "locale": "ko",
+      "text": "복지관",
+      "path": "assets/audio/narration/ko/c7e833e1b963f1bb22337981.ogg",
+      "audioPath": "assets/audio/narration/ko/c7e833e1b963f1bb22337981.ogg",
+      "sha256": "3a118fc993673de0109c9f6299f4bfd61398fe42c63222d453fd4b3384bb6e54",
+      "durationMs": 566
+    },
+    {
+      "id": "exercise.D4_Q3.option.C",
+      "locale": "ko",
+      "text": "유성시장",
+      "path": "assets/audio/narration/ko/f7348b9c60acad731382f83b.ogg",
+      "audioPath": "assets/audio/narration/ko/f7348b9c60acad731382f83b.ogg",
+      "sha256": "dde62afb6e90aa806aa88d0f0754a39f1b29a2ef8d99eca789fc9f5e5218f1fe",
+      "durationMs": 1206
+    },
+    {
+      "id": "exercise.D4_Q3.option.D",
+      "locale": "ko",
+      "text": "은행",
+      "path": "assets/audio/narration/ko/07d68b674a156d184d6ab065.ogg",
+      "audioPath": "assets/audio/narration/ko/07d68b674a156d184d6ab065.ogg",
+      "sha256": "bad3ad76456e15d0a210683b63570b97d0eb839903307a9c0b80cb7b2afe87da",
+      "durationMs": 646
+    },
+    {
+      "id": "exercise.D4_Q3.prompt",
+      "locale": "ko",
+      "text": "어제 혈압을 잰 곳은 어디인가요?",
+      "path": "assets/audio/narration/ko/531cd585af4361484f6a6f84.ogg",
+      "audioPath": "assets/audio/narration/ko/531cd585af4361484f6a6f84.ogg",
+      "sha256": "233672d1c150bd28e05ee06a1e80f61f7a2d753c2c7ce7f5710ca62e0c4c4f6c",
+      "durationMs": 2726
+    },
+    {
+      "id": "exercise.D4_Q4.option.A",
+      "locale": "ko",
+      "text": "오후 1시 15분",
+      "path": "assets/audio/narration/ko/d142b471ca39045e7efc526a.ogg",
+      "audioPath": "assets/audio/narration/ko/d142b471ca39045e7efc526a.ogg",
+      "sha256": "675e02dfa0c65dc8ff50318272976fe94971abebb45d4760d8641f7865ba4641",
+      "durationMs": 2006
+    },
+    {
+      "id": "exercise.D4_Q4.option.B",
+      "locale": "ko",
+      "text": "오후 1시 20분",
+      "path": "assets/audio/narration/ko/4fca4d262521135858cf67d8.ogg",
+      "audioPath": "assets/audio/narration/ko/4fca4d262521135858cf67d8.ogg",
+      "sha256": "9e2758eecf883b9b550c38020608d7947777625a3e4a8848ed154fe32da89923",
+      "durationMs": 1926
+    },
+    {
+      "id": "exercise.D4_Q4.option.C",
+      "locale": "ko",
+      "text": "오후 1시 25분",
+      "path": "assets/audio/narration/ko/922ec421e6a977c07942a8e5.ogg",
+      "audioPath": "assets/audio/narration/ko/922ec421e6a977c07942a8e5.ogg",
+      "sha256": "51ae3d0cc05c03759915b73049189961194fdb7f620453a41a0cc35bd0b29712",
+      "durationMs": 1686
+    },
+    {
+      "id": "exercise.D4_Q4.option.D",
+      "locale": "ko",
+      "text": "오후 1시 30분",
+      "path": "assets/audio/narration/ko/cd95bd8be096a70604bea510.ogg",
+      "audioPath": "assets/audio/narration/ko/cd95bd8be096a70604bea510.ogg",
+      "sha256": "f5c358579f186d59ff8f18ae59fb6437e95c7b0dcbad978cfb091205efc6969c",
+      "durationMs": 2326
+    },
+    {
+      "id": "exercise.D4_Q4.prompt",
+      "locale": "ko",
+      "text": "지하철이 15분 간격으로 옵니다. 이전 지하철이 오후 1시 10분에 출발했다면 다음 지하철은 몇 시에 올까요?",
+      "path": "assets/audio/narration/ko/3d73451b966f7a3ebf87a717.ogg",
+      "audioPath": "assets/audio/narration/ko/3d73451b966f7a3ebf87a717.ogg",
+      "sha256": "ac4683c91029c4a63aa603a1fb8863ba27c77dee2f2515c027d70b9258a9c03d",
+      "durationMs": 10406
+    },
+    {
+      "id": "exercise.D4_Q5.prompt",
+      "locale": "ko",
+      "text": "오늘 어디를 걸었고, 누구를 만났는지 말씀해 주세요.",
+      "path": "assets/audio/narration/ko/086b1dc3e54e1f9080d1b8c1.ogg",
+      "audioPath": "assets/audio/narration/ko/086b1dc3e54e1f9080d1b8c1.ogg",
+      "sha256": "e606993fdf339330f732e6a42834f73d12a010b12481f560c5ad00bf41db982d",
+      "durationMs": 4306
+    },
+    {
+      "id": "exercise.D4_Q6.option.A",
+      "locale": "ko",
+      "text": "열쇠",
+      "path": "assets/audio/narration/ko/0f7cf11bc90c978ae1185495.ogg",
+      "audioPath": "assets/audio/narration/ko/0f7cf11bc90c978ae1185495.ogg",
+      "sha256": "b91a3aac4a14f78d3cb6b481c9827409026aee754f1f1d62c4c2f9acd7a09a07",
+      "durationMs": 886
+    },
+    {
+      "id": "exercise.D4_Q6.option.B",
+      "locale": "ko",
+      "text": "포도",
+      "path": "assets/audio/narration/ko/90b968cf9b893c1ca419d8e5.ogg",
+      "audioPath": "assets/audio/narration/ko/90b968cf9b893c1ca419d8e5.ogg",
+      "sha256": "08d9931da85a517d6acb4397404c30699c1d649d089c76bec2f84dd477e88862",
+      "durationMs": 2406
+    },
+    {
+      "id": "exercise.D4_Q6.option.C",
+      "locale": "ko",
+      "text": "기차",
+      "path": "assets/audio/narration/ko/e3b9adcbbb4119990ee6c386.ogg",
+      "audioPath": "assets/audio/narration/ko/e3b9adcbbb4119990ee6c386.ogg",
+      "sha256": "0a0840831662499c04ab5f698abc584bb24950e1ea0e0102229ebb7201a3f241",
+      "durationMs": 806
+    },
+    {
+      "id": "exercise.D4_Q6.option.D",
+      "locale": "ko",
+      "text": "우산",
+      "path": "assets/audio/narration/ko/835c13019f85de927c09b3a1.ogg",
+      "audioPath": "assets/audio/narration/ko/835c13019f85de927c09b3a1.ogg",
+      "sha256": "2abda3d1c41f10c9853aa517b40a987a2d713db76fd6c99ae4feff9d76e9a88a",
+      "durationMs": 726
+    },
+    {
+      "id": "exercise.D4_Q6.prompt",
+      "locale": "ko",
+      "text": "처음 들은 순서대로 버튼을 눌러 주세요.",
+      "path": "assets/audio/narration/ko/7910a9572572d8d30eaada60.ogg",
+      "audioPath": "assets/audio/narration/ko/7910a9572572d8d30eaada60.ogg",
+      "sha256": "4ac647bcf1ab0f34b4aff93a1554442ca727d2ed0f0170327543d121350d1614",
+      "durationMs": 2886
+    },
+    {
+      "id": "exercise.D4_Q6.sequence",
+      "locale": "ko",
+      "text": "열쇠, 포도, 기차",
+      "path": "assets/audio/narration/ko/88314c6e9781fa75f023c17c.ogg",
+      "audioPath": "assets/audio/narration/ko/88314c6e9781fa75f023c17c.ogg",
+      "sha256": "2663cbc7c819dfca4d34134d5e1c4abd28a81ba157c659e334c0c74e12908b0b",
+      "durationMs": 2406
+    },
+    {
+      "id": "exercise.D5_Q1.option.A",
+      "locale": "ko",
+      "text": "매우 좋음",
+      "path": "assets/audio/narration/ko/a1a23e6be7e27ec74eeabe22.ogg",
+      "audioPath": "assets/audio/narration/ko/a1a23e6be7e27ec74eeabe22.ogg",
+      "sha256": "abe8a2d1bdae3ef5804bcab5df6d32b23e6f2c3f630e1ba18c77d33f5e66b20a",
+      "durationMs": 966
+    },
+    {
+      "id": "exercise.D5_Q1.option.B",
+      "locale": "ko",
+      "text": "좋음",
+      "path": "assets/audio/narration/ko/d222f989a905dac8482cb192.ogg",
+      "audioPath": "assets/audio/narration/ko/d222f989a905dac8482cb192.ogg",
+      "sha256": "4f415cc057d24687784146f755c61bfe641c32af5d5f2986fdcf2e614fe1c92f",
+      "durationMs": 806
+    },
+    {
+      "id": "exercise.D5_Q1.option.C",
+      "locale": "ko",
+      "text": "그저 그럼",
+      "path": "assets/audio/narration/ko/22abb8a9a71330c84aa3846d.ogg",
+      "audioPath": "assets/audio/narration/ko/22abb8a9a71330c84aa3846d.ogg",
+      "sha256": "82785d9648daf4dd5c830fdbfef043fe631625084eeab61354022f4ff52a4717",
+      "durationMs": 1126
+    },
+    {
+      "id": "exercise.D5_Q1.option.D",
+      "locale": "ko",
+      "text": "좋지 않음",
+      "path": "assets/audio/narration/ko/311d508755af5df0dc1570de.ogg",
+      "audioPath": "assets/audio/narration/ko/311d508755af5df0dc1570de.ogg",
+      "sha256": "b2ee55daa8303e6ed9b9311936a88f0b52edaa9e9f054803e611985326b39c59",
+      "durationMs": 2966
+    },
+    {
+      "id": "exercise.D5_Q1.prompt",
+      "locale": "ko",
+      "text": "어제 산책 뒤 몸이 가벼워졌다고 하셨어요. 오늘 기분은 어떠세요?",
+      "path": "assets/audio/narration/ko/a3e644574647500d219ec8d5.ogg",
+      "audioPath": "assets/audio/narration/ko/a3e644574647500d219ec8d5.ogg",
+      "sha256": "47559ee69538464e23e7f537eac4558f67b57438751eac70c6cf6960e211fc71",
+      "durationMs": 5306
+    },
+    {
+      "id": "exercise.D5_Q2.option.A",
+      "locale": "ko",
+      "text": "금요일",
+      "path": "assets/audio/narration/ko/5be7c42d063edfdb6ac00f71.ogg",
+      "audioPath": "assets/audio/narration/ko/5be7c42d063edfdb6ac00f71.ogg",
+      "sha256": "e8740f70b11b1679f8f099591f96396cea78f05d5d7d8b5df87eaf50da9a102b",
+      "durationMs": 726
+    },
+    {
+      "id": "exercise.D5_Q2.option.B",
+      "locale": "ko",
+      "text": "토요일",
+      "path": "assets/audio/narration/ko/ca1d1fe5a20127f8fb174977.ogg",
+      "audioPath": "assets/audio/narration/ko/ca1d1fe5a20127f8fb174977.ogg",
+      "sha256": "6295a48e1da3ddc5621eb1f58944f840f2048dca29b0c6389cb174a10610d7b8",
+      "durationMs": 726
+    },
+    {
+      "id": "exercise.D5_Q2.option.C",
+      "locale": "ko",
+      "text": "일요일",
+      "path": "assets/audio/narration/ko/0ddf4869072a48a1294700bb.ogg",
+      "audioPath": "assets/audio/narration/ko/0ddf4869072a48a1294700bb.ogg",
+      "sha256": "7126b892dcfa89febfa94dfdb9191659bbd559eee6e43acb1c3dacf565e30706",
+      "durationMs": 886
+    },
+    {
+      "id": "exercise.D5_Q2.option.D",
+      "locale": "ko",
+      "text": "월요일",
+      "path": "assets/audio/narration/ko/5f6ddab1c4dd9a8e350375b5.ogg",
+      "audioPath": "assets/audio/narration/ko/5f6ddab1c4dd9a8e350375b5.ogg",
+      "sha256": "537c55fa7d7924ba9e19faf38b6f538286dd009f160c1e0781d1d85cff6b7184",
+      "durationMs": 726
+    },
+    {
+      "id": "exercise.D5_Q2.prompt",
+      "locale": "ko",
+      "text": "내일은 무슨 요일인가요?",
+      "path": "assets/audio/narration/ko/16bff9bd1ccab5d9bdae50d6.ogg",
+      "audioPath": "assets/audio/narration/ko/16bff9bd1ccab5d9bdae50d6.ogg",
+      "sha256": "5cb7c61eb934ad355ae5248893db7cb41b4e7d0c7c8934f916b655c53943c630",
+      "durationMs": 1766
+    },
+    {
+      "id": "exercise.D5_Q3.option.A",
+      "locale": "ko",
+      "text": "보리차",
+      "path": "assets/audio/narration/ko/22789ba124bd6e34e0d7a8a2.ogg",
+      "audioPath": "assets/audio/narration/ko/22789ba124bd6e34e0d7a8a2.ogg",
+      "sha256": "500b0eee94e1c4bd2387d1c343ecb60eee7d275c44ecf526365fad0afef74949",
+      "durationMs": 2806
+    },
+    {
+      "id": "exercise.D5_Q3.option.B",
+      "locale": "ko",
+      "text": "커피",
+      "path": "assets/audio/narration/ko/d56d4082ffe7a69cd3bef409.ogg",
+      "audioPath": "assets/audio/narration/ko/d56d4082ffe7a69cd3bef409.ogg",
+      "sha256": "0c24ff720f66aa75f03893474b58350c4a44fa034f43d219a1d850de5855811b",
+      "durationMs": 726
+    },
+    {
+      "id": "exercise.D5_Q3.option.C",
+      "locale": "ko",
+      "text": "우유",
+      "path": "assets/audio/narration/ko/aa49b4adf30288f16acfb189.ogg",
+      "audioPath": "assets/audio/narration/ko/aa49b4adf30288f16acfb189.ogg",
+      "sha256": "c0a19e744ce7dd1b454e35e4de14fb01d660aa3dfa7c4e696363d221df25f044",
+      "durationMs": 1126
+    },
+    {
+      "id": "exercise.D5_Q3.option.D",
+      "locale": "ko",
+      "text": "오렌지주스",
+      "path": "assets/audio/narration/ko/f6a12ca0eaf2db122358f54f.ogg",
+      "audioPath": "assets/audio/narration/ko/f6a12ca0eaf2db122358f54f.ogg",
+      "sha256": "4ee097a4081f1d80e8a318b7a09e030e4ef9579f18fbc36d2af4f6ea75b3d883",
+      "durationMs": 966
+    },
+    {
+      "id": "exercise.D5_Q3.prompt",
+      "locale": "ko",
+      "text": "어제 산책을 마치고 집에서 마신 것은 무엇인가요?",
+      "path": "assets/audio/narration/ko/733d15047770429c6377797a.ogg",
+      "audioPath": "assets/audio/narration/ko/733d15047770429c6377797a.ogg",
+      "sha256": "7c86e07840b1f6e3f4338fb76ffb1923d283c5b9d61f0f96a019c86bd8f48c25",
+      "durationMs": 4406
+    },
+    {
+      "id": "exercise.D5_Q4.option.A",
+      "locale": "ko",
+      "text": "함께 하면 일이 쉬워진다",
+      "path": "assets/audio/narration/ko/a14ac5a49437d2605daa78c5.ogg",
+      "audioPath": "assets/audio/narration/ko/a14ac5a49437d2605daa78c5.ogg",
+      "sha256": "78abe7e806fb4887a94149b63865a27b4ed3b102982468235e84490e3be97942",
+      "durationMs": 2086
+    },
+    {
+      "id": "exercise.D5_Q4.option.B",
+      "locale": "ko",
+      "text": "흰 종이는 깨끗하다",
+      "path": "assets/audio/narration/ko/528b413044e19d094b30d470.ogg",
+      "audioPath": "assets/audio/narration/ko/528b413044e19d094b30d470.ogg",
+      "sha256": "cd4868399cc7b23bb60516d8d773fe6445a3b6b12d60010e5d76b7b8ef05577a",
+      "durationMs": 1846
+    },
+    {
+      "id": "exercise.D5_Q4.option.C",
+      "locale": "ko",
+      "text": "혼자 해야 일이 빠르다",
+      "path": "assets/audio/narration/ko/ee95dec67343a43cc0fc4ab1.ogg",
+      "audioPath": "assets/audio/narration/ko/ee95dec67343a43cc0fc4ab1.ogg",
+      "sha256": "d9f472bd07e05e03f089463b3ca15eaed8a15b3813704f6c366a8ed2ae8da489",
+      "durationMs": 2406
+    },
+    {
+      "id": "exercise.D5_Q4.option.D",
+      "locale": "ko",
+      "text": "무거운 짐은 버려야 한다",
+      "path": "assets/audio/narration/ko/d87539261109b4d0239529f8.ogg",
+      "audioPath": "assets/audio/narration/ko/d87539261109b4d0239529f8.ogg",
+      "sha256": "7b216e2f3c12c56a860b941f7b3256cd3937f75bcdb2ff7082af26a6f6679a9e",
+      "durationMs": 1766
+    },
+    {
+      "id": "exercise.D5_Q4.prompt",
+      "locale": "ko",
+      "text": "속담 '백지장도 맞들면 낫다'와 가장 가까운 뜻은 무엇인가요?",
+      "path": "assets/audio/narration/ko/ee530c9bdf9db251090d2811.ogg",
+      "audioPath": "assets/audio/narration/ko/ee530c9bdf9db251090d2811.ogg",
+      "sha256": "694e7aa79700144ca1793f7bf974c8e6c259e94d6b8704c938153377fc4eed0e",
+      "durationMs": 5106
+    },
+    {
+      "id": "exercise.D5_Q5.option.A",
+      "locale": "ko",
+      "text": "동그라미, 세모",
+      "path": "assets/audio/narration/ko/2b48406f7c24cc222bf240cd.ogg",
+      "audioPath": "assets/audio/narration/ko/2b48406f7c24cc222bf240cd.ogg",
+      "sha256": "0a700f8796f96bdf16ace65cea8d198b10a37c1ce604db046cbd490966193260",
+      "durationMs": 1846
+    },
+    {
+      "id": "exercise.D5_Q5.option.B",
+      "locale": "ko",
+      "text": "세모, 동그라미",
+      "path": "assets/audio/narration/ko/24d280bbdda58f40322a2643.ogg",
+      "audioPath": "assets/audio/narration/ko/24d280bbdda58f40322a2643.ogg",
+      "sha256": "5e80915332910cecf8a6e893e694184612b9d22ccca9e198d821188946663849",
+      "durationMs": 2326
+    },
+    {
+      "id": "exercise.D5_Q5.option.C",
+      "locale": "ko",
+      "text": "동그라미, 동그라미",
+      "path": "assets/audio/narration/ko/c6dcb920dc1fd3480a0abed6.ogg",
+      "audioPath": "assets/audio/narration/ko/c6dcb920dc1fd3480a0abed6.ogg",
+      "sha256": "0c8d1a5399244e0fe047fe533895f4f642f613ce2c8321c2482f3a7544b0a571",
+      "durationMs": 3206
+    },
+    {
+      "id": "exercise.D5_Q5.option.D",
+      "locale": "ko",
+      "text": "세모, 세모",
+      "path": "assets/audio/narration/ko/d8587393ef73bccc98be7ab3.ogg",
+      "audioPath": "assets/audio/narration/ko/d8587393ef73bccc98be7ab3.ogg",
+      "sha256": "6ce8732ad988c6bb9b5836efc31caaef4e9d9e53a0103dfa9cd0df751bee872d",
+      "durationMs": 1606
+    },
+    {
+      "id": "exercise.D5_Q5.prompt",
+      "locale": "ko",
+      "text": "위에 보이는 모양과 똑같은 것을 고르세요.",
+      "path": "assets/audio/narration/ko/85b7840018aad3b980861f42.ogg",
+      "audioPath": "assets/audio/narration/ko/85b7840018aad3b980861f42.ogg",
+      "sha256": "7a4cbaa74dd5d20b1f1f014d4114234fcb4239597335133e24e8896b09682b40",
+      "durationMs": 2966
+    },
+    {
+      "id": "exercise.D5_Q6.prompt",
+      "locale": "ko",
+      "text": "오늘 집에 온 사람과 함께 먹은 음식을 말씀해 주세요.",
+      "path": "assets/audio/narration/ko/ab070dc7393c62b3ac939b86.ogg",
+      "audioPath": "assets/audio/narration/ko/ab070dc7393c62b3ac939b86.ogg",
+      "sha256": "301f6996711284cc0f873ffc8872ed04908b877c98731d0ffc7959b5aa33e076",
+      "durationMs": 4006
+    },
+    {
+      "id": "exercise.D6_Q1.option.A",
+      "locale": "ko",
+      "text": "매우 좋음",
+      "path": "assets/audio/narration/ko/a1a23e6be7e27ec74eeabe22.ogg",
+      "audioPath": "assets/audio/narration/ko/a1a23e6be7e27ec74eeabe22.ogg",
+      "sha256": "abe8a2d1bdae3ef5804bcab5df6d32b23e6f2c3f630e1ba18c77d33f5e66b20a",
+      "durationMs": 966
+    },
+    {
+      "id": "exercise.D6_Q1.option.B",
+      "locale": "ko",
+      "text": "좋음",
+      "path": "assets/audio/narration/ko/d222f989a905dac8482cb192.ogg",
+      "audioPath": "assets/audio/narration/ko/d222f989a905dac8482cb192.ogg",
+      "sha256": "4f415cc057d24687784146f755c61bfe641c32af5d5f2986fdcf2e614fe1c92f",
+      "durationMs": 806
+    },
+    {
+      "id": "exercise.D6_Q1.option.C",
+      "locale": "ko",
+      "text": "그저 그럼",
+      "path": "assets/audio/narration/ko/22abb8a9a71330c84aa3846d.ogg",
+      "audioPath": "assets/audio/narration/ko/22abb8a9a71330c84aa3846d.ogg",
+      "sha256": "82785d9648daf4dd5c830fdbfef043fe631625084eeab61354022f4ff52a4717",
+      "durationMs": 1126
+    },
+    {
+      "id": "exercise.D6_Q1.option.D",
+      "locale": "ko",
+      "text": "좋지 않음",
+      "path": "assets/audio/narration/ko/311d508755af5df0dc1570de.ogg",
+      "audioPath": "assets/audio/narration/ko/311d508755af5df0dc1570de.ogg",
+      "sha256": "b2ee55daa8303e6ed9b9311936a88f0b52edaa9e9f054803e611985326b39c59",
+      "durationMs": 2966
+    },
+    {
+      "id": "exercise.D6_Q1.prompt",
+      "locale": "ko",
+      "text": "어제 가족을 만나 반가웠다고 하셨어요. 오늘 기분은 어떠세요?",
+      "path": "assets/audio/narration/ko/b2ef69f6b981d4eaf33364bd.ogg",
+      "audioPath": "assets/audio/narration/ko/b2ef69f6b981d4eaf33364bd.ogg",
+      "sha256": "81330450d272557fff10348172096265a99d74b4a5577aeba440d8b6a3ef0794",
+      "durationMs": 5506
+    },
+    {
+      "id": "exercise.D6_Q2.option.A",
+      "locale": "ko",
+      "text": "목요일",
+      "path": "assets/audio/narration/ko/b9ae4f9462fc8ef3c7439462.ogg",
+      "audioPath": "assets/audio/narration/ko/b9ae4f9462fc8ef3c7439462.ogg",
+      "sha256": "01c7f26eefc407606f8040e22405ceb8d933ac66a555db89de89ef1c12199f9d",
+      "durationMs": 726
+    },
+    {
+      "id": "exercise.D6_Q2.option.B",
+      "locale": "ko",
+      "text": "금요일",
+      "path": "assets/audio/narration/ko/5be7c42d063edfdb6ac00f71.ogg",
+      "audioPath": "assets/audio/narration/ko/5be7c42d063edfdb6ac00f71.ogg",
+      "sha256": "e8740f70b11b1679f8f099591f96396cea78f05d5d7d8b5df87eaf50da9a102b",
+      "durationMs": 726
+    },
+    {
+      "id": "exercise.D6_Q2.option.C",
+      "locale": "ko",
+      "text": "토요일",
+      "path": "assets/audio/narration/ko/ca1d1fe5a20127f8fb174977.ogg",
+      "audioPath": "assets/audio/narration/ko/ca1d1fe5a20127f8fb174977.ogg",
+      "sha256": "6295a48e1da3ddc5621eb1f58944f840f2048dca29b0c6389cb174a10610d7b8",
+      "durationMs": 726
+    },
+    {
+      "id": "exercise.D6_Q2.option.D",
+      "locale": "ko",
+      "text": "일요일",
+      "path": "assets/audio/narration/ko/0ddf4869072a48a1294700bb.ogg",
+      "audioPath": "assets/audio/narration/ko/0ddf4869072a48a1294700bb.ogg",
+      "sha256": "7126b892dcfa89febfa94dfdb9191659bbd559eee6e43acb1c3dacf565e30706",
+      "durationMs": 886
+    },
+    {
+      "id": "exercise.D6_Q2.prompt",
+      "locale": "ko",
+      "text": "어제는 무슨 요일이었나요?",
+      "path": "assets/audio/narration/ko/3a2b37273d4247bddce0f4ee.ogg",
+      "audioPath": "assets/audio/narration/ko/3a2b37273d4247bddce0f4ee.ogg",
+      "sha256": "3fc29a1a627568f42fa7693c35b900b16d0a50295d1a18c9758942e142df1f6a",
+      "durationMs": 2806
+    },
+    {
+      "id": "exercise.D6_Q3.option.A",
+      "locale": "ko",
+      "text": "딸 민지와 손자 준호",
+      "path": "assets/audio/narration/ko/c3d7a9ba2a0933dd6fd24d6e.ogg",
+      "audioPath": "assets/audio/narration/ko/c3d7a9ba2a0933dd6fd24d6e.ogg",
+      "sha256": "dd1dee344e72e7cabb705a008e26300d427fbd71810c1f6f285aa5b5246caa68",
+      "durationMs": 2246
+    },
+    {
+      "id": "exercise.D6_Q3.option.B",
+      "locale": "ko",
+      "text": "친구 순자와 이웃 정희",
+      "path": "assets/audio/narration/ko/4e31ba1fb67c7578d4167fc8.ogg",
+      "audioPath": "assets/audio/narration/ko/4e31ba1fb67c7578d4167fc8.ogg",
+      "sha256": "be76ce223a7fc644c014ee1d833898c05646a12100175ea231b7e8e6ebd49330",
+      "durationMs": 2646
+    },
+    {
+      "id": "exercise.D6_Q3.option.C",
+      "locale": "ko",
+      "text": "보건소 직원",
+      "path": "assets/audio/narration/ko/9378321565c8741e903dfc07.ogg",
+      "audioPath": "assets/audio/narration/ko/9378321565c8741e903dfc07.ogg",
+      "sha256": "4872faacecd60d8222f613e3c3450cdb953d7c6f0725304d4e7fbc86436b6571",
+      "durationMs": 1206
+    },
+    {
+      "id": "exercise.D6_Q3.option.D",
+      "locale": "ko",
+      "text": "혼자",
+      "path": "assets/audio/narration/ko/6a02ae721c8c4cb366b0509a.ogg",
+      "audioPath": "assets/audio/narration/ko/6a02ae721c8c4cb366b0509a.ogg",
+      "sha256": "236dad1c57611e199a6d15f17d39ca72e75483ee17551f66f961ec54608dea0b",
+      "durationMs": 726
+    },
+    {
+      "id": "exercise.D6_Q3.prompt",
+      "locale": "ko",
+      "text": "어제 함께 김치전을 먹은 사람은 누구였나요?",
+      "path": "assets/audio/narration/ko/a05a6681888e26d7d4008ef3.ogg",
+      "audioPath": "assets/audio/narration/ko/a05a6681888e26d7d4008ef3.ogg",
+      "sha256": "62a02734094c4dcec50a39d8f3e1a8c5cf9906d64135ca480edfee2c3175694a",
+      "durationMs": 3806
+    },
+    {
+      "id": "exercise.D6_Q4.option.A",
+      "locale": "ko",
+      "text": "오전 10시 20분",
+      "path": "assets/audio/narration/ko/ae1099ff0cd4936f0fd209e0.ogg",
+      "audioPath": "assets/audio/narration/ko/ae1099ff0cd4936f0fd209e0.ogg",
+      "sha256": "950ce1c44a5a5daeb626a0642bd50fa785af789520978c35dcfd982b998f91ef",
+      "durationMs": 3306
+    },
+    {
+      "id": "exercise.D6_Q4.option.B",
+      "locale": "ko",
+      "text": "오전 10시 30분",
+      "path": "assets/audio/narration/ko/032daf104b2a303f5ffca65e.ogg",
+      "audioPath": "assets/audio/narration/ko/032daf104b2a303f5ffca65e.ogg",
+      "sha256": "e0e6e3268ac9763b1fbc3baf13dd1e0a5feeeebf7d82d1214b76286d63538551",
+      "durationMs": 1446
+    },
+    {
+      "id": "exercise.D6_Q4.option.C",
+      "locale": "ko",
+      "text": "오전 10시 40분",
+      "path": "assets/audio/narration/ko/cd7205e450806cef097dc906.ogg",
+      "audioPath": "assets/audio/narration/ko/cd7205e450806cef097dc906.ogg",
+      "sha256": "ec03c28a3e5dfd39bba0afacc53a401c2519e37cfb220ddebbeb90792516186e",
+      "durationMs": 1366
+    },
+    {
+      "id": "exercise.D6_Q4.option.D",
+      "locale": "ko",
+      "text": "오전 11시 10분",
+      "path": "assets/audio/narration/ko/7204b1681c2e7aceb8bd5ef5.ogg",
+      "audioPath": "assets/audio/narration/ko/7204b1681c2e7aceb8bd5ef5.ogg",
+      "sha256": "1cf27e4aa1c885305c100df16b6ff8943589c47608fbdc0800c825e16e0c860d",
+      "durationMs": 1366
+    },
+    {
+      "id": "exercise.D6_Q4.prompt",
+      "locale": "ko",
+      "text": "버스가 20분 간격으로 옵니다. 이전 버스가 오전 10시 10분에 출발했다면 다음 버스는 몇 시에 올까요?",
+      "path": "assets/audio/narration/ko/b356a1521fef232970e6213e.ogg",
+      "audioPath": "assets/audio/narration/ko/b356a1521fef232970e6213e.ogg",
+      "sha256": "49580dfb3bbe7aa7de7d2390e73e615486ccfdc0d3f20fee6e832df013051df2",
+      "durationMs": 8706
+    },
+    {
+      "id": "exercise.D6_Q5.option.A",
+      "locale": "ko",
+      "text": "김민지",
+      "path": "assets/audio/narration/ko/4b25259b7300786b951ae928.ogg",
+      "audioPath": "assets/audio/narration/ko/4b25259b7300786b951ae928.ogg",
+      "sha256": "a6ad603d83bb4250ee40cd77ad8abcb28f3d369c7d5a636e52c5cb61babb19ed",
+      "durationMs": 1366
+    },
+    {
+      "id": "exercise.D6_Q5.option.B",
+      "locale": "ko",
+      "text": "이순자",
+      "path": "assets/audio/narration/ko/d9c7e4b0a83b08fbc9129691.ogg",
+      "audioPath": "assets/audio/narration/ko/d9c7e4b0a83b08fbc9129691.ogg",
+      "sha256": "7161eeb1238451ddd83c67ee45677de9d737c6039edd7d4d34821cc55df1c569",
+      "durationMs": 806
+    },
+    {
+      "id": "exercise.D6_Q5.option.C",
+      "locale": "ko",
+      "text": "최정희",
+      "path": "assets/audio/narration/ko/d71d7076bf16ca2f06fd8f7d.ogg",
+      "audioPath": "assets/audio/narration/ko/d71d7076bf16ca2f06fd8f7d.ogg",
+      "sha256": "5fb7ec8c871dbf1d0ae4ac871fef13f4ef6d679c7b35f6a3f8ae1d9272c9a9ae",
+      "durationMs": 806
+    },
+    {
+      "id": "exercise.D6_Q5.option.D",
+      "locale": "ko",
+      "text": "김미영",
+      "path": "assets/audio/narration/ko/3a9e6e98b550f656901558d3.ogg",
+      "audioPath": "assets/audio/narration/ko/3a9e6e98b550f656901558d3.ogg",
+      "sha256": "07dcdc12570f66b694a830a2902d876e29c89bb9806b85865061ffb55e8be8ac",
+      "durationMs": 646
+    },
+    {
+      "id": "exercise.D6_Q5.prompt",
+      "locale": "ko",
+      "text": "영자 어르신의 딸 이름은 무엇인가요?",
+      "path": "assets/audio/narration/ko/920a0ef6d73aa3d182d1ae5b.ogg",
+      "audioPath": "assets/audio/narration/ko/920a0ef6d73aa3d182d1ae5b.ogg",
+      "sha256": "09aa6e33f4974579e8a7219241880b8da7a125e66b62e34fd2cec014370ee35b",
+      "durationMs": 5706
+    },
+    {
+      "id": "exercise.D6_Q6.prompt",
+      "locale": "ko",
+      "text": "오늘 다녀온 곳과 돌아오는 길에 산 것을 말씀해 주세요.",
+      "path": "assets/audio/narration/ko/64fe9d848e9cdaae1f074f04.ogg",
+      "audioPath": "assets/audio/narration/ko/64fe9d848e9cdaae1f074f04.ogg",
+      "sha256": "7d8f74154514d3c55f3e9d08aaa1e6ffafce25cffbbf8b6b16b855bce6ca98dd",
+      "durationMs": 5406
+    },
+    {
+      "id": "exercise.D7_Q1.option.A",
+      "locale": "ko",
+      "text": "매우 좋음",
+      "path": "assets/audio/narration/ko/a1a23e6be7e27ec74eeabe22.ogg",
+      "audioPath": "assets/audio/narration/ko/a1a23e6be7e27ec74eeabe22.ogg",
+      "sha256": "abe8a2d1bdae3ef5804bcab5df6d32b23e6f2c3f630e1ba18c77d33f5e66b20a",
+      "durationMs": 966
+    },
+    {
+      "id": "exercise.D7_Q1.option.B",
+      "locale": "ko",
+      "text": "좋음",
+      "path": "assets/audio/narration/ko/d222f989a905dac8482cb192.ogg",
+      "audioPath": "assets/audio/narration/ko/d222f989a905dac8482cb192.ogg",
+      "sha256": "4f415cc057d24687784146f755c61bfe641c32af5d5f2986fdcf2e614fe1c92f",
+      "durationMs": 806
+    },
+    {
+      "id": "exercise.D7_Q1.option.C",
+      "locale": "ko",
+      "text": "그저 그럼",
+      "path": "assets/audio/narration/ko/22abb8a9a71330c84aa3846d.ogg",
+      "audioPath": "assets/audio/narration/ko/22abb8a9a71330c84aa3846d.ogg",
+      "sha256": "82785d9648daf4dd5c830fdbfef043fe631625084eeab61354022f4ff52a4717",
+      "durationMs": 1126
+    },
+    {
+      "id": "exercise.D7_Q1.option.D",
+      "locale": "ko",
+      "text": "좋지 않음",
+      "path": "assets/audio/narration/ko/311d508755af5df0dc1570de.ogg",
+      "audioPath": "assets/audio/narration/ko/311d508755af5df0dc1570de.ogg",
+      "sha256": "b2ee55daa8303e6ed9b9311936a88f0b52edaa9e9f054803e611985326b39c59",
+      "durationMs": 2966
+    },
+    {
+      "id": "exercise.D7_Q1.prompt",
+      "locale": "ko",
+      "text": "어제 오후에는 집에서 쉬었다고 하셨어요. 오늘 기분은 어떠세요?",
+      "path": "assets/audio/narration/ko/6cd3202321a994ce46e9beef.ogg",
+      "audioPath": "assets/audio/narration/ko/6cd3202321a994ce46e9beef.ogg",
+      "sha256": "7863e2d9f9ea0d980dd529c2b2aade4484035ca256239e39cd16b07689c93f5d",
+      "durationMs": 6406
+    },
+    {
+      "id": "exercise.D7_Q2.option.A",
+      "locale": "ko",
+      "text": "월요일",
+      "path": "assets/audio/narration/ko/5f6ddab1c4dd9a8e350375b5.ogg",
+      "audioPath": "assets/audio/narration/ko/5f6ddab1c4dd9a8e350375b5.ogg",
+      "sha256": "537c55fa7d7924ba9e19faf38b6f538286dd009f160c1e0781d1d85cff6b7184",
+      "durationMs": 726
+    },
+    {
+      "id": "exercise.D7_Q2.option.B",
+      "locale": "ko",
+      "text": "화요일",
+      "path": "assets/audio/narration/ko/62ca16a9808b4f3613ffba20.ogg",
+      "audioPath": "assets/audio/narration/ko/62ca16a9808b4f3613ffba20.ogg",
+      "sha256": "dd015c41e792e1c2b391818a9c9656a256c5790d1eb293bf879d10c6c6cd37be",
+      "durationMs": 806
+    },
+    {
+      "id": "exercise.D7_Q2.option.C",
+      "locale": "ko",
+      "text": "수요일",
+      "path": "assets/audio/narration/ko/a58be33b2549e45b37efc338.ogg",
+      "audioPath": "assets/audio/narration/ko/a58be33b2549e45b37efc338.ogg",
+      "sha256": "6429f859cab5515c1998731f64ba80a2443c3b3909e5377ca96f4136560b8985",
+      "durationMs": 886
+    },
+    {
+      "id": "exercise.D7_Q2.option.D",
+      "locale": "ko",
+      "text": "목요일",
+      "path": "assets/audio/narration/ko/b9ae4f9462fc8ef3c7439462.ogg",
+      "audioPath": "assets/audio/narration/ko/b9ae4f9462fc8ef3c7439462.ogg",
+      "sha256": "01c7f26eefc407606f8040e22405ceb8d933ac66a555db89de89ef1c12199f9d",
+      "durationMs": 726
+    },
+    {
+      "id": "exercise.D7_Q2.prompt",
+      "locale": "ko",
+      "text": "오늘은 일요일입니다. 모레는 무슨 요일인가요?",
+      "path": "assets/audio/narration/ko/b39fc687950b18203d79b9c0.ogg",
+      "audioPath": "assets/audio/narration/ko/b39fc687950b18203d79b9c0.ogg",
+      "sha256": "663fb7ee8d205bca0457ee4c84414832be166912950591df9ec16852c685f528",
+      "durationMs": 5306
+    },
+    {
+      "id": "exercise.D7_Q3.option.A",
+      "locale": "ko",
+      "text": "단팥빵 2개",
+      "path": "assets/audio/narration/ko/d8e6a0c27bd84d3f58b59e8c.ogg",
+      "audioPath": "assets/audio/narration/ko/d8e6a0c27bd84d3f58b59e8c.ogg",
+      "sha256": "3d1975c9c8bdb27020337a8ba45c4c0b7fbad91c674e38a6cef9417a80aba950",
+      "durationMs": 2886
+    },
+    {
+      "id": "exercise.D7_Q3.option.B",
+      "locale": "ko",
+      "text": "식빵 1개",
+      "path": "assets/audio/narration/ko/01ce59f671619be74f645da2.ogg",
+      "audioPath": "assets/audio/narration/ko/01ce59f671619be74f645da2.ogg",
+      "sha256": "c5b1079776a84e81b7a8e723640899878e57664c868640de64982875e4b1ab48",
+      "durationMs": 1046
+    },
+    {
+      "id": "exercise.D7_Q3.option.C",
+      "locale": "ko",
+      "text": "소보로빵 3개",
+      "path": "assets/audio/narration/ko/2177f2abb28461e3d6f6a855.ogg",
+      "audioPath": "assets/audio/narration/ko/2177f2abb28461e3d6f6a855.ogg",
+      "sha256": "124df51633fe6e22daa46c44e7f70525b9037f2cb63c0546cbd0e288915d6a8b",
+      "durationMs": 1846
+    },
+    {
+      "id": "exercise.D7_Q3.option.D",
+      "locale": "ko",
+      "text": "케이크 1개",
+      "path": "assets/audio/narration/ko/ce0c9b0bd23d95f552e819dd.ogg",
+      "audioPath": "assets/audio/narration/ko/ce0c9b0bd23d95f552e819dd.ogg",
+      "sha256": "31336780f72dd37f15c6ee961b70b101534a58b9eb83ffa4e35fa7b6a63e035a",
+      "durationMs": 1046
+    },
+    {
+      "id": "exercise.D7_Q3.prompt",
+      "locale": "ko",
+      "text": "어제 빵집에서 산 것은 무엇인가요?",
+      "path": "assets/audio/narration/ko/6feedb28f01101b0861842ab.ogg",
+      "audioPath": "assets/audio/narration/ko/6feedb28f01101b0861842ab.ogg",
+      "sha256": "60dbb96dc8eccc387ce5ccdaa6e6bdcb1407324f365ff56b51f25ee29f6c0a2f",
+      "durationMs": 3106
+    },
+    {
+      "id": "exercise.D7_Q4.option.A",
+      "locale": "ko",
+      "text": "김치전",
+      "path": "assets/audio/narration/ko/629eb04dad333a273f968d92.ogg",
+      "audioPath": "assets/audio/narration/ko/629eb04dad333a273f968d92.ogg",
+      "sha256": "3b4f2e3a00797e71b451936ae44afb1d14a3cf5ef1c698bcaa55ab278b8f0be7",
+      "durationMs": 886
+    },
+    {
+      "id": "exercise.D7_Q4.option.B",
+      "locale": "ko",
+      "text": "잔치국수",
+      "path": "assets/audio/narration/ko/2a4f82f2cb2259c347b88eff.ogg",
+      "audioPath": "assets/audio/narration/ko/2a4f82f2cb2259c347b88eff.ogg",
+      "sha256": "e38ecef5068baa52ffc79c36f1645df134670f37efa18c9d7081bd9cce590ada",
+      "durationMs": 1126
+    },
+    {
+      "id": "exercise.D7_Q4.option.C",
+      "locale": "ko",
+      "text": "된장찌개",
+      "path": "assets/audio/narration/ko/f188019462982a401810369c.ogg",
+      "audioPath": "assets/audio/narration/ko/f188019462982a401810369c.ogg",
+      "sha256": "5e093492354d21e76235c0db5ef8708b9f0f12fa21ed799e5ba5366808e25223",
+      "durationMs": 1766
+    },
+    {
+      "id": "exercise.D7_Q4.option.D",
+      "locale": "ko",
+      "text": "단팥빵",
+      "path": "assets/audio/narration/ko/0b5c7a181186900c9c882288.ogg",
+      "audioPath": "assets/audio/narration/ko/0b5c7a181186900c9c882288.ogg",
+      "sha256": "faa62cde6243499a1d171e064fbaa51b61998d912cbf4e64035c67e9d3a2e6ad",
+      "durationMs": 966
+    },
+    {
+      "id": "exercise.D7_Q4.prompt",
+      "locale": "ko",
+      "text": "이번 주에 딸 민지와 손자 준호가 집에 왔을 때 함께 먹은 음식은 무엇인가요?",
+      "path": "assets/audio/narration/ko/dd53fcda37f8e05eeb313ba8.ogg",
+      "audioPath": "assets/audio/narration/ko/dd53fcda37f8e05eeb313ba8.ogg",
+      "sha256": "8096589d02494c04cf320895e4f16344f7bcfc980e75e819500649aedca22149",
+      "durationMs": 7906
+    },
+    {
+      "id": "exercise.D7_Q5.option.A",
+      "locale": "ko",
+      "text": "0개",
+      "path": "assets/audio/narration/ko/d734978cb845bd15a60e7e0f.ogg",
+      "audioPath": "assets/audio/narration/ko/d734978cb845bd15a60e7e0f.ogg",
+      "sha256": "c62fbd14e1c0eb01272fe4f3821167bda1ab751b9aad1ba22e82ea06370de1e1",
+      "durationMs": 566
+    },
+    {
+      "id": "exercise.D7_Q5.option.B",
+      "locale": "ko",
+      "text": "1개",
+      "path": "assets/audio/narration/ko/d6eefb3b3a6b2f38fd9fe692.ogg",
+      "audioPath": "assets/audio/narration/ko/d6eefb3b3a6b2f38fd9fe692.ogg",
+      "sha256": "2fa049a6d7d523dcf3ac991b4a2af2f1a622f71d2f5be8699107e3afbf192af3",
+      "durationMs": 566
+    },
+    {
+      "id": "exercise.D7_Q5.option.C",
+      "locale": "ko",
+      "text": "2개",
+      "path": "assets/audio/narration/ko/231c09777d5ae7c3cba22363.ogg",
+      "audioPath": "assets/audio/narration/ko/231c09777d5ae7c3cba22363.ogg",
+      "sha256": "fb90f6ff1035cebe959e3a493051ceee2d2d778cf923b381d1762b37aab85496",
+      "durationMs": 886
+    },
+    {
+      "id": "exercise.D7_Q5.option.D",
+      "locale": "ko",
+      "text": "3개",
+      "path": "assets/audio/narration/ko/c9acdebc495b88a6ca6b8724.ogg",
+      "audioPath": "assets/audio/narration/ko/c9acdebc495b88a6ca6b8724.ogg",
+      "sha256": "7078f084d6301dd026a4681b63bce97f8bcd20f00328990f22461c456a2de094",
+      "durationMs": 646
+    },
+    {
+      "id": "exercise.D7_Q5.prompt",
+      "locale": "ko",
+      "text": "어제 산 단팥빵 2개 중 오늘 1개를 먹으면 몇 개가 남을까요?",
+      "path": "assets/audio/narration/ko/fba8746fdc9d8492a59446dd.ogg",
+      "audioPath": "assets/audio/narration/ko/fba8746fdc9d8492a59446dd.ogg",
+      "sha256": "b375696a9d9dfcda7034ed9b734b9260658d843c474ac9928cbddcb40b2204c4",
+      "durationMs": 4606
+    },
+    {
+      "id": "exercise.D7_Q6.prompt",
+      "locale": "ko",
+      "text": "오늘 한 일과 이번 주에 가장 기억에 남는 일을 함께 말씀해 주세요.",
+      "path": "assets/audio/narration/ko/8fec33433435c087bfde1b26.ogg",
+      "audioPath": "assets/audio/narration/ko/8fec33433435c087bfde1b26.ogg",
+      "sha256": "12472f49a9903ab1ee28d7094283882651364b6f2e688394f52041cb7c32d49b",
+      "durationMs": 5806
+    },
+    {
+      "id": "feedback.saved",
+      "locale": "ko",
+      "text": "잘 남겼어요.",
+      "path": "assets/audio/narration/ko/f33b3f7d54312a810cf9c1b9.ogg",
+      "audioPath": "assets/audio/narration/ko/f33b3f7d54312a810cf9c1b9.ogg",
+      "sha256": "f33b3f7d54312a810cf9c1b9a9b11a8d9d58f35f0785c6238af4a3153303f809",
+      "durationMs": 1313,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "right",
+        "sourcePath": "tools/fish-day1-browser/audio/29_feedback_saved_right.mp3",
+        "sourceSha256": "ddbbda78e3e1b2710567972d6bed75eff0f3647389a7a2d60295324f7d3c2e31"
+      }
+    },
+    {
+      "id": "feedback.selected",
+      "locale": "ko",
+      "text": "선택했어요. 같은 버튼을 한 번 더 눌러 주세요.",
+      "path": "assets/audio/narration/ko/b4b38ea95d2d8eaca60b6245.ogg",
+      "audioPath": "assets/audio/narration/ko/b4b38ea95d2d8eaca60b6245.ogg",
+      "sha256": "9f6c79a4f92349d70ff4c43f77d71b87a6716147ba999e19a27f81f2243bf8a2",
+      "durationMs": 4006
+    },
+    {
+      "id": "feedback.try_again",
+      "locale": "ko",
+      "text": "괜찮아요. 천천히 다시 해봐요.",
+      "path": "assets/audio/narration/ko/299f31a266ea1524a897da22.ogg",
+      "audioPath": "assets/audio/narration/ko/299f31a266ea1524a897da22.ogg",
+      "sha256": "299f31a266ea1524a897da228f82d2cdcb06e3005c1d8b883d36c5db156e1554",
+      "durationMs": 2436,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "right",
+        "sourcePath": "tools/fish-day1-browser/audio/30_feedback_try_again_right.mp3",
+        "sourceSha256": "c16471f6036a12699f33b91bdef2fae85465cf56767b6826c5804e96c7aaf2c8"
+      }
+    },
+    {
+      "id": "guide.button_test",
+      "locale": "ko",
+      "text": "화면에서 빛나는 위치와 같은 버튼을 눌러 주세요.",
+      "path": "assets/audio/narration/ko/78d084d833c6d38a784e53b0.ogg",
+      "audioPath": "assets/audio/narration/ko/78d084d833c6d38a784e53b0.ogg",
+      "sha256": "5907297b6609365a239c9b409d867d3137af870d59c53b3baca8575bc18e7cc8",
+      "durationMs": 3506
+    },
+    {
+      "id": "guide.choice",
+      "locale": "ko",
+      "text": "원하는 답과 같은 위치의 버튼을 눌러 주세요.",
+      "path": "assets/audio/narration/ko/b9a2fc67fba404acd189fcd6.ogg",
+      "audioPath": "assets/audio/narration/ko/b9a2fc67fba404acd189fcd6.ogg",
+      "sha256": "6054e97fe7279d3aec213593d42cd65f010baa1e3fdb64572c97249316471a3c",
+      "durationMs": 3406
+    },
+    {
+      "id": "guide.choice_confirm",
+      "locale": "ko",
+      "text": "선택한 버튼을 한 번 더 누르면 확정돼요.",
+      "path": "assets/audio/narration/ko/70c2fe4bdd7eb00740973728.ogg",
+      "audioPath": "assets/audio/narration/ko/70c2fe4bdd7eb00740973728.ogg",
+      "sha256": "284484cd01fc3294af7ca0229c588ecfd13a7ad71f8b9a5941cc8ed6ef03d76d",
+      "durationMs": 3206
+    },
+    {
+      "id": "guide.day_complete",
+      "locale": "ko",
+      "text": "오늘 하루 활동을 마쳤어요. 함께해 주셔서 고마워요.",
+      "path": "assets/audio/narration/ko/2292012941b71321551f844a.ogg",
+      "audioPath": "assets/audio/narration/ko/2292012941b71321551f844a.ogg",
+      "sha256": "44b4b5031e173da974ca4939f06403d01f6b8b01bb25b89c9a3765b28947feb6",
+      "durationMs": 4106
+    },
+    {
+      "id": "guide.feedback",
+      "locale": "ko",
+      "text": "오른쪽 버튼을 누르면 다음으로 넘어가요.",
+      "path": "assets/audio/narration/ko/6d26d93650c241496e424403.ogg",
+      "audioPath": "assets/audio/narration/ko/6d26d93650c241496e424403.ogg",
+      "sha256": "c1d7f74c6a60919d4ec6e5c998fcce0891deccf6adaa3d23907cabdeae7dbb9d",
+      "durationMs": 2806
+    },
+    {
+      "id": "guide.microphone_unavailable",
+      "locale": "ko",
+      "text": "마이크를 찾지 못했지만 체험은 계속할 수 있어요.",
+      "path": "assets/audio/narration/ko/94bd2cd8c84cd542a09b78ec.ogg",
+      "audioPath": "assets/audio/narration/ko/94bd2cd8c84cd542a09b78ec.ogg",
+      "sha256": "b3c041d3cd52791cf244fca44adbe4416cd304bb6e4eefc59d87251c422d2641",
+      "durationMs": 4506
+    },
+    {
+      "id": "guide.sequence",
+      "locale": "ko",
+      "text": "순서대로 버튼을 고르고, 같은 버튼을 한 번 더 눌러 주세요.",
+      "path": "assets/audio/narration/ko/69a3bb3873087183773d3921.ogg",
+      "audioPath": "assets/audio/narration/ko/69a3bb3873087183773d3921.ogg",
+      "sha256": "fb792b5ce2442464f2a58f5e384eaab16546a0ecbce426722aeec8dbfedd0949",
+      "durationMs": 5506
+    },
+    {
+      "id": "guide.voice_ready",
+      "locale": "ko",
+      "text": "오른쪽 버튼을 누르면 편하게 말씀하실 수 있어요.",
+      "path": "assets/audio/narration/ko/1df9f4553e1e5860aaddb8db.ogg",
+      "audioPath": "assets/audio/narration/ko/1df9f4553e1e5860aaddb8db.ogg",
+      "sha256": "931d5d1d49be57abbfe6f34bd1b4fbde72ca922d16da4052baae4d27f0520303",
+      "durationMs": 3606
+    },
+    {
+      "id": "guide.voice_recording",
+      "locale": "ko",
+      "text": "편하게 말씀하세요. 마치면 오른쪽 버튼을 눌러 주세요.",
+      "path": "assets/audio/narration/ko/f5dc0d79c431c8c4e5f04349.ogg",
+      "audioPath": "assets/audio/narration/ko/f5dc0d79c431c8c4e5f04349.ogg",
+      "sha256": "1dc3d9e2b9f3f8e5c41c27078ce744e8b2cf45c3031598bfbf40eec62af4cce9",
+      "durationMs": 5106
+    },
+    {
+      "id": "guide.voice_review",
+      "locale": "ko",
+      "text": "다시 말하려면 왼쪽, 이대로 확정하려면 오른쪽 버튼을 눌러 주세요.",
+      "path": "assets/audio/narration/ko/a6ea020f1f90bdcdf8abf009.ogg",
+      "audioPath": "assets/audio/narration/ko/a6ea020f1f90bdcdf8abf009.ogg",
+      "sha256": "a6ea020f1f90bdcdf8abf009b4c579bad7fbf4fb3671b21a5a7002797b094c54",
+      "durationMs": 5007,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "right",
+        "sourcePath": "tools/fish-day1-browser/audio/23_guide_voice_review_right.mp3",
+        "sourceSha256": "005f53b7c019aadfe74be74b8398dbdca6ce85a659f858ce1146e309175f5b79"
+      }
+    },
+    {
+      "id": "guide.welcome",
+      "locale": "ko",
+      "text": "화면과 같은 위치의 네 버튼으로 오늘의 하루를 시작해요.",
+      "path": "assets/audio/narration/ko/62b2ffaed26c90141399818d.ogg",
+      "audioPath": "assets/audio/narration/ko/62b2ffaed26c90141399818d.ogg",
+      "sha256": "9beb6bda2b59399f3c47ca75d3fba6b093b7002aed6bef02124c7b055c8bc6e6",
+      "durationMs": 4006
+    }
+  ],
+  "audioOverrides": {
+    "schemaVersion": 1,
+    "locale": "ko",
+    "day": 1,
+    "provider": "Fish Audio",
+    "selection": "mixed",
+    "entryCount": 31,
+    "baseRightEntryCount": 27,
+    "maintainerSelectedEntryCount": 4,
+    "appliedAt": "2026-08-12T23:35:15.386Z"
+  }
+}

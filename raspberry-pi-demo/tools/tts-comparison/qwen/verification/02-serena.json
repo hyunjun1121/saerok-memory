@@ -1,0 +1,29 @@
+{
+  "speaker": "Serena",
+  "text": "春子さん、今日の気分はいかがですか。",
+  "language": "Japanese",
+  "seed": 20260811,
+  "loudnessWithinShortClipRange": true,
+  "wav": {
+    "path": "audio/02-serena.wav",
+    "sha256": "8550a6c15fe323c226dea862fdb3d364294492a083e644fa53346cf7036d5988",
+    "codec": "pcm_s16le",
+    "sampleRateHz": 24000,
+    "channels": 1,
+    "channelLayout": null,
+    "durationMs": 2880,
+    "sizeBytes": 138284
+  },
+  "ogg": {
+    "path": "audio/02-serena.ogg",
+    "sha256": "7fa4d581c24a3bf15f3787a0ec0139743f0b5a67d172463127cd407cd0b12b40",
+    "codec": "opus",
+    "sampleRateHz": 48000,
+    "channels": 1,
+    "channelLayout": "mono",
+    "durationMs": 2886,
+    "sizeBytes": 17038,
+    "integratedLufs": -16.9,
+    "truePeakDbtp": -1.3
+  }
+}

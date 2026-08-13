@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.cache/
+.venv/
+runtime/
+test-results/
+playwright-report/
+tools/tts/work/
+__pycache__/
+*.py[cod]
+*.tsbuildinfo

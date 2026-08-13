@@ -1,0 +1,29 @@
+{
+  "speaker": "Sohee",
+  "text": "春子さん、今日の気分はいかがですか。",
+  "language": "Japanese",
+  "seed": 20260811,
+  "loudnessWithinShortClipRange": true,
+  "wav": {
+    "path": "audio/09-sohee.wav",
+    "sha256": "888febc0dcd8e4b7ca943e484792ac8c1b907296e592ffc0a69487e007974717",
+    "codec": "pcm_s16le",
+    "sampleRateHz": 24000,
+    "channels": 1,
+    "channelLayout": null,
+    "durationMs": 3280,
+    "sizeBytes": 157484
+  },
+  "ogg": {
+    "path": "audio/09-sohee.ogg",
+    "sha256": "d7e6687c55d07e2527e297c76fd05fd231a44ed2f96a3d4df6f963d78c3f7326",
+    "codec": "opus",
+    "sampleRateHz": 48000,
+    "channels": 1,
+    "channelLayout": "mono",
+    "durationMs": 3306,
+    "sizeBytes": 19151,
+    "integratedLufs": -15.9,
+    "truePeakDbtp": -0.8
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "speaker": "Sohee",
+  "text": "영자 어르신, 오늘 기분은 어떠세요?",
+  "language": "Korean",
+  "seed": 20260811,
+  "loudnessWithinShortClipRange": true,
+  "wav": {
+    "path": "audio/09-sohee.wav",
+    "sha256": "14fb23664c140d9664a5dc156ee28e1990b5f6a6efe0b115a4dae331e57c5a36",
+    "codec": "pcm_s16le",
+    "sampleRateHz": 24000,
+    "channels": 1,
+    "channelLayout": null,
+    "durationMs": 3840,
+    "sizeBytes": 184364
+  },
+  "ogg": {
+    "path": "audio/09-sohee.ogg",
+    "sha256": "375f4c6499b43ee0c0a16e31cbabf81ae47ce90b82a583ee952fe6c267990ef5",
+    "codec": "opus",
+    "sampleRateHz": 48000,
+    "channels": 1,
+    "channelLayout": "mono",
+    "durationMs": 3906,
+    "sizeBytes": 22245,
+    "integratedLufs": -16.3,
+    "truePeakDbtp": -0.9
+  }
+}

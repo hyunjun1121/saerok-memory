@@ -1,0 +1,29 @@
+{
+  "speaker": "Aiden",
+  "text": "春子さん、今日の気分はいかがですか。",
+  "language": "Japanese",
+  "seed": 20260811,
+  "loudnessWithinShortClipRange": true,
+  "wav": {
+    "path": "audio/07-aiden.wav",
+    "sha256": "64cac4a291757eb75dbf05fe0644b42a19780bcb57c161cb1e4db2ed94c8f53e",
+    "codec": "pcm_s16le",
+    "sampleRateHz": 24000,
+    "channels": 1,
+    "channelLayout": null,
+    "durationMs": 2560,
+    "sizeBytes": 122924
+  },
+  "ogg": {
+    "path": "audio/07-aiden.ogg",
+    "sha256": "436fb1fd5a4c839fdd8ad2bd3cac87786bfb4f228ea5248d9c66d3ce9ac40ac2",
+    "codec": "opus",
+    "sampleRateHz": 48000,
+    "channels": 1,
+    "channelLayout": "mono",
+    "durationMs": 2566,
+    "sizeBytes": 14572,
+    "integratedLufs": -16.3,
+    "truePeakDbtp": -0.9
+  }
+}

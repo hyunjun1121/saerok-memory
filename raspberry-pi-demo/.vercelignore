@@ -1,0 +1,13 @@
+node_modules/
+dist/
+runtime/
+test-results/
+playwright-report/
+tools/tts-comparison/
+tools/fish-day1-browser/
+tools/tts/.venv/
+tools/tts/.cache/
+tools/tts/.work/
+tools/tts/work/
+tools/tts/__pycache__/
+*.tsbuildinfo

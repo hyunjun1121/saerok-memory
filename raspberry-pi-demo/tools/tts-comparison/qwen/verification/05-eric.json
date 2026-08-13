@@ -1,0 +1,29 @@
+{
+  "speaker": "Eric",
+  "text": "春子さん、今日の気分はいかがですか。",
+  "language": "Japanese",
+  "seed": 20260811,
+  "loudnessWithinShortClipRange": false,
+  "wav": {
+    "path": "audio/05-eric.wav",
+    "sha256": "1fe68e4c8468f865f26604b8c7a52b34ffb903c8d6cd2e7bf059373881fc5dcb",
+    "codec": "pcm_s16le",
+    "sampleRateHz": 24000,
+    "channels": 1,
+    "channelLayout": null,
+    "durationMs": 2560,
+    "sizeBytes": 122924
+  },
+  "ogg": {
+    "path": "audio/05-eric.ogg",
+    "sha256": "2482d94d8e8bb1503add9b4f98e04b8d7561a70c23f766a49a407afb6e5b5f80",
+    "codec": "opus",
+    "sampleRateHz": 48000,
+    "channels": 1,
+    "channelLayout": "mono",
+    "durationMs": 2566,
+    "sizeBytes": 15127,
+    "integratedLufs": -19.1,
+    "truePeakDbtp": -1.3
+  }
+}

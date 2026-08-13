@@ -1,0 +1,10 @@
+source/
+venv/
+cache/
+models/
+outputs/
+.work/
+logs/
+__pycache__/
+*.pyc
+*.tmp

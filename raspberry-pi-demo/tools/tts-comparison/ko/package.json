@@ -1,0 +1,16 @@
+{
+  "name": "haru-korean-tts-comparison",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node build-manifest.mjs && node build-player.mjs",
+    "serve": "node serve.mjs 4191",
+    "test": "npm run test:unit",
+    "test:unit": "node --test validate-comparison.test.mjs build-player.test.mjs serve.test.mjs",
+    "test:generated": "node --test validate-generated.test.mjs",
+    "validate": "node validate-comparison.mjs"
+  }
+}

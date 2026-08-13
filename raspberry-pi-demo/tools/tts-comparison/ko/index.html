@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Haru 한국어 TTS 비교</title>
+  <style>
+    :root { color-scheme:light; font-family:"Noto Sans KR",Arial,sans-serif; background:#f4f0e7; color:#25231f; }
+    * { box-sizing:border-box; }
+    body { margin:0; }
+    main { width:min(1180px,100%); margin:auto; padding:40px; }
+    .hero { display:grid; gap:12px; margin-bottom:30px; padding:34px; border:3px solid #25231f; background:#fffdf8; }
+    .hero h1 { margin:0; font-size:clamp(32px,5vw,60px); line-height:1.05; }
+    .prompt { margin:0; font-size:clamp(24px,3vw,38px); font-weight:900; word-break:keep-all; }
+    .meta,.eyebrow { margin:0; color:#675f51; font-weight:700; }
+    .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px; align-items:start; }
+    .method { border:3px solid #25231f; background:#fffdf8; box-shadow:7px 7px 0 #25231f; }
+    .method header { min-height:230px; padding:24px; border-bottom:3px solid #25231f; }
+    .method header>p:not(.eyebrow) { line-height:1.55; }
+    .method-meta { display:flex; justify-content:space-between; gap:12px; margin-top:18px; font-weight:800; }
+    .method-meta a,.license-note a { color:#215f3d; text-underline-offset:3px; }
+    h2 { margin:8px 0 14px; font-size:31px; line-height:1.15; }
+    .samples { display:grid; }
+    .sample { display:grid; gap:12px; padding:18px; border-bottom:1px solid #bdb6a8; }
+    .sample:last-child { border-bottom:0; }
+    .sample-title { display:grid; grid-template-columns:42px 1fr; gap:2px 10px; align-items:center; }
+    .number { grid-row:1/3; display:grid; width:38px; height:38px; place-items:center; border:2px solid #25231f; background:#e8dcbd; font-weight:900; }
+    strong { font-size:18px; }
+    small { color:#675f51; }
+    .note { margin:0; padding:9px 11px; border-left:4px solid #b05d33; background:#f7eadc; font-size:13px; line-height:1.45; }
+    audio { width:100%; }
+    .license-note { display:flex; flex-wrap:wrap; gap:8px 14px; margin-top:30px; padding:18px 20px; border:2px solid #25231f; background:#fffdf8; font-weight:800; }
+    @media (max-width:850px) { .grid { grid-template-columns:1fr; } .method header { min-height:0; } }
+    @media (max-width:600px) { main { padding:18px; } .hero { padding:22px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <p class="eyebrow">Haru D1_Q1 · 한국어 · 같은 문장</p>
+      <h1>한국어 TTS 목소리 비교</h1>
+      <p class="prompt" lang="ko">영자 어르신, 오늘 기분은 어떠세요?</p>
+      <p class="meta">Qwen3-TTS · Fish Speech S2 Pro</p>
+      <p class="meta">한 번에 한 음성만 재생됩니다. 발음·속도·명료도·어르신 청취 편안함을 직접 비교하세요.</p>
+    </section>
+    <div class="grid">
+      <section class="method" data-method="qwen">
+        <header>
+          <p class="eyebrow">Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice</p>
+          <h2>Qwen3-TTS 한국어 preset 음색 비교</h2>
+          <p>The official model supports Korean with all 9 preset speakers, so all 9 were generated using the same Korean prompt. Sohee is the Korean-native preset.</p>
+          <div class="method-meta">
+            <span>Apache-2.0</span>
+            <a href="qwen/REPORT.md">기술 보고서</a>
+          </div>
+        </header>
+        <div class="samples">
+
+            <article class="sample">
+              <div class="sample-title">
+                <span class="number">01</span>
+                <strong>Vivian · 중국어 원어 음색</strong>
+                <small>Vivian · 3.31초</small>
+              </div>
+              <p class="note">원어 음색은 중국어이며, 모델이 공식 지원하는 한국어로 동일 문장을 생성함.</p>
+              <audio controls preload="metadata" src="qwen/audio/01-vivian.ogg"></audio>
+            </article>
+
+            <article class="sample">
+              <div class="sample-title">
+                <span class="number">02</span>
+                <strong>Serena · 중국어 원어 음색</strong>
+                <small>Serena · 3.31초</small>
+              </div>
+              <p class="note">원어 음색은 중국어이며, 모델이 공식 지원하는 한국어로 동일 문장을 생성함.</p>
+              <audio controls preload="metadata" src="qwen/audio/02-serena.ogg"></audio>
+            </article>
+
+            <article class="sample">
+              <div class="sample-title">
+                <span class="number">03</span>
+                <strong>Uncle_Fu · 중국어 원어 음색</strong>
+                <small>Uncle_Fu · 5.61초</small>
+              </div>
+              <p class="note">원어 음색은 중국어이며, 모델이 공식 지원하는 한국어로 동일 문장을 생성함.</p>
+              <audio controls preload="metadata" src="qwen/audio/03-uncle-fu.ogg"></audio>
+            </article>
+
+            <article class="sample">
+              <div class="sample-title">
+                <span class="number">04</span>
+                <strong>Dylan · 중국어·베이징 방언 원어 음색</strong>
+                <small>Dylan · 2.81초</small>
+              </div>
+              <p class="note">원어 음색은 중국어·베이징 방언이며, 모델이 공식 지원하는 한국어로 동일 문장을 생성함.</p>
+              <audio controls preload="metadata" src="qwen/audio/04-dylan.ogg"></audio>
+            </article>
+
+            <article class="sample">
+              <div class="sample-title">
+                <span class="number">05</span>
+                <strong>Eric · 중국어·쓰촨 방언 원어 음색</strong>
+                <small>Eric · 5.01초</small>
+              </div>
+              <p class="note">원어 음색은 중국어·쓰촨 방언이며, 모델이 공식 지원하는 한국어로 동일 문장을 생성함.</p>
+              <audio controls preload="metadata" src="qwen/audio/05-eric.ogg"></audio>
+            </article>
+
+            <article class="sample">
+              <div class="sample-title">
+                <span class="number">06</span>
+                <strong>Ryan · 영어 원어 음색</strong>
+                <small>Ryan · 3.61초</small>
+              </div>
+              <p class="note">원어 음색은 영어이며, 모델이 공식 지원하는 한국어로 동일 문장을 생성함.</p>
+              <audio controls preload="metadata" src="qwen/audio/06-ryan.ogg"></audio>
+            </article>
+
+            <article class="sample">
+              <div class="sample-title">
+                <span class="number">07</span>
+                <strong>Aiden · 영어 원어 음색</strong>
+                <small>Aiden · 2.41초</small>
+              </div>
+              <p class="note">원어 음색은 영어이며, 모델이 공식 지원하는 한국어로 동일 문장을 생성함.</p>
+              <audio controls preload="metadata" src="qwen/audio/07-aiden.ogg"></audio>
+            </article>
+
+            <article class="sample">
+              <div class="sample-title">
+                <span class="number">08</span>
+                <strong>Ono_Anna · 일본어 원어 음색</strong>
+                <small>Ono_Anna · 3.31초</small>
+              </div>
+              <p class="note">원어 음색은 일본어이며, 모델이 공식 지원하는 한국어로 동일 문장을 생성함.</p>
+              <audio controls preload="metadata" src="qwen/audio/08-ono-anna.ogg"></audio>
+            </article>
+
+            <article class="sample">
+              <div class="sample-title">
+                <span class="number">09</span>
+                <strong>Sohee · 한국어 원어 음색</strong>
+                <small>Sohee · 3.91초</small>
+              </div>
+              <p class="note">한국어 원어 preset</p>
+              <audio controls preload="metadata" src="qwen/audio/09-sohee.ogg"></audio>
+            </article>
+
+        </div>
+      </section>
+      <section class="method" data-method="fish-speech">
+        <header>
+          <p class="eyebrow">fishaudio/s2-pro</p>
+          <h2>Fish Audio S2 Pro 한국어 reference-free 음색 비교</h2>
+          <p>Fish Speech에는 유한 preset voice 목록이 없습니다. 공식 reference-free 방식으로 새 고정 seed 5201–5220의 음색 후보 20개를 동일 설정에서 생성하고, codec·길이·음량·true peak·finite signal·silence/envelope 기술 gate를 통과한 후보 중 technical score가 낮은 10개를 선택했습니다. 청취 품질, 한국어 발음 정확성, 고령 사용자 선호도 순위는 주장하지 않습니다.</p>
+          <div class="method-meta">
+            <span>Fish Audio Research License</span>
+            <a href="fish/REPORT.md">기술 보고서</a>
+          </div>
+        </header>
+        <div class="samples">
+
+            <article class="sample">
+              <div class="sample-title">
+                <span class="number">01</span>
+                <strong>Reference-free 음색 · seed 5207</strong>
+                <small>reference-free-seed-5207 · 2.56초</small>
+              </div>
+
+              <audio controls preload="metadata" src="fish/audio/fish_ko_reference_free_seed_5207.ogg"></audio>
+            </article>
+
+            <article class="sample">
+              <div class="sample-title">
+                <span class="number">02</span>
+                <strong>Reference-free 음색 · seed 5208</strong>
+                <small>reference-free-seed-5208 · 2.93초</small>
+              </div>
+
+              <audio controls preload="metadata" src="fish/audio/fish_ko_reference_free_seed_5208.ogg"></audio>
+            </article>
+
+            <article class="sample">
+              <div class="sample-title">
+                <span class="number">03</span>
+                <strong>Reference-free 음색 · seed 5220</strong>
+                <small>reference-free-seed-5220 · 2.93초</small>
+              </div>
+
+              <audio controls preload="metadata" src="fish/audio/fish_ko_reference_free_seed_5220.ogg"></audio>
+            </article>
+
+            <article class="sample">
+              <div class="sample-title">
+                <span class="number">04</span>
+                <strong>Reference-free 음색 · seed 5213</strong>
+                <small>reference-free-seed-5213 · 2.56초</small>
+              </div>
+
+              <audio controls preload="metadata" src="fish/audio/fish_ko_reference_free_seed_5213.ogg"></audio>
+            </article>
+
+            <article class="sample">
+              <div class="sample-title">
+                <span class="number">05</span>
+                <strong>Reference-free 음색 · seed 5212</strong>
+                <small>reference-free-seed-5212 · 2.61초</small>
+              </div>
+
+              <audio controls preload="metadata" src="fish/audio/fish_ko_reference_free_seed_5212.ogg"></audio>
+            </article>
+
+            <article class="sample">
+              <div class="sample-title">
+                <span class="number">06</span>
+                <strong>Reference-free 음색 · seed 5219</strong>
+                <small>reference-free-seed-5219 · 3.11초</small>
+              </div>
+
+              <audio controls preload="metadata" src="fish/audio/fish_ko_reference_free_seed_5219.ogg"></audio>
+            </article>
+
+            <article class="sample">
+              <div class="sample-title">
+                <span class="number">07</span>
+                <strong>Reference-free 음색 · seed 5217</strong>
+                <small>reference-free-seed-5217 · 2.89초</small>
+              </div>
+
+              <audio controls preload="metadata" src="fish/audio/fish_ko_reference_free_seed_5217.ogg"></audio>
+            </article>
+
+            <article class="sample">
+              <div class="sample-title">
+                <span class="number">08</span>
+                <strong>Reference-free 음색 · seed 5214</strong>
+                <small>reference-free-seed-5214 · 2.84초</small>
+              </div>
+
+              <audio controls preload="metadata" src="fish/audio/fish_ko_reference_free_seed_5214.ogg"></audio>
+            </article>
+
+            <article class="sample">
+              <div class="sample-title">
+                <span class="number">09</span>
+                <strong>Reference-free 음색 · seed 5203</strong>
+                <small>reference-free-seed-5203 · 3.21초</small>
+              </div>
+
+              <audio controls preload="metadata" src="fish/audio/fish_ko_reference_free_seed_5203.ogg"></audio>
+            </article>
+
+            <article class="sample">
+              <div class="sample-title">
+                <span class="number">10</span>
+                <strong>Reference-free 음색 · seed 5202</strong>
+                <small>reference-free-seed-5202 · 2.79초</small>
+              </div>
+
+              <audio controls preload="metadata" src="fish/audio/fish_ko_reference_free_seed_5202.ogg"></audio>
+            </article>
+
+        </div>
+      </section>
+    </div>
+    <footer class="license-note">
+      <strong>Built with Fish Audio</strong>
+      <a href="fish/LICENSE">Fish Audio Research License Agreement</a>
+      <a href="fish/NOTICE.txt">Fish Audio NOTICE</a>
+      <span>평가·비상업 비교용입니다. 상업적 사용에는 Fish Audio와 별도 서면 계약이 필요합니다.</span>
+    </footer>
+  </main>
+  <script>
+    document.addEventListener('play', (event) => {
+      if (!(event.target instanceof HTMLAudioElement)) return;
+      for (const audio of document.querySelectorAll('audio')) {
+        if (audio !== event.target) audio.pause();
+      }
+    }, true);
+  </script>
+</body>
+</html>

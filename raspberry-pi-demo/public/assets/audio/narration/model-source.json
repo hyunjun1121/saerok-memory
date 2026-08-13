@@ -1,0 +1,29 @@
+{
+  "model": "Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice",
+  "revision": "0c0e3051f131929182e2c023b9537f8b1c68adfe",
+  "license": "Apache-2.0",
+  "source": "https://huggingface.co/Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice",
+  "code": "https://github.com/QwenLM/Qwen3-TTS",
+  "voices": {
+    "ko": "Sohee",
+    "ja": "Ono_Anna"
+  },
+  "runtimeUse": "generation-only",
+  "audioOverrides": {
+    "schemaVersion": 1,
+    "locale": "ko",
+    "day": 1,
+    "entryCount": 31,
+    "baseRightEntryCount": 27,
+    "maintainerSelectedEntryCount": 4,
+    "provider": "Fish Audio",
+    "sourceType": "user-selected-browser-export",
+    "selection": "mixed",
+    "model": "not embedded in exported MP3 metadata",
+    "revision": "not embedded in exported MP3 metadata",
+    "license": "not embedded in exported MP3 metadata",
+    "baseAuditPath": "tools/fish-day1-browser/day1-runtime-import.json",
+    "selectionAuditPath": "tools/fish-day1-browser/calm-mood-candidates/calm-mood-runtime-import.json",
+    "appliedAt": "2026-08-12T23:35:15.386Z"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "speaker": "Ono_Anna",
+  "text": "영자 어르신, 오늘 기분은 어떠세요?",
+  "language": "Korean",
+  "seed": 20260811,
+  "loudnessWithinShortClipRange": true,
+  "wav": {
+    "path": "audio/08-ono-anna.wav",
+    "sha256": "350935370ccd01666d0b06a4ae6d41fb7a0aa8c2057a8170da511b2e85fb40dc",
+    "codec": "pcm_s16le",
+    "sampleRateHz": 24000,
+    "channels": 1,
+    "channelLayout": null,
+    "durationMs": 3280,
+    "sizeBytes": 157484
+  },
+  "ogg": {
+    "path": "audio/08-ono-anna.ogg",
+    "sha256": "8961ee2ab037ed42b6eaa7109447207487feed1c7c0bf86ef0c9eb0c46acaec7",
+    "codec": "opus",
+    "sampleRateHz": 48000,
+    "channels": 1,
+    "channelLayout": "mono",
+    "durationMs": 3306,
+    "sizeBytes": 19699,
+    "integratedLufs": -16.0,
+    "truePeakDbtp": -1.5
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "locale": "ko",
+  "voice": "똑부러지는 긍정 아나운서 여자",
+  "sourceService": "Fish Audio web",
+  "generatedAt": "2026-08-12",
+  "autoTagUsed": false,
+  "candidateCountPerOption": 6,
+  "manualTags": [
+    {
+      "id": "calm_soft",
+      "text": "차분하고 부드럽게"
+    },
+    {
+      "id": "warm_slow",
+      "text": "따뜻하고 천천히"
+    },
+    {
+      "id": "relaxed_clear",
+      "text": "편안하고 또렷하게"
+    }
+  ],
+  "options": [
+    {
+      "id": "exercise.D1_Q1.option.A",
+      "option": "A",
+      "text": "매우 좋음",
+      "candidates": [
+        "audio/A_very_good_calm_soft_left.mp3",
+        "audio/A_very_good_calm_soft_right.mp3",
+        "audio/A_very_good_warm_slow_left.mp3",
+        "audio/A_very_good_warm_slow_right.mp3",
+        "audio/A_very_good_relaxed_clear_left.mp3",
+        "audio/A_very_good_relaxed_clear_right.mp3"
+      ]
+    },
+    {
+      "id": "exercise.D1_Q1.option.B",
+      "option": "B",
+      "text": "좋음",
+      "candidates": [
+        "audio/B_good_calm_soft_left.mp3",
+        "audio/B_good_calm_soft_right.mp3",
+        "audio/B_good_warm_slow_left.mp3",
+        "audio/B_good_warm_slow_right.mp3",
+        "audio/B_good_relaxed_clear_left.mp3",
+        "audio/B_good_relaxed_clear_right.mp3"
+      ]
+    },
+    {
+      "id": "exercise.D1_Q1.option.C",
+      "option": "C",
+      "text": "그저 그럼",
+      "candidates": [
+        "audio/C_so_so_calm_soft_left.mp3",
+        "audio/C_so_so_calm_soft_right.mp3",
+        "audio/C_so_so_warm_slow_left.mp3",
+        "audio/C_so_so_warm_slow_right.mp3",
+        "audio/C_so_so_relaxed_clear_left.mp3",
+        "audio/C_so_so_relaxed_clear_right.mp3"
+      ]
+    },
+    {
+      "id": "exercise.D1_Q1.option.D",
+      "option": "D",
+      "text": "좋지 않음",
+      "candidates": [
+        "audio/D_not_good_calm_soft_left.mp3",
+        "audio/D_not_good_calm_soft_right.mp3",
+        "audio/D_not_good_warm_slow_left.mp3",
+        "audio/D_not_good_warm_slow_right.mp3",
+        "audio/D_not_good_relaxed_clear_left.mp3",
+        "audio/D_not_good_relaxed_clear_right.mp3"
+      ]
+    }
+  ]
+}

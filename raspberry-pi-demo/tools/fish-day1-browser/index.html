@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <title>Haru Day 1 TTS 선택</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="review-header">
+      <div class="review-header__inner">
+        <div class="title-block">
+          <p class="eyebrow">Haru · 한국어 · Day 1</p>
+          <h1>문장별 TTS A/B 선택</h1>
+          <p class="intro-copy">각 문장의 A안과 B안을 들어본 뒤, 실제 앱에 쓸 음성을 하나 선택하세요.</p>
+        </div>
+
+        <section class="progress-card" aria-labelledby="progress-title">
+          <div class="progress-card__summary">
+            <div>
+              <span id="progress-title">선택 진행</span>
+              <strong data-testid="selection-progress">0 / 31</strong>
+            </div>
+            <p id="save-status" role="status" aria-live="polite">선택 결과는 이 컴퓨터에 바로 저장됩니다.</p>
+          </div>
+          <progress id="selection-progress" value="0" max="31">0 / 31</progress>
+          <div id="completion-message" class="completion-message" hidden>
+            31개 선택 완료. 앱 적용 준비가 끝났습니다.
+          </div>
+        </section>
+
+        <div class="toolbar">
+          <div class="filter-group" role="group" aria-label="문장 필터">
+            <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">전체</button>
+            <button class="filter-button" type="button" data-filter="unselected" aria-pressed="false">미선택</button>
+            <button class="filter-button" type="button" data-filter="selected" aria-pressed="false">선택 완료</button>
+            <button class="filter-button" type="button" data-filter="left" aria-pressed="false">A 선택</button>
+            <button class="filter-button" type="button" data-filter="right" aria-pressed="false">B 선택</button>
+          </div>
+          <div class="toolbar__actions">
+            <button id="next-unselected" class="secondary-button" type="button">다음 미선택</button>
+            <button id="export-selections" class="primary-button" type="button" disabled>선택 결과 내보내기</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="review-main">
+      <div id="load-error" class="load-error" role="alert" hidden></div>
+      <div id="sentence-list" class="sentence-list" aria-busy="true"></div>
+      <p id="empty-filter" class="empty-filter" hidden>이 조건에 맞는 문장이 없습니다.</p>
+    </main>
+
+    <template id="sentence-template">
+      <article class="sentence-card" data-testid="tts-row">
+        <header class="sentence-card__header">
+          <div class="sentence-meta">
+            <span class="sentence-number"></span>
+            <code class="sentence-id"></code>
+          </div>
+          <p class="sentence-text" data-testid="entry-text"></p>
+        </header>
+
+        <fieldset class="candidate-grid">
+          <legend class="sr-only"></legend>
+          <section class="candidate candidate--left">
+            <div class="candidate__heading">
+              <strong>A안</strong>
+              <span>왼쪽 생성 음성</span>
+            </div>
+            <audio preload="none" data-side="left"></audio>
+            <button class="play-button" type="button" data-action="play" data-side="left">
+              <span class="play-button__icon" aria-hidden="true">▶</span>
+              <span class="play-button__label">A안 듣기</span>
+            </button>
+            <label class="select-button">
+              <input type="radio" value="left">
+              <span class="select-button__mark" aria-hidden="true">✓</span>
+              <span>A안 선택</span>
+            </label>
+            <p class="candidate__status" data-audio-status="left" role="status"></p>
+          </section>
+
+          <section class="candidate candidate--right">
+            <div class="candidate__heading">
+              <strong>B안</strong>
+              <span>오른쪽 생성 음성</span>
+            </div>
+            <audio preload="none" data-side="right"></audio>
+            <button class="play-button" type="button" data-action="play" data-side="right">
+              <span class="play-button__icon" aria-hidden="true">▶</span>
+              <span class="play-button__label">B안 듣기</span>
+            </button>
+            <label class="select-button">
+              <input type="radio" value="right">
+              <span class="select-button__mark" aria-hidden="true">✓</span>
+              <span>B안 선택</span>
+            </label>
+            <p class="candidate__status" data-audio-status="right" role="status"></p>
+          </section>
+        </fieldset>
+      </article>
+    </template>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

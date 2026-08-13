@@ -1,0 +1,29 @@
+{
+  "speaker": "Ryan",
+  "text": "春子さん、今日の気分はいかがですか。",
+  "language": "Japanese",
+  "seed": 20260811,
+  "loudnessWithinShortClipRange": false,
+  "wav": {
+    "path": "audio/06-ryan.wav",
+    "sha256": "d6926c729337c17fdd920979246a9d39831edffecd0701d10d79d1de6179235d",
+    "codec": "pcm_s16le",
+    "sampleRateHz": 24000,
+    "channels": 1,
+    "channelLayout": null,
+    "durationMs": 2480,
+    "sizeBytes": 119084
+  },
+  "ogg": {
+    "path": "audio/06-ryan.ogg",
+    "sha256": "da4e887419ffe5705cb571ef5240cf9116825ca080ba7e9454934879677d22a5",
+    "codec": "opus",
+    "sampleRateHz": 48000,
+    "channels": 1,
+    "channelLayout": "mono",
+    "durationMs": 2486,
+    "sizeBytes": 14666,
+    "integratedLufs": -18.4,
+    "truePeakDbtp": -1.2
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "speaker": "Dylan",
+  "text": "春子さん、今日の気分はいかがですか。",
+  "language": "Japanese",
+  "seed": 20260811,
+  "loudnessWithinShortClipRange": false,
+  "wav": {
+    "path": "audio/04-dylan.wav",
+    "sha256": "21bdc1e0f36c322d4e273310366ed1deb433b860854a6740fca46944bd555aa9",
+    "codec": "pcm_s16le",
+    "sampleRateHz": 24000,
+    "channels": 1,
+    "channelLayout": null,
+    "durationMs": 2720,
+    "sizeBytes": 130604
+  },
+  "ogg": {
+    "path": "audio/04-dylan.ogg",
+    "sha256": "3bdc996616c8d8e121e2cc14099b3a4ee7d078f45fe36f620207e0c6fc1ef09b",
+    "codec": "opus",
+    "sampleRateHz": 48000,
+    "channels": 1,
+    "channelLayout": "mono",
+    "durationMs": 2726,
+    "sizeBytes": 16599,
+    "integratedLufs": -21.2,
+    "truePeakDbtp": -1.8
+  }
+}

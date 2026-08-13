@@ -1,0 +1,25 @@
+Haru narration generation sources
+
+Model: Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice
+Revision: 0c0e3051f131929182e2c023b9537f8b1c68adfe
+Source: https://huggingface.co/Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice
+Code: https://github.com/QwenLM/Qwen3-TTS
+License: Apache License 2.0
+
+Korean narration uses Qwen's built-in Sohee voice except for the 31 Day 1
+entries declared by manifest.json audioOverrides. Twenty-seven entries use the
+previously selected B/right Fish Audio browser exports. Four mood-option entries
+use the maintainer's final choices from calm-mood-candidates/selections.json.
+Japanese narration uses Qwen's built-in Ono_Anna voice.
+No model id, revision, or license is asserted for the Fish Audio exports because
+those values are not embedded in the downloaded MP3 files. See
+tools/fish-day1-browser/day1-runtime-import.json and
+tools/fish-day1-browser/calm-mood-candidates/calm-mood-runtime-import.json for
+exact source hashes and runtime mappings. Confirm applicable Fish Audio terms
+before redistribution or commercial release.
+
+No cloned voice or third-party reference recording is used by the Qwen source.
+
+Model weights and generation runtime are development-only and are not shipped
+to Raspberry Pi. This directory contains only generated Ogg Opus narration and
+the local runtime manifest.

@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "locale": "ko",
+  "day": 1,
+  "questionId": "D1_Q1",
+  "optionCount": 4,
+  "selectedCount": 4,
+  "complete": true,
+  "updatedAt": "2026-08-12T23:24:05.335Z",
+  "selections": [
+    {
+      "id": "exercise.D1_Q1.option.A",
+      "option": "A",
+      "text": "매우 좋음",
+      "candidateId": "A_very_good_calm_soft_left",
+      "audioPath": "audio/A_very_good_calm_soft_left.mp3",
+      "tagId": "calm_soft",
+      "tagText": "차분하고 부드럽게",
+      "resultSide": "left"
+    },
+    {
+      "id": "exercise.D1_Q1.option.B",
+      "option": "B",
+      "text": "좋음",
+      "candidateId": "B_good_calm_soft_left",
+      "audioPath": "audio/B_good_calm_soft_left.mp3",
+      "tagId": "calm_soft",
+      "tagText": "차분하고 부드럽게",
+      "resultSide": "left"
+    },
+    {
+      "id": "exercise.D1_Q1.option.C",
+      "option": "C",
+      "text": "그저 그럼",
+      "candidateId": "C_so_so_relaxed_clear_left",
+      "audioPath": "audio/C_so_so_relaxed_clear_left.mp3",
+      "tagId": "relaxed_clear",
+      "tagText": "편안하고 또렷하게",
+      "resultSide": "left"
+    },
+    {
+      "id": "exercise.D1_Q1.option.D",
+      "option": "D",
+      "text": "좋지 않음",
+      "candidateId": "D_not_good_relaxed_clear_left",
+      "audioPath": "audio/D_not_good_relaxed_clear_left.mp3",
+      "tagId": "relaxed_clear",
+      "tagText": "편안하고 또렷하게",
+      "resultSide": "left"
+    }
+  ]
+}

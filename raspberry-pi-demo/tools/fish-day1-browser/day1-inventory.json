@@ -1,0 +1,288 @@
+{
+  "schemaVersion": 1,
+  "locale": "ko",
+  "source": "../tts/narration-source.json",
+  "downloadDirectory": "C:\\Users\\mnb92\\Downloads",
+  "entryCount": 31,
+  "entries": [
+    {
+      "index": 1,
+      "id": "day.1.greeting",
+      "text": "영자 어르신, 월요일 활동을 시작해요.",
+      "slug": "day_1_greeting",
+      "leftTargetPath": "audio/01_day_1_greeting_left.mp3",
+      "rightTargetPath": "audio/01_day_1_greeting_right.mp3",
+      "status": "complete"
+    },
+    {
+      "index": 2,
+      "id": "exercise.D1_Q1.prompt",
+      "text": "영자 어르신, 오늘 기분은 어떠세요?",
+      "slug": "exercise_d1_q1_prompt",
+      "leftTargetPath": "audio/02_exercise_d1_q1_prompt_left.mp3",
+      "rightTargetPath": "audio/02_exercise_d1_q1_prompt_right.mp3",
+      "status": "complete"
+    },
+    {
+      "index": 3,
+      "id": "exercise.D1_Q1.option.A",
+      "text": "매우 좋음",
+      "slug": "exercise_d1_q1_option_a",
+      "leftTargetPath": "audio/03_exercise_d1_q1_option_a_left.mp3",
+      "rightTargetPath": "audio/03_exercise_d1_q1_option_a_right.mp3",
+      "status": "complete"
+    },
+    {
+      "index": 4,
+      "id": "exercise.D1_Q1.option.B",
+      "text": "좋음",
+      "slug": "exercise_d1_q1_option_b",
+      "leftTargetPath": "audio/04_exercise_d1_q1_option_b_left.mp3",
+      "rightTargetPath": "audio/04_exercise_d1_q1_option_b_right.mp3",
+      "status": "complete"
+    },
+    {
+      "index": 5,
+      "id": "exercise.D1_Q1.option.C",
+      "text": "그저 그럼",
+      "slug": "exercise_d1_q1_option_c",
+      "leftTargetPath": "audio/05_exercise_d1_q1_option_c_left.mp3",
+      "rightTargetPath": "audio/05_exercise_d1_q1_option_c_right.mp3",
+      "status": "complete"
+    },
+    {
+      "index": 6,
+      "id": "exercise.D1_Q1.option.D",
+      "text": "좋지 않음",
+      "slug": "exercise_d1_q1_option_d",
+      "leftTargetPath": "audio/06_exercise_d1_q1_option_d_left.mp3",
+      "rightTargetPath": "audio/06_exercise_d1_q1_option_d_right.mp3",
+      "status": "complete"
+    },
+    {
+      "index": 7,
+      "id": "exercise.D1_Q2.prompt",
+      "text": "오늘은 무슨 요일인가요?",
+      "slug": "exercise_d1_q2_prompt",
+      "leftTargetPath": "audio/07_exercise_d1_q2_prompt_left.mp3",
+      "rightTargetPath": "audio/07_exercise_d1_q2_prompt_right.mp3",
+      "status": "complete"
+    },
+    {
+      "index": 8,
+      "id": "exercise.D1_Q2.option.A",
+      "text": "월요일",
+      "slug": "exercise_d1_q2_option_a",
+      "leftTargetPath": "audio/08_exercise_d1_q2_option_a_left.mp3",
+      "rightTargetPath": "audio/08_exercise_d1_q2_option_a_right.mp3",
+      "status": "complete"
+    },
+    {
+      "index": 9,
+      "id": "exercise.D1_Q2.option.B",
+      "text": "화요일",
+      "slug": "exercise_d1_q2_option_b",
+      "leftTargetPath": "audio/09_exercise_d1_q2_option_b_left.mp3",
+      "rightTargetPath": "audio/09_exercise_d1_q2_option_b_right.mp3",
+      "status": "complete"
+    },
+    {
+      "index": 10,
+      "id": "exercise.D1_Q2.option.C",
+      "text": "토요일",
+      "slug": "exercise_d1_q2_option_c",
+      "leftTargetPath": "audio/10_exercise_d1_q2_option_c_left.mp3",
+      "rightTargetPath": "audio/10_exercise_d1_q2_option_c_right.mp3",
+      "status": "complete"
+    },
+    {
+      "index": 11,
+      "id": "exercise.D1_Q2.option.D",
+      "text": "일요일",
+      "slug": "exercise_d1_q2_option_d",
+      "leftTargetPath": "audio/11_exercise_d1_q2_option_d_left.mp3",
+      "rightTargetPath": "audio/11_exercise_d1_q2_option_d_right.mp3",
+      "status": "complete"
+    },
+    {
+      "index": 12,
+      "id": "exercise.D1_Q3.prompt",
+      "text": "영자 어르신이 태어나고 자란 고향은 어디인가요?",
+      "slug": "exercise_d1_q3_prompt",
+      "leftTargetPath": "audio/12_exercise_d1_q3_prompt_left.mp3",
+      "rightTargetPath": "audio/12_exercise_d1_q3_prompt_right.mp3",
+      "status": "complete"
+    },
+    {
+      "index": 13,
+      "id": "exercise.D1_Q3.option.A",
+      "text": "부산 영도",
+      "slug": "exercise_d1_q3_option_a",
+      "leftTargetPath": "audio/13_exercise_d1_q3_option_a_left.mp3",
+      "rightTargetPath": "audio/13_exercise_d1_q3_option_a_right.mp3",
+      "status": "complete"
+    },
+    {
+      "index": 14,
+      "id": "exercise.D1_Q3.option.B",
+      "text": "대전 유성",
+      "slug": "exercise_d1_q3_option_b",
+      "leftTargetPath": "audio/14_exercise_d1_q3_option_b_left.mp3",
+      "rightTargetPath": "audio/14_exercise_d1_q3_option_b_right.mp3",
+      "status": "complete"
+    },
+    {
+      "index": 15,
+      "id": "exercise.D1_Q3.option.C",
+      "text": "전주 완산",
+      "slug": "exercise_d1_q3_option_c",
+      "leftTargetPath": "audio/15_exercise_d1_q3_option_c_left.mp3",
+      "rightTargetPath": "audio/15_exercise_d1_q3_option_c_right.mp3",
+      "status": "complete"
+    },
+    {
+      "index": 16,
+      "id": "exercise.D1_Q3.option.D",
+      "text": "서울 종로",
+      "slug": "exercise_d1_q3_option_d",
+      "leftTargetPath": "audio/16_exercise_d1_q3_option_d_left.mp3",
+      "rightTargetPath": "audio/16_exercise_d1_q3_option_d_right.mp3",
+      "status": "complete"
+    },
+    {
+      "index": 17,
+      "id": "exercise.D1_Q4.prompt",
+      "text": "두부 2,000원과 달걀 4,000원을 사고 10,000원을 냈습니다. 거스름돈은 얼마일까요?",
+      "slug": "exercise_d1_q4_prompt",
+      "leftTargetPath": "audio/17_exercise_d1_q4_prompt_left.mp3",
+      "rightTargetPath": "audio/17_exercise_d1_q4_prompt_right.mp3",
+      "status": "complete"
+    },
+    {
+      "index": 18,
+      "id": "exercise.D1_Q4.option.A",
+      "text": "2,000원",
+      "slug": "exercise_d1_q4_option_a",
+      "leftTargetPath": "audio/18_exercise_d1_q4_option_a_left.mp3",
+      "rightTargetPath": "audio/18_exercise_d1_q4_option_a_right.mp3",
+      "status": "complete"
+    },
+    {
+      "index": 19,
+      "id": "exercise.D1_Q4.option.B",
+      "text": "3,000원",
+      "slug": "exercise_d1_q4_option_b",
+      "leftTargetPath": "audio/19_exercise_d1_q4_option_b_left.mp3",
+      "rightTargetPath": "audio/19_exercise_d1_q4_option_b_right.mp3",
+      "status": "complete"
+    },
+    {
+      "index": 20,
+      "id": "exercise.D1_Q4.option.C",
+      "text": "4,000원",
+      "slug": "exercise_d1_q4_option_c",
+      "leftTargetPath": "audio/20_exercise_d1_q4_option_c_left.mp3",
+      "rightTargetPath": "audio/20_exercise_d1_q4_option_c_right.mp3",
+      "status": "complete"
+    },
+    {
+      "index": 21,
+      "id": "exercise.D1_Q4.option.D",
+      "text": "5,000원",
+      "slug": "exercise_d1_q4_option_d",
+      "leftTargetPath": "audio/21_exercise_d1_q4_option_d_left.mp3",
+      "rightTargetPath": "audio/21_exercise_d1_q4_option_d_right.mp3",
+      "status": "complete"
+    },
+    {
+      "index": 22,
+      "id": "exercise.D1_Q5.prompt",
+      "text": "오늘 다녀온 곳과 한 일을 천천히 말씀해 주세요.",
+      "slug": "exercise_d1_q5_prompt",
+      "leftTargetPath": "audio/22_exercise_d1_q5_prompt_left.mp3",
+      "rightTargetPath": "audio/22_exercise_d1_q5_prompt_right.mp3",
+      "status": "complete"
+    },
+    {
+      "index": 23,
+      "id": "guide.voice_review",
+      "text": "다시 말하려면 왼쪽, 이대로 확정하려면 오른쪽 버튼을 눌러 주세요.",
+      "slug": "guide_voice_review",
+      "leftTargetPath": "audio/23_guide_voice_review_left.mp3",
+      "rightTargetPath": "audio/23_guide_voice_review_right.mp3",
+      "status": "complete"
+    },
+    {
+      "index": 24,
+      "id": "exercise.D1_Q6.sequence",
+      "text": "사과, 우산, 버스",
+      "slug": "exercise_d1_q6_sequence",
+      "leftTargetPath": "audio/24_exercise_d1_q6_sequence_left.mp3",
+      "rightTargetPath": "audio/24_exercise_d1_q6_sequence_right.mp3",
+      "status": "complete"
+    },
+    {
+      "index": 25,
+      "id": "exercise.D1_Q6.option.A",
+      "text": "사과",
+      "slug": "exercise_d1_q6_option_a",
+      "leftTargetPath": "audio/25_exercise_d1_q6_option_a_left.mp3",
+      "rightTargetPath": "audio/25_exercise_d1_q6_option_a_right.mp3",
+      "status": "complete"
+    },
+    {
+      "index": 26,
+      "id": "exercise.D1_Q6.option.B",
+      "text": "우산",
+      "slug": "exercise_d1_q6_option_b",
+      "leftTargetPath": "audio/26_exercise_d1_q6_option_b_left.mp3",
+      "rightTargetPath": "audio/26_exercise_d1_q6_option_b_right.mp3",
+      "status": "complete"
+    },
+    {
+      "index": 27,
+      "id": "exercise.D1_Q6.option.C",
+      "text": "버스",
+      "slug": "exercise_d1_q6_option_c",
+      "leftTargetPath": "audio/27_exercise_d1_q6_option_c_left.mp3",
+      "rightTargetPath": "audio/27_exercise_d1_q6_option_c_right.mp3",
+      "status": "complete"
+    },
+    {
+      "index": 28,
+      "id": "exercise.D1_Q6.option.D",
+      "text": "모자",
+      "slug": "exercise_d1_q6_option_d",
+      "leftTargetPath": "audio/28_exercise_d1_q6_option_d_left.mp3",
+      "rightTargetPath": "audio/28_exercise_d1_q6_option_d_right.mp3",
+      "status": "complete"
+    },
+    {
+      "index": 29,
+      "id": "feedback.saved",
+      "text": "잘 남겼어요.",
+      "slug": "feedback_saved",
+      "leftTargetPath": "audio/29_feedback_saved_left.mp3",
+      "rightTargetPath": "audio/29_feedback_saved_right.mp3",
+      "status": "complete"
+    },
+    {
+      "index": 30,
+      "id": "feedback.try_again",
+      "text": "괜찮아요. 천천히 다시 해봐요.",
+      "slug": "feedback_try_again",
+      "leftTargetPath": "audio/30_feedback_try_again_left.mp3",
+      "rightTargetPath": "audio/30_feedback_try_again_right.mp3",
+      "status": "complete"
+    },
+    {
+      "index": 31,
+      "id": "day.1.completion",
+      "text": "오늘 활동을 모두 마쳤어요. 내일 또 만나요.",
+      "slug": "day_1_completion",
+      "leftTargetPath": "audio/31_day_1_completion_left.mp3",
+      "rightTargetPath": "audio/31_day_1_completion_right.mp3",
+      "status": "complete"
+    }
+  ]
+}

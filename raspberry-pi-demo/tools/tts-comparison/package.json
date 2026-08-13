@@ -1,0 +1,15 @@
+{
+  "name": "haru-tts-comparison",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node build-manifest.mjs && node build-player.mjs",
+    "serve": "node serve.mjs 4190",
+    "test": "node --test validate-comparison.test.mjs serve.test.mjs validate-generated.test.mjs",
+    "test:unit": "node --test validate-comparison.test.mjs serve.test.mjs",
+    "validate": "node validate-comparison.mjs"
+  }
+}

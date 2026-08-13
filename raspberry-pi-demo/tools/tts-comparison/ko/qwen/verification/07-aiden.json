@@ -1,0 +1,29 @@
+{
+  "speaker": "Aiden",
+  "text": "영자 어르신, 오늘 기분은 어떠세요?",
+  "language": "Korean",
+  "seed": 20260811,
+  "loudnessWithinShortClipRange": true,
+  "wav": {
+    "path": "audio/07-aiden.wav",
+    "sha256": "7c9ce80a795dfaa528b04ca89263e2b25c996193e814ec4c4ee81db0a48c44c8",
+    "codec": "pcm_s16le",
+    "sampleRateHz": 24000,
+    "channels": 1,
+    "channelLayout": null,
+    "durationMs": 2400,
+    "sizeBytes": 115244
+  },
+  "ogg": {
+    "path": "audio/07-aiden.ogg",
+    "sha256": "69393455d292d490b90de09250957c27020613e22fcc64b4671434d485c783cd",
+    "codec": "opus",
+    "sampleRateHz": 48000,
+    "channels": 1,
+    "channelLayout": "mono",
+    "durationMs": 2406,
+    "sizeBytes": 14083,
+    "integratedLufs": -16.2,
+    "truePeakDbtp": -1.2
+  }
+}

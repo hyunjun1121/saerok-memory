@@ -1,0 +1,29 @@
+{
+  "speaker": "Eric",
+  "text": "영자 어르신, 오늘 기분은 어떠세요?",
+  "language": "Korean",
+  "seed": 20260811,
+  "loudnessWithinShortClipRange": true,
+  "wav": {
+    "path": "audio/05-eric.wav",
+    "sha256": "eab1c9d4383df79b4d13136c4a390267e14237ac42d2096fd5268691e9897959",
+    "codec": "pcm_s16le",
+    "sampleRateHz": 24000,
+    "channels": 1,
+    "channelLayout": null,
+    "durationMs": 4960,
+    "sizeBytes": 238124
+  },
+  "ogg": {
+    "path": "audio/05-eric.ogg",
+    "sha256": "aa292ee428ee8f29dbe3807765429e25190273000946bf253a7b34b6104cf7f8",
+    "codec": "opus",
+    "sampleRateHz": 48000,
+    "channels": 1,
+    "channelLayout": "mono",
+    "durationMs": 5006,
+    "sizeBytes": 28517,
+    "integratedLufs": -16.4,
+    "truePeakDbtp": -3.9
+  }
+}

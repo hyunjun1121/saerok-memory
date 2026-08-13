@@ -1,0 +1,12 @@
+This model is licensed under the Fish Audio Research License, Copyright © 39 AI, INC. All Rights Reserved.
+
+License: https://github.com/fishaudio/fish-speech/blob/e5e292632cb11e7a27b2b7487f58f612bc101e13/LICENSE
+Source: https://github.com/fishaudio/fish-speech.git
+Source revision: e5e292632cb11e7a27b2b7487f58f612bc101e13
+Model: https://huggingface.co/fishaudio/s2-pro
+Model revision: 1de9996b6be38b745688de084d87a5633f714e4e
+
+The audio files in ko/fish/audio/ are generated Korean evaluation samples.
+They use no external reference audio and no cloned human voice. They were
+generated with the reference-free path from the model revision above, then
+resampled and loudness-normalized for listening comparison.

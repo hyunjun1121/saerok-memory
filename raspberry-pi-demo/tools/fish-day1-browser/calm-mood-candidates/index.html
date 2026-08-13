@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <title>Haru 기분 선택지 TTS 고르기</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="page-header">
+      <div class="page-header__inner">
+        <div class="title-block">
+          <p class="context-label">Haru / Day 1 첫 문항</p>
+          <h1>기분 선택지 TTS 고르기</h1>
+          <p class="intro-copy">각 문구의 음성 6개를 듣고, 앱에 쓸 음성 1개를 선택하세요.</p>
+        </div>
+
+        <section class="selection-summary" aria-labelledby="selection-title">
+          <div>
+            <span id="selection-title">선택 완료</span>
+            <strong data-testid="selection-progress">0 / 4</strong>
+          </div>
+          <p id="save-status" role="status" aria-live="polite">선택 결과는 이 컴퓨터에 바로 저장됩니다.</p>
+          <button id="next-unselected" class="secondary-button" type="button">다음 미선택 문구</button>
+          <button id="export-selections" class="primary-button" type="button" disabled>선택 결과 내보내기</button>
+        </section>
+      </div>
+    </header>
+
+    <main class="review-main">
+      <p class="review-note">듣기와 선택은 분리되어 있습니다. 재생만 해도 선택되지는 않습니다.</p>
+      <div id="load-error" class="load-error" role="alert" hidden></div>
+      <div id="option-list" class="option-list" aria-busy="true">
+        <div class="loading-block" aria-hidden="true"></div>
+        <div class="loading-block" aria-hidden="true"></div>
+        <div class="loading-block" aria-hidden="true"></div>
+        <div class="loading-block" aria-hidden="true"></div>
+      </div>
+    </main>
+
+    <template id="option-template">
+      <article class="option-row" data-testid="option-row">
+        <header class="option-heading">
+          <span class="option-letter"></span>
+          <div>
+            <span class="option-caption">화면에 보이는 문구</span>
+            <h2 data-testid="option-text"></h2>
+          </div>
+          <span class="option-state" data-testid="option-state">미선택</span>
+        </header>
+        <div class="tag-grid"></div>
+      </article>
+    </template>
+
+    <template id="tag-template">
+      <section class="tag-group">
+        <header class="tag-heading">
+          <span class="tag-name"></span>
+          <span>수동 태그</span>
+        </header>
+        <div class="result-grid"></div>
+      </section>
+    </template>
+
+    <template id="candidate-template">
+      <div class="candidate" data-testid="candidate">
+        <div class="candidate__copy">
+          <strong class="result-label"></strong>
+          <span class="result-detail"></span>
+        </div>
+        <audio preload="none"></audio>
+        <button class="play-button" type="button" data-action="play" aria-pressed="false">듣기</button>
+        <label class="select-control">
+          <input type="radio">
+          <span>선택</span>
+        </label>
+        <p class="audio-status" role="status"></p>
+      </div>
+    </template>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

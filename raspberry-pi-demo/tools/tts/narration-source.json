@@ -1,0 +1,2293 @@
+{
+  "schemaVersion": 1,
+  "model": {
+    "id": "Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice",
+    "revision": "0c0e3051f131929182e2c023b9537f8b1c68adfe",
+    "license": "Apache-2.0",
+    "sourceUrl": "https://huggingface.co/Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice",
+    "voices": {
+      "ko": {
+        "language": "Korean",
+        "speaker": "Sohee",
+        "instruct": "따뜻하고 차분한 한국어 여성 안내 음성. 고령자가 편하게 들을 수 있도록 또렷하되 과장하지 말고, 평소보다 약간 느린 속도로 자연스럽게 읽어 주세요."
+      },
+      "ja": {
+        "language": "Japanese",
+        "speaker": "Ono_Anna",
+        "instruct": "温かく落ち着いた日本語の女性案内音声。高齢の方にも聞き取りやすいよう、明瞭に、誇張せず、自然な範囲で少しゆっくり話してください。"
+      }
+    }
+  },
+  "entries": [
+    {
+      "id": "action.back",
+      "locale": "ja",
+      "text": "戻る"
+    },
+    {
+      "id": "action.confirm",
+      "locale": "ja",
+      "text": "決める"
+    },
+    {
+      "id": "action.finish",
+      "locale": "ja",
+      "text": "終わる"
+    },
+    {
+      "id": "action.next",
+      "locale": "ja",
+      "text": "次へ"
+    },
+    {
+      "id": "action.replay",
+      "locale": "ja",
+      "text": "もう一度聞く"
+    },
+    {
+      "id": "action.reset",
+      "locale": "ja",
+      "text": "最初から"
+    },
+    {
+      "id": "action.retry",
+      "locale": "ja",
+      "text": "やり直す"
+    },
+    {
+      "id": "action.start",
+      "locale": "ja",
+      "text": "始める"
+    },
+    {
+      "id": "day.1.completion",
+      "locale": "ja",
+      "text": "今日の活動をすべて終えました。また明日お会いしましょう。"
+    },
+    {
+      "id": "day.1.greeting",
+      "locale": "ja",
+      "text": "春子さん、月曜日の活動を始めましょう。"
+    },
+    {
+      "id": "day.1.title",
+      "locale": "ja",
+      "text": "1日目・今日の私"
+    },
+    {
+      "id": "day.2.completion",
+      "locale": "ja",
+      "text": "今日の活動をすべて終えました。明日も気軽に取り組みましょう。"
+    },
+    {
+      "id": "day.2.greeting",
+      "locale": "ja",
+      "text": "春子さん、昨日のお話を続けてみましょう。"
+    },
+    {
+      "id": "day.2.title",
+      "locale": "ja",
+      "text": "2日目・昨日と今日"
+    },
+    {
+      "id": "day.3.completion",
+      "locale": "ja",
+      "text": "今日の活動をすべて終えました。穏やかな一日をお過ごしください。"
+    },
+    {
+      "id": "day.3.greeting",
+      "locale": "ja",
+      "text": "春子さん、今日もゆっくり始めましょう。"
+    },
+    {
+      "id": "day.3.title",
+      "locale": "ja",
+      "text": "3日目・暮らしの記憶"
+    },
+    {
+      "id": "day.4.completion",
+      "locale": "ja",
+      "text": "今日の活動をすべて終えました。答えが一つ違っていても大丈夫です。また明日お会いしましょう。"
+    },
+    {
+      "id": "day.4.greeting",
+      "locale": "ja",
+      "text": "春子さん、今日の心と体はいかがですか。"
+    },
+    {
+      "id": "day.4.title",
+      "locale": "ja",
+      "text": "4日目・心と体"
+    },
+    {
+      "id": "day.5.completion",
+      "locale": "ja",
+      "text": "今日の活動をすべて終えました。ご家族と穏やかな時間をお過ごしください。"
+    },
+    {
+      "id": "day.5.greeting",
+      "locale": "ja",
+      "text": "春子さん、金曜日の活動をゆっくり始めましょう。"
+    },
+    {
+      "id": "day.5.title",
+      "locale": "ja",
+      "text": "5日目・一緒に過ごした時間"
+    },
+    {
+      "id": "day.6.completion",
+      "locale": "ja",
+      "text": "今日の活動をすべて終えました。ゆっくりお休みください。"
+    },
+    {
+      "id": "day.6.greeting",
+      "locale": "ja",
+      "text": "春子さん、土曜日のお話を聞かせてください。"
+    },
+    {
+      "id": "day.6.title",
+      "locale": "ja",
+      "text": "6日目・週末の一日"
+    },
+    {
+      "id": "day.7.completion",
+      "locale": "ja",
+      "text": "一週間の活動をすべて終えました。来週も気軽に取り組みましょう。"
+    },
+    {
+      "id": "day.7.greeting",
+      "locale": "ja",
+      "text": "春子さん、今週の思い出を一緒に振り返りましょう。"
+    },
+    {
+      "id": "day.7.title",
+      "locale": "ja",
+      "text": "7日目・一週間を振り返る"
+    },
+    {
+      "id": "exercise.D1_Q1.option.A",
+      "locale": "ja",
+      "text": "とても良い"
+    },
+    {
+      "id": "exercise.D1_Q1.option.B",
+      "locale": "ja",
+      "text": "良い"
+    },
+    {
+      "id": "exercise.D1_Q1.option.C",
+      "locale": "ja",
+      "text": "まあまあ"
+    },
+    {
+      "id": "exercise.D1_Q1.option.D",
+      "locale": "ja",
+      "text": "あまり良くない"
+    },
+    {
+      "id": "exercise.D1_Q1.prompt",
+      "locale": "ja",
+      "text": "春子さん、今日の気分はいかがですか。"
+    },
+    {
+      "id": "exercise.D1_Q2.option.A",
+      "locale": "ja",
+      "text": "月曜日"
+    },
+    {
+      "id": "exercise.D1_Q2.option.B",
+      "locale": "ja",
+      "text": "火曜日"
+    },
+    {
+      "id": "exercise.D1_Q2.option.C",
+      "locale": "ja",
+      "text": "土曜日"
+    },
+    {
+      "id": "exercise.D1_Q2.option.D",
+      "locale": "ja",
+      "text": "日曜日"
+    },
+    {
+      "id": "exercise.D1_Q2.prompt",
+      "locale": "ja",
+      "text": "今日は何曜日ですか。"
+    },
+    {
+      "id": "exercise.D1_Q3.option.A",
+      "locale": "ja",
+      "text": "長野県松本市"
+    },
+    {
+      "id": "exercise.D1_Q3.option.B",
+      "locale": "ja",
+      "text": "北海道札幌市"
+    },
+    {
+      "id": "exercise.D1_Q3.option.C",
+      "locale": "ja",
+      "text": "東京都"
+    },
+    {
+      "id": "exercise.D1_Q3.option.D",
+      "locale": "ja",
+      "text": "青森県青森市"
+    },
+    {
+      "id": "exercise.D1_Q3.prompt",
+      "locale": "ja",
+      "text": "春子さんの故郷はどこですか。"
+    },
+    {
+      "id": "exercise.D1_Q4.option.A",
+      "locale": "ja",
+      "text": "0円"
+    },
+    {
+      "id": "exercise.D1_Q4.option.B",
+      "locale": "ja",
+      "text": "50円"
+    },
+    {
+      "id": "exercise.D1_Q4.option.C",
+      "locale": "ja",
+      "text": "100円"
+    },
+    {
+      "id": "exercise.D1_Q4.option.D",
+      "locale": "ja",
+      "text": "150円"
+    },
+    {
+      "id": "exercise.D1_Q4.prompt",
+      "locale": "ja",
+      "text": "豆腐を150円、卵を250円で買い、500円を払いました。おつりはいくらですか。"
+    },
+    {
+      "id": "exercise.D1_Q5.prompt",
+      "locale": "ja",
+      "text": "今日行った場所と、したことをゆっくり話してください。"
+    },
+    {
+      "id": "exercise.D1_Q6.option.A",
+      "locale": "ja",
+      "text": "りんご"
+    },
+    {
+      "id": "exercise.D1_Q6.option.B",
+      "locale": "ja",
+      "text": "傘"
+    },
+    {
+      "id": "exercise.D1_Q6.option.C",
+      "locale": "ja",
+      "text": "バス"
+    },
+    {
+      "id": "exercise.D1_Q6.option.D",
+      "locale": "ja",
+      "text": "帽子"
+    },
+    {
+      "id": "exercise.D1_Q6.prompt",
+      "locale": "ja",
+      "text": "最初に聞いた順番どおりにボタンを押してください。"
+    },
+    {
+      "id": "exercise.D1_Q6.sequence",
+      "locale": "ja",
+      "text": "りんご、傘、バス"
+    },
+    {
+      "id": "exercise.D2_Q1.option.A",
+      "locale": "ja",
+      "text": "とても良い"
+    },
+    {
+      "id": "exercise.D2_Q1.option.B",
+      "locale": "ja",
+      "text": "良い"
+    },
+    {
+      "id": "exercise.D2_Q1.option.C",
+      "locale": "ja",
+      "text": "まあまあ"
+    },
+    {
+      "id": "exercise.D2_Q1.option.D",
+      "locale": "ja",
+      "text": "あまり良くない"
+    },
+    {
+      "id": "exercise.D2_Q1.prompt",
+      "locale": "ja",
+      "text": "昨日は気分が良いとおっしゃいました。今日の気分はいかがですか。"
+    },
+    {
+      "id": "exercise.D2_Q2.option.A",
+      "locale": "ja",
+      "text": "月曜日"
+    },
+    {
+      "id": "exercise.D2_Q2.option.B",
+      "locale": "ja",
+      "text": "水曜日"
+    },
+    {
+      "id": "exercise.D2_Q2.option.C",
+      "locale": "ja",
+      "text": "金曜日"
+    },
+    {
+      "id": "exercise.D2_Q2.option.D",
+      "locale": "ja",
+      "text": "日曜日"
+    },
+    {
+      "id": "exercise.D2_Q2.prompt",
+      "locale": "ja",
+      "text": "明日は何曜日ですか。"
+    },
+    {
+      "id": "exercise.D2_Q3.option.A",
+      "locale": "ja",
+      "text": "かぼちゃ"
+    },
+    {
+      "id": "exercise.D2_Q3.option.B",
+      "locale": "ja",
+      "text": "じゃがいも"
+    },
+    {
+      "id": "exercise.D2_Q3.option.C",
+      "locale": "ja",
+      "text": "玉ねぎ"
+    },
+    {
+      "id": "exercise.D2_Q3.option.D",
+      "locale": "ja",
+      "text": "大根"
+    },
+    {
+      "id": "exercise.D2_Q3.prompt",
+      "locale": "ja",
+      "text": "昨日、近所のスーパーで買ったと話した野菜はどれですか。"
+    },
+    {
+      "id": "exercise.D2_Q4.option.A",
+      "locale": "ja",
+      "text": "福来る"
+    },
+    {
+      "id": "exercise.D2_Q4.option.B",
+      "locale": "ja",
+      "text": "足が軽くなる"
+    },
+    {
+      "id": "exercise.D2_Q4.option.C",
+      "locale": "ja",
+      "text": "ご飯がおいしくなる"
+    },
+    {
+      "id": "exercise.D2_Q4.option.D",
+      "locale": "ja",
+      "text": "道が開ける"
+    },
+    {
+      "id": "exercise.D2_Q4.prompt",
+      "locale": "ja",
+      "text": "ことわざ「笑う門には」に続く言葉はどれですか。"
+    },
+    {
+      "id": "exercise.D2_Q5.option.A",
+      "locale": "ja",
+      "text": "左上"
+    },
+    {
+      "id": "exercise.D2_Q5.option.B",
+      "locale": "ja",
+      "text": "右上"
+    },
+    {
+      "id": "exercise.D2_Q5.option.C",
+      "locale": "ja",
+      "text": "左下"
+    },
+    {
+      "id": "exercise.D2_Q5.option.D",
+      "locale": "ja",
+      "text": "右下"
+    },
+    {
+      "id": "exercise.D2_Q5.prompt",
+      "locale": "ja",
+      "text": "点が左上、右上、右下の順に動きました。同じ向きに動き続けると、次はどこですか。"
+    },
+    {
+      "id": "exercise.D2_Q6.prompt",
+      "locale": "ja",
+      "text": "今日、誰に会って何をし、何を食べたか話してください。"
+    },
+    {
+      "id": "exercise.D3_Q1.option.A",
+      "locale": "ja",
+      "text": "とても良い"
+    },
+    {
+      "id": "exercise.D3_Q1.option.B",
+      "locale": "ja",
+      "text": "良い"
+    },
+    {
+      "id": "exercise.D3_Q1.option.C",
+      "locale": "ja",
+      "text": "まあまあ"
+    },
+    {
+      "id": "exercise.D3_Q1.option.D",
+      "locale": "ja",
+      "text": "あまり良くない"
+    },
+    {
+      "id": "exercise.D3_Q1.prompt",
+      "locale": "ja",
+      "text": "昨日はとても気分が良いとおっしゃいました。今日の気分はいかがですか。"
+    },
+    {
+      "id": "exercise.D3_Q2.option.A",
+      "locale": "ja",
+      "text": "月曜日"
+    },
+    {
+      "id": "exercise.D3_Q2.option.B",
+      "locale": "ja",
+      "text": "火曜日"
+    },
+    {
+      "id": "exercise.D3_Q2.option.C",
+      "locale": "ja",
+      "text": "水曜日"
+    },
+    {
+      "id": "exercise.D3_Q2.option.D",
+      "locale": "ja",
+      "text": "木曜日"
+    },
+    {
+      "id": "exercise.D3_Q2.prompt",
+      "locale": "ja",
+      "text": "昨日は何曜日でしたか。"
+    },
+    {
+      "id": "exercise.D3_Q3.option.A",
+      "locale": "ja",
+      "text": "田中和子さん"
+    },
+    {
+      "id": "exercise.D3_Q3.option.B",
+      "locale": "ja",
+      "text": "佐藤由美さん"
+    },
+    {
+      "id": "exercise.D3_Q3.option.C",
+      "locale": "ja",
+      "text": "佐藤健太さん"
+    },
+    {
+      "id": "exercise.D3_Q3.option.D",
+      "locale": "ja",
+      "text": "鈴木恵子さん"
+    },
+    {
+      "id": "exercise.D3_Q3.prompt",
+      "locale": "ja",
+      "text": "昨日、地域の交流センターで一緒に輪投げをした人は誰ですか。"
+    },
+    {
+      "id": "exercise.D3_Q4.option.A",
+      "locale": "ja",
+      "text": "午前8時15分"
+    },
+    {
+      "id": "exercise.D3_Q4.option.B",
+      "locale": "ja",
+      "text": "午前8時30分"
+    },
+    {
+      "id": "exercise.D3_Q4.option.C",
+      "locale": "ja",
+      "text": "午前9時"
+    },
+    {
+      "id": "exercise.D3_Q4.option.D",
+      "locale": "ja",
+      "text": "午前9時30分"
+    },
+    {
+      "id": "exercise.D3_Q4.prompt",
+      "locale": "ja",
+      "text": "血圧の薬を午前8時に飲み、30分後に朝食を取ります。朝食は何時ですか。"
+    },
+    {
+      "id": "exercise.D3_Q5.option.A",
+      "locale": "ja",
+      "text": "小学校の給食調理員"
+    },
+    {
+      "id": "exercise.D3_Q5.option.B",
+      "locale": "ja",
+      "text": "バス運転手"
+    },
+    {
+      "id": "exercise.D3_Q5.option.C",
+      "locale": "ja",
+      "text": "銀行員"
+    },
+    {
+      "id": "exercise.D3_Q5.option.D",
+      "locale": "ja",
+      "text": "美容師"
+    },
+    {
+      "id": "exercise.D3_Q5.prompt",
+      "locale": "ja",
+      "text": "春子さんが以前していた仕事は何ですか。"
+    },
+    {
+      "id": "exercise.D3_Q6.prompt",
+      "locale": "ja",
+      "text": "今日行った場所と体の調子を話してください。"
+    },
+    {
+      "id": "exercise.D4_Q1.option.A",
+      "locale": "ja",
+      "text": "とても良い"
+    },
+    {
+      "id": "exercise.D4_Q1.option.B",
+      "locale": "ja",
+      "text": "良い"
+    },
+    {
+      "id": "exercise.D4_Q1.option.C",
+      "locale": "ja",
+      "text": "まあまあ"
+    },
+    {
+      "id": "exercise.D4_Q1.option.D",
+      "locale": "ja",
+      "text": "あまり良くない"
+    },
+    {
+      "id": "exercise.D4_Q1.prompt",
+      "locale": "ja",
+      "text": "昨日は少し疲れたけれど気持ちは落ち着いているとおっしゃいました。今日の気分はいかがですか。"
+    },
+    {
+      "id": "exercise.D4_Q2.option.A",
+      "locale": "ja",
+      "text": "6月"
+    },
+    {
+      "id": "exercise.D4_Q2.option.B",
+      "locale": "ja",
+      "text": "7月"
+    },
+    {
+      "id": "exercise.D4_Q2.option.C",
+      "locale": "ja",
+      "text": "8月"
+    },
+    {
+      "id": "exercise.D4_Q2.option.D",
+      "locale": "ja",
+      "text": "9月"
+    },
+    {
+      "id": "exercise.D4_Q2.prompt",
+      "locale": "ja",
+      "text": "今は何月ですか。"
+    },
+    {
+      "id": "exercise.D4_Q3.option.A",
+      "locale": "ja",
+      "text": "地域の保健センター"
+    },
+    {
+      "id": "exercise.D4_Q3.option.B",
+      "locale": "ja",
+      "text": "地域の交流センター"
+    },
+    {
+      "id": "exercise.D4_Q3.option.C",
+      "locale": "ja",
+      "text": "近所のスーパー"
+    },
+    {
+      "id": "exercise.D4_Q3.option.D",
+      "locale": "ja",
+      "text": "銀行"
+    },
+    {
+      "id": "exercise.D4_Q3.prompt",
+      "locale": "ja",
+      "text": "昨日、血圧を測った場所はどこですか。"
+    },
+    {
+      "id": "exercise.D4_Q4.option.A",
+      "locale": "ja",
+      "text": "午後1時15分"
+    },
+    {
+      "id": "exercise.D4_Q4.option.B",
+      "locale": "ja",
+      "text": "午後1時20分"
+    },
+    {
+      "id": "exercise.D4_Q4.option.C",
+      "locale": "ja",
+      "text": "午後1時25分"
+    },
+    {
+      "id": "exercise.D4_Q4.option.D",
+      "locale": "ja",
+      "text": "午後1時30分"
+    },
+    {
+      "id": "exercise.D4_Q4.prompt",
+      "locale": "ja",
+      "text": "電車は15分間隔で来ます。前の電車が午後1時10分に出発した場合、次は何時に来ますか。"
+    },
+    {
+      "id": "exercise.D4_Q5.prompt",
+      "locale": "ja",
+      "text": "今日どこを歩き、誰に会ったか話してください。"
+    },
+    {
+      "id": "exercise.D4_Q6.option.A",
+      "locale": "ja",
+      "text": "鍵"
+    },
+    {
+      "id": "exercise.D4_Q6.option.B",
+      "locale": "ja",
+      "text": "ぶどう"
+    },
+    {
+      "id": "exercise.D4_Q6.option.C",
+      "locale": "ja",
+      "text": "電車"
+    },
+    {
+      "id": "exercise.D4_Q6.option.D",
+      "locale": "ja",
+      "text": "傘"
+    },
+    {
+      "id": "exercise.D4_Q6.prompt",
+      "locale": "ja",
+      "text": "最初に聞いた順番どおりにボタンを押してください。"
+    },
+    {
+      "id": "exercise.D4_Q6.sequence",
+      "locale": "ja",
+      "text": "鍵、ぶどう、電車"
+    },
+    {
+      "id": "exercise.D5_Q1.option.A",
+      "locale": "ja",
+      "text": "とても良い"
+    },
+    {
+      "id": "exercise.D5_Q1.option.B",
+      "locale": "ja",
+      "text": "良い"
+    },
+    {
+      "id": "exercise.D5_Q1.option.C",
+      "locale": "ja",
+      "text": "まあまあ"
+    },
+    {
+      "id": "exercise.D5_Q1.option.D",
+      "locale": "ja",
+      "text": "あまり良くない"
+    },
+    {
+      "id": "exercise.D5_Q1.prompt",
+      "locale": "ja",
+      "text": "昨日、散歩のあと体が軽くなったとおっしゃいました。今日の気分はいかがですか。"
+    },
+    {
+      "id": "exercise.D5_Q2.option.A",
+      "locale": "ja",
+      "text": "金曜日"
+    },
+    {
+      "id": "exercise.D5_Q2.option.B",
+      "locale": "ja",
+      "text": "土曜日"
+    },
+    {
+      "id": "exercise.D5_Q2.option.C",
+      "locale": "ja",
+      "text": "日曜日"
+    },
+    {
+      "id": "exercise.D5_Q2.option.D",
+      "locale": "ja",
+      "text": "月曜日"
+    },
+    {
+      "id": "exercise.D5_Q2.prompt",
+      "locale": "ja",
+      "text": "明日は何曜日ですか。"
+    },
+    {
+      "id": "exercise.D5_Q3.option.A",
+      "locale": "ja",
+      "text": "麦茶"
+    },
+    {
+      "id": "exercise.D5_Q3.option.B",
+      "locale": "ja",
+      "text": "コーヒー"
+    },
+    {
+      "id": "exercise.D5_Q3.option.C",
+      "locale": "ja",
+      "text": "牛乳"
+    },
+    {
+      "id": "exercise.D5_Q3.option.D",
+      "locale": "ja",
+      "text": "オレンジジュース"
+    },
+    {
+      "id": "exercise.D5_Q3.prompt",
+      "locale": "ja",
+      "text": "昨日、散歩を終えて家で飲んだものは何ですか。"
+    },
+    {
+      "id": "exercise.D5_Q4.option.A",
+      "locale": "ja",
+      "text": "力を合わせると、よい考えが生まれる"
+    },
+    {
+      "id": "exercise.D5_Q4.option.B",
+      "locale": "ja",
+      "text": "人数が多いほど、すぐ終わる"
+    },
+    {
+      "id": "exercise.D5_Q4.option.C",
+      "locale": "ja",
+      "text": "一人で考えるほうがよい"
+    },
+    {
+      "id": "exercise.D5_Q4.option.D",
+      "locale": "ja",
+      "text": "難しいことは後回しにする"
+    },
+    {
+      "id": "exercise.D5_Q4.prompt",
+      "locale": "ja",
+      "text": "ことわざ「三人寄れば文殊の知恵」に最も近い意味はどれですか。"
+    },
+    {
+      "id": "exercise.D5_Q5.option.A",
+      "locale": "ja",
+      "text": "丸、三角"
+    },
+    {
+      "id": "exercise.D5_Q5.option.B",
+      "locale": "ja",
+      "text": "三角、丸"
+    },
+    {
+      "id": "exercise.D5_Q5.option.C",
+      "locale": "ja",
+      "text": "丸、丸"
+    },
+    {
+      "id": "exercise.D5_Q5.option.D",
+      "locale": "ja",
+      "text": "三角、三角"
+    },
+    {
+      "id": "exercise.D5_Q5.prompt",
+      "locale": "ja",
+      "text": "上に見える形とまったく同じものを選んでください。"
+    },
+    {
+      "id": "exercise.D5_Q6.prompt",
+      "locale": "ja",
+      "text": "今日、家に来た人と一緒に食べたものを話してください。"
+    },
+    {
+      "id": "exercise.D6_Q1.option.A",
+      "locale": "ja",
+      "text": "とても良い"
+    },
+    {
+      "id": "exercise.D6_Q1.option.B",
+      "locale": "ja",
+      "text": "良い"
+    },
+    {
+      "id": "exercise.D6_Q1.option.C",
+      "locale": "ja",
+      "text": "まあまあ"
+    },
+    {
+      "id": "exercise.D6_Q1.option.D",
+      "locale": "ja",
+      "text": "あまり良くない"
+    },
+    {
+      "id": "exercise.D6_Q1.prompt",
+      "locale": "ja",
+      "text": "昨日は家族に会えてうれしかったとおっしゃいました。今日の気分はいかがですか。"
+    },
+    {
+      "id": "exercise.D6_Q2.option.A",
+      "locale": "ja",
+      "text": "木曜日"
+    },
+    {
+      "id": "exercise.D6_Q2.option.B",
+      "locale": "ja",
+      "text": "金曜日"
+    },
+    {
+      "id": "exercise.D6_Q2.option.C",
+      "locale": "ja",
+      "text": "土曜日"
+    },
+    {
+      "id": "exercise.D6_Q2.option.D",
+      "locale": "ja",
+      "text": "日曜日"
+    },
+    {
+      "id": "exercise.D6_Q2.prompt",
+      "locale": "ja",
+      "text": "昨日は何曜日でしたか。"
+    },
+    {
+      "id": "exercise.D6_Q3.option.A",
+      "locale": "ja",
+      "text": "娘の由美さんと孫の健太さん"
+    },
+    {
+      "id": "exercise.D6_Q3.option.B",
+      "locale": "ja",
+      "text": "友人の和子さんと近所の恵子さん"
+    },
+    {
+      "id": "exercise.D6_Q3.option.C",
+      "locale": "ja",
+      "text": "保健センターの職員"
+    },
+    {
+      "id": "exercise.D6_Q3.option.D",
+      "locale": "ja",
+      "text": "一人"
+    },
+    {
+      "id": "exercise.D6_Q3.prompt",
+      "locale": "ja",
+      "text": "昨日、一緒にお好み焼きを食べた人は誰ですか。"
+    },
+    {
+      "id": "exercise.D6_Q4.option.A",
+      "locale": "ja",
+      "text": "午前10時20分"
+    },
+    {
+      "id": "exercise.D6_Q4.option.B",
+      "locale": "ja",
+      "text": "午前10時30分"
+    },
+    {
+      "id": "exercise.D6_Q4.option.C",
+      "locale": "ja",
+      "text": "午前10時40分"
+    },
+    {
+      "id": "exercise.D6_Q4.option.D",
+      "locale": "ja",
+      "text": "午前11時10分"
+    },
+    {
+      "id": "exercise.D6_Q4.prompt",
+      "locale": "ja",
+      "text": "バスは20分間隔で来ます。前のバスが午前10時10分に出発したなら、次は何時に来ますか。"
+    },
+    {
+      "id": "exercise.D6_Q5.option.A",
+      "locale": "ja",
+      "text": "佐藤由美"
+    },
+    {
+      "id": "exercise.D6_Q5.option.B",
+      "locale": "ja",
+      "text": "田中和子"
+    },
+    {
+      "id": "exercise.D6_Q5.option.C",
+      "locale": "ja",
+      "text": "鈴木恵子"
+    },
+    {
+      "id": "exercise.D6_Q5.option.D",
+      "locale": "ja",
+      "text": "高橋美幸"
+    },
+    {
+      "id": "exercise.D6_Q5.prompt",
+      "locale": "ja",
+      "text": "春子さんの娘の名前は何ですか。"
+    },
+    {
+      "id": "exercise.D6_Q6.prompt",
+      "locale": "ja",
+      "text": "今日行った場所と、帰り道に買ったものを話してください。"
+    },
+    {
+      "id": "exercise.D7_Q1.option.A",
+      "locale": "ja",
+      "text": "とても良い"
+    },
+    {
+      "id": "exercise.D7_Q1.option.B",
+      "locale": "ja",
+      "text": "良い"
+    },
+    {
+      "id": "exercise.D7_Q1.option.C",
+      "locale": "ja",
+      "text": "まあまあ"
+    },
+    {
+      "id": "exercise.D7_Q1.option.D",
+      "locale": "ja",
+      "text": "あまり良くない"
+    },
+    {
+      "id": "exercise.D7_Q1.prompt",
+      "locale": "ja",
+      "text": "昨日の午後は家で休んだとおっしゃいました。今日の気分はいかがですか。"
+    },
+    {
+      "id": "exercise.D7_Q2.option.A",
+      "locale": "ja",
+      "text": "月曜日"
+    },
+    {
+      "id": "exercise.D7_Q2.option.B",
+      "locale": "ja",
+      "text": "火曜日"
+    },
+    {
+      "id": "exercise.D7_Q2.option.C",
+      "locale": "ja",
+      "text": "水曜日"
+    },
+    {
+      "id": "exercise.D7_Q2.option.D",
+      "locale": "ja",
+      "text": "木曜日"
+    },
+    {
+      "id": "exercise.D7_Q2.prompt",
+      "locale": "ja",
+      "text": "今日は日曜日です。あさっては何曜日ですか。"
+    },
+    {
+      "id": "exercise.D7_Q3.option.A",
+      "locale": "ja",
+      "text": "あんパン2個"
+    },
+    {
+      "id": "exercise.D7_Q3.option.B",
+      "locale": "ja",
+      "text": "食パン1斤"
+    },
+    {
+      "id": "exercise.D7_Q3.option.C",
+      "locale": "ja",
+      "text": "メロンパン3個"
+    },
+    {
+      "id": "exercise.D7_Q3.option.D",
+      "locale": "ja",
+      "text": "ケーキ1個"
+    },
+    {
+      "id": "exercise.D7_Q3.prompt",
+      "locale": "ja",
+      "text": "昨日、パン屋で買ったものは何ですか。"
+    },
+    {
+      "id": "exercise.D7_Q4.option.A",
+      "locale": "ja",
+      "text": "お好み焼き"
+    },
+    {
+      "id": "exercise.D7_Q4.option.B",
+      "locale": "ja",
+      "text": "そうめん"
+    },
+    {
+      "id": "exercise.D7_Q4.option.C",
+      "locale": "ja",
+      "text": "味噌汁"
+    },
+    {
+      "id": "exercise.D7_Q4.option.D",
+      "locale": "ja",
+      "text": "あんパン"
+    },
+    {
+      "id": "exercise.D7_Q4.prompt",
+      "locale": "ja",
+      "text": "今週、娘の由美さんと孫の健太さんが家に来たとき、一緒に食べたものは何ですか。"
+    },
+    {
+      "id": "exercise.D7_Q5.option.A",
+      "locale": "ja",
+      "text": "0個"
+    },
+    {
+      "id": "exercise.D7_Q5.option.B",
+      "locale": "ja",
+      "text": "1個"
+    },
+    {
+      "id": "exercise.D7_Q5.option.C",
+      "locale": "ja",
+      "text": "2個"
+    },
+    {
+      "id": "exercise.D7_Q5.option.D",
+      "locale": "ja",
+      "text": "3個"
+    },
+    {
+      "id": "exercise.D7_Q5.prompt",
+      "locale": "ja",
+      "text": "昨日買ったあんパン2個のうち、今日1個食べると何個残りますか。"
+    },
+    {
+      "id": "exercise.D7_Q6.prompt",
+      "locale": "ja",
+      "text": "今日したことと、今週いちばん心に残ったことを一緒に話してください。"
+    },
+    {
+      "id": "feedback.saved",
+      "locale": "ja",
+      "text": "きちんと残せました。"
+    },
+    {
+      "id": "feedback.selected",
+      "locale": "ja",
+      "text": "選びました。同じボタンをもう一度押してください。"
+    },
+    {
+      "id": "feedback.try_again",
+      "locale": "ja",
+      "text": "大丈夫です。ゆっくり、もう一度やってみましょう。"
+    },
+    {
+      "id": "guide.button_test",
+      "locale": "ja",
+      "text": "画面で光っている位置と同じボタンを押してください。"
+    },
+    {
+      "id": "guide.choice",
+      "locale": "ja",
+      "text": "答えと同じ位置にあるボタンを押してください。"
+    },
+    {
+      "id": "guide.choice_confirm",
+      "locale": "ja",
+      "text": "選んだボタンをもう一度押すと決まります。"
+    },
+    {
+      "id": "guide.day_complete",
+      "locale": "ja",
+      "text": "今日の活動はこれで終わりです。ご一緒いただき、ありがとうございました。"
+    },
+    {
+      "id": "guide.feedback",
+      "locale": "ja",
+      "text": "右側のボタンを押すと次へ進みます。"
+    },
+    {
+      "id": "guide.microphone_unavailable",
+      "locale": "ja",
+      "text": "マイクが見つかりませんが、体験はそのまま続けられます。"
+    },
+    {
+      "id": "guide.sequence",
+      "locale": "ja",
+      "text": "順番にボタンを選び、同じボタンをもう一度押してください。"
+    },
+    {
+      "id": "guide.voice_ready",
+      "locale": "ja",
+      "text": "右側のボタンを押したら、いつものようにお話しください。"
+    },
+    {
+      "id": "guide.voice_recording",
+      "locale": "ja",
+      "text": "いつものようにお話しください。終わったら右側のボタンを押してください。"
+    },
+    {
+      "id": "guide.voice_review",
+      "locale": "ja",
+      "text": "話し直すときは左、このまま確定するときは右のボタンを押してください。"
+    },
+    {
+      "id": "guide.welcome",
+      "locale": "ja",
+      "text": "画面と同じ位置にある4つのボタンで、今日のHaruを始めましょう。"
+    },
+    {
+      "id": "action.back",
+      "locale": "ko",
+      "text": "뒤로 가기"
+    },
+    {
+      "id": "action.confirm",
+      "locale": "ko",
+      "text": "확정하기"
+    },
+    {
+      "id": "action.finish",
+      "locale": "ko",
+      "text": "마치기"
+    },
+    {
+      "id": "action.next",
+      "locale": "ko",
+      "text": "다음으로"
+    },
+    {
+      "id": "action.replay",
+      "locale": "ko",
+      "text": "다시 듣기"
+    },
+    {
+      "id": "action.reset",
+      "locale": "ko",
+      "text": "처음부터"
+    },
+    {
+      "id": "action.retry",
+      "locale": "ko",
+      "text": "다시 하기"
+    },
+    {
+      "id": "action.start",
+      "locale": "ko",
+      "text": "시작하기"
+    },
+    {
+      "id": "day.1.completion",
+      "locale": "ko",
+      "text": "오늘 활동을 모두 마쳤어요. 내일 또 만나요."
+    },
+    {
+      "id": "day.1.greeting",
+      "locale": "ko",
+      "text": "영자 어르신, 월요일 활동을 시작해요."
+    },
+    {
+      "id": "day.1.title",
+      "locale": "ko",
+      "text": "1일차 · 나의 오늘"
+    },
+    {
+      "id": "day.2.completion",
+      "locale": "ko",
+      "text": "오늘 활동을 모두 마쳤어요. 내일도 편하게 들러 주세요."
+    },
+    {
+      "id": "day.2.greeting",
+      "locale": "ko",
+      "text": "영자 어르신, 어제 이야기를 이어가 볼까요?"
+    },
+    {
+      "id": "day.2.title",
+      "locale": "ko",
+      "text": "2일차 · 어제와 오늘"
+    },
+    {
+      "id": "day.3.completion",
+      "locale": "ko",
+      "text": "오늘 활동을 모두 마쳤어요. 편안한 하루 보내세요."
+    },
+    {
+      "id": "day.3.greeting",
+      "locale": "ko",
+      "text": "영자 어르신, 오늘도 천천히 시작해요."
+    },
+    {
+      "id": "day.3.title",
+      "locale": "ko",
+      "text": "3일차 · 생활 기억"
+    },
+    {
+      "id": "day.4.completion",
+      "locale": "ko",
+      "text": "오늘 활동을 모두 마쳤어요. 한 문제는 틀려도 괜찮아요. 내일 또 만나요."
+    },
+    {
+      "id": "day.4.greeting",
+      "locale": "ko",
+      "text": "영자 어르신, 오늘 몸과 마음은 어떠신가요?"
+    },
+    {
+      "id": "day.4.title",
+      "locale": "ko",
+      "text": "4일차 · 몸과 마음"
+    },
+    {
+      "id": "day.5.completion",
+      "locale": "ko",
+      "text": "오늘 활동을 모두 마쳤어요. 가족과 편안한 시간 보내세요."
+    },
+    {
+      "id": "day.5.greeting",
+      "locale": "ko",
+      "text": "영자 어르신, 금요일 활동을 편하게 시작해요."
+    },
+    {
+      "id": "day.5.title",
+      "locale": "ko",
+      "text": "5일차 · 함께한 시간"
+    },
+    {
+      "id": "day.6.completion",
+      "locale": "ko",
+      "text": "오늘 활동을 모두 마쳤어요. 편안히 쉬세요."
+    },
+    {
+      "id": "day.6.greeting",
+      "locale": "ko",
+      "text": "영자 어르신, 토요일 이야기를 들려주세요."
+    },
+    {
+      "id": "day.6.title",
+      "locale": "ko",
+      "text": "6일차 · 주말의 하루"
+    },
+    {
+      "id": "day.7.completion",
+      "locale": "ko",
+      "text": "일주일 활동을 모두 마쳤어요. 다음 주에도 편하게 만나요."
+    },
+    {
+      "id": "day.7.greeting",
+      "locale": "ko",
+      "text": "영자 어르신, 이번 주의 기억을 함께 돌아봐요."
+    },
+    {
+      "id": "day.7.title",
+      "locale": "ko",
+      "text": "7일차 · 한 주 돌아보기"
+    },
+    {
+      "id": "exercise.D1_Q1.option.A",
+      "locale": "ko",
+      "text": "매우 좋음"
+    },
+    {
+      "id": "exercise.D1_Q1.option.B",
+      "locale": "ko",
+      "text": "좋음"
+    },
+    {
+      "id": "exercise.D1_Q1.option.C",
+      "locale": "ko",
+      "text": "그저 그럼"
+    },
+    {
+      "id": "exercise.D1_Q1.option.D",
+      "locale": "ko",
+      "text": "좋지 않음"
+    },
+    {
+      "id": "exercise.D1_Q1.prompt",
+      "locale": "ko",
+      "text": "영자 어르신, 오늘 기분은 어떠세요?"
+    },
+    {
+      "id": "exercise.D1_Q2.option.A",
+      "locale": "ko",
+      "text": "월요일"
+    },
+    {
+      "id": "exercise.D1_Q2.option.B",
+      "locale": "ko",
+      "text": "화요일"
+    },
+    {
+      "id": "exercise.D1_Q2.option.C",
+      "locale": "ko",
+      "text": "토요일"
+    },
+    {
+      "id": "exercise.D1_Q2.option.D",
+      "locale": "ko",
+      "text": "일요일"
+    },
+    {
+      "id": "exercise.D1_Q2.prompt",
+      "locale": "ko",
+      "text": "오늘은 무슨 요일인가요?"
+    },
+    {
+      "id": "exercise.D1_Q3.option.A",
+      "locale": "ko",
+      "text": "부산 영도"
+    },
+    {
+      "id": "exercise.D1_Q3.option.B",
+      "locale": "ko",
+      "text": "대전 유성"
+    },
+    {
+      "id": "exercise.D1_Q3.option.C",
+      "locale": "ko",
+      "text": "전주 완산"
+    },
+    {
+      "id": "exercise.D1_Q3.option.D",
+      "locale": "ko",
+      "text": "서울 종로"
+    },
+    {
+      "id": "exercise.D1_Q3.prompt",
+      "locale": "ko",
+      "text": "영자 어르신이 태어나고 자란 고향은 어디인가요?"
+    },
+    {
+      "id": "exercise.D1_Q4.option.A",
+      "locale": "ko",
+      "text": "2,000원"
+    },
+    {
+      "id": "exercise.D1_Q4.option.B",
+      "locale": "ko",
+      "text": "3,000원"
+    },
+    {
+      "id": "exercise.D1_Q4.option.C",
+      "locale": "ko",
+      "text": "4,000원"
+    },
+    {
+      "id": "exercise.D1_Q4.option.D",
+      "locale": "ko",
+      "text": "5,000원"
+    },
+    {
+      "id": "exercise.D1_Q4.prompt",
+      "locale": "ko",
+      "text": "두부 2,000원과 달걀 4,000원을 사고 10,000원을 냈습니다. 거스름돈은 얼마일까요?"
+    },
+    {
+      "id": "exercise.D1_Q5.prompt",
+      "locale": "ko",
+      "text": "오늘 다녀온 곳과 한 일을 천천히 말씀해 주세요."
+    },
+    {
+      "id": "exercise.D1_Q6.option.A",
+      "locale": "ko",
+      "text": "사과"
+    },
+    {
+      "id": "exercise.D1_Q6.option.B",
+      "locale": "ko",
+      "text": "우산"
+    },
+    {
+      "id": "exercise.D1_Q6.option.C",
+      "locale": "ko",
+      "text": "버스"
+    },
+    {
+      "id": "exercise.D1_Q6.option.D",
+      "locale": "ko",
+      "text": "모자"
+    },
+    {
+      "id": "exercise.D1_Q6.prompt",
+      "locale": "ko",
+      "text": "처음 들은 순서대로 버튼을 눌러 주세요."
+    },
+    {
+      "id": "exercise.D1_Q6.sequence",
+      "locale": "ko",
+      "text": "사과, 우산, 버스"
+    },
+    {
+      "id": "exercise.D2_Q1.option.A",
+      "locale": "ko",
+      "text": "매우 좋음"
+    },
+    {
+      "id": "exercise.D2_Q1.option.B",
+      "locale": "ko",
+      "text": "좋음"
+    },
+    {
+      "id": "exercise.D2_Q1.option.C",
+      "locale": "ko",
+      "text": "그저 그럼"
+    },
+    {
+      "id": "exercise.D2_Q1.option.D",
+      "locale": "ko",
+      "text": "좋지 않음"
+    },
+    {
+      "id": "exercise.D2_Q1.prompt",
+      "locale": "ko",
+      "text": "어제는 기분이 좋다고 하셨어요. 오늘 기분은 어떠세요?"
+    },
+    {
+      "id": "exercise.D2_Q2.option.A",
+      "locale": "ko",
+      "text": "월요일"
+    },
+    {
+      "id": "exercise.D2_Q2.option.B",
+      "locale": "ko",
+      "text": "수요일"
+    },
+    {
+      "id": "exercise.D2_Q2.option.C",
+      "locale": "ko",
+      "text": "금요일"
+    },
+    {
+      "id": "exercise.D2_Q2.option.D",
+      "locale": "ko",
+      "text": "일요일"
+    },
+    {
+      "id": "exercise.D2_Q2.prompt",
+      "locale": "ko",
+      "text": "내일은 무슨 요일인가요?"
+    },
+    {
+      "id": "exercise.D2_Q3.option.A",
+      "locale": "ko",
+      "text": "애호박"
+    },
+    {
+      "id": "exercise.D2_Q3.option.B",
+      "locale": "ko",
+      "text": "감자"
+    },
+    {
+      "id": "exercise.D2_Q3.option.C",
+      "locale": "ko",
+      "text": "양파"
+    },
+    {
+      "id": "exercise.D2_Q3.option.D",
+      "locale": "ko",
+      "text": "무"
+    },
+    {
+      "id": "exercise.D2_Q3.prompt",
+      "locale": "ko",
+      "text": "다음 중 어제 유성시장에서 샀다고 말씀하신 채소 하나는 무엇인가요?"
+    },
+    {
+      "id": "exercise.D2_Q4.option.A",
+      "locale": "ko",
+      "text": "오는 말이 곱다"
+    },
+    {
+      "id": "exercise.D2_Q4.option.B",
+      "locale": "ko",
+      "text": "발이 편하다"
+    },
+    {
+      "id": "exercise.D2_Q4.option.C",
+      "locale": "ko",
+      "text": "밥이 맛있다"
+    },
+    {
+      "id": "exercise.D2_Q4.option.D",
+      "locale": "ko",
+      "text": "길이 보인다"
+    },
+    {
+      "id": "exercise.D2_Q4.prompt",
+      "locale": "ko",
+      "text": "속담 '가는 말이 고와야' 뒤에 이어지는 말은 무엇인가요?"
+    },
+    {
+      "id": "exercise.D2_Q5.option.A",
+      "locale": "ko",
+      "text": "왼쪽 위"
+    },
+    {
+      "id": "exercise.D2_Q5.option.B",
+      "locale": "ko",
+      "text": "오른쪽 위"
+    },
+    {
+      "id": "exercise.D2_Q5.option.C",
+      "locale": "ko",
+      "text": "왼쪽 아래"
+    },
+    {
+      "id": "exercise.D2_Q5.option.D",
+      "locale": "ko",
+      "text": "오른쪽 아래"
+    },
+    {
+      "id": "exercise.D2_Q5.prompt",
+      "locale": "ko",
+      "text": "점이 왼쪽 위, 오른쪽 위, 오른쪽 아래 순서로 움직였습니다. 같은 방향으로 계속 움직이면 다음 위치는 어디일까요?"
+    },
+    {
+      "id": "exercise.D2_Q6.prompt",
+      "locale": "ko",
+      "text": "오늘 누구를 만나 무엇을 했고, 무엇을 드셨는지 말씀해 주세요."
+    },
+    {
+      "id": "exercise.D3_Q1.option.A",
+      "locale": "ko",
+      "text": "매우 좋음"
+    },
+    {
+      "id": "exercise.D3_Q1.option.B",
+      "locale": "ko",
+      "text": "좋음"
+    },
+    {
+      "id": "exercise.D3_Q1.option.C",
+      "locale": "ko",
+      "text": "그저 그럼"
+    },
+    {
+      "id": "exercise.D3_Q1.option.D",
+      "locale": "ko",
+      "text": "좋지 않음"
+    },
+    {
+      "id": "exercise.D3_Q1.prompt",
+      "locale": "ko",
+      "text": "어제는 기분이 매우 좋다고 하셨어요. 오늘 기분은 어떠세요?"
+    },
+    {
+      "id": "exercise.D3_Q2.option.A",
+      "locale": "ko",
+      "text": "월요일"
+    },
+    {
+      "id": "exercise.D3_Q2.option.B",
+      "locale": "ko",
+      "text": "화요일"
+    },
+    {
+      "id": "exercise.D3_Q2.option.C",
+      "locale": "ko",
+      "text": "수요일"
+    },
+    {
+      "id": "exercise.D3_Q2.option.D",
+      "locale": "ko",
+      "text": "목요일"
+    },
+    {
+      "id": "exercise.D3_Q2.prompt",
+      "locale": "ko",
+      "text": "어제는 무슨 요일이었나요?"
+    },
+    {
+      "id": "exercise.D3_Q3.option.A",
+      "locale": "ko",
+      "text": "이순자"
+    },
+    {
+      "id": "exercise.D3_Q3.option.B",
+      "locale": "ko",
+      "text": "김민지"
+    },
+    {
+      "id": "exercise.D3_Q3.option.C",
+      "locale": "ko",
+      "text": "김준호"
+    },
+    {
+      "id": "exercise.D3_Q3.option.D",
+      "locale": "ko",
+      "text": "최정희"
+    },
+    {
+      "id": "exercise.D3_Q3.prompt",
+      "locale": "ko",
+      "text": "어제 복지관에서 함께 윷놀이한 사람은 누구인가요?"
+    },
+    {
+      "id": "exercise.D3_Q4.option.A",
+      "locale": "ko",
+      "text": "오전 8시 15분"
+    },
+    {
+      "id": "exercise.D3_Q4.option.B",
+      "locale": "ko",
+      "text": "오전 8시 30분"
+    },
+    {
+      "id": "exercise.D3_Q4.option.C",
+      "locale": "ko",
+      "text": "오전 9시"
+    },
+    {
+      "id": "exercise.D3_Q4.option.D",
+      "locale": "ko",
+      "text": "오전 9시 30분"
+    },
+    {
+      "id": "exercise.D3_Q4.prompt",
+      "locale": "ko",
+      "text": "혈압약을 오전 8시에 먹고 30분 뒤에 아침을 먹습니다. 아침은 몇 시에 먹을까요?"
+    },
+    {
+      "id": "exercise.D3_Q5.option.A",
+      "locale": "ko",
+      "text": "초등학교 급식 조리사"
+    },
+    {
+      "id": "exercise.D3_Q5.option.B",
+      "locale": "ko",
+      "text": "버스 기사"
+    },
+    {
+      "id": "exercise.D3_Q5.option.C",
+      "locale": "ko",
+      "text": "은행원"
+    },
+    {
+      "id": "exercise.D3_Q5.option.D",
+      "locale": "ko",
+      "text": "미용사"
+    },
+    {
+      "id": "exercise.D3_Q5.prompt",
+      "locale": "ko",
+      "text": "영자 어르신이 예전에 하셨던 일은 무엇인가요?"
+    },
+    {
+      "id": "exercise.D3_Q6.prompt",
+      "locale": "ko",
+      "text": "오늘 다녀온 곳과 몸 상태를 말씀해 주세요."
+    },
+    {
+      "id": "exercise.D4_Q1.option.A",
+      "locale": "ko",
+      "text": "매우 좋음"
+    },
+    {
+      "id": "exercise.D4_Q1.option.B",
+      "locale": "ko",
+      "text": "좋음"
+    },
+    {
+      "id": "exercise.D4_Q1.option.C",
+      "locale": "ko",
+      "text": "그저 그럼"
+    },
+    {
+      "id": "exercise.D4_Q1.option.D",
+      "locale": "ko",
+      "text": "좋지 않음"
+    },
+    {
+      "id": "exercise.D4_Q1.prompt",
+      "locale": "ko",
+      "text": "어제는 조금 피곤하지만 마음은 편하다고 하셨어요. 오늘 기분은 어떠세요?"
+    },
+    {
+      "id": "exercise.D4_Q2.option.A",
+      "locale": "ko",
+      "text": "6월"
+    },
+    {
+      "id": "exercise.D4_Q2.option.B",
+      "locale": "ko",
+      "text": "7월"
+    },
+    {
+      "id": "exercise.D4_Q2.option.C",
+      "locale": "ko",
+      "text": "8월"
+    },
+    {
+      "id": "exercise.D4_Q2.option.D",
+      "locale": "ko",
+      "text": "9월"
+    },
+    {
+      "id": "exercise.D4_Q2.prompt",
+      "locale": "ko",
+      "text": "지금은 몇 월인가요?"
+    },
+    {
+      "id": "exercise.D4_Q3.option.A",
+      "locale": "ko",
+      "text": "유성구 보건소"
+    },
+    {
+      "id": "exercise.D4_Q3.option.B",
+      "locale": "ko",
+      "text": "복지관"
+    },
+    {
+      "id": "exercise.D4_Q3.option.C",
+      "locale": "ko",
+      "text": "유성시장"
+    },
+    {
+      "id": "exercise.D4_Q3.option.D",
+      "locale": "ko",
+      "text": "은행"
+    },
+    {
+      "id": "exercise.D4_Q3.prompt",
+      "locale": "ko",
+      "text": "어제 혈압을 잰 곳은 어디인가요?"
+    },
+    {
+      "id": "exercise.D4_Q4.option.A",
+      "locale": "ko",
+      "text": "오후 1시 15분"
+    },
+    {
+      "id": "exercise.D4_Q4.option.B",
+      "locale": "ko",
+      "text": "오후 1시 20분"
+    },
+    {
+      "id": "exercise.D4_Q4.option.C",
+      "locale": "ko",
+      "text": "오후 1시 25분"
+    },
+    {
+      "id": "exercise.D4_Q4.option.D",
+      "locale": "ko",
+      "text": "오후 1시 30분"
+    },
+    {
+      "id": "exercise.D4_Q4.prompt",
+      "locale": "ko",
+      "text": "지하철이 15분 간격으로 옵니다. 이전 지하철이 오후 1시 10분에 출발했다면 다음 지하철은 몇 시에 올까요?"
+    },
+    {
+      "id": "exercise.D4_Q5.prompt",
+      "locale": "ko",
+      "text": "오늘 어디를 걸었고, 누구를 만났는지 말씀해 주세요."
+    },
+    {
+      "id": "exercise.D4_Q6.option.A",
+      "locale": "ko",
+      "text": "열쇠"
+    },
+    {
+      "id": "exercise.D4_Q6.option.B",
+      "locale": "ko",
+      "text": "포도"
+    },
+    {
+      "id": "exercise.D4_Q6.option.C",
+      "locale": "ko",
+      "text": "기차"
+    },
+    {
+      "id": "exercise.D4_Q6.option.D",
+      "locale": "ko",
+      "text": "우산"
+    },
+    {
+      "id": "exercise.D4_Q6.prompt",
+      "locale": "ko",
+      "text": "처음 들은 순서대로 버튼을 눌러 주세요."
+    },
+    {
+      "id": "exercise.D4_Q6.sequence",
+      "locale": "ko",
+      "text": "열쇠, 포도, 기차"
+    },
+    {
+      "id": "exercise.D5_Q1.option.A",
+      "locale": "ko",
+      "text": "매우 좋음"
+    },
+    {
+      "id": "exercise.D5_Q1.option.B",
+      "locale": "ko",
+      "text": "좋음"
+    },
+    {
+      "id": "exercise.D5_Q1.option.C",
+      "locale": "ko",
+      "text": "그저 그럼"
+    },
+    {
+      "id": "exercise.D5_Q1.option.D",
+      "locale": "ko",
+      "text": "좋지 않음"
+    },
+    {
+      "id": "exercise.D5_Q1.prompt",
+      "locale": "ko",
+      "text": "어제 산책 뒤 몸이 가벼워졌다고 하셨어요. 오늘 기분은 어떠세요?"
+    },
+    {
+      "id": "exercise.D5_Q2.option.A",
+      "locale": "ko",
+      "text": "금요일"
+    },
+    {
+      "id": "exercise.D5_Q2.option.B",
+      "locale": "ko",
+      "text": "토요일"
+    },
+    {
+      "id": "exercise.D5_Q2.option.C",
+      "locale": "ko",
+      "text": "일요일"
+    },
+    {
+      "id": "exercise.D5_Q2.option.D",
+      "locale": "ko",
+      "text": "월요일"
+    },
+    {
+      "id": "exercise.D5_Q2.prompt",
+      "locale": "ko",
+      "text": "내일은 무슨 요일인가요?"
+    },
+    {
+      "id": "exercise.D5_Q3.option.A",
+      "locale": "ko",
+      "text": "보리차"
+    },
+    {
+      "id": "exercise.D5_Q3.option.B",
+      "locale": "ko",
+      "text": "커피"
+    },
+    {
+      "id": "exercise.D5_Q3.option.C",
+      "locale": "ko",
+      "text": "우유"
+    },
+    {
+      "id": "exercise.D5_Q3.option.D",
+      "locale": "ko",
+      "text": "오렌지주스"
+    },
+    {
+      "id": "exercise.D5_Q3.prompt",
+      "locale": "ko",
+      "text": "어제 산책을 마치고 집에서 마신 것은 무엇인가요?"
+    },
+    {
+      "id": "exercise.D5_Q4.option.A",
+      "locale": "ko",
+      "text": "함께 하면 일이 쉬워진다"
+    },
+    {
+      "id": "exercise.D5_Q4.option.B",
+      "locale": "ko",
+      "text": "흰 종이는 깨끗하다"
+    },
+    {
+      "id": "exercise.D5_Q4.option.C",
+      "locale": "ko",
+      "text": "혼자 해야 일이 빠르다"
+    },
+    {
+      "id": "exercise.D5_Q4.option.D",
+      "locale": "ko",
+      "text": "무거운 짐은 버려야 한다"
+    },
+    {
+      "id": "exercise.D5_Q4.prompt",
+      "locale": "ko",
+      "text": "속담 '백지장도 맞들면 낫다'와 가장 가까운 뜻은 무엇인가요?"
+    },
+    {
+      "id": "exercise.D5_Q5.option.A",
+      "locale": "ko",
+      "text": "동그라미, 세모"
+    },
+    {
+      "id": "exercise.D5_Q5.option.B",
+      "locale": "ko",
+      "text": "세모, 동그라미"
+    },
+    {
+      "id": "exercise.D5_Q5.option.C",
+      "locale": "ko",
+      "text": "동그라미, 동그라미"
+    },
+    {
+      "id": "exercise.D5_Q5.option.D",
+      "locale": "ko",
+      "text": "세모, 세모"
+    },
+    {
+      "id": "exercise.D5_Q5.prompt",
+      "locale": "ko",
+      "text": "위에 보이는 모양과 똑같은 것을 고르세요."
+    },
+    {
+      "id": "exercise.D5_Q6.prompt",
+      "locale": "ko",
+      "text": "오늘 집에 온 사람과 함께 먹은 음식을 말씀해 주세요."
+    },
+    {
+      "id": "exercise.D6_Q1.option.A",
+      "locale": "ko",
+      "text": "매우 좋음"
+    },
+    {
+      "id": "exercise.D6_Q1.option.B",
+      "locale": "ko",
+      "text": "좋음"
+    },
+    {
+      "id": "exercise.D6_Q1.option.C",
+      "locale": "ko",
+      "text": "그저 그럼"
+    },
+    {
+      "id": "exercise.D6_Q1.option.D",
+      "locale": "ko",
+      "text": "좋지 않음"
+    },
+    {
+      "id": "exercise.D6_Q1.prompt",
+      "locale": "ko",
+      "text": "어제 가족을 만나 반가웠다고 하셨어요. 오늘 기분은 어떠세요?"
+    },
+    {
+      "id": "exercise.D6_Q2.option.A",
+      "locale": "ko",
+      "text": "목요일"
+    },
+    {
+      "id": "exercise.D6_Q2.option.B",
+      "locale": "ko",
+      "text": "금요일"
+    },
+    {
+      "id": "exercise.D6_Q2.option.C",
+      "locale": "ko",
+      "text": "토요일"
+    },
+    {
+      "id": "exercise.D6_Q2.option.D",
+      "locale": "ko",
+      "text": "일요일"
+    },
+    {
+      "id": "exercise.D6_Q2.prompt",
+      "locale": "ko",
+      "text": "어제는 무슨 요일이었나요?"
+    },
+    {
+      "id": "exercise.D6_Q3.option.A",
+      "locale": "ko",
+      "text": "딸 민지와 손자 준호"
+    },
+    {
+      "id": "exercise.D6_Q3.option.B",
+      "locale": "ko",
+      "text": "친구 순자와 이웃 정희"
+    },
+    {
+      "id": "exercise.D6_Q3.option.C",
+      "locale": "ko",
+      "text": "보건소 직원"
+    },
+    {
+      "id": "exercise.D6_Q3.option.D",
+      "locale": "ko",
+      "text": "혼자"
+    },
+    {
+      "id": "exercise.D6_Q3.prompt",
+      "locale": "ko",
+      "text": "어제 함께 김치전을 먹은 사람은 누구였나요?"
+    },
+    {
+      "id": "exercise.D6_Q4.option.A",
+      "locale": "ko",
+      "text": "오전 10시 20분"
+    },
+    {
+      "id": "exercise.D6_Q4.option.B",
+      "locale": "ko",
+      "text": "오전 10시 30분"
+    },
+    {
+      "id": "exercise.D6_Q4.option.C",
+      "locale": "ko",
+      "text": "오전 10시 40분"
+    },
+    {
+      "id": "exercise.D6_Q4.option.D",
+      "locale": "ko",
+      "text": "오전 11시 10분"
+    },
+    {
+      "id": "exercise.D6_Q4.prompt",
+      "locale": "ko",
+      "text": "버스가 20분 간격으로 옵니다. 이전 버스가 오전 10시 10분에 출발했다면 다음 버스는 몇 시에 올까요?"
+    },
+    {
+      "id": "exercise.D6_Q5.option.A",
+      "locale": "ko",
+      "text": "김민지"
+    },
+    {
+      "id": "exercise.D6_Q5.option.B",
+      "locale": "ko",
+      "text": "이순자"
+    },
+    {
+      "id": "exercise.D6_Q5.option.C",
+      "locale": "ko",
+      "text": "최정희"
+    },
+    {
+      "id": "exercise.D6_Q5.option.D",
+      "locale": "ko",
+      "text": "김미영"
+    },
+    {
+      "id": "exercise.D6_Q5.prompt",
+      "locale": "ko",
+      "text": "영자 어르신의 딸 이름은 무엇인가요?"
+    },
+    {
+      "id": "exercise.D6_Q6.prompt",
+      "locale": "ko",
+      "text": "오늘 다녀온 곳과 돌아오는 길에 산 것을 말씀해 주세요."
+    },
+    {
+      "id": "exercise.D7_Q1.option.A",
+      "locale": "ko",
+      "text": "매우 좋음"
+    },
+    {
+      "id": "exercise.D7_Q1.option.B",
+      "locale": "ko",
+      "text": "좋음"
+    },
+    {
+      "id": "exercise.D7_Q1.option.C",
+      "locale": "ko",
+      "text": "그저 그럼"
+    },
+    {
+      "id": "exercise.D7_Q1.option.D",
+      "locale": "ko",
+      "text": "좋지 않음"
+    },
+    {
+      "id": "exercise.D7_Q1.prompt",
+      "locale": "ko",
+      "text": "어제 오후에는 집에서 쉬었다고 하셨어요. 오늘 기분은 어떠세요?"
+    },
+    {
+      "id": "exercise.D7_Q2.option.A",
+      "locale": "ko",
+      "text": "월요일"
+    },
+    {
+      "id": "exercise.D7_Q2.option.B",
+      "locale": "ko",
+      "text": "화요일"
+    },
+    {
+      "id": "exercise.D7_Q2.option.C",
+      "locale": "ko",
+      "text": "수요일"
+    },
+    {
+      "id": "exercise.D7_Q2.option.D",
+      "locale": "ko",
+      "text": "목요일"
+    },
+    {
+      "id": "exercise.D7_Q2.prompt",
+      "locale": "ko",
+      "text": "오늘은 일요일입니다. 모레는 무슨 요일인가요?"
+    },
+    {
+      "id": "exercise.D7_Q3.option.A",
+      "locale": "ko",
+      "text": "단팥빵 2개"
+    },
+    {
+      "id": "exercise.D7_Q3.option.B",
+      "locale": "ko",
+      "text": "식빵 1개"
+    },
+    {
+      "id": "exercise.D7_Q3.option.C",
+      "locale": "ko",
+      "text": "소보로빵 3개"
+    },
+    {
+      "id": "exercise.D7_Q3.option.D",
+      "locale": "ko",
+      "text": "케이크 1개"
+    },
+    {
+      "id": "exercise.D7_Q3.prompt",
+      "locale": "ko",
+      "text": "어제 빵집에서 산 것은 무엇인가요?"
+    },
+    {
+      "id": "exercise.D7_Q4.option.A",
+      "locale": "ko",
+      "text": "김치전"
+    },
+    {
+      "id": "exercise.D7_Q4.option.B",
+      "locale": "ko",
+      "text": "잔치국수"
+    },
+    {
+      "id": "exercise.D7_Q4.option.C",
+      "locale": "ko",
+      "text": "된장찌개"
+    },
+    {
+      "id": "exercise.D7_Q4.option.D",
+      "locale": "ko",
+      "text": "단팥빵"
+    },
+    {
+      "id": "exercise.D7_Q4.prompt",
+      "locale": "ko",
+      "text": "이번 주에 딸 민지와 손자 준호가 집에 왔을 때 함께 먹은 음식은 무엇인가요?"
+    },
+    {
+      "id": "exercise.D7_Q5.option.A",
+      "locale": "ko",
+      "text": "0개"
+    },
+    {
+      "id": "exercise.D7_Q5.option.B",
+      "locale": "ko",
+      "text": "1개"
+    },
+    {
+      "id": "exercise.D7_Q5.option.C",
+      "locale": "ko",
+      "text": "2개"
+    },
+    {
+      "id": "exercise.D7_Q5.option.D",
+      "locale": "ko",
+      "text": "3개"
+    },
+    {
+      "id": "exercise.D7_Q5.prompt",
+      "locale": "ko",
+      "text": "어제 산 단팥빵 2개 중 오늘 1개를 먹으면 몇 개가 남을까요?"
+    },
+    {
+      "id": "exercise.D7_Q6.prompt",
+      "locale": "ko",
+      "text": "오늘 한 일과 이번 주에 가장 기억에 남는 일을 함께 말씀해 주세요."
+    },
+    {
+      "id": "feedback.saved",
+      "locale": "ko",
+      "text": "잘 남겼어요."
+    },
+    {
+      "id": "feedback.selected",
+      "locale": "ko",
+      "text": "선택했어요. 같은 버튼을 한 번 더 눌러 주세요."
+    },
+    {
+      "id": "feedback.try_again",
+      "locale": "ko",
+      "text": "괜찮아요. 천천히 다시 해봐요."
+    },
+    {
+      "id": "guide.button_test",
+      "locale": "ko",
+      "text": "화면에서 빛나는 위치와 같은 버튼을 눌러 주세요."
+    },
+    {
+      "id": "guide.choice",
+      "locale": "ko",
+      "text": "원하는 답과 같은 위치의 버튼을 눌러 주세요."
+    },
+    {
+      "id": "guide.choice_confirm",
+      "locale": "ko",
+      "text": "선택한 버튼을 한 번 더 누르면 확정돼요."
+    },
+    {
+      "id": "guide.day_complete",
+      "locale": "ko",
+      "text": "오늘 하루 활동을 마쳤어요. 함께해 주셔서 고마워요."
+    },
+    {
+      "id": "guide.feedback",
+      "locale": "ko",
+      "text": "오른쪽 버튼을 누르면 다음으로 넘어가요."
+    },
+    {
+      "id": "guide.microphone_unavailable",
+      "locale": "ko",
+      "text": "마이크를 찾지 못했지만 체험은 계속할 수 있어요."
+    },
+    {
+      "id": "guide.sequence",
+      "locale": "ko",
+      "text": "순서대로 버튼을 고르고, 같은 버튼을 한 번 더 눌러 주세요."
+    },
+    {
+      "id": "guide.voice_ready",
+      "locale": "ko",
+      "text": "오른쪽 버튼을 누르면 편하게 말씀하실 수 있어요."
+    },
+    {
+      "id": "guide.voice_recording",
+      "locale": "ko",
+      "text": "편하게 말씀하세요. 마치면 오른쪽 버튼을 눌러 주세요."
+    },
+    {
+      "id": "guide.voice_review",
+      "locale": "ko",
+      "text": "다시 말하려면 왼쪽, 이대로 확정하려면 오른쪽 버튼을 눌러 주세요."
+    },
+    {
+      "id": "guide.welcome",
+      "locale": "ko",
+      "text": "화면과 같은 위치의 네 버튼으로 오늘의 하루를 시작해요."
+    }
+  ]
+}

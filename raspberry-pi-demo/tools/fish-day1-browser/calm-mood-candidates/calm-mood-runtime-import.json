@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "locale": "ko",
+  "day": 1,
+  "questionId": "D1_Q1",
+  "provider": "Fish Audio",
+  "selection": "maintainer-selected",
+  "entryCount": 4,
+  "appliedAt": "2026-08-12T23:35:15.386Z",
+  "entries": [
+    {
+      "id": "exercise.D1_Q1.option.A",
+      "text": "매우 좋음",
+      "option": "A",
+      "candidateId": "A_very_good_calm_soft_left",
+      "sourcePath": "audio/A_very_good_calm_soft_left.mp3",
+      "tagId": "calm_soft",
+      "tagText": "차분하고 부드럽게",
+      "resultSide": "left",
+      "previousPath": "assets/audio/narration/ko/66aff098772fb3e2e1ae9163.ogg",
+      "previousSha256": "66aff098772fb3e2e1ae91635de0b934b1f2a009043265998f0fc8aed88dee29",
+      "sourceSha256": "8142fbe2876ebc608b3472d4aca68a20c7a8e8d37a5d576b74a8be93c74440a2",
+      "path": "assets/audio/narration/ko/aaafeb8e18309918a5af726a.ogg",
+      "sha256": "aaafeb8e18309918a5af726afe1e5b5efedac9f0dc7df3393499148a5f94ae9d",
+      "durationMs": 1104
+    },
+    {
+      "id": "exercise.D1_Q1.option.B",
+      "text": "좋음",
+      "option": "B",
+      "candidateId": "B_good_calm_soft_left",
+      "sourcePath": "audio/B_good_calm_soft_left.mp3",
+      "tagId": "calm_soft",
+      "tagText": "차분하고 부드럽게",
+      "resultSide": "left",
+      "previousPath": "assets/audio/narration/ko/f93421d40b93f4f590b3658e.ogg",
+      "previousSha256": "f93421d40b93f4f590b3658eb5d580d8fb8b2b201782eb488dc8040c43ddbad6",
+      "sourceSha256": "4751dabfd409bfdeaa23e42efd41707fecf2d7722fa6027bebe672a0956ad2cf",
+      "path": "assets/audio/narration/ko/97c38496b999b310c8785888.ogg",
+      "sha256": "97c38496b999b310c87858886364f3fbb790a2be20eeafb0236d8d41a2473244",
+      "durationMs": 816
+    },
+    {
+      "id": "exercise.D1_Q1.option.C",
+      "text": "그저 그럼",
+      "option": "C",
+      "candidateId": "C_so_so_relaxed_clear_left",
+      "sourcePath": "audio/C_so_so_relaxed_clear_left.mp3",
+      "tagId": "relaxed_clear",
+      "tagText": "편안하고 또렷하게",
+      "resultSide": "left",
+      "previousPath": "assets/audio/narration/ko/2971975e776ef253a4a7c542.ogg",
+      "previousSha256": "2971975e776ef253a4a7c54203299cdf7d557f141d872c19660f9d1a2e6560b8",
+      "sourceSha256": "a8147002c9572410ca3fb89b7c9b1da31b498edf50419f471f3d35ed4b77dc8e",
+      "path": "assets/audio/narration/ko/9dfb826f2c2d4d980bdc5856.ogg",
+      "sha256": "9dfb826f2c2d4d980bdc5856511ecc736e38fedca7386b377b792b019c2b7b8e",
+      "durationMs": 1130
+    },
+    {
+      "id": "exercise.D1_Q1.option.D",
+      "text": "좋지 않음",
+      "option": "D",
+      "candidateId": "D_not_good_relaxed_clear_left",
+      "sourcePath": "audio/D_not_good_relaxed_clear_left.mp3",
+      "tagId": "relaxed_clear",
+      "tagText": "편안하고 또렷하게",
+      "resultSide": "left",
+      "previousPath": "assets/audio/narration/ko/83e53d71677b59500a793c0c.ogg",
+      "previousSha256": "83e53d71677b59500a793c0cc67698a1c77f6c1a41da9c38d129869cb0a6221b",
+      "sourceSha256": "3c4724141be63c177962245662ae87954075603b14c181639cf2387953e82557",
+      "path": "assets/audio/narration/ko/56d27e03a91e9921dde06ffc.ogg",
+      "sha256": "56d27e03a91e9921dde06ffc3cb73d3680236eef5a56f6c5125f231184de8d70",
+      "durationMs": 1130
+    }
+  ],
+  "archivedPreviousPaths": [
+    "assets/audio/narration/ko/31e99a2640171419764f5832.ogg",
+    "assets/audio/narration/ko/63153bfa2d82b768ab4efcaf.ogg",
+    "assets/audio/narration/ko/6caf099a42604f322ab71148.ogg",
+    "assets/audio/narration/ko/f0d462b1fced1e8f565602da.ogg"
+  ]
+}

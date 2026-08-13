@@ -1,0 +1,29 @@
+{
+  "speaker": "Uncle_Fu",
+  "text": "영자 어르신, 오늘 기분은 어떠세요?",
+  "language": "Korean",
+  "seed": 20260811,
+  "loudnessWithinShortClipRange": true,
+  "wav": {
+    "path": "audio/03-uncle-fu.wav",
+    "sha256": "2d6cd3982869195b7f5f42e7d04d3d25dd1a429d2a97c7543bb65a7228f5ac2e",
+    "codec": "pcm_s16le",
+    "sampleRateHz": 24000,
+    "channels": 1,
+    "channelLayout": null,
+    "durationMs": 5600,
+    "sizeBytes": 268844
+  },
+  "ogg": {
+    "path": "audio/03-uncle-fu.ogg",
+    "sha256": "81e8494d7f7610978e3d3cd4a1097de7bd9ab12b4f5e36bc7f1f51366f99b65e",
+    "codec": "opus",
+    "sampleRateHz": 48000,
+    "channels": 1,
+    "channelLayout": "mono",
+    "durationMs": 5606,
+    "sizeBytes": 34693,
+    "integratedLufs": -14.8,
+    "truePeakDbtp": -0.8
+  }
+}

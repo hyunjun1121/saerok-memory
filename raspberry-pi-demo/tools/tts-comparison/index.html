@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Haru TTS 비교</title>
+  <style>
+    :root { color-scheme: light; font-family: Arial, "Noto Sans KR", sans-serif; background:#f4f0e7; color:#25231f; }
+    * { box-sizing:border-box; }
+    body { margin:0; }
+    main { width:min(1500px, 100%); margin:auto; padding:40px; }
+    .hero { display:grid; gap:12px; margin-bottom:32px; padding:34px; border:3px solid #25231f; background:#fffdf8; }
+    .hero h1 { margin:0; font-size:clamp(32px,5vw,64px); line-height:1; }
+    .prompt { margin:0; font-size:clamp(24px,3vw,40px); font-weight:800; }
+    .meta, .eyebrow { margin:0; color:#675f51; font-weight:700; }
+    .grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; align-items:start; }
+    .method { border:3px solid #25231f; background:#fffdf8; box-shadow:7px 7px 0 #25231f; }
+    .method header { padding:24px; border-bottom:3px solid #25231f; min-height:220px; }
+    .method-meta { display:flex; justify-content:space-between; gap:12px; margin-top:18px; font-weight:800; }
+    .method-meta a { color:#215f3d; text-underline-offset:3px; }
+    h2 { margin:8px 0 14px; font-size:32px; }
+    .samples { display:grid; }
+    .sample { padding:18px; border-bottom:1px solid #bdb6a8; display:grid; gap:12px; }
+    .sample:last-child { border-bottom:0; }
+    .sample > div { display:grid; grid-template-columns:42px 1fr; gap:2px 10px; align-items:center; }
+    .number { grid-row:1/3; width:38px; height:38px; display:grid; place-items:center; border:2px solid #25231f; background:#e8dcbd; font-weight:900; }
+    strong { font-size:18px; }
+    small { color:#675f51; }
+    .note { margin:0; padding:9px 11px; border-left:4px solid #b05d33; background:#f7eadc; font-size:13px; line-height:1.45; }
+    .license-note { display:flex; flex-wrap:wrap; gap:8px 14px; margin-top:30px; padding:18px 20px; border:2px solid #25231f; background:#fffdf8; font-weight:800; }
+    .license-note a { color:#215f3d; text-underline-offset:3px; }
+    audio { width:100%; }
+    @media (max-width:1000px) { .grid { grid-template-columns:1fr; } .method header { min-height:0; } }
+    @media (max-width:600px) { main { padding:18px; } .hero { padding:22px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <p class="eyebrow">Haru D1_Q1 · 日本語 · 동일 문장</p>
+      <h1>TTS 목소리 비교</h1>
+      <p class="prompt" lang="ja">春子さん、今日の気分はいかがですか。</p>
+      <p class="meta">Qwen3-TTS · Fish Speech S2 Pro · Kokoro-82M</p>
+      <p class="meta">한 번에 한 음성만 재생됩니다. 일본어 발음·속도·명료도는 직접 듣고 평가하세요.</p>
+    </section>
+    <div class="grid">
+  <section class="method" data-method="qwen">
+    <header>
+      <p class="eyebrow">Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice</p>
+      <h2>Qwen3-TTS CustomVoice preset comparison</h2>
+      <p>Official model inventory contains 9 preset speakers, so all 9 were generated.</p>
+      <div class="method-meta">
+        <span>Apache-2.0</span>
+        <a href="qwen/REPORT.md">기술 보고서</a>
+      </div>
+    </header>
+    <div class="samples">
+
+        <article class="sample">
+          <div>
+            <span class="number">01</span>
+            <strong>Vivian</strong>
+            <small>Vivian · 3.61s</small>
+          </div>
+
+          <audio controls preload="metadata" src="qwen/audio/01-vivian.ogg"></audio>
+        </article>
+
+        <article class="sample">
+          <div>
+            <span class="number">02</span>
+            <strong>Serena</strong>
+            <small>Serena · 2.89s</small>
+          </div>
+
+          <audio controls preload="metadata" src="qwen/audio/02-serena.ogg"></audio>
+        </article>
+
+        <article class="sample">
+          <div>
+            <span class="number">03</span>
+            <strong>Uncle_Fu</strong>
+            <small>Uncle_Fu · 2.65s</small>
+          </div>
+
+          <audio controls preload="metadata" src="qwen/audio/03-uncle-fu.ogg"></audio>
+        </article>
+
+        <article class="sample">
+          <div>
+            <span class="number">04</span>
+            <strong>Dylan</strong>
+            <small>Dylan · 2.73s</small>
+          </div>
+          <p class="note">생산용 단일 loudnorm을 적용했으나 짧고 피크가 큰 발화 특성으로 -21.2 LUFS가 측정됨. 원본 WAV는 정상이며 수동 gain·추가 압축은 적용하지 않음.</p>
+          <audio controls preload="metadata" src="qwen/audio/04-dylan.ogg"></audio>
+        </article>
+
+        <article class="sample">
+          <div>
+            <span class="number">05</span>
+            <strong>Eric</strong>
+            <small>Eric · 2.57s</small>
+          </div>
+          <p class="note">생산용 단일 loudnorm을 적용했으나 짧고 피크가 큰 발화 특성으로 -19.1 LUFS가 측정됨. 원본 WAV는 정상이며 수동 gain·추가 압축은 적용하지 않음.</p>
+          <audio controls preload="metadata" src="qwen/audio/05-eric.ogg"></audio>
+        </article>
+
+        <article class="sample">
+          <div>
+            <span class="number">06</span>
+            <strong>Ryan</strong>
+            <small>Ryan · 2.49s</small>
+          </div>
+          <p class="note">생산용 단일 loudnorm을 적용했으나 짧고 피크가 큰 발화 특성으로 -18.4 LUFS가 측정됨. 원본 WAV는 정상이며 수동 gain·추가 압축은 적용하지 않음.</p>
+          <audio controls preload="metadata" src="qwen/audio/06-ryan.ogg"></audio>
+        </article>
+
+        <article class="sample">
+          <div>
+            <span class="number">07</span>
+            <strong>Aiden</strong>
+            <small>Aiden · 2.57s</small>
+          </div>
+
+          <audio controls preload="metadata" src="qwen/audio/07-aiden.ogg"></audio>
+        </article>
+
+        <article class="sample">
+          <div>
+            <span class="number">08</span>
+            <strong>Ono_Anna</strong>
+            <small>Ono_Anna · 3.21s</small>
+          </div>
+
+          <audio controls preload="metadata" src="qwen/audio/08-ono-anna.ogg"></audio>
+        </article>
+
+        <article class="sample">
+          <div>
+            <span class="number">09</span>
+            <strong>Sohee</strong>
+            <small>Sohee · 3.31s</small>
+          </div>
+
+          <audio controls preload="metadata" src="qwen/audio/09-sohee.ogg"></audio>
+        </article>
+
+    </div>
+  </section>
+
+  <section class="method" data-method="fish-speech">
+    <header>
+      <p class="eyebrow">fishaudio/s2-pro</p>
+      <h2>Fish Audio S2 Pro reference-free timbre comparison</h2>
+      <p>Fish Speech has no finite preset voice catalog: official reference-free inference randomly chooses a timbre. Twenty fixed-seed, no-reference candidates were generated with one pinned configuration; ten passing codec, duration, loudness, true-peak, finite-signal and silence/envelope gates were selected by technical score. No perceptual or Japanese-pronunciation ranking is claimed.</p>
+      <div class="method-meta">
+        <span>Fish Audio Research License</span>
+        <a href="fish/REPORT.md">기술 보고서</a>
+      </div>
+    </header>
+    <div class="samples">
+
+        <article class="sample">
+          <div>
+            <span class="number">01</span>
+            <strong>Reference-free timbre · seed 4210</strong>
+            <small>reference-free-seed-4210 · 2.93s</small>
+          </div>
+
+          <audio controls preload="metadata" src="fish/audio/fish_reference_free_seed_4210.ogg"></audio>
+        </article>
+
+        <article class="sample">
+          <div>
+            <span class="number">02</span>
+            <strong>Reference-free timbre · seed 4219</strong>
+            <small>reference-free-seed-4219 · 2.84s</small>
+          </div>
+
+          <audio controls preload="metadata" src="fish/audio/fish_reference_free_seed_4219.ogg"></audio>
+        </article>
+
+        <article class="sample">
+          <div>
+            <span class="number">03</span>
+            <strong>Reference-free timbre · seed 4217</strong>
+            <small>reference-free-seed-4217 · 3.11s</small>
+          </div>
+
+          <audio controls preload="metadata" src="fish/audio/fish_reference_free_seed_4217.ogg"></audio>
+        </article>
+
+        <article class="sample">
+          <div>
+            <span class="number">04</span>
+            <strong>Reference-free timbre · seed 4204</strong>
+            <small>reference-free-seed-4204 · 3.21s</small>
+          </div>
+
+          <audio controls preload="metadata" src="fish/audio/fish_reference_free_seed_4204.ogg"></audio>
+        </article>
+
+        <article class="sample">
+          <div>
+            <span class="number">05</span>
+            <strong>Reference-free timbre · seed 4207</strong>
+            <small>reference-free-seed-4207 · 3.31s</small>
+          </div>
+
+          <audio controls preload="metadata" src="fish/audio/fish_reference_free_seed_4207.ogg"></audio>
+        </article>
+
+        <article class="sample">
+          <div>
+            <span class="number">06</span>
+            <strong>Reference-free timbre · seed 4209</strong>
+            <small>reference-free-seed-4209 · 3.31s</small>
+          </div>
+
+          <audio controls preload="metadata" src="fish/audio/fish_reference_free_seed_4209.ogg"></audio>
+        </article>
+
+        <article class="sample">
+          <div>
+            <span class="number">07</span>
+            <strong>Reference-free timbre · seed 4208</strong>
+            <small>reference-free-seed-4208 · 2.89s</small>
+          </div>
+
+          <audio controls preload="metadata" src="fish/audio/fish_reference_free_seed_4208.ogg"></audio>
+        </article>
+
+        <article class="sample">
+          <div>
+            <span class="number">08</span>
+            <strong>Reference-free timbre · seed 4202</strong>
+            <small>reference-free-seed-4202 · 3.31s</small>
+          </div>
+
+          <audio controls preload="metadata" src="fish/audio/fish_reference_free_seed_4202.ogg"></audio>
+        </article>
+
+        <article class="sample">
+          <div>
+            <span class="number">09</span>
+            <strong>Reference-free timbre · seed 4212</strong>
+            <small>reference-free-seed-4212 · 3.21s</small>
+          </div>
+
+          <audio controls preload="metadata" src="fish/audio/fish_reference_free_seed_4212.ogg"></audio>
+        </article>
+
+        <article class="sample">
+          <div>
+            <span class="number">10</span>
+            <strong>Reference-free timbre · seed 4220</strong>
+            <small>reference-free-seed-4220 · 3.11s</small>
+          </div>
+
+          <audio controls preload="metadata" src="fish/audio/fish_reference_free_seed_4220.ogg"></audio>
+        </article>
+
+    </div>
+  </section>
+
+  <section class="method" data-method="kokoro">
+    <header>
+      <p class="eyebrow">hexgrad/Kokoro-82M</p>
+      <h2>Kokoro-82M</h2>
+      <p>공식 일본어 native voice 5개 전부와, 공식 품질 grade·성별 다양성·동일 일본어 음소 생성 성공·공통 음량 규격 통과를 기준으로 타 언어 voice embedding 5개를 선정했다. 타 언어 5개는 공식 문서가 권장하는 language/voice 일치 조합이 아닌 실험 후보이며 일본어 지원 voice로 오인하면 안 된다.</p>
+      <div class="method-meta">
+        <span>Apache-2.0</span>
+        <a href="kokoro/REPORT.md">기술 보고서</a>
+      </div>
+    </header>
+    <div class="samples">
+
+        <article class="sample">
+          <div>
+            <span class="number">01</span>
+            <strong>JF Alpha — 日本語・女性</strong>
+            <small>jf_alpha · 3.31s</small>
+          </div>
+          <p class="note">Official Japanese native voice; lang_code j and j-prefixed voice match.</p>
+          <audio controls preload="metadata" src="kokoro/audio/01_jf_alpha.ogg"></audio>
+        </article>
+
+        <article class="sample">
+          <div>
+            <span class="number">02</span>
+            <strong>JF Gongitsune — 日本語・女性</strong>
+            <small>jf_gongitsune · 3.71s</small>
+          </div>
+          <p class="note">Official Japanese native voice; lang_code j and j-prefixed voice match.</p>
+          <audio controls preload="metadata" src="kokoro/audio/02_jf_gongitsune.ogg"></audio>
+        </article>
+
+        <article class="sample">
+          <div>
+            <span class="number">03</span>
+            <strong>JF Nezumi — 日本語・女性</strong>
+            <small>jf_nezumi · 3.51s</small>
+          </div>
+          <p class="note">Official Japanese native voice; lang_code j and j-prefixed voice match.</p>
+          <audio controls preload="metadata" src="kokoro/audio/03_jf_nezumi.ogg"></audio>
+        </article>
+
+        <article class="sample">
+          <div>
+            <span class="number">04</span>
+            <strong>JF Tebukuro — 日本語・女性</strong>
+            <small>jf_tebukuro · 3.31s</small>
+          </div>
+          <p class="note">Official Japanese native voice; lang_code j and j-prefixed voice match.</p>
+          <audio controls preload="metadata" src="kokoro/audio/04_jf_tebukuro.ogg"></audio>
+        </article>
+
+        <article class="sample">
+          <div>
+            <span class="number">05</span>
+            <strong>JM Kumo — 日本語・男性</strong>
+            <small>jm_kumo · 3.21s</small>
+          </div>
+          <p class="note">Official Japanese native voice; lang_code j and j-prefixed voice match.</p>
+          <audio controls preload="metadata" src="kokoro/audio/05_jm_kumo.ogg"></audio>
+        </article>
+
+        <article class="sample">
+          <div>
+            <span class="number">06</span>
+            <strong>AF Heart — 英語音色・日本語音素</strong>
+            <small>af_heart · 3.11s</small>
+          </div>
+          <p class="note">Experimental cross-language pairing: Japanese phonemes with an American English voice embedding; not an officially documented matched language/voice pairing.</p>
+          <audio controls preload="metadata" src="kokoro/audio/06_af_heart_cross_ja.ogg"></audio>
+        </article>
+
+        <article class="sample">
+          <div>
+            <span class="number">07</span>
+            <strong>AF Bella — 英語音色・日本語音素</strong>
+            <small>af_bella · 3.21s</small>
+          </div>
+          <p class="note">Experimental cross-language pairing: Japanese phonemes with an American English voice embedding; not an officially documented matched language/voice pairing.</p>
+          <audio controls preload="metadata" src="kokoro/audio/07_af_bella_cross_ja.ogg"></audio>
+        </article>
+
+        <article class="sample">
+          <div>
+            <span class="number">08</span>
+            <strong>AM Puck — 英語音色・日本語音素</strong>
+            <small>am_puck · 3.01s</small>
+          </div>
+          <p class="note">Experimental cross-language pairing: Japanese phonemes with an American English voice embedding; not an officially documented matched language/voice pairing.</p>
+          <audio controls preload="metadata" src="kokoro/audio/08_am_puck_cross_ja.ogg"></audio>
+        </article>
+
+        <article class="sample">
+          <div>
+            <span class="number">09</span>
+            <strong>AM Michael — 英語音色・日本語音素</strong>
+            <small>am_michael · 3.31s</small>
+          </div>
+          <p class="note">Experimental cross-language pairing: Japanese phonemes with an American English voice embedding; not an officially documented matched language/voice pairing.</p>
+          <audio controls preload="metadata" src="kokoro/audio/09_am_michael_cross_ja.ogg"></audio>
+        </article>
+
+        <article class="sample">
+          <div>
+            <span class="number">10</span>
+            <strong>BF Emma — 英語音色・日本語音素</strong>
+            <small>bf_emma · 3.41s</small>
+          </div>
+          <p class="note">Experimental cross-language pairing: Japanese phonemes with a British English voice embedding; not an officially documented matched language/voice pairing.</p>
+          <audio controls preload="metadata" src="kokoro/audio/10_bf_emma_cross_ja.ogg"></audio>
+        </article>
+
+    </div>
+  </section>
+</div>
+    <footer class="license-note">
+      <strong>Built with Fish Audio</strong>
+      <a href="fish/LICENSE">Fish Audio Research License Agreement</a>
+      <a href="fish/NOTICE.txt">Fish Audio NOTICE</a>
+      <span>평가·비상업 비교용입니다. 상업적 사용에는 Fish Audio와 별도 서면 계약이 필요합니다.</span>
+    </footer>
+  </main>
+  <script>
+    document.addEventListener('play', (event) => {
+      if (!(event.target instanceof HTMLAudioElement)) return;
+      for (const audio of document.querySelectorAll('audio')) {
+        if (audio !== event.target) audio.pause();
+      }
+    }, true);
+  </script>
+</body>
+</html>

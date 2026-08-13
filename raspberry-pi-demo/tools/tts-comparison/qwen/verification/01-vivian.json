@@ -1,0 +1,29 @@
+{
+  "speaker": "Vivian",
+  "text": "春子さん、今日の気分はいかがですか。",
+  "language": "Japanese",
+  "seed": 20260811,
+  "loudnessWithinShortClipRange": true,
+  "wav": {
+    "path": "audio/01-vivian.wav",
+    "sha256": "52d49ef98609b30e13357895870ada3a359e9222c7125f0252101552f7566f9d",
+    "codec": "pcm_s16le",
+    "sampleRateHz": 24000,
+    "channels": 1,
+    "channelLayout": null,
+    "durationMs": 3520,
+    "sizeBytes": 169004
+  },
+  "ogg": {
+    "path": "audio/01-vivian.ogg",
+    "sha256": "0036a848e5b88675901f42bd2ed4606037ee68f44dbc857417a8b26feee158a1",
+    "codec": "opus",
+    "sampleRateHz": 48000,
+    "channels": 1,
+    "channelLayout": "mono",
+    "durationMs": 3606,
+    "sizeBytes": 21431,
+    "integratedLufs": -15.6,
+    "truePeakDbtp": -1.1
+  }
+}

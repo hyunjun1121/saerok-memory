@@ -1,0 +1,29 @@
+{
+  "speaker": "Dylan",
+  "text": "영자 어르신, 오늘 기분은 어떠세요?",
+  "language": "Korean",
+  "seed": 20260811,
+  "loudnessWithinShortClipRange": false,
+  "wav": {
+    "path": "audio/04-dylan.wav",
+    "sha256": "9b9f2da70b2bf7c0bb44fca7b20ec3d1137347b2ab21cf5027fecf28220b9ca8",
+    "codec": "pcm_s16le",
+    "sampleRateHz": 24000,
+    "channels": 1,
+    "channelLayout": null,
+    "durationMs": 2800,
+    "sizeBytes": 134444
+  },
+  "ogg": {
+    "path": "audio/04-dylan.ogg",
+    "sha256": "b61d12090f3d8260bc3a32218f928a6b7058c9c11456fc61c51bc639ece24543",
+    "codec": "opus",
+    "sampleRateHz": 48000,
+    "channels": 1,
+    "channelLayout": "mono",
+    "durationMs": 2806,
+    "sizeBytes": 16527,
+    "integratedLufs": -18.7,
+    "truePeakDbtp": -1.1
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "speaker": "Ryan",
+  "text": "영자 어르신, 오늘 기분은 어떠세요?",
+  "language": "Korean",
+  "seed": 20260811,
+  "loudnessWithinShortClipRange": true,
+  "wav": {
+    "path": "audio/06-ryan.wav",
+    "sha256": "c0be3a2fc6988e360ac16544ca0926812d103d48497db8183ceab62a75afc287",
+    "codec": "pcm_s16le",
+    "sampleRateHz": 24000,
+    "channels": 1,
+    "channelLayout": null,
+    "durationMs": 3600,
+    "sizeBytes": 172844
+  },
+  "ogg": {
+    "path": "audio/06-ryan.ogg",
+    "sha256": "e2d8d718a71443a95ab34eee8a064180bb7703bb7677ff7b3dc6322843a52a02",
+    "codec": "opus",
+    "sampleRateHz": 48000,
+    "channels": 1,
+    "channelLayout": "mono",
+    "durationMs": 3606,
+    "sizeBytes": 21268,
+    "integratedLufs": -15.4,
+    "truePeakDbtp": -1.0
+  }
+}

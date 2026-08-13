@@ -1,0 +1,292 @@
+{
+  "schemaVersion": 1,
+  "method": "qwen",
+  "model": {
+    "id": "Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice",
+    "revision": "0c0e3051f131929182e2c023b9537f8b1c68adfe",
+    "license": "Apache-2.0",
+    "sourceUrl": "https://huggingface.co/Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice"
+  },
+  "prompt": {
+    "text": "영자 어르신, 오늘 기분은 어떠세요?",
+    "language": "Korean"
+  },
+  "generation": {
+    "seed": 20260811,
+    "instruct": "",
+    "attention": "sdpa",
+    "dtype": "bfloat16"
+  },
+  "normalization": {
+    "integratedLufs": -16.0,
+    "truePeakDbtp": -1.0,
+    "channels": 1,
+    "sourceSampleRateHz": 24000,
+    "sampleRateHz": 48000,
+    "codec": "opus",
+    "container": "ogg"
+  },
+  "samples": [
+    {
+      "speaker": "Vivian",
+      "text": "영자 어르신, 오늘 기분은 어떠세요?",
+      "language": "Korean",
+      "seed": 20260811,
+      "loudnessWithinShortClipRange": true,
+      "wav": {
+        "path": "audio/01-vivian.wav",
+        "sha256": "093c7e5f4bd4f4af62b75660cf72ef568bf900f56f350d63767ccd2d51fde44b",
+        "codec": "pcm_s16le",
+        "sampleRateHz": 24000,
+        "channels": 1,
+        "channelLayout": null,
+        "durationMs": 3280,
+        "sizeBytes": 157484
+      },
+      "ogg": {
+        "path": "audio/01-vivian.ogg",
+        "sha256": "c714d763e004e2f422dfbbdd51b52f3b7c9ca7d80d4ea4b27584e95fd2716cb9",
+        "codec": "opus",
+        "sampleRateHz": 48000,
+        "channels": 1,
+        "channelLayout": "mono",
+        "durationMs": 3306,
+        "sizeBytes": 20042,
+        "integratedLufs": -15.6,
+        "truePeakDbtp": -0.9
+      }
+    },
+    {
+      "speaker": "Serena",
+      "text": "영자 어르신, 오늘 기분은 어떠세요?",
+      "language": "Korean",
+      "seed": 20260811,
+      "loudnessWithinShortClipRange": true,
+      "wav": {
+        "path": "audio/02-serena.wav",
+        "sha256": "1b0f496f6a728d01b058afd91219e908066c637f82ec1070ba93ac9561f6a093",
+        "codec": "pcm_s16le",
+        "sampleRateHz": 24000,
+        "channels": 1,
+        "channelLayout": null,
+        "durationMs": 3280,
+        "sizeBytes": 157484
+      },
+      "ogg": {
+        "path": "audio/02-serena.ogg",
+        "sha256": "9faa93389cd4ab55faa17e2ddea67e28e8597052ce287cd4002b5d2ca2cd08be",
+        "codec": "opus",
+        "sampleRateHz": 48000,
+        "channels": 1,
+        "channelLayout": "mono",
+        "durationMs": 3306,
+        "sizeBytes": 19079,
+        "integratedLufs": -15.2,
+        "truePeakDbtp": -0.9
+      }
+    },
+    {
+      "speaker": "Uncle_Fu",
+      "text": "영자 어르신, 오늘 기분은 어떠세요?",
+      "language": "Korean",
+      "seed": 20260811,
+      "loudnessWithinShortClipRange": true,
+      "wav": {
+        "path": "audio/03-uncle-fu.wav",
+        "sha256": "2d6cd3982869195b7f5f42e7d04d3d25dd1a429d2a97c7543bb65a7228f5ac2e",
+        "codec": "pcm_s16le",
+        "sampleRateHz": 24000,
+        "channels": 1,
+        "channelLayout": null,
+        "durationMs": 5600,
+        "sizeBytes": 268844
+      },
+      "ogg": {
+        "path": "audio/03-uncle-fu.ogg",
+        "sha256": "81e8494d7f7610978e3d3cd4a1097de7bd9ab12b4f5e36bc7f1f51366f99b65e",
+        "codec": "opus",
+        "sampleRateHz": 48000,
+        "channels": 1,
+        "channelLayout": "mono",
+        "durationMs": 5606,
+        "sizeBytes": 34693,
+        "integratedLufs": -14.8,
+        "truePeakDbtp": -0.8
+      }
+    },
+    {
+      "speaker": "Dylan",
+      "text": "영자 어르신, 오늘 기분은 어떠세요?",
+      "language": "Korean",
+      "seed": 20260811,
+      "loudnessWithinShortClipRange": false,
+      "wav": {
+        "path": "audio/04-dylan.wav",
+        "sha256": "9b9f2da70b2bf7c0bb44fca7b20ec3d1137347b2ab21cf5027fecf28220b9ca8",
+        "codec": "pcm_s16le",
+        "sampleRateHz": 24000,
+        "channels": 1,
+        "channelLayout": null,
+        "durationMs": 2800,
+        "sizeBytes": 134444
+      },
+      "ogg": {
+        "path": "audio/04-dylan.ogg",
+        "sha256": "b61d12090f3d8260bc3a32218f928a6b7058c9c11456fc61c51bc639ece24543",
+        "codec": "opus",
+        "sampleRateHz": 48000,
+        "channels": 1,
+        "channelLayout": "mono",
+        "durationMs": 2806,
+        "sizeBytes": 16527,
+        "integratedLufs": -18.7,
+        "truePeakDbtp": -1.1
+      }
+    },
+    {
+      "speaker": "Eric",
+      "text": "영자 어르신, 오늘 기분은 어떠세요?",
+      "language": "Korean",
+      "seed": 20260811,
+      "loudnessWithinShortClipRange": true,
+      "wav": {
+        "path": "audio/05-eric.wav",
+        "sha256": "eab1c9d4383df79b4d13136c4a390267e14237ac42d2096fd5268691e9897959",
+        "codec": "pcm_s16le",
+        "sampleRateHz": 24000,
+        "channels": 1,
+        "channelLayout": null,
+        "durationMs": 4960,
+        "sizeBytes": 238124
+      },
+      "ogg": {
+        "path": "audio/05-eric.ogg",
+        "sha256": "aa292ee428ee8f29dbe3807765429e25190273000946bf253a7b34b6104cf7f8",
+        "codec": "opus",
+        "sampleRateHz": 48000,
+        "channels": 1,
+        "channelLayout": "mono",
+        "durationMs": 5006,
+        "sizeBytes": 28517,
+        "integratedLufs": -16.4,
+        "truePeakDbtp": -3.9
+      }
+    },
+    {
+      "speaker": "Ryan",
+      "text": "영자 어르신, 오늘 기분은 어떠세요?",
+      "language": "Korean",
+      "seed": 20260811,
+      "loudnessWithinShortClipRange": true,
+      "wav": {
+        "path": "audio/06-ryan.wav",
+        "sha256": "c0be3a2fc6988e360ac16544ca0926812d103d48497db8183ceab62a75afc287",
+        "codec": "pcm_s16le",
+        "sampleRateHz": 24000,
+        "channels": 1,
+        "channelLayout": null,
+        "durationMs": 3600,
+        "sizeBytes": 172844
+      },
+      "ogg": {
+        "path": "audio/06-ryan.ogg",
+        "sha256": "e2d8d718a71443a95ab34eee8a064180bb7703bb7677ff7b3dc6322843a52a02",
+        "codec": "opus",
+        "sampleRateHz": 48000,
+        "channels": 1,
+        "channelLayout": "mono",
+        "durationMs": 3606,
+        "sizeBytes": 21268,
+        "integratedLufs": -15.4,
+        "truePeakDbtp": -1.0
+      }
+    },
+    {
+      "speaker": "Aiden",
+      "text": "영자 어르신, 오늘 기분은 어떠세요?",
+      "language": "Korean",
+      "seed": 20260811,
+      "loudnessWithinShortClipRange": true,
+      "wav": {
+        "path": "audio/07-aiden.wav",
+        "sha256": "7c9ce80a795dfaa528b04ca89263e2b25c996193e814ec4c4ee81db0a48c44c8",
+        "codec": "pcm_s16le",
+        "sampleRateHz": 24000,
+        "channels": 1,
+        "channelLayout": null,
+        "durationMs": 2400,
+        "sizeBytes": 115244
+      },
+      "ogg": {
+        "path": "audio/07-aiden.ogg",
+        "sha256": "69393455d292d490b90de09250957c27020613e22fcc64b4671434d485c783cd",
+        "codec": "opus",
+        "sampleRateHz": 48000,
+        "channels": 1,
+        "channelLayout": "mono",
+        "durationMs": 2406,
+        "sizeBytes": 14083,
+        "integratedLufs": -16.2,
+        "truePeakDbtp": -1.2
+      }
+    },
+    {
+      "speaker": "Ono_Anna",
+      "text": "영자 어르신, 오늘 기분은 어떠세요?",
+      "language": "Korean",
+      "seed": 20260811,
+      "loudnessWithinShortClipRange": true,
+      "wav": {
+        "path": "audio/08-ono-anna.wav",
+        "sha256": "350935370ccd01666d0b06a4ae6d41fb7a0aa8c2057a8170da511b2e85fb40dc",
+        "codec": "pcm_s16le",
+        "sampleRateHz": 24000,
+        "channels": 1,
+        "channelLayout": null,
+        "durationMs": 3280,
+        "sizeBytes": 157484
+      },
+      "ogg": {
+        "path": "audio/08-ono-anna.ogg",
+        "sha256": "8961ee2ab037ed42b6eaa7109447207487feed1c7c0bf86ef0c9eb0c46acaec7",
+        "codec": "opus",
+        "sampleRateHz": 48000,
+        "channels": 1,
+        "channelLayout": "mono",
+        "durationMs": 3306,
+        "sizeBytes": 19699,
+        "integratedLufs": -16.0,
+        "truePeakDbtp": -1.5
+      }
+    },
+    {
+      "speaker": "Sohee",
+      "text": "영자 어르신, 오늘 기분은 어떠세요?",
+      "language": "Korean",
+      "seed": 20260811,
+      "loudnessWithinShortClipRange": true,
+      "wav": {
+        "path": "audio/09-sohee.wav",
+        "sha256": "14fb23664c140d9664a5dc156ee28e1990b5f6a6efe0b115a4dae331e57c5a36",
+        "codec": "pcm_s16le",
+        "sampleRateHz": 24000,
+        "channels": 1,
+        "channelLayout": null,
+        "durationMs": 3840,
+        "sizeBytes": 184364
+      },
+      "ogg": {
+        "path": "audio/09-sohee.ogg",
+        "sha256": "375f4c6499b43ee0c0a16e31cbabf81ae47ce90b82a583ee952fe6c267990ef5",
+        "codec": "opus",
+        "sampleRateHz": 48000,
+        "channels": 1,
+        "channelLayout": "mono",
+        "durationMs": 3906,
+        "sizeBytes": 22245,
+        "integratedLufs": -16.3,
+        "truePeakDbtp": -0.9
+      }
+    }
+  ]
+}
