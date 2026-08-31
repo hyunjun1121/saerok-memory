@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "locale": "ja",
+  "text": "春子さん、今日の気分はいかがですか。",
+  "voiceCandidates": [
+    { "id": "ank0", "label": "ank0", "description": "自然で親しみやすい声" },
+    { "id": "minami", "label": "田中みなみ風", "description": "やわらかく明るい声" },
+    { "id": "veteran", "label": "女性アナウンサー（ベテラン）", "description": "落ち着いた聞き取りやすい声" }
+  ],
+  "variants": [
+    {
+      "id": "gentle_pause",
+      "label": "やさしい呼びかけ",
+      "description": "名前の後に短い間を置き、質問をゆっくり届ける形",
+      "tags": ["short pause"],
+      "taggedText": "春子さん、[short pause]今日の気分はいかがですか。",
+      "candidates": [
+        { "voiceId": "ank0", "targetPath": "audio/intro_greeting_gentle_pause_ank0.mp3", "status": "ready" },
+        { "voiceId": "minami", "targetPath": "audio/intro_greeting_gentle_pause_minami.mp3", "status": "ready" },
+        { "voiceId": "veteran", "targetPath": "audio/intro_greeting_gentle_pause_veteran.mp3", "status": "ready" }
+      ]
+    },
+    {
+      "id": "warm_emphasis",
+      "label": "名前をやさしく強調",
+      "description": "呼びかけを少しだけ明るくし、安心して答えやすくする形",
+      "tags": ["emphasis", "short pause"],
+      "taggedText": "[emphasis]春子さん、[short pause]今日の気分はいかがですか。",
+      "candidates": [
+        { "voiceId": "ank0", "targetPath": "audio/intro_greeting_warm_emphasis_ank0.mp3", "status": "ready" },
+        { "voiceId": "minami", "targetPath": "audio/intro_greeting_warm_emphasis_minami.mp3", "status": "ready" },
+        { "voiceId": "veteran", "targetPath": "audio/intro_greeting_warm_emphasis_veteran.mp3", "status": "ready" }
+      ]
+    },
+    {
+      "id": "question_pause",
+      "label": "質問の前にひと呼吸",
+      "description": "質問の中心語の前に短い間を置き、内容を追いやすくする形",
+      "tags": ["short pause"],
+      "taggedText": "春子さん、今日の[short pause]気分はいかがですか。",
+      "candidates": [
+        { "voiceId": "ank0", "targetPath": "audio/intro_greeting_question_pause_ank0.mp3", "status": "ready" },
+        { "voiceId": "minami", "targetPath": "audio/intro_greeting_question_pause_minami.mp3", "status": "ready" },
+        { "voiceId": "veteran", "targetPath": "audio/intro_greeting_question_pause_veteran.mp3", "status": "ready" }
+      ]
+    },
+    {
+      "id": "gentle_double_pause",
+      "label": "二つのゆったりした間",
+      "description": "呼吸の間を二つに分け、急がずに聞こえる形",
+      "tags": ["short pause", "short pause"],
+      "taggedText": "春子さん、[short pause]今日の気分は[short pause]いかがですか。",
+      "candidates": [
+        { "voiceId": "ank0", "targetPath": "audio/intro_greeting_gentle_double_pause_ank0.mp3", "status": "ready" },
+        { "voiceId": "minami", "targetPath": "audio/intro_greeting_gentle_double_pause_minami.mp3", "status": "ready" },
+        { "voiceId": "veteran", "targetPath": "audio/intro_greeting_gentle_double_pause_veteran.mp3", "status": "ready" }
+      ]
+    }
+  ]
+}

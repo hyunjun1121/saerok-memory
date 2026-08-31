@@ -13,8 +13,8 @@
     "schemaVersion": 1,
     "locale": "ko",
     "day": 1,
-    "entryCount": 31,
-    "baseRightEntryCount": 27,
+    "entryCount": 32,
+    "baseRightEntryCount": 28,
     "maintainerSelectedEntryCount": 4,
     "provider": "Fish Audio",
     "sourceType": "user-selected-browser-export",
@@ -24,6 +24,19 @@
     "license": "not embedded in exported MP3 metadata",
     "baseAuditPath": "tools/fish-day1-browser/day1-runtime-import.json",
     "selectionAuditPath": "tools/fish-day1-browser/calm-mood-candidates/calm-mood-runtime-import.json",
-    "appliedAt": "2026-08-12T23:35:15.386Z"
+    "appliedAt": "2026-08-31T08:55:00.000Z"
+  },
+  "japaneseDay1Overrides": {
+    "schemaVersion": 1,
+    "locale": "ja",
+    "day": 1,
+    "entryCount": 32,
+    "provider": "Fish Audio",
+    "sourceType": "user-selected-browser-export",
+    "voice": "veteran",
+    "tagStyle": "gentle_double_pause",
+    "selectionManifest": "public/assets/audio/narration/ja/day1/manifest.json",
+    "model": "not embedded in exported MP3 metadata",
+    "license": "not embedded in exported MP3 metadata"
   }
 }

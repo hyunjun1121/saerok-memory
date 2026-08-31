@@ -12,7 +12,8 @@ import {
 import { loadRuntimeInputConfig, type RuntimeInputConfigResult } from "@/config/runtimeConfig";
 import { audioManager } from "@/features/audio";
 import { FourButtonProvider } from "@/features/input";
-import { OfflineLessonScreen, OfflineResultScreen } from "@/features/lesson/OfflineLesson";
+import { LessonEntryScreen } from "@/features/login/LessonEntryScreen";
+import { OfflineResultScreen } from "@/features/lesson/OfflineLesson";
 import { getBuildLanguage, getUiCopy } from "@/i18n/copy";
 
 function AppRoutes() {
@@ -20,7 +21,7 @@ function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/lesson" replace />} />
-      <Route path="/lesson" element={<OfflineLessonScreen />} />
+      <Route path="/lesson" element={<LessonEntryScreen />} />
       <Route path="/result" element={<OfflineResultScreen />} />
       <Route path="/kiosk" element={<KioskMenuScreen />} />
       <Route

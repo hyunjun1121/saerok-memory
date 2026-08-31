@@ -56,6 +56,11 @@ async function pressPhysicalButton(page: Page, slot: PhysicalSlot): Promise<void
   await page.waitForTimeout(DEBOUNCE_SETTLE_MS);
 }
 
+async function pressNfcCard(page: Page): Promise<void> {
+  await page.keyboard.press("5");
+  await page.waitForTimeout(DEBOUNCE_SETTLE_MS);
+}
+
 async function selectOptionsThenConfirm(
   page: Page,
   slots: readonly PhysicalSlot[],
@@ -149,7 +154,19 @@ test("routes the final 27 B plus 4 calm narrations through real four-key UI play
   page.on("pageerror", (error) => pageErrors.push(error.message));
 
   await page.goto("/#/lesson?day=1&restart=1");
+  await expect(page.locator('[data-screen="nfc-login"]')).toBeVisible();
+  await pressNfcCard(page);
   await expect(page.locator('[data-screen="lesson-start"]')).toBeVisible();
+
+  const loginPath = await page.evaluate(async () => {
+    const response = await fetch("assets/audio/narration/manifest.json", { cache: "no-store" });
+    if (!response.ok) throw new Error(`Narration manifest returned ${response.status}`);
+    const manifest = await response.json() as {
+      entries: Array<{ id: string; locale: string; path: string }>;
+    };
+    return manifest.entries.find((entry) => entry.locale === "ko" && entry.id === "login.nfc.waiting")?.path ?? null;
+  });
+  expect(loginPath).not.toBeNull();
 
   const manifestPaths = await page.evaluate(async (expectedEntries) => {
     const response = await fetch("assets/audio/narration/manifest.json", { cache: "no-store" });
@@ -225,7 +242,10 @@ test("routes the final 27 B plus 4 calm narrations through real four-key UI play
   await pressPhysicalButton(page, "topRight");
   await expect(page.locator('[data-screen="result"]')).toBeVisible();
 
-  const expectedUrls = expectedEntries.map(({ path }) => absoluteAssetUrl(page, path));
+  const expectedUrls = [
+    absoluteAssetUrl(page, loginPath as string),
+    ...expectedEntries.map(({ path }) => absoluteAssetUrl(page, path)),
+  ];
   const previousUrls = new Set([
     ...audit.entries.map(({ previousPath }) => absoluteAssetUrl(page, previousPath)),
     ...calmAudit.entries.map(({ previousPath }) => absoluteAssetUrl(page, previousPath)),

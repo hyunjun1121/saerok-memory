@@ -3,6 +3,8 @@ set -Eeuo pipefail
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
 DEMO_ROOT="$(cd -- "$SCRIPT_DIR/.." && pwd -P)"
+# shellcheck disable=SC1091
+source "$SCRIPT_DIR/haru-env.sh"
 RUNTIME_ROOT="$DEMO_ROOT/runtime"
 PROFILE_RELATIVE="$(node "$SCRIPT_DIR/runtime-config.mjs" get chromium.profileDirectory)"
 PROFILE_DIRECTORY="$DEMO_ROOT/$PROFILE_RELATIVE"

@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "purpose": "NFC keyboard-wedge login waiting narration",
+  "provider": "Fish Audio",
+  "voice": {
+    "id": "veteran",
+    "label": "女性アナウンサー（ベテラン）",
+    "description": "落ち着いた聞き取りやすい声"
+  },
+  "tagStyle": "gentle_double_pause",
+  "entries": [
+    {
+      "locale": "ko",
+      "id": "login.nfc.waiting",
+      "text": "카드 리더기에 카드를 대주세요.",
+      "taggedText": "카드 리더기에 [short pause] [emphasis] 카드를 대주세요.",
+      "sourcePath": "audio/32_login_nfc_waiting_right.mp3",
+      "runtimePath": "assets/audio/narration/ko/fishaudio-login-nfc-waiting.ogg",
+      "sourceSha256": "4ecc6e237493061dcf84ac4213280756b8a76c65e53508400cfcad29a5df490d",
+      "runtimeSha256": "c11caef0ed1b6f707a670a8ff7f9aa29d2d1f73890c9f5ca45cb2eba57e63994",
+      "choice": "right"
+    },
+    {
+      "locale": "ja",
+      "id": "login.nfc.waiting",
+      "text": "カードリーダーにカードをかざしてください。",
+      "taggedText": "カードリーダーに[short pause]カードを[short pause]かざしてください。",
+      "sourcePath": "ja/audio/32_login_nfc_waiting_veteran.mp3",
+      "runtimePath": "assets/audio/narration/ja/day1/32_login_nfc_waiting.mp3",
+      "sourceSha256": "7cd08876a374ae265030539198513af99207eb1872be1bc96ceaa8373b6b036a",
+      "choice": "veteran"
+    }
+  ]
+}

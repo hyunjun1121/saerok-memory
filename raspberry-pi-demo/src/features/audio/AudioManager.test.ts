@@ -1,4 +1,8 @@
-import { AudioManager, type AudioElementLike } from "@/features/audio/AudioManager";
+import {
+  AudioManager,
+  JAPANESE_DAY1_OVERRIDE_MANIFEST_URL,
+  type AudioElementLike,
+} from "@/features/audio/AudioManager";
 import type { NarrationManifest } from "@/features/audio/narrationManifest";
 
 const manifest: NarrationManifest = {
@@ -38,6 +42,45 @@ class FakeAudio implements AudioElementLike {
 }
 
 describe("AudioManager", () => {
+  it("prefers the selected Fish Audio veteran voice for Japanese Day 1", async () => {
+    const overrideManifest = {
+      schemaVersion: 1,
+      locale: "ja",
+      market: "jp",
+      day: 1,
+      provider: "Fish Audio",
+      selectionCount: 1,
+      entries: [{
+        id: "day.1.greeting",
+        text: "春子さん、月曜日の活動を始めましょう。",
+        voiceId: "veteran",
+        tagStyle: "gentle_double_pause",
+        taggedText: "春子さん、[short pause]月曜日の活動を[short pause]始めましょう。",
+        runtimePath: "/assets/audio/narration/ja/day1/01_day_1_greeting.mp3",
+      }],
+    };
+    const fetcher = vi.fn(async (url: RequestInfo | URL) => {
+      if (url.toString() === JAPANESE_DAY1_OVERRIDE_MANIFEST_URL) {
+        return new Response(JSON.stringify(overrideManifest));
+      }
+      return new Response(JSON.stringify(manifest));
+    });
+    const created: FakeAudio[] = [];
+    const manager = new AudioManager({
+      fetcher,
+      createAudio: (src) => {
+        const audio = new FakeAudio(src);
+        created.push(audio);
+        return audio;
+      },
+    });
+
+    expect(await manager.playNarration("day.1.greeting", "ja")).toEqual({ status: "played" });
+    expect(created[0]?.src).toBe("/assets/audio/narration/ja/day1/01_day_1_greeting.mp3");
+    expect(fetcher).toHaveBeenCalledTimes(1);
+    expect(fetcher).toHaveBeenCalledWith(JAPANESE_DAY1_OVERRIDE_MANIFEST_URL, { cache: "no-store" });
+  });
+
   it("loads the local manifest and plays a local narration entry", async () => {
     const fetcher = vi.fn(async () => new Response(JSON.stringify(manifest)));
     const created: FakeAudio[] = [];

@@ -1,0 +1,229 @@
+{
+  "schemaVersion": 1,
+  "locale": "ja",
+  "market": "jp",
+  "day": 1,
+  "entryCount": 31,
+  "selectedCount": 31,
+  "complete": true,
+  "updatedAt": "2026-08-25T00:00:00.000Z",
+  "selections": [
+    {
+      "index": 1,
+      "id": "day.1.greeting",
+      "text": "春子さん、月曜日の活動を始めましょう。",
+      "voiceId": "veteran",
+      "audioPath": "audio/01_day_1_greeting_veteran.mp3"
+    },
+    {
+      "index": 2,
+      "id": "exercise.D1_Q1.prompt",
+      "text": "春子さん、今日の気分はいかがですか。",
+      "voiceId": "veteran",
+      "audioPath": "audio/02_exercise_d1_q1_prompt_veteran.mp3"
+    },
+    {
+      "index": 3,
+      "id": "exercise.D1_Q1.option.A",
+      "text": "とても良い",
+      "voiceId": "veteran",
+      "audioPath": "audio/03_exercise_d1_q1_option_a_veteran.mp3"
+    },
+    {
+      "index": 4,
+      "id": "exercise.D1_Q1.option.B",
+      "text": "良い",
+      "voiceId": "veteran",
+      "audioPath": "audio/04_exercise_d1_q1_option_b_veteran.mp3"
+    },
+    {
+      "index": 5,
+      "id": "exercise.D1_Q1.option.C",
+      "text": "まあまあ",
+      "voiceId": "veteran",
+      "audioPath": "audio/05_exercise_d1_q1_option_c_veteran.mp3"
+    },
+    {
+      "index": 6,
+      "id": "exercise.D1_Q1.option.D",
+      "text": "あまり良くない",
+      "voiceId": "veteran",
+      "audioPath": "audio/06_exercise_d1_q1_option_d_veteran.mp3"
+    },
+    {
+      "index": 7,
+      "id": "exercise.D1_Q2.prompt",
+      "text": "今日は何曜日ですか。",
+      "voiceId": "veteran",
+      "audioPath": "audio/07_exercise_d1_q2_prompt_veteran.mp3"
+    },
+    {
+      "index": 8,
+      "id": "exercise.D1_Q2.option.A",
+      "text": "月曜日",
+      "voiceId": "veteran",
+      "audioPath": "audio/08_exercise_d1_q2_option_a_veteran.mp3"
+    },
+    {
+      "index": 9,
+      "id": "exercise.D1_Q2.option.B",
+      "text": "火曜日",
+      "voiceId": "veteran",
+      "audioPath": "audio/09_exercise_d1_q2_option_b_veteran.mp3"
+    },
+    {
+      "index": 10,
+      "id": "exercise.D1_Q2.option.C",
+      "text": "土曜日",
+      "voiceId": "veteran",
+      "audioPath": "audio/10_exercise_d1_q2_option_c_veteran.mp3"
+    },
+    {
+      "index": 11,
+      "id": "exercise.D1_Q2.option.D",
+      "text": "日曜日",
+      "voiceId": "veteran",
+      "audioPath": "audio/11_exercise_d1_q2_option_d_veteran.mp3"
+    },
+    {
+      "index": 12,
+      "id": "exercise.D1_Q3.prompt",
+      "text": "春子さんの故郷はどこですか。",
+      "voiceId": "veteran",
+      "audioPath": "audio/12_exercise_d1_q3_prompt_veteran.mp3"
+    },
+    {
+      "index": 13,
+      "id": "exercise.D1_Q3.option.A",
+      "text": "長野県松本市",
+      "voiceId": "veteran",
+      "audioPath": "audio/13_exercise_d1_q3_option_a_veteran.mp3"
+    },
+    {
+      "index": 14,
+      "id": "exercise.D1_Q3.option.B",
+      "text": "北海道札幌市",
+      "voiceId": "veteran",
+      "audioPath": "audio/14_exercise_d1_q3_option_b_veteran.mp3"
+    },
+    {
+      "index": 15,
+      "id": "exercise.D1_Q3.option.C",
+      "text": "東京都",
+      "voiceId": "veteran",
+      "audioPath": "audio/15_exercise_d1_q3_option_c_veteran.mp3"
+    },
+    {
+      "index": 16,
+      "id": "exercise.D1_Q3.option.D",
+      "text": "青森県青森市",
+      "voiceId": "veteran",
+      "audioPath": "audio/16_exercise_d1_q3_option_d_veteran.mp3"
+    },
+    {
+      "index": 17,
+      "id": "exercise.D1_Q4.prompt",
+      "text": "豆腐を150円、卵を250円で買い、500円を払いました。おつりはいくらですか。",
+      "voiceId": "veteran",
+      "audioPath": "audio/17_exercise_d1_q4_prompt_veteran.mp3"
+    },
+    {
+      "index": 18,
+      "id": "exercise.D1_Q4.option.A",
+      "text": "0円",
+      "voiceId": "veteran",
+      "audioPath": "audio/18_exercise_d1_q4_option_a_veteran.mp3"
+    },
+    {
+      "index": 19,
+      "id": "exercise.D1_Q4.option.B",
+      "text": "50円",
+      "voiceId": "veteran",
+      "audioPath": "audio/19_exercise_d1_q4_option_b_veteran.mp3"
+    },
+    {
+      "index": 20,
+      "id": "exercise.D1_Q4.option.C",
+      "text": "100円",
+      "voiceId": "veteran",
+      "audioPath": "audio/20_exercise_d1_q4_option_c_veteran.mp3"
+    },
+    {
+      "index": 21,
+      "id": "exercise.D1_Q4.option.D",
+      "text": "150円",
+      "voiceId": "veteran",
+      "audioPath": "audio/21_exercise_d1_q4_option_d_veteran.mp3"
+    },
+    {
+      "index": 22,
+      "id": "exercise.D1_Q5.prompt",
+      "text": "今日行った場所と、したことをゆっくり話してください。",
+      "voiceId": "veteran",
+      "audioPath": "audio/22_exercise_d1_q5_prompt_veteran.mp3"
+    },
+    {
+      "index": 23,
+      "id": "guide.voice_review",
+      "text": "もう一度話すなら左、これで確定するなら右のボタンを押してください。",
+      "voiceId": "veteran",
+      "audioPath": "audio/23_guide_voice_review_veteran.mp3"
+    },
+    {
+      "index": 24,
+      "id": "exercise.D1_Q6.sequence",
+      "text": "りんご、傘、バス",
+      "voiceId": "veteran",
+      "audioPath": "audio/24_exercise_d1_q6_sequence_veteran.mp3"
+    },
+    {
+      "index": 25,
+      "id": "exercise.D1_Q6.option.A",
+      "text": "りんご",
+      "voiceId": "veteran",
+      "audioPath": "audio/25_exercise_d1_q6_option_a_veteran.mp3"
+    },
+    {
+      "index": 26,
+      "id": "exercise.D1_Q6.option.B",
+      "text": "傘",
+      "voiceId": "veteran",
+      "audioPath": "audio/26_exercise_d1_q6_option_b_veteran.mp3"
+    },
+    {
+      "index": 27,
+      "id": "exercise.D1_Q6.option.C",
+      "text": "バス",
+      "voiceId": "veteran",
+      "audioPath": "audio/27_exercise_d1_q6_option_c_veteran.mp3"
+    },
+    {
+      "index": 28,
+      "id": "exercise.D1_Q6.option.D",
+      "text": "帽子",
+      "voiceId": "veteran",
+      "audioPath": "audio/28_exercise_d1_q6_option_d_veteran.mp3"
+    },
+    {
+      "index": 29,
+      "id": "feedback.saved",
+      "text": "うまく記録できました。",
+      "voiceId": "veteran",
+      "audioPath": "audio/29_feedback_saved_veteran.mp3"
+    },
+    {
+      "index": 30,
+      "id": "feedback.try_again",
+      "text": "大丈夫です。ゆっくりもう一度やってみましょう。",
+      "voiceId": "veteran",
+      "audioPath": "audio/30_feedback_try_again_veteran.mp3"
+    },
+    {
+      "index": 31,
+      "id": "day.1.completion",
+      "text": "今日の活動をすべて終えました。また明日お会いしましょう。",
+      "voiceId": "veteran",
+      "audioPath": "audio/31_day_1_completion_veteran.mp3"
+    }
+  ]
+}

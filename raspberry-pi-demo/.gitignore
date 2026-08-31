@@ -9,3 +9,7 @@ tools/tts/work/
 __pycache__/
 *.py[cod]
 *.tsbuildinfo
+.tmp/
+
+.vercel
+.env*

@@ -1,0 +1,839 @@
+{
+  "schemaVersion": 2,
+  "locale": "ja",
+  "market": "jp",
+  "source": "../../../../src/data/haru7DayExercises.ts",
+  "downloadDirectory": "C:\\Users\\mnb92\\Downloads",
+  "day": 1,
+  "voiceCandidates": [
+    {
+      "id": "ank0",
+      "label": "ank0",
+      "description": "自然で親しみやすい声"
+    },
+    {
+      "id": "minami",
+      "label": "田中みなみ風",
+      "description": "やわらかく明るい声"
+    },
+    {
+      "id": "veteran",
+      "label": "女性アナウンサー（ベテラン）",
+      "description": "落ち着いた聞き取りやすい声"
+    }
+  ],
+  "entryCount": 31,
+  "entries": [
+    {
+      "index": 1,
+      "id": "day.1.greeting",
+      "text": "春子さん、月曜日の活動を始めましょう。",
+      "slug": "day_1_greeting",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/01_day_1_greeting_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/01_day_1_greeting_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/01_day_1_greeting_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "春子さん、[short pause]月曜日の活動を[short pause]始めましょう。"
+        }
+      ],
+      "taggedText": "春子さん、[short pause]月曜日の活動を[short pause]始めましょう。"
+    },
+    {
+      "index": 2,
+      "id": "exercise.D1_Q1.prompt",
+      "text": "春子さん、今日の気分はいかがですか。",
+      "slug": "exercise_d1_q1_prompt",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/02_exercise_d1_q1_prompt_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/02_exercise_d1_q1_prompt_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/02_exercise_d1_q1_prompt_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "春子さん、[short pause]今日の気分は[short pause]いかがですか。"
+        }
+      ],
+      "taggedText": "春子さん、[short pause]今日の気分は[short pause]いかがですか。"
+    },
+    {
+      "index": 3,
+      "id": "exercise.D1_Q1.option.A",
+      "text": "とても良い",
+      "slug": "exercise_d1_q1_option_a",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/03_exercise_d1_q1_option_a_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/03_exercise_d1_q1_option_a_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/03_exercise_d1_q1_option_a_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "[short pause]とても良い[short pause]"
+        }
+      ],
+      "taggedText": "[short pause]とても良い[short pause]"
+    },
+    {
+      "index": 4,
+      "id": "exercise.D1_Q1.option.B",
+      "text": "良い",
+      "slug": "exercise_d1_q1_option_b",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/04_exercise_d1_q1_option_b_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/04_exercise_d1_q1_option_b_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/04_exercise_d1_q1_option_b_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "[short pause]良い[short pause]"
+        }
+      ],
+      "taggedText": "[short pause]良い[short pause]"
+    },
+    {
+      "index": 5,
+      "id": "exercise.D1_Q1.option.C",
+      "text": "まあまあ",
+      "slug": "exercise_d1_q1_option_c",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/05_exercise_d1_q1_option_c_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/05_exercise_d1_q1_option_c_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/05_exercise_d1_q1_option_c_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "[short pause]まあまあ[short pause]"
+        }
+      ],
+      "taggedText": "[short pause]まあまあ[short pause]"
+    },
+    {
+      "index": 6,
+      "id": "exercise.D1_Q1.option.D",
+      "text": "あまり良くない",
+      "slug": "exercise_d1_q1_option_d",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/06_exercise_d1_q1_option_d_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/06_exercise_d1_q1_option_d_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/06_exercise_d1_q1_option_d_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "[short pause]あまり良くない[short pause]"
+        }
+      ],
+      "taggedText": "[short pause]あまり良くない[short pause]"
+    },
+    {
+      "index": 7,
+      "id": "exercise.D1_Q2.prompt",
+      "text": "今日は何曜日ですか。",
+      "slug": "exercise_d1_q2_prompt",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/07_exercise_d1_q2_prompt_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/07_exercise_d1_q2_prompt_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/07_exercise_d1_q2_prompt_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "今日は[short pause]何曜日[short pause]ですか。"
+        }
+      ],
+      "taggedText": "今日は[short pause]何曜日[short pause]ですか。"
+    },
+    {
+      "index": 8,
+      "id": "exercise.D1_Q2.option.A",
+      "text": "月曜日",
+      "slug": "exercise_d1_q2_option_a",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/08_exercise_d1_q2_option_a_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/08_exercise_d1_q2_option_a_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/08_exercise_d1_q2_option_a_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "[short pause]月曜日[short pause]"
+        }
+      ],
+      "taggedText": "[short pause]月曜日[short pause]"
+    },
+    {
+      "index": 9,
+      "id": "exercise.D1_Q2.option.B",
+      "text": "火曜日",
+      "slug": "exercise_d1_q2_option_b",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/09_exercise_d1_q2_option_b_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/09_exercise_d1_q2_option_b_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/09_exercise_d1_q2_option_b_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "[short pause]火曜日[short pause]"
+        }
+      ],
+      "taggedText": "[short pause]火曜日[short pause]"
+    },
+    {
+      "index": 10,
+      "id": "exercise.D1_Q2.option.C",
+      "text": "土曜日",
+      "slug": "exercise_d1_q2_option_c",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/10_exercise_d1_q2_option_c_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/10_exercise_d1_q2_option_c_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/10_exercise_d1_q2_option_c_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "[short pause]土曜日[short pause]"
+        }
+      ],
+      "taggedText": "[short pause]土曜日[short pause]"
+    },
+    {
+      "index": 11,
+      "id": "exercise.D1_Q2.option.D",
+      "text": "日曜日",
+      "slug": "exercise_d1_q2_option_d",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/11_exercise_d1_q2_option_d_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/11_exercise_d1_q2_option_d_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/11_exercise_d1_q2_option_d_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "[short pause]日曜日[short pause]"
+        }
+      ],
+      "taggedText": "[short pause]日曜日[short pause]"
+    },
+    {
+      "index": 12,
+      "id": "exercise.D1_Q3.prompt",
+      "text": "春子さんの故郷はどこですか。",
+      "slug": "exercise_d1_q3_prompt",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/12_exercise_d1_q3_prompt_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/12_exercise_d1_q3_prompt_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/12_exercise_d1_q3_prompt_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "春子さんの故郷は[short pause]どこ[short pause]ですか。"
+        }
+      ],
+      "taggedText": "春子さんの故郷は[short pause]どこ[short pause]ですか。"
+    },
+    {
+      "index": 13,
+      "id": "exercise.D1_Q3.option.A",
+      "text": "長野県松本市",
+      "slug": "exercise_d1_q3_option_a",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/13_exercise_d1_q3_option_a_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/13_exercise_d1_q3_option_a_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/13_exercise_d1_q3_option_a_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "[short pause]ながのけん・まつもとし[short pause]"
+        }
+      ],
+      "taggedText": "[short pause]ながのけん・まつもとし[short pause]"
+    },
+    {
+      "index": 14,
+      "id": "exercise.D1_Q3.option.B",
+      "text": "北海道札幌市",
+      "slug": "exercise_d1_q3_option_b",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/14_exercise_d1_q3_option_b_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/14_exercise_d1_q3_option_b_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/14_exercise_d1_q3_option_b_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "[short pause]北海道札幌市[short pause]"
+        }
+      ],
+      "taggedText": "[short pause]北海道札幌市[short pause]"
+    },
+    {
+      "index": 15,
+      "id": "exercise.D1_Q3.option.C",
+      "text": "東京都",
+      "slug": "exercise_d1_q3_option_c",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/15_exercise_d1_q3_option_c_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/15_exercise_d1_q3_option_c_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/15_exercise_d1_q3_option_c_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "[short pause]東京都[short pause]"
+        }
+      ],
+      "taggedText": "[short pause]東京都[short pause]"
+    },
+    {
+      "index": 16,
+      "id": "exercise.D1_Q3.option.D",
+      "text": "青森県青森市",
+      "slug": "exercise_d1_q3_option_d",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/16_exercise_d1_q3_option_d_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/16_exercise_d1_q3_option_d_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/16_exercise_d1_q3_option_d_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "[short pause]青森県青森市[short pause]"
+        }
+      ],
+      "taggedText": "[short pause]青森県青森市[short pause]"
+    },
+    {
+      "index": 17,
+      "id": "exercise.D1_Q4.prompt",
+      "text": "豆腐を150円、卵を250円で買い、500円を払いました。おつりはいくらですか。",
+      "slug": "exercise_d1_q4_prompt",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/17_exercise_d1_q4_prompt_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/17_exercise_d1_q4_prompt_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/17_exercise_d1_q4_prompt_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "豆腐を150円、[short pause]卵を250円で買い、[short pause]500円を払いました。おつりはいくらですか。"
+        }
+      ],
+      "taggedText": "豆腐を150円、[short pause]卵を250円で買い、[short pause]500円を払いました。おつりはいくらですか。"
+    },
+    {
+      "index": 18,
+      "id": "exercise.D1_Q4.option.A",
+      "text": "0円",
+      "slug": "exercise_d1_q4_option_a",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/18_exercise_d1_q4_option_a_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/18_exercise_d1_q4_option_a_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/18_exercise_d1_q4_option_a_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "[short pause]0円[short pause]"
+        }
+      ],
+      "taggedText": "[short pause]0円[short pause]"
+    },
+    {
+      "index": 19,
+      "id": "exercise.D1_Q4.option.B",
+      "text": "50円",
+      "slug": "exercise_d1_q4_option_b",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/19_exercise_d1_q4_option_b_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/19_exercise_d1_q4_option_b_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/19_exercise_d1_q4_option_b_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "[short pause]50円[short pause]"
+        }
+      ],
+      "taggedText": "[short pause]50円[short pause]"
+    },
+    {
+      "index": 20,
+      "id": "exercise.D1_Q4.option.C",
+      "text": "100円",
+      "slug": "exercise_d1_q4_option_c",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/20_exercise_d1_q4_option_c_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/20_exercise_d1_q4_option_c_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/20_exercise_d1_q4_option_c_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "[short pause]100円[short pause]"
+        }
+      ],
+      "taggedText": "[short pause]100円[short pause]"
+    },
+    {
+      "index": 21,
+      "id": "exercise.D1_Q4.option.D",
+      "text": "150円",
+      "slug": "exercise_d1_q4_option_d",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/21_exercise_d1_q4_option_d_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/21_exercise_d1_q4_option_d_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/21_exercise_d1_q4_option_d_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "[short pause]150円[short pause]"
+        }
+      ],
+      "taggedText": "[short pause]150円[short pause]"
+    },
+    {
+      "index": 22,
+      "id": "exercise.D1_Q5.prompt",
+      "text": "今日行った場所と、したことをゆっくり話してください。",
+      "slug": "exercise_d1_q5_prompt",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/22_exercise_d1_q5_prompt_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/22_exercise_d1_q5_prompt_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/22_exercise_d1_q5_prompt_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "今日行った場所と、[short pause]したことを[short pause]ゆっくり話してください。"
+        }
+      ],
+      "taggedText": "今日行った場所と、[short pause]したことを[short pause]ゆっくり話してください。"
+    },
+    {
+      "index": 23,
+      "id": "guide.voice_review",
+      "text": "もう一度話すなら左、これで確定するなら右のボタンを押してください。",
+      "slug": "guide_voice_review",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/23_guide_voice_review_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/23_guide_voice_review_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/23_guide_voice_review_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "もう一度話すなら左、[short pause]これで確定するなら[short pause]右のボタンを押してください。"
+        }
+      ],
+      "taggedText": "もう一度話すなら左、[short pause]これで確定するなら[short pause]右のボタンを押してください。"
+    },
+    {
+      "index": 24,
+      "id": "exercise.D1_Q6.sequence",
+      "text": "りんご、傘、バス",
+      "slug": "exercise_d1_q6_sequence",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/24_exercise_d1_q6_sequence_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/24_exercise_d1_q6_sequence_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/24_exercise_d1_q6_sequence_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "りんご、[short pause]傘、[short pause]バス"
+        }
+      ],
+      "taggedText": "りんご、[short pause]傘、[short pause]バス"
+    },
+    {
+      "index": 25,
+      "id": "exercise.D1_Q6.option.A",
+      "text": "りんご",
+      "slug": "exercise_d1_q6_option_a",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/25_exercise_d1_q6_option_a_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/25_exercise_d1_q6_option_a_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/25_exercise_d1_q6_option_a_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "[short pause]りんご[short pause]"
+        }
+      ],
+      "taggedText": "[short pause]りんご[short pause]"
+    },
+    {
+      "index": 26,
+      "id": "exercise.D1_Q6.option.B",
+      "text": "傘",
+      "slug": "exercise_d1_q6_option_b",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/26_exercise_d1_q6_option_b_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/26_exercise_d1_q6_option_b_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/26_exercise_d1_q6_option_b_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "[short pause]傘[short pause]"
+        }
+      ],
+      "taggedText": "[short pause]傘[short pause]"
+    },
+    {
+      "index": 27,
+      "id": "exercise.D1_Q6.option.C",
+      "text": "バス",
+      "slug": "exercise_d1_q6_option_c",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/27_exercise_d1_q6_option_c_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/27_exercise_d1_q6_option_c_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/27_exercise_d1_q6_option_c_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "[short pause]バス[short pause]"
+        }
+      ],
+      "taggedText": "[short pause]バス[short pause]"
+    },
+    {
+      "index": 28,
+      "id": "exercise.D1_Q6.option.D",
+      "text": "帽子",
+      "slug": "exercise_d1_q6_option_d",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/28_exercise_d1_q6_option_d_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/28_exercise_d1_q6_option_d_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/28_exercise_d1_q6_option_d_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "[short pause]帽子[short pause]"
+        }
+      ],
+      "taggedText": "[short pause]帽子[short pause]"
+    },
+    {
+      "index": 29,
+      "id": "feedback.saved",
+      "text": "うまく記録できました。",
+      "slug": "feedback_saved",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/29_feedback_saved_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/29_feedback_saved_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/29_feedback_saved_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "うまく[short pause]記録[short pause]できました。"
+        }
+      ],
+      "taggedText": "うまく[short pause]記録[short pause]できました。"
+    },
+    {
+      "index": 30,
+      "id": "feedback.try_again",
+      "text": "大丈夫です。ゆっくりもう一度やってみましょう。",
+      "slug": "feedback_try_again",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/30_feedback_try_again_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/30_feedback_try_again_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/30_feedback_try_again_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "大丈夫です。[short pause]ゆっくりもう一度[short pause]やってみましょう。"
+        }
+      ],
+      "taggedText": "大丈夫です。[short pause]ゆっくりもう一度[short pause]やってみましょう。"
+    },
+    {
+      "index": 31,
+      "id": "day.1.completion",
+      "text": "今日の活動をすべて終えました。また明日お会いしましょう。",
+      "slug": "day_1_completion",
+      "candidates": [
+        {
+          "voiceId": "ank0",
+          "targetPath": "audio/31_day_1_completion_ank0.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "minami",
+          "targetPath": "audio/31_day_1_completion_minami.mp3",
+          "status": "pending"
+        },
+        {
+          "voiceId": "veteran",
+          "targetPath": "audio/31_day_1_completion_veteran.mp3",
+          "status": "ready",
+          "tagStyle": "gentle_double_pause",
+          "taggedText": "今日の活動をすべて終えました。[short pause]また明日[short pause]お会いしましょう。"
+        }
+      ],
+      "taggedText": "今日の活動をすべて終えました。[short pause]また明日[short pause]お会いしましょう。"
+    }
+  ],
+  "selectedVoiceId": "veteran",
+  "selectedVoiceLabel": "女性アナウンサー（ベテラン）",
+  "selectedTagStyle": "gentle_double_pause",
+  "selectedTagText": "[short pause] [short pause]",
+  "selectedAt": "2026-08-25T00:00:00.000Z"
+}

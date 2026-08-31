@@ -74,6 +74,15 @@ async function openHashRoute(page: Page, route: string): Promise<void> {
   await expect(page.locator(".offline-app")).toBeVisible();
 }
 
+async function pressNfcCard(page: Page, controlledClock = false): Promise<void> {
+  await page.keyboard.press("5");
+  if (controlledClock) {
+    await page.clock.runFor(DEBOUNCE_SETTLE_MS);
+  } else {
+    await page.waitForTimeout(DEBOUNCE_SETTLE_MS);
+  }
+}
+
 async function pressPhysicalButton(
   page: Page,
   slot: PhysicalSlot,
@@ -216,6 +225,7 @@ async function installDeniedMicrophone(page: Page): Promise<void> {
 
 test("feedback retry deletes the committed response and survives a reload", async ({ page }) => {
   await openHashRoute(page, "/lesson?day=1");
+  await pressNfcCard(page);
   await pressPhysicalButton(page, "topRight");
   await selectAndConfirm(page, "topLeft");
   await expect(page.locator('[data-screen="lesson-feedback"]')).toBeVisible();
@@ -226,6 +236,7 @@ test("feedback retry deletes the committed response and survives a reload", asyn
   expect((await readProgress(page)).responses).toEqual([]);
 
   await page.reload();
+  await pressNfcCard(page);
   await expect(page.locator('[data-screen="lesson-start"]')).toBeVisible();
   await pressPhysicalButton(page, "topRight");
   await expect(page.locator('[data-exercise-id="D1_Q1"][data-screen="lesson-question"]')).toBeVisible();
@@ -233,12 +244,14 @@ test("feedback retry deletes the committed response and survives a reload", asyn
 
 test("mid-day reload resumes at the first unanswered question", async ({ page }) => {
   await openHashRoute(page, "/lesson?day=1");
+  await pressNfcCard(page);
   await pressPhysicalButton(page, "topRight");
   await selectAndConfirm(page, "topLeft");
   await pressPhysicalButton(page, "topRight");
   await expect(page.locator('[data-exercise-id="D1_Q2"][data-screen="lesson-question"]')).toBeVisible();
 
   await page.reload();
+  await pressNfcCard(page);
   await expect(page.locator('[data-screen="lesson-start"]')).toBeVisible();
   await pressPhysicalButton(page, "topRight");
   await expect(page.locator('[data-exercise-id="D1_Q2"][data-screen="lesson-question"]')).toBeVisible();
@@ -247,6 +260,7 @@ test("mid-day reload resumes at the first unanswered question", async ({ page })
 test("fresh-run route clears stale day progress and then advances from question one", async ({ page }) => {
   await seedDayOneResume(page, 5);
   await openHashRoute(page, "/lesson?day=1&restart=1");
+  await pressNfcCard(page);
   await expect(page).toHaveURL(/#\/lesson\?day=1&restart=1$/);
   expect((await readProgress(page)).responses).toEqual([]);
 
@@ -264,6 +278,7 @@ test("fresh-run route clears stale day progress and then advances from question 
 
 test("fresh-run URL stays explicit and reloads from day-one question one", async ({ page }) => {
   await openHashRoute(page, "/lesson?day=1&restart=1");
+  await pressNfcCard(page);
   await pressPhysicalButton(page, "topRight");
   await expect(page.locator('[data-exercise-id="D1_Q1"]')).toBeVisible();
   await selectAndConfirm(page, "topLeft");
@@ -271,6 +286,7 @@ test("fresh-run URL stays explicit and reloads from day-one question one", async
   await expect(page.locator('[data-exercise-id="D1_Q2"]')).toBeVisible();
 
   await page.reload();
+  await pressNfcCard(page);
   await expect(page).toHaveURL(/#\/lesson\?day=1&restart=1$/);
   await expect(page.locator('[data-screen="lesson-start"]')).toBeVisible();
   expect((await readProgress(page)).responses).toEqual([]);
@@ -280,6 +296,7 @@ test("fresh-run URL stays explicit and reloads from day-one question one", async
 
 test("reload recovers an all-answered but incomplete day directly to result", async ({ page }) => {
   await openHashRoute(page, "/lesson?day=1");
+  await pressNfcCard(page);
   await page.evaluate(
     ({ key, value }) => localStorage.setItem(key, JSON.stringify(value)),
     {
@@ -294,6 +311,7 @@ test("reload recovers an all-answered but incomplete day directly to result", as
   );
 
   await page.reload();
+  await pressNfcCard(page);
   await expect(page.locator('[data-screen="result"]')).toBeVisible();
   const recovered = await readProgress(page);
   expect(recovered.completedDays).toEqual([1]);
@@ -311,6 +329,7 @@ test("query-only day switch resets transient state and uses the new day's resume
     ],
   });
   await openHashRoute(page, "/lesson?day=1");
+  await pressNfcCard(page);
   await pressPhysicalButton(page, "topRight");
   await expect(page.locator('[data-exercise-id="D1_Q6"]')).toBeVisible();
   await pressPhysicalButton(page, "topLeft");
@@ -329,6 +348,7 @@ test("query-only day switch resets transient state and uses the new day's resume
 test("sequence supports pending changes, duplicate rejection, reset, and submit", async ({ page }) => {
   await seedDayOneResume(page, 5);
   await openHashRoute(page, "/lesson?day=1");
+  await pressNfcCard(page);
   await pressPhysicalButton(page, "topRight");
   const sequence = page.locator('[data-exercise-id="D1_Q6"][data-question-kind="button_sequence"]');
   await expect(sequence).toBeVisible();
@@ -368,6 +388,7 @@ test("voice microphone success updates amplitude and stops resources on review",
   await installSuccessfulMicrophone(page);
   await seedDayOneResume(page, 4);
   await openHashRoute(page, "/lesson?day=1");
+  await pressNfcCard(page);
   await pressPhysicalButton(page, "topRight");
   const voice = page.locator('[data-exercise-id="D1_Q5"][data-question-kind="voice"]');
   await expect(voice).toBeVisible();
@@ -397,6 +418,7 @@ test("voice denial fallback supports replay, cancel, retry, and confirmation", a
   await installDeniedMicrophone(page);
   await seedDayOneResume(page, 4);
   await openHashRoute(page, "/lesson?day=1");
+  await pressNfcCard(page);
   await pressPhysicalButton(page, "topRight");
   const voice = page.locator('[data-exercise-id="D1_Q5"][data-question-kind="voice"]');
 
@@ -437,6 +459,7 @@ test("voice timeout requires the post-timeout guard before confirmation", async 
   await installDeniedMicrophone(page);
   await seedDayOneResume(page, 4);
   await openHashRoute(page, "/lesson?day=1");
+  await pressNfcCard(page, true);
   await pressPhysicalButton(page, "topRight", true);
   const voice = page.locator('[data-exercise-id="D1_Q5"][data-question-kind="voice"]');
   await pressPhysicalButton(page, "topRight", true);
@@ -485,6 +508,7 @@ test("invalid runtime config fails closed with a diagnostic screen", async ({ pa
 test("held, repeated, chorded, and bounced input cannot double-activate", async ({ page }) => {
   await overrideDebounce(page, 1_000);
   await openHashRoute(page, "/lesson?day=1");
+  await pressNfcCard(page);
 
   await page.keyboard.down("2");
   await expect(page.locator('[data-exercise-id="D1_Q1"]')).toBeVisible();
@@ -514,6 +538,7 @@ test("held, repeated, chorded, and bounced input cannot double-activate", async 
 test("blur releases a held key without bypassing its debounce window", async ({ page }) => {
   await overrideDebounce(page, 1_000);
   await openHashRoute(page, "/lesson?day=1");
+  await pressNfcCard(page);
 
   await page.keyboard.down("2");
   await expect(page.locator('[data-exercise-id="D1_Q1"]')).toBeVisible();
@@ -537,6 +562,9 @@ test("pointer clicks alone cannot navigate menus or answer a lesson", async ({ p
   await expect(page.locator('[data-path="/lesson?restart=1"]')).not.toHaveClass(/is-selected/);
 
   await openHashRoute(page, "/lesson?day=1");
+  await page.locator('[data-screen="nfc-login"]').click();
+  await expect(page.locator('[data-screen="nfc-login"]')).toBeVisible();
+  await pressNfcCard(page);
   await page.locator('[data-screen="lesson-start"]').click();
   await page.locator(".guide-key--yellow").click();
   await expect(page.locator('[data-screen="lesson-start"]')).toBeVisible();
@@ -550,6 +578,7 @@ test("pointer clicks alone cannot navigate menus or answer a lesson", async ({ p
 
 test("bottom-right physical button selects and confirms its spatial choice", async ({ page }) => {
   await openHashRoute(page, "/lesson?day=1");
+  await pressNfcCard(page);
   await pressPhysicalButton(page, "topRight");
   await selectAndConfirm(page, "bottomRight");
   await expect(page.locator('[data-screen="lesson-feedback"]')).toBeVisible();

@@ -17,6 +17,10 @@ export const VOICE_CONFIG = {
 };
 
 export const GUIDANCE_TEXT = {
+  "login.nfc.waiting": {
+    ko: "카드 리더기에 카드를 대주세요.",
+    ja: "カードリーダーにカードをかざしてください。",
+  },
   "guide.welcome": {
     ko: "화면과 같은 위치의 네 버튼으로 오늘의 하루를 시작해요.",
     ja: "画面と同じ位置にある4つのボタンで、今日のHaruを始めましょう。",

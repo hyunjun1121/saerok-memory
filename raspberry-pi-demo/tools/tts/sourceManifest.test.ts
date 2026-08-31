@@ -48,6 +48,7 @@ describe("Qwen narration source", () => {
 
   it("contains all interaction guidance needed without touch", () => {
     const required = [
+      "login.nfc.waiting",
       "guide.welcome",
       "guide.button_test",
       "guide.choice",
@@ -70,6 +71,9 @@ describe("Qwen narration source", () => {
     for (const locale of ["ko", "ja"] as const) {
       const ids = new Set(source.entries.filter((entry) => entry.locale === locale).map((entry) => entry.id));
       expect(required.filter((id) => !ids.has(id))).toEqual([]);
+      expect(source.entries.find((entry) => entry.locale === locale && entry.id === "login.nfc.waiting")?.text).toBe(
+        locale === "ko" ? "카드 리더기에 카드를 대주세요." : "カードリーダーにカードをかざしてください。",
+      );
     }
   });
 

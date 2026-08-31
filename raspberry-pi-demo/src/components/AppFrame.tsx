@@ -5,10 +5,11 @@ import type { ButtonSlot } from "@/features/input/types";
 
 export interface AppFrameProps {
   children: ReactNode;
-  guideItems: readonly [GuideItem, GuideItem, GuideItem, GuideItem];
+  guideItems?: readonly [GuideItem, GuideItem, GuideItem, GuideItem];
   activeSlot?: ButtonSlot | null;
   dayLabel?: string;
   reserveLessonBottomSpace?: boolean;
+  showButtonGuide?: boolean;
 }
 
 export function AppFrame({
@@ -17,6 +18,7 @@ export function AppFrame({
   activeSlot,
   dayLabel,
   reserveLessonBottomSpace = false,
+  showButtonGuide = true,
 }: AppFrameProps) {
   const language = getBuildLanguage();
   const logo = "/assets/haru/haru_logo_color.png";
@@ -34,11 +36,13 @@ export function AppFrame({
           <div className="screen-header__day">{dayLabel ?? getUiCopy(language, "buttonLabel")}</div>
         </header>
         <main className="screen-main">{children}</main>
-        <PhysicalButtonGuide
-          title={getUiCopy(language, "guideTitle")}
-          items={guideItems}
-          activeSlot={activeSlot}
-        />
+        {showButtonGuide && guideItems ? (
+          <PhysicalButtonGuide
+            title={getUiCopy(language, "guideTitle")}
+            items={guideItems}
+            activeSlot={activeSlot}
+          />
+        ) : null}
       </div>
     </div>
   );

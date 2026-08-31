@@ -47,6 +47,9 @@ test("serves the final 27 B plus 4 selected calm narrations from the Korean buil
   });
 
   await page.goto("/#/lesson?day=1&restart=1");
+  await expect(page.locator('[data-screen="nfc-login"]')).toBeVisible();
+  await page.keyboard.press("5");
+  await page.waitForTimeout(230);
   await expect(page.locator('[data-screen="lesson-start"]')).toBeVisible();
   expect(audit.choice).toBe("right");
   expect(audit.entryCount).toBe(31);
@@ -80,10 +83,10 @@ test("serves the final 27 B plus 4 selected calm narrations from the Korean buil
     const errors: string[] = [];
     const fetched: Array<{ id: string; status: number; bytes: number; contentType: string | null }> = [];
 
-    if (manifest.audioOverrides?.entryCount !== 31) errors.push("override entryCount");
+    if (manifest.audioOverrides?.entryCount !== 32) errors.push("override entryCount");
     if (manifest.audioOverrides?.selection !== "mixed") errors.push("override selection");
     if (manifest.audioOverrides?.provider !== "Fish Audio") errors.push("override provider");
-    if (manifest.audioOverrides?.baseRightEntryCount !== 27) errors.push("base-right count");
+    if (manifest.audioOverrides?.baseRightEntryCount !== 28) errors.push("base-right count");
     if (manifest.audioOverrides?.maintainerSelectedEntryCount !== 4) errors.push("calm count");
 
     for (const expected of expectedEntries) {

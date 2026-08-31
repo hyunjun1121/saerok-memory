@@ -88,13 +88,13 @@ const moodOptions = (): AnswerOption[] => [
 
 const MOOD_ACKNOWLEDGEMENT = localized(
   "오늘 기분을 알려주셔서 고마워요.",
-  "今日の気分を教えてくださってありがとうございます。",
+  "今日の気分を教えてくださって、ありがとうございます。",
   "Thank you for sharing how you feel today.",
 );
 
 const STORY_ACKNOWLEDGEMENT = localized(
   "오늘 이야기를 들려주셔서 고마워요.",
-  "今日のお話を聞かせてくださってありがとうございます。",
+  "今日のお話を聞かせてくださって、ありがとうございます。",
   "Thank you for sharing today's story.",
 );
 
@@ -643,7 +643,7 @@ export const haru7DayExercises: Exercise[] = [
     correctAnswer: "A",
     explanation: localized(
       "맞아요. 부산 영도라고 말씀해 주셨어요.",
-      "そうです。故郷は長野県松本市だと登録されています。",
+      "そうです。故郷は長野県松本市ですね。",
       "That's right. You told us it was Yeongdo, Busan.",
     ),
   }),
@@ -698,7 +698,7 @@ export const haru7DayExercises: Exercise[] = [
     ["A", "B", "C"],
     localized(
       "세 단어를 순서대로 잘 기억하셨어요.",
-      "三つの言葉を順番どおりによく覚えていました。",
+      "三つの言葉を、順番どおりに覚えていましたね。",
       "You remembered the three words in order.",
     ),
   ),

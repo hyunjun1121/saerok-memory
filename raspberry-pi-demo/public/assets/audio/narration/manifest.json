@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceSha256": "ce728186452a40b0c2f9220dfe0b506f3bbc40993621a978d141424df1f660d8",
+  "sourceSha256": "1836205b9a105fc60d31808c1a34886fef705318eb4d23d28192a84405635eec",
   "model": {
     "id": "Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice",
     "revision": "0c0e3051f131929182e2c023b9537f8b1c68adfe",
@@ -2057,6 +2057,15 @@
       "audioPath": "assets/audio/narration/ja/b41a9f4b674aca248b102faf.ogg",
       "sha256": "ce3cb496c4c128de47e089b7821256ac3fac8bc3129ad7f79298ecbf63c7b574",
       "durationMs": 5106
+    },
+    {
+      "id": "login.nfc.waiting",
+      "locale": "ja",
+      "text": "カードリーダーにカードをかざしてください。",
+      "path": "assets/audio/narration/ja/abd4f7f2faec4fa9a79c6420.ogg",
+      "audioPath": "assets/audio/narration/ja/abd4f7f2faec4fa9a79c6420.ogg",
+      "sha256": "41df2614b75257ffc5111a344d72ba2b634750ab769d2aafa0ed3511dfa08e31",
+      "durationMs": 3106
     },
     {
       "id": "action.back",
@@ -4329,6 +4338,22 @@
       "audioPath": "assets/audio/narration/ko/62b2ffaed26c90141399818d.ogg",
       "sha256": "9beb6bda2b59399f3c47ca75d3fba6b093b7002aed6bef02124c7b055c8bc6e6",
       "durationMs": 4006
+    },
+    {
+      "id": "login.nfc.waiting",
+      "locale": "ko",
+      "text": "카드 리더기에 카드를 대주세요.",
+      "path": "assets/audio/narration/ko/fishaudio-login-nfc-waiting.ogg",
+      "audioPath": "assets/audio/narration/ko/fishaudio-login-nfc-waiting.ogg",
+      "sha256": "c11caef0ed1b6f707a670a8ff7f9aa29d2d1f73890c9f5ca45cb2eba57e63994",
+      "durationMs": 2305,
+      "origin": {
+        "type": "user-selected-browser-export",
+        "provider": "Fish Audio",
+        "choice": "right",
+        "sourcePath": "tools/fish-day1-browser/audio/32_login_nfc_waiting_right.mp3",
+        "sourceSha256": "4ecc6e237493061dcf84ac4213280756b8a76c65e53508400cfcad29a5df490d"
+      }
     }
   ],
   "audioOverrides": {
@@ -4337,9 +4362,9 @@
     "day": 1,
     "provider": "Fish Audio",
     "selection": "mixed",
-    "entryCount": 31,
-    "baseRightEntryCount": 27,
+    "entryCount": 32,
+    "baseRightEntryCount": 28,
     "maintainerSelectedEntryCount": 4,
-    "appliedAt": "2026-08-12T23:35:15.386Z"
+    "appliedAt": "2026-08-31T08:55:00.000Z"
   }
 }

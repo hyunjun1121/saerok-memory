@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <title>Haru · 日本語 Day 1 TTS 選択</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="review-header">
+      <div class="review-header__inner">
+        <div class="title-block">
+          <p class="eyebrow">Haru · 日本語 · Day 1</p>
+          <h1>文ごとの音声選択</h1>
+          <p class="intro-copy">3つの声を聞き比べて、実際の日本語デモで使う声を一つ選んでください。</p>
+        </div>
+        <section class="progress-card" aria-labelledby="progress-title">
+          <div class="progress-card__summary">
+            <div>
+              <span id="progress-title">選択の進み具合</span>
+              <strong data-testid="selection-progress">0 / 31</strong>
+            </div>
+            <p id="save-status" role="status" aria-live="polite">選択結果はこの端末に保存されます。</p>
+          </div>
+          <progress id="selection-progress" value="0" max="31">0 / 31</progress>
+          <div id="completion-message" class="completion-message" hidden>31文すべて選択しました。アプリへの反映準備ができました。</div>
+        </section>
+        <div class="toolbar">
+          <div class="filter-group" role="group" aria-label="文のフィルター">
+            <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">すべて</button>
+            <button class="filter-button" type="button" data-filter="unselected" aria-pressed="false">未選択</button>
+            <button class="filter-button" type="button" data-filter="selected" aria-pressed="false">選択済み</button>
+            <button class="filter-button" type="button" data-filter="ank0" aria-pressed="false">ank0</button>
+            <button class="filter-button" type="button" data-filter="minami" aria-pressed="false">田中みなみ風</button>
+            <button class="filter-button" type="button" data-filter="veteran" aria-pressed="false">ベテラン</button>
+          </div>
+          <div class="toolbar__actions">
+            <button id="next-unselected" class="secondary-button" type="button">次の未選択</button>
+            <button id="export-selections" class="primary-button" type="button" disabled>選択結果を保存</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="review-main">
+      <div id="load-error" class="load-error" role="alert" hidden></div>
+      <section id="intro-greeting" class="intro-greeting" aria-labelledby="intro-greeting-title" hidden>
+        <div class="intro-greeting__header">
+          <p class="eyebrow">起動時の第一声</p>
+          <h2 id="intro-greeting-title">最初の声を聞き比べる</h2>
+          <p>開始直後に流す「春子さん、今日の気分はいかがですか。」の12候補です。短い間と控えめな強調で、聞き取りやすさを優先しています。</p>
+        </div>
+        <div id="intro-variant-list" class="intro-variant-list" aria-busy="true"></div>
+      </section>
+      <div id="sentence-list" class="sentence-list" aria-busy="true"></div>
+      <p id="empty-filter" class="empty-filter" hidden>この条件に合う文はありません。</p>
+    </main>
+
+    <template id="sentence-template">
+      <article class="sentence-card" data-testid="tts-row">
+        <header class="sentence-card__header">
+          <div class="sentence-meta"><span class="sentence-number"></span><code class="sentence-id"></code></div>
+          <p class="sentence-text" data-testid="entry-text"></p>
+        </header>
+        <fieldset class="candidate-grid"><legend class="sr-only"></legend></fieldset>
+      </article>
+    </template>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

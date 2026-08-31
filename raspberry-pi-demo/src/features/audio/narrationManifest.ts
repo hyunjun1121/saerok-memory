@@ -66,9 +66,36 @@ export interface NarrationManifest {
   entries: NarrationEntry[];
 }
 
+/**
+ * Japanese Day 1 uses a maintainer-selected Fish Audio export while the
+ * remaining days continue to use the approved offline Qwen manifest above.
+ * Keeping this as a small overlay avoids rewriting the complete seven-day
+ * provenance manifest just to swap the 31 Day 1 clips.
+ */
+export interface JapaneseDay1NarrationEntry {
+  id: string;
+  locale: "ja";
+  text: string;
+  path: string;
+  voiceId: "veteran";
+  tagStyle: "gentle_double_pause";
+  taggedText: string;
+}
+
+export interface JapaneseDay1NarrationManifest {
+  schemaVersion: 1;
+  locale: "ja";
+  market: "jp";
+  day: 1;
+  provider: "Fish Audio";
+  selectionCount: number;
+  entries: JapaneseDay1NarrationEntry[];
+}
+
 const SHA256_PATTERN = /^[a-f0-9]{64}$/;
 const SAFE_ID_PATTERN = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;
 const LOCAL_PATH_PREFIX = "assets/audio/narration/";
+const JAPANESE_DAY1_OVERRIDE_PATH_PREFIX = "/assets/audio/narration/ja/day1/";
 
 export class NarrationManifestError extends Error {
   constructor(message: string) {
@@ -89,6 +116,15 @@ export function isLocalNarrationPath(path: string): boolean {
   }
 
   return path.endsWith(".ogg");
+}
+
+function isLocalJapaneseDay1OverridePath(path: string): boolean {
+  if (!path.startsWith(JAPANESE_DAY1_OVERRIDE_PATH_PREFIX)) return false;
+  if (path.includes("\\") || path.includes("?") || path.includes("#")) return false;
+  if (path.slice(1).split("/").some((segment) => segment === "" || segment === "." || segment === "..")) {
+    return false;
+  }
+  return path.endsWith(".mp3");
 }
 
 function requireString(record: Record<string, unknown>, key: string, context: string): string {
@@ -346,6 +382,65 @@ export function parseNarrationManifest(input: unknown): NarrationManifest {
       truePeakDbtp: input.audio.truePeakDbtp,
     },
     ...(audioOverrides === undefined ? {} : { audioOverrides }),
+    entries,
+  };
+}
+
+export function parseJapaneseDay1NarrationManifest(input: unknown): JapaneseDay1NarrationManifest {
+  if (!isRecord(input)) throw new NarrationManifestError("Day 1 override manifest must be an object");
+  if (
+    input.schemaVersion !== 1 ||
+    input.locale !== "ja" ||
+    input.market !== "jp" ||
+    input.day !== 1 ||
+    input.provider !== "Fish Audio"
+  ) {
+    throw new NarrationManifestError("Day 1 override manifest has unsupported metadata");
+  }
+  if (!Number.isInteger(input.selectionCount) || (input.selectionCount as number) <= 0) {
+    throw new NarrationManifestError("Day 1 override manifest.selectionCount must be positive");
+  }
+  if (!Array.isArray(input.entries) || input.entries.length !== input.selectionCount) {
+    throw new NarrationManifestError("Day 1 override manifest.entries must match selectionCount");
+  }
+
+  const seen = new Set<string>();
+  const entries = input.entries.map((rawEntry, index): JapaneseDay1NarrationEntry => {
+    const context = `Day 1 override manifest.entries[${index}]`;
+    if (!isRecord(rawEntry)) throw new NarrationManifestError(`${context} must be an object`);
+    const id = requireString(rawEntry, "id", context);
+    const text = requireString(rawEntry, "text", context);
+    const path = requireString(rawEntry, "runtimePath", context);
+    const voiceId = requireString(rawEntry, "voiceId", context);
+    const tagStyle = requireString(rawEntry, "tagStyle", context);
+    const taggedText = requireString(rawEntry, "taggedText", context);
+    if (!SAFE_ID_PATTERN.test(id)) throw new NarrationManifestError(`${context}.id is invalid`);
+    if (!isLocalJapaneseDay1OverridePath(path)) {
+      throw new NarrationManifestError(`${context}.runtimePath must stay inside the Day 1 MP3 directory`);
+    }
+    if (voiceId !== "veteran" || tagStyle !== "gentle_double_pause") {
+      throw new NarrationManifestError(`${context} must use the selected veteran voice and pause style`);
+    }
+    if (seen.has(id)) throw new NarrationManifestError(`duplicate Day 1 override entry: ${id}`);
+    seen.add(id);
+    return {
+      id,
+      locale: "ja",
+      text,
+      path,
+      voiceId: "veteran",
+      tagStyle: "gentle_double_pause",
+      taggedText,
+    };
+  });
+
+  return {
+    schemaVersion: 1,
+    locale: "ja",
+    market: "jp",
+    day: 1,
+    provider: "Fish Audio",
+    selectionCount: entries.length,
     entries,
   };
 }

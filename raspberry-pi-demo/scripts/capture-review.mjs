@@ -24,6 +24,8 @@ async function shot(name) {
 }
 
 await page.goto(`${baseUrl}/#/lesson?day=1`);
+await page.locator('[data-screen="nfc-login"]').waitFor();
+await press("5");
 await page.locator('[data-screen="lesson-start"]').waitFor();
 await shot("01-start.png");
 await press("2");
@@ -33,6 +35,8 @@ await shot("02-choice-selected.png");
 
 await page.evaluate(() => localStorage.clear());
 await page.reload();
+await page.locator('[data-screen="nfc-login"]').waitFor();
+await press("5");
 await page.locator('[data-screen="lesson-start"]').waitFor();
 await press("2");
 for (const exerciseId of ["D1_Q1", "D1_Q2", "D1_Q3", "D1_Q4"]) {

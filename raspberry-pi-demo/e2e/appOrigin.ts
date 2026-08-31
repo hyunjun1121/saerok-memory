@@ -11,5 +11,5 @@ export function isAppHttpRequest(urlValue: string): boolean {
 
 export function isAppAudioAsset(urlValue: string): boolean {
   const url = new URL(urlValue);
-  return isAppHttpRequest(urlValue) && /\.(?:ogg|wav)$/i.test(url.pathname);
+  return isAppHttpRequest(urlValue) && /\.(?:ogg|mp3|wav)$/i.test(url.pathname);
 }

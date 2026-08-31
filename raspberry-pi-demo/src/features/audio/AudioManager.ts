@@ -1,11 +1,14 @@
 import {
   getNarrationEntry,
+  parseJapaneseDay1NarrationManifest,
   parseNarrationManifest,
+  type JapaneseDay1NarrationEntry,
   type NarrationLocale,
   type NarrationManifest,
 } from "@/features/audio/narrationManifest";
 
 export const NARRATION_MANIFEST_URL = "assets/audio/narration/manifest.json";
+export const JAPANESE_DAY1_OVERRIDE_MANIFEST_URL = "assets/audio/narration/ja/day1/manifest.json";
 
 export const UI_AUDIO_PATHS = {
   select: "assets/audio/ui/select.wav",
@@ -52,6 +55,8 @@ export class AudioManager {
   private readonly manifestUrl: string;
   private manifest: NarrationManifest | null = null;
   private loadPromise: Promise<boolean> | null = null;
+  private japaneseDay1Overrides: Map<string, JapaneseDay1NarrationEntry> | null = null;
+  private japaneseDay1OverrideLoadPromise: Promise<Map<string, JapaneseDay1NarrationEntry> | null> | null = null;
   private narration: AudioElementLike | null = null;
 
   constructor(options: AudioManagerOptions = {}) {
@@ -81,15 +86,42 @@ export class AudioManager {
     return this.loadPromise;
   }
 
+  private loadJapaneseDay1Overrides(): Promise<Map<string, JapaneseDay1NarrationEntry> | null> {
+    if (this.japaneseDay1Overrides) return Promise.resolve(this.japaneseDay1Overrides);
+    if (this.japaneseDay1OverrideLoadPromise) return this.japaneseDay1OverrideLoadPromise;
+
+    this.japaneseDay1OverrideLoadPromise = this.fetcher(JAPANESE_DAY1_OVERRIDE_MANIFEST_URL, {
+      cache: "no-store",
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error(`Japanese Day 1 override manifest returned ${response.status}`);
+        return response.json() as Promise<unknown>;
+      })
+      .then((payload) => {
+        const parsed = parseJapaneseDay1NarrationManifest(payload);
+        this.japaneseDay1Overrides = new Map(parsed.entries.map((entry) => [entry.id, entry]));
+        return this.japaneseDay1Overrides;
+      })
+      .catch(() => null);
+
+    return this.japaneseDay1OverrideLoadPromise;
+  }
+
   async playNarration(id: string, locale: NarrationLocale): Promise<AudioPlayResult> {
-    if (!(await this.load()) || !this.manifest) return { status: "unavailable" };
-    const entry = getNarrationEntry(this.manifest, id, locale);
-    if (!entry) return { status: "missing" };
+    let path: string | undefined;
+    if (locale === "ja") {
+      path = (await this.loadJapaneseDay1Overrides())?.get(id)?.path;
+    }
+    if (!path) {
+      if (!(await this.load()) || !this.manifest) return { status: "unavailable" };
+      path = getNarrationEntry(this.manifest, id, locale)?.path;
+    }
+    if (!path) return { status: "missing" };
 
     this.stopNarration();
     let audio: AudioElementLike | null = null;
     try {
-      audio = this.createAudio(entry.path);
+      audio = this.createAudio(path);
       audio.preload = "auto";
       this.narration = audio;
       await audio.play();

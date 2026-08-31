@@ -3,6 +3,8 @@ set -Eeuo pipefail
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
 DEMO_ROOT="$(cd -- "$SCRIPT_DIR/.." && pwd -P)"
+# shellcheck disable=SC1091
+source "$SCRIPT_DIR/haru-env.sh"
 MARKET="${1:-}"
 
 case "$MARKET" in
@@ -32,6 +34,17 @@ PROFILE_DIRECTORY="$DEMO_ROOT/$PROFILE_RELATIVE"
 READY_FILE="$RUNTIME_ROOT/server-$MARKET.ready"
 SERVER_LOG="$RUNTIME_ROOT/server-$MARKET.log"
 mkdir -p -- "$RUNTIME_ROOT" "$PROFILE_DIRECTORY"
+
+if command -v flock >/dev/null 2>&1; then
+  exec 9>"$RUNTIME_ROOT/start.lock"
+  if ! flock -n 9; then
+    echo "Haru $MARKET is already running." >&2
+    exit 73
+  fi
+else
+  echo "flock missing. Install util-linux before starting Haru." >&2
+  exit 1
+fi
 
 case "$PROFILE_DIRECTORY" in
   "$RUNTIME_ROOT"/*) ;;
@@ -98,6 +111,7 @@ echo "Starting Haru $MARKET at $URL"
   --force-device-scale-factor="$SCALE" \
   --user-data-dir="$PROFILE_DIRECTORY" \
   --autoplay-policy=no-user-gesture-required \
+  --auto-accept-camera-and-microphone-capture \
   --use-fake-ui-for-media-stream \
   --disable-background-networking \
   --disable-component-update \
@@ -108,6 +122,7 @@ echo "Starting Haru $MARKET at $URL"
   --disable-sync \
   --host-resolver-rules="MAP * ~NOTFOUND, EXCLUDE 127.0.0.1" \
   --metrics-recording-only \
+  --noerrdialogs \
   --no-default-browser-check \
   --no-first-run \
   --no-proxy-server \

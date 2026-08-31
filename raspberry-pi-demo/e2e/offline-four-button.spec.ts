@@ -25,6 +25,11 @@ async function pressMappedKey(page: Page, key: string): Promise<void> {
   await page.waitForTimeout(DEBOUNCE_SETTLE_MS);
 }
 
+async function pressNfcCard(page: Page): Promise<void> {
+  await page.keyboard.press("5");
+  await page.waitForTimeout(DEBOUNCE_SETTLE_MS);
+}
+
 async function selectAndConfirm(page: Page, slot: PhysicalSlot): Promise<void> {
   await pressPhysicalButton(page, slot);
   await pressPhysicalButton(page, slot);
@@ -192,8 +197,28 @@ test.beforeEach(async ({ page }) => {
   await page.addInitScript((storageKey) => localStorage.removeItem(storageKey), OFFLINE_PROGRESS_KEY);
 });
 
+test("shows the localized NFC login gate and advances only after key 5", async ({ page }) => {
+  await openHashRoute(page, "/lesson?day=1");
+  const login = page.locator('[data-screen="nfc-login"]');
+  await expect(login).toBeVisible();
+  await expect(login).toHaveAttribute("data-auth-method", "nfc-keyboard-5");
+  await expect(page.locator(".button-guide")).toHaveCount(0);
+  await expect(login.locator("h1")).toHaveText(
+    EXPECTED_LANGUAGE === "ja" ? "カードをかざしてください" : "카드를 대주세요",
+  );
+
+  await page.keyboard.press("1");
+  await page.waitForTimeout(DEBOUNCE_SETTLE_MS);
+  await expect(login).toBeVisible();
+
+  await pressNfcCard(page);
+  await expect(page.locator('[data-screen="lesson-start"]')).toBeVisible();
+});
+
 test("runs at physical 1080x1920 output geometry without touch input", async ({ page }) => {
   await openHashRoute(page, "/lesson?day=1");
+  await expect(page.locator('[data-screen="nfc-login"]')).toBeVisible();
+  await pressNfcCard(page);
 
   const geometry = await page.evaluate(() => ({
     width: window.innerWidth,
@@ -236,6 +261,7 @@ test("runs at physical 1080x1920 output geometry without touch input", async ({ 
 
 test("stacks the question and physical-button guide at the top with only bottom whitespace", async ({ page }) => {
   await openHashRoute(page, "/lesson?day=1&restart=1");
+  await pressNfcCard(page);
   const startBottomWhitespace = await page.locator('[data-screen="lesson-start"]')
     .evaluate(() => {
       const app = document.querySelector<HTMLElement>(".offline-app");
@@ -318,6 +344,7 @@ test("stacks the question and physical-button guide at the top with only bottom 
 test("keeps the lesson stage fixed when the viewport is taller than the kiosk target", async ({ page }) => {
   await page.setViewportSize({ width: 540, height: 1310 });
   await openHashRoute(page, "/lesson?day=1&restart=1");
+  await pressNfcCard(page);
   await page.evaluate(() => document.fonts.ready);
 
   const startGuide = await page.locator(".button-guide").evaluate((guide) => {
@@ -361,6 +388,7 @@ test("keeps the lesson stage fixed when the viewport is taller than the kiosk ta
 
 test("changes a choice, then confirms only after the selected key is pressed again", async ({ page }) => {
   await openHashRoute(page, "/lesson?day=1");
+  await pressNfcCard(page);
   await expect(page.locator('[data-screen="lesson-start"]')).toBeVisible();
 
   await pressPhysicalButton(page, "topRight");
@@ -405,7 +433,10 @@ test("loads physical key bindings from runtime config instead of hardcoding numb
   });
 
   await openHashRoute(page, "/lesson?day=1");
+  await expect(page.locator('[data-screen="nfc-login"]')).toBeVisible();
   await pressMappedKey(page, "2");
+  await expect(page.locator('[data-screen="nfc-login"]')).toBeVisible();
+  await pressNfcCard(page);
   await expect(page.locator('[data-screen="lesson-start"]')).toBeVisible();
 
   await pressMappedKey(page, "w");
@@ -425,6 +456,7 @@ test("completes all six day-one activities with four physical keys and stores no
   });
   const externalRequests = watchExternalRequests(page);
   await openHashRoute(page, "/lesson?day=1");
+  await pressNfcCard(page);
   await pressPhysicalButton(page, "topRight");
 
   for (const exerciseId of ["D1_Q1", "D1_Q2", "D1_Q3", "D1_Q4"]) {
@@ -498,6 +530,7 @@ test("renders every supported hash route and unknown routes without external req
 
   for (const route of routes) {
     await openHashRoute(page, route);
+    if (await page.locator('[data-screen="nfc-login"]').count()) await pressNfcCard(page);
     await expect(page.locator(".screen-header")).toBeVisible();
     await expect(page.locator(".button-guide")).toBeVisible();
   }
@@ -516,6 +549,7 @@ test("navigates kiosk menu using select-then-confirm keyboard input only", async
 
   await pressPhysicalButton(page, "topLeft");
   await expect(page).toHaveURL(/#\/lesson(?:\?|$)/);
+  await pressNfcCard(page);
   await expect(page.locator('[data-screen="lesson-start"]')).toBeVisible();
 });
 
@@ -552,9 +586,10 @@ test("opens caregiver and counselor demo codes from the kiosk connection tile", 
   expect(externalRequests).toEqual([]);
 });
 
-for (const day of [2, 3, 4, 5, 6, 7]) {
+  for (const day of [2, 3, 4, 5, 6, 7]) {
   test(`completes every authored day-${day} question with four keys only`, async ({ page }) => {
     await openHashRoute(page, `/lesson?day=${day}`);
+    await pressNfcCard(page);
     await pressPhysicalButton(page, "topRight");
 
     for (let order = 1; order <= 6; order += 1) {

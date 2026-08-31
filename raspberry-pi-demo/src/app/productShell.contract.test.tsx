@@ -2,6 +2,7 @@ import { act, fireEvent, render, waitFor, within } from "@testing-library/react"
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import App from "@/App";
 import { loadRuntimeInputConfig } from "@/config/runtimeConfig";
+import { audioManager } from "@/features/audio";
 
 vi.mock("@/config/runtimeConfig", () => ({
   loadRuntimeInputConfig: vi.fn(),
@@ -48,7 +49,7 @@ async function findElement(selector: string): Promise<HTMLElement> {
   return element;
 }
 
-function pressPhysicalKey(code: "Digit1" | "Digit2" | "Digit3" | "Digit4") {
+function pressPhysicalKey(code: "Digit1" | "Digit2" | "Digit3" | "Digit4" | "Digit5") {
   const key = code.at(-1) ?? "";
   fireEvent.keyDown(window, { code, key });
   fireEvent.keyUp(window, { code, key });
@@ -76,8 +77,22 @@ describe("offline product-shell contract", () => {
     expect(logo).toHaveAttribute("src", NEW_HARU_LOGO_PATH);
   });
 
+  it("waits for the NFC card key before showing the lesson start screen", async () => {
+    renderAt("#/lesson?day=1&restart=1");
+
+    const login = await findElement('[data-screen="nfc-login"]');
+    expect(login).toHaveAttribute("data-auth-method", "nfc-keyboard-5");
+    expect(login).toHaveTextContent("카드를 대주세요");
+    await act(async () => pressPhysicalKey("Digit1"));
+    expect(document.querySelector('[data-screen="nfc-login"]')).toBeInTheDocument();
+
+    await act(async () => pressPhysicalKey("Digit5"));
+    expect(await findElement('[data-screen="lesson-start"]')).toBeInTheDocument();
+    expect(document.querySelector('[data-screen="nfc-login"]')).toBeNull();
+    expect(vi.mocked(audioManager.playNarration)).toHaveBeenCalledWith("login.nfc.waiting", "ko");
+  });
+
   it.each([
-    ["lesson start", "#/lesson?day=1&restart=1", '[data-screen="lesson-start"] .hero-card__mascot'],
     ["result", "#/result?day=1", '[data-screen="result"] .hero-card__mascot'],
     ["legacy garden route", "#/garden", ".info-card__image"],
     ["settings", "#/settings", ".info-card__image"],
@@ -86,6 +101,14 @@ describe("offline product-shell contract", () => {
     renderAt(route);
 
     const mascot = await findElement(selector);
+    expect(mascot).toHaveAttribute("src", NEW_MASCOT_PATH);
+  });
+
+  it("uses the new mascot on the lesson start screen after NFC login", async () => {
+    renderAt("#/lesson?day=1&restart=1");
+    await findElement('[data-screen="nfc-login"]');
+    await act(async () => pressPhysicalKey("Digit5"));
+    const mascot = await findElement('[data-screen="lesson-start"] .hero-card__mascot');
     expect(mascot).toHaveAttribute("src", NEW_MASCOT_PATH);
   });
 

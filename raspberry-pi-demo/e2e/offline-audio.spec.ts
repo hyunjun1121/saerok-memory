@@ -51,6 +51,11 @@ async function pressPhysicalButton(page: Page, slot: PhysicalSlot): Promise<void
   await page.waitForTimeout(DEBOUNCE_SETTLE_MS);
 }
 
+async function pressNfcCard(page: Page): Promise<void> {
+  await page.keyboard.press("5");
+  await page.waitForTimeout(DEBOUNCE_SETTLE_MS);
+}
+
 async function selectAndConfirm(page: Page, slot: PhysicalSlot): Promise<void> {
   await pressPhysicalButton(page, slot);
   await pressPhysicalButton(page, slot);
@@ -125,7 +130,7 @@ function watchNetwork(page: Page): {
   });
   page.on("response", (response: Response) => {
     const url = new URL(response.url());
-    if (!/\.(?:ogg|wav)$/i.test(url.pathname)) return;
+    if (!/\.(?:ogg|mp3|wav)$/i.test(url.pathname)) return;
     audioResponses.push({ url: response.url(), status: response.status() });
   });
 
@@ -134,6 +139,8 @@ function watchNetwork(page: Page): {
 
 async function openDayOne(page: Page): Promise<void> {
   await page.goto("/#/lesson?day=1");
+  await expect(page.locator('[data-screen="nfc-login"]')).toBeVisible();
+  await pressNfcCard(page);
   await expect(page.locator('[data-screen="lesson-start"]')).toBeVisible();
   await expect(page.locator("html")).toHaveAttribute("lang", EXPECTED_LANGUAGE);
 }
@@ -153,21 +160,31 @@ async function getNarrationPaths(
   page: Page,
   ids: readonly string[],
 ): Promise<Record<string, string>> {
-  return page.evaluate(async ({ locale, narrationIds, manifestPath }) => {
+  return page.evaluate(async ({ locale, narrationIds, manifestPath, japaneseManifestPath }) => {
     const response = await fetch(manifestPath, { cache: "no-store" });
     if (!response.ok) throw new Error(`Narration manifest returned ${response.status}`);
     const manifest = await response.json() as NarrationManifestPayload;
+    const japaneseOverrides = locale === "ja"
+      ? await fetch(japaneseManifestPath, { cache: "no-store" }).then(async (overrideResponse) => {
+        if (!overrideResponse.ok) throw new Error(`Japanese narration manifest returned ${overrideResponse.status}`);
+        return await overrideResponse.json() as {
+          entries: Array<{ id: string; runtimePath: string }>;
+        };
+      })
+      : null;
     const paths: Record<string, string> = {};
     for (const id of narrationIds) {
+      const override = japaneseOverrides?.entries.find((candidate) => candidate.id === id);
       const entry = manifest.entries.find((candidate) => candidate.id === id && candidate.locale === locale);
-      if (!entry) throw new Error(`Narration entry missing: ${locale}/${id}`);
-      paths[id] = entry.path;
+      if (!entry && !override) throw new Error(`Narration entry missing: ${locale}/${id}`);
+      paths[id] = override?.runtimePath ?? entry?.path ?? "";
     }
     return paths;
   }, {
     locale: EXPECTED_LANGUAGE,
     narrationIds: ids,
     manifestPath: NARRATION_MANIFEST_PATH,
+    japaneseManifestPath: "assets/audio/narration/ja/day1/manifest.json",
   });
 }
 

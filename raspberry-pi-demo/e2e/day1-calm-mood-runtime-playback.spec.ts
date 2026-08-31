@@ -39,6 +39,11 @@ async function pressKey(page: Page, key: "1" | "2" | "3" | "4"): Promise<void> {
   await page.waitForTimeout(DEBOUNCE_SETTLE_MS);
 }
 
+async function pressNfcCard(page: Page): Promise<void> {
+  await page.keyboard.press("5");
+  await page.waitForTimeout(DEBOUNCE_SETTLE_MS);
+}
+
 async function installAudioProbe(page: Page): Promise<void> {
   await page.addInitScript(() => {
     const probeWindow = window as typeof window & { __haruCalmAudioProbe: AudioProbeState };
@@ -101,6 +106,8 @@ test("plays all four selected calm Q1 options through physical keys and never pl
   });
 
   await page.goto("/#/lesson?day=1&restart=1");
+  await expect(page.locator('[data-screen="nfc-login"]')).toBeVisible();
+  await pressNfcCard(page);
   await expect(page.locator('[data-screen="lesson-start"]')).toBeVisible();
 
   const manifestEntries = await page.evaluate(async (ids) => {

@@ -15,7 +15,7 @@ async function readJson(filePath) {
   return JSON.parse(await readFile(filePath, "utf8"));
 }
 
-test("production Day 1 runtime uses 27 B assets plus four calm selections with exact provenance", async () => {
+test("production Day 1 runtime uses 27 B assets plus four calm selections and the NFC login clip", async () => {
   const inventory = await readJson(path.join(toolRoot, "day1-inventory.json"));
   const selections = await readJson(path.join(toolRoot, "day1-selections.json"));
   const audit = await readJson(path.join(toolRoot, "day1-runtime-import.json"));
@@ -38,11 +38,11 @@ test("production Day 1 runtime uses 27 B assets plus four calm selections with e
   assert.equal(selections.selections.every((entry) => entry.choice === "right"), true);
   assert.equal(audit.choice, "right");
   assert.equal(audit.entryCount, 31);
-  assert.equal(manifest.audioOverrides.entryCount, 31);
+  assert.equal(manifest.audioOverrides.entryCount, 32);
   assert.equal(manifest.audioOverrides.selection, "mixed");
-  assert.equal(manifest.audioOverrides.baseRightEntryCount, 27);
+  assert.equal(manifest.audioOverrides.baseRightEntryCount, 28);
   assert.equal(manifest.audioOverrides.maintainerSelectedEntryCount, 4);
-  assert.equal(modelSource.audioOverrides.entryCount, 31);
+  assert.equal(modelSource.audioOverrides.entryCount, 32);
   assert.equal(modelSource.audioOverrides.selection, "mixed");
   assert.equal(modelSource.audioOverrides.model, "not embedded in exported MP3 metadata");
 
@@ -104,4 +104,16 @@ test("production Day 1 runtime uses 27 B assets plus four calm selections with e
     assert.equal(sha256(runtimeBytes), manifestEntry.sha256);
     assert.ok(runtimeBytes.length > 0);
   }
+
+  const nfcEntry = manifest.entries.find(
+    (entry) => entry.locale === "ko" && entry.id === "login.nfc.waiting",
+  );
+  assert.ok(nfcEntry, "missing Korean NFC login narration");
+  assert.equal(nfcEntry.text, "카드 리더기에 카드를 대주세요.");
+  assert.equal(nfcEntry.origin?.choice, "right");
+  assert.equal(nfcEntry.origin?.sourcePath, "tools/fish-day1-browser/audio/32_login_nfc_waiting_right.mp3");
+  const nfcSource = await readFile(path.join(demoRoot, nfcEntry.origin.sourcePath));
+  const nfcRuntime = await readFile(path.join(demoRoot, "public", ...nfcEntry.path.split("/")));
+  assert.equal(sha256(nfcSource), nfcEntry.origin.sourceSha256);
+  assert.equal(sha256(nfcRuntime), nfcEntry.sha256);
 });

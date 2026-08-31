@@ -1155,6 +1155,11 @@
       "text": "画面と同じ位置にある4つのボタンで、今日のHaruを始めましょう。"
     },
     {
+      "id": "login.nfc.waiting",
+      "locale": "ja",
+      "text": "カードリーダーにカードをかざしてください。"
+    },
+    {
       "id": "action.back",
       "locale": "ko",
       "text": "뒤로 가기"
@@ -2288,6 +2293,11 @@
       "id": "guide.welcome",
       "locale": "ko",
       "text": "화면과 같은 위치의 네 버튼으로 오늘의 하루를 시작해요."
+    },
+    {
+      "id": "login.nfc.waiting",
+      "locale": "ko",
+      "text": "카드 리더기에 카드를 대주세요."
     }
   ]
 }

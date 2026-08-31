@@ -3,6 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=24.19.0 <25"
+  },
   "scripts": {
     "dev": "vite",
     "build": "npm run build:ko && npm run build:ja",
@@ -11,14 +14,16 @@
     "typecheck": "tsc -b",
     "lint": "eslint .",
     "test": "vitest run && npm run test:runtime",
-    "test:runtime": "node --test scripts/runtime.test.mjs",
+    "test:runtime": "node --test scripts/runtime.test.mjs scripts/pi-setup-utils.test.mjs",
     "test:watch": "vitest",
     "preview:ko": "node scripts/server.mjs dist/ko 4173",
     "preview:ja": "node scripts/server.mjs dist/ja 4174",
     "test:e2e": "playwright test",
     "tts:day1:apply-b": "node tools/fish-day1-browser/importDay1RightNarration.mjs && node tools/fish-day1-browser/calm-mood-candidates/importSelectedNarration.mjs",
     "tts:calm-mood:apply": "node tools/fish-day1-browser/calm-mood-candidates/importSelectedNarration.mjs",
-    "tts:day1:test": "node --test tools/fish-day1-browser/selectionStore.test.mjs tools/fish-day1-browser/server.test.mjs tools/fish-day1-browser/day1RuntimeImport.test.mjs tools/fish-day1-browser/day1RuntimeAssets.test.mjs tools/fish-day1-browser/selector.e2e.test.mjs",
+    "tts:day1:test": "node --test tools/fish-day1-browser/selectionStore.test.mjs tools/fish-day1-browser/server.test.mjs tools/fish-day1-browser/day1RuntimeImport.test.mjs tools/fish-day1-browser/day1RuntimeAssets.test.mjs tools/fish-day1-browser/selector.e2e.test.mjs tools/fish-day1-browser/ja/startGreetingInventory.test.mjs tools/fish-day1-browser/ja/veteranTaggedRuntime.test.mjs",
+    "tts:day1:ja:preview": "node tools/fish-day1-browser/ja/server.mjs 4194",
+    "tts:day1:ja:apply": "node tools/fish-day1-browser/ja/importSelectedNarration.mjs",
     "tts:calm-mood:preview": "node tools/fish-day1-browser/calm-mood-candidates/server.mjs 4193",
     "tts:calm-mood:test": "node --test tools/fish-day1-browser/calm-mood-candidates/selectionStore.test.mjs tools/fish-day1-browser/calm-mood-candidates/server.test.mjs tools/fish-day1-browser/calm-mood-candidates/selector.e2e.test.mjs tools/fish-day1-browser/calm-mood-candidates/calmMoodRuntimeImport.test.mjs tools/fish-day1-browser/calm-mood-candidates/calmMoodRuntimeAssets.test.mjs",
     "check:offline": "node scripts/check-offline-build.mjs"
