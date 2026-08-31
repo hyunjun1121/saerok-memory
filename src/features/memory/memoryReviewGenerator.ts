@@ -81,7 +81,7 @@ const PEOPLE_OPTIONS: OptionSource = {
 
 const PLACE_OPTIONS: OptionSource = {
   ko: ["집", "병원", "회사", "공원", "식당", "국밥집", "여행지", "고향"],
-  ja: ["家", "病院", "会社", "公園", "食堂", "スープ店", "旅行先", "故郷"],
+  ja: ["家", "病院", "会社", "公園", "食堂", "定食屋", "旅行先", "故郷"],
   en: ["Home", "Hospital", "Workplace", "Park", "Restaurant", "Soup restaurant", "Travel place", "Hometown"],
 };
 

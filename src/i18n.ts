@@ -1,6 +1,11 @@
 import i18n from 'i18next';
 import type { BackendModule, ReadCallback } from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import {
+  resolveInitialLanguage,
+  syncDocumentLanguage,
+} from '@/i18nLanguage';
+import { normalizeMarket } from '@/config/market';
 import ko from '@/locales/ko.json';
 
 const localeLoaders = {
@@ -28,7 +33,20 @@ const lazyLocaleBackend: BackendModule = {
   },
 };
 
-const savedLanguage = typeof localStorage !== 'undefined' ? localStorage.getItem('memoryGardenLang') || 'ko' : 'ko';
+const savedLanguage =
+  typeof localStorage !== 'undefined'
+    ? localStorage.getItem('memoryGardenLang')
+    : null;
+const initialLanguage = resolveInitialLanguage(
+  savedLanguage,
+  import.meta.env.VITE_DEFAULT_LOCALE,
+  import.meta.env.VITE_HARU_MARKET
+    ? normalizeMarket(import.meta.env.VITE_HARU_MARKET)
+    : undefined,
+);
+
+syncDocumentLanguage(initialLanguage);
+i18n.on('languageChanged', syncDocumentLanguage);
 
 i18n
   .use(lazyLocaleBackend)
@@ -40,8 +58,8 @@ i18n
     partialBundledLanguages: true,
     supportedLngs: ['ko', 'ja', 'en'],
     load: 'languageOnly',
-    lng: savedLanguage,
-    fallbackLng: 'ko',
+    lng: initialLanguage,
+    fallbackLng: initialLanguage,
     interpolation: { escapeValue: false },
   });
 

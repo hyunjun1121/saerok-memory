@@ -9,6 +9,7 @@ from pydantic import ValidationError
 from starlette.concurrency import run_in_threadpool
 
 from app.core.config import settings
+from app.core.market import MarketLocaleMismatch
 from app.core.schemas import (
     IngestResponse,
     QARequest,
@@ -115,6 +116,8 @@ async def ingest_json(
         )
     except IdempotencyConflict as exc:
         raise HTTPException(status_code=409, detail=str(exc)) from exc
+    except MarketLocaleMismatch as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
     except ConsentRequired as exc:
         raise HTTPException(status_code=403, detail=str(exc)) from exc
     except DeletedUserConflict as exc:
@@ -129,6 +132,8 @@ async def ingest_json(
 def ingest_seed():
     try:
         return ingest_seed_if_empty()
+    except MarketLocaleMismatch as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
     except ConsentRequired as exc:
         raise HTTPException(status_code=403, detail=str(exc)) from exc
     except DeletedUserConflict as exc:
@@ -212,13 +217,17 @@ def get_raw_snapshot(user_id: str, snapshot_id: str):
 def qa(user_id: str, request: QARequest):
     try:
         return answer(
-            user_id,
-            request.question,
-            request.top_k,
-            request.start_date.isoformat() if request.start_date else None,
-            request.end_date.isoformat() if request.end_date else None,
-            request.include_sensitive,
+            user_id=user_id,
+            question=request.question,
+            top_k=request.top_k,
+            start_date=request.start_date.isoformat() if request.start_date else None,
+            end_date=request.end_date.isoformat() if request.end_date else None,
+            include_sensitive=request.include_sensitive,
+            market=request.market,
+            locale=request.locale,
         )
+    except MarketLocaleMismatch as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
     except EmbeddingUnavailable as exc:
         raise HTTPException(status_code=503, detail=str(exc)) from exc
 
@@ -229,11 +238,22 @@ def qa(user_id: str, request: QARequest):
 )
 def generate_questions(user_id: str, request: QuestionGenerateRequest):
     target_date = request.target_date.isoformat()
-    return {
-        "user_id": user_id,
-        "target_date": target_date,
-        "questions": generate(user_id, target_date, request.count),
-    }
+    try:
+        return {
+            "user_id": user_id,
+            "target_date": target_date,
+            "market": request.market,
+            "locale": request.locale,
+            "questions": generate(
+                user_id,
+                target_date,
+                request.count,
+                request.market,
+                request.locale,
+            ),
+        }
+    except MarketLocaleMismatch as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
 
 
 @router.delete(

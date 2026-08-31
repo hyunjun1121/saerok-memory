@@ -1,5 +1,28 @@
 node_modules
 dist
+vercel.json
+vercel.japan.json
+
+# Local scratch, generated reports, browser artifacts, and test payloads are
+# not needed by the Vite SPA and can make a deployment archive exceed Vercel's
+# request limit.
+.codex_tmp
+.tmp
+tmp
+test-results
+playwright-report
+e2e
+docs
+raspberry-pi-demo
+elements
+mentoring
+specifie_plan
+.tmp_haru_asset_audit
+**/*.pptx
+**/*.key
+**/*.pages
+**/*.test.*
+**/__tests__
 
 # Backend is a separate local GPU service (Korean STT) — not deployable to Vercel.
 # Exclude its venv/model cache so they never get uploaded.

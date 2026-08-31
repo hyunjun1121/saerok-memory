@@ -45,6 +45,29 @@ describe("haru7DayExercises", () => {
     }
   });
 
+  it("resolves separate Korean and Japanese synthetic-week dates", () => {
+    expect(HARU_WEEK_PLAN.map((plan) => plan.dateISO)).toEqual([
+      "2026-07-20",
+      "2026-07-21",
+      "2026-07-22",
+      "2026-07-23",
+      "2026-07-24",
+      "2026-07-25",
+      "2026-07-26",
+    ]);
+    expect(HARU_WEEK_PLAN.map((plan) => plan.dateISOByMarket.jp)).toEqual([
+      "2026-07-27",
+      "2026-07-28",
+      "2026-07-29",
+      "2026-07-30",
+      "2026-07-31",
+      "2026-08-01",
+      "2026-08-02",
+    ]);
+    expect(getHaruWeekPlan(1, "jp").dateISO).toBe("2026-07-27");
+    expect(getHaruWeekPlan(1, "kr").dateISO).toBe("2026-07-20");
+  });
+
   it("keeps four scored and two unscored questions per day", () => {
     for (const day of [1, 2, 3, 4, 5, 6, 7] as const) {
       const questions = HARU_WEEK_QUESTION_META.filter((item) => item.day === day);

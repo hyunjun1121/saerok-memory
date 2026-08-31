@@ -116,6 +116,42 @@ const canonicalSessions = (): HaruDemoSession[] => [
   ]),
 ];
 
+const KNOWN_CANONICAL_KOREAN_FACT_VALUES = [
+  "유성시장",
+  "애호박",
+  "대파",
+  "딸 김민지",
+  "복지관",
+  "친구 이순자",
+  "윷놀이",
+  "유성구 보건소",
+  "혈압 측정",
+  "조금 피곤함",
+  "편안함",
+  "보리차",
+  "몸이 가벼워짐",
+  "손자 김준호",
+  "김치전",
+  "반가움",
+  "빵집",
+  "단팥빵",
+  "2개",
+  "오후에 집에서 휴식",
+] as const;
+
+function localizedExerciseSurface(
+  exercise: ReturnType<typeof exerciseById>,
+  language: "ja" | "en",
+): string {
+  return [
+    getLocalizedText(exercise.prompt, language),
+    getLocalizedText(exercise.explanation, language),
+    ...(exercise.payload.options ?? []).map((option) =>
+      getLocalizedText(option.label, language),
+    ),
+  ].join("\n");
+}
+
 describe("haruLivePersonalization", () => {
   beforeEach(() => {
     localStorage.clear();
@@ -161,6 +197,243 @@ describe("haruLivePersonalization", () => {
     expect(getLocalizedText(correct?.label, "ko")).toBe("가지");
     expect(labels.filter((label) => label === "가지")).toHaveLength(1);
     expect(labels).not.toContain("애호박");
+  });
+
+  it("selects natural Korean particles for personalized voice facts", () => {
+    const vegetable = resolveHaruExercise(
+      exerciseById("D2_Q3"),
+      [
+        completedSession(1, [
+          voiceResponse("D1_Q5", [
+            { entityType: "장소", value: "홍천" },
+            { entityType: "구매물품", value: "대파" },
+          ]),
+        ]),
+      ],
+    ).exercise;
+    expect(getLocalizedText(vegetable.explanation, "ko")).toContain("대파라고");
+    expect(getLocalizedText(vegetable.explanation, "ko")).not.toContain("대파이라고");
+
+    const companion = resolveHaruExercise(
+      exerciseById("D3_Q3"),
+      [
+        completedSession(2, [
+          voiceResponse("D2_Q6", [
+            { entityType: "장소", value: "도서관" },
+            { entityType: "인물", value: "김유준" },
+            { entityType: "활동", value: "책 읽기" },
+          ]),
+        ]),
+      ],
+    ).exercise;
+    expect(getLocalizedText(companion.prompt, "ko")).toContain("책 읽기를");
+    expect(getLocalizedText(companion.explanation, "ko")).toContain("김유준과");
+
+    const drink = resolveHaruExercise(
+      exerciseById("D5_Q3"),
+      [
+        completedSession(4, [
+          voiceResponse("D4_Q5", [{ entityType: "음료", value: "오미자차" }]),
+        ]),
+      ],
+    ).exercise;
+    expect(getLocalizedText(drink.explanation, "ko")).toContain("오미자차를");
+  });
+
+  it.each([
+    [
+      "D2_Q3",
+      1,
+      "D1_Q5",
+      [
+        { entityType: "장소", value: "유성시장" },
+        { entityType: "구매물품", value: "대파" },
+      ],
+    ],
+    [
+      "D3_Q3",
+      2,
+      "D2_Q6",
+      [
+        { entityType: "장소", value: "복지관" },
+        { entityType: "인물", value: "딸 김민지" },
+        { entityType: "활동", value: "윷놀이" },
+      ],
+    ],
+    [
+      "D4_Q1",
+      3,
+      "D3_Q6",
+      [
+        { entityType: "신체상태", value: "몸이 가벼워짐" },
+        { entityType: "감정", value: "편안함" },
+      ],
+    ],
+    [
+      "D4_Q3",
+      3,
+      "D3_Q6",
+      [
+        { entityType: "장소", value: "유성구 보건소" },
+        { entityType: "활동", value: "윷놀이" },
+      ],
+    ],
+    [
+      "D5_Q1",
+      4,
+      "D4_Q5",
+      [{ entityType: "신체상태", value: "조금 피곤함" }],
+    ],
+    [
+      "D5_Q3",
+      4,
+      "D4_Q5",
+      [{ entityType: "음료", value: "抹茶" }],
+    ],
+    [
+      "D6_Q1",
+      5,
+      "D5_Q6",
+      [{ entityType: "감정", value: "편안함" }],
+    ],
+    [
+      "D6_Q3",
+      5,
+      "D5_Q6",
+      [
+        { entityType: "인물", value: "친구 이순자" },
+        { entityType: "인물", value: "딸 김민지" },
+        { entityType: "음식", value: "김치전" },
+      ],
+    ],
+    [
+      "D7_Q1",
+      6,
+      "D6_Q6",
+      [{ entityType: "활동", value: "혈압 측정" }],
+    ],
+    [
+      "D7_Q3",
+      6,
+      "D6_Q6",
+      [
+        { entityType: "장소", value: "유성시장" },
+        { entityType: "구매물품", value: "애호박" },
+        { entityType: "수량", value: "2개" },
+      ],
+    ],
+    [
+      "D7_Q4",
+      5,
+      "D5_Q6",
+      [
+        { entityType: "인물", value: "친구 이순자" },
+        { entityType: "인물", value: "손자 김준호" },
+        { entityType: "음식", value: "김치전" },
+      ],
+    ],
+    [
+      "D7_Q5",
+      6,
+      "D6_Q6",
+      [
+        { entityType: "구매물품", value: "단팥빵" },
+        { entityType: "수량", value: "5개" },
+      ],
+    ],
+  ] satisfies Array<
+    [
+      targetId: string,
+      sourceDay: HaruWeekDay,
+      sourceQuestionId: string,
+      facts: HaruDerivedAnnotation[],
+    ]
+  >)(
+    "keeps known Korean canonical facts out of Japanese and English dynamic %s surfaces",
+    (targetId, sourceDay, sourceQuestionId, facts) => {
+      const sessions = [
+        completedSession(sourceDay, [voiceResponse(sourceQuestionId, facts)]),
+      ];
+      const resolved = resolveHaruExercise(exerciseById(targetId), sessions);
+
+      expect(resolved.personalization.kind).toBe("prior_response");
+      for (const language of ["ja", "en"] as const) {
+        const surface = localizedExerciseSurface(resolved.exercise, language);
+        for (const koreanValue of KNOWN_CANONICAL_KOREAN_FACT_VALUES) {
+          expect(surface, `${targetId}/${language} leaked ${koreanValue}`).not.toContain(
+            koreanValue,
+          );
+        }
+      }
+    },
+  );
+
+  it("localizes known facts while preserving arbitrary Japanese voice values", () => {
+    const knownSessions = [
+      completedSession(1, [
+        voiceResponse("D1_Q5", [
+          { entityType: "장소", value: "유성시장" },
+          { entityType: "구매물품", value: "대파" },
+        ]),
+      ]),
+    ];
+    const known = resolveHaruExercise(exerciseById("D2_Q3"), knownSessions).exercise;
+    const knownCorrect = known.payload.options?.find(
+      (option) => option.id === known.correctAnswer,
+    );
+
+    expect(getLocalizedText(known.prompt, "ja")).toContain("儒城市場");
+    expect(getLocalizedText(known.prompt, "en")).toContain("Yuseong Market");
+    expect(getLocalizedText(knownCorrect?.label, "ja")).toBe("長ねぎ");
+    expect(getLocalizedText(knownCorrect?.label, "en")).toBe("Green onions");
+    expect(getLocalizedText(known.explanation, "ja")).toContain("長ねぎ");
+    expect(getLocalizedText(known.explanation, "en")).toContain("Green onions");
+
+    const japaneseSessions = [
+      completedSession(1, [
+        voiceResponse("D1_Q5", [
+          { entityType: "장소", value: "京都の市場" },
+          { entityType: "구매물품", value: "紫いも" },
+        ]),
+      ]),
+    ];
+    const japanese = resolveHaruExercise(
+      exerciseById("D2_Q3"),
+      japaneseSessions,
+    ).exercise;
+    const japaneseCorrect = japanese.payload.options?.find(
+      (option) => option.id === japanese.correctAnswer,
+    );
+
+    expect(getLocalizedText(japanese.prompt, "ja")).toContain("京都の市場");
+    expect(getLocalizedText(japaneseCorrect?.label, "ja")).toBe("紫いも");
+    expect(getLocalizedText(japanese.explanation, "ja")).toContain("紫いも");
+  });
+
+  it("localizes arbitrary numeric Korean quantities in Japanese and English", () => {
+    const sessions = [
+      completedSession(6, [
+        voiceResponse("D6_Q6", [
+          { entityType: "장소", value: "유성시장" },
+          { entityType: "구매물품", value: "애호박" },
+          { entityType: "수량", value: "5개" },
+        ]),
+      ]),
+    ];
+    const purchase = resolveHaruExercise(exerciseById("D7_Q3"), sessions).exercise;
+    const purchaseCorrect = purchase.payload.options?.find(
+      (option) => option.id === purchase.correctAnswer,
+    );
+    const remainder = resolveHaruExercise(exerciseById("D7_Q5"), sessions).exercise;
+
+    expect(getLocalizedText(purchaseCorrect?.label, "ja")).toBe("韓国かぼちゃ5個");
+    expect(getLocalizedText(purchaseCorrect?.label, "en")).toBe(
+      "5 Korean zucchini",
+    );
+    expect(localizedExerciseSurface(purchase, "ja")).not.toContain("5개");
+    expect(localizedExerciseSurface(purchase, "en")).not.toContain("5개");
+    expect(localizedExerciseSurface(remainder, "ja")).not.toContain("5개");
+    expect(localizedExerciseSurface(remainder, "en")).not.toContain("5개");
   });
 
   it("returns the exact canonical exercise object for canonical typed facts", () => {

@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button3D } from "@/components/Button3D";
+import { captureHaruTelemetry } from "@/features/analytics/client";
 import { SupportResourceCard } from "@/features/family/ui/SupportResourceCard";
 import {
   getCognitiveRoutineResults,
@@ -80,15 +81,15 @@ export default function FamilyScreen() {
 
   const [reportNow] = useState(() => new Date());
   const loadRoutineResults = useCallback(() => {
-    if (!consent.longitudinalUsageStorage) return [];
+    if (!consent.longitudinalUsageStorage || !consent.familySharing) return [];
     const stored = getCognitiveRoutineResults();
     return stored.length > 0 ? stored : buildDemoRoutineResults();
-  }, [consent.longitudinalUsageStorage]);
+  }, [consent.familySharing, consent.longitudinalUsageStorage]);
   const loadMemoryCards = useCallback(() => {
-    if (!consent.longitudinalUsageStorage) return [];
+    if (!consent.longitudinalUsageStorage || !consent.familySharing) return [];
     const stored = getMemoryCards();
     return stored.length > 0 ? stored : buildDemoMemoryCards(i18n.language);
-  }, [consent.longitudinalUsageStorage, i18n.language]);
+  }, [consent.familySharing, consent.longitudinalUsageStorage, i18n.language]);
   const [routineResults, setRoutineResults] = useState(loadRoutineResults);
   const [memoryCards, setMemoryCards] = useState(loadMemoryCards);
 
@@ -112,9 +113,9 @@ export default function FamilyScreen() {
         memoryCards,
         routineResults,
         reportNow,
-        observationRecords,
+        consent.familySharing ? observationRecords : [],
       ),
-    [memoryCards, observationRecords, reportNow, routineResults],
+    [consent.familySharing, memoryCards, observationRecords, reportNow, routineResults],
   );
   const familySummary = useMemo(
     () =>
@@ -209,7 +210,20 @@ export default function FamilyScreen() {
     setObservationRecords((current) => [savedRecord, ...current].slice(0, 20));
     setObservationResponses({});
     setObservationNote("");
+    void captureHaruTelemetry("caregiver_observation_submitted", {
+      domainCount: selectedObservationDomains.length,
+      shared: consent.familySharing,
+    });
   };
+
+  useEffect(() => {
+    void captureHaruTelemetry("report_viewed", {
+      reportId:
+        activeTab === "family" ? "family-support-summary" : "counselor-support-summary",
+      role: activeTab === "family" ? "caregiver" : "counselor",
+      sectionId: "overview",
+    });
+  }, [activeTab]);
 
   return (
     <div data-screen="family" className="flex min-h-full w-full max-w-md flex-col gap-6 px-4 pb-48 pt-8">

@@ -92,6 +92,29 @@ describe("offline product-shell contract", () => {
     expect(vi.mocked(audioManager.playNarration)).toHaveBeenCalledWith("login.nfc.waiting", "ko");
   });
 
+  it("replays the NFC waiting instruction for every physical button", async () => {
+    renderAt("#/lesson?day=1&restart=1");
+    await findElement('[data-screen="nfc-login"]');
+    await waitFor(() => {
+      expect(vi.mocked(audioManager.playNarration)).toHaveBeenCalledWith("login.nfc.waiting", "ko");
+    });
+    vi.mocked(audioManager.playNarration).mockClear();
+
+    for (const code of ["Digit1", "Digit2", "Digit3", "Digit4"] as const) {
+      await act(async () => pressPhysicalKey(code));
+      await waitFor(() => {
+        expect(vi.mocked(audioManager.playNarration)).toHaveBeenCalledTimes(1);
+      });
+      expect(vi.mocked(audioManager.playNarration)).toHaveBeenLastCalledWith(
+        "login.nfc.waiting",
+        "ko",
+      );
+      vi.mocked(audioManager.playNarration).mockClear();
+      await settlePhysicalInput();
+      expect(document.querySelector('[data-screen="nfc-login"]')).toBeInTheDocument();
+    }
+  });
+
   it.each([
     ["result", "#/result?day=1", '[data-screen="result"] .hero-card__mascot'],
     ["legacy garden route", "#/garden", ".info-card__image"],

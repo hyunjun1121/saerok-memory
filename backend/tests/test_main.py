@@ -112,6 +112,39 @@ def test_stt_happy_path_returns_qwen_metadata_and_null_confidence(client, monkey
     assert body["confidence"] is None
 
 
+def test_stt_passes_japanese_locale_to_engine(client, monkeypatch):
+    captured = {}
+
+    def transcribe(data, *, language_locale=None):
+        captured["language"] = language_locale
+        canned = _canned("今日は散歩しました。")
+        canned["language"] = language_locale
+        return canned
+
+    monkeypatch.setattr(main_module.engine, "transcribe_bytes", transcribe)
+
+    response = client.post(
+        "/api/stt",
+        files=_upload_bytes(b"\x1a\x2b\x3c"),
+        headers={"x-haru-language": "ja-JP"},
+    )
+
+    assert response.status_code == 200
+    assert captured["language"] == "ja-JP"
+    assert response.json()["language"] == "ja-JP"
+
+
+def test_stt_rejects_unsupported_language(client):
+    response = client.post(
+        "/api/stt",
+        files=_upload_bytes(b"\x1a\x2b\x3c"),
+        headers={"x-haru-language": "fr-FR"},
+    )
+
+    assert response.status_code == 422
+    assert response.json()["detail"] == "unsupported_language"
+
+
 def test_stt_no_speech_is_an_explicit_empty_success(client, monkeypatch):
     canned = _canned("")
     canned["noSpeech"] = True

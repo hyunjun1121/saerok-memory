@@ -1,6 +1,6 @@
 # Haru Local Memory RAG
 
-Haru 앱이 저장하는 `haru_kiosk_usage_record` 1.0.0 JSON을 로컬에서 수집하고,
+Haru 앱이 저장하는 `haru_kiosk_usage_record` 1.0.0/2.0.0 JSON을 로컬에서 수집하고,
 모든 응답을 검색 가능한 근거 문서로 축적하는 별도 FastAPI 서비스입니다.
 
 이 서비스는 의료 판정 시스템이 아닙니다. 상담사 QA는 저장된 기록을 검색하고
@@ -95,6 +95,22 @@ Authorization: Bearer <local token>  # RAG_API_TOKEN 설정 시
 { canonical full haru_kiosk_usage_record JSON }
 ```
 
+2.0.0 record는 `dataset`과 `user`에 같은 시장·UI locale을 넣습니다. 1.0.0
+legacy record는 `kr`/`ko-KR`로 해석됩니다. `locale` 대신 canonical 필드명
+`ui_locale`도 허용하지만, 저장된 사용자 profile에는 정규화된 `market`과 `locale`을
+함께 남깁니다.
+
+```json
+{
+  "schema": {"name": "haru_kiosk_usage_record", "version": "2.0.0"},
+  "dataset": {"market": "jp", "ui_locale": "ja-JP"},
+  "user": {"market": "jp", "ui_locale": "ja-JP"}
+}
+```
+
+허용 조합은 `kr`/`ko-KR`, `jp`/`ja-JP`뿐입니다. dataset과 user가 다르거나,
+이미 저장된 사용자의 시장을 바꾸려는 ingest는 거부됩니다.
+
 두 hash header는 bounded opaque token입니다. 서버는 자체 SHA-256 body digest를
 별도로 저장합니다. 같은 사용자·dataset·idempotency key로 다른 body를 보내면
 409를 반환합니다. canonical body는 사용자·dataset·SHA-256별 immutable snapshot으로
@@ -142,6 +158,17 @@ tombstone을 유지해야 합니다.
 
 QA는 `QA_MIN_SIMILARITY`(기본 `0.78`) 이상인 evidence만 근거로 사용합니다. 관련 근거가
 없으면 답을 추측하지 않고 `no_answer=true`를 반환합니다.
+
+QA와 다음 문항 요청에도 대상 context를 보냅니다. legacy 한국 record 호출은 두 필드를
+생략할 수 있습니다. 요청 context와 저장된 사용자 profile이 다르면 409
+`market_locale_mismatch`입니다.
+
+```json
+{"question": "昨日は誰と過ごしましたか？", "market": "jp", "locale": "ja-JP"}
+```
+
+일본 시장 evidence label, QA 안내, 다음 문항 prompt와 filler는 일본어 전용입니다.
+일본 자동 문항에는 한글, 원화 표기, 알려진 한국 demo 고유 항목을 포함하지 않습니다.
 
 ## Neo4j
 

@@ -173,6 +173,147 @@ describe("SettingsScreen data deletion", () => {
       screen.getByText(i18n.t("settings.privacyUpdateSuccess")),
     ).toBeInTheDocument();
   });
+
+  it("shows independent controls for every optional data use", () => {
+    render(
+      <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+        <SettingsScreen />
+      </MemoryRouter>,
+    );
+
+    const labels = [
+      "settings.usageAnalyticsConsent",
+      "settings.voiceRecordingConsent",
+      "settings.sttProcessingConsent",
+      "settings.transcriptStorageConsent",
+      "settings.audioStorageConsent",
+      "settings.longitudinalConsent",
+      "settings.personalizationConsent",
+      "settings.familySharingConsent",
+    ] as const;
+    for (const label of labels) {
+      expect(
+        screen.getByRole("switch", { name: i18n.t(label) }),
+      ).toBeInTheDocument();
+    }
+  });
+
+  it("redeems an eight-character participant code and sends current consent", async () => {
+    const fetchMock = vi
+      .fn<typeof fetch>()
+      .mockResolvedValueOnce(
+        new Response(
+          JSON.stringify({
+            participantId: "123e4567-e89b-42d3-a456-426614174000",
+            market: "kr",
+            locale: "ko-KR",
+          }),
+          { status: 200, headers: { "content-type": "application/json" } },
+        ),
+      )
+      .mockResolvedValueOnce(new Response(null, { status: 204 }));
+    vi.stubGlobal("fetch", fetchMock);
+
+    render(
+      <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+        <SettingsScreen />
+      </MemoryRouter>,
+    );
+    fireEvent.change(
+      screen.getByRole("textbox", { name: i18n.t("settings.enrollmentCodeLabel") }),
+      { target: { value: "abcd2345" } },
+    );
+    fireEvent.click(
+      screen.getByRole("button", { name: i18n.t("settings.enrollmentConnect") }),
+    );
+
+    expect(
+      await screen.findByText(i18n.t("settings.enrollmentConnected")),
+    ).toBeInTheDocument();
+    expect(fetchMock).toHaveBeenNthCalledWith(
+      1,
+      "/api/enrollment/v1/redeem",
+      expect.objectContaining({ credentials: "same-origin" }),
+    );
+    expect(fetchMock).toHaveBeenNthCalledWith(
+      2,
+      "/api/privacy/v1/consents",
+      expect.objectContaining({ credentials: "same-origin" }),
+    );
+  });
+
+  it("requires a second explicit press before deleting all local data", async () => {
+    localStorage.setItem("memoryCards", "[]");
+    render(
+      <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+        <SettingsScreen />
+      </MemoryRouter>,
+    );
+
+    fireEvent.click(
+      screen.getByRole("button", { name: i18n.t("settings.deleteAllData") }),
+    );
+    expect(localStorage.getItem("memoryCards")).toBe("[]");
+
+    fireEvent.click(
+      screen.getByRole("button", {
+        name: i18n.t("settings.deleteAllDataConfirm"),
+      }),
+    );
+    await waitFor(() => expect(localStorage.getItem("memoryCards")).toBeNull());
+    expect(
+      await screen.findByText(i18n.t("settings.deleteAllDataLocalSuccess")),
+    ).toBeInTheDocument();
+  });
+
+  it("keeps deletion credentials until the server confirms completion", async () => {
+    const requestId = "018f0f65-4f93-7cc0-9d41-4e63c8412869";
+    localStorage.setItem(
+      "haru:kr:enrollment",
+      JSON.stringify({
+        participantId: "123e4567-e89b-42d3-a456-426614174000",
+        market: "kr",
+        locale: "ko-KR",
+        enrolledAt: "2026-08-06T00:00:00.000Z",
+      }),
+    );
+    localStorage.setItem(
+      "haru:kr:privacy:deletion-request",
+      JSON.stringify({
+        requestId,
+        market: "kr",
+        requestedAt: "2026-08-06T00:00:00.000Z",
+      }),
+    );
+    const fetchMock = vi.fn<typeof fetch>().mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          requestId,
+          status: "completed",
+          requestedAt: "2026-08-06T00:00:00.000Z",
+          completedAt: "2026-08-06T00:00:02.000Z",
+        }),
+        { status: 200 },
+      ),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+
+    render(
+      <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+        <SettingsScreen />
+      </MemoryRouter>,
+    );
+
+    expect(
+      await screen.findByText(i18n.t("settings.deleteAllDataCompleted")),
+    ).toBeInTheDocument();
+    expect(localStorage.getItem("haru:kr:privacy:deletion-request")).toBeNull();
+    expect(localStorage.getItem("haru:kr:enrollment")).toBeNull();
+    expect(fetchMock).toHaveBeenCalledWith(
+      `/api/privacy/v1/deletions/${requestId}`,
+      expect.objectContaining({ method: "GET", credentials: "same-origin" }),
+    );
+  });
 });
 
 describe("SettingsScreen sound feedback", () => {

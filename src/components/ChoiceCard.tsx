@@ -13,10 +13,12 @@ export type ChoiceCardState =
 
 export type ChoiceCardLayout = "row" | "tile";
 export type ChoiceCardTone = "neutral" | "red" | "yellow" | "green" | "blue";
+type TileLabelSize = "display" | "large" | "medium" | "compact";
 
 export interface ChoiceCardProps {
   id: string;
   label: string;
+  labelSizeReference?: string;
   description?: string;
   icon?: ReactNode;
   state: ChoiceCardState;
@@ -66,9 +68,30 @@ const selectedIndicatorClasses: Record<ChoiceCardTone, string> = {
   blue: "text-blue-900",
 };
 
+const tileLabelSizeClasses: Record<TileLabelSize, string> = {
+  display:
+    "!whitespace-nowrap text-[clamp(28px,9vw,56px)] leading-[1.05] tracking-[-0.035em]",
+  large:
+    "text-[clamp(24px,7.5vw,48px)] leading-[1.08] tracking-[-0.03em]",
+  medium:
+    "text-[clamp(20px,6vw,40px)] leading-[1.12] tracking-[-0.025em]",
+  compact:
+    "text-[clamp(17px,4.8vw,32px)] leading-[1.18] tracking-[-0.02em]",
+};
+
+function getTileLabelSize(label: string): TileLabelSize {
+  const compactLength = Array.from(label.replace(/\s/gu, "")).length;
+
+  if (compactLength <= 3) return "display";
+  if (compactLength <= 6) return "large";
+  if (compactLength <= 12) return "medium";
+  return "compact";
+}
+
 export function ChoiceCard({
   id,
   label,
+  labelSizeReference,
   description,
   icon,
   state,
@@ -81,6 +104,9 @@ export function ChoiceCard({
   const { t } = useTranslation();
   const { playCue } = useInteractionFeedback();
   const isTile = layout === "tile";
+  const tileLabelSize = isTile
+    ? getTileLabelSize(labelSizeReference ?? label)
+    : undefined;
 
   const baseClasses =
     "relative flex min-h-[64px] w-full items-center rounded-2xl border-[3px] transition-transform duration-200 ease-out active:scale-[0.97] active:translate-y-[1px] motion-reduce:transform-none motion-reduce:transition-none select-none";
@@ -120,17 +146,34 @@ export function ChoiceCard({
       disabled={state === "disabled" || state === "correct"}
       aria-pressed={isPressed}
       aria-keyshortcuts={keyboardShortcut}
+      data-choice-id={id}
       data-choice-tone={tone}
       className={twMerge(baseClasses, layoutClasses, stateClasses, className)}
     >
-      <div className={isTile ? "flex w-full flex-none justify-center" : "flex-1"}>
-        <div className={`flex items-center gap-3 ${isTile ? "justify-center" : ""}`}>
+      <div
+        className={
+          isTile ? "flex w-full min-w-0 flex-none justify-center" : "min-w-0 flex-1"
+        }
+      >
+        <div
+          className={`flex min-w-0 items-center gap-3 ${
+            isTile ? "w-full justify-center" : ""
+          }`}
+        >
           {icon && <span className="flex-shrink-0">{icon}</span>}
-          <div className={`flex flex-col ${isTile ? "items-center" : ""}`}>
+          <div
+            className={`flex min-w-0 flex-col ${
+              isTile ? "w-full items-center" : ""
+            }`}
+          >
             <span
+              data-choice-label-size={tileLabelSize}
               className={
-                isTile
-                  ? "text-[clamp(17px,4.4vw,21px)] font-bold leading-tight [overflow-wrap:anywhere]"
+                isTile && tileLabelSize
+                  ? twMerge(
+                      "block w-full font-extrabold [overflow-wrap:anywhere] [text-wrap:balance]",
+                      tileLabelSizeClasses[tileLabelSize],
+                    )
                   : "text-xl font-bold leading-snug"
               }
             >
@@ -151,35 +194,42 @@ export function ChoiceCard({
 
       {statusText && (
         <span
-          className={`flex-shrink-0 rounded-full bg-white/80 py-1 font-extrabold text-ink shadow-sm ${
+          className={`inline-flex flex-shrink-0 items-center justify-center gap-1.5 rounded-full bg-white/80 py-1 font-extrabold text-ink shadow-sm ${
             isTile ? "mt-3 px-2.5 text-[15px]" : "ml-3 px-3 text-sm"
           }`}
           aria-hidden="true"
         >
+          {isTile && (state === "selected" || state === "correct") && (
+            <Check
+              className={
+                state === "selected"
+                  ? selectedIndicatorClasses[tone]
+                  : "text-amber-700"
+              }
+              size={16}
+              strokeWidth={3}
+            />
+          )}
+          {isTile && state === "incorrect" && (
+            <RotateCcw className="text-red-500" size={16} strokeWidth={2.5} />
+          )}
           {statusText}
         </span>
       )}
 
-      {(state === "selected" || state === "correct") && (
+      {!isTile && (state === "selected" || state === "correct") && (
         <span
           className={`flex-shrink-0 ${
             state === "selected" ? selectedIndicatorClasses[tone] : "text-amber-700"
-          } ${
-            isTile ? "absolute right-2.5 top-2.5" : "ml-2"
-          }`}
+          } ml-2`}
           aria-hidden="true"
         >
-          <Check size={isTile ? 20 : 24} strokeWidth={3} />
+          <Check size={24} strokeWidth={3} />
         </span>
       )}
-      {state === "incorrect" && (
-        <span
-          className={`flex-shrink-0 text-red-500 ${
-            isTile ? "absolute right-2.5 top-2.5" : "ml-2"
-          }`}
-          aria-hidden="true"
-        >
-          <RotateCcw size={isTile ? 20 : 24} strokeWidth={2.5} />
+      {!isTile && state === "incorrect" && (
+        <span className="ml-2 flex-shrink-0 text-red-500" aria-hidden="true">
+          <RotateCcw size={24} strokeWidth={2.5} />
         </span>
       )}
     </button>

@@ -4,15 +4,19 @@ import {
   type HaruWeekDay,
 } from "@/data/haru7DayExercises";
 import type { Exercise } from "@/data/mockExercises";
+import {
+  getMarketConfig,
+  getRuntimeMarketConfig,
+  type MarketCode,
+} from "@/config/market";
 
 export interface BuildSessionOptions {
   exercises: Exercise[];
   initialExerciseId?: string | null;
   dayOverride?: HaruWeekDay;
+  market?: MarketCode;
   now?: Date;
 }
-
-const KOREA_TIME_ZONE = "Asia/Seoul";
 
 // Normal routine retained outside the authored July 20–26 demo period. The
 // persona week contains fixed weekday/month answers, so serving it forever by
@@ -38,9 +42,9 @@ export function parseHaruWeekDay(value: string | null | undefined): HaruWeekDay 
     : undefined;
 }
 
-function getKoreaDateISO(date: Date): string {
+function getMarketDateISO(date: Date, market: MarketCode): string {
   const parts = new Intl.DateTimeFormat("en-US", {
-    timeZone: KOREA_TIME_ZONE,
+    timeZone: getMarketConfig(market).timeZone,
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
@@ -49,15 +53,21 @@ function getKoreaDateISO(date: Date): string {
   return `${values.year}-${values.month}-${values.day}`;
 }
 
-export function getHaruDemoDay(date = new Date()): HaruWeekDay | undefined {
-  const dateISO = getKoreaDateISO(date);
-  return HARU_WEEK_PLAN.find((plan) => plan.dateISO === dateISO)?.day;
+export function getHaruDemoDay(
+  date = new Date(),
+  market: MarketCode = getRuntimeMarketConfig().market,
+): HaruWeekDay | undefined {
+  const dateISO = getMarketDateISO(date, market);
+  return HARU_WEEK_PLAN.find(
+    (plan) => plan.dateISOByMarket[market] === dateISO,
+  )?.day;
 }
 
 export function buildDailySessionExercises({
   exercises,
   initialExerciseId,
   dayOverride,
+  market = getRuntimeMarketConfig().market,
   now,
 }: BuildSessionOptions): Exercise[] {
   // Capture / deeplink path: start at the requested exercise with no cap, so
@@ -69,9 +79,9 @@ export function buildDailySessionExercises({
     }
   }
 
-  const demoDay = dayOverride ?? getHaruDemoDay(now);
+  const demoDay = dayOverride ?? getHaruDemoDay(now, market);
   const selectedIds = demoDay
-    ? getHaruWeekPlan(demoDay).exerciseIds
+    ? getHaruWeekPlan(demoDay, market).exerciseIds
     : DEMO_ROUTINE_IDS;
 
   return selectedIds

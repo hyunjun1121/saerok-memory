@@ -22,7 +22,12 @@
     "rag:download": "node scripts/run-python-service.mjs rag download",
     "rag:dev": "node scripts/run-python-service.mjs rag dev",
     "rag:test": "node scripts/run-python-service.mjs rag test",
-    "rag:bootstrap": "node scripts/run-python-service.mjs rag bootstrap"
+    "rag:bootstrap": "node scripts/run-python-service.mjs rag bootstrap",
+    "sample:voice:generate": "node scripts/generate-voice-pilot-sample.mjs",
+    "sample:voice:analyze": "node scripts/voice-pilot-sample/analyze.mjs",
+    "sample:voice:capture": "node scripts/voice-pilot-sample/capture-dashboard.mjs",
+    "sample:voice:test": "node --test \"scripts/voice-pilot-sample/*.test.mjs\"",
+    "sample:voice": "npm run sample:voice:generate && npm run sample:voice:analyze && npm run sample:voice:capture"
   },
   "dependencies": {
     "i18next": "^26.1.0",

@@ -117,6 +117,22 @@ describe("ChoiceCard accessibility", () => {
     expect(container.querySelector("svg")).not.toBeNull();
   });
 
+  it("keeps the tile check inside its status badge instead of covering the label", () => {
+    render(
+      <ChoiceCard
+        id="a"
+        label="매우 좋음"
+        state="selected"
+        onSelect={vi.fn()}
+        layout="tile"
+      />,
+    );
+
+    const status = screen.getByText("선택됨");
+    expect(status).toHaveClass("inline-flex");
+    expect(status.querySelector("svg")).not.toBeNull();
+  });
+
   it("supports a square tile layout without changing the default row layout", () => {
     const { rerender } = render(
       <ChoiceCard id="a" label="사과" state="idle" onSelect={vi.fn()} />,
@@ -125,6 +141,8 @@ describe("ChoiceCard accessibility", () => {
     expect(screen.getByRole("button", { name: "사과" })).not.toHaveClass(
       "aspect-square",
     );
+    expect(screen.getByText("사과")).toHaveClass("text-xl");
+    expect(screen.getByText("사과")).not.toHaveAttribute("data-choice-label-size");
 
     rerender(
       <ChoiceCard
@@ -139,6 +157,66 @@ describe("ChoiceCard accessibility", () => {
     expect(screen.getByRole("button", { name: "사과" })).toHaveClass(
       "aspect-square",
       "text-center",
+    );
+  });
+
+  it.each([
+    ["좋음", "display", "text-[clamp(28px,9vw,56px)]"],
+    ["매우 좋음", "large", "text-[clamp(24px,7.5vw,48px)]"],
+    ["함께 하면 일이 쉬워진다", "medium", "text-[clamp(20px,6vw,40px)]"],
+    [
+      "Friend Soon-ja and neighbor Jeong-hee",
+      "compact",
+      "text-[clamp(17px,4.8vw,32px)]",
+    ],
+  ])(
+    "sizes the %s tile label with the %s older-adult typography band",
+    (label, size, fontSizeClass) => {
+      render(
+        <ChoiceCard
+          id="a"
+          label={label}
+          state="idle"
+          onSelect={vi.fn()}
+          layout="tile"
+        />,
+      );
+
+      expect(screen.getByText(label)).toHaveAttribute(
+        "data-choice-label-size",
+        size,
+      );
+      expect(screen.getByText(label)).toHaveClass(
+        fontSizeClass,
+        "block",
+        "font-extrabold",
+        "w-full",
+        "[text-wrap:balance]",
+        "[overflow-wrap:anywhere]",
+      );
+      if (size === "display") {
+        expect(screen.getByText(label)).toHaveClass("!whitespace-nowrap");
+      } else {
+        expect(screen.getByText(label)).not.toHaveClass("!whitespace-nowrap");
+      }
+    },
+  );
+
+  it("keeps a tile typography band anchored to its unnumbered label", () => {
+    render(
+      <ChoiceCard
+        id="a"
+        label="1. 열쇠"
+        labelSizeReference="열쇠"
+        state="selected"
+        onSelect={vi.fn()}
+        layout="tile"
+      />,
+    );
+
+    expect(screen.getByText("1. 열쇠")).toHaveAttribute(
+      "data-choice-label-size",
+      "display",
     );
   });
 

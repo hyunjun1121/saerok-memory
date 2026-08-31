@@ -107,11 +107,11 @@ describe('PersonalMemoryRecall', () => {
     expect(savedCards[0].sensitivity).toBe("personal")
   })
 
-  it('saves emotion choices as emotionTag instead of topic', () => {
+  it('saves the localized Japanese emotion label instead of a Korean-only value', () => {
     const mockProps = {
       prompt: "Emotion Prompt",
       options: [
-        { id: "opt_proud", label: "뿌듯함" },
+        { id: "opt_happy", label: "うれしさ" },
       ],
       linkedConceptId: "concept_1",
       memoryField: "emotionTag" as const,
@@ -122,13 +122,13 @@ describe('PersonalMemoryRecall', () => {
 
     const { rerender } = render(<PersonalMemoryRecall {...mockProps} />)
 
-    fireEvent.click(screen.getByText("뿌듯함"))
+    fireEvent.click(screen.getByText("うれしさ"))
     rerender(<PersonalMemoryRecall {...mockProps} globalState="answer_selected" />)
     fireEvent.click(screen.getByText("선택하기"))
 
     const savedCards = JSON.parse(localStorage.getItem("memoryCards") || "[]")
     expect(savedCards[0].topic).toBeUndefined()
-    expect(savedCards[0].emotionTag).toBe("뿌듯함")
+    expect(savedCards[0].emotionTag).toBe("うれしさ")
   })
 
   it('records a memory story by voice and saves a card without any typing', async () => {
@@ -160,6 +160,30 @@ describe('PersonalMemoryRecall', () => {
     expect(savedCards[0].inputMode).toBe("skipped")
     expect(savedCards[0].sensitivity).toBe("sensitive")
     expect(savedCards[0].shareWithFamily).toBe(false)
+  })
+
+  it('switches from reassuring voice guidance to active AI organization guidance', () => {
+    mocks.recorder.isSupported = true
+    const props = {
+      prompt: '오늘 있었던 일을 말해주세요',
+      options: [],
+      linkedConceptId: 'daily_memory_guidance',
+      memoryField: 'story' as const,
+      onComplete: vi.fn(),
+      setGlobalState: vi.fn(),
+      globalState: 'awaiting_answer' as ExerciseState,
+    }
+    const view = render(<PersonalMemoryRecall {...props} />)
+
+    expect(
+      screen.getByText(
+        '또박또박 말하려고 애쓰지 않으셔도 돼요. 평소처럼 편하게 말씀해 주세요.',
+      ),
+    ).toBeInTheDocument()
+
+    mocks.recorder.isRecording = true
+    view.rerender(<PersonalMemoryRecall {...props} />)
+    expect(screen.getByText('AI가 들은 내용을 글로 정리하고 있어요.')).toBeInTheDocument()
   })
 
   it('permanently discards a story capture revoked during finalization after quick re-consent', async () => {

@@ -163,7 +163,7 @@ export const mockExercises: Exercise[] = [
     type: "multiple_choice_meaning",
     prompt: {
       ko: "이른 아침에 이웃에게 건네기 좋은 말은 무엇일까요?",
-      ja: "早い朝、ご近所さんに声をかけるのに良い言葉はどれでしょう?",
+      ja: "朝、ご近所の方に声をかけるときに合う言葉はどれですか。",
       en: "Which is a good thing to say to a neighbor early in the morning?",
     },
     payload: {
@@ -171,9 +171,9 @@ export const mockExercises: Exercise[] = [
       recommendedDays: [3, 5],
       options: [
         { id: "opt_1", label: { ko: "안녕하세요", ja: "おはようございます", en: "Good morning" } },
-        { id: "opt_2", label: { ko: "잘 가세요", ja: "いってらっしゃい", en: "Take care (goodbye)" } },
-        { id: "opt_3", label: { ko: "맛있게 드세요", ja: "いただきます", en: "Enjoy your meal" } },
-        { id: "opt_4", label: { ko: "고맙습니다", ja: "ありがとうございます", en: "Thank you" } },
+        { id: "opt_2", label: { ko: "잘 가세요", ja: "こんばんは", en: "Take care (goodbye)" } },
+        { id: "opt_3", label: { ko: "맛있게 드세요", ja: "ごちそうさま", en: "Enjoy your meal" } },
+        { id: "opt_4", label: { ko: "고맙습니다", ja: "おやすみなさい", en: "Thank you" } },
       ],
     },
     correctAnswer: "opt_1",
@@ -190,7 +190,7 @@ export const mockExercises: Exercise[] = [
     type: "situation_match",
     prompt: {
       ko: "다음 중 '잠깐만 기다려 주세요'와 어울리는 상황은 무엇일까요?",
-      ja: "次のうち「少しだけお待ちください」に合う場面はどれでしょう?",
+      ja: "次のうち「少々お待ちください」に合う場面はどれですか。",
       en: "Which situation fits \"please wait a moment\"?",
     },
     payload: {
@@ -205,7 +205,7 @@ export const mockExercises: Exercise[] = [
     correctAnswer: "opt_1",
     explanation: {
       ko: "잠시 시간이 필요할 때 '잠깐만 기다려 주세요'라고 해요.",
-      ja: "少し時間が欲しい時に「少しだけお待ちください」と言います。",
+      ja: "少し時間が必要なときに「少々お待ちください」と伝えます。",
       en: "We say it when we need a short moment before continuing.",
     },
     difficulty: 2,
@@ -216,14 +216,14 @@ export const mockExercises: Exercise[] = [
     type: "multiple_choice_meaning",
     prompt: {
       ko: "'맛있게 드세요'는 보통 언제 건네는 말일까요?",
-      ja: "「いただきます」は普通、いつ使う言葉でしょう?",
+      ja: "「どうぞ召し上がってください」は、どんなときに使う言葉ですか。",
       en: "When do we usually say \"enjoy your meal\"?",
     },
     payload: {
       domain: "language",
       recommendedDays: [3, 5],
       options: [
-        { id: "opt_1", label: { ko: "밥을 먹기 직전에", ja: "食事を始める直前に", en: "Right before starting a meal" } },
+        { id: "opt_1", label: { ko: "밥을 먹기 직전에", ja: "食事を出すとき", en: "Right before starting a meal" } },
         { id: "opt_2", label: { ko: "잠들기 직전에", ja: "眠る直前に", en: "Right before going to sleep" } },
         { id: "opt_3", label: { ko: "전화를 받을 때", ja: "電話に出る時", en: "When answering the phone" } },
         { id: "opt_4", label: { ko: "문을 열고 나갈 때", ja: "ドアを開けて出る時", en: "When opening the door to leave" } },
@@ -232,7 +232,7 @@ export const mockExercises: Exercise[] = [
     correctAnswer: "opt_1",
     explanation: {
       ko: "식사를 시작할 때 '맛있게 드세요'라고 해요.",
-      ja: "食事を始める時に「いただきます」と言います。",
+      ja: "食事を出すときに、相手へ「どうぞ召し上がってください」と声をかけます。",
       en: "We say it as a meal begins.",
     },
     difficulty: 1,
@@ -243,7 +243,7 @@ export const mockExercises: Exercise[] = [
     type: "attention_pattern",
     prompt: {
       ko: "사과 9개가 있는데 이웃에게 2개 드리면 몇 개가 남을까요?",
-      ja: "りんごが9個あるとき、ご近所さんに2個あげたらいくつ残るでしょうか?",
+      ja: "りんごが9個あります。ご近所の方に2個おすそ分けすると、いくつ残りますか。",
       en: "You have 9 apples. If you give 2 to a neighbor, how many are left?",
     },
     payload: {
@@ -256,7 +256,7 @@ export const mockExercises: Exercise[] = [
       },
       scenarioBody: {
         ko: "처음에 사과 9개가 있었어요. 이웃에게 2개를 나눠 드렸어요.",
-        ja: "最初はりんごが9個ありました。ご近所さんに2個おすそわけしました。",
+        ja: "最初はりんごが9個ありました。ご近所の方に2個おすそ分けしました。",
         en: "You started with 9 apples and shared 2 with a neighbor.",
       },
       benefitCopy: {
@@ -274,7 +274,7 @@ export const mockExercises: Exercise[] = [
     correctAnswer: "opt_3",
     explanation: {
       ko: "9개에서 2개를 나눠 드리면 7개가 남아요.",
-      ja: "9個から2個あげると、7個残ります。",
+      ja: "9個から2個おすそ分けすると、7個残ります。",
       en: "9 minus 2 leaves 7.",
     },
     difficulty: 2,
@@ -346,7 +346,7 @@ export const mockExercises: Exercise[] = [
     correctAnswer: null,
     explanation: {
       ko: "한 주제 안에서 단어를 떠올리는 가벼운 말하기 활동이에요. 떠오른 단어와 반복 흐름을 오늘의 활동 기록으로 저장해요.",
-      ja: "一つのお題の中で言葉を思い出す軽い話す活動です。思いついた言葉と繰り返しの流れを今日の活動記録として保存します。",
+      ja: "一つのお題から言葉を思い出して話す活動です。思いついた言葉と繰り返しの様子を、今日の活動記録として保存します。",
       en: "A light speaking activity for recalling words within one topic. Entered words and repetition flow are saved as today's activity record.",
     },
     difficulty: 2,
@@ -374,7 +374,7 @@ export const mockExercises: Exercise[] = [
     correctAnswer: ["n1", "s1", "n2", "s2"],
     explanation: {
       ko: "번호표와 장소 그림을 번갈아 따라가는 가벼운 활동이에요. 선택 순서와 다시 누른 횟수를 활동 흐름으로 저장해요.",
-      ja: "番号表と場所の絵を交互にたどる軽い活動です。選択の順番と押し直した回数を活動の流れとして保存します。",
+      ja: "数字と場所の絵を交互にたどる活動です。選んだ順番と押し直した回数を活動記録として保存します。",
       en: "A light activity of following number signs and place pictures in turn. Tap order and retaps are saved as activity flow.",
     },
     difficulty: 3,
@@ -415,7 +415,7 @@ export const mockExercises: Exercise[] = [
         },
         {
           id: "stroop_3",
-          word: { ko: "노랑", ja: "黄", en: "yellow" },
+          word: { ko: "노랑", ja: "黄色", en: "yellow" },
           inkColor: "green",
         },
       ],
@@ -434,7 +434,7 @@ export const mockExercises: Exercise[] = [
     type: "pair_matching",
     prompt: {
       ko: "일상 행동과 어울리는 장소를 알맞게 연결해 보세요.",
-      ja: "日常の行動と合う場所を正しくつないでください。",
+      ja: "日常の行動と、関係する場所や物を組み合わせてください。",
       en: "Match each everyday action with the place it belongs to.",
     },
     payload: {
@@ -442,14 +442,14 @@ export const mockExercises: Exercise[] = [
       recommendedDays: [0, 4],
       pairs: [
         { id: "pair_1", left: { ko: "밥 먹기", ja: "ご飯を食べる", en: "Eating a meal" }, right: { ko: "식탁", ja: "ダイニングテーブル", en: "Dining table" } },
-        { id: "pair_2", left: { ko: "전화 받기", ja: "電話に出る", en: "Answering the phone" }, right: { ko: "가족 목소리", ja: "家族の声", en: "A family member's voice" } },
+        { id: "pair_2", left: { ko: "전화 받기", ja: "電話に出る", en: "Answering the phone" }, right: { ko: "가족 목소리", ja: "電話機", en: "A family member's voice" } },
         { id: "pair_3", left: { ko: "가볍게 산책하기", ja: "軽く散歩する", en: "A short walk" }, right: { ko: "동네 길", ja: "近所の道", en: "A neighborhood street" } },
       ],
     },
     correctAnswer: ["pair_1", "pair_2", "pair_3"],
     explanation: {
       ko: "일상 행동과 어울리는 장소를 잘 연결했습니다.",
-      ja: "日常の行動と合う場所を正しくつなげました。",
+      ja: "日常の行動と、関係する場所や物を組み合わせられました。",
       en: "You matched each everyday action with its place.",
     },
     difficulty: 3,
@@ -474,7 +474,7 @@ export const mockExercises: Exercise[] = [
     correctAnswer: ["step_1", "step_2", "step_3", "step_4"],
     explanation: {
       ko: "가벼운 인사에서 시작해 기억과 보상으로 이어지는 흐름입니다.",
-      ja: "軽いあいさつから始まり、記憶と報酬につながる流れです。",
+      ja: "朝のあいさつから始まり、短い振り返りと庭の手入れへ進む流れです。",
       en: "This flow starts gently and leads into memory practice and reward.",
     },
     difficulty: 2,
@@ -630,7 +630,7 @@ export const mockExercises: Exercise[] = [
     type: "personal_memory_recall",
     prompt: {
       ko: "오늘 하루를 말씀해 주세요.",
-      ja: "今日の一日を話してください。",
+      ja: "今日あったことを話してください。",
       en: "Please tell me about your day.",
     },
     payload: {
@@ -661,10 +661,10 @@ export const mockExercises: Exercise[] = [
       linkedConceptId: "daily_memory_1",
       memoryField: "emotionTag",
       options: [
-        { id: "opt_happy", label: { ko: "기쁨", ja: "うれしさ", en: "Joy" }, value: "기쁨" },
-        { id: "opt_proud", label: { ko: "뿌듯함", ja: "誇らしさ", en: "Pride" }, value: "뿌듯함" },
-        { id: "opt_thankful", label: { ko: "감사함", ja: "ありがたさ", en: "Gratitude" }, value: "감사함" },
-        { id: "opt_relieved", label: { ko: "마음이 놓임", ja: "安心", en: "Relief" }, value: "마음이 놓임" },
+        { id: "opt_happy", label: { ko: "기쁨", ja: "うれしさ", en: "Joy" } },
+        { id: "opt_proud", label: { ko: "뿌듯함", ja: "誇らしさ", en: "Pride" } },
+        { id: "opt_thankful", label: { ko: "감사함", ja: "ありがたさ", en: "Gratitude" } },
+        { id: "opt_relieved", label: { ko: "마음이 놓임", ja: "安心", en: "Relief" } },
       ],
     },
     correctAnswer: null,
@@ -683,7 +683,7 @@ export const mockExercises: Exercise[] = [
     type: "personal_memory_recall",
     prompt: {
       ko: "어제 가족과 외식하셨다고 했는데, 무엇을 드셨는지 기억나시나요?",
-      ja: "昨日ご家族と外食なさったと聞いています。何をお食べになりましたか、覚えていますか?",
+      ja: "昨日、ご家族と外食したと話していましたね。何を食べたか覚えていますか。",
       en: "You mentioned eating out with your family yesterday. Do you remember what you had?",
     },
     payload: {
@@ -721,20 +721,20 @@ export const mockExercises: Exercise[] = [
       },
       scenarioBody: {
         ko: "시장에서 과일을 3,000원어치 샀습니다. 5,000원을 냈다면 거스름돈은 얼마일까요?",
-        ja: "市場で果物を3,000ウォン分買いました。5,000ウォン出したなら、おつりはいくらでしょうか?",
+        ja: "スーパーで果物を300円分買い、500円を払いました。おつりはいくらでしょうか。",
         en: "You bought 3,000 won worth of fruit at the market. If you paid 5,000 won, how much is the change?",
       },
       options: [
-        { id: "opt_1000", label: { ko: "1,000원", ja: "1,000ウォン", en: "1,000 won" } },
-        { id: "opt_2000", label: { ko: "2,000원", ja: "2,000ウォン", en: "2,000 won" } },
-        { id: "opt_3000", label: { ko: "3,000원", ja: "3,000ウォン", en: "3,000 won" } },
-        { id: "opt_4000", label: { ko: "4,000원", ja: "4,000ウォン", en: "4,000 won" } },
+        { id: "opt_1000", label: { ko: "1,000원", ja: "100円", en: "1,000 won" } },
+        { id: "opt_2000", label: { ko: "2,000원", ja: "200円", en: "2,000 won" } },
+        { id: "opt_3000", label: { ko: "3,000원", ja: "300円", en: "3,000 won" } },
+        { id: "opt_4000", label: { ko: "4,000원", ja: "400円", en: "4,000 won" } },
       ],
     },
     correctAnswer: "opt_2000",
     explanation: {
       ko: "5,000원에서 3,000원을 빼면 2,000원이에요.",
-      ja: "5,000ウォンから3,000ウォンを引くと2,000ウォンです。",
+      ja: "500円から300円を引くと、200円です。",
       en: "5,000 minus 3,000 is 2,000 won.",
     },
     difficulty: 2,

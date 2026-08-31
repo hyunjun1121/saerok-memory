@@ -36,4 +36,13 @@ export default defineConfig([
       },
     },
   },
+  {
+    files: ['api/**/*.ts'],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
+    },
+  },
 ])

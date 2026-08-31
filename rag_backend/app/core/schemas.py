@@ -5,12 +5,34 @@ from typing import Any, Literal
 
 from pydantic import AliasChoices, BaseModel, ConfigDict, Field, field_validator, model_validator
 
+from app.core.market import MARKET_LOCALES
+
+
+MarketCode = Literal["kr", "jp"]
+LocaleCode = Literal["ko-KR", "ja-JP"]
+
+
+class MarketLocalePayload(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    market: MarketCode = "kr"
+    locale: LocaleCode = Field(
+        default="ko-KR",
+        validation_alias=AliasChoices("locale", "ui_locale"),
+    )
+
+    @model_validator(mode="after")
+    def valid_market_locale_pair(self) -> "MarketLocalePayload":
+        if MARKET_LOCALES[self.market] != self.locale:
+            raise ValueError("locale must match market")
+        return self
+
 
 class SchemaDescriptor(BaseModel):
     model_config = ConfigDict(extra="allow")
 
     name: Literal["haru_kiosk_usage_record"]
-    version: Literal["1.0.0"]
+    version: Literal["1.0.0", "2.0.0"]
 
 
 class PeriodPayload(BaseModel):
@@ -26,8 +48,7 @@ class PeriodPayload(BaseModel):
         return self
 
 
-class DatasetPayload(BaseModel):
-    model_config = ConfigDict(extra="allow")
+class DatasetPayload(MarketLocalePayload):
 
     dataset_id: str = Field(min_length=1, max_length=160)
     period: PeriodPayload
@@ -39,8 +60,7 @@ class ConsentsPayload(BaseModel):
     longitudinal_usage_storage: bool
 
 
-class UserPayload(BaseModel):
-    model_config = ConfigDict(extra="allow")
+class UserPayload(MarketLocalePayload):
 
     user_id: str = Field(min_length=1, max_length=160)
     display_name: str = Field(default="", max_length=300)
@@ -81,6 +101,20 @@ class UsageRecordPayload(BaseModel):
 
     @model_validator(mode="after")
     def sessions_belong_to_user(self) -> "UsageRecordPayload":
+        if self.schema_.version == "2.0.0":
+            for section_name, section in (
+                ("dataset", self.dataset),
+                ("user", self.user),
+            ):
+                if not {"market", "locale"}.issubset(section.model_fields_set):
+                    raise ValueError(
+                        f"schema 2.0.0 requires {section_name}.market and locale"
+                    )
+        if (
+            self.dataset.market != self.user.market
+            or self.dataset.locale != self.user.locale
+        ):
+            raise ValueError("dataset and user market/locale must match")
         mismatched = [session.session_id for session in self.sessions if session.user_id != self.user.user_id]
         if mismatched:
             raise ValueError("every session.user_id must match user.user_id")
@@ -104,7 +138,7 @@ class UsageRecordPayload(BaseModel):
         return sessions
 
 
-class QARequest(BaseModel):
+class QARequest(MarketLocalePayload):
     question: str = Field(min_length=1, max_length=4_000)
     start_date: date | None = None
     end_date: date | None = None
@@ -112,7 +146,7 @@ class QARequest(BaseModel):
     include_sensitive: bool = False
 
 
-class QuestionGenerateRequest(BaseModel):
+class QuestionGenerateRequest(MarketLocalePayload):
     target_date: date
     count: int = Field(default=4, ge=1, le=10)
 
@@ -129,6 +163,8 @@ class HealthResponse(BaseModel):
 class IngestResponse(BaseModel):
     user_id: str
     dataset_id: str
+    market: MarketCode
+    locale: LocaleCode
     questions_created: int
     questions_updated: int
     evidence_created: int

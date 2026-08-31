@@ -12,6 +12,11 @@ from sqlalchemy.orm import Session
 
 from app.core.config import settings
 from app.core.database import SessionLocal
+from app.core.market import (
+    DEFAULT_MARKET,
+    assert_matching_context,
+    context_from_usage_payload,
+)
 from app.core.models import (
     CanonicalSnapshot,
     DeletionTombstone,
@@ -48,6 +53,30 @@ class DeletedUserConflict(ValueError):
 
 class DerivedDataPurgeIncomplete(RuntimeError):
     pass
+
+
+EVIDENCE_COPY = {
+    "kr": {
+        "question": "문항",
+        "voice": "사용자 음성 응답",
+        "choice": "사용자 선택",
+        "sequence": "사용자 제출 순서",
+        "response": "사용자 응답",
+        "not_transcribed": "전사되지 않은 음성 응답",
+        "missing": "응답 없음",
+        "profile": "초기 등록 정보",
+    },
+    "jp": {
+        "question": "質問",
+        "voice": "音声回答",
+        "choice": "選択した回答",
+        "sequence": "並べた順序",
+        "response": "回答",
+        "not_transcribed": "文字起こしのない音声回答",
+        "missing": "回答なし",
+        "profile": "初回登録情報",
+    },
+}
 
 
 def _now() -> datetime:
@@ -145,30 +174,36 @@ def _response_document(
     prompt: str,
     response_type: str,
     response: dict[str, Any],
+    market: str = DEFAULT_MARKET,
 ) -> tuple[str, str | None, float | None]:
+    copy = EVIDENCE_COPY[market]
     prompt_text = prompt.strip()[:20_000]
     if response_type == "voice" or response.get("input_mode") == "voice":
         transcript = _voice_transcript(response)
-        answer = transcript or "전사되지 않은 음성 응답"
-        return f"문항: {prompt_text}\n사용자 음성 응답: {answer}", transcript, _nullable_confidence(response)
+        answer = transcript or copy["not_transcribed"]
+        return (
+            f'{copy["question"]}: {prompt_text}\n{copy["voice"]}: {answer}',
+            transcript,
+            _nullable_confidence(response),
+        )
 
     if response_type == "single_choice":
         selected = response.get("selected_choice")
         label = selected.get("label") if isinstance(selected, dict) else None
         button = selected.get("button") if isinstance(selected, dict) else None
-        answer = str(label or button or "응답 없음")[:1_000]
-        return f"문항: {prompt_text}\n사용자 선택: {answer}", None, None
+        answer = str(label or button or copy["missing"])[:1_000]
+        return f'{copy["question"]}: {prompt_text}\n{copy["choice"]}: {answer}', None, None
 
     if response_type == "button_sequence":
         labels = response.get("submitted_labels")
         buttons = response.get("submitted_sequence")
         values = labels if isinstance(labels, list) and labels else buttons
-        answer = " → ".join(str(value)[:300] for value in (values or [])) or "응답 없음"
-        return f"문항: {prompt_text}\n사용자 제출 순서: {answer}", None, None
+        answer = " → ".join(str(value)[:300] for value in (values or [])) or copy["missing"]
+        return f'{copy["question"]}: {prompt_text}\n{copy["sequence"]}: {answer}', None, None
 
     # Preserve unforeseen response types without inferring personal facts.
     summary = json.dumps(response, ensure_ascii=False, sort_keys=True)[:4_000]
-    return f"문항: {prompt_text}\n사용자 응답: {summary}", None, None
+    return f'{copy["question"]}: {prompt_text}\n{copy["response"]}: {summary}', None, None
 
 
 def _upsert_question(
@@ -239,11 +274,12 @@ def _upsert_profile_evidence(
     embedder: EmbeddingService,
     counters: dict[str, int],
     pending_embeddings: list[tuple[Episode, str]],
+    market: str = DEFAULT_MARKET,
 ) -> str:
     profile = payload["user"].get("registered_profile_fields") or {}
     period = payload["dataset"].get("period") or {}
     start = str(period.get("start") or period.get("start_date") or "")
-    text = "초기 등록 정보: " + ", ".join(
+    text = f'{EVIDENCE_COPY[market]["profile"]}: ' + ", ".join(
         f"{key}={value}" for key, value in profile.items()
     )
     episode_id = _stable_id("EP", user_id, dataset_id, "PROFILE", "PROFILE", "PROFILE")
@@ -279,7 +315,11 @@ def _upsert_profile_evidence(
         "transcript": None,
         "raw_payload": {"registered_profile_fields": profile},
         "confidence": None,
-        "sensitive": any("복약" in str(key) or "건강" in str(key) for key in profile),
+        "sensitive": any(
+            marker in str(key)
+            for key in profile
+            for marker in ("복약", "건강", "服薬", "健康", "medication", "health")
+        ),
         "embedding": row.embedding if row is not None else [],
         "embedding_model": embedder.model_id,
         "embedding_revision": embedder.revision,
@@ -402,6 +442,7 @@ def _upsert_evidence(
     counters: dict[str, int],
     pending_embeddings: list[tuple[Episode, str]],
     personalization_allowed: bool,
+    market: str = DEFAULT_MARKET,
 ) -> str | None:
     response = question_record.get("response")
     if not isinstance(response, dict):
@@ -420,6 +461,7 @@ def _upsert_evidence(
         question_row.prompt,
         response_type,
         response,
+        market,
     )
     is_voice = response_type == "voice" or response.get("input_mode") == "voice"
     explicit_items = (
@@ -701,8 +743,12 @@ def _resume_derived_work(
     receipt_id: str,
     result: dict[str, Any],
     replay: bool,
+    market: str = "kr",
+    locale: str = "ko-KR",
 ) -> dict[str, Any]:
     stored_result = dict(result)
+    stored_result.setdefault("market", market)
+    stored_result.setdefault("locale", locale)
     projection = stored_result.get("projection")
     consent_blocked = stored_result.get("derived_consent_blocked") is True
     if consent_blocked:
@@ -757,19 +803,33 @@ def _ingest_payload_locked(
     reenroll: bool = False,
 ) -> dict[str, Any]:
 
+    context = context_from_usage_payload(payload)
     user_raw = payload["user"]
+    stored_user_raw = {
+        **user_raw,
+        "market": context.market,
+        "locale": context.locale,
+    }
     consents = user_raw.get("consents") or {}
     if consents.get("longitudinal_usage_storage") is not True:
         raise ConsentRequired("longitudinal usage storage consent is required")
 
     user_id = str(user_raw["user_id"])
     _assert_generation_allowed(user_id, sync_generation, reenroll)
+    with SessionLocal() as db:
+        existing_user = db.get(User, user_id)
+        if existing_user is not None:
+            assert_matching_context(
+                existing_user.profile,
+                context.market,
+                context.locale,
+            )
     voice_allowed = (
         consents.get("voice_recording") is True
         and consents.get("stt_processing") is True
     )
     if not voice_allowed:
-        prior_user_existed = _purge_voice_storage(user_id, user_raw, consents)
+        prior_user_existed = _purge_voice_storage(user_id, stored_user_raw, consents)
         if prior_user_existed:
             _purge_neo4j_or_raise(user_id)
         if _payload_has_voice_response(payload):
@@ -822,6 +882,8 @@ def _ingest_payload_locked(
                 receipt_id=prior.id,
                 result=prior_result,
                 replay=True,
+                market=context.market,
+                locale=context.locale,
             )
 
         user = db.get(User, user_id)
@@ -829,14 +891,14 @@ def _ingest_payload_locked(
             user = User(
                 id=user_id,
                 display_name=str(user_raw.get("display_name", user_id))[:300],
-                profile=user_raw,
+                profile=stored_user_raw,
                 consent=consents,
                 updated_at=_now(),
             )
             db.add(user)
         else:
             user.display_name = str(user_raw.get("display_name", user_id))[:300]
-            user.profile = user_raw
+            user.profile = stored_user_raw
             user.consent = consents
             user.updated_at = _now()
         db.flush()
@@ -870,6 +932,7 @@ def _ingest_payload_locked(
             embedder=embedder,
             counters=counters,
             pending_embeddings=pending_embeddings,
+            market=context.market,
         )
 
         for session in payload.get("sessions") or []:
@@ -894,6 +957,7 @@ def _ingest_payload_locked(
                     counters=counters,
                     pending_embeddings=pending_embeddings,
                     personalization_allowed=personalization_allowed,
+                    market=context.market,
                 )
         if personalization_allowed:
             _apply_pending_embeddings(embedder, pending_embeddings)
@@ -903,6 +967,8 @@ def _ingest_payload_locked(
         result: dict[str, Any] = {
             "user_id": user_id,
             "dataset_id": dataset_id,
+            "market": context.market,
+            "locale": context.locale,
             **counters,
             "idempotent_replay": False,
             "projection": (
@@ -935,6 +1001,8 @@ def _ingest_payload_locked(
         receipt_id=receipt_id,
         result=result,
         replay=False,
+        market=context.market,
+        locale=context.locale,
     )
 
 

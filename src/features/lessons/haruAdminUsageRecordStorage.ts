@@ -5,6 +5,12 @@ import {
   type HaruQuestionResponseType,
   type HaruWeekDay,
 } from "@/data/haru7DayExercises";
+import {
+  getMarketConfig,
+  getRuntimeMarketConfig,
+  type MarketCode,
+  type MarketConfig,
+} from "@/config/market";
 import type { Exercise } from "@/data/mockExercises";
 import {
   clearHaruAdminAudioStorage,
@@ -64,10 +70,12 @@ let volatileAdminWriteEpoch = 0;
 let volatileAudioResponseSequence = 0;
 let volatileAdminRealmId: string | null = null;
 let activeAdminRecordClearOperations = 0;
-let activeAdminVoiceDeletionOperations = 0;
+let activeAdminTranscriptDeletionOperations = 0;
+let activeAdminAudioDeletionOperations = 0;
 const pendingAdminAudioStores = new Set<
   Promise<HaruAdminAudioRetentionStatus>
 >();
+const pendingAdminAudioDeletes = new Set<Promise<void>>();
 const activeAdminDeletionFenceTokens = new Set<string>();
 
 interface HaruAdminWriteGuard {
@@ -75,7 +83,11 @@ interface HaruAdminWriteGuard {
   writeEpoch: string;
 }
 
-type HaruAdminDeletionKind = "clear" | "voice_scrub";
+type HaruAdminDeletionKind =
+  | "clear"
+  | "voice_scrub"
+  | "transcript_scrub"
+  | "audio_scrub";
 type HaruAdminWriteIntentKind = "record" | "audio";
 
 interface HaruAdminDeletionFence {
@@ -100,12 +112,85 @@ interface PersistedAdminWriteIntent {
   intent: HaruAdminWriteIntent;
 }
 
-const BUTTON_LAYOUT = {
-  A: { position: "왼쪽 위", color: "빨강" },
-  B: { position: "오른쪽 위", color: "노랑" },
-  C: { position: "왼쪽 아래", color: "초록" },
-  D: { position: "오른쪽 아래", color: "파랑" },
+type HaruAdminButtonLayout = Record<
+  HaruAdminButton,
+  { position: string; color: string }
+>;
+
+const BUTTON_LAYOUT_BY_MARKET: Record<MarketCode, HaruAdminButtonLayout> = {
+  kr: {
+    A: { position: "왼쪽 위", color: "빨강" },
+    B: { position: "오른쪽 위", color: "노랑" },
+    C: { position: "왼쪽 아래", color: "초록" },
+    D: { position: "오른쪽 아래", color: "파랑" },
+  },
+  jp: {
+    A: { position: "左上", color: "赤" },
+    B: { position: "右上", color: "黄" },
+    C: { position: "左下", color: "緑" },
+    D: { position: "右下", color: "青" },
+  },
+};
+
+const ADMIN_MARKET_CONTENT = {
+  kr: {
+    purpose:
+      "시스템 관리자가 실제 사용 세션에서 저장되는 사용자·문항·응답·처리 결과를 확인하기 위한 데모 데이터",
+    recordingPrinciples: [
+      "Knowledge Graph 자체는 포함하지 않음",
+      "사용자에게 실제 제시된 문항 스냅샷을 저장",
+      "버튼 입력은 물리 버튼, 선택지, 입력 시각, 반응시간을 저장",
+      "음성 입력은 음성 파일 참조, 원문 전사, STT 결과와 처리 상태를 저장",
+      "정답 여부와 점수는 내부 운영 데이터이며 사용자 화면의 진단 판정과 분리",
+    ],
+    dataClassification: "발표·개발용 가상 개인정보",
+    siteId: "SITE-DEMO-YUSEONG-01",
+    siteName: "유성구 복지관 데모존",
+    derivedAnnotationNote:
+      "향후 개인화 문항 생성에 사용할 수 있는 파생 정보. 원문 응답과 분리 저장.",
+    scrubbedVoiceNote: "동의 철회 후 음성 원문과 파생 정보를 삭제함.",
+    completionAdminNote:
+      "사용자 화면에는 진단·위험도 판정 없이 완료와 격려 중심으로 표시",
+  },
+  jp: {
+    purpose:
+      "システム管理者が利用セッションで保存される利用者・設問・回答・処理結果を確認するためのデモデータ",
+    recordingPrinciples: [
+      "Knowledge Graph自体は含めない",
+      "利用者に実際に提示した設問のスナップショットを保存する",
+      "ボタン入力はボタン、選択肢、入力時刻、回答時間を保存する",
+      "音声入力は音声ファイル参照、文字起こし、音声認識結果、処理状態を保存する",
+      "回答結果は運用記録として扱い、利用者向けの医療的な判定とは分ける",
+    ],
+    dataClassification: "発表・開発用の架空個人情報",
+    siteId: "SITE-DEMO-TOKYO-01",
+    siteName: "東京都内 地域交流センター（デモ会場）",
+    derivedAnnotationNote:
+      "今後の個別化設問に利用できる派生情報。回答原文とは分けて保存する。",
+    scrubbedVoiceNote: "同意の撤回後、音声の原文と派生情報を削除した。",
+    completionAdminNote:
+      "利用者画面では医療的な判定を示さず、完了と励ましを中心に表示する",
+  },
 } as const;
+
+const DOMAIN_BY_MARKET: Record<MarketCode, Record<string, string>> = {
+  kr: {},
+  jp: {
+    감정: "感情",
+    "시간 지남력": "時間の見当識",
+    "일반 개인 기억": "一般的な個人の記憶",
+    "주의·계산": "注意・計算",
+    "일상·개인화 정보 수집": "日常・個別化情報の収集",
+    "단어·순서 기억": "単語・順序の記憶",
+    "전날 활동 회상": "前日の活動の振り返り",
+    "언어 이해": "言語理解",
+    "시공간·주의": "視空間・注意",
+    시공간: "視空間",
+    "장기·주간 개인 기억": "長期・週間の個人記憶",
+    "개인화 주의·계산": "個別化した注意・計算",
+    "주간 회고·개인화 정보 수집": "週間の振り返り・個別化情報の収集",
+  },
+};
 
 interface HaruAdminChoice {
   button: HaruAdminButton;
@@ -272,6 +357,10 @@ export interface HaruAdminUsageRecord {
   dataset: {
     dataset_id: string;
     generated_at: string;
+    market: MarketCode;
+    ui_locale: MarketConfig["locale"];
+    content_pack_version: string;
+    currency: MarketConfig["currency"];
     data_classification: string;
     is_synthetic: true;
     period: { start: string; end: string };
@@ -279,6 +368,8 @@ export interface HaruAdminUsageRecord {
   user: {
     user_id: string;
     card_token_id: string;
+    market: MarketCode;
+    ui_locale: MarketConfig["locale"];
     display_name: string;
     birth_year: number;
     age_at_period_start: number;
@@ -290,6 +381,8 @@ export interface HaruAdminUsageRecord {
     consents: {
       voice_recording: boolean;
       stt_processing: boolean;
+      transcript_storage: boolean;
+      audio_storage: boolean;
       longitudinal_usage_storage: boolean;
       personalized_question_use: boolean;
       consented_at: string;
@@ -300,9 +393,9 @@ export interface HaruAdminUsageRecord {
     site_id: string;
     site_name: string;
     input_devices: string[];
-    button_layout: typeof BUTTON_LAYOUT;
+    button_layout: HaruAdminButtonLayout;
     software_version: string;
-    timezone: "Asia/Seoul";
+    timezone: MarketConfig["timeZone"];
   };
   sessions: HaruAdminUsageSession[];
 }
@@ -353,73 +446,104 @@ export interface HaruAdminLiveResponseInput {
   derivedAnnotations?: HaruDerivedAnnotation[];
 }
 
-function toSeoulIsoString(date: Date): string {
+const MARKET_UTC_OFFSET_MINUTES: Record<MarketCode, number> = {
+  kr: 9 * 60,
+  jp: 9 * 60,
+};
+
+function toMarketIsoString(
+  date: Date,
+  market: MarketCode = getRuntimeMarketConfig().market,
+): string {
   const safeDate = Number.isNaN(date.getTime()) ? new Date() : date;
-  return new Date(safeDate.getTime() + 9 * 60 * 60 * 1000)
+  const offsetMinutes = MARKET_UTC_OFFSET_MINUTES[market];
+  const offsetHours = String(Math.floor(offsetMinutes / 60)).padStart(2, "0");
+  const offsetRemainder = String(offsetMinutes % 60).padStart(2, "0");
+  return new Date(safeDate.getTime() + offsetMinutes * 60 * 1000)
     .toISOString()
-    .replace("Z", "+09:00");
+    .replace("Z", `+${offsetHours}:${offsetRemainder}`);
 }
 
 function normalizeTimestamp(value: string | undefined, fallback: Date): string {
-  if (!value) return toSeoulIsoString(fallback);
+  if (!value) return toMarketIsoString(fallback);
   const parsed = new Date(value);
-  return toSeoulIsoString(Number.isNaN(parsed.getTime()) ? fallback : parsed);
+  return toMarketIsoString(Number.isNaN(parsed.getTime()) ? fallback : parsed);
 }
 
 function normalizeOptionalTimestamp(value: string | undefined): string | null {
   if (!value) return null;
   const parsed = new Date(value);
-  return Number.isNaN(parsed.getTime()) ? null : toSeoulIsoString(parsed);
+  return Number.isNaN(parsed.getTime()) ? null : toMarketIsoString(parsed);
 }
 
 function createEmptyRecord(now: Date): HaruAdminUsageRecord {
+  const marketConfig = getRuntimeMarketConfig();
+  const marketContent = ADMIN_MARKET_CONTENT[marketConfig.market];
+  const language = marketConfig.language;
+  const firstPlan = getHaruWeekPlan(1, marketConfig.market);
+  const lastPlan = getHaruWeekPlan(7, marketConfig.market);
   const profile = HARU_DEMO_PERSONA.registeredProfileFields;
   const consent = getHaruConsent();
+  const registeredProfileFields: Record<string, string> =
+    marketConfig.market === "jp"
+      ? {
+          出身地: getLocalizedText(profile.hometown, language),
+          出身小学校: getLocalizedText(profile.elementarySchool, language),
+          以前の仕事: getLocalizedText(profile.formerOccupation, language),
+          娘: getLocalizedText(profile.daughterName, language),
+          孫: getLocalizedText(profile.grandsonName, language),
+          親しい友人: getLocalizedText(profile.closeFriendName, language),
+          近所の知人: getLocalizedText(profile.neighborName, language),
+          好きな食べ物: getLocalizedText(profile.favoriteFood, language),
+          服薬時間: getLocalizedText(profile.medicationTime, language),
+        }
+      : {
+          고향: getLocalizedText(profile.hometown, language),
+          졸업학교: getLocalizedText(profile.elementarySchool, language),
+          과거직업: getLocalizedText(profile.formerOccupation, language),
+          딸: getLocalizedText(profile.daughterName, language),
+          손자: getLocalizedText(profile.grandsonName, language),
+          가까운친구: getLocalizedText(profile.closeFriendName, language),
+          이웃: getLocalizedText(profile.neighborName, language),
+          좋아하는음식: getLocalizedText(profile.favoriteFood, language),
+          복약시간: getLocalizedText(profile.medicationTime, language),
+        };
   return {
     schema: {
       name: "haru_kiosk_usage_record",
       version: "1.0.0",
-      purpose:
-        "시스템 관리자가 실제 사용 세션에서 저장되는 사용자·문항·응답·처리 결과를 확인하기 위한 데모 데이터",
-      recording_principle: [
-        "Knowledge Graph 자체는 포함하지 않음",
-        "사용자에게 실제 제시된 문항 스냅샷을 저장",
-        "버튼 입력은 물리 버튼, 선택지, 입력 시각, 반응시간을 저장",
-        "음성 입력은 음성 파일 참조, 원문 전사, STT 결과와 처리 상태를 저장",
-        "정답 여부와 점수는 내부 운영 데이터이며 사용자 화면의 진단 판정과 분리",
-      ],
+      purpose: marketContent.purpose,
+      recording_principle: [...marketContent.recordingPrinciples],
     },
     dataset: {
       dataset_id: DATASET_ID,
-      generated_at: toSeoulIsoString(now),
-      data_classification: "발표·개발용 가상 개인정보",
+      generated_at: toMarketIsoString(now, marketConfig.market),
+      market: marketConfig.market,
+      ui_locale: marketConfig.locale,
+      content_pack_version: marketConfig.contentPackVersion,
+      currency: marketConfig.currency,
+      data_classification: marketContent.dataClassification,
       is_synthetic: true,
-      period: { start: "2026-07-20", end: "2026-07-26" },
+      period: { start: firstPlan.dateISO, end: lastPlan.dateISO },
     },
     user: {
       user_id: USER_ID,
       card_token_id: CARD_TOKEN_ID,
-      display_name: getLocalizedText(HARU_DEMO_PERSONA.name, "ko"),
+      market: marketConfig.market,
+      ui_locale: marketConfig.locale,
+      display_name: getLocalizedText(HARU_DEMO_PERSONA.name, language),
       birth_year: HARU_DEMO_PERSONA.birthYear,
       age_at_period_start: HARU_DEMO_PERSONA.age,
-      gender: getLocalizedText(HARU_DEMO_PERSONA.gender, "ko"),
-      residence: getLocalizedText(HARU_DEMO_PERSONA.residence, "ko"),
-      living_arrangement: getLocalizedText(HARU_DEMO_PERSONA.livingArrangement, "ko"),
-      speech_profile_note: getLocalizedText(HARU_DEMO_PERSONA.speechProfileNote, "ko"),
-      registered_profile_fields: {
-        고향: getLocalizedText(profile.hometown, "ko"),
-        졸업학교: getLocalizedText(profile.elementarySchool, "ko"),
-        과거직업: getLocalizedText(profile.formerOccupation, "ko"),
-        딸: getLocalizedText(profile.daughterName, "ko"),
-        손자: getLocalizedText(profile.grandsonName, "ko"),
-        가까운친구: getLocalizedText(profile.closeFriendName, "ko"),
-        이웃: getLocalizedText(profile.neighborName, "ko"),
-        좋아하는음식: getLocalizedText(profile.favoriteFood, "ko"),
-        복약시간: getLocalizedText(profile.medicationTime, "ko"),
-      },
+      gender: getLocalizedText(HARU_DEMO_PERSONA.gender, language),
+      residence: getLocalizedText(HARU_DEMO_PERSONA.residence, language),
+      living_arrangement: getLocalizedText(HARU_DEMO_PERSONA.livingArrangement, language),
+      speech_profile_note: getLocalizedText(HARU_DEMO_PERSONA.speechProfileNote, language),
+      registered_profile_fields: registeredProfileFields,
       consents: {
         voice_recording: consent.voiceRecording,
         stt_processing: consent.sttProcessing,
+        transcript_storage: consent.transcriptStorage,
+        audio_storage: consent.audioStorage,
         longitudinal_usage_storage: consent.longitudinalUsageStorage,
         personalized_question_use: consent.personalizedQuestionUse,
         consented_at: consent.consentedAt,
@@ -427,12 +551,12 @@ function createEmptyRecord(now: Date): HaruAdminUsageRecord {
     },
     device: {
       device_id: DEVICE_ID,
-      site_id: "SITE-DEMO-YUSEONG-01",
-      site_name: "유성구 복지관 데모존",
+      site_id: marketContent.siteId,
+      site_name: marketContent.siteName,
       input_devices: ["microphone", "physical_button_2x2", "card_reader"],
-      button_layout: BUTTON_LAYOUT,
+      button_layout: BUTTON_LAYOUT_BY_MARKET[marketConfig.market],
       software_version: "haru-demo-0.3.0",
-      timezone: "Asia/Seoul",
+      timezone: marketConfig.timeZone,
     },
     sessions: [],
   };
@@ -464,7 +588,10 @@ function parseDeletionFence(value: unknown): HaruAdminDeletionFence | null {
     value.token.trim().length === 0 ||
     typeof value.ownerRealmId !== "string" ||
     value.ownerRealmId.trim().length === 0 ||
-    (value.kind !== "clear" && value.kind !== "voice_scrub") ||
+    (value.kind !== "clear" &&
+      value.kind !== "voice_scrub" &&
+      value.kind !== "transcript_scrub" &&
+      value.kind !== "audio_scrub") ||
     typeof value.createdAt !== "string" ||
     !Number.isFinite(Date.parse(value.createdAt))
   ) {
@@ -712,10 +839,9 @@ function consentRevision(consent: HaruConsentState): string {
   return JSON.stringify([
     consent.voiceRecording,
     consent.sttProcessing,
+    consent.transcriptStorage,
+    consent.audioStorage,
     consent.longitudinalUsageStorage,
-    consent.personalizedQuestionUse,
-    consent.consentedAt,
-    consent.updatedAt,
   ]);
 }
 
@@ -831,8 +957,14 @@ function storeTrackedHaruAdminAudio(
 }
 
 async function waitForPendingAdminAudioStores(): Promise<void> {
-  while (pendingAdminAudioStores.size > 0) {
-    await Promise.allSettled([...pendingAdminAudioStores]);
+  while (
+    pendingAdminAudioStores.size > 0 ||
+    pendingAdminAudioDeletes.size > 0
+  ) {
+    await Promise.allSettled([
+      ...pendingAdminAudioStores,
+      ...pendingAdminAudioDeletes,
+    ]);
   }
 }
 
@@ -840,6 +972,90 @@ function purgeStaleAdminRecord(): void {
   removeKey(HARU_ADMIN_USAGE_RECORD_STORAGE_KEY);
   clearHaruSttRetryOutbox();
   enqueueHaruRagUserDeletion(HARU_ADMIN_USER_ID);
+  dispatchUpdate();
+}
+
+function consentSnapshot(consent: HaruConsentState) {
+  return {
+    voice_recording: consent.voiceRecording,
+    stt_processing: consent.sttProcessing,
+    transcript_storage: consent.transcriptStorage,
+    audio_storage: consent.audioStorage,
+    longitudinal_usage_storage: consent.longitudinalUsageStorage,
+    personalized_question_use: consent.personalizedQuestionUse,
+    consented_at: consent.consentedAt,
+  };
+}
+
+function consentSafeAdminRecord(
+  record: HaruAdminUsageRecord,
+  consent: HaruConsentState,
+): { record: HaruAdminUsageRecord; removedAudioObjectKeys: string[] } | null {
+  let clone: HaruAdminUsageRecord;
+  try {
+    clone = JSON.parse(JSON.stringify(record)) as HaruAdminUsageRecord;
+  } catch {
+    return null;
+  }
+  const removedAudioObjectKeys: string[] = [];
+  const mayRetainTranscript =
+    consent.voiceRecording &&
+    consent.sttProcessing &&
+    consent.transcriptStorage;
+  const mayRetainAudio = consent.voiceRecording && consent.audioStorage;
+  for (const session of clone.sessions) {
+    for (const questionRecord of session.question_records) {
+      const response = questionRecord.response;
+      if (response?.input_mode !== "voice") continue;
+      if (!mayRetainTranscript) scrubVoiceResponseTranscript(response);
+      if (!mayRetainAudio) {
+        if (response.audio_storage.object_key) {
+          removedAudioObjectKeys.push(response.audio_storage.object_key);
+        }
+        scrubVoiceResponseAudio(response);
+      }
+    }
+  }
+  clone.user.consents = consentSnapshot(consent);
+  return { record: clone, removedAudioObjectKeys };
+}
+
+function trackAdminAudioDelete(objectKey: string): void {
+  const pending = deleteHaruAdminAudio(objectKey).catch(() => undefined);
+  pendingAdminAudioDeletes.add(pending);
+  const forget = () => pendingAdminAudioDeletes.delete(pending);
+  void pending.then(forget, forget);
+}
+
+function replaceWithConsentSafeAdminRecord(
+  record: HaruAdminUsageRecord,
+): void {
+  const consent = getHaruConsent();
+  if (!consent.longitudinalUsageStorage) {
+    purgeStaleAdminRecord();
+    return;
+  }
+  const sanitized = consentSafeAdminRecord(record, consent);
+  if (!sanitized) {
+    purgeStaleAdminRecord();
+    return;
+  }
+  if (!writeJson(HARU_ADMIN_USAGE_RECORD_STORAGE_KEY, sanitized.record)) {
+    purgeStaleAdminRecord();
+    return;
+  }
+  sanitized.removedAudioObjectKeys.forEach(trackAdminAudioDelete);
+  if (
+    sanitized.record.user.consents.voice_recording &&
+    sanitized.record.user.consents.stt_processing &&
+    sanitized.record.user.consents.transcript_storage &&
+    sanitized.record.user.consents.audio_storage
+  ) {
+    reconcileHaruSttRetryOutbox(sanitized.record);
+  } else {
+    clearHaruSttRetryOutbox();
+  }
+  enqueueHaruRagRecord(sanitized.record);
   dispatchUpdate();
 }
 
@@ -879,23 +1095,27 @@ function saveRecord(
   let intentRemoved = true;
   try {
     if (!writeIsAuthorized()) return false;
-    record.user.consents = {
-      voice_recording: consent.voiceRecording,
-      stt_processing: consent.sttProcessing,
-      longitudinal_usage_storage: consent.longitudinalUsageStorage,
-      personalized_question_use: consent.personalizedQuestionUse,
-      consented_at: consent.consentedAt,
-    };
+    record.user.consents = consentSnapshot(consent);
     saved = writeJson(HARU_ADMIN_USAGE_RECORD_STORAGE_KEY, record);
     if (saved) {
       if (!writeIsAuthorized()) {
-        if (!durableDeletionFenceExists()) purgeStaleAdminRecord();
+        if (!durableDeletionFenceExists()) {
+          replaceWithConsentSafeAdminRecord(record);
+        }
         return false;
       }
-      const retryOutboxSaved = reconcileHaruSttRetryOutbox(record);
+      const retryOutboxSaved =
+        record.user.consents.voice_recording &&
+        record.user.consents.stt_processing &&
+        record.user.consents.transcript_storage &&
+        record.user.consents.audio_storage
+          ? reconcileHaruSttRetryOutbox(record)
+          : clearHaruSttRetryOutbox();
       const ragOutboxSaved = enqueueHaruRagRecord(record);
       if (!writeIsAuthorized()) {
-        if (!durableDeletionFenceExists()) purgeStaleAdminRecord();
+        if (!durableDeletionFenceExists()) {
+          replaceWithConsentSafeAdminRecord(record);
+        }
         return false;
       }
       dispatchUpdate();
@@ -921,17 +1141,25 @@ function buttonForOption(
   return index >= 0 && index < BUTTONS.length ? BUTTONS[index] : null;
 }
 
-function choicesFor(exercise: Exercise, language: string): HaruAdminChoice[] | null {
+function choicesFor(
+  exercise: Exercise,
+  language: string,
+  market: MarketCode,
+): HaruAdminChoice[] | null {
   const source = exercise.payload.options ?? exercise.payload.items;
   if (!source || source.length === 0) return null;
   return source.slice(0, 4).map((choice, index) => {
     const button = BUTTONS[index];
     return {
       button,
-      ...BUTTON_LAYOUT[button],
+      ...BUTTON_LAYOUT_BY_MARKET[market][button],
       label: getLocalizedText(choice.label, language),
     };
   });
+}
+
+function adminDomainFor(domain: string, market: MarketCode): string {
+  return DOMAIN_BY_MARKET[market][domain] ?? domain;
 }
 
 function correctAnswerFor(
@@ -958,7 +1186,7 @@ function correctAnswerFor(
 }
 
 function expectedQuestionIds(day: HaruWeekDay): readonly string[] {
-  return getHaruWeekPlan(day).exerciseIds;
+  return getHaruWeekPlan(day, getRuntimeMarketConfig().market).exerciseIds;
 }
 
 function hasCompleteValidResponses(
@@ -983,10 +1211,35 @@ function hasCompleteValidResponses(
 
 export function getHaruAdminUsageRecord(): HaruAdminUsageRecord | null {
   const stored = readJson<unknown>(HARU_ADMIN_USAGE_RECORD_STORAGE_KEY, null);
-  return parseHaruAdminUsageRecord(stored, {
+  const record = parseHaruAdminUsageRecord(stored, {
     expectedUserId: USER_ID,
     expectedDeviceId: DEVICE_ID,
   });
+  if (!record || !isObject(record.dataset)) return null;
+
+  const runtimeConfig = getRuntimeMarketConfig();
+  const storedMarket = record.dataset.market ?? record.user.market ?? "kr";
+  if (storedMarket !== "kr" && storedMarket !== "jp") return null;
+  const storedConfig = getMarketConfig(storedMarket);
+  const datasetLocale = record.dataset.ui_locale ?? storedConfig.locale;
+  const userMarket = record.user.market ?? storedMarket;
+  const userLocale = record.user.ui_locale ?? datasetLocale;
+  if (
+    storedMarket !== runtimeConfig.market ||
+    datasetLocale !== runtimeConfig.locale ||
+    userMarket !== runtimeConfig.market ||
+    userLocale !== runtimeConfig.locale
+  ) {
+    return null;
+  }
+
+  record.dataset.market = runtimeConfig.market;
+  record.dataset.ui_locale = runtimeConfig.locale;
+  record.dataset.content_pack_version ??= runtimeConfig.contentPackVersion;
+  record.dataset.currency ??= runtimeConfig.currency;
+  record.user.market = runtimeConfig.market;
+  record.user.ui_locale = runtimeConfig.locale;
+  return record;
 }
 
 export function startHaruAdminUsageSession(
@@ -1005,9 +1258,11 @@ export function startHaruAdminUsageSession(
     return null;
   }
 
+  const marketConfig = getRuntimeMarketConfig();
+  const plan = getHaruWeekPlan(day, marketConfig.market);
   const record = getHaruAdminUsageRecord() ?? createEmptyRecord(now);
   const existingIndex = record.sessions.findIndex(
-    (session) => session.session_date === getHaruWeekPlan(day).dateISO,
+    (session) => session.session_date === plan.dateISO,
   );
   const existing = record.sessions[existingIndex];
   if (
@@ -1017,8 +1272,7 @@ export function startHaruAdminUsageSession(
     return existing;
   }
 
-  const plan = getHaruWeekPlan(day);
-  const timestamp = toSeoulIsoString(now);
+  const timestamp = toMarketIsoString(now, marketConfig.market);
   const session: HaruAdminUsageSession = existing
     ? {
         ...existing,
@@ -1037,7 +1291,7 @@ export function startHaruAdminUsageSession(
         user_id: USER_ID,
         device_id: DEVICE_ID,
         session_date: plan.dateISO,
-        weekday: getLocalizedText(plan.weekday, "ko"),
+        weekday: getLocalizedText(plan.weekday, marketConfig.language),
         authentication: {
           method: "registered_card",
           card_token_id: CARD_TOKEN_ID,
@@ -1081,31 +1335,35 @@ export function presentHaruAdminQuestion(
     (candidate) => candidate.day === day && candidate.exerciseId === exercise.id,
   );
   if (!meta || !expectedQuestionIds(day).includes(exercise.id)) return null;
-  const choices = choicesFor(exercise, language);
+  const marketConfig = getRuntimeMarketConfig();
+  const recordLanguage = language === marketConfig.language
+    ? language
+    : marketConfig.language;
+  const choices = choicesFor(exercise, recordLanguage, marketConfig.market);
   const usePersonalizationNote =
     personalization?.kind === "profile" || personalization?.kind === "prior_response";
   const questionRecord: HaruAdminQuestionRecord = {
     presentation: {
-      presented_at: toSeoulIsoString(now),
+      presented_at: toMarketIsoString(now, marketConfig.market),
       screen_state: "question",
       character_message: null,
     },
     question: {
       question_id: exercise.id,
       order: meta.order,
-      domain: meta.domain,
+      domain: adminDomainFor(meta.domain, marketConfig.market),
       response_type: meta.responseType,
-      prompt_text: getLocalizedText(exercise.prompt, language),
+      prompt_text: getLocalizedText(exercise.prompt, recordLanguage),
       prompt_audio_text: getLocalizedText(
         exercise.payload.audioText ?? exercise.prompt,
-        language,
+        recordLanguage,
       ),
       scored: meta.scored,
       choices,
       correct_answer: correctAnswerFor(exercise, choices),
       personalization_source_note:
         usePersonalizationNote && meta.personalizationSourceNote
-          ? getLocalizedText(meta.personalizationSourceNote, language)
+          ? getLocalizedText(meta.personalizationSourceNote, recordLanguage)
           : null,
       max_response_seconds: meta.maxResponseSeconds ?? null,
     },
@@ -1227,10 +1485,10 @@ async function voiceResponse(
 ): Promise<HaruAdminVoiceResponse | null> {
   const consent = getHaruConsent();
   const mayStoreAudio =
-    activeAdminVoiceDeletionOperations === 0 &&
+    activeAdminAudioDeletionOperations === 0 &&
     adminWriteGuardMatches(writeGuard) &&
     consent.voiceRecording &&
-    consent.sttProcessing &&
+    consent.audioStorage &&
     consent.longitudinalUsageStorage &&
     input.audioBlob !== undefined &&
     input.audioBlob.size > 0;
@@ -1252,19 +1510,23 @@ async function voiceResponse(
     : "not_stored";
   const currentConsent = getHaruConsent();
   const writeStillAuthorized = adminWriteGuardMatches(writeGuard);
-  const mayRetainVoice =
-    activeAdminVoiceDeletionOperations === 0 &&
+  const mayRetainAudio =
+    activeAdminAudioDeletionOperations === 0 &&
     writeStillAuthorized &&
     currentConsent.voiceRecording &&
-    currentConsent.sttProcessing &&
+    currentConsent.audioStorage &&
     currentConsent.longitudinalUsageStorage;
-  if (retentionStatus === "stored" && !mayRetainVoice) {
+  if (retentionStatus === "stored" && !mayRetainAudio) {
     await deleteHaruAdminAudio(objectKey);
     retentionStatus = "not_stored";
   }
   if (!writeStillAuthorized) return null;
   const mayStoreTranscript =
-    mayRetainVoice;
+    activeAdminTranscriptDeletionOperations === 0 &&
+    currentConsent.voiceRecording &&
+    currentConsent.sttProcessing &&
+    currentConsent.transcriptStorage &&
+    currentConsent.longitudinalUsageStorage;
   const noSpeech = mayStoreTranscript && input.sttNoSpeech === true;
   const transcript = mayStoreTranscript && !noSpeech
     ? (input.rawUserUtteranceTranscript?.trim().slice(0, 10_000) || null)
@@ -1367,7 +1629,7 @@ async function voiceResponse(
         entity_type: annotation.entityType.trim().slice(0, 40),
         value: annotation.value.trim().slice(0, 120),
       })),
-      note: "향후 개인화 문항 생성에 사용할 수 있는 파생 정보. 원문 응답과 분리 저장.",
+      note: ADMIN_MARKET_CONTENT[getRuntimeMarketConfig().market].derivedAnnotationNote,
     },
     response_time_ms: Math.max(0, Math.round(input.responseTimeMs)),
     is_valid: true,
@@ -1405,7 +1667,7 @@ export async function recordHaruAdminResponse(
   presentHaruAdminQuestion(day, exercise, language, personalization, fallbackPresentedAt);
   const record = getHaruAdminUsageRecord();
   if (!record) return null;
-  const plan = getHaruWeekPlan(day);
+  const plan = getHaruWeekPlan(day, getRuntimeMarketConfig().market);
   const session = record.sessions.find((candidate) => candidate.session_date === plan.dateISO);
   const questionRecord = session?.question_records.find(
     (candidate) => candidate.question.question_id === input.questionId,
@@ -1499,9 +1761,13 @@ export function patchHaruAdminVoiceSttSuccess(
     record.user.user_id !== success.userId ||
     !consent.voiceRecording ||
     !consent.sttProcessing ||
+    !consent.transcriptStorage ||
+    !consent.audioStorage ||
     !consent.longitudinalUsageStorage ||
     !record.user.consents.voice_recording ||
     !record.user.consents.stt_processing ||
+    !record.user.consents.transcript_storage ||
+    !record.user.consents.audio_storage ||
     !record.user.consents.longitudinal_usage_storage
   ) {
     return "stale";
@@ -1613,9 +1879,11 @@ export function completeHaruAdminUsageSession(
   completionMessage: string,
   now: Date = new Date(),
 ): HaruAdminUsageSession | null {
+  const marketConfig = getRuntimeMarketConfig();
   const record = getHaruAdminUsageRecord();
   const session = record?.sessions.find(
-    (candidate) => candidate.session_date === getHaruWeekPlan(day).dateISO,
+    (candidate) =>
+      candidate.session_date === getHaruWeekPlan(day, marketConfig.market).dateISO,
   );
   if (!record || !session) return null;
   if (session.completion_status === "completed") return session;
@@ -1626,7 +1894,7 @@ export function completeHaruAdminUsageSession(
     return null;
   }
 
-  const completedAt = toSeoulIsoString(now);
+  const completedAt = toMarketIsoString(now, marketConfig.market);
   const durationSeconds = Math.max(
     0,
     Math.round(
@@ -1659,7 +1927,7 @@ export function completeHaruAdminUsageSession(
     completion_message: completionMessage,
     clinical_interpretation: null,
     risk_classification: null,
-    admin_note: "사용자 화면에는 진단·위험도 판정 없이 완료와 격려 중심으로 표시",
+    admin_note: ADMIN_MARKET_CONTENT[marketConfig.market].completionAdminNote,
   };
   return saveRecord(record) ? session : null;
 }
@@ -1668,22 +1936,69 @@ export function abandonHaruAdminUsageSession(
   day: HaruWeekDay,
   now: Date = new Date(),
 ): HaruAdminUsageSession | null {
+  const marketConfig = getRuntimeMarketConfig();
   const record = getHaruAdminUsageRecord();
   const session = record?.sessions.find(
-    (candidate) => candidate.session_date === getHaruWeekPlan(day).dateISO,
+    (candidate) =>
+      candidate.session_date === getHaruWeekPlan(day, marketConfig.market).dateISO,
   );
   if (!record || !session || session.completion_status !== "in_progress") {
     return session ?? null;
   }
   session.completion_status = "abandoned";
-  session.session_completed_at = toSeoulIsoString(now);
+  session.session_completed_at = toMarketIsoString(now, marketConfig.market);
   session.session_summary = null;
   saveRecord(record);
   return session;
 }
 
+interface HaruAdminVoiceScrubScope {
+  transcript: boolean;
+  audio: boolean;
+}
+
+function scrubVoiceResponseTranscript(response: HaruAdminVoiceResponse): void {
+  response.raw_user_utterance_transcript = null;
+  response.stt = {
+    engine: "haru-local-stt",
+    status: "failed",
+    no_speech: false,
+    transcript: null,
+    language: null,
+    confidence: null,
+    processed_at: null,
+    model: null,
+    model_revision: null,
+    aligner_model: null,
+    aligner_revision: null,
+    preprocessing_version: null,
+    segments: [],
+  };
+  response.user_correction = {
+    was_corrected: false,
+    corrected_transcript: null,
+  };
+  response.derived_annotations = {
+    status: "empty",
+    items: [],
+    note: ADMIN_MARKET_CONTENT[getRuntimeMarketConfig().market].scrubbedVoiceNote,
+  };
+}
+
+function scrubVoiceResponseAudio(response: HaruAdminVoiceResponse): void {
+  response.audio_storage = {
+    ...response.audio_storage,
+    object_key: "",
+    mime_type: null,
+    sample_rate_hz: null,
+    channels: null,
+    retention_status: "not_stored",
+  };
+}
+
 async function scrubHaruAdminVoiceDataInternal(
   deletionFence: HaruAdminDeletionFence,
+  scope: HaruAdminVoiceScrubScope,
 ): Promise<void> {
   if (!ownsDeletionFence(deletionFence)) {
     throw new Error("haru-admin-deletion-fence-lost");
@@ -1704,39 +2019,8 @@ async function scrubHaruAdminVoiceDataInternal(
       for (const questionRecord of session.question_records) {
         const response = questionRecord.response;
         if (response?.input_mode !== "voice") continue;
-        response.audio_storage = {
-          ...response.audio_storage,
-          object_key: "",
-          mime_type: null,
-          sample_rate_hz: null,
-          channels: null,
-          retention_status: "not_stored",
-        };
-        response.raw_user_utterance_transcript = null;
-        response.stt = {
-          engine: "haru-local-stt",
-          status: "failed",
-          no_speech: false,
-          transcript: null,
-          language: null,
-          confidence: null,
-          processed_at: null,
-          model: null,
-          model_revision: null,
-          aligner_model: null,
-          aligner_revision: null,
-          preprocessing_version: null,
-          segments: [],
-        };
-        response.user_correction = {
-          was_corrected: false,
-          corrected_transcript: null,
-        };
-        response.derived_annotations = {
-          status: "empty",
-          items: [],
-          note: "동의 철회 후 음성 원문과 파생 정보를 삭제함.",
-        };
+        if (scope.audio) scrubVoiceResponseAudio(response);
+        if (scope.transcript) scrubVoiceResponseTranscript(response);
       }
     }
     recordSaveFailed = !saveRecord(record, {
@@ -1746,33 +2030,61 @@ async function scrubHaruAdminVoiceDataInternal(
   }
 
   const sttQueueCleared = await clearSttJobQueue();
+  const finalRetryOutboxCleared = clearHaruSttRetryOutbox();
   await waitForDurableAdminWriteIntents(deletionFence);
   await waitForPendingAdminAudioStores();
   if (!ownsDeletionFence(deletionFence)) {
     throw new Error("haru-admin-deletion-fence-lost");
   }
-  await clearHaruAdminAudioStorage();
+  if (scope.audio) await clearHaruAdminAudioStorage();
   if (
     recordSaveFailed ||
     !retryOutboxCleared ||
+    !finalRetryOutboxCleared ||
     !sttQueueCleared
   ) {
     throw new Error("haru-admin-consent-sync-failed");
   }
 }
 
-export async function scrubHaruAdminVoiceData(): Promise<void> {
-  const deletionFence = await acquireAdminDeletionFence("voice_scrub");
-  activeAdminVoiceDeletionOperations += 1;
+async function runHaruAdminVoiceScrub(
+  kind: Exclude<HaruAdminDeletionKind, "clear">,
+  scope: HaruAdminVoiceScrubScope,
+): Promise<void> {
+  const deletionFence = await acquireAdminDeletionFence(kind);
+  if (scope.transcript) activeAdminTranscriptDeletionOperations += 1;
+  if (scope.audio) activeAdminAudioDeletionOperations += 1;
   try {
-    await scrubHaruAdminVoiceDataInternal(deletionFence);
+    await scrubHaruAdminVoiceDataInternal(deletionFence, scope);
     if (!releaseAdminDeletionFence(deletionFence)) {
       throw new Error("haru-admin-deletion-fence-release-failed");
     }
   } finally {
     activeAdminDeletionFenceTokens.delete(deletionFence.token);
-    activeAdminVoiceDeletionOperations -= 1;
+    if (scope.audio) activeAdminAudioDeletionOperations -= 1;
+    if (scope.transcript) activeAdminTranscriptDeletionOperations -= 1;
   }
+}
+
+export function scrubHaruAdminTranscriptData(): Promise<void> {
+  return runHaruAdminVoiceScrub("transcript_scrub", {
+    transcript: true,
+    audio: false,
+  });
+}
+
+export function scrubHaruAdminAudioData(): Promise<void> {
+  return runHaruAdminVoiceScrub("audio_scrub", {
+    transcript: false,
+    audio: true,
+  });
+}
+
+export function scrubHaruAdminVoiceData(): Promise<void> {
+  return runHaruAdminVoiceScrub("voice_scrub", {
+    transcript: true,
+    audio: true,
+  });
 }
 
 export function refreshHaruAdminUsageConsent(): boolean {
@@ -1829,7 +2141,8 @@ async function clearHaruAdminUsageRecordsInternal(
 export async function clearHaruAdminUsageRecords(): Promise<void> {
   const deletionFence = await acquireAdminDeletionFence("clear");
   activeAdminRecordClearOperations += 1;
-  activeAdminVoiceDeletionOperations += 1;
+  activeAdminTranscriptDeletionOperations += 1;
+  activeAdminAudioDeletionOperations += 1;
   try {
     await clearHaruAdminUsageRecordsInternal(deletionFence);
     if (!releaseAdminDeletionFence(deletionFence)) {
@@ -1837,7 +2150,8 @@ export async function clearHaruAdminUsageRecords(): Promise<void> {
     }
   } finally {
     activeAdminDeletionFenceTokens.delete(deletionFence.token);
-    activeAdminVoiceDeletionOperations -= 1;
+    activeAdminAudioDeletionOperations -= 1;
+    activeAdminTranscriptDeletionOperations -= 1;
     activeAdminRecordClearOperations -= 1;
   }
 }

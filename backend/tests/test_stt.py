@@ -68,6 +68,22 @@ def test_transcribe_maps_qwen_result_to_haru_contract():
     assert result["preprocessingVersion"] == PREPROCESSING_VERSION
 
 
+def test_transcribe_maps_japanese_request_without_mutating_settings():
+    settings = replace(get_settings(), language="Korean", output_language="ko-KR")
+    engine = STTEngine(settings)
+    fake_model = FakeModel()
+    engine._model = fake_model
+    time = np.arange(16000, dtype=np.float32) / 16000
+    audio = (0.02 * np.sin(2 * np.pi * 180.0 * time)).astype(np.float32)
+
+    result = engine._transcribe(audio, language_locale="ja-JP")
+
+    assert fake_model.calls[0]["language"] == "Japanese"
+    assert result["language"] == "ja-JP"
+    assert settings.language == "Korean"
+    assert settings.output_language == "ko-KR"
+
+
 def test_transcribe_bytes_enforces_configured_decoded_duration_cap(monkeypatch):
     settings = replace(get_settings(), max_audio_duration_seconds=65.0)
     engine = STTEngine(settings)
@@ -79,7 +95,11 @@ def test_transcribe_bytes_enforces_configured_decoded_duration_cap(monkeypatch):
         return np.zeros(16000, dtype=np.float32)
 
     monkeypatch.setattr("app.stt.decode_audio", fake_decode)
-    monkeypatch.setattr(engine, "_transcribe", lambda audio: {"ok": True})
+    monkeypatch.setattr(
+        engine,
+        "_transcribe",
+        lambda audio, *, language_locale=None: {"ok": True},
+    )
 
     assert engine.transcribe_bytes(b"audio") == {"ok": True}
     assert captured == {"max_duration_seconds": 65.0}

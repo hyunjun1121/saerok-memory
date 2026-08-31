@@ -4,10 +4,17 @@ import { clearCognitiveRoutineResults, getCognitiveRoutineResults } from "@/feat
 import i18n from "@/i18n";
 import { ShapeCopyPractice } from "@/features/lessons/exerciseTypes/ShapeCopyPractice";
 
+const analyticsMocks = vi.hoisted(() => ({
+  captureHaruTelemetry: vi.fn(async () => true),
+}));
+
+vi.mock("@/features/analytics/client", () => analyticsMocks);
+
 describe("ShapeCopyPractice", () => {
   beforeEach(() => {
     localStorage.clear();
     clearCognitiveRoutineResults();
+    analyticsMocks.captureHaruTelemetry.mockClear();
 
     HTMLCanvasElement.prototype.getContext = vi.fn().mockReturnValue({
       beginPath: vi.fn(),
@@ -57,5 +64,20 @@ describe("ShapeCopyPractice", () => {
     expect(results[0].metadata).not.toHaveProperty("sampledPath");
     expect(results[0].metadata).not.toHaveProperty("dataUrl");
     expect(localStorage.getItem("cognitiveRoutineResults")).not.toContain("data:image/png");
+    const telemetryCalls = analyticsMocks.captureHaruTelemetry.mock
+      .calls as unknown as Array<[string]>;
+    expect(telemetryCalls.map(([eventName]) => eventName)).toEqual([
+      "drawing_progress",
+      "drawing_progress",
+    ]);
+    expect(analyticsMocks.captureHaruTelemetry).toHaveBeenLastCalledWith(
+      "drawing_progress",
+      expect.objectContaining({
+        phase: "completed",
+        strokeCount: 1,
+        pointCount: expect.any(Number),
+        eraseCount: 0,
+      }),
+    );
   });
 });

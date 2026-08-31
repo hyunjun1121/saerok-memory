@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { Button3D } from "@/components/Button3D";
@@ -6,6 +6,11 @@ import {
   saveLearnerProfile,
   type PreferredInputMode,
 } from "@/features/profile/learnerProfileStorage";
+import {
+  getRuntimeMarketConfig,
+  isDeploymentLanguageLocked,
+} from "@/config/market";
+import { captureHaruTelemetry } from "@/features/analytics/client";
 
 const LANGUAGES = [
   { code: "ko", label: "한국어" },
@@ -19,6 +24,8 @@ const INPUT_MODES: { id: PreferredInputMode; key: string }[] = [
   { id: "mixed", key: "onboarding.inputMode.mixed" },
 ];
 
+const STEP_IDS = ["language", "large_text", "input_mode"] as const;
+
 /**
  * Short first-run gate (HL-7). Three low-friction steps: language, large text,
  * input mode. Non-medical copy only; nothing here implies a deficit. On finish
@@ -28,19 +35,63 @@ const INPUT_MODES: { id: PreferredInputMode; key: string }[] = [
 export default function OnboardingScreen() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
-  const [step, setStep] = useState(0);
-  const [language, setLanguage] = useState(i18n.language?.slice(0, 2) || "ko");
+  const languageLocked = isDeploymentLanguageLocked();
+  const [step, setStep] = useState(languageLocked ? 1 : 0);
+  const [language, setLanguage] = useState(
+    languageLocked
+      ? getRuntimeMarketConfig().language
+      : i18n.language?.slice(0, 2) || "ko",
+  );
   const [largeTextMode, setLargeTextMode] = useState(false);
   const [inputMode, setInputMode] = useState<PreferredInputMode>("speech");
+  const completedStepRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const trackedStep = step;
+    void captureHaruTelemetry("onboarding_step", {
+      stepId: STEP_IDS[trackedStep],
+      state: "shown",
+    });
+    return () => {
+      if (completedStepRef.current !== trackedStep) {
+        void captureHaruTelemetry("onboarding_step", {
+          stepId: STEP_IDS[trackedStep],
+          state: "abandoned",
+        });
+      }
+    };
+  }, [step]);
+
+  const completeCurrentStep = () => {
+    completedStepRef.current = step;
+    void captureHaruTelemetry("onboarding_step", {
+      stepId: STEP_IDS[step],
+      state: "completed",
+    });
+  };
 
   const applyLanguage = (code: string) => {
+    if (languageLocked) return;
     setLanguage(code);
     i18n.changeLanguage(code);
     localStorage.setItem("memoryGardenLang", code);
+    void captureHaruTelemetry("setting_changed", {
+      settingId: "language",
+      valueCode: code,
+    });
   };
 
   const finish = () => {
+    completeCurrentStep();
     saveLearnerProfile({ onboarded: true, preferredInputMode: inputMode, largeTextMode });
+    void captureHaruTelemetry("setting_changed", {
+      settingId: "large_text",
+      valueCode: largeTextMode ? "enabled" : "disabled",
+    });
+    void captureHaruTelemetry("setting_changed", {
+      settingId: "preferred_input",
+      valueCode: inputMode,
+    });
     navigate("/", { replace: true });
   };
 
@@ -89,7 +140,13 @@ export default function OnboardingScreen() {
             variant={largeTextMode ? "primary" : "secondary"}
             fullWidth
             size="xl"
-            onClick={() => setLargeTextMode(true)}
+            onClick={() => {
+              setLargeTextMode(true);
+              void captureHaruTelemetry("setting_changed", {
+                settingId: "large_text",
+                valueCode: "enabled",
+              });
+            }}
           >
             {t("onboarding.largeTextOn")}
           </Button3D>
@@ -97,7 +154,13 @@ export default function OnboardingScreen() {
             variant={!largeTextMode ? "primary" : "secondary"}
             fullWidth
             size="xl"
-            onClick={() => setLargeTextMode(false)}
+            onClick={() => {
+              setLargeTextMode(false);
+              void captureHaruTelemetry("setting_changed", {
+                settingId: "large_text",
+                valueCode: "disabled",
+              });
+            }}
           >
             {t("onboarding.largeTextOff")}
           </Button3D>
@@ -115,7 +178,13 @@ export default function OnboardingScreen() {
               variant={inputMode === mode.id ? "primary" : "secondary"}
               fullWidth
               size="xl"
-              onClick={() => setInputMode(mode.id)}
+              onClick={() => {
+                setInputMode(mode.id);
+                void captureHaruTelemetry("setting_changed", {
+                  settingId: "preferred_input",
+                  valueCode: mode.id,
+                });
+              }}
             >
               {t(mode.key)}
             </Button3D>
@@ -133,7 +202,10 @@ export default function OnboardingScreen() {
             variant="primary"
             size="xl"
             fullWidth
-            onClick={() => setStep((s) => s + 1)}
+            onClick={() => {
+              completeCurrentStep();
+              setStep((s) => s + 1);
+            }}
           >
             {t("onboarding.next")}
           </Button3D>

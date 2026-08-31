@@ -1,14 +1,14 @@
 {
   "appTitle": "Haru",
   "app": {
-    "loading": "読み込み中..."
+    "loading": "読み込み中…"
   },
   "common": {
     "back": "戻る"
   },
   "navigation": {
     "home": "今日のルーティン",
-    "garden": "庭",
+    "garden": "思い出の庭",
     "family": "レポート",
     "settings": "設定",
     "aria": "メインメニュー"
@@ -36,37 +36,39 @@
   "speech": {
     "listeningTitle": "聞いています",
     "listeningBody": "ゆっくり話してください。",
+    "guidanceBefore": "はっきり話そうと頑張らなくても大丈夫です。いつもどおり、楽にお話しください。",
+    "guidanceDuring": "AIが聞き取った内容を文章にまとめています。",
     "start": "話し始める",
     "stop": "話を終える",
     "unsupported": "この端末では音声認識が制限されています。下の欄に書いて残せます。",
     "durationHint": "20秒ほど気軽に話してください。",
     "durationLimit": "最大{{seconds}}秒、気軽に話してください。",
-    "transcriptLabel": "残した話",
+    "transcriptLabel": "お話の記録",
     "recognized": "話した内容",
-    "transcribing": "お話しをまとめています…",
+    "transcribing": "お話をまとめています…",
     "consentRequired": "録音と文字への変換に同意した後で利用できます。"
   },
   "routine": {
     "todayLabel": "今日のルーティン",
     "attentionDay": "ゆっくり確かめる活動",
     "memoryDay": "記憶を軽く目覚めさせる日",
-    "languageDay": "話すことを目覚めさせる日",
+    "languageDay": "言葉を声に出す日",
     "dailyFlowDay": "一日の順番を整理する日",
     "moodDay": "気分と人との交流を思い出す日",
-    "reviewDay": "軽い復習と庭のごほうび",
-    "fallback": "今日の軽いルーティン"
+    "reviewDay": "気軽な復習と思い出の庭のごほうび",
+    "fallback": "今日の短いルーティン"
   },
   "weekly": {
     "title": "今週も続ける",
-    "completedDays": "今週{{count}}日続きました。",
-    "catalogNote": "福祉施設でもらえる小さなごほうびは運営機関が決めます。",
+    "completedDays": "今週は{{count}}日続けました。",
+    "catalogNote": "地域の交流施設でもらえる小さなごほうびは、運営機関が決めます。",
     "bragCard": "今週の記憶ルーティン {{count}}日完了",
     "bragCardShare": "シェア",
     "catalog": {
       "stickerTitle": "記憶の庭シール",
       "stickerBody": "今週続けた日を集めると、庭に貼るシールがもらえます。",
-      "couponTitle": "福祉施設の小さな引換券",
-      "couponBody": "運営機関が決めた小さな引換券（例：ゴミ袋など）を受け取れます。",
+      "couponTitle": "地域の交流施設の小さな引換券",
+      "couponBody": "運営機関が用意した小さな引換券（例：ティーバッグやポストカード）を受け取れます。",
       "praiseTitle": "ほめるカード",
       "praiseBody": "今週のがんばりをほめるカードを受け取ります。"
     }
@@ -82,7 +84,7 @@
     "regionLabel": "対象地域",
     "pending": "この地域の公式の相談窓口は、最新確認のうえ表示します。",
     "type": {
-      "dementiaSafetyCenter": "認症サポートセンター",
+      "dementiaSafetyCenter": "認知症に関する相談窓口",
       "publicCounseling": "公的な相談機関",
       "localClinic": "近くの病院・クリニック",
       "welfareCenter": "地域包括支援センター・福祉施設"
@@ -108,7 +110,7 @@
       "prompt": "次の状況に最も合う言葉は？"
     },
     "pairMatching": {
-      "prompt": "正しいペアを見つけて繋いでください。"
+      "prompt": "正しい組み合わせを見つけて、つないでください。"
     },
     "sequenceOrder": {
       "prompt": "順番に選んでください。",
@@ -153,7 +155,7 @@
         "finish": "終了",
         "unsupported": "この端末では録音できません。このまま次に進んでも大丈夫です。",
         "start": "話し始める",
-        "stop": "話すのを止める",
+        "stop": "録音を終える",
         "privacy": "個人の話は初期設定では非公開で、利用者が選ばない限り家族画面には共有されません。"
       }
     },
@@ -164,7 +166,7 @@
       "done": "描き終わりました",
       "listen": "聞く",
       "speak": "声に出して言う",
-      "listening": "聞いています...",
+      "listening": "聞いています…",
       "doneSpeaking": "言い終わりました",
       "drawingArea": "絵を描く場所",
       "wordRecallEncodeGuide": "言葉だけでなく、カテゴリーと一緒に覚えてみましょう。あとで同じ言葉をもう一度選びます。",
@@ -173,9 +175,9 @@
       "wordRecallFreeLabel": "先に思い出した言葉",
       "wordRecallFreePlaceholder": "例：えんぴつ、りんご、バス",
       "wordRecallFreeHelper": "先に思い浮かぶ言葉を書き、その後で下の選択肢から確認してください。",
-      "workingMemory": "番号記憶の活動",
-      "digitSpanForwardGuide": "番号を順番に覚えてください。",
-      "digitSpanBackwardGuide": "番号を順番に見て、次の画面で逆の順番に押してください。",
+      "workingMemory": "数字を覚える活動",
+      "digitSpanForwardGuide": "数字を順番に覚えてください。",
+      "digitSpanBackwardGuide": "数字を順番に見て、次の画面で逆の順番に押してください。",
       "startAnswer": "押してみる",
       "backspace": "一つ消す",
       "verbalFluency": "言葉思い出し",
@@ -199,15 +201,15 @@
       "trailWrongNode": "表示されている次の手がかりを押してみましょう。",
       "restartTrail": "最初からやり直す",
       "trailNodeAria": "{{label}}を押す",
-      "trailGroupNumber": "番号",
+      "trailGroupNumber": "数字",
       "trailGroupSymbol": "絵",
       "orientation": "今日の日付確認",
       "orientationGuide": "一日の始まりに今日の日付と曜日を軽く確かめる活動です。",
       "orientationTodayLabel": "今日確認すること",
       "orientationTodayHelper": "日付と曜日",
-      "orientationMonth": "今日は何月ですか?",
-      "orientationWeekday": "今日は何曜日ですか?",
-      "orientationSeason": "今はどの季節ですか?",
+      "orientationMonth": "今日は何月ですか？",
+      "orientationWeekday": "今日は何曜日ですか？",
+      "orientationSeason": "今はどの季節ですか？",
       "seasons": {
         "spring": "春",
         "summer": "夏",
@@ -226,7 +228,7 @@
         "red": "赤",
         "blue": "青",
         "green": "緑",
-        "yellow": "黄"
+        "yellow": "黄色"
       }
     }
   },
@@ -245,7 +247,7 @@
       "concept": "今日は脳を鍛える日です。",
       "autoHint": "画面をタッチするとすぐ始まります。",
       "tapToStart": "タップして開始",
-      "profileBadge": "登録済みの個人情報",
+      "profileBadge": "登録済みプロフィール",
       "profileConfirmed": "{{name}}・事前登録済み",
       "profileSource": "2026年7月19日に登録情報と個別活動への同意を確認しました。",
       "startButton": "開始"
@@ -263,22 +265,22 @@
       "heading": "今日もお疲れさまでした",
       "caregiver": "ご家族をつなぐ",
       "counselor": "相談員をつなぐ",
-      "codeLabel": "つなぎかたコード",
+      "codeLabel": "連携コード",
       "codeHint": "この番号をお伝えください。",
-      "preview": "この画面をプレビュー",
+      "preview": "連携後の画面を見る",
       "back": "閉じる"
     }
   },
   "caregiver": {
     "appBadge": "ご家族アプリ",
-    "title": "今週をいっしょに見る",
+    "title": "今週の様子を一緒に見る",
     "personaSubtitle": "{{name}}さんの7日間の活動まとめ",
     "sectionParticipation": "参加の様子",
     "dayCompleted": "{{day}}曜日の活動完了",
     "dayPartial": "{{day}}曜日の活動を進行中",
     "dayNone": "{{day}}曜日は未開始",
-    "participationComplete": "{{expected}}日中{{completed}}日参加しました。",
-    "activityCount": "今週は{{count}}個の活動を終えました。",
+    "participationComplete": "全{{expected}}日中、{{completed}}日参加しました。",
+    "activityCount": "今週は{{count}}件の活動を終えました。",
     "emptyRecord": "この端末に連携された活動記録はまだありません。",
     "sectionWeeklyFlow": "今週の活動の流れ",
     "flowMood": "毎日、気分を残して一日を始めました。",
@@ -332,19 +334,19 @@
     "weekdayFri": "金",
     "weekdaySat": "土",
     "weekdaySun": "日",
-    "dayActivityTitle": "{{expected}}個中{{completed}}個の活動を完了",
-    "weekObservation": "{{completed}}日参加・{{activities}}個の活動・確認できる回答のうち異なる選択は{{differences}}件です。",
+    "dayActivityTitle": "{{expected}}件中{{completed}}件の活動を完了",
+    "weekObservation": "{{completed}}日参加・{{activities}}件の活動・確認できる回答のうち異なる選択は{{differences}}件です。",
     "weekObservationEmpty": "この端末に連携された活動記録はまだありません。",
     "supportSignalTitle": "Haru 7日間の参考サイン",
     "supportSignalSteady": "継続した参加",
-    "supportSignalBody": "{{completed}}日の参加と{{activities}}個の活動完了を確認しました。選択の違いは練習支援のメモとしてのみ扱い、短い記録から状態の変化を決めつけません。",
+    "supportSignalBody": "{{completed}}日の参加と{{activities}}件の活動完了を確認しました。選択の違いは練習支援のメモとしてのみ扱い、短い記録から状態の変化を決めつけません。",
     "supportSignalCollecting": "記録を収集中",
-    "supportSignalCollectingBody": "現在{{completed}}日、{{activities}}個の活動が連携されています。長期の流れはまだ解釈しません。",
+    "supportSignalCollectingBody": "現在{{completed}}日、{{activities}}件の活動が連携されています。長期の流れはまだ解釈しません。",
     "supportSignalEmpty": "連携記録なし",
     "supportSignalEmptyBody": "活動を終えると参加と回答の流れがここに反映されます。",
     "sectionDailyRecords": "日ごとの活動",
-    "dayCompletion": "{{completed}}個完了・{{seconds}}秒",
-    "dayCompletionNoDuration": "{{completed}}個完了・所要時間は記録前",
+    "dayCompletion": "{{completed}}件完了・{{seconds}}秒",
+    "dayCompletionNoDuration": "{{completed}}件完了・所要時間は記録前",
     "expectedMatchShort": "一致",
     "singleDifferenceNote": "順序活動で{{count}}件の異なる選択が記録されました。繰り返す流れかを見るため、後日同じ種類を無理なく提示します。",
     "noDifferenceNote": "現在確認できる順序活動は想定された流れと同じでした。",
@@ -482,7 +484,7 @@
       },
       "nextTopics": {
         "shareableSeed": "まず、利用者が共有してもよい短い思い出を一つ一緒に保存してみてください。",
-        "topic": "{{topic}}のテーマで保存された思い出{{count}}件をもとに、軽い質問を準備してみてください。",
+        "topic": "{{topic}}のテーマで保存された思い出{{count}}件をもとに、気軽に答えられる質問を準備してみてください。",
         "reviewDue": "今日復習する記憶カード{{count}}枚を会話の入り口にできます。",
         "routineConsistency": "参加が少ない週は理由を問い詰めず、一番取り組みやすかった活動から再開を提案してみてください。",
         "routineMomentum": "最近の参加が増えているため、同じ時間帯に短いルーティンを続けられるよう励ましてみてください。",
@@ -497,7 +499,7 @@
         "observationHomeSafety": "家の中の動線、照明、よく使う物の置き場所など、生活環境の手がかりを一緒に確認してください。",
         "observationUncertain": "よく分からないと記録された領域は、結論を急がず中立的な確認質問として扱ってください。"
       },
-      "activityBadge": "30日活動サマリー"
+      "activityBadge": "30日間の活動まとめ"
     },
     "advisory": {
       "title": "Haru会話準備サイン",
@@ -581,7 +583,30 @@
     "language": {
       "title": "言語 (Language)"
     },
+    "enrollmentTitle": "参加コードを連携",
+    "enrollmentDescription": "担当者から受け取った8文字のコードを入力すると、記録を安全に引き継げます。",
+    "enrollmentCodeLabel": "8文字の参加コード",
+    "enrollmentCodePlaceholder": "例：ABCD2345",
+    "enrollmentConnect": "連携する",
+    "enrollmentConnecting": "連携しています",
+    "enrollmentConnected": "参加コードを連携しました。",
+    "enrollmentInvalid": "8文字のコードをもう一度ご確認ください。",
+    "enrollmentError": "連携できませんでした。しばらくしてからもう一度お試しください。",
     "dataManagement": "データ管理",
+    "exportData": "自分のデータを保存",
+    "exportingData": "ファイルを準備しています",
+    "exportDataSuccess": "この端末と連携先のデータファイルを保存しました。",
+    "exportDataPartial": "端末のファイルは保存しましたが、連携先のファイルは取得できませんでした。",
+    "exportDataError": "データファイルを作成できませんでした。もう一度お試しください。",
+    "deleteAllData": "自分のデータをすべて削除",
+    "deleteAllDataConfirm": "もう一度押してすべて削除",
+    "deletingAllData": "すべてのデータを削除しています",
+    "deleteAllDataWarning": "活動・思い出・音声・利用状況のデータが削除されます。削除依頼の処理に必要な連携情報と選択履歴は残ります。",
+    "deleteAllDataSuccess": "端末のデータを削除し、連携先にも削除を依頼しました。",
+    "deleteAllDataCompleted": "この端末と連携先のデータ削除が完了しました。",
+    "deleteAllDataLocalSuccess": "この端末のデータを削除しました。",
+    "deleteAllDataPartial": "端末のデータは削除しましたが、連携先への依頼は送信できませんでした。",
+    "deleteAllDataError": "一部のデータを削除できませんでした。もう一度お試しください。",
     "deleteMemoryCards": "記憶カードを削除する",
     "deletingMemoryCards": "記憶カードを削除しています",
     "deleteMemoryCardsSuccess": "記憶カードと処理待ちの音声データを削除しました。",
@@ -592,10 +617,14 @@
     "deleteCognitiveDataError": "すべての記録を削除できませんでした。しばらくしてからもう一度お試しください。",
     "privacyTitle": "プライバシー設定",
     "privacyDescription": "記録や音声の使い方はいつでも変更できます。",
-    "voiceRecordingConsent": "音声記録を保存",
+    "usageAnalyticsConsent": "Haruの改善に利用状況を使用",
+    "voiceRecordingConsent": "マイクで音声入力",
     "sttProcessingConsent": "音声を文字に変換",
+    "transcriptStorageConsent": "変換した文章を保存",
+    "audioStorageConsent": "元の音声を保存",
     "longitudinalConsent": "活動履歴を継続して保存",
     "personalizationConsent": "記録を次の問題の調整に使用",
+    "familySharingConsent": "家族と記録を共有",
     "privacyOn": "使用する",
     "privacyOff": "使用しない",
     "privacySaving": "設定を反映しています",

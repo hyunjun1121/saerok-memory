@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Button3D } from "@/components/Button3D";
@@ -8,6 +8,7 @@ import {
 } from "@/app/connect/counselor/counselorData";
 import { useHaruDemoSessions } from "@/features/lessons/useHaruDemoSessions";
 import { getLocalizedText } from "@/utils/localizedText";
+import { captureHaruTelemetry } from "@/features/analytics/client";
 
 function Panel({ title, children }: { title: string; children: ReactNode }) {
   return (
@@ -38,6 +39,14 @@ export default function CounselorAppScreen() {
   const sessions = useHaruDemoSessions();
   const participant = buildHaruParticipant(sessions);
   const participantName = getLocalizedText(participant.name, i18n.language);
+
+  useEffect(() => {
+    void captureHaruTelemetry("report_viewed", {
+      reportId: "counselor-roster",
+      role: "counselor",
+      sectionId: "week-summary",
+    });
+  }, []);
 
   const statusLabels: Record<Status, string> = {
     done: t("counselor.statusDone"),

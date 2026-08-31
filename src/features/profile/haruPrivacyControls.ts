@@ -6,13 +6,19 @@ import {
   HARU_ADMIN_USER_ID,
   clearHaruAdminUsageRecords,
   refreshHaruAdminUsageConsent,
+  scrubHaruAdminAudioData,
+  scrubHaruAdminTranscriptData,
   scrubHaruAdminVoiceData,
 } from "@/features/lessons/haruAdminUsageRecordStorage";
 import {
   clearHaruDemoSessions,
   scrubHaruDemoVoiceData,
 } from "@/features/lessons/haruDemoSessionStorage";
-import { authorizeHaruRagReenrollment } from "@/features/lessons/haruRagSync";
+import {
+  authorizeHaruRagReenrollment,
+  clearHaruRagOutbox,
+  enqueueHaruRagUserDeletion,
+} from "@/features/lessons/haruRagSync";
 import { clearHaruSttRetryOutbox } from "@/features/lessons/haruSttRetry";
 import {
   clearMemoryCards,
@@ -26,12 +32,19 @@ import {
   type HaruConsentState,
 } from "@/features/profile/haruConsentStorage";
 import { removeKey, writeJson } from "@/utils/safeStorage";
+import { clearHaruTelemetry } from "@/features/analytics/client";
+import { getRuntimeMarketConfig } from "@/config/market";
+import { submitHaruConsentReceipt } from "@/features/profile/haruDataApi";
 
 export const HARU_PRIVACY_CLEANUP_PENDING_KEY = "haruPrivacyCleanupPending";
 
 interface HaruPrivacyCleanupIntent {
   longitudinalDeletion: boolean;
-  voiceScrub: boolean;
+  personalizationDeletion: boolean;
+  analyticsDeletion: boolean;
+  processingCancellation: boolean;
+  transcriptScrub: boolean;
+  audioScrub: boolean;
   requestedAt: string;
   requestId: string;
 }
@@ -42,10 +55,14 @@ interface PersistedCleanupIntent {
 }
 
 const PERMISSION_KEYS: Array<keyof HaruConsentPermissions> = [
+  "usageAnalytics",
   "voiceRecording",
   "sttProcessing",
+  "transcriptStorage",
+  "audioStorage",
   "longitudinalUsageStorage",
   "personalizedQuestionUse",
+  "familySharing",
 ];
 
 let privacyOperationChain: Promise<void> = Promise.resolve();
@@ -79,15 +96,34 @@ function normalizeCleanupIntent(
   if (!isRecord(value)) return null;
   if (
     typeof value.longitudinalDeletion !== "boolean" ||
-    typeof value.voiceScrub !== "boolean" ||
     typeof value.requestedAt !== "string" ||
     !Number.isFinite(Date.parse(value.requestedAt))
   ) {
     return null;
   }
+  const legacyVoiceScrub = value.voiceScrub === true;
   return {
     longitudinalDeletion: value.longitudinalDeletion,
-    voiceScrub: value.voiceScrub,
+    personalizationDeletion:
+      typeof value.personalizationDeletion === "boolean"
+        ? value.personalizationDeletion
+        : value.longitudinalDeletion,
+    analyticsDeletion:
+      typeof value.analyticsDeletion === "boolean"
+        ? value.analyticsDeletion
+        : value.longitudinalDeletion,
+    processingCancellation:
+      typeof value.processingCancellation === "boolean"
+        ? value.processingCancellation
+        : legacyVoiceScrub,
+    transcriptScrub:
+      typeof value.transcriptScrub === "boolean"
+        ? value.transcriptScrub
+        : legacyVoiceScrub,
+    audioScrub:
+      typeof value.audioScrub === "boolean"
+        ? value.audioScrub
+        : legacyVoiceScrub,
     requestedAt: value.requestedAt,
     requestId:
       typeof value.requestId === "string" && value.requestId.trim().length > 0
@@ -99,7 +135,11 @@ function normalizeCleanupIntent(
 function malformedCleanupIntent(key: string): HaruPrivacyCleanupIntent {
   return {
     longitudinalDeletion: true,
-    voiceScrub: true,
+    personalizationDeletion: true,
+    analyticsDeletion: true,
+    processingCancellation: true,
+    transcriptScrub: true,
+    audioScrub: true,
     requestedAt: new Date(0).toISOString(),
     requestId: `malformed-${key}`,
   };
@@ -137,11 +177,34 @@ function cleanupIntentForConsent(
   consent: HaruConsentState,
 ): HaruPrivacyCleanupIntent | null {
   const longitudinalDeletion = !consent.longitudinalUsageStorage;
-  const voiceScrub = !consent.voiceRecording || !consent.sttProcessing;
-  if (!longitudinalDeletion && !voiceScrub) return null;
+  const personalizationDeletion =
+    !consent.personalizedQuestionUse || longitudinalDeletion;
+  const analyticsDeletion = !consent.usageAnalytics || longitudinalDeletion;
+  const processingCancellation =
+    !consent.voiceRecording ||
+    !consent.sttProcessing ||
+    !consent.transcriptStorage ||
+    !consent.audioStorage ||
+    longitudinalDeletion;
+  const transcriptScrub = !consent.transcriptStorage || longitudinalDeletion;
+  const audioScrub = !consent.audioStorage || longitudinalDeletion;
+  if (
+    !longitudinalDeletion &&
+    !personalizationDeletion &&
+    !analyticsDeletion &&
+    !processingCancellation &&
+    !transcriptScrub &&
+    !audioScrub
+  ) {
+    return null;
+  }
   return {
     longitudinalDeletion,
-    voiceScrub,
+    personalizationDeletion,
+    analyticsDeletion,
+    processingCancellation,
+    transcriptScrub,
+    audioScrub,
     requestedAt: new Date().toISOString(),
     requestId: createRequestId(),
   };
@@ -183,11 +246,36 @@ async function executeCleanup(intent: HaruPrivacyCleanupIntent): Promise<void> {
     results.push(runBooleanCleanup(clearMemoryCards));
   }
 
-  if (intent.voiceScrub) {
+  if (intent.personalizationDeletion) {
+    results.push(runBooleanCleanup(clearHaruRagOutbox));
+    results.push(
+      runBooleanCleanup(() => enqueueHaruRagUserDeletion(HARU_ADMIN_USER_ID)),
+    );
+  }
+
+  if (intent.analyticsDeletion) {
+    results.push(await runAsyncCleanup(clearHaruTelemetry));
+  }
+
+  if (intent.transcriptScrub && intent.audioScrub) {
     results.push(await runAsyncCleanup(scrubHaruAdminVoiceData));
+  } else if (intent.transcriptScrub) {
+    results.push(await runAsyncCleanup(scrubHaruAdminTranscriptData));
+  } else if (intent.audioScrub) {
+    results.push(await runAsyncCleanup(scrubHaruAdminAudioData));
+  }
+
+  if (intent.transcriptScrub) {
     results.push(runBooleanCleanup(scrubHaruDemoVoiceData));
     results.push(runBooleanCleanup(scrubCognitiveVoiceData));
     results.push(runBooleanCleanup(scrubMemoryVoiceData));
+  }
+
+  if (
+    intent.processingCancellation ||
+    intent.transcriptScrub ||
+    intent.audioScrub
+  ) {
     results.push(await runAsyncCleanup(clearSttJobQueue));
     results.push(runBooleanCleanup(clearHaruSttRetryOutbox));
   }
@@ -236,10 +324,14 @@ function desiredPermissions(
   update: Partial<HaruConsentPermissions>,
 ): HaruConsentPermissions {
   const desired: HaruConsentPermissions = {
+    usageAnalytics: current.usageAnalytics,
     voiceRecording: current.voiceRecording,
     sttProcessing: current.sttProcessing,
+    transcriptStorage: current.transcriptStorage,
+    audioStorage: current.audioStorage,
     longitudinalUsageStorage: current.longitudinalUsageStorage,
     personalizedQuestionUse: current.personalizedQuestionUse,
+    familySharing: current.familySharing,
   };
   for (const key of PERMISSION_KEYS) {
     if (typeof update[key] === "boolean") desired[key] = update[key];
@@ -278,7 +370,11 @@ async function applyConsentChangeInternal(
   }
 
   const current = getHaruConsent();
-  if (!current.longitudinalUsageStorage && desired.longitudinalUsageStorage) {
+  if (
+    desired.longitudinalUsageStorage &&
+    desired.personalizedQuestionUse &&
+    (!current.longitudinalUsageStorage || !current.personalizedQuestionUse)
+  ) {
     if (!authorizeHaruRagReenrollment(HARU_ADMIN_USER_ID)) {
       throw new Error("haru-rag-reenrollment-write-failed");
     }
@@ -289,10 +385,15 @@ async function applyConsentChangeInternal(
     : current;
 
   const finalConsentNeedsSync =
-    !cleanupRequired || permissionsDiffer(cleanupConsent, desired);
+    current.longitudinalUsageStorage ||
+    !cleanupRequired ||
+    permissionsDiffer(cleanupConsent, desired);
   if (finalConsentNeedsSync && !refreshHaruAdminUsageConsent()) {
     throw new Error("haru-admin-consent-sync-failed");
   }
+  void submitHaruConsentReceipt(next, {
+    market: getRuntimeMarketConfig().market,
+  });
   return next;
 }
 

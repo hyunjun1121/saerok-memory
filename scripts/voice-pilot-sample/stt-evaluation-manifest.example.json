@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "haru-local-stt-evaluation-manifest-v1",
+  "consentConfirmed": false,
+  "purpose": "local_product_usability_evaluation",
+  "clips": [
+    {
+      "clipId": "replace-with-pseudonymous-clip-id",
+      "audioPath": "audio/replace-with-consented-local-clip.wav",
+      "locale": "ko-KR",
+      "referenceTranscript": "replace with human reference transcript after consent",
+      "semanticSlots": [
+        {
+          "slotId": "activity",
+          "expectedValues": [
+            "replace-with-expected-activity-expression"
+          ]
+        }
+      ]
+    }
+  ]
+}

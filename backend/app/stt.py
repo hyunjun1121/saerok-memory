@@ -1,4 +1,4 @@
-"""Qwen3-ASR transformers engine for final Korean transcription.
+"""Qwen3-ASR transformers engine for request-scoped transcription.
 
 One model and one forced aligner stay resident on the local RTX 3090.  Input
 audio is final, conditioned 16 kHz mono PCM; Qwen word timestamps are mapped to
@@ -27,6 +27,26 @@ log = logging.getLogger("haru.stt")
 ENGINE_NAME = "qwen3-asr"
 PREPROCESSING_VERSION = "haru-dc-hp80-rms-v2"
 _WARMUP_SAMPLES = TARGET_SAMPLE_RATE
+
+SUPPORTED_LANGUAGES = {
+    "ko-KR": ("Korean", "ko-KR"),
+    "ja-JP": ("Japanese", "ja-JP"),
+    "en-US": ("English", "en-US"),
+}
+
+
+def resolve_language(
+    language_locale: str | None,
+    *,
+    default_qwen_language: str,
+    default_output_language: str,
+) -> tuple[str, str]:
+    if language_locale is None:
+        return default_qwen_language, default_output_language
+    try:
+        return SUPPORTED_LANGUAGES[language_locale]
+    except KeyError as exc:
+        raise ValueError("unsupported_language") from exc
 
 
 def _require_checkpoint(path: Path, label: str, expected_revision: str) -> None:
@@ -122,29 +142,37 @@ class STTEngine:
             log.error("warm-up transcribe failed; marking not ready: %s", exc)
             self._model = None
 
-    def transcribe_bytes(self, data: bytes) -> dict[str, Any]:
+    def transcribe_bytes(
+        self, data: bytes, *, language_locale: str | None = None
+    ) -> dict[str, Any]:
         audio = decode_audio(
             data,
             max_duration_seconds=self.settings.max_audio_duration_seconds,
         )
-        return self._transcribe(audio)
+        return self._transcribe(audio, language_locale=language_locale)
 
     def _transcribe(
         self,
         audio: np.ndarray,
         *,
+        language_locale: str | None = None,
         bypass_no_speech_detection: bool = False,
     ) -> dict[str, Any]:
         if self._model is None:
             raise RuntimeError("model_not_loaded")
 
         s = self.settings
+        qwen_language, output_language = resolve_language(
+            language_locale,
+            default_qwen_language=s.language,
+            default_output_language=s.output_language,
+        )
         audio_duration = round(duration_seconds(audio), 3)
         if not bypass_no_speech_detection and not has_speech_activity(audio):
             return {
                 "text": "",
                 "noSpeech": True,
-                "language": s.output_language,
+                "language": output_language,
                 "durationSec": audio_duration,
                 "confidence": None,
                 "segments": [],
@@ -159,7 +187,7 @@ class STTEngine:
         with self._inference_lock:
             results = self._model.transcribe(
                 audio=(audio, TARGET_SAMPLE_RATE),
-                language=s.language,
+                language=qwen_language,
                 return_time_stamps=s.return_timestamps,
             )
         if not isinstance(results, list) or len(results) != 1:
@@ -186,7 +214,7 @@ class STTEngine:
         return {
             "text": text,
             "noSpeech": False,
-            "language": s.output_language,
+            "language": output_language,
             "durationSec": audio_duration,
             "confidence": None,
             "segments": segments,

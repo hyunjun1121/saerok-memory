@@ -5,7 +5,7 @@ export interface VoiceWaveformProps {
   active: boolean;
   barCount?: number;
   className?: string;
-  /** Tailwind background class for the bars (default brand color). */
+  /** Optional Tailwind background override for every bar. */
   barClassName?: string;
   ariaLabel?: string;
 }
@@ -19,10 +19,12 @@ export function VoiceWaveform({
   active,
   barCount = 24,
   className,
-  barClassName = "bg-primary-500",
+  barClassName,
   ariaLabel,
 }: VoiceWaveformProps) {
   const bars = levels.length > 0 ? levels : Array.from({ length: barCount }, () => 0);
+  const resolvedBarClassName =
+    barClassName ?? (active ? "bg-red-500" : "bg-primary-500");
 
   return (
     <div
@@ -35,7 +37,7 @@ export function VoiceWaveform({
         return (
           <span
             key={index}
-            className={twMerge("w-2.5 rounded-full", barClassName)}
+            className={twMerge("w-2.5 rounded-full", resolvedBarClassName)}
             style={{
               height: `${height}px`,
               transformOrigin: "bottom",

@@ -30,7 +30,93 @@ const localized = (ko: string, ja: string, en: string): CompleteLocalizedText =>
   en,
 });
 
-const personalValue = (value: string): LocalizedText => localized(value, value, value);
+function koreanParticle(
+  value: string,
+  consonantForm: string,
+  vowelForm: string,
+): string {
+  const lastCharacter = Array.from(value.trim()).at(-1);
+  if (!lastCharacter) return vowelForm;
+
+  const codePoint = lastCharacter.codePointAt(0) ?? 0;
+  if (codePoint >= 0xac00 && codePoint <= 0xd7a3) {
+    return (codePoint - 0xac00) % 28 === 0 ? vowelForm : consonantForm;
+  }
+
+  if (/\d/u.test(lastCharacter)) {
+    return "013678".includes(lastCharacter) ? consonantForm : vowelForm;
+  }
+
+  return vowelForm;
+}
+
+const CANONICAL_FACT_LOCALIZATIONS = {
+  유성시장: localized("유성시장", "儒城市場", "Yuseong Market"),
+  애호박: localized("애호박", "韓国かぼちゃ", "Korean zucchini"),
+  대파: localized("대파", "長ねぎ", "Green onions"),
+  "딸 김민지": localized("딸 김민지", "娘のキム・ミンジ", "Daughter Kim Min-ji"),
+  복지관: localized("복지관", "福祉館", "Community center"),
+  "친구 이순자": localized(
+    "친구 이순자",
+    "友人のイ・スンジャ",
+    "Friend Lee Soon-ja",
+  ),
+  윷놀이: localized("윷놀이", "ユンノリ", "Yut"),
+  "유성구 보건소": localized(
+    "유성구 보건소",
+    "儒城区保健所",
+    "Yuseong-gu Public Health Center",
+  ),
+  "혈압 측정": localized("혈압 측정", "血圧測定", "Blood pressure check"),
+  "조금 피곤함": localized("조금 피곤함", "少し疲れている", "A little tired"),
+  편안함: localized("편안함", "穏やか", "At ease"),
+  보리차: localized("보리차", "麦茶", "Barley tea"),
+  "몸이 가벼워짐": localized(
+    "몸이 가벼워짐",
+    "体が軽くなった",
+    "Body felt lighter",
+  ),
+  "손자 김준호": localized(
+    "손자 김준호",
+    "孫のキム・ジュノ",
+    "Grandson Kim Jun-ho",
+  ),
+  김치전: localized("김치전", "キムチチヂミ", "Kimchi pancakes"),
+  반가움: localized("반가움", "うれしかった", "Happy to see them"),
+  빵집: localized("빵집", "パン屋", "Bakery"),
+  단팥빵: localized("단팥빵", "あんパン", "Red-bean buns"),
+  "2개": localized("2개", "2個", "Two"),
+  "오후에 집에서 휴식": localized(
+    "오후에 집에서 휴식",
+    "午後は家で休んだ",
+    "Rested at home in the afternoon",
+  ),
+  가게: localized("가게", "店", "Shop"),
+} satisfies Record<string, CompleteLocalizedText>;
+
+type CanonicalFactValue = keyof typeof CANONICAL_FACT_LOCALIZATIONS;
+
+function localizedFactValue(value: string): CompleteLocalizedText {
+  const canonical =
+    CANONICAL_FACT_LOCALIZATIONS[value as CanonicalFactValue];
+  if (canonical) return canonical;
+
+  const koreanQuantity = value.match(/^(\d+)개$/u)?.[1];
+  if (koreanQuantity) {
+    return localized(value, `${koreanQuantity}個`, koreanQuantity);
+  }
+
+  return localized(value, value, value);
+}
+
+function joinLocalizedFacts(values: readonly string[]): CompleteLocalizedText {
+  const localizedValues = values.map(localizedFactValue);
+  return localized(
+    localizedValues.map((value) => value.ko).join(" · "),
+    localizedValues.map((value) => value.ja).join("・"),
+    localizedValues.map((value) => value.en).join(" · "),
+  );
+}
 
 const baseExerciseById = new Map(
   haru7DayExercises.map((exercise) => [exercise.id, exercise] as const),
@@ -225,18 +311,20 @@ function dynamicFromVoice(
       const place = firstFact(facts, "장소");
       const item = firstFact(facts, "구매물품");
       if (!place || !item) return undefined;
+      const placeValue = localizedFactValue(place);
+      const itemValue = localizedFactValue(item);
       return cloneChoice(
         exercise,
         localized(
-          `어제 ${place}에서 샀다고 말씀하신 것 중 하나는 무엇인가요?`,
-          `昨日、${place}で買ったと話したものの一つは何ですか。`,
-          `What is one thing you said you bought at ${place} yesterday?`,
+          `어제 ${placeValue.ko}에서 샀다고 말씀하신 것 중 하나는 무엇인가요?`,
+          `昨日、${placeValue.ja}で買ったと話したものの一つは何ですか。`,
+          `What is one thing you said you bought at ${placeValue.en} yesterday?`,
         ),
-        personalValue(item),
+        itemValue,
         localized(
-          `맞아요. ${item}이라고 말씀하셨어요.`,
-          `そうです。${item}と話していました。`,
-          `That's right. You mentioned ${item}.`,
+          `맞아요. ${itemValue.ko}${koreanParticle(itemValue.ko, "이라고", "라고")} 말씀하셨어요.`,
+          `そうです。${itemValue.ja}と話していました。`,
+          `That's right. You mentioned ${itemValue.en}.`,
         ),
       );
     }
@@ -252,18 +340,21 @@ function dynamicFromVoice(
       const person = firstFact(facts, "인물");
       const activity = firstFact(facts, "활동");
       if (!place || !person || !activity) return undefined;
+      const placeValue = localizedFactValue(place);
+      const personValue = localizedFactValue(person);
+      const activityValue = localizedFactValue(activity);
       return cloneChoice(
         exercise,
         localized(
-          `어제 ${place}에서 ${activity}을 함께한 사람은 누구인가요?`,
-          `昨日、${place}で${activity}を一緒にした人は誰ですか。`,
-          `Who joined you for ${activity} at ${place} yesterday?`,
+          `어제 ${placeValue.ko}에서 ${activityValue.ko}${koreanParticle(activityValue.ko, "을", "를")} 함께한 사람은 누구인가요?`,
+          `昨日、${placeValue.ja}で${activityValue.ja}を一緒にした人は誰ですか。`,
+          `Who joined you for ${activityValue.en} at ${placeValue.en} yesterday?`,
         ),
-        personalValue(person),
+        personValue,
         localized(
-          `맞아요. ${person}와 함께했다고 말씀하셨어요.`,
-          `そうです。${person}と一緒だったと話していました。`,
-          `That's right. You said you were with ${person}.`,
+          `맞아요. ${personValue.ko}${koreanParticle(personValue.ko, "과", "와")} 함께했다고 말씀하셨어요.`,
+          `そうです。${personValue.ja}と一緒だったと話していました。`,
+          `That's right. You said you were with ${personValue.en}.`,
         ),
       );
     }
@@ -277,16 +368,21 @@ function dynamicFromVoice(
       const body = firstFact(facts, "신체상태");
       const emotion = firstFact(facts, "감정");
       if (!body && !emotion) return undefined;
-      const koContext = [body && `몸은 ${body}`, emotion && `마음은 ${emotion}`]
+      const bodyValue = body ? localizedFactValue(body) : undefined;
+      const emotionValue = emotion ? localizedFactValue(emotion) : undefined;
+      const koContext = [
+        bodyValue && `몸은 ${bodyValue.ko}`,
+        emotionValue && `마음은 ${emotionValue.ko}`,
+      ]
         .filter(Boolean)
         .join(", ");
-      const context = body ?? emotion ?? "";
+      const contextValue = bodyValue ?? emotionValue ?? localized("", "", "");
       return cloneWithPrompt(
         exercise,
         localized(
-          `어제 ${koContext}이라고 말씀하셨어요. 오늘 기분은 어떠세요?`,
-          `昨日は「${context}」と話していました。今日の気分はいかがですか。`,
-          `Yesterday you described yourself as “${context}.” How do you feel today?`,
+          `어제 ${koContext}${koreanParticle(koContext, "이라고", "라고")} 말씀하셨어요. 오늘 기분은 어떠세요?`,
+          `昨日は「${contextValue.ja}」と話していました。今日の気分はいかがですか。`,
+          `Yesterday you described yourself as “${contextValue.en}.” How do you feel today?`,
         ),
       );
     }
@@ -300,18 +396,20 @@ function dynamicFromVoice(
       const place = firstFact(facts, "장소");
       const activity = firstFact(facts, "활동");
       if (!place || !activity) return undefined;
+      const placeValue = localizedFactValue(place);
+      const activityValue = localizedFactValue(activity);
       return cloneChoice(
         exercise,
         localized(
-          `어제 ${activity}을 한 곳은 어디인가요?`,
-          `昨日、${activity}をした場所はどこですか。`,
-          `Where did you do “${activity}” yesterday?`,
+          `어제 ${activityValue.ko}${koreanParticle(activityValue.ko, "을", "를")} 한 곳은 어디인가요?`,
+          `昨日、${activityValue.ja}をした場所はどこですか。`,
+          `Where did you do “${activityValue.en}” yesterday?`,
         ),
-        personalValue(place),
+        placeValue,
         localized(
-          `맞아요. ${place}이라고 말씀하셨어요.`,
-          `そうです。${place}と話していました。`,
-          `That's right. You mentioned ${place}.`,
+          `맞아요. ${placeValue.ko}${koreanParticle(placeValue.ko, "이라고", "라고")} 말씀하셨어요.`,
+          `そうです。${placeValue.ja}と話していました。`,
+          `That's right. You mentioned ${placeValue.en}.`,
         ),
       );
     }
@@ -319,12 +417,13 @@ function dynamicFromVoice(
       if (containsFacts(facts, [["신체상태", "몸이 가벼워짐"]])) return exercise;
       const body = firstFact(facts, "신체상태");
       if (!body) return undefined;
+      const bodyValue = localizedFactValue(body);
       return cloneWithPrompt(
         exercise,
         localized(
-          `어제 몸 상태를 "${body}"이라고 알려주셨어요. 오늘 기분은 어떠세요?`,
-          `昨日の体調は「${body}」と話していました。今日の気分はいかがですか。`,
-          `Yesterday you described your body as “${body}.” How do you feel today?`,
+          `어제 몸 상태를 "${bodyValue.ko}"${koreanParticle(bodyValue.ko, "이라고", "라고")} 알려주셨어요. 오늘 기분은 어떠세요?`,
+          `昨日の体調は「${bodyValue.ja}」と話していました。今日の気分はいかがですか。`,
+          `Yesterday you described your body as “${bodyValue.en}.” How do you feel today?`,
         ),
       );
     }
@@ -332,6 +431,7 @@ function dynamicFromVoice(
       if (containsFacts(facts, [["음료", "보리차"]])) return exercise;
       const drink = firstFact(facts, "음료");
       if (!drink) return undefined;
+      const drinkValue = localizedFactValue(drink);
       return cloneChoice(
         exercise,
         localized(
@@ -339,11 +439,11 @@ function dynamicFromVoice(
           "昨日、活動を終えてから飲んだものは何ですか。",
           "What did you drink after yesterday's activity?",
         ),
-        personalValue(drink),
+        drinkValue,
         localized(
-          `맞아요. ${drink}을 마셨다고 말씀하셨어요.`,
-          `そうです。${drink}を飲んだと話していました。`,
-          `That's right. You said you drank ${drink}.`,
+          `맞아요. ${drinkValue.ko}${koreanParticle(drinkValue.ko, "을", "를")} 마셨다고 말씀하셨어요.`,
+          `そうです。${drinkValue.ja}を飲んだと話していました。`,
+          `That's right. You said you drank ${drinkValue.en}.`,
         ),
       );
     }
@@ -351,12 +451,13 @@ function dynamicFromVoice(
       if (containsFacts(facts, [["감정", "반가움"]])) return exercise;
       const emotion = firstFact(facts, "감정");
       if (!emotion) return undefined;
+      const emotionValue = localizedFactValue(emotion);
       return cloneWithPrompt(
         exercise,
         localized(
-          `어제 기분을 "${emotion}"이라고 알려주셨어요. 오늘 기분은 어떠세요?`,
-          `昨日の気分は「${emotion}」と話していました。今日の気分はいかがですか。`,
-          `Yesterday you described your mood as “${emotion}.” How do you feel today?`,
+          `어제 기분을 "${emotionValue.ko}"${koreanParticle(emotionValue.ko, "이라고", "라고")} 알려주셨어요. 오늘 기분은 어떠세요?`,
+          `昨日の気分は「${emotionValue.ja}」と話していました。今日の気分はいかがですか。`,
+          `Yesterday you described your mood as “${emotionValue.en}.” How do you feel today?`,
         ),
       );
     }
@@ -371,19 +472,20 @@ function dynamicFromVoice(
       const people = factValues(facts, "인물");
       const food = firstFact(facts, "음식");
       if (people.length === 0 || !food) return undefined;
-      const peopleLabel = people.join(" · ");
+      const peopleLabel = joinLocalizedFacts(people);
+      const foodValue = localizedFactValue(food);
       return cloneChoice(
         exercise,
         localized(
-          `어제 ${food}을 함께 먹은 사람은 누구였나요?`,
-          `昨日、${food}を一緒に食べた人は誰ですか。`,
-          `Who ate ${food} with you yesterday?`,
+          `어제 ${foodValue.ko}${koreanParticle(foodValue.ko, "을", "를")} 함께 먹은 사람은 누구였나요?`,
+          `昨日、${foodValue.ja}を一緒に食べた人は誰ですか。`,
+          `Who ate ${foodValue.en} with you yesterday?`,
         ),
-        personalValue(peopleLabel),
+        peopleLabel,
         localized(
-          `맞아요. ${peopleLabel}와 함께했다고 말씀하셨어요.`,
-          `そうです。${peopleLabel}と一緒だったと話していました。`,
-          `That's right. You said you were with ${peopleLabel}.`,
+          `맞아요. ${peopleLabel.ko}${koreanParticle(peopleLabel.ko, "과", "와")} 함께했다고 말씀하셨어요.`,
+          `そうです。${peopleLabel.ja}と一緒だったと話していました。`,
+          `That's right. You said you were with ${peopleLabel.en}.`,
         ),
       );
     }
@@ -391,12 +493,13 @@ function dynamicFromVoice(
       if (containsFacts(facts, [["활동", "오후에 집에서 휴식"]])) return exercise;
       const activity = lastFact(facts, "활동");
       if (!activity) return undefined;
+      const activityValue = localizedFactValue(activity);
       return cloneWithPrompt(
         exercise,
         localized(
-          `어제 "${activity}"을 했다고 말씀하셨어요. 오늘 기분은 어떠세요?`,
-          `昨日は「${activity}」をしたと話していました。今日の気分はいかがですか。`,
-          `Yesterday you said you did “${activity}.” How do you feel today?`,
+          `어제 "${activityValue.ko}"${koreanParticle(activityValue.ko, "을", "를")} 했다고 말씀하셨어요. 오늘 기분은 어떠세요?`,
+          `昨日は「${activityValue.ja}」をしたと話していました。今日の気分はいかがですか。`,
+          `Yesterday you said you did “${activityValue.en}.” How do you feel today?`,
         ),
       );
     }
@@ -411,19 +514,26 @@ function dynamicFromVoice(
       const quantity = firstFact(facts, "수량");
       const place = factValues(facts, "장소").at(-1) ?? "가게";
       if (!item || !quantity) return undefined;
-      const answer = `${item} ${quantity}`;
+      const itemValue = localizedFactValue(item);
+      const quantityValue = localizedFactValue(quantity);
+      const placeValue = localizedFactValue(place);
+      const answer = localized(
+        `${itemValue.ko} ${quantityValue.ko}`,
+        `${itemValue.ja}${quantityValue.ja}`,
+        `${quantityValue.en} ${itemValue.en}`,
+      );
       return cloneChoice(
         exercise,
         localized(
-          `어제 ${place}에서 산 것은 무엇인가요?`,
-          `昨日、${place}で買ったものは何ですか。`,
-          `What did you buy at ${place} yesterday?`,
+          `어제 ${placeValue.ko}에서 산 것은 무엇인가요?`,
+          `昨日、${placeValue.ja}で買ったものは何ですか。`,
+          `What did you buy at ${placeValue.en} yesterday?`,
         ),
-        personalValue(answer),
+        answer,
         localized(
-          `맞아요. ${answer}라고 말씀하셨어요.`,
-          `そうです。${answer}と話していました。`,
-          `That's right. You mentioned ${answer}.`,
+          `맞아요. ${answer.ko}${koreanParticle(answer.ko, "이라고", "라고")} 말씀하셨어요.`,
+          `そうです。${answer.ja}と話していました。`,
+          `That's right. You mentioned ${answer.en}.`,
         ),
       );
     }
@@ -438,19 +548,20 @@ function dynamicFromVoice(
       const people = factValues(facts, "인물");
       const food = firstFact(facts, "음식");
       if (people.length === 0 || !food) return undefined;
-      const peopleLabel = people.join(" · ");
+      const peopleLabel = joinLocalizedFacts(people);
+      const foodValue = localizedFactValue(food);
       return cloneChoice(
         exercise,
         localized(
-          `이번 주에 ${peopleLabel}와 함께 먹은 음식은 무엇인가요?`,
-          `今週、${peopleLabel}と一緒に食べたものは何ですか。`,
-          `What did you eat with ${peopleLabel} this week?`,
+          `이번 주에 ${peopleLabel.ko}${koreanParticle(peopleLabel.ko, "과", "와")} 함께 먹은 음식은 무엇인가요?`,
+          `今週、${peopleLabel.ja}と一緒に食べたものは何ですか。`,
+          `What did you eat with ${peopleLabel.en} this week?`,
         ),
-        personalValue(food),
+        foodValue,
         localized(
-          `맞아요. ${food}을 함께 먹었다고 말씀하셨어요.`,
-          `そうです。${food}を一緒に食べたと話していました。`,
-          `That's right. You said you ate ${food} together.`,
+          `맞아요. ${foodValue.ko}${koreanParticle(foodValue.ko, "을", "를")} 함께 먹었다고 말씀하셨어요.`,
+          `そうです。${foodValue.ja}を一緒に食べたと話していました。`,
+          `That's right. You said you ate ${foodValue.en} together.`,
         ),
       );
     }
@@ -464,13 +575,14 @@ function dynamicFromVoice(
       const item = firstFact(facts, "구매물품");
       const count = parseCount(firstFact(facts, "수량"));
       if (!item || count === undefined || count < 1) return undefined;
+      const itemValue = localizedFactValue(item);
       const remaining = count - 1;
       const values = [Math.max(0, remaining - 1), remaining, remaining + 1, remaining + 2];
       const optionIds = ["A", "B", "C", "D"];
       const prompt = localized(
-        `어제 산 ${item} ${count}개 중 오늘 1개를 먹으면 몇 개가 남을까요?`,
-        `昨日買った${item}${count}個のうち、今日1個食べると何個残りますか。`,
-        `If you eat one of the ${count} ${item} you bought yesterday, how many remain?`,
+        `어제 산 ${itemValue.ko} ${count}개 중 오늘 1개를 먹으면 몇 개가 남을까요?`,
+        `昨日買った${itemValue.ja}${count}個のうち、今日1個食べると何個残りますか。`,
+        `If you eat one of the ${count} ${itemValue.en} you bought yesterday, how many remain?`,
       );
       return {
         ...exercise,

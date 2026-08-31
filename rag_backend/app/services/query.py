@@ -6,6 +6,7 @@ from collections import defaultdict
 from sqlalchemy import select
 
 from app.core.database import SessionLocal
+from app.core.market import context_from_user_profile
 from app.core.models import (
     CanonicalSnapshot,
     Entity,
@@ -131,6 +132,9 @@ def galaxy(
     top_k: int = 3,
 ) -> dict[str, list[dict]]:
     with SessionLocal() as db:
+        user = db.get(User, user_id)
+        context = context_from_user_profile(user.profile if user is not None else None)
+        profile_label = "初回プロフィール" if context.market == "jp" else "초기 프로필"
         episodes = list(
             db.scalars(
                 select(Episode)
@@ -152,7 +156,11 @@ def galaxy(
             nodes.append(
                 {
                     "id": episode.id,
-                    "label": episode.occurred_at if episode.response_type != "profile" else "초기 프로필",
+                    "label": (
+                        episode.occurred_at
+                        if episode.response_type != "profile"
+                        else profile_label
+                    ),
                     "type": "Episode",
                     "response_type": episode.response_type,
                     "date": episode.occurred_at,

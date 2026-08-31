@@ -48,6 +48,18 @@ Neo4j는 사용자별 SQLite snapshot에서 교체 가능한 derived mirror입�
 - dataset period, session date, question target date는 ISO 날짜로 검증됩니다.
 - 사용자 데이터 파괴는 명시적 DELETE에만 허용됩니다.
 
+## Market and locale isolation
+
+- `haru_kiosk_usage_record` 2.0.0은 `dataset`과 `user`에 동일한 `market`과
+  `ui_locale`/`locale`을 요구합니다.
+- 허용 context는 `kr`/`ko-KR`, `jp`/`ja-JP`입니다. 1.0.0 legacy record만
+  `kr`/`ko-KR` 기본값을 사용합니다.
+- 사용자 최초 ingest context는 profile에 고정됩니다. 같은 `user_id`를 다른 시장으로
+  ingest하거나 다른 시장 context로 QA·문항 생성을 요청하면 409로 거부합니다.
+- 일본 시장의 evidence label, QA copy, recall template, filler는 일본어로 생성합니다.
+  자동 문항 후보에서 한글, 원화 표기, 알려진 한국 demo 항목을 제외합니다.
+- 서비스는 계속 local token 보호를 받는 로컬 프로세스이며 Vercel 배포 대상이 아닙니다.
+
 ## Deletion
 
 `DELETE /api/users/{user_id}`:

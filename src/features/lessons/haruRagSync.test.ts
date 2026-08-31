@@ -72,6 +72,49 @@ function addVoiceQuestion(record: ReturnType<typeof currentRecord>): void {
   enqueueHaruRagRecord(record);
 }
 
+function addStoredVoiceResponse(record: ReturnType<typeof currentRecord>): void {
+  addVoiceQuestion(record);
+  record.sessions[0].question_records[0].response = {
+    response_id: "RES-VOICE",
+    input_mode: "voice",
+    recording_started_at: "2026-07-20T01:00:00.000Z",
+    recording_ended_at: "2026-07-20T01:00:02.000Z",
+    audio_duration_seconds: 2,
+    audio_storage: {
+      object_key: "private/USR-000001/voice.webm",
+      mime_type: "audio/webm",
+      sample_rate_hz: 48_000,
+      channels: 1,
+      retention_status: "stored",
+    },
+    raw_user_utterance_transcript: "今日は散歩しました",
+    stt: {
+      engine: "qwen",
+      status: "completed",
+      no_speech: false,
+      transcript: "今日は散歩しました",
+      language: "ja-JP",
+      confidence: 0.95,
+      processed_at: "2026-07-20T01:00:03.000Z",
+      model: "qwen",
+      model_revision: "test",
+      aligner_model: null,
+      aligner_revision: null,
+      preprocessing_version: "test",
+      segments: [{ id: 0, start: 0, end: 2, text: "今日は散歩しました" }],
+    },
+    user_correction: { was_corrected: false, corrected_transcript: null },
+    derived_annotations: {
+      status: "completed",
+      items: [{ entity_type: "activity", value: "散歩" }],
+      note: "test",
+    },
+    response_time_ms: 2_000,
+    is_valid: true,
+  };
+  enqueueHaruRagRecord(record);
+}
+
 describe("Haru RAG sync outbox", () => {
   beforeEach(() => {
     localStorage.clear();
@@ -164,6 +207,39 @@ describe("Haru RAG sync outbox", () => {
       "http://127.0.0.1:8000/api/users/USR-000001",
       expect.objectContaining({ method: "DELETE" }),
     );
+  });
+
+  it("deletes queued RAG material when personalization consent is false", () => {
+    const record = currentRecord();
+    updateHaruConsent({ personalizedQuestionUse: false });
+
+    expect(enqueueHaruRagRecord(record)).toBe(true);
+
+    expect(getHaruRagOutbox()).toEqual([]);
+    expect(getHaruRagDeletionOutbox()).toEqual([
+      expect.objectContaining({ userId: "USR-000001" }),
+    ]);
+  });
+
+  it("never includes a retained audio object locator in the RAG payload", () => {
+    const record = currentRecord();
+    addStoredVoiceResponse(record);
+
+    const payload = JSON.parse(getHaruRagOutbox()[0].payload) as typeof record;
+    const response = payload.sessions[0].question_records[0].response;
+    expect(response?.input_mode).toBe("voice");
+    if (!response || response.input_mode !== "voice") {
+      throw new Error("missing voice response");
+    }
+    expect(response.raw_user_utterance_transcript).toBe("今日は散歩しました");
+    expect(response.audio_storage).toEqual({
+      object_key: "",
+      mime_type: null,
+      sample_rate_hz: null,
+      channels: null,
+      retention_status: "not_stored",
+    });
+    expect(getHaruRagOutbox()[0].payload).not.toContain("private/USR-000001");
   });
 
   it("queues a voice-free partial snapshot after voice or STT withdrawal", () => {

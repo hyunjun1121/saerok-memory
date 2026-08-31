@@ -1,10 +1,11 @@
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Button3D } from "@/components/Button3D";
 import { getParticipant } from "@/app/connect/counselor/counselorData";
 import { useHaruDemoSessions } from "@/features/lessons/useHaruDemoSessions";
 import { getLocalizedText } from "@/utils/localizedText";
+import { captureHaruTelemetry } from "@/features/analytics/client";
 
 function Panel({ title, children }: { title: string; children: ReactNode }) {
   return (
@@ -21,6 +22,16 @@ export default function CounselorParticipantScreen() {
   const navigate = useNavigate();
   const sessions = useHaruDemoSessions();
   const participant = getParticipant(Number(id), sessions);
+  const participantId = participant?.id;
+
+  useEffect(() => {
+    if (participantId === undefined) return;
+    void captureHaruTelemetry("report_viewed", {
+      reportId: "counselor-participant-summary",
+      role: "counselor",
+      sectionId: "overview",
+    });
+  }, [participantId]);
 
   if (!participant) {
     return (

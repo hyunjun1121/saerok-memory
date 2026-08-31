@@ -175,7 +175,11 @@ describe('ExerciseRenderer', () => {
         />
       );
 
-      expect(await screen.findByText('早い朝、ご近所さんに声をかけるのに良い言葉はどれでしょう?')).toBeInTheDocument();
+      expect(
+        await screen.findByText(
+          '朝、ご近所の方に声をかけるときに合う言葉はどれですか。',
+        ),
+      ).toBeInTheDocument();
       expect(screen.getByText('おはようございます')).toBeInTheDocument();
       expect(screen.queryByText(/고진감래/)).not.toBeInTheDocument();
     } finally {

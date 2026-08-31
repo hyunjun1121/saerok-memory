@@ -798,11 +798,13 @@ function advanceTargetEpoch(kind: SttJobTargetKind): boolean {
   );
 }
 
-function hasSpeechConsent(): boolean {
+function hasDeferredSttConsent(): boolean {
   const consent = getHaruConsent();
   return (
     consent.voiceRecording &&
     consent.sttProcessing &&
+    consent.transcriptStorage &&
+    consent.audioStorage &&
     consent.longitudinalUsageStorage
   );
 }
@@ -1067,7 +1069,7 @@ export async function enqueueSttJob(
     !(blob instanceof Blob) ||
     blob.size <= 0 ||
     !normalizedTarget ||
-    !hasSpeechConsent() ||
+    !hasDeferredSttConsent() ||
     sttEnqueueIsBlocked(normalizedTarget.kind)
   ) {
     return null;
@@ -1097,7 +1099,7 @@ export async function enqueueSttJob(
   if (
     sttEnqueueIsBlocked(normalizedTarget.kind) ||
     enqueueEpoch !== currentQueueEpoch(normalizedTarget.kind) ||
-    !hasSpeechConsent()
+    !hasDeferredSttConsent()
   ) {
     removeOwnedEnqueueIntent(markerKey, intent);
     return null;
@@ -1136,7 +1138,7 @@ export async function enqueueSttJob(
     intent = storedIntent;
     if (
       enqueueEpoch !== currentQueueEpoch(normalizedTarget.kind) ||
-      !hasSpeechConsent() ||
+      !hasDeferredSttConsent() ||
       sttEnqueueIsBlocked(normalizedTarget.kind)
     ) {
       await cleanupEnqueueIntentAudio(markerKey, intent, deleteAudio);
@@ -1169,7 +1171,7 @@ export async function enqueueSttJob(
     if (
       enqueueEpoch !== currentQueueEpoch(normalizedTarget.kind) ||
       sttEnqueueIsBlocked(normalizedTarget.kind) ||
-      !hasSpeechConsent()
+      !hasDeferredSttConsent()
     ) {
       removeCurrentEntry(entry);
       await cleanupEnqueueIntentAudio(markerKey, intent, deleteAudio);
@@ -1190,7 +1192,7 @@ async function flushInternal(options: FlushSttJobQueueOptions): Promise<void> {
   const readAudio = options.readAudioImpl ?? readHaruAdminAudio;
   const deleteAudio = options.deleteAudioImpl ?? deleteHaruAdminAudio;
   const transcribe = options.transcribeImpl ?? transcribeStory;
-  if (!hasSpeechConsent()) {
+  if (!hasDeferredSttConsent()) {
     await clearSttJobQueue({ deleteAudioImpl: deleteAudio });
     return;
   }
@@ -1206,7 +1208,7 @@ async function flushInternal(options: FlushSttJobQueueOptions): Promise<void> {
   }
 
   for (const snapshotEntry of parsed.entries) {
-    if (!hasSpeechConsent()) {
+    if (!hasDeferredSttConsent()) {
       await clearSttJobQueue({ deleteAudioImpl: deleteAudio });
       return;
     }
@@ -1236,7 +1238,7 @@ async function flushInternal(options: FlushSttJobQueueOptions): Promise<void> {
       removeCurrentEntry(entry);
       continue;
     }
-    if (!hasSpeechConsent()) {
+    if (!hasDeferredSttConsent()) {
       await clearSttJobQueue({ deleteAudioImpl: deleteAudio });
       return;
     }
@@ -1251,7 +1253,7 @@ async function flushInternal(options: FlushSttJobQueueOptions): Promise<void> {
     } finally {
       activeTranscriptions.delete(controller);
     }
-    if (!hasSpeechConsent()) {
+    if (!hasDeferredSttConsent()) {
       await clearSttJobQueue({ deleteAudioImpl: deleteAudio });
       return;
     }
@@ -1523,6 +1525,8 @@ export function startSttJobQueue(
     if (
       !consent.voiceRecording ||
       !consent.sttProcessing ||
+      !consent.transcriptStorage ||
+      !consent.audioStorage ||
       !consent.longitudinalUsageStorage
     ) {
       void clearSttJobQueue({ deleteAudioImpl: overrides.deleteAudioImpl });

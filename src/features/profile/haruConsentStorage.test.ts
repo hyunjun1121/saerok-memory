@@ -8,22 +8,30 @@ import {
 } from "@/features/profile/haruConsentStorage";
 
 const DEFAULT_CONSENT = {
+  usageAnalytics: true,
   voiceRecording: HARU_DEMO_PERSONA.consents.voiceRecording,
   sttProcessing: HARU_DEMO_PERSONA.consents.sttProcessing,
+  transcriptStorage: true,
+  audioStorage: true,
   longitudinalUsageStorage:
     HARU_DEMO_PERSONA.consents.longitudinalUsageStorage,
   personalizedQuestionUse:
     HARU_DEMO_PERSONA.consents.personalizedQuestionUse,
+  familySharing: true,
   consentedAt: HARU_DEMO_PERSONA.consents.consentedAt,
   updatedAt: HARU_DEMO_PERSONA.consents.consentedAt,
 };
 
 const FAIL_CLOSED_CONSENT = {
   ...DEFAULT_CONSENT,
+  usageAnalytics: false,
   voiceRecording: false,
   sttProcessing: false,
+  transcriptStorage: false,
+  audioStorage: false,
   longitudinalUsageStorage: false,
   personalizedQuestionUse: false,
+  familySharing: false,
 };
 
 describe("haruConsentStorage", () => {
@@ -34,6 +42,47 @@ describe("haruConsentStorage", () => {
 
   afterEach(() => {
     vi.restoreAllMocks();
+    vi.unstubAllEnvs();
+  });
+
+  it("starts every real-user permission denied until explicit consent", () => {
+    vi.stubEnv("VITE_DEMO_MODE", "0");
+
+    expect(getHaruConsent()).toEqual(
+      expect.objectContaining({
+        usageAnalytics: false,
+        voiceRecording: false,
+        sttProcessing: false,
+        transcriptStorage: false,
+        audioStorage: false,
+        longitudinalUsageStorage: false,
+        personalizedQuestionUse: false,
+        familySharing: false,
+      }),
+    );
+  });
+
+  it("migrates a valid legacy consent record with new permissions denied", () => {
+    window.localStorage.setItem(
+      HARU_CONSENT_STORAGE_KEY,
+      JSON.stringify({
+        voiceRecording: true,
+        sttProcessing: true,
+        longitudinalUsageStorage: true,
+        personalizedQuestionUse: true,
+        consentedAt: "2026-07-19T05:00:00.000Z",
+        updatedAt: "2026-07-19T05:00:00.000Z",
+      }),
+    );
+
+    expect(getHaruConsent()).toEqual(
+      expect.objectContaining({
+        usageAnalytics: false,
+        transcriptStorage: false,
+        audioStorage: false,
+        familySharing: false,
+      }),
+    );
   });
 
   it("uses persona consent as runtime defaults without persisting a read", () => {

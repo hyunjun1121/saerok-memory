@@ -36,6 +36,20 @@ describe("buildDailySessionExercises", () => {
     ]);
   });
 
+  it("selects Japanese authored dates in Tokyo without exposing the Korean week", () => {
+    const mondayInTokyo = new Date("2026-07-26T15:30:00.000Z");
+    const session = buildDailySessionExercises({
+      exercises: mockExercises,
+      market: "jp",
+      now: mondayInTokyo,
+    });
+
+    expect(getHaruDemoDay(mondayInTokyo, "jp")).toBe(1);
+    expect(session.map((exercise) => exercise.id)).toEqual([
+      ...HARU_WEEK_PLAN[0].exerciseIds,
+    ]);
+  });
+
   it("keeps the regular routine outside the fixed-date persona demo", () => {
     const beforeDemo = new Date("2026-07-17T03:00:00.000Z");
     const session = buildDailySessionExercises({

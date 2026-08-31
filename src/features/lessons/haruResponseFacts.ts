@@ -90,6 +90,95 @@ const QUESTION_RULES: Record<SupportedVoiceQuestionId, readonly FactRule[]> = {
   ],
 };
 
+const JAPANESE_QUESTION_RULES: Record<
+  SupportedVoiceQuestionId,
+  readonly FactRule[]
+> = {
+  D1_Q5: [
+    rule(/儒城\s*市場/, "장소", "儒城市場"),
+    rule(/韓国かぼちゃ/, "구매물품", "韓国かぼちゃ"),
+    rule(/長ねぎ/, "구매물품", "長ねぎ"),
+    rule(/娘の(?:キム・)?ミンジ/, "인물", "娘のキム・ミンジ"),
+    rule(
+      /テンジャンチゲ[^。.!?]*(?:作ろう|作る|作り)/,
+      "계획",
+      "テンジャンチゲ作り",
+    ),
+    rule(
+      /気分[^。.!?]*(?:良い|よい|良かった|よかった)/,
+      "감정",
+      "良い",
+    ),
+  ],
+  D2_Q6: [
+    rule(/福祉館/, "장소", "福祉館"),
+    rule(/友人の(?:イ・)?スンジャ/, "인물", "友人のイ・スンジャ"),
+    rule(/ユンノリ/, "활동", "ユンノリ"),
+    rule(/韓国式にゅうめん/, "음식", "韓国式にゅうめん"),
+    rule(
+      /(?:気分[^。.!?]*)?とても(?:良い|よい|良かった|よかった)/,
+      "감정",
+      "とても良い",
+    ),
+  ],
+  D3_Q6: [
+    rule(/儒城区\s*保健所/, "장소", "儒城区保健所"),
+    rule(/血圧[^。.!?]*(?:測り|測る|測定)/, "활동", "血圧測定"),
+    rule(
+      /薬[^。.!?]*(?:受け取り|受け取る|受領)/,
+      "활동",
+      "薬の受け取り",
+    ),
+    rule(/薬局/, "장소", "薬局"),
+    rule(/ビタミン/, "구매물품", "ビタミン"),
+    rule(/少し\s*疲れ/, "신체상태", "少し疲れている"),
+    rule(
+      /気持ち[^。.!?]*(?:落ち着いて|穏やか|安心)/,
+      "감정",
+      "落ち着いている",
+    ),
+  ],
+  D4_Q5: [
+    rule(/甲川の散歩道/, "장소", "甲川の散歩道"),
+    rule(/30\s*分[^。.!?]*(?:歩き|歩く|散歩)/, "활동", "30分の散歩"),
+    rule(/隣人の(?:チェ・)?ジョンヒ/, "인물", "隣人のチェ・ジョンヒ"),
+    rule(/麦茶/, "음료", "麦茶"),
+    rule(/体が\s*軽くな/, "신체상태", "体が軽くなった"),
+  ],
+  D5_Q6: [
+    rule(/娘の(?:キム・)?ミンジ/, "인물", "娘のキム・ミンジ"),
+    rule(/孫の(?:キム・)?ジュノ/, "인물", "孫のキム・ジュノ"),
+    rule(/(?:家|自宅)に(?:来ました|来た|訪問)/, "장소", "自宅"),
+    rule(/キムチチヂミ/, "음식", "キムチチヂミ"),
+    rule(/ジュノの学校(?:の)?話/, "대화주제", "ジュノの学校の話"),
+    rule(/(?:うれし|嬉し)/, "감정", "うれしい"),
+  ],
+  D6_Q6: [
+    rule(/近所の図書館/, "장소", "近所の図書館"),
+    rule(/健康講座[^。.!?]*(?:受け|受講)/, "활동", "健康講座の受講"),
+    rule(/パン屋/, "장소", "パン屋"),
+    rule(/あんパン/, "구매물품", "あんパン"),
+    rule(/(?:2|二)\s*個/, "수량", "2個"),
+    rule(
+      /午後[^。.!?]*(?:家|自宅)で(?:休み|休む|休ん)/,
+      "활동",
+      "午後に家で休む",
+    ),
+  ],
+  D7_Q6: [
+    rule(/植木鉢に\s*水を(?:やり|やる|あげ)/, "오늘 활동", "植木鉢に水やり"),
+    rule(/孫の(?:キム・)?ジュノ/, "오늘 인물", "孫のキム・ジュノ"),
+    rule(/電話(?:で)?(?:話し|話す|した|しました)/, "오늘 활동", "電話"),
+    rule(
+      /金曜日[^。.!?]*(?:ミンジ[^。.!?]*ジュノ|ジュノ[^。.!?]*ミンジ)[^。.!?]*(?:来て|来た|訪問)/,
+      "주간 핵심 기억",
+      "娘と孫の金曜日の訪問",
+    ),
+    rule(/キムチチヂミ/, "주간 핵심 음식", "キムチチヂミ"),
+    rule(/幸せ/, "감정", "幸せ"),
+  ],
+};
+
 const NAME_ALIASES: Readonly<Record<string, string>> = {
   민지: "김민지",
   김민지: "김민지",
@@ -101,11 +190,25 @@ const NAME_ALIASES: Readonly<Record<string, string>> = {
   최정희: "최정희",
 };
 
+const JAPANESE_NAME_ALIASES: Readonly<Record<string, string>> = {
+  ミンジ: "キム・ミンジ",
+  ジュノ: "キム・ジュノ",
+  スンジャ: "イ・スンジャ",
+  ジョンヒ: "チェ・ジョンヒ",
+};
+
 const QUANTITY_ALIASES: Readonly<Record<string, string>> = {
   한: "1",
   두: "2",
   세: "3",
   네: "4",
+};
+
+const JAPANESE_QUANTITY_ALIASES: Readonly<Record<string, string>> = {
+  一: "1",
+  二: "2",
+  三: "3",
+  四: "4",
 };
 
 function normalizeText(value: string): string {
@@ -155,10 +258,20 @@ function addGenericPlace(
   seen: Set<string>,
 ): void {
   if (hasEntityType(annotations, "장소")) return;
-  const match = transcript.match(
+  const koreanMatch = transcript.match(
     /([가-힣A-Za-z0-9·-]*(?:시장|복지관|보건소|약국|산책로|도서관|빵집))(?:에서|에)/,
   );
-  if (match?.[1]) addAnnotation(annotations, seen, { entityType: "장소", value: match[1] });
+  if (koreanMatch?.[1]) {
+    addAnnotation(annotations, seen, { entityType: "장소", value: koreanMatch[1] });
+    return;
+  }
+
+  const japaneseMatch = transcript.match(
+    /([一-龯々ぁ-んァ-ヶーA-Za-z0-9・-]{1,24}(?:市場|福祉館|保健所|薬局|散歩道|図書館|パン屋))(?:で|へ|に)/,
+  );
+  if (japaneseMatch?.[1]) {
+    addAnnotation(annotations, seen, { entityType: "장소", value: japaneseMatch[1] });
+  }
 }
 
 function addGenericPurchase(
@@ -167,11 +280,29 @@ function addGenericPurchase(
   seen: Set<string>,
 ): void {
   if (hasEntityType(annotations, "구매물품")) return;
-  const match = transcript.match(
+  const koreanMatch = transcript.match(
     /([가-힣A-Za-z0-9·-]{1,20})[을를]\s*(?:샀|사왔|구입했)/,
   );
-  if (match?.[1]) {
-    addAnnotation(annotations, seen, { entityType: "구매물품", value: match[1] });
+  if (koreanMatch?.[1]) {
+    addAnnotation(annotations, seen, {
+      entityType: "구매물품",
+      value: koreanMatch[1],
+    });
+    return;
+  }
+
+  const japaneseMatch =
+    transcript.match(
+      /(?:[、。.!！？?\s]|で)([一-龯々ぁ-んァ-ヶーA-Za-z0-9・-]{1,20})を(?:\d+|[一二三四])?\s*(?:個|つ)?\s*(?:買い|買った|購入)/,
+    ) ??
+    transcript.match(
+      /^([一-龯々ぁ-んァ-ヶーA-Za-z0-9・-]{1,20})を(?:\d+|[一二三四])?\s*(?:個|つ)?\s*(?:買い|買った|購入)/,
+    );
+  if (japaneseMatch?.[1]) {
+    addAnnotation(annotations, seen, {
+      entityType: "구매물품",
+      value: japaneseMatch[1],
+    });
   }
 }
 
@@ -182,15 +313,28 @@ function addGenericPerson(
   seen: Set<string>,
 ): void {
   if (hasEntityType(annotations, "인물", "오늘 인물")) return;
-  const match = transcript.match(
+  const koreanMatch = transcript.match(
     /(딸|손자|친구|이웃)\s*(김민지|김준호|이순자|최정희|민지|준호|순자|정희)(?=\s*(?:씨|와|과|가|이|을|를|에게|$))/,
   );
-  if (!match?.[1] || !match[2]) return;
+  if (koreanMatch?.[1] && koreanMatch[2]) {
+    const normalizedName = NAME_ALIASES[koreanMatch[2]] ?? koreanMatch[2];
+    addAnnotation(annotations, seen, {
+      entityType: questionId === "D7_Q6" ? "오늘 인물" : "인물",
+      value: `${koreanMatch[1]} ${normalizedName}`,
+    });
+    return;
+  }
 
-  const normalizedName = NAME_ALIASES[match[2]] ?? match[2];
+  const japaneseMatch = transcript.match(
+    /(娘|孫|友人|隣人)の(?:キム・|イ・|チェ・)?(ミンジ|ジュノ|スンジャ|ジョンヒ)(?:さん)?/,
+  );
+  if (!japaneseMatch?.[1] || !japaneseMatch[2]) return;
+
+  const normalizedName =
+    JAPANESE_NAME_ALIASES[japaneseMatch[2]] ?? japaneseMatch[2];
   addAnnotation(annotations, seen, {
     entityType: questionId === "D7_Q6" ? "오늘 인물" : "인물",
-    value: `${match[1]} ${normalizedName}`,
+    value: `${japaneseMatch[1]}の${normalizedName}`,
   });
 }
 
@@ -200,15 +344,40 @@ function addGenericFoodAndDrink(
   seen: Set<string>,
 ): void {
   if (!hasEntityType(annotations, "음식", "주간 핵심 음식")) {
-    const food = transcript.match(
+    const koreanFood = transcript.match(
       /([가-힣A-Za-z0-9·-]{1,20})[을를]\s*(?:부쳐\s*)?(?:먹|드셨)/,
     );
-    if (food?.[1]) addAnnotation(annotations, seen, { entityType: "음식", value: food[1] });
+    const japaneseFood =
+      transcript.match(
+        /(?:[、。.!！？?\s])([一-龯々ぁ-んァ-ヶーA-Za-z0-9・-]{1,20})を(?:焼いて\s*)?(?:食べ|いただ)/,
+      ) ??
+      transcript.match(
+        /^([一-龯々ぁ-んァ-ヶーA-Za-z0-9・-]{1,20})を(?:焼いて\s*)?(?:食べ|いただ)/,
+      );
+    const foodValue = koreanFood?.[1] ?? japaneseFood?.[1];
+    if (foodValue) {
+      addAnnotation(annotations, seen, { entityType: "음식", value: foodValue });
+    }
   }
 
   if (!hasEntityType(annotations, "음료")) {
-    const drink = transcript.match(/([가-힣A-Za-z0-9·-]{1,20})[을를]\s*(?:마셨|마셔|마십)/);
-    if (drink?.[1]) addAnnotation(annotations, seen, { entityType: "음료", value: drink[1] });
+    const koreanDrink = transcript.match(
+      /([가-힣A-Za-z0-9·-]{1,20})[을를]\s*(?:마셨|마셔|마십)/,
+    );
+    const japaneseDrink =
+      transcript.match(
+        /(?:[、。.!！？?\s])([一-龯々ぁ-んァ-ヶーA-Za-z0-9・-]{1,20})を(?:飲み|飲ん|飲む)/,
+      ) ??
+      transcript.match(
+        /^([一-龯々ぁ-んァ-ヶーA-Za-z0-9・-]{1,20})を(?:飲み|飲ん|飲む)/,
+      );
+    const drinkValue = koreanDrink?.[1] ?? japaneseDrink?.[1];
+    if (drinkValue) {
+      addAnnotation(annotations, seen, {
+        entityType: "음료",
+        value: drinkValue,
+      });
+    }
   }
 }
 
@@ -218,11 +387,19 @@ function addGenericQuantity(
   seen: Set<string>,
 ): void {
   if (hasEntityType(annotations, "수량")) return;
-  const match = transcript.match(/(한|두|세|네|\d+)\s*개/);
-  if (!match?.[1]) return;
+  const koreanMatch = transcript.match(/(한|두|세|네|\d+)\s*개/);
+  if (koreanMatch?.[1]) {
+    const count = QUANTITY_ALIASES[koreanMatch[1]] ?? koreanMatch[1];
+    addAnnotation(annotations, seen, { entityType: "수량", value: `${count}개` });
+    return;
+  }
 
-  const count = QUANTITY_ALIASES[match[1]] ?? match[1];
-  addAnnotation(annotations, seen, { entityType: "수량", value: `${count}개` });
+  const japaneseMatch = transcript.match(/(\d+|一|二|三|四)\s*(?:個|つ)/);
+  if (!japaneseMatch?.[1]) return;
+
+  const count =
+    JAPANESE_QUANTITY_ALIASES[japaneseMatch[1]] ?? japaneseMatch[1];
+  addAnnotation(annotations, seen, { entityType: "수량", value: `${count}個` });
 }
 
 function addGenericConditionAndEmotion(
@@ -235,6 +412,16 @@ function addGenericConditionAndEmotion(
       addAnnotation(annotations, seen, { entityType: "신체상태", value: "몸이 가벼워짐" });
     } else if (/조금\s*피곤/.test(transcript)) {
       addAnnotation(annotations, seen, { entityType: "신체상태", value: "조금 피곤함" });
+    } else if (/体が\s*軽くな/.test(transcript)) {
+      addAnnotation(annotations, seen, {
+        entityType: "신체상태",
+        value: "体が軽くなった",
+      });
+    } else if (/少し\s*疲れ/.test(transcript)) {
+      addAnnotation(annotations, seen, {
+        entityType: "신체상태",
+        value: "少し疲れている",
+      });
     }
   }
 
@@ -249,7 +436,21 @@ function addGenericConditionAndEmotion(
           ? "매우 좋음"
           : /(?:기분[^.!?]*)?(?:좋아요|좋았어요|좋습니다)/.test(transcript)
             ? "좋음"
-            : null;
+            : /幸せ/.test(transcript)
+              ? "幸せ"
+              : /(?:うれし|嬉し)/.test(transcript)
+                ? "うれしい"
+                : /気持ち[^。.!?]*(?:落ち着いて|穏やか|安心)/.test(transcript)
+                  ? "落ち着いている"
+                  : /(?:とても|とっても)[^。.!?]*(?:良い|よい|良かった|よかった)/.test(
+                        transcript,
+                      )
+                    ? "とても良い"
+                    : /気分[^。.!?]*(?:良い|よい|良かった|よかった)/.test(
+                          transcript,
+                        )
+                      ? "良い"
+                      : null;
   if (emotion) addAnnotation(annotations, seen, { entityType: "감정", value: emotion });
 }
 
@@ -272,6 +473,11 @@ export function extractHaruResponseFacts(
   const seen = new Set<string>();
 
   for (const factRule of QUESTION_RULES[supportedQuestionId]) {
+    if (factRule.pattern.test(normalizedTranscript)) {
+      addAnnotation(annotations, seen, factRule.annotation);
+    }
+  }
+  for (const factRule of JAPANESE_QUESTION_RULES[supportedQuestionId]) {
     if (factRule.pattern.test(normalizedTranscript)) {
       addAnnotation(annotations, seen, factRule.annotation);
     }

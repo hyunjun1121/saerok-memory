@@ -294,6 +294,11 @@ export function PersonalMemoryRecall({
             ariaLabel={t("speech.listeningTitle")}
           />
           <p className="text-base font-semibold text-gray-600">
+            {recorder.isRecording || isTranscribing
+              ? t("speech.guidanceDuring")
+              : t("speech.guidanceBefore")}
+          </p>
+          <p className="text-sm font-semibold text-gray-500">
             {t("speech.durationLimit", { seconds: maxDurationSeconds })}
           </p>
         </div>

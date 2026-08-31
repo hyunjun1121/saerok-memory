@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button3D } from "@/components/Button3D";
+import { captureHaruTelemetry } from "@/features/analytics/client";
 import { getHaruWeekPlan } from "@/data/haru7DayExercises";
 import { useGamification } from "@/features/gamification/useGamification";
 import { getHaruDemoSessions } from "@/features/lessons/haruDemoSessionStorage";
@@ -55,6 +56,10 @@ export default function ResultScreen() {
     if (isFreshCompletion && !hasCompleted.current) {
       completeSession();
       void playCue("routineComplete");
+      void captureHaruTelemetry("reward_earned", {
+        rewardId: "session-complete",
+        rewardKind: "participation",
+      });
       hasCompleted.current = true;
     }
   }, [completeSession, isFreshCompletion, playCue]);
@@ -62,6 +67,7 @@ export default function ResultScreen() {
   const handleReveal = (role: ConnectRole) => {
     setCodes((current) => (current[role] ? current : { ...current, [role]: makePairCode() }));
     setRevealed(role);
+    void captureHaruTelemetry("pairing_status", { role, state: "issued" });
   };
 
   const roleLabel =

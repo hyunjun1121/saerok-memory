@@ -211,6 +211,10 @@ function payloadForCurrentConsent(
     record.user.consents.voice_recording && runtimeConsent.voiceRecording;
   const sttProcessing =
     record.user.consents.stt_processing && runtimeConsent.sttProcessing;
+  const transcriptStorage =
+    record.user.consents.transcript_storage && runtimeConsent.transcriptStorage;
+  const audioStorage =
+    record.user.consents.audio_storage && runtimeConsent.audioStorage;
   const syncRecord: HaruAdminUsageRecord = {
     ...record,
     user: {
@@ -219,6 +223,8 @@ function payloadForCurrentConsent(
         ...record.user.consents,
         voice_recording: voiceRecording,
         stt_processing: sttProcessing,
+        transcript_storage: transcriptStorage,
+        audio_storage: audioStorage,
         longitudinal_usage_storage:
           record.user.consents.longitudinal_usage_storage &&
           runtimeConsent.longitudinalUsageStorage,
@@ -228,16 +234,43 @@ function payloadForCurrentConsent(
       },
     },
   };
-  if (voiceRecording && sttProcessing) return syncRecord;
+  const mayRetainVoiceTranscript =
+    voiceRecording && sttProcessing && transcriptStorage;
   return {
     ...syncRecord,
     sessions: syncRecord.sessions.map((session) => ({
       ...session,
-      question_records: session.question_records.filter(
-        (questionRecord) => !isVoiceQuestionRecord(questionRecord),
-      ),
+      question_records: session.question_records
+        .filter(
+          (questionRecord) =>
+            mayRetainVoiceTranscript || !isVoiceQuestionRecord(questionRecord),
+        )
+        .map((questionRecord) => {
+          const response = questionRecord.response;
+          if (!response || response.input_mode !== "voice") return questionRecord;
+          return {
+            ...questionRecord,
+            response: {
+              ...response,
+              audio_storage: {
+                object_key: "",
+                mime_type: null,
+                sample_rate_hz: null,
+                channels: null,
+                retention_status: "not_stored",
+              },
+            },
+          };
+        }),
     })),
   };
+}
+
+function isRagUseAuthorized(record: HaruAdminUsageRecord): boolean {
+  return (
+    record.user.consents.longitudinal_usage_storage &&
+    record.user.consents.personalized_question_use
+  );
 }
 
 function dispatchOutboxUpdated(): void {
@@ -328,7 +361,7 @@ export function enqueueHaruRagRecord(
   const entries = readOutbox().filter((entry) => entry.scopeKey !== scopeKey);
   const syncRecord = payloadForCurrentConsent(record);
 
-  if (!syncRecord.user.consents.longitudinal_usage_storage) {
+  if (!isRagUseAuthorized(syncRecord)) {
     // enqueueHaruRagUserDeletion removes every queued snapshot for this user.
     // Do not write the pre-deletion `entries` snapshot afterwards: it may still
     // contain another dataset scope and would resurrect withdrawn data.
@@ -505,7 +538,7 @@ function reconcileOutboxWithCurrentConsent(now: number): void {
       continue;
     }
     const syncRecord = payloadForCurrentConsent(record, runtimeConsent);
-    if (!syncRecord.user.consents.longitudinal_usage_storage) {
+    if (!isRagUseAuthorized(syncRecord)) {
       deletionUserIds.add(syncRecord.user.user_id);
       continue;
     }
@@ -559,12 +592,19 @@ async function flushInternal(options: HaruRagSyncOptions): Promise<void> {
       );
       continue;
     }
+    const parsedUser =
+      isRecord(parsedPayload) && isRecord(parsedPayload.user)
+        ? parsedPayload.user
+        : null;
     if (
-      !isRecord(parsedPayload) ||
-      !isRecord(parsedPayload.user) ||
-      !isRecord(parsedPayload.user.consents) ||
-      parsedPayload.user.consents.longitudinal_usage_storage !== true
+      !parsedUser ||
+      !isRecord(parsedUser.consents) ||
+      parsedUser.consents.longitudinal_usage_storage !== true ||
+      parsedUser.consents.personalized_question_use !== true
     ) {
+      if (parsedUser && typeof parsedUser.user_id === "string") {
+        enqueueHaruRagUserDeletion(parsedUser.user_id, new Date(now()));
+      }
       saveOutbox(
         readOutbox().filter(
           (candidate) =>
@@ -576,7 +616,7 @@ async function flushInternal(options: HaruRagSyncOptions): Promise<void> {
     const requestRecord = payloadForCurrentConsent(
       parsedPayload as unknown as HaruAdminUsageRecord,
     );
-    if (!requestRecord.user.consents.longitudinal_usage_storage) {
+    if (!isRagUseAuthorized(requestRecord)) {
       enqueueHaruRagUserDeletion(requestRecord.user.user_id, new Date(now()));
       continue;
     }
@@ -643,7 +683,7 @@ async function flushInternal(options: HaruRagSyncOptions): Promise<void> {
       parsedPayload as unknown as HaruAdminUsageRecord,
     );
     if (
-      !recordAfterRequest.user.consents.longitudinal_usage_storage ||
+      !isRagUseAuthorized(recordAfterRequest) ||
       haruRagContentHash(recordAfterRequest) !== requestContentHash
     ) {
       reconcileOutboxWithCurrentConsent(now());

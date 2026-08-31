@@ -134,6 +134,11 @@ describe("HaruScenarioQuestion", () => {
       exercise.payload.options?.map((option) => getLocalizedText(option.label, "ko")),
     );
     buttons.forEach((button) => expect(button).toHaveClass("aspect-square"));
+    buttons.forEach((button) => {
+      const label = button.querySelector("[data-choice-label-size]");
+      expect(label).not.toBeNull();
+      expect(label).toHaveClass("font-extrabold", "[text-wrap:balance]");
+    });
     expect(buttons.map((button) => button.getAttribute("data-choice-tone"))).toEqual([
       "red",
       "yellow",
@@ -158,6 +163,11 @@ describe("HaruScenarioQuestion", () => {
     const { exercise } = renderScenario("D4_Q6");
     const grid = screen.getByTestId("haru-choice-grid");
     const buttons = within(grid).getAllByRole("button");
+    const initialSizeBands = buttons.map((button) =>
+      button
+        .querySelector("[data-choice-label-size]")
+        ?.getAttribute("data-choice-label-size"),
+    );
 
     expect(grid).toHaveClass("grid", "grid-cols-2");
     expect(buttons).toHaveLength(4);
@@ -171,6 +181,19 @@ describe("HaruScenarioQuestion", () => {
       "green",
       "blue",
     ]);
+
+    fireEvent.click(buttons[0]);
+
+    expect(buttons[0]).toHaveTextContent(
+      `1. ${getLocalizedText(exercise.payload.items?.[0].label, "ko")}`,
+    );
+    expect(
+      buttons.map((button) =>
+        button
+          .querySelector("[data-choice-label-size]")
+          ?.getAttribute("data-choice-label-size"),
+      ),
+    ).toEqual(initialSizeBands);
   });
 
   it("keeps a single choice selected until Check confirms it", () => {
@@ -356,6 +379,23 @@ describe("HaruScenarioQuestion", () => {
     );
   });
 
+  it("reassures the learner before a voice response", () => {
+    renderScenario("D1_Q5");
+
+    expect(
+      screen.getByText(
+        "또박또박 말하려고 애쓰지 않으셔도 돼요. 평소처럼 편하게 말씀해 주세요.",
+      ),
+    ).toBeInTheDocument();
+  });
+
+  it("explains AI text organization while a voice response is active", () => {
+    mocks.isRecording = true;
+    renderScenario("D1_Q5");
+
+    expect(screen.getByText("AI가 들은 내용을 글로 정리하고 있어요.")).toBeInTheDocument();
+  });
+
   it("advances after audio finalization without waiting for a foreground STT request", async () => {
     mocks.transcribe.mockImplementationOnce(
       () => new Promise(() => undefined),
@@ -400,12 +440,12 @@ describe("HaruScenarioQuestion", () => {
     expect(adminPayload).not.toHaveProperty("sttProcessedAt");
   });
 
-  it("stops an active recording and discards audio when live consent is withdrawn", async () => {
+  it("stops an active recording and discards audio when recording consent is withdrawn", async () => {
     mocks.isRecording = true;
     const { onResponse, onAdminResponse } = renderScenario("D1_Q5");
 
     act(() => {
-      updateHaruConsent({ longitudinalUsageStorage: false });
+      updateHaruConsent({ voiceRecording: false });
     });
 
     await waitFor(() => expect(mocks.stop).toHaveBeenCalledTimes(1));

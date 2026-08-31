@@ -3,13 +3,13 @@ import type { LocalizedText } from "@/utils/localizedText";
 const localized = (ko: string, ja: string, en: string): LocalizedText => ({ ko, ja, en });
 
 export const HARU_DEMO_PERSONA = {
-  name: localized("박영자", "パク・ヨンジャ", "Young-ja Park"),
-  displayName: localized("박영자 어르신", "パク・ヨンジャさん", "Ms. Park Young-ja"),
+  name: localized("박영자", "佐藤春子", "Young-ja Park"),
+  displayName: localized("박영자 어르신", "佐藤春子さん", "Ms. Park Young-ja"),
   birthYear: 1952,
   age: 74,
   residence: localized(
     "대전광역시 유성구",
-    "大田広域市 儒城区",
+    "東京都練馬区",
     "Yuseong-gu, Daejeon",
   ),
   livingArrangement: localized(
@@ -24,18 +24,18 @@ export const HARU_DEMO_PERSONA = {
   ),
   gender: localized("여성", "女性", "Woman"),
   registeredProfileFields: {
-    hometown: localized("부산 영도", "釜山・影島", "Yeongdo, Busan"),
-    elementarySchool: localized("청학초등학교", "青鶴小学校", "Cheonghak Elementary School"),
+    hometown: localized("부산 영도", "長野県松本市", "Yeongdo, Busan"),
+    elementarySchool: localized("청학초등학교", "松本市立開智小学校", "Cheonghak Elementary School"),
     formerOccupation: localized(
       "초등학교 급식 조리사",
       "小学校の給食調理員",
       "Elementary school cafeteria cook",
     ),
-    daughterName: localized("김민지", "キム・ミンジ", "Kim Min-ji"),
-    grandsonName: localized("김준호", "キム・ジュノ", "Kim Jun-ho"),
-    closeFriendName: localized("이순자", "イ・スンジャ", "Lee Soon-ja"),
-    neighborName: localized("최정희", "チェ・ジョンヒ", "Choi Jeong-hee"),
-    favoriteFood: localized("된장찌개", "テンジャンチゲ", "Soybean paste stew"),
+    daughterName: localized("김민지", "佐藤由美", "Kim Min-ji"),
+    grandsonName: localized("김준호", "佐藤健太", "Kim Jun-ho"),
+    closeFriendName: localized("이순자", "田中和子", "Lee Soon-ja"),
+    neighborName: localized("최정희", "鈴木恵子", "Choi Jeong-hee"),
+    favoriteFood: localized("된장찌개", "肉じゃが", "Soybean paste stew"),
     medicationTime: localized("오전 8시", "午前8時", "8:00 a.m."),
   },
   consents: {

@@ -32,7 +32,9 @@ import {
   useHaruConsent,
 } from "@/features/profile/useHaruConsent";
 import { speakCalmly } from "@/hooks/interactionFeedback";
-import { getLocalizedText, getSpeechLanguage } from "@/utils/localizedText";
+import { captureHaruTelemetry } from "@/features/analytics/client";
+import { getLocalizedText, getSpeechLanguage, normalizeLanguage } from "@/utils/localizedText";
+import { playHaruDayOneNarration } from "@/features/speech/haruNarration";
 
 export interface HaruScenarioLiveResponse {
   questionId: string;
@@ -169,6 +171,7 @@ function HaruScenarioQuestionContent({
   const sequenceButtonEventsRef = useRef<
     HaruScenarioAdminResponse["sequenceButtonEvents"]
   >([]);
+  const replayCountRef = useRef(0);
   const nextInputModeRef = useRef<"physical_button" | "touch">("touch");
   const respondedRef = useRef(false);
   const choiceGridRef = useRef<HTMLDivElement>(null);
@@ -269,7 +272,19 @@ function HaruScenarioQuestionContent({
       question.responseType === "button_sequence" && sequenceLabels.length > 0
         ? sequenceLabels.join(", ")
         : promptAudio;
-    speakCalmly(text, getSpeechLanguage(i18n.language));
+    const narrationId =
+      question.responseType === "button_sequence"
+        ? `exercise.${question.exerciseId}.sequence`
+        : `exercise.${question.exerciseId}.prompt`;
+    void playHaruDayOneNarration(normalizeLanguage(i18n.language), narrationId).then((played) => {
+      if (!played) speakCalmly(text, getSpeechLanguage(i18n.language));
+    });
+    void captureHaruTelemetry("audio_played", {
+      assetId: `prompt-${question.exerciseId}`,
+      action: replayCountRef.current === 0 ? "play" : "replay",
+      status: "started",
+    });
+    replayCountRef.current += 1;
   };
 
   const handleSingleChoice = (id: string) => {
@@ -569,6 +584,7 @@ function HaruScenarioQuestionContent({
                   key={item.id}
                   id={item.id}
                   label={selectedIndex >= 0 ? `${selectedIndex + 1}. ${label}` : label}
+                  labelSizeReference={label}
                   state={choiceState(selectedIndex >= 0)}
                   onSelect={handleSequenceChoice}
                   layout="tile"
@@ -624,6 +640,11 @@ function HaruScenarioQuestionContent({
               ariaLabel={t("speech.listeningTitle")}
             />
             <p className="text-base font-semibold text-gray-600">
+              {recorder.isRecording || isTranscribing
+                ? t("speech.guidanceDuring")
+                : t("speech.guidanceBefore")}
+            </p>
+            <p className="text-sm font-semibold text-gray-500">
               {t("speech.durationLimit", { seconds: maxDurationSeconds })}
             </p>
           </div>

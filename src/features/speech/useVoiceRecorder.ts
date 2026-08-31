@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { InteractionCue } from "@/hooks/interactionFeedback";
 import { useInteractionFeedback } from "@/hooks/useInteractionFeedback";
+import { captureHaruTelemetry } from "@/features/analytics/client";
+import { HARU_VOICE_EXPERIENCE } from "@/features/speech/voiceExperience";
 
 // Voice recorder for the daily memory routine. It records mic audio and exposes
 // a live frequency `levels` feed so the UI can render a reactive waveform, plus
@@ -220,8 +222,20 @@ export function useVoiceRecorder(maxDurationMs = DEFAULT_MAX_DURATION_MS): Voice
   // useCallback trips react-hooks/immutability). It reads frequency data,
   // downsamples to VOICE_BAR_COUNT bins (0..1), and feeds the waveform.
   const start = useCallback(() => {
+    if (!recorderAvailable()) {
+      void captureHaruTelemetry("permission_result", {
+        permission: "microphone",
+        state: "unavailable",
+      });
+      void captureHaruTelemetry("voice_capture_status", {
+        ...HARU_VOICE_EXPERIENCE,
+        phase: "failed",
+        permission: "unavailable",
+        outcomeReason: "unsupported",
+      });
+      return;
+    }
     if (
-      !recorderAvailable() ||
       recorderRef.current ||
       streamRef.current ||
       startPromiseRef.current
@@ -271,6 +285,10 @@ export function useVoiceRecorder(maxDurationMs = DEFAULT_MAX_DURATION_MS): Voice
           return;
         }
         streamRef.current = stream;
+        void captureHaruTelemetry("permission_result", {
+          permission: "microphone",
+          state: "granted",
+        });
         const trackSettings = stream.getAudioTracks?.()[0]?.getSettings?.();
         const trackSampleRate = trackSettings?.sampleRate;
         const trackChannelCount = trackSettings?.channelCount;
@@ -357,6 +375,12 @@ export function useVoiceRecorder(maxDurationMs = DEFAULT_MAX_DURATION_MS): Voice
         } catch {
           teardownAudio();
           setError("audio-unavailable");
+          void captureHaruTelemetry("voice_capture_status", {
+            ...HARU_VOICE_EXPERIENCE,
+            phase: "failed",
+            permission: "unavailable",
+            outcomeReason: "capture_failed",
+          });
           return;
         }
         const chunks: Blob[] = [];
@@ -408,9 +432,20 @@ export function useVoiceRecorder(maxDurationMs = DEFAULT_MAX_DURATION_MS): Voice
           teardownAudio();
           resolveFinalization(null);
           setError("audio-unavailable");
+          void captureHaruTelemetry("voice_capture_status", {
+            ...HARU_VOICE_EXPERIENCE,
+            phase: "failed",
+            permission: "unavailable",
+            outcomeReason: "capture_failed",
+          });
           return;
         }
         setIsRecording(true);
+        void captureHaruTelemetry("voice_capture_status", {
+          ...HARU_VOICE_EXPERIENCE,
+          phase: "started",
+          permission: "granted",
+        });
         clearMaxTimer();
         const safeMaxDurationMs = Math.min(Math.max(maxDurationMs, 5_000), 60_000);
         maxTimerRef.current = window.setTimeout(() => {
@@ -424,6 +459,16 @@ export function useVoiceRecorder(maxDurationMs = DEFAULT_MAX_DURATION_MS): Voice
         }
         teardownAudio();
         setError("mic-denied");
+        void captureHaruTelemetry("permission_result", {
+          permission: "microphone",
+          state: "denied",
+        });
+        void captureHaruTelemetry("voice_capture_status", {
+          ...HARU_VOICE_EXPERIENCE,
+          phase: "failed",
+          permission: "denied",
+          outcomeReason: "permission_denied",
+        });
       })
       .finally(() => {
         if (startGenerationRef.current === startGeneration) {

@@ -5,40 +5,74 @@ export const HARU_CONSENT_STORAGE_KEY = "haruRuntimeConsent";
 export const HARU_CONSENT_UPDATED_EVENT = "haru:consent-updated";
 
 export interface HaruConsentState {
+  usageAnalytics: boolean;
   voiceRecording: boolean;
   sttProcessing: boolean;
+  transcriptStorage: boolean;
+  audioStorage: boolean;
   longitudinalUsageStorage: boolean;
   personalizedQuestionUse: boolean;
+  familySharing: boolean;
   consentedAt: string;
   updatedAt: string;
 }
 
 export type HaruConsentPermissions = Pick<
   HaruConsentState,
+  | "usageAnalytics"
   | "voiceRecording"
   | "sttProcessing"
+  | "transcriptStorage"
+  | "audioStorage"
   | "longitudinalUsageStorage"
   | "personalizedQuestionUse"
+  | "familySharing"
 >;
 
+export function getHaruConsentRevision(consent: HaruConsentState): string {
+  const timestamp = Date.parse(consent.updatedAt);
+  return `consent-${Number.isFinite(timestamp) ? Math.max(0, timestamp) : 0}`;
+}
+
+function isSyntheticDemoMode(): boolean {
+  if (import.meta.env.VITE_DEMO_MODE !== undefined) {
+    return import.meta.env.VITE_DEMO_MODE === "1";
+  }
+  return import.meta.env.MODE === "test";
+}
+
 function defaultConsent(): HaruConsentState {
+  const demoMode = isSyntheticDemoMode();
+  const fallbackTimestamp = demoMode
+    ? HARU_DEMO_PERSONA.consents.consentedAt
+    : new Date(0).toISOString();
   return {
-    voiceRecording: HARU_DEMO_PERSONA.consents.voiceRecording,
-    sttProcessing: HARU_DEMO_PERSONA.consents.sttProcessing,
-    longitudinalUsageStorage: HARU_DEMO_PERSONA.consents.longitudinalUsageStorage,
-    personalizedQuestionUse: HARU_DEMO_PERSONA.consents.personalizedQuestionUse,
-    consentedAt: HARU_DEMO_PERSONA.consents.consentedAt,
-    updatedAt: HARU_DEMO_PERSONA.consents.consentedAt,
+    usageAnalytics: demoMode,
+    voiceRecording: demoMode && HARU_DEMO_PERSONA.consents.voiceRecording,
+    sttProcessing: demoMode && HARU_DEMO_PERSONA.consents.sttProcessing,
+    transcriptStorage: demoMode,
+    audioStorage: demoMode,
+    longitudinalUsageStorage:
+      demoMode && HARU_DEMO_PERSONA.consents.longitudinalUsageStorage,
+    personalizedQuestionUse:
+      demoMode && HARU_DEMO_PERSONA.consents.personalizedQuestionUse,
+    familySharing: demoMode,
+    consentedAt: fallbackTimestamp,
+    updatedAt: fallbackTimestamp,
   };
 }
 
 function failClosedConsent(): HaruConsentState {
   return {
     ...defaultConsent(),
+    usageAnalytics: false,
     voiceRecording: false,
     sttProcessing: false,
+    transcriptStorage: false,
+    audioStorage: false,
     longitudinalUsageStorage: false,
     personalizedQuestionUse: false,
+    familySharing: false,
   };
 }
 
@@ -63,10 +97,18 @@ function parseConsent(value: unknown): HaruConsentState | null {
     return null;
   }
   return {
+    usageAnalytics:
+      typeof value.usageAnalytics === "boolean" ? value.usageAnalytics : false,
     voiceRecording: value.voiceRecording,
     sttProcessing: value.sttProcessing,
+    transcriptStorage:
+      typeof value.transcriptStorage === "boolean" ? value.transcriptStorage : false,
+    audioStorage:
+      typeof value.audioStorage === "boolean" ? value.audioStorage : false,
     longitudinalUsageStorage: value.longitudinalUsageStorage,
     personalizedQuestionUse: value.personalizedQuestionUse,
+    familySharing:
+      typeof value.familySharing === "boolean" ? value.familySharing : false,
     consentedAt: value.consentedAt,
     updatedAt: value.updatedAt,
   };
@@ -101,9 +143,13 @@ function isSameConsent(
   return Boolean(
     left &&
       left.voiceRecording === right.voiceRecording &&
+      left.usageAnalytics === right.usageAnalytics &&
       left.sttProcessing === right.sttProcessing &&
+      left.transcriptStorage === right.transcriptStorage &&
+      left.audioStorage === right.audioStorage &&
       left.longitudinalUsageStorage === right.longitudinalUsageStorage &&
       left.personalizedQuestionUse === right.personalizedQuestionUse &&
+      left.familySharing === right.familySharing &&
       left.consentedAt === right.consentedAt &&
       left.updatedAt === right.updatedAt,
   );
@@ -144,17 +190,29 @@ export function updateHaruConsent(
   ).toISOString();
   const next: HaruConsentState = {
     ...current,
+    ...(typeof update.usageAnalytics === "boolean"
+      ? { usageAnalytics: update.usageAnalytics }
+      : {}),
     ...(typeof update.voiceRecording === "boolean"
       ? { voiceRecording: update.voiceRecording }
       : {}),
     ...(typeof update.sttProcessing === "boolean"
       ? { sttProcessing: update.sttProcessing }
       : {}),
+    ...(typeof update.transcriptStorage === "boolean"
+      ? { transcriptStorage: update.transcriptStorage }
+      : {}),
+    ...(typeof update.audioStorage === "boolean"
+      ? { audioStorage: update.audioStorage }
+      : {}),
     ...(typeof update.longitudinalUsageStorage === "boolean"
       ? { longitudinalUsageStorage: update.longitudinalUsageStorage }
       : {}),
     ...(typeof update.personalizedQuestionUse === "boolean"
       ? { personalizedQuestionUse: update.personalizedQuestionUse }
+      : {}),
+    ...(typeof update.familySharing === "boolean"
+      ? { familySharing: update.familySharing }
       : {}),
     updatedAt: nextUpdatedAt,
   };

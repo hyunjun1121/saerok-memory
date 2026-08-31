@@ -124,7 +124,7 @@ describe("PersonalMemoryRecall STT wiring", () => {
     vi.unstubAllGlobals();
   });
 
-  it("stops active capture and stores no audio when longitudinal consent is withdrawn", async () => {
+  it("stops active capture and stores no audio when recording consent is withdrawn", async () => {
     recorderMocks.isRecording = true;
     const setGlobalState = vi.fn();
     render(
@@ -140,7 +140,7 @@ describe("PersonalMemoryRecall STT wiring", () => {
     );
 
     act(() => {
-      updateHaruConsent({ longitudinalUsageStorage: false });
+      updateHaruConsent({ voiceRecording: false });
     });
 
     await waitFor(() => expect(recorderMocks.stop).toHaveBeenCalledTimes(1));
@@ -153,7 +153,14 @@ describe("PersonalMemoryRecall STT wiring", () => {
     expect(recorderMocks.stopAndGetBlob).not.toHaveBeenCalled();
     expect(queueMocks.enqueue).not.toHaveBeenCalled();
     const saved = JSON.parse(localStorage.getItem("memoryCards") || "[]");
-    expect(saved).toEqual([]);
+    expect(saved).toEqual([
+      expect.objectContaining({
+        linkedConceptId: "live-withdrawal",
+        audioAssetUrl: null,
+        originalTranscript: "",
+        recognitionError: "voice-consent-required",
+      }),
+    ]);
   });
 
   it("still saves the card (empty transcript, error) when STT is unreachable", async () => {

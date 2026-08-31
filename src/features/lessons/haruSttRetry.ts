@@ -132,6 +132,8 @@ function desiredEntries(record: HaruAdminUsageRecord): Array<{
   if (
     !record.user.consents.voice_recording ||
     !record.user.consents.stt_processing ||
+    !record.user.consents.transcript_storage ||
+    !record.user.consents.audio_storage ||
     !record.user.consents.longitudinal_usage_storage
   ) {
     return [];
@@ -173,6 +175,8 @@ function hasSpeechStorageConsent(): boolean {
   return (
     consent.voiceRecording &&
     consent.sttProcessing &&
+    consent.transcriptStorage &&
+    consent.audioStorage &&
     consent.longitudinalUsageStorage
   );
 }
@@ -380,6 +384,8 @@ export function startHaruSttRetry(
     if (
       !consent.voiceRecording ||
       !consent.sttProcessing ||
+      !consent.transcriptStorage ||
+      !consent.audioStorage ||
       !consent.longitudinalUsageStorage
     ) {
       clearHaruSttRetryOutbox();

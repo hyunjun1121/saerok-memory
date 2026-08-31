@@ -20,8 +20,50 @@ RELATION_BY_TYPE = {
     "수량": "HAS_QUANTITY",
     "대화주제": "DISCUSSED_TOPIC",
     "주간 핵심 기억": "SALIENT_MEMORY",
+    "人物": "WITH_PERSON",
+    "今日の人物": "WITH_PERSON",
+    "場所": "OCCURRED_AT",
+    "活動": "INVOLVED_ACTIVITY",
+    "今日の活動": "INVOLVED_ACTIVITY",
+    "食べ物": "INVOLVED_FOOD",
+    "今週の主な食べ物": "INVOLVED_FOOD",
+    "購入品": "PURCHASED",
+    "飲み物": "CONSUMED",
+    "感情": "EXPRESSED_EMOTION",
+    "身体状態": "HAS_BODY_STATE",
+    "予定": "HAS_PLAN",
+    "数量": "HAS_QUANTITY",
+    "会話の話題": "DISCUSSED_TOPIC",
+    "今週の主な記憶": "SALIENT_MEMORY",
+    "person": "WITH_PERSON",
+    "place": "OCCURRED_AT",
+    "activity": "INVOLVED_ACTIVITY",
+    "food": "INVOLVED_FOOD",
+    "purchased_item": "PURCHASED",
+    "drink": "CONSUMED",
+    "emotion": "EXPRESSED_EMOTION",
+    "body_state": "HAS_BODY_STATE",
+    "plan": "HAS_PLAN",
+    "quantity": "HAS_QUANTITY",
+    "conversation_topic": "DISCUSSED_TOPIC",
+    "salient_memory": "SALIENT_MEMORY",
 }
-SENSITIVE_TYPES = {"신체상태", "질병", "약", "복약", "건강"}
+SENSITIVE_TYPES = {
+    "신체상태",
+    "질병",
+    "약",
+    "복약",
+    "건강",
+    "身体状態",
+    "病気",
+    "薬",
+    "服薬",
+    "健康",
+    "body_state",
+    "disease",
+    "medication",
+    "health",
+}
 SENSITIVE_TRANSCRIPT_PATTERNS = (
     re.compile(
         r"혈압|당뇨|질환|치료|진료|병원|복약|복용|약을|약이|약은|통증|아프|수술|"
@@ -30,7 +72,12 @@ SENSITIVE_TRANSCRIPT_PATTERNS = (
     ),
     re.compile(r"\b(?:01[016789])[- ]?\d{3,4}[- ]?\d{4}\b"),
     re.compile(r"\b\d{6}[- ]?[1-4]\d{6}\b"),
-    re.compile(r"病院|薬|血圧|糖尿|治療|手術"),
+    re.compile(
+        r"病院|薬|血圧|糖尿|治療|手術|住所|電話番号|携帯番号|口座番号|"
+        r"暗証番号|マイナンバー"
+    ),
+    re.compile(r"\b0\d{1,4}[- ]\d{1,4}[- ]\d{4}\b"),
+    re.compile(r"\b\d{4}[ -]?\d{4}[ -]?\d{4}\b"),
     re.compile(r"hospital|medication|blood pressure|account number|password", re.IGNORECASE),
 )
 

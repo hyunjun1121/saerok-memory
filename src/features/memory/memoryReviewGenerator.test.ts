@@ -128,6 +128,19 @@ describe('memoryReviewGenerator', () => {
     expect(correctOption?.label).toBe('娘');
   });
 
+  it('maps a legacy Korean restaurant cue to a natural Japanese place label', async () => {
+    await i18n.changeLanguage('ja');
+
+    const card: MemoryCard = {
+      ...baseCard,
+      placeTag: '국밥집',
+    };
+    const exercise = generateMemoryReviewExercise(card, 'lesson_1');
+    const correctOption = exercise?.payload.options?.find((o) => o.id === 'correct');
+
+    expect(correctOption?.label).toBe('定食屋');
+  });
+
   it('returns null if no usable data exists', () => {
     const exercise = generateMemoryReviewExercise(baseCard, 'lesson_1');
     expect(exercise).toBeNull();

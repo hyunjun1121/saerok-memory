@@ -103,9 +103,109 @@ const CANONICAL_VOICE_RECORDS: CanonicalVoiceRecord[] = [
   },
 ];
 
+const JAPANESE_CANONICAL_VOICE_RECORDS: CanonicalVoiceRecord[] = [
+  {
+    questionId: "D1_Q5",
+    transcript:
+      "今朝、儒城市場へ行って韓国かぼちゃと長ねぎを買いました。娘のミンジが夕方来るので、テンジャンチゲを作ろうと思っています。気分は良いです。",
+    expected: [
+      { entityType: "장소", value: "儒城市場" },
+      { entityType: "구매물품", value: "韓国かぼちゃ" },
+      { entityType: "구매물품", value: "長ねぎ" },
+      { entityType: "인물", value: "娘のキム・ミンジ" },
+      { entityType: "계획", value: "テンジャンチゲ作り" },
+      { entityType: "감정", value: "良い" },
+    ],
+  },
+  {
+    questionId: "D2_Q6",
+    transcript:
+      "今日は福祉館で友人のスンジャさんに会って、ユンノリをしました。昼は韓国式にゅうめんを食べて、たくさん笑ったので気分はとても良かったです。",
+    expected: [
+      { entityType: "장소", value: "福祉館" },
+      { entityType: "인물", value: "友人のイ・スンジャ" },
+      { entityType: "활동", value: "ユンノリ" },
+      { entityType: "음식", value: "韓国式にゅうめん" },
+      { entityType: "감정", value: "とても良い" },
+    ],
+  },
+  {
+    questionId: "D3_Q6",
+    transcript:
+      "今日は儒城区保健所で血圧を測り、薬を受け取りました。帰りに薬局でビタミンも買いました。少し疲れましたが、気持ちは落ち着いています。",
+    expected: [
+      { entityType: "장소", value: "儒城区保健所" },
+      { entityType: "활동", value: "血圧測定" },
+      { entityType: "활동", value: "薬の受け取り" },
+      { entityType: "장소", value: "薬局" },
+      { entityType: "구매물품", value: "ビタミン" },
+      { entityType: "신체상태", value: "少し疲れている" },
+      { entityType: "감정", value: "落ち着いている" },
+    ],
+  },
+  {
+    questionId: "D4_Q5",
+    transcript:
+      "今日の午後、甲川の散歩道を30分歩きました。ベンチで隣人のジョンヒさんと話し、帰宅して麦茶を飲みました。体が軽くなりました。",
+    expected: [
+      { entityType: "장소", value: "甲川の散歩道" },
+      { entityType: "활동", value: "30分の散歩" },
+      { entityType: "인물", value: "隣人のチェ・ジョンヒ" },
+      { entityType: "음료", value: "麦茶" },
+      { entityType: "신체상태", value: "体が軽くなった" },
+    ],
+  },
+  {
+    questionId: "D5_Q6",
+    transcript:
+      "今日は娘のミンジと孫のジュノが家に来ました。一緒にキムチチヂミを焼いて食べ、ジュノの学校の話を聞きました。会えてうれしかったです。",
+    expected: [
+      { entityType: "인물", value: "娘のキム・ミンジ" },
+      { entityType: "인물", value: "孫のキム・ジュノ" },
+      { entityType: "장소", value: "自宅" },
+      { entityType: "음식", value: "キムチチヂミ" },
+      { entityType: "대화주제", value: "ジュノの学校の話" },
+      { entityType: "감정", value: "うれしい" },
+    ],
+  },
+  {
+    questionId: "D6_Q6",
+    transcript:
+      "今朝、近所の図書館で健康講座を受けました。帰りにパン屋であんパンを2個買い、午後は家で休みました。",
+    expected: [
+      { entityType: "장소", value: "近所の図書館" },
+      { entityType: "활동", value: "健康講座の受講" },
+      { entityType: "장소", value: "パン屋" },
+      { entityType: "구매물품", value: "あんパン" },
+      { entityType: "수량", value: "2個" },
+      { entityType: "활동", value: "午後に家で休む" },
+    ],
+  },
+  {
+    questionId: "D7_Q6",
+    transcript:
+      "今日は家で植木鉢に水をやり、孫のジュノと電話で話しました。今週は金曜日にミンジとジュノが来て、キムチチヂミを食べたことがいちばん心に残っています。家がにぎやかで幸せでした。",
+    expected: [
+      { entityType: "오늘 활동", value: "植木鉢に水やり" },
+      { entityType: "오늘 인물", value: "孫のキム・ジュノ" },
+      { entityType: "오늘 활동", value: "電話" },
+      { entityType: "주간 핵심 기억", value: "娘と孫の金曜日の訪問" },
+      { entityType: "주간 핵심 음식", value: "キムチチヂミ" },
+      { entityType: "감정", value: "幸せ" },
+    ],
+  },
+];
+
 describe("extractHaruResponseFacts", () => {
   it.each(CANONICAL_VOICE_RECORDS)(
     "matches the canonical JSON annotations for $questionId",
+    ({ questionId, transcript, expected }) => {
+      expect(extractHaruResponseFacts(questionId, transcript)).toEqual(expected);
+    },
+  );
+
+  it.each(JAPANESE_CANONICAL_VOICE_RECORDS)(
+    "extracts localized Japanese annotations for $questionId",
     ({ questionId, transcript, expected }) => {
       expect(extractHaruResponseFacts(questionId, transcript)).toEqual(expected);
     },
@@ -117,6 +217,35 @@ describe("extractHaruResponseFacts", () => {
     ).toEqual([
       { entityType: "장소", value: "유성시장" },
       { entityType: "구매물품", value: "가지" },
+    ]);
+  });
+
+  it("conservatively extracts Japanese place, purchase, person, and emotion", () => {
+    expect(
+      extractHaruResponseFacts(
+        "D1_Q5",
+        "中央市場でなすを買いました。友人のスンジャさんに会えてうれしかったです。",
+      ),
+    ).toEqual([
+      { entityType: "장소", value: "中央市場" },
+      { entityType: "구매물품", value: "なす" },
+      { entityType: "인물", value: "友人のイ・スンジャ" },
+      { entityType: "감정", value: "うれしい" },
+    ]);
+  });
+
+  it("conservatively extracts Japanese food, drink, quantity, and condition", () => {
+    expect(
+      extractHaruResponseFacts(
+        "D2_Q6",
+        "うどんを食べ、麦茶を飲みました。りんごを3個買いました。少し疲れています。",
+      ),
+    ).toEqual([
+      { entityType: "구매물품", value: "りんご" },
+      { entityType: "음식", value: "うどん" },
+      { entityType: "음료", value: "麦茶" },
+      { entityType: "수량", value: "3個" },
+      { entityType: "신체상태", value: "少し疲れている" },
     ]);
   });
 

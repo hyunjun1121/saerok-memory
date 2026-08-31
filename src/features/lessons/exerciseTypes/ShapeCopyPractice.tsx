@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button3D } from "@/components/Button3D";
 import { saveCognitiveRoutineResult } from "@/features/cognitive/cognitiveRoutineStorage";
+import { captureHaruTelemetry } from "@/features/analytics/client";
 import type { ExerciseState } from "@/features/lessons/exerciseTypes/types";
 
 interface DrawingPoint {
@@ -136,6 +137,14 @@ export function ShapeCopyPractice({
 
     if (firstDrawAtRef.current === null) {
       firstDrawAtRef.current = timestamp;
+      void captureHaruTelemetry("drawing_progress", {
+        phase: "started",
+        strokeCount: 1,
+        pointCount: 1,
+        pauseCount: 0,
+        eraseCount: clearCountRef.current,
+        durationMs: 0,
+      });
     }
 
     ctx.beginPath();
@@ -184,6 +193,17 @@ export function ShapeCopyPractice({
     if (!ctx) return;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const firstPoint = pointsRef.current[0];
+    const lastPoint = pointsRef.current[pointsRef.current.length - 1];
+    void captureHaruTelemetry("drawing_progress", {
+      phase: "cleared",
+      strokeCount: strokeCountRef.current,
+      pointCount: pointsRef.current.length,
+      pauseCount: hesitationCountRef.current,
+      eraseCount: clearCountRef.current + 1,
+      durationMs:
+        firstPoint && lastPoint ? Math.max(0, lastPoint.t - firstPoint.t) : 0,
+    });
     clearCountRef.current += 1;
     pointsRef.current = [];
     strokeCountRef.current = 0;
@@ -231,6 +251,15 @@ export function ShapeCopyPractice({
         pathLengthPx: Math.round(pathLengthRef.current),
         sampledPath,
       },
+    });
+
+    void captureHaruTelemetry("drawing_progress", {
+      phase: "completed",
+      strokeCount: strokeCountRef.current,
+      pointCount: sampledPath.length,
+      pauseCount: hesitationCountRef.current,
+      eraseCount: clearCountRef.current,
+      durationMs: drawingDurationMs,
     });
 
     setGlobalState("correct_feedback");

@@ -1,10 +1,14 @@
 import { lazy, Suspense, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AppShell } from '@/components/AppShell';
 import { GamificationProvider } from '@/features/gamification/useGamification';
 import { ensureDemoSeedCards } from '@/features/memory/memoryCardStorage';
+import {
+  recordHaruRouteView,
+  startHaruTelemetry,
+} from '@/features/analytics/client';
 
 const ResultScreen = lazy(() => import('@/app/result/ResultScreen'));
 const CaregiverAppScreen = lazy(() => import('@/app/connect/caregiver/CaregiverAppScreen'));
@@ -35,32 +39,37 @@ function LoadingFallback() {
  * Sits inside BrowserRouter so it can use router hooks.
  */
 function LaunchGate({ children }: { children: ReactNode }) {
-  const { i18n } = useTranslation();
-
   useEffect(() => {
     // Seed the demo "ate out yesterday" memory card so the recall question has
     // real grounding (idempotent — never overwrites user data).
     ensureDemoSeedCards();
     let disposed = false;
     let stopBackgroundSync: (() => void) | null = null;
+    const stopTelemetry = startHaruTelemetry();
     void import('@/features/lessons/haruBackgroundSync').then(({ startHaruBackgroundSync }) => {
       if (!disposed) {
         stopBackgroundSync = startHaruBackgroundSync();
       }
     });
 
-    const savedLang = localStorage.getItem("memoryGardenLang");
-    if (savedLang && savedLang !== i18n.language) {
-      i18n.changeLanguage(savedLang);
-    }
     return () => {
       disposed = true;
       stopBackgroundSync?.();
+      stopTelemetry();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <>{children}</>;
+}
+
+function TelemetryRouteObserver() {
+  const location = useLocation();
+
+  useEffect(() => {
+    recordHaruRouteView(location.pathname);
+  }, [location.pathname]);
+
+  return null;
 }
 
 export default function App() {
@@ -70,6 +79,7 @@ export default function App() {
         future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
       >
         <LaunchGate>
+          <TelemetryRouteObserver />
           <Suspense fallback={<LoadingFallback />}>
             <Routes>
               {/* Kiosk/tablet mode runs standalone (no app-shell nav, wider layout). */}

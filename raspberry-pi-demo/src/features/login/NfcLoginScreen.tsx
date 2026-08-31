@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Nfc } from "lucide-react";
 import { AppFrame } from "@/components/AppFrame";
 import { audioManager } from "@/features/audio";
+import { useFourButtonHandler } from "@/features/input";
 import { useNfcLoginInput } from "@/features/login/nfcLoginInput";
 import { getBuildLanguage, getUiCopy } from "@/i18n/copy";
 
@@ -13,11 +14,23 @@ export function NfcLoginScreen({ onAuthenticated }: NfcLoginScreenProps) {
   const language = getBuildLanguage();
   const [audioUnavailable, setAudioUnavailable] = useState(false);
 
+  const playWaitingNarration = useCallback(() => {
+    void audioManager.playNarration("login.nfc.waiting", language).then((result) => {
+      setAudioUnavailable(result.status !== "played");
+    });
+  }, [language]);
+
   const authenticate = useCallback(() => {
     audioManager.stopNarration();
     onAuthenticated();
   }, [onAuthenticated]);
 
+  // The physical 2×2 buttons are available while the card is being located.
+  // Any button press repeats the instruction without authenticating the user;
+  // the NFC keyboard-wedge `5` remains the only authentication input.
+  useFourButtonHandler(() => {
+    playWaitingNarration();
+  });
   useNfcLoginInput(authenticate);
 
   useEffect(() => {
@@ -27,7 +40,7 @@ export function NfcLoginScreen({ onAuthenticated }: NfcLoginScreenProps) {
         audioManager.stopNarration();
         return;
       }
-      if (result.status !== "played") setAudioUnavailable(true);
+      setAudioUnavailable(result.status !== "played");
     });
     return () => {
       active = false;

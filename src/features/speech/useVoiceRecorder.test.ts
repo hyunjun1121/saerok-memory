@@ -12,7 +12,12 @@ const feedbackMocks = vi.hoisted(() => ({
   vibrateLightly: vi.fn(),
 }));
 
+const analyticsMocks = vi.hoisted(() => ({
+  captureHaruTelemetry: vi.fn(async () => true),
+}));
+
 vi.mock("@/hooks/interactionFeedback", () => feedbackMocks);
+vi.mock("@/features/analytics/client", () => analyticsMocks);
 
 async function flushMicrotasks(count = 8): Promise<void> {
   for (let index = 0; index < count; index += 1) {
@@ -82,6 +87,7 @@ describe("useVoiceRecorder", () => {
     feedbackMocks.playInteractionCue.mockResolvedValue(undefined);
     feedbackMocks.speakCalmly.mockClear();
     feedbackMocks.vibrateLightly.mockClear();
+    analyticsMocks.captureHaruTelemetry.mockClear();
     FakeMediaRecorder.instances = [];
     trackStop = vi.fn();
     const track = {
@@ -419,5 +425,49 @@ describe("useVoiceRecorder", () => {
 
     unmount();
     expect(revokeObjectURL).toHaveBeenCalledWith("blob:second");
+  });
+
+  it("emits assisted reactive-waveform metadata when capture starts", async () => {
+    const { result } = renderHook(() => useVoiceRecorder(5_000));
+
+    await act(async () => {
+      result.current.start();
+      await flushMicrotasks();
+    });
+
+    expect(analyticsMocks.captureHaruTelemetry).toHaveBeenCalledWith(
+      "voice_capture_status",
+      expect.objectContaining({
+        phase: "started",
+        voiceExperienceVariant: "assist_v2",
+        waveformMode: "reactive_red",
+        guidanceCopyVersion: "voice-guidance-2026-08-v2",
+        sttPipelineVersion: "haru-qwen3-asr-v2",
+      }),
+    );
+  });
+
+  it("emits only coded unsupported outcome metadata when capture is unavailable", () => {
+    vi.stubGlobal("MediaRecorder", undefined);
+    const { result } = renderHook(() => useVoiceRecorder(5_000));
+
+    act(() => result.current.start());
+
+    expect(analyticsMocks.captureHaruTelemetry).toHaveBeenCalledWith(
+      "voice_capture_status",
+      expect.objectContaining({
+        phase: "failed",
+        permission: "unavailable",
+        voiceExperienceVariant: "assist_v2",
+        waveformMode: "reactive_red",
+        outcomeReason: "unsupported",
+      }),
+    );
+    expect(JSON.stringify(analyticsMocks.captureHaruTelemetry.mock.calls)).not.toContain(
+      "transcript",
+    );
+    expect(JSON.stringify(analyticsMocks.captureHaruTelemetry.mock.calls)).not.toContain(
+      "audioBlob",
+    );
   });
 });

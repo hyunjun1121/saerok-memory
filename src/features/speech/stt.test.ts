@@ -55,6 +55,20 @@ describe("stt client", () => {
     expect(init?.body).toBeInstanceOf(FormData);
   });
 
+  it("sends the requested Japanese locale without changing shared backend state", async () => {
+    const fetchImpl = ok({
+      text: "今日は散歩しました。",
+      noSpeech: false,
+      language: "ja-JP",
+    });
+
+    await transcribeStory(blob(), { fetchImpl, language: "ja-JP" });
+
+    const mock = fetchImpl as unknown as ReturnType<typeof vi.fn>;
+    const [, init] = mock.mock.calls[0] as [string, RequestInit];
+    expect(new Headers(init.headers).get("x-haru-language")).toBe("ja-JP");
+  });
+
   it("parses Qwen model metadata, revision, segments, and nullable confidence", async () => {
     const result = await transcribeStory(blob(), {
       fetchImpl: ok({

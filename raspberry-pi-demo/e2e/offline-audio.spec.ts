@@ -210,6 +210,40 @@ async function expectPlayedWithHttp200(
   })).toBe(true);
 }
 
+test("plays the NFC waiting prompt on entry and replays it for every physical button", async ({ page }) => {
+  await installAudioProbe(page);
+  const { audioResponses, externalRequests } = watchNetwork(page);
+
+  await page.goto("/#/lesson?day=1");
+  const login = page.locator('[data-screen="nfc-login"]');
+  await expect(login).toBeVisible();
+
+  const { ["login.nfc.waiting"]: loginPath } = await getNarrationPaths(page, ["login.nfc.waiting"]);
+  const loginUrl = absoluteAssetUrl(page, loginPath);
+  await expect.poll(async () => {
+    const { plays } = await getAudioProbe(page);
+    return plays.filter((path) => path === loginUrl).length;
+  }).toBe(1);
+
+  let expectedPlayCount = 1;
+  for (const slot of ["topLeft", "topRight", "bottomLeft", "bottomRight"] as const) {
+    await pressPhysicalButton(page, slot);
+    await expect(login).toBeVisible();
+    expectedPlayCount += 1;
+    await expect.poll(async () => {
+      const { plays } = await getAudioProbe(page);
+      return plays.filter((path) => path === loginUrl).length;
+    }).toBe(expectedPlayCount);
+  }
+
+  const probe = await getAudioProbe(page);
+  expect(probe.plays.filter((path) => path === loginUrl)).toHaveLength(5);
+  expect(audioResponses.some((response) => (
+    new URL(response.url).pathname === new URL(loginUrl).pathname && response.status === 200
+  ))).toBe(true);
+  expect(externalRequests).toEqual([]);
+});
+
 test.beforeEach(async ({ page }) => {
   await page.addInitScript((storageKey) => localStorage.removeItem(storageKey), OFFLINE_PROGRESS_KEY);
 });

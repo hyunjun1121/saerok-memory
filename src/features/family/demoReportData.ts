@@ -27,12 +27,12 @@ const demoMemories: Array<{
     topic: "family",
     summary: {
       ko: "일요일 점심에 딸과 된장찌개를 끓이며 예전 시장 이야기를 나눔",
-      ja: "日曜日の昼に娘と味噌汁を作りながら、昔の市場の話をした",
+      ja: "日曜日の昼に娘の由美さんと肉じゃがを作りながら、昔の商店街の話をした",
       en: "Cooked soybean paste stew with my daughter on Sunday and talked about the old market",
     },
     people: {
       ko: ["딸 지연"],
-      ja: ["娘のジヨン"],
+      ja: ["娘の由美さん"],
       en: ["daughter Jiyeon"],
     },
     place: {
@@ -52,17 +52,17 @@ const demoMemories: Array<{
     topic: "daily_life",
     summary: {
       ko: "아침 산책길에서 매화가 핀 것을 보고 봄 운동회가 떠올랐다고 말함",
-      ja: "朝の散歩道で梅の花を見て、春の運動会を思い出したと話した",
+      ja: "川沿いの遊歩道で梅の花を見て、春の運動会を思い出したと話した",
       en: "Saw plum blossoms during a morning walk and remembered a spring school sports day",
     },
     people: {
       ko: ["동네 친구"],
-      ja: ["近所の友人"],
+      ja: ["近所の恵子さん"],
       en: ["neighborhood friend"],
     },
     place: {
       ko: "아파트 산책로",
-      ja: "マンションの散歩道",
+      ja: "川沿いの遊歩道",
       en: "apartment walking path",
     },
     emotion: {
@@ -77,7 +77,7 @@ const demoMemories: Array<{
     topic: "food",
     summary: {
       ko: "어머니가 해주시던 김치전 냄새와 비 오는 날의 마루 풍경을 회상함",
-      ja: "母が作ってくれたキムチチヂミの香りと雨の日の縁側を思い出した",
+      ja: "母が作ってくれたお好み焼きの香りと雨の日の縁側を思い出した",
       en: "Remembered the smell of mother's kimchi pancakes and the porch on a rainy day",
     },
     people: {
@@ -107,12 +107,12 @@ const demoMemories: Array<{
     },
     people: {
       ko: ["순자 친구"],
-      ja: ["友人のスンジャ"],
+      ja: ["友人の和子さん"],
       en: ["friend Sunja"],
     },
     place: {
       ko: "남산 소풍길",
-      ja: "南山への遠足道",
+      ja: "近郊の公園への遠足道",
       en: "Namsan picnic route",
     },
     emotion: {

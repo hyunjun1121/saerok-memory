@@ -20,6 +20,112 @@ Haru는 60-80대 고령 사용자를 위한 Duolingo 스타일의 일일 인지�
 
 현재 MVP는 일일 루틴, 기억 단서, 로컬 활동 기록, 보호자·상담사 리포트에 집중합니다.
 
+## Raspberry Pi 오프라인 데모
+
+`raspberry-pi-demo/`는 Raspberry Pi 5와 세로형 1080×1920 화면, USB NFC 리더기, 2×2 USB 버튼을 위한 별도 정적 패키지입니다. STT·RAG·원격 API 없이 미리 생성한 한국어·일본어 음성과 브라우저 저장소만 사용합니다. NFC 리더기가 키보드 숫자 `5`를 보내면 로그인 대기 화면에서 활동 시작 화면으로 이동합니다.
+
+Pi 설치·장치 설정·자동 시작·문제 해결의 전체 안내는 [`raspberry-pi-demo/README.md`](raspberry-pi-demo/README.md)에 있습니다. 아래는 새 Raspberry Pi OS Desktop 64-bit에서 한국어 kiosk를 설치하는 복붙용 최소 경로입니다. 현재 Pi 데모가 올라간 브랜치는 `feat/haru-sound-feedback`입니다.
+
+```bash
+sudo apt-get update
+sudo apt-get install -y ca-certificates git
+cd "$HOME"
+git clone --depth 1 --filter=blob:none --sparse \
+  --branch feat/haru-sound-feedback \
+  https://github.com/hyunjun1121/saerok-memory.git
+cd saerok-memory
+git sparse-checkout set raspberry-pi-demo
+cd raspberry-pi-demo
+test -f package.json && test -f scripts/provision-pi.sh
+
+# Node.js·Chromium·오디오 도구 설치, 양쪽 build, 한국어 자동 시작 설정
+bash scripts/provision-pi.sh --enable-autostart --market ko
+
+# 화면 출력 이름 확인 후 실제 출력·장착 방향으로 설정(예: 90 또는 270)
+bash scripts/display-pi.sh list
+bash scripts/display-pi.sh set HDMI-A-1 90
+
+# USB 오디오/마이크와 NFC·2×2 버튼을 연결한 뒤 장치 진단
+bash scripts/doctor-pi.sh --kiosk --audio --buttons --nfc
+sudo reboot
+```
+
+일본어 kiosk는 위 설치 명령의 마지막 인자만 `--market ja`로 바꿉니다.
+
+```bash
+cd "$HOME/saerok-memory/raspberry-pi-demo"
+bash scripts/provision-pi.sh --enable-autostart --market ja
+```
+
+이미 clone한 Pi의 업데이트·재빌드와 수동 실행:
+
+```bash
+cd "$HOME/saerok-memory"
+git switch feat/haru-sound-feedback
+git pull --ff-only origin feat/haru-sound-feedback
+cd raspberry-pi-demo
+bash scripts/bootstrap-pi.sh
+bash scripts/start-ko.sh       # 한국어
+# bash scripts/start-ja.sh     # 일본어
+```
+
+Pi 데모의 개별 빌드·오프라인 검사:
+
+```bash
+cd "$HOME/saerok-memory/raspberry-pi-demo"
+npm ci --include=dev --include=optional --ignore-scripts=false --no-audit --no-fund
+npm run build:ko
+npm run build:ja
+npm run check:offline
+```
+
+## 개발 PC 설치·검증
+
+루트 웹앱만 실행할 때는 Node.js와 npm을 준비한 뒤 다음 명령을 사용합니다.
+
+```bash
+git clone --branch feat/haru-sound-feedback https://github.com/hyunjun1121/saerok-memory.git
+cd saerok-memory
+npm ci --include=dev --include=optional --ignore-scripts=false --no-audit --no-fund
+npm run typecheck
+npm run lint
+npm test
+npm run build
+```
+
+브라우저 개발 서버와 선택적 로컬 STT·RAG 서비스를 함께 실행하려면:
+
+```bash
+npm run dev:local
+```
+
+STT·RAG는 로컬 GPU/로컬 서비스이며 Vercel 정적 배포에 포함하지 않습니다. 필요한 경우에만 다음을 별도로 실행합니다.
+
+```bash
+npm run stt:install
+npm run stt:download
+npm run stt:dev       # 127.0.0.1:8765
+npm run rag:install
+npm run rag:download
+npm run rag:dev       # 127.0.0.1:8000
+```
+
+개발 서버를 종료한 뒤 루트 변경을 원격 브랜치에 반영하는 명령은 다음과 같습니다. 임시 산출물과 비밀값이 포함된 `.env*` 파일은 커밋하지 않습니다.
+
+```bash
+git status --short
+# 앱 소스·설정과 필요한 개인정보 문서만 명시적으로 추가합니다.
+git add README.md package.json package-lock.json .env.example .vercelignore \
+  eslint.config.js index.html tsconfig.json tsconfig.api.json vitest.config.ts \
+  vercel.json vercel.japan.json api backend rag_backend raspberry-pi-demo \
+  scripts src supabase public/assets/audio/narration/ja/day1 \
+  docs/haru-privacy-consent-demo.md docs/user-data-collection.md
+git commit -m "docs: record full build and Raspberry Pi setup"
+git push origin feat/haru-sound-feedback
+```
+
+`피우다프로젝트/`, `docs/patent/`, `docs/voice-pilot-sample-20x7/`, `.tmp*/`, `tmp/` 같은 발표 자료·특허 원본·로컬 생성물은 공개 저장소에 올리기 전에 별도 검토합니다. Pi 데모만 필요한 경우에는 루트 전체를 받지 않고 위의 sparse clone 명령을 사용하면 됩니다.
+
 ## 멘토링 기반 개정 (2026-06-23)
 
 권효순 멘토링 메모와 첨부 논문을 바탕으로, “기능이 많고 평가처럼 보일 수 있는 앱”을 “어르신이 매일 쉽게 쓰고 보호자·복지관이 부담 없이 쓰는 일상 기억/뇌 자극 루틴”으로 재정렬했다. 주요 변경:

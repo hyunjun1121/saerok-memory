@@ -1,11 +1,15 @@
 /**
- * Client for the Haru STT backend (Korean speech-to-text on a local RTX 3090).
+ * Client for the Haru local Qwen speech-to-text backend.
  *
  * The daily memory-story routine records audio to a Blob (webm/opus) and posts
  * it here to get a transcript. This client NEVER throws: if the backend is
  * down, unreachable, or errors, it resolves to null so the routine still
  * completes (with an empty transcript). The learner is never blocked on STT.
  */
+
+import { getRuntimeMarketConfig } from "@/config/market";
+
+export type HaruSpeechLocale = "ko-KR" | "ja-JP" | "en-US";
 
 export interface TranscribeResult {
   text: string;
@@ -61,6 +65,7 @@ interface TranscribeResponse {
 export interface TranscribeOptions {
   signal?: AbortSignal;
   timeoutMs?: number;
+  language?: HaruSpeechLocale;
   /** Injectable fetch (tests). Defaults to the global fetch. */
   fetchImpl?: typeof fetch;
 }
@@ -127,10 +132,12 @@ export async function transcribeStory(
   try {
     const form = new FormData();
     form.append("file", blob, "story.webm");
+    const language = opts.language ?? getRuntimeMarketConfig().speechLanguage;
 
     const res = await fetchImpl(`${base}/api/stt`, {
       method: "POST",
       body: form,
+      headers: { "x-haru-language": language },
       signal: controller.signal,
     });
     if (!res.ok) return null;

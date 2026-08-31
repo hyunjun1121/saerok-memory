@@ -6,8 +6,36 @@ from sqlalchemy import select
 
 from app.core.database import SessionLocal
 from app.core.config import settings
-from app.core.models import Entity, EventEntity
+from app.core.market import (
+    DEFAULT_LOCALE,
+    DEFAULT_MARKET,
+    assert_matching_context,
+    validate_market_locale,
+)
+from app.core.models import Entity, EventEntity, User
 from app.services.query import semantic_search
+
+
+QA_COPY = {
+    "kr": {
+        "no_answer": "검색된 개인 기록만으로는 답할 수 없습니다.",
+        "no_evidence": "관련 근거가 없습니다.",
+        "found": "기록된 응답에서 관련성이 높은 {count}개 근거를 찾았습니다. ",
+        "period": "기간은 {start}부터 {end}까지입니다. ",
+        "facts": "주요 구조화 항목은 {facts}입니다. ",
+        "review": "아래 원문 근거를 상담인이 확인해야 합니다.",
+        "uncertainty": "자동 요약은 임상 해석이 아니며, 낮은 신뢰도 기록은 원문 확인이 필요합니다.",
+    },
+    "jp": {
+        "no_answer": "保存された個人記録だけでは回答できません。",
+        "no_evidence": "関連する根拠が見つかりませんでした。",
+        "found": "保存された回答から、関連性の高い根拠を{count}件確認しました。",
+        "period": "対象期間は{start}から{end}までです。",
+        "facts": "主な記録項目は{facts}です。",
+        "review": "支援者は、以下の記録を確認してください。",
+        "uncertainty": "この自動要約は臨床的な解釈ではありません。確認が必要な記録は原文と照らし合わせてください。",
+    },
+}
 
 
 def answer(
@@ -17,7 +45,15 @@ def answer(
     start_date: str | None = None,
     end_date: str | None = None,
     include_sensitive: bool = False,
+    market: str = DEFAULT_MARKET,
+    locale: str = DEFAULT_LOCALE,
 ) -> dict:
+    context = validate_market_locale(market, locale)
+    with SessionLocal() as db:
+        user = db.get(User, user_id)
+        if user is not None:
+            assert_matching_context(user.profile, context.market, context.locale)
+    copy = QA_COPY[context.market]
     hits = semantic_search(
         user_id,
         question,
@@ -69,8 +105,10 @@ def answer(
     usable = evidence
     if not usable:
         return {
-            "answer": "검색된 개인 기록만으로는 답할 수 없습니다.",
-            "uncertainty": "관련 근거가 없습니다.",
+            "market": context.market,
+            "locale": context.locale,
+            "answer": copy["no_answer"],
+            "uncertainty": copy["no_evidence"],
             "minimum_similarity": threshold,
             "evidence": [],
         }
@@ -83,16 +121,18 @@ def answer(
         }
     )
     facts = [f"{kind}: {value}" for (kind, value), _ in entity_counter.most_common(10)]
-    answer_text = f"기록된 응답에서 관련성이 높은 {len(usable)}개 근거를 찾았습니다. "
+    answer_text = copy["found"].format(count=len(usable))
     if dates:
-        answer_text += f"기간은 {dates[0]}부터 {dates[-1]}까지입니다. "
+        answer_text += copy["period"].format(start=dates[0], end=dates[-1])
     if facts:
-        answer_text += "주요 구조화 항목은 " + ", ".join(facts) + "입니다. "
-    answer_text += "아래 원문 근거를 상담인이 확인해야 합니다."
+        answer_text += copy["facts"].format(facts=", ".join(facts))
+    answer_text += copy["review"]
     return {
+        "market": context.market,
+        "locale": context.locale,
         "answer": answer_text,
         "time_range": {"start": dates[0], "end": dates[-1]} if dates else None,
-        "uncertainty": "자동 요약은 임상 해석이 아니며, 낮은 신뢰도 기록은 원문 확인이 필요합니다.",
+        "uncertainty": copy["uncertainty"],
         "minimum_similarity": threshold,
         "evidence": usable,
     }

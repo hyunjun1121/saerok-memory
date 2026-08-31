@@ -198,11 +198,11 @@ export function SpeechRepeatPractice({
         startLabel={t("speech.start")}
         stopLabel={t("speech.stop")}
         listeningTitle={t("speech.listeningTitle")}
-        listeningBody={t("speech.listeningBody")}
+        listeningBody={t("speech.guidanceDuring")}
         unsupportedNote={
           speechConsentGranted ? t("speech.unsupported") : t("speech.consentRequired")
         }
-        durationHint={t("speech.durationHint")}
+        durationHint={t("speech.guidanceBefore")}
         levels={capture.levels}
       />
 

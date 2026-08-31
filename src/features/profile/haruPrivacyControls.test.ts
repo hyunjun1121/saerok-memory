@@ -9,10 +9,15 @@ const mocks = vi.hoisted(() => ({
   clearSttQueue: vi.fn(async (): Promise<boolean | void> => undefined),
   refreshAdmin: vi.fn(() => true),
   scrubAdminVoice: vi.fn(async () => undefined),
+  scrubAdminTranscript: vi.fn(async () => undefined),
+  scrubAdminAudio: vi.fn(async () => undefined),
   scrubCognitiveVoice: vi.fn(() => true),
   scrubDemoVoice: vi.fn(() => true),
   scrubMemoryVoice: vi.fn(() => true),
   authorizeReenrollment: vi.fn(() => true),
+  clearRagOutbox: vi.fn(() => true),
+  enqueueRagDeletion: vi.fn(() => true),
+  clearTelemetry: vi.fn(async () => undefined),
 }));
 
 vi.mock("@/features/lessons/haruAdminUsageRecordStorage", () => ({
@@ -20,6 +25,8 @@ vi.mock("@/features/lessons/haruAdminUsageRecordStorage", () => ({
   clearHaruAdminUsageRecords: mocks.clearAdmin,
   refreshHaruAdminUsageConsent: mocks.refreshAdmin,
   scrubHaruAdminVoiceData: mocks.scrubAdminVoice,
+  scrubHaruAdminTranscriptData: mocks.scrubAdminTranscript,
+  scrubHaruAdminAudioData: mocks.scrubAdminAudio,
 }));
 vi.mock("@/features/lessons/haruDemoSessionStorage", () => ({
   clearHaruDemoSessions: mocks.clearDemo,
@@ -41,6 +48,11 @@ vi.mock("@/features/speech/sttJobQueue", () => ({
 }));
 vi.mock("@/features/lessons/haruRagSync", () => ({
   authorizeHaruRagReenrollment: mocks.authorizeReenrollment,
+  clearHaruRagOutbox: mocks.clearRagOutbox,
+  enqueueHaruRagUserDeletion: mocks.enqueueRagDeletion,
+}));
+vi.mock("@/features/analytics/client", () => ({
+  clearHaruTelemetry: mocks.clearTelemetry,
 }));
 
 import {
@@ -70,20 +82,29 @@ describe("Haru privacy controls", () => {
     mocks.clearSttQueue.mockResolvedValue(undefined);
     mocks.refreshAdmin.mockReturnValue(true);
     mocks.scrubAdminVoice.mockResolvedValue(undefined);
+    mocks.scrubAdminTranscript.mockResolvedValue(undefined);
+    mocks.scrubAdminAudio.mockResolvedValue(undefined);
     mocks.scrubCognitiveVoice.mockReturnValue(true);
     mocks.scrubDemoVoice.mockReturnValue(true);
     mocks.scrubMemoryVoice.mockReturnValue(true);
     mocks.authorizeReenrollment.mockReturnValue(true);
+    mocks.clearRagOutbox.mockReturnValue(true);
+    mocks.enqueueRagDeletion.mockReturnValue(true);
+    mocks.clearTelemetry.mockResolvedValue(undefined);
   });
 
-  it("persists cleanup intent before scrubbing every voice-derived store and queue", async () => {
+  it("persists cleanup intent before scrubbing all retained voice data and queues", async () => {
     mocks.scrubAdminVoice.mockImplementationOnce(async () => {
       expect(pendingCleanupKeys()).not.toHaveLength(0);
     });
 
-    const next = await applyHaruConsentChange({ sttProcessing: false });
+    const next = await applyHaruConsentChange({
+      transcriptStorage: false,
+      audioStorage: false,
+    });
 
-    expect(next.sttProcessing).toBe(false);
+    expect(next.transcriptStorage).toBe(false);
+    expect(next.audioStorage).toBe(false);
     expect(mocks.scrubAdminVoice).toHaveBeenCalledTimes(1);
     expect(mocks.scrubDemoVoice).toHaveBeenCalledTimes(1);
     expect(mocks.scrubCognitiveVoice).toHaveBeenCalledTimes(1);
@@ -187,7 +208,10 @@ describe("Haru privacy controls", () => {
       );
     });
 
-    await applyHaruConsentChange({ sttProcessing: false });
+    await applyHaruConsentChange({
+      transcriptStorage: false,
+      audioStorage: false,
+    });
     await resumeHaruPrivacyCleanup();
 
     expect(mocks.clearAdmin).toHaveBeenCalledTimes(1);
@@ -205,13 +229,50 @@ describe("Haru privacy controls", () => {
     expect(pendingCleanupKeys()).toHaveLength(0);
   });
 
-  it("syncs a personalization-only change into the canonical record", async () => {
+  it("removes queued and remote RAG material when personalization is withdrawn", async () => {
     const next = await applyHaruConsentChange({ personalizedQuestionUse: false });
 
     expect(next.personalizedQuestionUse).toBe(false);
+    expect(mocks.clearRagOutbox).toHaveBeenCalledTimes(1);
+    expect(mocks.enqueueRagDeletion).toHaveBeenCalledWith("USR-000001");
     expect(mocks.refreshAdmin).toHaveBeenCalledTimes(1);
     expect(mocks.scrubAdminVoice).not.toHaveBeenCalled();
     expect(mocks.clearAdmin).not.toHaveBeenCalled();
+  });
+
+  it("requires explicit RAG re-enrollment when personalization is restored", async () => {
+    await applyHaruConsentChange({ personalizedQuestionUse: false });
+    mocks.authorizeReenrollment.mockClear();
+
+    const next = await applyHaruConsentChange({ personalizedQuestionUse: true });
+
+    expect(next.personalizedQuestionUse).toBe(true);
+    expect(mocks.authorizeReenrollment).toHaveBeenCalledWith("USR-000001");
+  });
+
+  it("scrubs retained transcripts without deleting separately consented audio", async () => {
+    const next = await applyHaruConsentChange({ transcriptStorage: false });
+
+    expect(next.transcriptStorage).toBe(false);
+    expect(mocks.scrubAdminTranscript).toHaveBeenCalledTimes(1);
+    expect(mocks.scrubAdminAudio).not.toHaveBeenCalled();
+    expect(mocks.scrubAdminVoice).not.toHaveBeenCalled();
+  });
+
+  it("scrubs retained audio without deleting separately consented transcripts", async () => {
+    const next = await applyHaruConsentChange({ audioStorage: false });
+
+    expect(next.audioStorage).toBe(false);
+    expect(mocks.scrubAdminAudio).toHaveBeenCalledTimes(1);
+    expect(mocks.scrubAdminTranscript).not.toHaveBeenCalled();
+    expect(mocks.scrubAdminVoice).not.toHaveBeenCalled();
+  });
+
+  it("clears unsent analytics immediately when analytics consent is withdrawn", async () => {
+    const next = await applyHaruConsentChange({ usageAnalytics: false });
+
+    expect(next.usageAnalytics).toBe(false);
+    expect(mocks.clearTelemetry).toHaveBeenCalledTimes(1);
   });
 
   it("reports canonical consent persistence failure", async () => {

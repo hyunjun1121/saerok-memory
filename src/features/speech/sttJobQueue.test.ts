@@ -166,7 +166,7 @@ describe("durable background STT job queue", () => {
     expect(getSttJobQueue()).toEqual([]);
   });
 
-  it("does not retain audio when longitudinal storage consent is absent", async () => {
+  it("does not persist deferred STT without longitudinal target storage", async () => {
     const store = fakeAudioStore();
     updateHaruConsent({ longitudinalUsageStorage: false });
 
@@ -183,6 +183,70 @@ describe("durable background STT job queue", () => {
     expect(jobId).toBeNull();
     expect(store.storeAudioImpl).not.toHaveBeenCalled();
     expect(getSttJobQueue()).toEqual([]);
+  });
+
+  it.each(["audioStorage", "transcriptStorage"] as const)(
+    "does not persist deferred STT work without %s consent",
+    async (permission) => {
+      const store = fakeAudioStore();
+      updateHaruConsent({ [permission]: false });
+
+      const jobId = await enqueueSttJob(
+        audio(),
+        { kind: "memory-story", memoryCardId: `no-${permission}` },
+        {
+          createId: () => `no-${permission}-job`,
+          storeAudioImpl: store.storeAudioImpl,
+          deleteAudioImpl: store.deleteAudioImpl,
+        },
+      );
+
+      expect(jobId).toBeNull();
+      expect(store.storeAudioImpl).not.toHaveBeenCalled();
+      expect(getSttJobQueue()).toEqual([]);
+    },
+  );
+
+  it("does not persist a transcript when transcript consent is withdrawn in flight", async () => {
+    const store = fakeAudioStore();
+    const cardId = upsertMemoryCueCard({
+      linkedConceptId: "transcript-race",
+      originalTranscript: "",
+      recognitionError: "stt-pending",
+    });
+    await enqueueSttJob(
+      audio(),
+      { kind: "memory-story", memoryCardId: cardId! },
+      { createId: () => "transcript-race", storeAudioImpl: store.storeAudioImpl },
+    );
+    let resolveTranscription: ((result: TranscribeResult) => void) | null = null;
+    const transcribeImpl = vi.fn(
+      () =>
+        new Promise<TranscribeResult>((resolve) => {
+          resolveTranscription = resolve;
+        }),
+    );
+    const flushing = flushSttJobQueue({
+      force: true,
+      isOnline: () => true,
+      readAudioImpl: store.readAudioImpl,
+      deleteAudioImpl: store.deleteAudioImpl,
+      transcribeImpl,
+    });
+    await vi.waitFor(() => expect(transcribeImpl).toHaveBeenCalledTimes(1));
+
+    updateHaruConsent({ transcriptStorage: false });
+    resolveTranscription!(qwenResult({ text: "철회 뒤 저장 금지" }));
+    await flushing;
+
+    expect(getSttJobQueue()).toEqual([]);
+    expect(getMemoryCards()[0]).toMatchObject({
+      originalTranscript: "",
+      recognitionError: "stt-pending",
+    });
+    expect(store.deleteAudioImpl).toHaveBeenCalledWith(
+      "haru-stt-job/transcript-race",
+    );
   });
 
   it("rejects enqueue admission while another tab owns the target clear fence", async () => {

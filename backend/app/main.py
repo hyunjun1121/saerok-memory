@@ -129,7 +129,7 @@ def create_app(
         allow_origins=resolved_settings.cors_origins,
         allow_credentials=False,
         allow_methods=["GET", "POST", "OPTIONS"],
-        allow_headers=["accept", "content-type", "x-request-id"],
+        allow_headers=["accept", "content-type", "x-request-id", "x-haru-language"],
     )
 
     @application.middleware("http")
@@ -207,7 +207,11 @@ def create_app(
             retry_after_seconds=exc.retry_after_seconds,
         )
 
-    async def transcribe_request(request: Request, raw: bytes) -> dict[str, Any]:
+    async def transcribe_request(
+        request: Request,
+        raw: bytes,
+        language_locale: str | None,
+    ) -> dict[str, Any]:
         state = request.app.state
         if state.lifecycle != "ready":
             raise STTServiceError(
@@ -218,9 +222,17 @@ def create_app(
         async def admitted_inference() -> dict[str, Any]:
             async with state.admission.slot():
                 loop = asyncio.get_running_loop()
-                future = loop.run_in_executor(
-                    state.executor, state.engine.transcribe_bytes, raw
-                )
+                if language_locale is None:
+                    future = loop.run_in_executor(
+                        state.executor, state.engine.transcribe_bytes, raw
+                    )
+                else:
+                    future = loop.run_in_executor(
+                        state.executor,
+                        lambda: state.engine.transcribe_bytes(
+                            raw, language_locale=language_locale
+                        ),
+                    )
                 executor_started.set()
                 return await future
 
@@ -253,6 +265,11 @@ def create_app(
         state = request.app.state
         current_settings: Settings = state.settings
         verify_browser_origin(request, current_settings)
+        language_locale = request.headers.get("x-haru-language")
+        if language_locale not in {None, "ko-KR", "ja-JP", "en-US"}:
+            raise STTServiceError(
+                status_code=422, code="unsupported_language", retryable=False
+            )
         if state.lifecycle != "ready" or not state.engine.is_ready:
             raise STTServiceError(
                 status_code=503, code="model_not_loaded", retryable=True
@@ -263,7 +280,7 @@ def create_app(
                 # Parse only after admission. Starlette spools large file parts,
                 # while bounded_stream enforces the complete multipart envelope.
                 raw = await read_multipart_audio(request, current_settings)
-                result = await transcribe_request(request, raw)
+                result = await transcribe_request(request, raw, language_locale)
         except AdmissionQueueFull as exc:
             raise queue_error(exc) from exc
         except AudioDurationExceeded as exc:

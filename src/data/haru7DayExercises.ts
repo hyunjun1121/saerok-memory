@@ -1,4 +1,5 @@
 import type { AnswerOption, Exercise } from "@/data/mockExercises";
+import type { MarketCode } from "@/config/market";
 import type { LocalizedText } from "@/utils/localizedText";
 
 export { HARU_DEMO_PERSONA } from "@/data/haruDemoPersona";
@@ -8,6 +9,7 @@ export type HaruWeekDay = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 export interface HaruWeekPlan {
   day: HaruWeekDay;
   dateISO: string;
+  dateISOByMarket: Readonly<Record<MarketCode, string>>;
   weekday: LocalizedText;
   title: LocalizedText;
   greeting: LocalizedText;
@@ -92,7 +94,7 @@ const MOOD_ACKNOWLEDGEMENT = localized(
 
 const STORY_ACKNOWLEDGEMENT = localized(
   "오늘 이야기를 남겨주셔서 고마워요.",
-  "今日のお話を残してくださってありがとうございます。",
+  "今日のお話を聞かせてくださってありがとうございます。",
   "Thank you for sharing today's story.",
 );
 
@@ -214,16 +216,17 @@ export const HARU_WEEK_PLAN = [
   {
     day: 1,
     dateISO: "2026-07-20",
+    dateISOByMarket: { kr: "2026-07-20", jp: "2026-07-27" },
     weekday: localized("월요일", "月曜日", "Monday"),
     title: localized("1일차 · 나의 오늘", "1日目・今日の私", "Day 1 · My day"),
     greeting: localized(
       "영자 어르신, 월요일 활동을 시작해요.",
-      "ヨンジャさん、月曜日の活動を始めましょう。",
+      "春子さん、月曜日の活動を始めましょう。",
       "Ms. Park, let's begin Monday's activities.",
     ),
     completionMessage: localized(
       "오늘 활동을 모두 마쳤어요. 내일 또 만나요.",
-      "今日の活動をすべて終えました。また明日会いましょう。",
+      "今日の活動をすべて終えました。また明日お会いしましょう。",
       "You finished all of today's activities. See you tomorrow.",
     ),
     exerciseIds: ["D1_Q1", "D1_Q2", "D1_Q3", "D1_Q4", "D1_Q5", "D1_Q6"],
@@ -232,16 +235,17 @@ export const HARU_WEEK_PLAN = [
   {
     day: 2,
     dateISO: "2026-07-21",
+    dateISOByMarket: { kr: "2026-07-21", jp: "2026-07-28" },
     weekday: localized("화요일", "火曜日", "Tuesday"),
     title: localized("2일차 · 어제와 오늘", "2日目・昨日と今日", "Day 2 · Yesterday and today"),
     greeting: localized(
       "영자 어르신, 어제 이야기를 이어가 볼까요?",
-      "ヨンジャさん、昨日のお話を続けてみましょう。",
+      "春子さん、昨日のお話を続けてみましょう。",
       "Ms. Park, shall we continue yesterday's story?",
     ),
     completionMessage: localized(
       "오늘 활동을 모두 마쳤어요. 내일도 편하게 들러 주세요.",
-      "今日の活動をすべて終えました。明日も気軽に来てください。",
+      "今日の活動をすべて終えました。明日も気軽に取り組みましょう。",
       "You finished today's activities. Please stop by again tomorrow.",
     ),
     exerciseIds: ["D2_Q1", "D2_Q2", "D2_Q3", "D2_Q4", "D2_Q5", "D2_Q6"],
@@ -250,11 +254,12 @@ export const HARU_WEEK_PLAN = [
   {
     day: 3,
     dateISO: "2026-07-22",
+    dateISOByMarket: { kr: "2026-07-22", jp: "2026-07-29" },
     weekday: localized("수요일", "水曜日", "Wednesday"),
     title: localized("3일차 · 생활 기억", "3日目・暮らしの記憶", "Day 3 · Everyday memories"),
     greeting: localized(
       "영자 어르신, 오늘도 천천히 시작해요.",
-      "ヨンジャさん、今日もゆっくり始めましょう。",
+      "春子さん、今日もゆっくり始めましょう。",
       "Ms. Park, let's begin slowly again today.",
     ),
     completionMessage: localized(
@@ -268,16 +273,17 @@ export const HARU_WEEK_PLAN = [
   {
     day: 4,
     dateISO: "2026-07-23",
+    dateISOByMarket: { kr: "2026-07-23", jp: "2026-07-30" },
     weekday: localized("목요일", "木曜日", "Thursday"),
     title: localized("4일차 · 몸과 마음", "4日目・心と体", "Day 4 · Body and mind"),
     greeting: localized(
       "영자 어르신, 오늘 몸과 마음은 어떠신가요?",
-      "ヨンジャさん、今日の心と体はいかがですか。",
+      "春子さん、今日の心と体はいかがですか。",
       "Ms. Park, how are your body and mind today?",
     ),
     completionMessage: localized(
       "오늘 활동을 모두 마쳤어요. 한 문제는 틀려도 괜찮아요. 내일 또 만나요.",
-      "今日の活動をすべて終えました。一問まちがえても大丈夫です。また明日会いましょう。",
+      "今日の活動をすべて終えました。答えが一つ違っていても大丈夫です。また明日お会いしましょう。",
       "You finished today's activities. One different answer is okay. See you tomorrow.",
     ),
     exerciseIds: ["D4_Q1", "D4_Q2", "D4_Q3", "D4_Q4", "D4_Q5", "D4_Q6"],
@@ -286,11 +292,12 @@ export const HARU_WEEK_PLAN = [
   {
     day: 5,
     dateISO: "2026-07-24",
+    dateISOByMarket: { kr: "2026-07-24", jp: "2026-07-31" },
     weekday: localized("금요일", "金曜日", "Friday"),
     title: localized("5일차 · 함께한 시간", "5日目・一緒に過ごした時間", "Day 5 · Time together"),
     greeting: localized(
       "영자 어르신, 금요일 활동을 편하게 시작해요.",
-      "ヨンジャさん、金曜日の活動を気楽に始めましょう。",
+      "春子さん、金曜日の活動をゆっくり始めましょう。",
       "Ms. Park, let's ease into Friday's activities.",
     ),
     completionMessage: localized(
@@ -304,11 +311,12 @@ export const HARU_WEEK_PLAN = [
   {
     day: 6,
     dateISO: "2026-07-25",
+    dateISOByMarket: { kr: "2026-07-25", jp: "2026-08-01" },
     weekday: localized("토요일", "土曜日", "Saturday"),
     title: localized("6일차 · 주말의 하루", "6日目・週末の一日", "Day 6 · A weekend day"),
     greeting: localized(
       "영자 어르신, 토요일 이야기를 들려주세요.",
-      "ヨンジャさん、土曜日のお話を聞かせてください。",
+      "春子さん、土曜日のお話を聞かせてください。",
       "Ms. Park, tell us about your Saturday.",
     ),
     completionMessage: localized(
@@ -322,16 +330,17 @@ export const HARU_WEEK_PLAN = [
   {
     day: 7,
     dateISO: "2026-07-26",
+    dateISOByMarket: { kr: "2026-07-26", jp: "2026-08-02" },
     weekday: localized("일요일", "日曜日", "Sunday"),
     title: localized("7일차 · 한 주 돌아보기", "7日目・一週間を振り返る", "Day 7 · Looking back on the week"),
     greeting: localized(
       "영자 어르신, 이번 주의 기억을 함께 돌아봐요.",
-      "ヨンジャさん、今週の思い出を一緒に振り返りましょう。",
+      "春子さん、今週の思い出を一緒に振り返りましょう。",
       "Ms. Park, let's look back on this week's memories together.",
     ),
     completionMessage: localized(
       "일주일 활동을 모두 마쳤어요. 다음 주에도 편하게 만나요.",
-      "一週間の活動をすべて終えました。来週も気軽に会いましょう。",
+      "一週間の活動をすべて終えました。来週も気軽に取り組みましょう。",
       "You finished the full week. We'll meet comfortably again next week.",
     ),
     exerciseIds: ["D7_Q1", "D7_Q2", "D7_Q3", "D7_Q4", "D7_Q5", "D7_Q6"],
@@ -339,8 +348,9 @@ export const HARU_WEEK_PLAN = [
   },
 ] as const satisfies readonly HaruWeekPlan[];
 
-export function getHaruWeekPlan(day: HaruWeekDay): HaruWeekPlan {
-  return HARU_WEEK_PLAN.find((plan) => plan.day === day) ?? HARU_WEEK_PLAN[0];
+export function getHaruWeekPlan(day: HaruWeekDay, market?: MarketCode): HaruWeekPlan {
+  const plan = HARU_WEEK_PLAN.find((candidate) => candidate.day === day) ?? HARU_WEEK_PLAN[0];
+  return market ? { ...plan, dateISO: plan.dateISOByMarket[market] } : plan;
 }
 
 const HARU_WEEK_QUESTION_BASE: readonly HaruWeekQuestionBase[] = [
@@ -594,7 +604,7 @@ export const haru7DayExercises: Exercise[] = [
     1,
     localized(
       "영자 어르신, 오늘 기분은 어떠세요?",
-      "ヨンジャさん、今日の気分はいかがですか。",
+      "春子さん、今日の気分はいかがですか。",
       "Ms. Park, how are you feeling today?",
     ),
     MOOD_ACKNOWLEDGEMENT,
@@ -621,19 +631,19 @@ export const haru7DayExercises: Exercise[] = [
     day: 1,
     prompt: localized(
       "영자 어르신이 태어나고 자란 고향은 어디인가요?",
-      "ヨンジャさんが生まれ育った故郷はどこですか。",
+      "春子さんの故郷はどこですか。",
       "Where is Ms. Park's hometown, where she was born and raised?",
     ),
     options: [
-      option("A", "부산 영도", "釜山・影島", "Yeongdo, Busan"),
-      option("B", "대전 유성", "大田・儒城", "Yuseong, Daejeon"),
-      option("C", "전주 완산", "全州・完山", "Wansan, Jeonju"),
-      option("D", "서울 종로", "ソウル・鍾路", "Jongno, Seoul"),
+      option("A", "부산 영도", "長野県松本市", "Yeongdo, Busan"),
+      option("B", "대전 유성", "北海道札幌市", "Yuseong, Daejeon"),
+      option("C", "전주 완산", "東京都", "Wansan, Jeonju"),
+      option("D", "서울 종로", "青森県青森市", "Jongno, Seoul"),
     ],
     correctAnswer: "A",
     explanation: localized(
       "맞아요. 부산 영도라고 말씀해 주셨어요.",
-      "そうです。釜山の影島だと教えてくださいました。",
+      "そうです。故郷は長野県松本市だと登録されています。",
       "That's right. You told us it was Yeongdo, Busan.",
     ),
   }),
@@ -644,19 +654,19 @@ export const haru7DayExercises: Exercise[] = [
     difficulty: 2,
     prompt: localized(
       "두부 2,000원과 달걀 4,000원을 사고 10,000원을 냈습니다. 거스름돈은 얼마일까요?",
-      "豆腐を2,000ウォン、卵を4,000ウォンで買い、10,000ウォンを払いました。おつりはいくらですか。",
+      "豆腐を150円、卵を250円で買い、500円を払いました。おつりはいくらですか。",
       "You bought tofu for 2,000 won and eggs for 4,000 won, then paid 10,000 won. How much change should you get?",
     ),
     options: [
-      option("A", "2,000원", "2,000ウォン", "2,000 won"),
-      option("B", "3,000원", "3,000ウォン", "3,000 won"),
-      option("C", "4,000원", "4,000ウォン", "4,000 won"),
-      option("D", "5,000원", "5,000ウォン", "5,000 won"),
+      option("A", "2,000원", "0円", "2,000 won"),
+      option("B", "3,000원", "50円", "3,000 won"),
+      option("C", "4,000원", "100円", "4,000 won"),
+      option("D", "5,000원", "150円", "5,000 won"),
     ],
     correctAnswer: "C",
     explanation: localized(
       "맞아요. 거스름돈은 4,000원이에요.",
-      "そうです。おつりは4,000ウォンです。",
+      "そうです。おつりは100円です。",
       "That's right. The change is 4,000 won.",
     ),
   }),
@@ -724,11 +734,11 @@ export const haru7DayExercises: Exercise[] = [
     day: 2,
     prompt: localized(
       "다음 중 어제 유성시장에서 샀다고 말씀하신 채소 하나는 무엇인가요?",
-      "次のうち、昨日、儒城市場で買ったと話した野菜の一つはどれですか。",
+      "昨日、近所のスーパーで買ったと話した野菜はどれですか。",
       "Which vegetable did you say you bought at Yuseong Market yesterday?",
     ),
     options: [
-      option("A", "애호박", "韓国かぼちゃ", "Korean zucchini"),
+      option("A", "애호박", "かぼちゃ", "Korean zucchini"),
       option("B", "감자", "じゃがいも", "Potato"),
       option("C", "양파", "玉ねぎ", "Onion"),
       option("D", "무", "大根", "Radish"),
@@ -736,7 +746,7 @@ export const haru7DayExercises: Exercise[] = [
     correctAnswer: "A",
     explanation: localized(
       "맞아요. 애호박을 샀다고 말씀하셨어요.",
-      "そうです。韓国かぼちゃを買ったとおっしゃいました。",
+      "そうです。かぼちゃを買ったと話していました。",
       "That's right. You said you bought Korean zucchini.",
     ),
   }),
@@ -746,19 +756,19 @@ export const haru7DayExercises: Exercise[] = [
     difficulty: 2,
     prompt: localized(
       "속담 '가는 말이 고와야' 뒤에 이어지는 말은 무엇인가요?",
-      "韓国のことわざ「こちらが美しい言葉をかければ」に続く言葉はどれですか。",
+      "ことわざ「笑う門には」に続く言葉はどれですか。",
       "Which phrase completes the Korean saying, 'If the words going out are kind'?",
     ),
     options: [
-      option("A", "오는 말이 곱다", "相手からも美しい言葉が返る", "The words coming back are kind"),
-      option("B", "발이 편하다", "足が楽になる", "Your feet feel comfortable"),
-      option("C", "밥이 맛있다", "ご飯がおいしい", "The meal tastes good"),
-      option("D", "길이 보인다", "道が見える", "The road becomes visible"),
+      option("A", "오는 말이 곱다", "福来る", "The words coming back are kind"),
+      option("B", "발이 편하다", "足が軽くなる", "Your feet feel comfortable"),
+      option("C", "밥이 맛있다", "ご飯がおいしくなる", "The meal tastes good"),
+      option("D", "길이 보인다", "道が開ける", "The road becomes visible"),
     ],
     correctAnswer: "A",
     explanation: localized(
       "맞아요. '오는 말이 곱다'예요.",
-      "そうです。「相手からも美しい言葉が返る」です。",
+      "そうです。「笑う門には福来る」です。",
       "That's right: 'the words coming back are kind.'",
     ),
   }),
@@ -828,19 +838,19 @@ export const haru7DayExercises: Exercise[] = [
     day: 3,
     prompt: localized(
       "어제 복지관에서 함께 윷놀이한 사람은 누구인가요?",
-      "昨日、福祉館で一緒にユンノリをした人は誰ですか。",
+      "昨日、地域の交流センターで一緒に輪投げをした人は誰ですか。",
       "Who played yut with you at the community center yesterday?",
     ),
     options: [
-      option("A", "이순자", "イ・スンジャ", "Lee Soon-ja"),
-      option("B", "김민지", "キム・ミンジ", "Kim Min-ji"),
-      option("C", "김준호", "キム・ジュノ", "Kim Jun-ho"),
-      option("D", "최정희", "チェ・ジョンヒ", "Choi Jeong-hee"),
+      option("A", "이순자", "田中和子さん", "Lee Soon-ja"),
+      option("B", "김민지", "佐藤由美さん", "Kim Min-ji"),
+      option("C", "김준호", "佐藤健太さん", "Kim Jun-ho"),
+      option("D", "최정희", "鈴木恵子さん", "Choi Jeong-hee"),
     ],
     correctAnswer: "A",
     explanation: localized(
       "맞아요. 순자 씨와 윷놀이를 하셨어요.",
-      "そうです。スンジャさんとユンノリをしました。",
+      "そうです。和子さんと輪投げをしました。",
       "That's right. You played yut with Ms. Soon-ja.",
     ),
   }),
@@ -872,7 +882,7 @@ export const haru7DayExercises: Exercise[] = [
     day: 3,
     prompt: localized(
       "영자 어르신이 예전에 하셨던 일은 무엇인가요?",
-      "ヨンジャさんが以前していた仕事は何ですか。",
+      "春子さんが以前していた仕事は何ですか。",
       "What work did Ms. Park do in the past?",
     ),
     options: [
@@ -935,15 +945,15 @@ export const haru7DayExercises: Exercise[] = [
       "Where did you have your blood pressure checked yesterday?",
     ),
     options: [
-      option("A", "유성구 보건소", "儒城区保健所", "Yuseong-gu Public Health Center"),
-      option("B", "복지관", "福祉館", "Community center"),
-      option("C", "유성시장", "儒城市場", "Yuseong Market"),
+      option("A", "유성구 보건소", "地域の保健センター", "Yuseong-gu Public Health Center"),
+      option("B", "복지관", "地域の交流センター", "Community center"),
+      option("C", "유성시장", "近所のスーパー", "Yuseong Market"),
       option("D", "은행", "銀行", "Bank"),
     ],
     correctAnswer: "A",
     explanation: localized(
       "맞아요. 보건소에서 혈압을 재셨어요.",
-      "そうです。保健所で血圧を測りました。",
+      "そうです。地域の保健センターで血圧を測りました。",
       "That's right. You had it checked at the public health center.",
     ),
   }),
@@ -954,7 +964,7 @@ export const haru7DayExercises: Exercise[] = [
     difficulty: 2,
     prompt: localized(
       "지하철이 15분 간격으로 옵니다. 이전 지하철이 오후 1시 10분에 출발했다면 다음 지하철은 몇 시에 올까요?",
-      "地下鉄は15分間隔で来ます。前の地下鉄が午後1時10分に出発したなら、次は何時に来ますか。",
+      "電車は15分間隔で来ます。前の電車が午後1時10分に出発した場合、次は何時に来ますか。",
       "The subway comes every 15 minutes. If the previous train left at 1:10 p.m., when will the next one arrive?",
     ),
     options: [
@@ -992,7 +1002,7 @@ export const haru7DayExercises: Exercise[] = [
     [
       option("A", "열쇠", "鍵", "Key"),
       option("B", "포도", "ぶどう", "Grapes"),
-      option("C", "기차", "汽車", "Train"),
+      option("C", "기차", "電車", "Train"),
       option("D", "우산", "傘", "Umbrella"),
     ],
     ["A", "B", "C"],
@@ -1056,19 +1066,19 @@ export const haru7DayExercises: Exercise[] = [
     difficulty: 2,
     prompt: localized(
       "속담 '백지장도 맞들면 낫다'와 가장 가까운 뜻은 무엇인가요?",
-      "韓国のことわざ「紙一枚でも二人で持てば楽だ」に最も近い意味はどれですか。",
+      "ことわざ「三人寄れば文殊の知恵」に最も近い意味はどれですか。",
       "Which meaning is closest to the Korean saying, 'Even a sheet of paper is easier to lift together'?",
     ),
     options: [
-      option("A", "함께 하면 일이 쉬워진다", "一緒にすれば仕事が楽になる", "Working together makes a task easier"),
-      option("B", "흰 종이는 깨끗하다", "白い紙はきれいだ", "White paper is clean"),
-      option("C", "혼자 해야 일이 빠르다", "一人でする方が早い", "Working alone is faster"),
-      option("D", "무거운 짐은 버려야 한다", "重い荷物は捨てるべきだ", "Heavy things should be discarded"),
+      option("A", "함께 하면 일이 쉬워진다", "力を合わせると、よい考えが生まれる", "Working together makes a task easier"),
+      option("B", "흰 종이는 깨끗하다", "人数が多いほど、すぐ終わる", "White paper is clean"),
+      option("C", "혼자 해야 일이 빠르다", "一人で考えるほうがよい", "Working alone is faster"),
+      option("D", "무거운 짐은 버려야 한다", "難しいことは後回しにする", "Heavy things should be discarded"),
     ],
     correctAnswer: "A",
     explanation: localized(
       "맞아요. 힘을 합치면 일이 쉬워진다는 뜻이에요.",
-      "そうです。力を合わせると仕事が楽になるという意味です。",
+      "そうです。力を合わせれば、よい考えが生まれるという意味です。",
       "That's right. It means work becomes easier when people join forces.",
     ),
   }),
@@ -1137,19 +1147,19 @@ export const haru7DayExercises: Exercise[] = [
     day: 6,
     prompt: localized(
       "어제 함께 김치전을 먹은 사람은 누구였나요?",
-      "昨日、一緒にキムチチヂミを食べた人は誰ですか。",
+      "昨日、一緒にお好み焼きを食べた人は誰ですか。",
       "Who ate kimchi pancakes with you yesterday?",
     ),
     options: [
-      option("A", "딸 민지와 손자 준호", "娘のミンジと孫のジュノ", "Daughter Min-ji and grandson Jun-ho"),
-      option("B", "친구 순자와 이웃 정희", "友人のスンジャと隣人のジョンヒ", "Friend Soon-ja and neighbor Jeong-hee"),
-      option("C", "보건소 직원", "保健所の職員", "A public health center worker"),
+      option("A", "딸 민지와 손자 준호", "娘の由美さんと孫の健太さん", "Daughter Min-ji and grandson Jun-ho"),
+      option("B", "친구 순자와 이웃 정희", "友人の和子さんと近所の恵子さん", "Friend Soon-ja and neighbor Jeong-hee"),
+      option("C", "보건소 직원", "保健センターの職員", "A public health center worker"),
       option("D", "혼자", "一人", "No one; I ate alone"),
     ],
     correctAnswer: "A",
     explanation: localized(
       "맞아요. 민지 씨와 준호가 함께 왔어요.",
-      "そうです。ミンジさんとジュノさんが一緒に来ました。",
+      "そうです。由美さんと健太さんが一緒に来ました。",
       "That's right. Min-ji and Jun-ho came together.",
     ),
   }),
@@ -1181,19 +1191,19 @@ export const haru7DayExercises: Exercise[] = [
     day: 6,
     prompt: localized(
       "영자 어르신의 딸 이름은 무엇인가요?",
-      "ヨンジャさんの娘の名前は何ですか。",
+      "春子さんの娘の名前は何ですか。",
       "What is Ms. Park's daughter's name?",
     ),
     options: [
-      option("A", "김민지", "キム・ミンジ", "Kim Min-ji"),
-      option("B", "이순자", "イ・スンジャ", "Lee Soon-ja"),
-      option("C", "최정희", "チェ・ジョンヒ", "Choi Jeong-hee"),
-      option("D", "김미영", "キム・ミヨン", "Kim Mi-young"),
+      option("A", "김민지", "佐藤由美", "Kim Min-ji"),
+      option("B", "이순자", "田中和子", "Lee Soon-ja"),
+      option("C", "최정희", "鈴木恵子", "Choi Jeong-hee"),
+      option("D", "김미영", "高橋美幸", "Kim Mi-young"),
     ],
     correctAnswer: "A",
     explanation: localized(
       "맞아요. 딸 이름은 민지예요.",
-      "そうです。娘の名前はミンジです。",
+      "そうです。娘の名前は由美さんです。",
       "That's right. Her daughter's name is Min-ji.",
     ),
   }),
@@ -1250,7 +1260,7 @@ export const haru7DayExercises: Exercise[] = [
     options: [
       option("A", "단팥빵 2개", "あんパン2個", "Two red-bean buns"),
       option("B", "식빵 1개", "食パン1斤", "One loaf of bread"),
-      option("C", "소보로빵 3개", "そぼろパン3個", "Three streusel buns"),
+      option("C", "소보로빵 3개", "メロンパン3個", "Three streusel buns"),
       option("D", "케이크 1개", "ケーキ1個", "One cake"),
     ],
     correctAnswer: "A",
@@ -1265,19 +1275,19 @@ export const haru7DayExercises: Exercise[] = [
     day: 7,
     prompt: localized(
       "이번 주에 딸 민지와 손자 준호가 집에 왔을 때 함께 먹은 음식은 무엇인가요?",
-      "今週、娘のミンジさんと孫のジュノさんが家に来たとき、一緒に食べたものは何ですか。",
+      "今週、娘の由美さんと孫の健太さんが家に来たとき、一緒に食べたものは何ですか。",
       "What did you eat together when your daughter Min-ji and grandson Jun-ho visited this week?",
     ),
     options: [
-      option("A", "김치전", "キムチチヂミ", "Kimchi pancakes"),
-      option("B", "잔치국수", "韓国式にゅうめん", "Banquet noodles"),
-      option("C", "된장찌개", "テンジャンチゲ", "Soybean paste stew"),
+      option("A", "김치전", "お好み焼き", "Kimchi pancakes"),
+      option("B", "잔치국수", "そうめん", "Banquet noodles"),
+      option("C", "된장찌개", "味噌汁", "Soybean paste stew"),
       option("D", "단팥빵", "あんパン", "Red-bean buns"),
     ],
     correctAnswer: "A",
     explanation: localized(
       "맞아요. 함께 김치전을 드셨어요.",
-      "そうです。一緒にキムチチヂミを食べました。",
+      "そうです。一緒にお好み焼きを食べました。",
       "That's right. You ate kimchi pancakes together.",
     ),
   }),
@@ -1331,13 +1341,13 @@ const PERSONALIZATION_SOURCE_NOTES: Partial<Record<string, LocalizedText>> = {
   D2_Q1: localized("1일차 감정 응답", "1日目の気分の回答", "Day 1 mood response"),
   D2_Q3: localized(
     "1일차 음성 답변: 유성시장에서 애호박과 대파 구매",
-    "1日目の音声回答：儒城市場で韓国かぼちゃと長ねぎを購入",
+    "1日目の音声回答：近所のスーパーでかぼちゃと長ねぎを購入",
     "Day 1 voice response: bought zucchini and green onions at Yuseong Market",
   ),
   D3_Q1: localized("2일차 감정 응답", "2日目の気分の回答", "Day 2 mood response"),
   D3_Q3: localized(
     "2일차 음성 답변: 복지관에서 친구 이순자와 윷놀이",
-    "2日目の音声回答：福祉館で友人のイ・スンジャさんとユンノリ",
+    "2日目の音声回答：地域の交流センターで友人の田中和子さんと輪投げ",
     "Day 2 voice response: played yut with friend Lee Soon-ja at the community center",
   ),
   D3_Q4: localized(
@@ -1357,7 +1367,7 @@ const PERSONALIZATION_SOURCE_NOTES: Partial<Record<string, LocalizedText>> = {
   ),
   D4_Q3: localized(
     "3일차 음성 답변: 유성구 보건소에서 혈압 측정",
-    "3日目の音声回答：儒城区保健所で血圧を測定",
+    "3日目の音声回答：地域の保健センターで血圧を測定",
     "Day 3 voice response: blood pressure measured at the Yuseong health center",
   ),
   D5_Q1: localized(
@@ -1377,7 +1387,7 @@ const PERSONALIZATION_SOURCE_NOTES: Partial<Record<string, LocalizedText>> = {
   ),
   D6_Q3: localized(
     "5일차 음성 답변: 딸 김민지와 손자 김준호가 방문",
-    "5日目の音声回答：娘のキム・ミンジさんと孫のキム・ジュノさんが訪問",
+    "5日目の音声回答：娘の佐藤由美さんと孫の佐藤健太さんが訪問",
     "Day 5 voice response: daughter Kim Min-ji and grandson Kim Jun-ho visited",
   ),
   D6_Q5: localized(
@@ -1497,7 +1507,7 @@ const RECORDED_RESPONSE_DATA: Record<string, RecordedResponseWithoutFeedback> = 
 const RECORDED_FEEDBACK_OVERRIDES: Partial<Record<string, LocalizedText>> = {
   D1_Q5: localized(
     "시장에 다녀오셨군요. 말씀해 주셔서 고마워요.",
-    "市場に行ってこられたのですね。話してくださってありがとうございます。",
+    "スーパーへ行ったのですね。話してくださってありがとうございます。",
     "You went to the market. Thank you for telling us.",
   ),
   D2_Q1: localized(
@@ -1507,7 +1517,7 @@ const RECORDED_FEEDBACK_OVERRIDES: Partial<Record<string, LocalizedText>> = {
   ),
   D2_Q6: localized(
     "순자 씨와 즐거운 시간을 보내셨군요.",
-    "スンジャさんと楽しい時間を過ごされたのですね。",
+    "和子さんと楽しい時間を過ごしたのですね。",
     "You had an enjoyable time with Soon-ja.",
   ),
   D3_Q1: localized(
@@ -1517,7 +1527,7 @@ const RECORDED_FEEDBACK_OVERRIDES: Partial<Record<string, LocalizedText>> = {
   ),
   D3_Q6: localized(
     "보건소에 다녀오셨군요. 오늘은 천천히 쉬세요.",
-    "保健所に行ってこられたのですね。今日はゆっくり休んでください。",
+    "地域の保健センターへ行ったのですね。今日はゆっくり休んでください。",
     "You visited the health center. Take it easy today.",
   ),
   D4_Q1: localized(
@@ -1527,7 +1537,7 @@ const RECORDED_FEEDBACK_OVERRIDES: Partial<Record<string, LocalizedText>> = {
   ),
   D4_Q5: localized(
     "산책하고 정희 씨도 만나셨군요.",
-    "散歩をして、ジョンヒさんにも会ったのですね。",
+    "散歩をして、恵子さんにも会ったのですね。",
     "You took a walk and met Jeong-hee too.",
   ),
   D4_Q6: localized(
@@ -1542,7 +1552,7 @@ const RECORDED_FEEDBACK_OVERRIDES: Partial<Record<string, LocalizedText>> = {
   ),
   D5_Q6: localized(
     "민지 씨와 준호가 와서 즐거우셨겠어요.",
-    "ミンジさんとジュノさんが来て、楽しかったでしょうね。",
+    "由美さんと健太さんが来て、楽しい時間を過ごしたのですね。",
     "It must have been lovely to have Min-ji and Jun-ho visit.",
   ),
   D6_Q1: localized(

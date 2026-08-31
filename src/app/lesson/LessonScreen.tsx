@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import type { MouseEvent as ReactMouseEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 import { X } from "lucide-react";
@@ -13,6 +14,7 @@ import {
 import { mockExercises } from "@/data/mockExercises";
 import {
   HARU_DEMO_PERSONA,
+  HARU_WEEK_QUESTION_META,
   HARU_WEEK_PLAN,
   getHaruWeekPlan,
   type HaruWeekDay,
@@ -39,7 +41,22 @@ import {
   startHaruAdminUsageSession,
 } from "@/features/lessons/haruAdminUsageRecordStorage";
 import { resolveHaruExercises } from "@/features/lessons/haruLivePersonalization";
-import { getLocalizedText } from "@/utils/localizedText";
+import { getLocalizedText, getSpeechLanguage, normalizeLanguage } from "@/utils/localizedText";
+import { getRuntimeMarketConfig } from "@/config/market";
+import {
+  captureHaruTelemetry,
+  createHaruLessonTelemetryTracker,
+  flushHaruTelemetry,
+  hashTelemetryContent,
+} from "@/features/analytics/client";
+import type { TelemetryInputMode } from "@/features/analytics/types";
+import {
+  HARU_VOICE_EXPERIENCE,
+  resolveSttPipelineVersion,
+  resolveVoiceOutcomeReason,
+} from "@/features/speech/voiceExperience";
+import { playHaruDayOneNarration } from "@/features/speech/haruNarration";
+import { speakCalmly } from "@/hooks/interactionFeedback";
 
 export default function LessonScreen() {
   const location = useLocation();
@@ -77,8 +94,12 @@ function LessonSession({ initialExerciseId, activeDay }: LessonSessionProps) {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const consent = useHaruConsent();
+  const marketConfig = getRuntimeMarketConfig();
   const personalizedQuestionUse = consent.personalizedQuestionUse;
-  const weekPlan = activeDay ? getHaruWeekPlan(activeDay) : undefined;
+  const weekPlan = activeDay
+    ? getHaruWeekPlan(activeDay, marketConfig.market)
+    : undefined;
+  const [telemetryTracker] = useState(createHaruLessonTelemetryTracker);
   const [initialSessions] = useState(getHaruDemoSessions);
   const existingSession = activeDay
     ? initialSessions.find((session) => session.day === activeDay)
@@ -122,12 +143,14 @@ function LessonSession({ initialExerciseId, activeDay }: LessonSessionProps) {
   );
   const [responseFeedback, setResponseFeedback] = useState("");
   const pendingAdminWritesRef = useRef(new Set<Promise<unknown>>());
+  const telemetryInputModeRef = useRef<TelemetryInputMode>("touch");
 
   const currentExercise = exercises[currentIndex];
   const currentExplanation = getLocalizedText(currentExercise?.explanation, i18n.language);
   const completedResultPath = activeDay ? `/result?day=${activeDay}` : "/result";
 
   const finishSession = useCallback(async () => {
+    void telemetryTracker?.completeQuestion();
     if (activeDay && weekPlan) {
       await Promise.allSettled([...pendingAdminWritesRef.current]);
       const completionMessage = getLocalizedText(
@@ -149,9 +172,23 @@ function LessonSession({ initialExerciseId, activeDay }: LessonSessionProps) {
         completionMessage,
       );
       if (completedSession?.status !== "completed") return;
+      if (activeDay === 1) {
+        void playHaruDayOneNarration(normalizeLanguage(i18n.language), "day.1.completion").then((played) => {
+          if (!played) speakCalmly(completionMessage, getSpeechLanguage(i18n.language));
+        });
+      }
     }
+    void telemetryTracker?.completeRoutine();
+    void flushHaruTelemetry();
     navigate(completedResultPath, { state: { completed: true } });
-  }, [activeDay, completedResultPath, i18n.language, navigate, weekPlan]);
+  }, [
+    activeDay,
+    completedResultPath,
+    i18n.language,
+    navigate,
+    telemetryTracker,
+    weekPlan,
+  ]);
 
   // A reload can happen after the final response was persisted but before the
   // completion transition ran. Recover that narrow state instead of reopening
@@ -181,20 +218,56 @@ function LessonSession({ initialExerciseId, activeDay }: LessonSessionProps) {
       abandonHaruDemoSession(activeDay);
       abandonHaruAdminUsageSession(activeDay);
     }
+    void telemetryTracker?.exit("user");
+    void flushHaruTelemetry();
     navigate("/result");
   };
 
-  const handleContinue = () => {
+  const handleContinue = useCallback(() => {
     if (currentIndex + 1 < exercises.length) {
+      void telemetryTracker?.completeQuestion();
       setCurrentIndex(currentIndex + 1);
       setGlobalState("awaiting_answer");
       setResponseFeedback("");
     } else {
-      finishSession();
+      void finishSession();
     }
-  };
+  }, [
+    currentIndex,
+    exercises.length,
+    finishSession,
+    setCurrentIndex,
+    setGlobalState,
+    setResponseFeedback,
+    telemetryTracker,
+  ]);
+
+  const handleTelemetryClick = useCallback(
+    (event: ReactMouseEvent<HTMLElement>) => {
+      const inputMode: TelemetryInputMode = event.detail === 0 ? "key_action" : "touch";
+      telemetryInputModeRef.current = inputMode;
+      void telemetryTracker?.recordInteraction(inputMode);
+
+      const target = event.target instanceof Element ? event.target : null;
+      const choice = target?.closest<HTMLElement>("[data-choice-id]");
+      const choiceId = choice?.dataset.choiceId;
+      if (!choice || !choiceId) return;
+      const wasSelected = choice.getAttribute("aria-pressed") === "true";
+      const selectedCount = event.currentTarget.querySelectorAll(
+        '[data-choice-id][aria-pressed="true"]',
+      ).length;
+      void telemetryTracker?.recordChoice(
+        choiceId,
+        !wasSelected,
+        Math.max(0, selectedCount + (wasSelected ? -1 : 1)),
+      );
+    },
+    [telemetryTracker],
+  );
 
   const handleRetry = () => {
+    void telemetryTracker?.useHint("retry_prompt");
+    void telemetryTracker?.retry();
     setGlobalState("awaiting_answer");
     setResponseFeedback("");
   };
@@ -218,6 +291,87 @@ function LessonSession({ initialExerciseId, activeDay }: LessonSessionProps) {
     const exercise = exercises[currentIndex];
     if (!exercise || exercise.id !== response.questionId) return;
     const personalization = resolvedExercises[currentIndex]?.personalization;
+    const inputMode: TelemetryInputMode =
+      response.responseType === "voice"
+        ? "voice"
+        : response.inputMode === "physical_button" ||
+            response.sequenceButtonEvents?.some(
+              (event) => event.inputMode === "physical_button",
+            )
+          ? "key_action"
+          : "touch";
+    telemetryInputModeRef.current = inputMode;
+    void telemetryTracker?.confirmAnswer({
+      inputMode,
+      responseIds:
+        response.responseType === "single_choice"
+          ? response.selectedOptionId
+            ? [response.selectedOptionId]
+            : []
+          : response.responseType === "button_sequence"
+            ? [...(response.submittedSequence ?? [])]
+            : [],
+      result:
+        response.isCorrect === true
+          ? "correct"
+          : response.isCorrect === false
+            ? "incorrect"
+          : "unscored",
+    });
+    if (response.responseType === "button_sequence") {
+      const events = response.sequenceButtonEvents ?? [];
+      events.forEach((event, index) => {
+        void captureHaruTelemetry(
+          "sequence_changed",
+          {
+            action: "add",
+            itemId: event.optionId,
+            position: index,
+            itemCount: index + 1,
+          },
+          {
+            routineSessionId: telemetryTracker?.getSessionId(),
+            questionInstanceId: telemetryTracker?.getQuestionInstanceId(),
+          },
+        );
+      });
+    }
+    if (response.responseType === "voice") {
+      const durationMs = Math.max(
+        0,
+        Math.round((response.voiceDurationSeconds ?? 0) * 1000),
+      );
+      const recordingEndedAt = Date.parse(response.recordingEndedAt ?? "");
+      const sttProcessedAt = Date.parse(response.sttProcessedAt ?? "");
+      const sttLatencyMs =
+        Number.isFinite(recordingEndedAt) && Number.isFinite(sttProcessedAt)
+          ? Math.max(0, Math.round(sttProcessedAt - recordingEndedAt))
+          : undefined;
+      void telemetryTracker?.recordVoiceCaptureStatus({
+        ...HARU_VOICE_EXPERIENCE,
+        sttPipelineVersion: resolveSttPipelineVersion(
+          response.sttPreprocessingVersion,
+        ),
+        phase: durationMs > 0 ? "completed" : "failed",
+        durationMs,
+        sttStatus:
+          response.recognitionError === "stt-pending"
+            ? "queued"
+            : response.sttStatus === "completed"
+              ? "completed"
+              : response.sttNoSpeech
+                ? "no_speech"
+                : "failed",
+        ...(sttLatencyMs !== undefined ? { sttLatencyMs } : {}),
+        noSpeech: response.sttNoSpeech === true,
+        outcomeReason: resolveVoiceOutcomeReason({
+          durationMs,
+          recognitionError: response.recognitionError,
+          sttStatus: response.sttStatus,
+          noSpeech: response.sttNoSpeech,
+        }),
+      });
+    }
     const pendingWrite = recordHaruAdminResponse(
       activeDay,
       exercise,
@@ -248,15 +402,150 @@ function LessonSession({ initialExerciseId, activeDay }: LessonSessionProps) {
       if (nextIndex >= 0) setCurrentIndex(nextIndex);
     }
     setHasStarted(true);
+    if (activeDay === 1 && weekPlan) {
+      const greeting = getLocalizedText(weekPlan.greeting, i18n.language);
+      void playHaruDayOneNarration(normalizeLanguage(i18n.language), "day.1.greeting").then((played) => {
+        if (!played) speakCalmly(greeting, getSpeechLanguage(i18n.language));
+      });
+    }
   }, [
     activeDay,
     completedResultPath,
     exercises,
+    i18n.language,
     navigate,
     setCurrentIndex,
     setHasStarted,
     weekPlan,
   ]);
+
+  useEffect(() => {
+    if (!hasStarted || !currentExercise || !telemetryTracker) return;
+    let cancelled = false;
+    void (async () => {
+      await telemetryTracker.startRoutine(
+        activeDay ? `haru-week-day-${activeDay}` : "haru-routine",
+        activeDay ?? 0,
+        exercises.length,
+      );
+      if (existingSession?.status === "in_progress") {
+        await telemetryTracker.resumeFromDropoff();
+      }
+      if (cancelled) return;
+      const questionMeta = HARU_WEEK_QUESTION_META.find(
+        (candidate) => candidate.exerciseId === currentExercise.id,
+      );
+      await telemetryTracker.presentQuestion({
+        questionId: currentExercise.id,
+        exerciseType: currentExercise.type,
+        domain: currentExercise.payload.domain ?? "uncategorized",
+        ordinal: currentIndex + 1,
+        difficulty: String(currentExercise.difficulty),
+        contentHash: hashTelemetryContent(
+          currentExercise.id,
+          currentExercise.type,
+          marketConfig.contentPackVersion,
+        ),
+        ...(questionMeta?.responseType === "voice"
+          ? { voiceExperience: HARU_VOICE_EXPERIENCE }
+          : {}),
+      });
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [
+    activeDay,
+    currentExercise,
+    currentIndex,
+    exercises.length,
+    existingSession?.status,
+    hasStarted,
+    marketConfig.contentPackVersion,
+    telemetryTracker,
+  ]);
+
+  useEffect(() => {
+    if (!telemetryTracker) return;
+    const onVisibility = () => {
+      const visible = document.visibilityState !== "hidden";
+      telemetryTracker.setVisible(visible);
+      if (visible) {
+        void telemetryTracker.resume();
+      } else {
+        void telemetryTracker.pause("background");
+      }
+    };
+    const onFocus = () => {
+      telemetryTracker.setFocused(true);
+      if (document.visibilityState !== "hidden") {
+        void telemetryTracker.resume();
+      }
+    };
+    const onBlur = () => {
+      telemetryTracker.setFocused(false);
+      void telemetryTracker.pause("background");
+    };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Tab" || event.key === "Shift" || event.key === "Control") {
+        return;
+      }
+      telemetryInputModeRef.current = "key_action";
+      void telemetryTracker.recordInteraction("key_action");
+    };
+    const onPageHide = () => {
+      void telemetryTracker.exit("pagehide");
+      void flushHaruTelemetry();
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+    window.addEventListener("focus", onFocus);
+    window.addEventListener("blur", onBlur);
+    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener("pagehide", onPageHide);
+    return () => {
+      document.removeEventListener("visibilitychange", onVisibility);
+      window.removeEventListener("focus", onFocus);
+      window.removeEventListener("blur", onBlur);
+      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("pagehide", onPageHide);
+    };
+  }, [telemetryTracker]);
+
+  useEffect(() => {
+    if (
+      globalState !== "correct_feedback" &&
+      globalState !== "incorrect_feedback" &&
+      globalState !== "hint_feedback"
+    ) {
+      return;
+    }
+    const selectedIds = Array.from(
+      document.querySelectorAll<HTMLElement>(
+        '[data-screen="lesson"] [data-choice-id][aria-pressed="true"]',
+      ),
+      (element) => element.dataset.choiceId,
+    ).filter((id): id is string => Boolean(id));
+    const isVoiceExercise =
+      currentExercise?.type === "verbal_fluency_practice" ||
+      currentExercise?.type === "speech_repeat_practice";
+    void telemetryTracker?.confirmAnswer({
+      inputMode: isVoiceExercise ? "voice" : telemetryInputModeRef.current,
+      responseIds: selectedIds,
+      result:
+        globalState === "correct_feedback"
+          ? "correct"
+          : globalState === "incorrect_feedback"
+            ? "incorrect"
+            : "unscored",
+    });
+    void telemetryTracker?.showFeedback(
+      globalState === "correct_feedback"
+        ? "success"
+        : globalState === "incorrect_feedback"
+          ? "neutral"
+          : "retry",
+    );
+  }, [currentExercise?.type, globalState, telemetryTracker]);
 
   // Splash auto-starts after a short beat (today's concept shows first). Any tap
   // on the splash also starts immediately — no start button to hunt for.
@@ -294,22 +583,13 @@ function LessonSession({ initialExerciseId, activeDay }: LessonSessionProps) {
       return;
     }
     const timer = window.setTimeout(() => {
-      if (currentIndex + 1 < exercises.length) {
-        setCurrentIndex(currentIndex + 1);
-        setGlobalState("awaiting_answer");
-        setResponseFeedback("");
-      } else {
-        finishSession();
-      }
+      void handleContinue();
     }, 2800);
     return () => window.clearTimeout(timer);
   }, [
     finishSession,
     globalState,
-    currentIndex,
-    exercises.length,
-    setGlobalState,
-    setCurrentIndex,
+    handleContinue,
   ]);
 
   if (!hasStarted) {
@@ -404,7 +684,14 @@ function LessonSession({ initialExerciseId, activeDay }: LessonSessionProps) {
         />
       </header>
 
-      <main className="flex flex-col flex-1 w-full max-w-md mx-auto px-4 mt-2">
+      <main
+        className="flex flex-col flex-1 w-full max-w-md mx-auto px-4 mt-2"
+        onPointerDownCapture={() => {
+          telemetryInputModeRef.current = "touch";
+          void telemetryTracker?.recordInteraction("touch");
+        }}
+        onClickCapture={handleTelemetryClick}
+      >
         <ExerciseRenderer
           key={`${currentExercise.id}:${personalizedQuestionUse ? "personalized" : "generic"}`}
           exercise={currentExercise}

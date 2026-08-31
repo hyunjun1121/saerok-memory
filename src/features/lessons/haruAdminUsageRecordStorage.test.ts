@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   HARU_DEMO_PERSONA,
   HARU_WEEK_PLAN,
@@ -15,6 +15,8 @@ import {
   getHaruAdminUsageRecord,
   presentHaruAdminQuestion,
   recordHaruAdminResponse,
+  scrubHaruAdminAudioData,
+  scrubHaruAdminTranscriptData,
   scrubHaruAdminVoiceData,
   startHaruAdminUsageSession,
 } from "@/features/lessons/haruAdminUsageRecordStorage";
@@ -119,6 +121,10 @@ describe("haruAdminUsageRecordStorage", () => {
     setConsent("longitudinalUsageStorage", true);
   });
 
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
   it("creates the JSON contract root, synthetic persona, device, and session", () => {
     const startedAt = new Date("2026-07-20T01:00:00.000Z");
     startHaruAdminUsageSession(1, startedAt);
@@ -139,11 +145,17 @@ describe("haruAdminUsageRecordStorage", () => {
         }),
         dataset: expect.objectContaining({
           dataset_id: "HARU-DEMO-USER-001-WEEK-01",
+          market: "kr",
+          ui_locale: "ko-KR",
+          content_pack_version: "kr-2026.08",
+          currency: "KRW",
           is_synthetic: true,
           period: { start: "2026-07-20", end: "2026-07-26" },
         }),
         user: expect.objectContaining({
           user_id: "USR-000001",
+          market: "kr",
+          ui_locale: "ko-KR",
           display_name: "박영자",
           birth_year: 1952,
           age_at_period_start: 74,
@@ -159,6 +171,9 @@ describe("haruAdminUsageRecordStorage", () => {
           }),
         }),
         device: expect.objectContaining({
+          site_id: "SITE-DEMO-YUSEONG-01",
+          site_name: "유성구 복지관 데모존",
+          timezone: "Asia/Seoul",
           button_layout: {
             A: { position: "왼쪽 위", color: "빨강" },
             B: { position: "오른쪽 위", color: "노랑" },
@@ -178,6 +193,88 @@ describe("haruAdminUsageRecordStorage", () => {
         question_records: [],
       }),
     );
+  });
+
+  it("creates a Japan-market snapshot with Japanese persona, dates, site, and content", async () => {
+    vi.stubEnv("VITE_HARU_MARKET", "jp");
+    vi.resetModules();
+    const jpStorage = await import(
+      "@/features/lessons/haruAdminUsageRecordStorage"
+    );
+
+    jpStorage.startHaruAdminUsageSession(
+      1,
+      new Date("2026-07-27T01:00:00.000Z"),
+    );
+    const exercise = scenario("D1_Q3").exercise;
+    const question = jpStorage.presentHaruAdminQuestion(
+      1,
+      exercise,
+      "ko",
+      { kind: "profile", sourceQuestionIds: [] },
+      new Date("2026-07-27T01:00:05.000Z"),
+    );
+    const record = jpStorage.getHaruAdminUsageRecord();
+
+    expect(record).toEqual(
+      expect.objectContaining({
+        schema: expect.objectContaining({
+          name: "haru_kiosk_usage_record",
+          version: "1.0.0",
+          purpose: expect.stringContaining("利用セッション"),
+        }),
+        dataset: expect.objectContaining({
+          dataset_id: "HARU-DEMO-USER-001-WEEK-01",
+          market: "jp",
+          ui_locale: "ja-JP",
+          content_pack_version: "jp-2026.08",
+          currency: "JPY",
+          data_classification: "発表・開発用の架空個人情報",
+          period: { start: "2026-07-27", end: "2026-08-02" },
+        }),
+        user: expect.objectContaining({
+          market: "jp",
+          ui_locale: "ja-JP",
+          display_name: "佐藤春子",
+          residence: "東京都練馬区",
+          registered_profile_fields: expect.objectContaining({
+            出身地: "長野県松本市",
+            以前の仕事: "小学校の給食調理員",
+            娘: "佐藤由美",
+          }),
+        }),
+        device: expect.objectContaining({
+          site_id: "SITE-DEMO-TOKYO-01",
+          site_name: "東京都内 地域交流センター（デモ会場）",
+          timezone: "Asia/Tokyo",
+          button_layout: {
+            A: { position: "左上", color: "赤" },
+            B: { position: "右上", color: "黄" },
+            C: { position: "左下", color: "緑" },
+            D: { position: "右下", color: "青" },
+          },
+        }),
+        sessions: [
+          expect.objectContaining({
+            session_id: "SES-20260727-USR000001",
+            session_date: "2026-07-27",
+            weekday: "月曜日",
+          }),
+        ],
+      }),
+    );
+    expect(question?.question).toEqual(
+      expect.objectContaining({
+        domain: "一般的な個人の記憶",
+        prompt_text: "春子さんの故郷はどこですか。",
+        prompt_audio_text: "春子さんの故郷はどこですか。",
+        personalization_source_note: "初回登録された長期プロフィール情報",
+        choices: expect.arrayContaining([
+          expect.objectContaining({ button: "A", label: "長野県松本市" }),
+        ]),
+      }),
+    );
+    expect(JSON.stringify(record)).not.toMatch(/[가-힣]/);
   });
 
   it("stores the actual personalized question snapshot and JSON button mapping", () => {
@@ -747,6 +844,104 @@ describe("haruAdminUsageRecordStorage", () => {
     }
   });
 
+  it("removes only transcript data when transcript consent changes during record write", async () => {
+    const exercise = scenario("D1_Q5").exercise;
+    presentHaruAdminQuestion(1, exercise, "ko");
+    const originalSetItem = Storage.prototype.setItem;
+    let injectedWithdrawal = false;
+    const setItem = vi
+      .spyOn(Storage.prototype, "setItem")
+      .mockImplementation(function (this: Storage, key: string, value: string) {
+        originalSetItem.call(this, key, value);
+        if (
+          key === HARU_ADMIN_USAGE_RECORD_STORAGE_KEY &&
+          value.includes("경쟁 조건 전사") &&
+          !injectedWithdrawal
+        ) {
+          injectedWithdrawal = true;
+          updateHaruConsent({ transcriptStorage: false });
+        }
+      });
+
+    try {
+      const result = await recordHaruAdminResponse(1, exercise, "ko", {
+        questionId: "D1_Q5",
+        responseType: "voice",
+        responseTimeMs: 1_000,
+        isCorrect: null,
+        feedback: "응답 완료",
+        voiceDurationSeconds: 1,
+        sttStatus: "completed",
+        rawUserUtteranceTranscript: "경쟁 조건 전사",
+        derivedAnnotations: [{ entityType: "인물", value: "경쟁 조건 이름" }],
+      });
+
+      expect(result).toBeNull();
+      const record = getHaruAdminUsageRecord();
+      expect(record).not.toBeNull();
+      expect(JSON.stringify(record)).not.toContain("경쟁 조건 전사");
+      expect(JSON.stringify(record)).not.toContain("경쟁 조건 이름");
+      expect(record?.sessions[0].question_records[0].response).toEqual(
+        expect.objectContaining({
+          raw_user_utterance_transcript: null,
+          derived_annotations: expect.objectContaining({ items: [] }),
+        }),
+      );
+    } finally {
+      setItem.mockRestore();
+    }
+  });
+
+  it("removes only audio data when audio consent changes during record write", async () => {
+    const exercise = scenario("D1_Q5").exercise;
+    presentHaruAdminQuestion(1, exercise, "ko");
+    const originalSetItem = Storage.prototype.setItem;
+    let injectedWithdrawal = false;
+    const setItem = vi
+      .spyOn(Storage.prototype, "setItem")
+      .mockImplementation(function (this: Storage, key: string, value: string) {
+        originalSetItem.call(this, key, value);
+        if (
+          key === HARU_ADMIN_USAGE_RECORD_STORAGE_KEY &&
+          value.includes('"retention_status":"stored"') &&
+          !injectedWithdrawal
+        ) {
+          injectedWithdrawal = true;
+          updateHaruConsent({ audioStorage: false });
+        }
+      });
+
+    try {
+      const result = await recordHaruAdminResponse(1, exercise, "ko", {
+        questionId: "D1_Q5",
+        responseType: "voice",
+        responseTimeMs: 1_000,
+        isCorrect: null,
+        feedback: "응답 완료",
+        voiceDurationSeconds: 1,
+        audioBlob: new Blob(["race-audio"], { type: "audio/webm" }),
+        sttStatus: "completed",
+        rawUserUtteranceTranscript: "오디오만 철회",
+      });
+
+      expect(result).toBeNull();
+      const record = getHaruAdminUsageRecord();
+      expect(record).not.toBeNull();
+      expect(record?.sessions[0].question_records[0].response).toEqual(
+        expect.objectContaining({
+          raw_user_utterance_transcript: "오디오만 철회",
+          audio_storage: expect.objectContaining({
+            object_key: "",
+            retention_status: "not_stored",
+          }),
+        }),
+      );
+      expect(audioMocks.delete).toHaveBeenCalledWith(storedAudioObjectKey());
+    } finally {
+      setItem.mockRestore();
+    }
+  });
+
   it("clears raw metadata and IndexedDB audio together", async () => {
     startHaruAdminUsageSession(1);
     expect(localStorage.getItem(HARU_ADMIN_USAGE_RECORD_STORAGE_KEY)).not.toBeNull();
@@ -1013,6 +1208,133 @@ describe("haruAdminUsageRecordStorage", () => {
         raw_user_utterance_transcript: null,
         stt: expect.objectContaining({ transcript: null }),
         derived_annotations: expect.objectContaining({ status: "empty", items: [] }),
+      }),
+    );
+  });
+
+  it("retains transcript without audio when only audio storage is declined", async () => {
+    updateHaruConsent({ audioStorage: false, transcriptStorage: true });
+    const exercise = scenario("D1_Q5").exercise;
+    presentHaruAdminQuestion(1, exercise, "ko");
+    await recordHaruAdminResponse(1, exercise, "ko", {
+      questionId: "D1_Q5",
+      responseType: "voice",
+      responseTimeMs: 5_000,
+      isCorrect: null,
+      feedback: "응답 완료",
+      voiceDurationSeconds: 3,
+      audioBlob: new Blob(["audio"], { type: "audio/webm" }),
+      sttStatus: "completed",
+      rawUserUtteranceTranscript: "전사만 보관합니다",
+      derivedAnnotations: [{ entityType: "주제", value: "전사" }],
+    });
+
+    expect(audioMocks.store).not.toHaveBeenCalled();
+    const response = getHaruAdminUsageRecord()?.sessions[0].question_records[0].response;
+    expect(response).toEqual(
+      expect.objectContaining({
+        raw_user_utterance_transcript: "전사만 보관합니다",
+        audio_storage: expect.objectContaining({
+          object_key: "",
+          retention_status: "not_stored",
+        }),
+      }),
+    );
+  });
+
+  it("retains audio without transcript when only transcript storage is declined", async () => {
+    updateHaruConsent({ audioStorage: true, transcriptStorage: false });
+    const exercise = scenario("D1_Q5").exercise;
+    presentHaruAdminQuestion(1, exercise, "ko");
+    await recordHaruAdminResponse(1, exercise, "ko", {
+      questionId: "D1_Q5",
+      responseType: "voice",
+      responseTimeMs: 5_000,
+      isCorrect: null,
+      feedback: "응답 완료",
+      voiceDurationSeconds: 3,
+      audioBlob: new Blob(["audio"], { type: "audio/webm" }),
+      sttStatus: "completed",
+      rawUserUtteranceTranscript: "보관하면 안 되는 전사",
+      derivedAnnotations: [{ entityType: "인물", value: "보관 금지" }],
+    });
+
+    expect(audioMocks.store).toHaveBeenCalledTimes(1);
+    const response = getHaruAdminUsageRecord()?.sessions[0].question_records[0].response;
+    expect(response).toEqual(
+      expect.objectContaining({
+        raw_user_utterance_transcript: null,
+        audio_storage: expect.objectContaining({ retention_status: "stored" }),
+        stt: expect.objectContaining({ transcript: null, segments: [] }),
+        derived_annotations: expect.objectContaining({ status: "empty", items: [] }),
+      }),
+    );
+    expect(JSON.stringify(response)).not.toContain("보관하면 안 되는 전사");
+    expect(JSON.stringify(response)).not.toContain("보관 금지");
+    expect(getHaruSttRetryOutbox()).toEqual([]);
+  });
+
+  it("scrubs transcript while preserving separately consented audio", async () => {
+    const exercise = scenario("D1_Q5").exercise;
+    presentHaruAdminQuestion(1, exercise, "ko");
+    await recordHaruAdminResponse(1, exercise, "ko", {
+      questionId: "D1_Q5",
+      responseType: "voice",
+      responseTimeMs: 5_000,
+      isCorrect: null,
+      feedback: "응답 완료",
+      voiceDurationSeconds: 3,
+      audioBlob: new Blob(["audio"], { type: "audio/webm" }),
+      sttStatus: "completed",
+      rawUserUtteranceTranscript: "전사 철회 대상",
+      derivedAnnotations: [{ entityType: "인물", value: "철회 대상" }],
+    });
+    const objectKey = storedAudioObjectKey();
+    updateHaruConsent({ transcriptStorage: false });
+
+    await scrubHaruAdminTranscriptData();
+
+    expect(audioMocks.clear).not.toHaveBeenCalled();
+    const response = getHaruAdminUsageRecord()?.sessions[0].question_records[0].response;
+    expect(response).toEqual(
+      expect.objectContaining({
+        raw_user_utterance_transcript: null,
+        audio_storage: expect.objectContaining({
+          object_key: objectKey,
+          retention_status: "stored",
+        }),
+      }),
+    );
+    expect(JSON.stringify(response)).not.toContain("전사 철회 대상");
+  });
+
+  it("scrubs audio while preserving separately consented transcript", async () => {
+    const exercise = scenario("D1_Q5").exercise;
+    presentHaruAdminQuestion(1, exercise, "ko");
+    await recordHaruAdminResponse(1, exercise, "ko", {
+      questionId: "D1_Q5",
+      responseType: "voice",
+      responseTimeMs: 5_000,
+      isCorrect: null,
+      feedback: "응답 완료",
+      voiceDurationSeconds: 3,
+      audioBlob: new Blob(["audio"], { type: "audio/webm" }),
+      sttStatus: "completed",
+      rawUserUtteranceTranscript: "전사는 유지합니다",
+    });
+    updateHaruConsent({ audioStorage: false });
+
+    await scrubHaruAdminAudioData();
+
+    expect(audioMocks.clear).toHaveBeenCalledTimes(1);
+    const response = getHaruAdminUsageRecord()?.sessions[0].question_records[0].response;
+    expect(response).toEqual(
+      expect.objectContaining({
+        raw_user_utterance_transcript: "전사는 유지합니다",
+        audio_storage: expect.objectContaining({
+          object_key: "",
+          retention_status: "not_stored",
+        }),
       }),
     );
   });

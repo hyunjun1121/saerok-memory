@@ -205,9 +205,27 @@ describe("durable Haru STT retry", () => {
       }),
     );
     expect(getHaruRagOutbox()).toHaveLength(1);
-    expect(JSON.parse(getHaruRagOutbox()[0].payload)).toEqual(
-      getHaruAdminUsageRecord(),
+    const ragPayload = JSON.parse(getHaruRagOutbox()[0].payload);
+    const ragResponse = ragPayload.sessions[0].question_records[0].response;
+    expect(ragResponse).toEqual(
+      expect.objectContaining({
+        response_id: responseId,
+        raw_user_utterance_transcript: "유성시장에서 애호박과 대파를 샀어요.",
+        stt: expect.objectContaining({
+          status: "completed",
+          model: "Qwen/Qwen3-ASR-1.7B",
+          model_revision: "qwen-revision",
+        }),
+        audio_storage: {
+          object_key: "",
+          mime_type: null,
+          sample_rate_hz: null,
+          channels: null,
+          retention_status: "not_stored",
+        },
+      }),
     );
+    expect(getHaruRagOutbox()[0].payload).not.toContain("voice/USR-000001");
   });
 
   it("projects successful canonical STT facts into the existing safe demo response", async () => {
