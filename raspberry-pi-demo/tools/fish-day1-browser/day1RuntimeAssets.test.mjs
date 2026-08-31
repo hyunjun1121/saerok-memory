@@ -111,7 +111,7 @@ test("production Day 1 runtime uses 27 B assets plus four calm selections and th
   assert.ok(nfcEntry, "missing Korean NFC login narration");
   assert.equal(nfcEntry.text, "카드 리더기에 카드를 대주세요.");
   assert.equal(nfcEntry.origin?.choice, "right");
-  assert.equal(nfcEntry.origin?.sourcePath, "tools/fish-day1-browser/audio/32_login_nfc_waiting_right.mp3");
+  assert.equal(nfcEntry.origin?.sourcePath, "tools/fish-day1-browser/audio/32_login_nfc_waiting_sonjeongeun_right.mp3");
   const nfcSource = await readFile(path.join(demoRoot, nfcEntry.origin.sourcePath));
   const nfcRuntime = await readFile(path.join(demoRoot, "public", ...nfcEntry.path.split("/")));
   assert.equal(sha256(nfcSource), nfcEntry.origin.sourceSha256);

@@ -4343,16 +4343,16 @@
       "id": "login.nfc.waiting",
       "locale": "ko",
       "text": "카드 리더기에 카드를 대주세요.",
-      "path": "assets/audio/narration/ko/fishaudio-login-nfc-waiting.ogg",
-      "audioPath": "assets/audio/narration/ko/fishaudio-login-nfc-waiting.ogg",
-      "sha256": "c11caef0ed1b6f707a670a8ff7f9aa29d2d1f73890c9f5ca45cb2eba57e63994",
-      "durationMs": 2305,
+      "path": "assets/audio/narration/ko/4e6d4d0a6cd23e325d21ea88.ogg",
+      "audioPath": "assets/audio/narration/ko/4e6d4d0a6cd23e325d21ea88.ogg",
+      "sha256": "fd9e0436a2f73d701be2da1e002b65ec17198dff5d222dda8c011bd04501a509",
+      "durationMs": 2984,
       "origin": {
         "type": "user-selected-browser-export",
         "provider": "Fish Audio",
         "choice": "right",
-        "sourcePath": "tools/fish-day1-browser/audio/32_login_nfc_waiting_right.mp3",
-        "sourceSha256": "4ecc6e237493061dcf84ac4213280756b8a76c65e53508400cfcad29a5df490d"
+        "sourcePath": "tools/fish-day1-browser/audio/32_login_nfc_waiting_sonjeongeun_right.mp3",
+        "sourceSha256": "2bd595c1845fd5e38f8bba8017c0cfb324c4b65261194e3b80bedc7be0e940d8"
       }
     }
   ],
@@ -4365,6 +4365,6 @@
     "entryCount": 32,
     "baseRightEntryCount": 28,
     "maintainerSelectedEntryCount": 4,
-    "appliedAt": "2026-08-31T08:55:00.000Z"
+    "appliedAt": "2026-08-31T03:26:23.685Z"
   }
 }

@@ -7,9 +7,10 @@ Code: https://github.com/QwenLM/Qwen3-TTS
 License: Apache License 2.0
 
 Korean narration uses Qwen's built-in Sohee voice except for the 32 Day 1
-entries declared by manifest.json audioOverrides. Twenty-eight entries use the
-previously selected B/right Fish Audio browser exports. Four mood-option entries
-use the maintainer's final choices from calm-mood-candidates/selections.json.
+entries declared by manifest.json audioOverrides. Twenty-seven regular entries
+and the NFC waiting entry use Fish Audio browser exports selected as B/right;
+the NFC waiting entry uses the Korean 손정은 voice. Four mood-option entries use
+the maintainer's final choices from calm-mood-candidates/selections.json.
 Japanese narration uses Qwen's built-in Ono_Anna voice for the regular manifest.
 The Day 1 overlay (ja/day1/manifest.json) contains thirty-two maintainer-selected
 Fish Audio exports, including the NFC login waiting clip, using the veteran voice

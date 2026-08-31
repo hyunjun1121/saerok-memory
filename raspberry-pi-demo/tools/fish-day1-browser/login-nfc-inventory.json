@@ -7,6 +7,18 @@
     "label": "女性アナウンサー（ベテラン）",
     "description": "落ち着いた聞き取りやすい声"
   },
+  "voiceByLocale": {
+    "ko": {
+      "id": "5c71ab35290241ed842d036e4bb0e5da",
+      "label": "손정은",
+      "description": "전 MBC 아나운서"
+    },
+    "ja": {
+      "id": "veteran",
+      "label": "女性アナウンサー（ベテラン）",
+      "description": "落ち着いた聞き取りやすい声"
+    }
+  },
   "tagStyle": "gentle_double_pause",
   "entries": [
     {
@@ -14,10 +26,12 @@
       "id": "login.nfc.waiting",
       "text": "카드 리더기에 카드를 대주세요.",
       "taggedText": "카드 리더기에 [short pause] [emphasis] 카드를 대주세요.",
-      "sourcePath": "audio/32_login_nfc_waiting_right.mp3",
-      "runtimePath": "assets/audio/narration/ko/fishaudio-login-nfc-waiting.ogg",
-      "sourceSha256": "4ecc6e237493061dcf84ac4213280756b8a76c65e53508400cfcad29a5df490d",
-      "runtimeSha256": "c11caef0ed1b6f707a670a8ff7f9aa29d2d1f73890c9f5ca45cb2eba57e63994",
+      "sourcePath": "audio/32_login_nfc_waiting_sonjeongeun_right.mp3",
+      "runtimePath": "assets/audio/narration/ko/4e6d4d0a6cd23e325d21ea88.ogg",
+      "sourceSha256": "2bd595c1845fd5e38f8bba8017c0cfb324c4b65261194e3b80bedc7be0e940d8",
+      "runtimeSha256": "fd9e0436a2f73d701be2da1e002b65ec17198dff5d222dda8c011bd04501a509",
+      "voiceId": "5c71ab35290241ed842d036e4bb0e5da",
+      "voiceLabel": "손정은",
       "choice": "right"
     },
     {
