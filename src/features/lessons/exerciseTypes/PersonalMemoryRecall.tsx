@@ -177,7 +177,7 @@ export function PersonalMemoryRecall({
     }
   };
 
-  // Persist the learner's card and audio first. Background Qwen work patches
+  // Persist the learner's card and audio first. Background Microsoft STT patches
   // this same card later, so network latency never blocks lesson progression.
   const handleFinishStory = async () => {
     setIsTranscribing(true);

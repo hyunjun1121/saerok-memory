@@ -88,12 +88,35 @@ select {
   word-break: normal;
 }
 
+.offline-app[data-market="en"] {
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
 .offline-app[data-market="kr"] .choice-card__label {
   overflow-wrap: break-word;
 }
 
 .offline-app[data-market="jp"] .choice-card__label {
   overflow-wrap: normal;
+}
+
+.offline-app[data-market="en"] .choice-card__label {
+  overflow-wrap: break-word;
+  font-size: clamp(21px, 5.1vw, 29px);
+  letter-spacing: -0.035em;
+  line-height: 1.12;
+}
+
+.offline-app[data-market="en"] .question-copy h1 {
+  font-size: clamp(25px, 5.6vw, 31px);
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+}
+
+.offline-app[data-market="en"] .question-copy p {
+  font-size: 16px;
+  line-height: 1.28;
 }
 
 @supports (word-break: auto-phrase) {
@@ -139,6 +162,17 @@ html[lang="ja"] .offline-app--lesson-spacing .offline-app__stage {
   width: 120px;
   height: 54px;
   object-fit: contain;
+}
+
+.screen-header__wordmark {
+  display: inline-flex;
+  width: 120px;
+  height: 54px;
+  align-items: center;
+  color: #197b49;
+  font-size: 32px;
+  font-weight: 950;
+  letter-spacing: -0.06em;
 }
 
 .screen-header__brand {

@@ -237,11 +237,13 @@ export default function SettingsScreen() {
       const next = await applyHaruConsentChange({ [key]: !consent[key] });
       setConsent(next);
       setPrivacyStatus("success");
-      void captureHaruTelemetry("consent_changed", {
-        category: CONSENT_TELEMETRY_CATEGORY[key],
-        granted: next[key],
-        source: "settings",
-      });
+      if (key !== "museQuestionGeneration") {
+        void captureHaruTelemetry("consent_changed", {
+          category: CONSENT_TELEMETRY_CATEGORY[key],
+          granted: next[key],
+          source: "settings",
+        });
+      }
       if (key === "familySharing") {
         void captureHaruTelemetry("share_changed", {
           scope: "report",
@@ -571,6 +573,7 @@ export default function SettingsScreen() {
             ["audioStorage", "settings.audioStorageConsent"],
             ["longitudinalUsageStorage", "settings.longitudinalConsent"],
             ["personalizedQuestionUse", "settings.personalizationConsent"],
+            ["museQuestionGeneration", "settings.museQuestionGenerationConsent"],
             ["familySharing", "settings.familySharingConsent"],
           ] as const
         ).map(([key, labelKey]) => (

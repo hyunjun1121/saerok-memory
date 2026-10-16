@@ -14,7 +14,7 @@ MARKET="ko"
 
 usage() {
   cat <<'EOF'
-Usage: provision-pi.sh [--enable-autostart] [--skip-full-upgrade] [--market ko|ja]
+Usage: provision-pi.sh [--enable-autostart] [--skip-full-upgrade] [--market ko|ja|en]
 
 Installs system packages and checksum-verified Node.js, builds both offline
 markets, and optionally enables Labwc kiosk autostart for one market.
@@ -40,7 +40,7 @@ while [[ "$#" -gt 0 ]]; do
   esac
   shift
 done
-case "$MARKET" in ko|ja) ;; *) fail "Market must be ko or ja." ;; esac
+case "$MARKET" in ko|ja|en) ;; *) fail "Market must be ko, ja, or en." ;; esac
 
 [[ "${EUID:-$(id -u)}" -ne 0 ]] || fail "Do not run this script with sudo. It invokes sudo only for OS changes."
 [[ "$(uname -s)" == "Linux" ]] || fail "Raspberry Pi OS Trixie Desktop 64-bit is required."

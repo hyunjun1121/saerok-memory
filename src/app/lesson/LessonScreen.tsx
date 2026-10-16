@@ -11,7 +11,7 @@ import {
   buildDailySessionExercises,
   parseHaruWeekDay,
 } from "@/features/lessons/sessionBuilder";
-import { mockExercises } from "@/data/mockExercises";
+import { mockExercises, type AnswerOption } from "@/data/mockExercises";
 import {
   HARU_DEMO_PERSONA,
   HARU_WEEK_QUESTION_META,
@@ -36,10 +36,16 @@ import {
 import {
   abandonHaruAdminUsageSession,
   completeHaruAdminUsageSession,
+  HARU_ADMIN_USER_ID,
   presentHaruAdminQuestion,
   recordHaruAdminResponse,
   startHaruAdminUsageSession,
 } from "@/features/lessons/haruAdminUsageRecordStorage";
+import {
+  getHaruGeneratedQuestion,
+  saveHaruGeneratedQuestion,
+} from "@/features/lessons/haruGeneratedQuestionStorage";
+import { generateHaruNextDayQuestion } from "@/features/lessons/haruRagSync";
 import { resolveHaruExercises } from "@/features/lessons/haruLivePersonalization";
 import { getLocalizedText, getSpeechLanguage, normalizeLanguage } from "@/utils/localizedText";
 import { getRuntimeMarketConfig } from "@/config/market";
@@ -104,6 +110,18 @@ function LessonSession({ initialExerciseId, activeDay }: LessonSessionProps) {
   const existingSession = activeDay
     ? initialSessions.find((session) => session.day === activeDay)
     : undefined;
+  const [generatedQuestion] = useState(() =>
+    activeDay &&
+    weekPlan &&
+    consent.museQuestionGeneration === true &&
+    consent.personalizedQuestionUse
+      ? getHaruGeneratedQuestion(weekPlan.dateISO, marketConfig.market)
+      : null,
+  );
+  const generatedQuestionExerciseId = HARU_WEEK_QUESTION_META.find(
+    (question) =>
+      question.day === activeDay && question.responseType === "single_choice",
+  )?.exerciseId;
 
   const baseExercises = useMemo(
     () =>
@@ -121,12 +139,55 @@ function LessonSession({ initialExerciseId, activeDay }: LessonSessionProps) {
         personalization: { kind: "none" as const },
       }));
     }
-    return resolveHaruExercises(
+    const resolved = resolveHaruExercises(
       baseExercises,
       initialSessions,
       personalizedQuestionUse,
     );
-  }, [activeDay, baseExercises, initialExerciseId, initialSessions, personalizedQuestionUse]);
+    if (
+      !generatedQuestion ||
+      !generatedQuestionExerciseId ||
+      consent.museQuestionGeneration !== true ||
+      !consent.personalizedQuestionUse ||
+      !consent.longitudinalUsageStorage
+    ) {
+      return resolved;
+    }
+    const choices: AnswerOption[] = generatedQuestion.choices.map((choice) => ({
+      id: choice.button,
+      label: { ko: choice.label, ja: choice.label, en: choice.label },
+    }));
+    return resolved.map((item) =>
+      item.exercise.id === generatedQuestionExerciseId
+        ? {
+            exercise: {
+              ...item.exercise,
+              prompt: generatedQuestion.prompts,
+              payload: {
+                ...item.exercise.payload,
+                audioText: generatedQuestion.prompts,
+                options: choices,
+              },
+              correctAnswer: generatedQuestion.correctButton,
+              explanation: t("lesson.generatedQuestionExplanation"),
+            },
+            personalization: { kind: "none" as const },
+          }
+        : item,
+    );
+  }, [
+    activeDay,
+    baseExercises,
+    consent.longitudinalUsageStorage,
+    consent.museQuestionGeneration,
+    consent.personalizedQuestionUse,
+    generatedQuestion,
+    generatedQuestionExerciseId,
+    initialExerciseId,
+    initialSessions,
+    personalizedQuestionUse,
+    t,
+  ]);
   const exercises = resolvedExercises.map((resolved) => resolved.exercise);
   const firstUnansweredIndex = exercises.findIndex(
     (exercise) =>
@@ -172,6 +233,25 @@ function LessonSession({ initialExerciseId, activeDay }: LessonSessionProps) {
         completionMessage,
       );
       if (completedSession?.status !== "completed") return;
+      if (
+        !initialExerciseId &&
+        activeDay < 7 &&
+        getHaruConsent().museQuestionGeneration === true &&
+        getHaruConsent().personalizedQuestionUse
+      ) {
+        const nextPlan = getHaruWeekPlan(
+          (activeDay + 1) as HaruWeekDay,
+          marketConfig.market,
+        );
+        void generateHaruNextDayQuestion(
+          HARU_ADMIN_USER_ID,
+          nextPlan.dateISO,
+          marketConfig.market,
+          marketConfig.locale,
+        ).then((question) => {
+          if (question) saveHaruGeneratedQuestion(question);
+        });
+      }
       if (activeDay === 1) {
         void playHaruDayOneNarration(normalizeLanguage(i18n.language), "day.1.completion").then((played) => {
           if (!played) speakCalmly(completionMessage, getSpeechLanguage(i18n.language));
@@ -185,6 +265,8 @@ function LessonSession({ initialExerciseId, activeDay }: LessonSessionProps) {
     activeDay,
     completedResultPath,
     i18n.language,
+    initialExerciseId,
+    marketConfig,
     navigate,
     telemetryTracker,
     weekPlan,

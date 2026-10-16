@@ -21,11 +21,11 @@ The product should feel like a warm daily routine. It may provide Haru-branded, 
 - Learner-facing screens should remain mobile-first, friendly, sparse, and click-first.
 - Caregiver/counselor-facing screens may be denser and may include Haru's own advisory attention/risk levels, while remaining calm and explainable.
 
-## Current Demo Focus (2026-07-16)
+## Current Source Snapshot (2026-10-14)
 
-> **⚠ Git state — read before ANY git operation.** The structure refactor, cleanup, local STT/RAG integration, and consent-aware runtime are committed through baseline `e1ea674`. That baseline was verified clean on `feat/mentor-ui-revamp` on 2026-07-24 and is preserved locally as `backup/pre-sfx-e1ea674`. Sound-feedback work is isolated on `feat/haru-sound-feedback`. Always inspect the live branch, HEAD, index, and worktree before acting; do not assume this dated snapshot is still current. Do **not** run `git stash`, `git reset`, `git checkout --`, `git clean`, or `git restore` against user work. Commit only when the user asks.
+> **Git state — inspect before any Git operation.** At this snapshot, the branch is `feat/haru-sound-feedback`, `HEAD` is `3878721`, the index is clean, and the worktree contains substantial uncommitted changes across the STT/RAG consent flow and Raspberry Pi demo, plus local documents and generated files. These are user work. Never run `git stash`, `git reset`, `git checkout --`, `git clean`, or `git restore` against them. Commit only when the user asks. Recheck branch, `HEAD`, index, and worktree at the start of every task; this snapshot will age.
 
-Active work branch: `feat/haru-sound-feedback`, based on clean commit `e1ea674`. The earlier demo-first polish pass and subsequent structure/runtime work are committed. The bar is "looks like a polished working app" — appearance and flow outrank deep correctness for the demo. Read this section before planning or editing; it supersedes older status notes elsewhere in this file for live-state questions.
+The demo remains a polished, mobile-first daily routine. Keep the learner flow simple, accessible, and action-led; use caregiver/counselor screens for denser summaries. The source-specific facts below were checked against the current tree on 2026-10-14.
 
 Demo direction (explicit gaps being closed):
 
@@ -34,13 +34,13 @@ Demo direction (explicit gaps being closed):
 - On-screen copy must be short, one-line imperatives, learner-facing. Brain-activation / motivation copy is allowed (`SP-01`) but kept calm.
 - The live demo routine is action-only: tap, trace, draw, speak, record. Knowledge quizzes and math stay in the catalog, reachable by deep link / capture, but are excluded from the everyday routine so the demo stays simple and varied.
 
-### Current live routine
+### Current routine
 
 `DEMO_ROUTINE_IDS` in `src/features/lessons/sessionBuilder.ts` — 11 exercises, in order:
 
 `ex_orientation → ex_recall_dining → ex_market_money → ex_number_pattern → ex_stroop_touch → ex_verbal_fluency → ex_audio → ex_shape → ex_proverb → ex_mood_voice → ex_6`
 
-`buildDailySessionExercises` has two paths: with `initialExerciseId` it slices the full catalog uncapped from that exercise (capture / deep-link path — every authored exercise stays reachable exactly as written); otherwise it returns the fixed routine above. The capture deck and the live routine are separate concerns; do not conflate them.
+`HARU_WEEK_PLAN` is a fixed scripted demo for Korean dates 2026-07-20–26 and Japanese dates 2026-07-27–2026-08-02. Those dates have passed; as of this snapshot the daily routine falls back to `DEMO_ROUTINE_IDS`. Do not present the scripted week as live response-driven generation. Separately, the opt-in local RAG flow can generate a next-day memory question from stored records. With `initialExerciseId`, `buildDailySessionExercises` slices the full catalog from that exercise without a cap, keeping authored exercises reachable for capture/deep links.
 
 ### Current routes (verified in src/App.tsx)
 
@@ -56,7 +56,7 @@ Demo direction (explicit gaps being closed):
 
 ### Screenshot capture system
 
-`e2e/capture-application-screenshots.spec.ts` is the capture engine. It builds the deck dynamically from `mockExercises` (lesson-start + every catalog exercise via deep link + `/result` reveal states + both `/connect` destinations), so it stays complete as exercises are added or renamed.
+`e2e/capture-application-screenshots.spec.ts` seeds a canonical scripted-week fixture, then builds the screen deck from the lesson intro, every `mockExercises` entry via deep link, `/result` reveal states, and the caregiver/counselor destinations. The exercise portion stays complete as catalog entries are added or renamed.
 
 - Viewport 540×960 (exact 9:16), `deviceScaleFactor: 2` → 1080×1920 PNG, `fullPage: false`, `animations: disabled`.
 - Tall screens (caregiver / counselor) use a smart `document.body.style.zoom` to fit (floor 0.7), reset after capture.
@@ -74,20 +74,25 @@ Note: the Korean directory name `피우다프로젝트` has hit Unicode NFC/NFD 
 
 ### Deployment
 
-- Vercel project: `hyunjun-kims-projects/haru`. Stable production alias: `https://saerok-memory.vercel.app`.
-- Deploy from the working tree with the Vercel CLI: `vercel --prod --yes`. No git commit is required by the maintainer's workflow; commit only when explicitly asked. Deploy is outward-facing — only on explicit request.
-- Latest verified deploy (2026-07-16): id `dpl_j6paLsQ2eXDXuXwjKipRMQMU16c8`, `readyState: READY`, target production. (Deploy IDs and ready-state are Vercel-side metadata, not checkable from the repo — confirm via the Vercel dashboard/CLI before relying on them.)
+- Vercel project configuration is `hyunjun-kims-projects/haru`; the configured stable alias is `https://saerok-memory.vercel.app`.
+- Production status and latest deployment are not verified in this snapshot. Confirm them through the Vercel dashboard/CLI before describing production as current.
+- Deploy from the working tree with `vercel --prod --yes` only when the user explicitly asks. Do not commit unless asked.
 
-### Speech / STT backend
+### Local speech and memory services
 
-The STT backend (`backend/`, FastAPI on `127.0.0.1:8765`; scripts `stt:install` / `stt:dev` / `stt:test` / `stt:smoke`) is local-GPU only and must NOT be deployed to Vercel. Voice exercises must degrade gracefully when the backend is unreachable (MediaRecorder fallback; completion must still be possible without speech recognition).
+- `backend/` is a local FastAPI gateway on `127.0.0.1:8765`. It decodes and conditions audio locally, then sends a WAV copy to Microsoft MAI-Transcribe-2 for speech recognition. This is not fully offline processing. Use Windows Credential Manager target `NexQ:azure_speech`; `STT_API_KEY` overrides it. Configure endpoint/model/output language with `STT_ENDPOINT`, `STT_MODEL_ID`, and `STT_OUTPUT_LANGUAGE`. Never put API keys in source, logs, or committed `.env` files.
+- The current STT runtime does not load or download a local speech model and does not need a GPU. Keep the gateway local; do not deploy it to Vercel. If the gateway or Microsoft API is unavailable, voice exercises must still complete without a transcript.
+- Voice recording and Microsoft transfer are distinct consent scopes. Only submit audio when the current explicit STT/Microsoft transfer consent is true. Older local-STT consent records fail closed and require a new opt-in. Store original audio in browser IndexedDB only when its storage consent is enabled; store transcript data locally only with transcript consent.
+- `rag_backend/` runs locally on `127.0.0.1:8000`. SQLite at `rag_backend/data/haru.db` is the source of truth; the local `intfloat/multilingual-e5-small` model under `rag_backend/models/` is a text embedding model needed by RAG, not a speech model. Do not remove it as part of voice-model cleanup. Neo4j is an optional derived mirror. Neither local service belongs in the Vercel deployment.
+- Next-day question evidence, answer choices, and correct answers are selected locally from consented records in SQLite. Meta Muse phrasing is a separate opt-in (`museQuestionGeneration`, default off); its request contains only a generic relation type, market, language instructions, and generic example wording. It must never contain audio, transcript text, personal names/facts, choices, or the answer. If Meta or its key is unavailable, use local wording. Defaults are `https://api.meta.ai/v1`, `muse-wonder-1.0`, and Responses API; read the key from Windows Credential Manager target `NexQ:custom`. `MODEL_API_KEY`, `MUSE_BASE_URL`, `MUSE_MODEL`, and `MUSE_REASONING_EFFORT` override the defaults.
+- A prior preflight identified about 50.5 GiB across ignored legacy model/cache/virtualenv paths. Cleanup was blocked, so none were removed and no disk space was reclaimed. Leftovers may remain under `backend/models/`, `raspberry-pi-demo/tools/tts*/`, and `raspberry-pi-demo/tools/kokoro/`; they are not used by the root app's current STT gateway. Inspect actual paths before cleanup and preserve local RAG embeddings and user audio.
 
 ### Validation baseline
 
-- `npm run typecheck` clean (strict TypeScript).
-- `npm test` → 475 tests across 65 files.
-- `npm run lint` and `npm run build` green.
-- Re-verified green on 2026-07-24.
+- Historical baseline from 2026-07-24: `npm run typecheck`, lint, build, and 475 tests across 65 files passed. This does not describe the current worktree.
+- For the current STT/MUSE integration, `npm run typecheck`, `npm run build`, targeted ESLint, and Python compile checks passed in the preceding work. Vitest, Pytest, browser/API calls, and the modified Raspberry Pi demo were not verified in that pass.
+- Older STT tests may still encode the removed local/Qwen model contract; update them before treating them as coverage for the Microsoft adapter.
+- Do not claim any check ran unless its result is available for the current changes.
 
 ### SP-01..SP-09 commit trail (feat/mentor-ui-revamp)
 
@@ -137,11 +142,27 @@ Use the existing project scripts.
 
 ```bash
 npm install
+npm run stt:install
+npm run rag:install
+npm run rag:download
+```
+
+Start the local stack:
+
+```bash
+npm run dev:local
+```
+
+App validation commands:
+
+```bash
 npm run test
 npm run typecheck
 npm run lint
 npm run build
 ```
+
+`npm run dev:local` starts Vite (`127.0.0.1:5173`), local STT (`:8765`), and local RAG (`:8000`). `rag:download` fetches the E5 text embedding model, not a speech model. Individual service setup and credentials are documented in `README.md`, `backend/README.md`, and `rag_backend/README.md`.
 
 If a command cannot run in the agent environment, report the exact command, the exact error, and the closest alternative that was run.
 
@@ -177,19 +198,24 @@ src/
     gamification/ gardenProgress, streaks, useGamification,
                  weeklyRewards.ts (also exports REWARD_CATALOG; covered by weeklyRewardsCatalog.test.ts)
     kiosk/      useKioskControls.ts
-    lessons/    ExerciseRenderer.tsx, sessionBuilder.ts
+    lessons/    ExerciseRenderer.tsx, sessionBuilder.ts, haruRagSync.ts,
+                haruGeneratedQuestionStorage.ts, haruAdminUsageRecordStorage.ts
                  exerciseTypes/   16 exercise components + types.ts
                  ui/              FeedbackTray.tsx, ScenarioCard.tsx
     memory/     memoryCardStorage, memoryReviewGenerator, memoryScheduler,
                  memoryStory, types
-    profile/    learnerProfileStorage.ts
+    profile/    learnerProfileStorage.ts, haruConsentStorage.ts,
+                haruPrivacyControls.ts, haruDataExport.ts, haruDataDeletion.ts
     speech/     SpeechCapturePanel, stt.ts (+test), useSpeechCapture,
                  useVoiceRecorder, VoiceWaveform
   hooks/                       interactionFeedback.ts, useInteractionFeedback.ts
   utils/                       localizedText.ts, safeStorage.ts
   locales/                     ko.json, en.json, ja.json, copySafety.test.ts
 
-backend/                       local-GPU STT FastAPI service (NOT deployed; see Speech / STT backend)
+backend/                       local Microsoft STT gateway (see Local speech and memory services)
+rag_backend/                   local SQLite/E5 memory RAG + optional Meta Muse question phrasing
+raspberry-pi-demo/             separate offline Raspberry Pi kiosk application
+scripts/dev-local-services.mjs local Vite + STT + RAG process launcher
 e2e/                           capture-application-screenshots.spec.ts (screenshot-capture engine)
 image/                         Haru visual source assets and image-generation prompts
 public/                        static assets served by Vite
@@ -213,7 +239,7 @@ A structure refactor was applied on 2026-07-17 and is committed in the `e1ea674`
 
 ## Main Routes
 
-Current route map is maintained in the **Current Demo Focus** section above (verified against `src/App.tsx`). Summary: `/` → `/lesson`; `/lesson`, `/result`, `/connect/caregiver`, `/connect/counselor`, `/connect/counselor/participant/:id`, `/garden`, `/family`, `/settings`, `/onboarding`, `/kiosk`, plus a `*` catch-all → `/lesson`. The Home hub was removed (`src/app/home/` was deleted).
+Current route map is maintained in the **Current Source Snapshot** section above (verified against `src/App.tsx`). Summary: `/` → `/lesson`; `/lesson`, `/result`, `/connect/caregiver`, `/connect/counselor`, `/connect/counselor/participant/:id`, `/garden`, `/family`, `/settings`, `/onboarding`, `/kiosk`, plus a `*` catch-all → `/lesson`. The Home hub was removed (`src/app/home/` was deleted).
 
 ## Jules Task Workflow
 
@@ -321,7 +347,9 @@ When adding a new exercise type:
 
 ## Memory System
 
-The current MVP stores memory cards in browser `localStorage` under `memoryCards`.
+Memory cards are stored in browser `localStorage` under `memoryCards`. Consent-enabled original recordings live in browser IndexedDB; consent-enabled usage snapshots and extracted memory evidence are also stored in the local RAG SQLite database. Keep these stores distinct when changing export, deletion, or privacy flows. The RAG embedding model is local text infrastructure, not a speech model.
+
+The generated next-day question is stored locally under `haruGeneratedNextDayQuestion`; the local ingestion retry queue is `haruRagSyncOutbox`. `LessonScreen` requests generation from the local RAG service after the required storage, personalization, and Muse consent checks. This is an app-triggered flow, not a background scheduler.
 
 Important files:
 
@@ -330,6 +358,9 @@ Important files:
 - `src/features/memory/memoryScheduler.ts`
 - `src/features/memory/memoryReviewGenerator.ts`
 - `src/features/memory/memoryCardStorage.ts`
+- `src/features/lessons/haruRagSync.ts`
+- `src/features/lessons/haruGeneratedQuestionStorage.ts`
+- `src/features/profile/haruConsentStorage.ts`
 - `src/app/lesson/LessonScreen.tsx`
 
 Personal memory should be represented as a structured cue for later review, not as a meaningless category picker.
@@ -369,7 +400,7 @@ Suggested MVP exercise families:
 - delayed word recall with an encode step and later recognition step
 - simple number pattern choice
 - simple shape copy practice using canvas
-- speech repeat practice using optional browser speech APIs
+- speech/story capture through the existing local gateway and consented Microsoft STT flow
 - structured personal memory cue creation and later recognition review
 
 Use local storage for lightweight routine completion records, for example `cognitiveRoutineResults`.
@@ -409,66 +440,9 @@ Recommended product application:
 - Haru-specific advisory flags are allowed when they are explainable, longitudinal, and clearly labeled as Haru's own support signal.
 - Route potentially concerning patterns to actionable wording such as “prepare a conversation,” “consider a professional consultation for medical concerns,” or “try a simpler routine next time.”
 
-## Current In-Progress Work Ledger
-
-Historical snapshot (2026-06-02). For current live state — branch, routine, routes, capture, deploy, copy-safety rules — read the **Current Demo Focus (2026-07-16)** section above instead.
-
-Status as of 2026-06-02 16:38 KST: The Git-tracked app was restored after local-folder loss, dependencies were reinstalled, `cognitve-reference` was rebuilt from its manifest, the Haru advisory/report flow was reimplemented and validated, final DOCX/PDF reports were regenerated, and the Vercel production deployment was refreshed.
-
-Features completed and verified:
-
-- **Original Haru Cognitive Routines**: Inspired by evidence and designed as Haru-specific daily routines:
-  - `delayed_word_recall` (5-word delayed recall with category cues, encoding, free recall text input, and recognition check)
-  - `digit_span_practice` (Working memory span practice, both forward and backward modes)
-  - `verbal_fluency_practice` (Category verbal fluency practice with a 30s timer, unique/repetition counting)
-  - `trail_switching_practice` (Set-shifting/attention switching practice, TMT-lite)
-  - `stroop_touch_practice` (Attention/color-focus selective attention practice)
-  - `orientation_practice` (Date/weekday orientation verification)
-  - `shape_copy_practice` (Visuospatial follow-drawing with telemetry recording)
-- **Caregiver Observations**: `caregiverObservationRecords` storage containing domain-specific status and notes across 8 domains: familiar routines, conversation flow, appointments, navigation, medicine/money, mood/social activity, sleep/meals, and home safety.
-- **Haru Advisory Engine**: `src/features/family/haruAdvisory.ts` combines repeated routine participation, delayed recall metadata, digit span, verbal fluency, trail switching, color focus, orientation, drawing telemetry, shareable memory context, and caregiver observations into Haru's own `steady`, `watch`, and `needsConversation` support levels.
-- **Supporter Reports**: Caregiver/Counselor dashboard tabs on `/family` displaying participation metrics, trends, strengths, activity highlights, Haru advisory signals, next-step actions, and suggested next-conversation topics derived from caregiver observations and shared memories.
-- **Interpretation Guidance**: Privacy and interpretation guidance displayed in learner-facing and report screens to keep interpretation tied to Haru support signals.
-
-Validation results:
-
-- `npm ci` passed after restore; npm audit reported 1 critical issue that was not force-fixed because it may introduce breaking dependency changes.
-- `npm run typecheck` passed (strict TypeScript).
-- `npm run lint` passed (code style & rules).
-- `npm run test` passed (79 tests in 26 test files).
-- `npm run build` passed (production build verification).
-- Playwright screenshot capture passed for 69 screens, using an explicit Vite preview server and `PLAYWRIGHT_BASE_URL` to avoid Windows webServer shutdown delay.
-- Vercel production deployment passed for project `hyunjun-kims-projects/haru`.
-  - Deployment id: `dpl_9Hr1jfYSgowEYHSzk2Umd4U5av4M`
-  - Production URL: `https://haru-7i0sihp6n-hyunjun-kims-projects.vercel.app`
-  - Stable alias: `https://saerok-memory.vercel.app`
-  - Production Playwright capture passed for 69 screens against `https://saerok-memory.vercel.app`.
-
-Report restore:
-
-- `피우다프로젝트/final/build_reports_from_md.py` was recreated.
-- Detailed report regenerated as Markdown, DOCX, and PDF.
-- Broad overview report regenerated as Markdown, DOCX, and PDF.
-- Long caregiver/counselor report screenshots are cropped into `피우다프로젝트/final/report_assets/` for stable Word/PDF layout.
-- DOCX structural validation passed: image count equals Korean alt text count; no tracked changes or comments.
-- PDF render QA passed: detailed report 24 pages and broad report 8 pages, both with 0 blank-page candidates.
-
-Reference archive restore:
-
-- `cognitve-reference` was restored from `metadata/download_manifest.csv`.
-- Final manifest local-path missing count: 0.
-- Rebuilt inventory count: 2023 files.
-- Top-level restored counts: `code` 1947, `data` 14, `metadata` 17, `official-tools` 6, `papers` 8, `web-pages` 30, plus archive `README.md` and `agents.md`.
-- Recovery audit artifacts were generated under `recovery_audit/` at the time (gitignored, local-only — not present in the current repo).
-
-Known remaining roadmap work:
-- Advanced visual polish for new cognitive routines.
-- Enhanced speech synthesis/recognition integration using browser speech APIs where supported.
-- Setup validation for clinical collaboration trials using anonymized telemetry.
-
 ## Caregiver And Counselor Screens
 
-The `/family` area may support family, caregiver, and counselor views. These screens should help supporters understand routine participation and prepare supportive conversations.
+`/connect/caregiver` and `/connect/counselor` are the caregiver and counselor views; `/connect/counselor/participant/:id` is the participant detail. `/family` is a separate routed screen. Use supporter views to summarize routine participation and prepare supportive conversations.
 
 Allowed summaries:
 
@@ -540,16 +514,16 @@ Memory cards are private by default.
 - Family-facing summaries should be evidence-informed, non-alarming, and clearly separated from official diagnosis or clinical screening.
 - Prefer summaries such as completed routines, due memory cues, and conversation prompts.
 - Settings must let users delete locally stored personal memory and cognitive routine data.
-- If future backend storage is added, require explicit consent, access control, deletion, and privacy copy.
+- Keep browser storage and the local STT/RAG services within the device. Microsoft speech transfer and Meta question phrasing require separate explicit consent; do not describe this system as fully offline. Any future hosted storage or processing requires explicit consent, access control, deletion, and privacy copy.
 
 ## Browser API Rules
 
-Features may use browser APIs such as `localStorage`, `speechSynthesis`, Web Speech Recognition, pointer events, touch events, and canvas.
+Features may use browser APIs such as `localStorage`, IndexedDB, `speechSynthesis`, pointer/touch events, and canvas. The current speech-to-text path uses the local STT gateway and consented Microsoft API; it is not browser-only recognition.
 
 Use them defensively:
 
 - Guard for API availability.
-- Keep completion possible when speech recognition is unavailable.
+- Keep completion possible when the local gateway, Microsoft API, or optional browser speech API is unavailable.
 - Do not fail the lesson because a browser API is missing.
 - Keep TypeScript types safe for browser-specific APIs.
 - Store only what is needed for the MVP.
@@ -563,6 +537,6 @@ Use them defensively:
 - Hospital, insurance, or EHR integration
 - Complex LLM free-chat
 - Competitive ranking
-- Backend migration
+- Adding a hosted backend or migrating local STT/RAG services without an explicit request
 - Grant application document editing
 - Further product renaming

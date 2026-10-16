@@ -8,7 +8,7 @@ export const HARU_VOICE_EXPERIENCE = {
   voiceExperienceVariant: "assist_v2" as TelemetryVoiceExperienceVariant,
   waveformMode: "reactive_red" as TelemetryWaveformMode,
   guidanceCopyVersion: "voice-guidance-2026-08-v2",
-  sttPipelineVersion: "haru-qwen3-asr-v2",
+  sttPipelineVersion: "haru-microsoft-mai-transcribe-2-v1",
 } as const;
 
 const VOICE_OUTCOME_REASONS = new Set<TelemetryVoiceOutcomeReason>([

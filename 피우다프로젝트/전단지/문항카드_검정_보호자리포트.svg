@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="155" height="286" viewBox="0 0 155 286">
+  <rect x="1.5" y="1.5" width="152" height="283" rx="8" fill="none" stroke="#202523" stroke-width="3"/>
+  <path d="M2 266.5H153" stroke="#202523" stroke-width="2"/>
+  <path d="M2 267H153V284H2Z" fill="#FFFDF8"/>
+  <text x="77.5" y="281.2" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#202523">보호자 리포트</text>
+</svg>

@@ -45,13 +45,21 @@ test("market build settings are deterministic and reject unknown markets", () =>
     market: "kr",
     localeDirectory: "ko",
     outDirectory: "dist/ko",
+    narrationEnabled: true,
   });
   assert.deepEqual(getMarketBuildSpec("jp"), {
     market: "jp",
     localeDirectory: "ja",
     outDirectory: "dist/ja",
+    narrationEnabled: true,
   });
-  assert.throws(() => getMarketBuildSpec("en"), /kr or jp/);
+  assert.deepEqual(getMarketBuildSpec("en"), {
+    market: "en",
+    localeDirectory: "en",
+    outDirectory: "dist/en",
+    narrationEnabled: false,
+  });
+  assert.throws(() => getMarketBuildSpec("de"), /kr, jp, or en/);
 });
 
 test("runtime config accepts only loopback, portrait display, safe profile and unique keys", () => {
@@ -325,15 +333,19 @@ test("offline build audit verifies required assets and rejects network reference
         entries: [{ audioPath: "assets/audio/narration/ko/welcome.ogg" }],
       }),
     );
-    await writeFile(path.join(root, "config", "runtime.json"), JSON.stringify(VALID_CONFIG));
+    await writeFile(
+      path.join(root, "config", "runtime.json"),
+      JSON.stringify({ ...VALID_CONFIG, audio: { ...VALID_CONFIG.audio, narrationEnabled: false } }),
+    );
     await writeFile(
       path.join(root, "config", "build-info.json"),
-      JSON.stringify({ market: "kr", locale: "ko", offline: true }),
+      JSON.stringify({ market: "en", locale: "en", offline: true, narrationEnabled: false }),
     );
 
     const result = await checkBuildDirectory(root);
-    assert.equal(result.market, "kr");
+    assert.equal(result.market, "en");
     assert.equal(result.manifestAudioFiles, 2);
+    assert.equal(result.narrationEntryCount, null);
 
     await writeFile(path.join(root, "assets", "app.js"), "fetch('https://cdn.example/app.json')");
     await assert.rejects(() => checkBuildDirectory(root), /Forbidden online\/backend references/);
@@ -407,7 +419,7 @@ test("strict production audit rejects a partial narration manifest", async () =>
     await writeFile(path.join(root, "config", "runtime.json"), JSON.stringify(VALID_CONFIG));
     await writeFile(
       path.join(root, "config", "build-info.json"),
-      JSON.stringify({ market: "kr", locale: "ko", offline: true }),
+      JSON.stringify({ market: "kr", locale: "ko", offline: true, narrationEnabled: true }),
     );
     await writeFile(sourcePath, JSON.stringify(source));
 
@@ -459,7 +471,7 @@ test("strict production audit rejects a partial narration manifest", async () =>
       narrationSourcePath: sourcePath,
     });
     assert.equal(complete.narrationEntryCount, 2);
-    assert.deepEqual(complete.narrationLocaleCounts, { ko: 1, ja: 1 });
+    assert.deepEqual(complete.narrationLocaleCounts, { ko: 1, ja: 1, en: 0 });
   } finally {
     await rm(root, { recursive: true, force: true });
     await rm(sourceRoot, { recursive: true, force: true });

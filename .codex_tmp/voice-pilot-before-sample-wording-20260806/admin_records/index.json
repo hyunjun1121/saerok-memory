@@ -1,0 +1,122 @@
+[
+  {
+    "participantId": "SYN-KR-001",
+    "datasetId": "HARU-SYNTHETIC-VOICE-PILOT-SYN-KR-001",
+    "path": "SYN-KR-001.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "SYN-KR-002",
+    "datasetId": "HARU-SYNTHETIC-VOICE-PILOT-SYN-KR-002",
+    "path": "SYN-KR-002.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "SYN-KR-003",
+    "datasetId": "HARU-SYNTHETIC-VOICE-PILOT-SYN-KR-003",
+    "path": "SYN-KR-003.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "SYN-KR-004",
+    "datasetId": "HARU-SYNTHETIC-VOICE-PILOT-SYN-KR-004",
+    "path": "SYN-KR-004.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "SYN-KR-005",
+    "datasetId": "HARU-SYNTHETIC-VOICE-PILOT-SYN-KR-005",
+    "path": "SYN-KR-005.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "SYN-KR-006",
+    "datasetId": "HARU-SYNTHETIC-VOICE-PILOT-SYN-KR-006",
+    "path": "SYN-KR-006.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "SYN-KR-007",
+    "datasetId": "HARU-SYNTHETIC-VOICE-PILOT-SYN-KR-007",
+    "path": "SYN-KR-007.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "SYN-KR-008",
+    "datasetId": "HARU-SYNTHETIC-VOICE-PILOT-SYN-KR-008",
+    "path": "SYN-KR-008.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "SYN-KR-009",
+    "datasetId": "HARU-SYNTHETIC-VOICE-PILOT-SYN-KR-009",
+    "path": "SYN-KR-009.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "SYN-KR-010",
+    "datasetId": "HARU-SYNTHETIC-VOICE-PILOT-SYN-KR-010",
+    "path": "SYN-KR-010.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "SYN-KR-011",
+    "datasetId": "HARU-SYNTHETIC-VOICE-PILOT-SYN-KR-011",
+    "path": "SYN-KR-011.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "SYN-KR-012",
+    "datasetId": "HARU-SYNTHETIC-VOICE-PILOT-SYN-KR-012",
+    "path": "SYN-KR-012.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "SYN-KR-013",
+    "datasetId": "HARU-SYNTHETIC-VOICE-PILOT-SYN-KR-013",
+    "path": "SYN-KR-013.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "SYN-KR-014",
+    "datasetId": "HARU-SYNTHETIC-VOICE-PILOT-SYN-KR-014",
+    "path": "SYN-KR-014.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "SYN-KR-015",
+    "datasetId": "HARU-SYNTHETIC-VOICE-PILOT-SYN-KR-015",
+    "path": "SYN-KR-015.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "SYN-KR-016",
+    "datasetId": "HARU-SYNTHETIC-VOICE-PILOT-SYN-KR-016",
+    "path": "SYN-KR-016.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "SYN-KR-017",
+    "datasetId": "HARU-SYNTHETIC-VOICE-PILOT-SYN-KR-017",
+    "path": "SYN-KR-017.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "SYN-KR-018",
+    "datasetId": "HARU-SYNTHETIC-VOICE-PILOT-SYN-KR-018",
+    "path": "SYN-KR-018.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "SYN-KR-019",
+    "datasetId": "HARU-SYNTHETIC-VOICE-PILOT-SYN-KR-019",
+    "path": "SYN-KR-019.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "SYN-KR-020",
+    "datasetId": "HARU-SYNTHETIC-VOICE-PILOT-SYN-KR-020",
+    "path": "SYN-KR-020.json",
+    "sessionCount": 7
+  }
+]

@@ -1,0 +1,4 @@
+Primary source deck:
+C:/project/saerok-memory/피우다프로젝트/발표자료/Haru_음성UX_사전검증_발표자료.pptx
+
+This revision changes only audience-facing title/subtitle wording. Existing [Sources] speaker-note blocks remain unchanged.

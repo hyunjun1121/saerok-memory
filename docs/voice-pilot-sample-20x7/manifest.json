@@ -1,0 +1,70 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-08-06T09:00:00+09:00",
+  "dataKind": "sample",
+  "seed": "haru-voice-pilot-2026-08-06-v1",
+  "title": "Haru 음성 UX 20명 × 7일 샘플 데이터",
+  "purpose": "음성 UX 참여·이탈·STT 흐름 분석용 샘플 기록",
+  "market": "kr",
+  "locale": "ko-KR",
+  "period": {
+    "start": "2026-07-20",
+    "end": "2026-07-26"
+  },
+  "participantCount": 20,
+  "matchedPairCount": 10,
+  "scheduledParticipantDays": 140,
+  "fileInventoryScope": "generated_data_outputs_only",
+  "analysisArtifactIndex": "analysis/artifact-index.json",
+  "voiceExperienceVariants": {
+    "baseline_v1": {
+      "participantCount": 10,
+      "preprocessingVersion": "decode-resample-only-v1"
+    },
+    "assist_v2": {
+      "participantCount": 10,
+      "preprocessingVersion": "haru-dc-hp80-rms-v2"
+    }
+  },
+  "privacy": {
+    "containsDirectIdentifiers": false,
+    "containsAudioFiles": false,
+    "normalizedCsvContainsTranscript": false,
+    "operationalExportContainsTranscript": false,
+    "adminRecordsContainTranscript": true,
+    "restrictedReviewContainsTranscript": true
+  },
+  "files": [
+    "manifest.json",
+    "operational_export.json",
+    "data_dictionary.json",
+    "restricted/stt_review_rows.json",
+    "normalized/participants.csv",
+    "normalized/consent_receipts.csv",
+    "normalized/daily_sessions.csv",
+    "normalized/question_attempts.csv",
+    "normalized/voice_steps.csv",
+    "normalized/telemetry_events.csv",
+    "admin_records/index.json",
+    "admin_records/HARU-P001.json",
+    "admin_records/HARU-P002.json",
+    "admin_records/HARU-P003.json",
+    "admin_records/HARU-P004.json",
+    "admin_records/HARU-P005.json",
+    "admin_records/HARU-P006.json",
+    "admin_records/HARU-P007.json",
+    "admin_records/HARU-P008.json",
+    "admin_records/HARU-P009.json",
+    "admin_records/HARU-P010.json",
+    "admin_records/HARU-P011.json",
+    "admin_records/HARU-P012.json",
+    "admin_records/HARU-P013.json",
+    "admin_records/HARU-P014.json",
+    "admin_records/HARU-P015.json",
+    "admin_records/HARU-P016.json",
+    "admin_records/HARU-P017.json",
+    "admin_records/HARU-P018.json",
+    "admin_records/HARU-P019.json",
+    "admin_records/HARU-P020.json"
+  ]
+}

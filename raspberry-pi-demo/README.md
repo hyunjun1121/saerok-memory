@@ -1,6 +1,6 @@
 # Haru Raspberry Pi 오프라인 데모
 
-Raspberry Pi 5에서 1080×1920 세로 모니터, USB NFC 카드 리더기, 2×2 물리 버튼 네 개로 실행하는 독립 데모입니다. 한국어와 일본어 패키지를 따로 빌드하며, 실행 중 인터넷이나 애플리케이션 백엔드를 사용하지 않습니다.
+Raspberry Pi 5에서 1080×1920 세로 모니터, USB NFC 카드 리더기, 2×2 물리 버튼 네 개로 실행하는 독립 데모입니다. 한국어·일본어·영어 패키지를 따로 빌드하며, 실행 중 인터넷이나 애플리케이션 백엔드를 사용하지 않습니다.
 
 ## 현재 실행 준비 상태
 
@@ -8,7 +8,7 @@ Raspberry Pi 5에서 1080×1920 세로 모니터, USB NFC 카드 리더기, 2×2
 
 현재 확인된 항목:
 
-- 한국어·일본어 production build가 생성됩니다.
+- 한국어·일본어·영어 production build가 생성됩니다.
 - 오프라인 검사에서 HTML, JavaScript, 글꼴, 효과음, 내레이션 파일과 checksum이 확인됩니다.
 - STT, RAG, telemetry, 외부 API를 실행하지 않습니다.
 - 화면 입력은 NFC 카드 인증 뒤 네 개의 키 입력만으로 7일 42문항을 끝까지 진행합니다.
@@ -28,9 +28,14 @@ Raspberry Pi 5에서 1080×1920 세로 모니터, USB NFC 카드 리더기, 2×2
 ## 포함·제외 기능
 
 - 포함: 7일 42문항, 4버튼 선택·확정 흐름, 로컬 효과음, 사전 생성 한국어·일본어 내레이션, 마이크 음량 파형, 로컬 진행 상태.
+- 영어 build는 영어 텍스트와 로컬 효과음으로 완결됩니다. 영어 내레이션은 현재 의도적으로 비활성화되어 있으며, 음성 없이도 모든 화면과 물리 버튼 흐름을 진행할 수 있습니다.
 - 제외: STT 추론·전사, RAG, 원격 API, telemetry, 계정 서버, 클라우드 동기화.
 - 마이크 입력은 파형 진폭 계산에만 쓰고 녹음 파일이나 음성을 저장하지 않습니다. 마이크가 없거나 권한이 거부되면 결정적 데모 파형으로 이어집니다.
 - 고품질 TTS 모델은 개발 환경에서 음원을 미리 생성할 때만 사용합니다. Raspberry Pi에서 TTS 모델을 실행하거나 다운로드하지 않습니다.
+
+## 영어 Fish Audio 내레이션 후속 작업
+
+영어 내레이션은 이번 build에 포함하지 않습니다. 이후 작업에서는 미국 영어권 맥락으로 확정된 스크립트를 기준으로 Chrome Use로 Fish Audio를 열어 문장별 음원을 생성하고, 선택한 음성을 검수한 뒤 로컬 OGG로 변환합니다. 그 다음 `public/assets/audio/narration/en/`과 narration manifest에 파일·hash·출처·라이선스를 기록하고, 영어 build의 `narrationEnabled`를 켜며 strict 오프라인 감사와 영어 오디오 E2E를 다시 통과시킵니다. 한국어·일본어 음원을 영어 버전에 재사용하거나, 브라우저 음성합성·외부 TTS API를 fallback으로 사용하지 않습니다.
 
 ## NFC 로그인 대기 화면
 
@@ -142,6 +147,12 @@ bash scripts/provision-pi.sh --enable-autostart --market ko
 bash scripts/provision-pi.sh --enable-autostart --market ja
 ```
 
+영어 kiosk로 자동 시작하려면 다음을 사용합니다.
+
+```bash
+bash scripts/provision-pi.sh --enable-autostart --market en
+```
+
 `provision-pi.sh`는 일반 Desktop 사용자로 실행합니다. `sudo bash scripts/provision-pi.sh`로 실행하지 마세요. 이 스크립트가 필요한 OS 패키지 설치 단계에서만 `sudo`를 호출합니다. 기본값으로 OS `full-upgrade`도 실행하므로 현장 운영 중인 Pi에서 미루려면 다음처럼 명시합니다.
 
 ```bash
@@ -176,7 +187,7 @@ git switch feat/haru-sound-feedback
 git pull --ff-only origin feat/haru-sound-feedback
 cd raspberry-pi-demo
 
-# Node.js·Chromium·ARM64 의존성·양쪽 정적 build·오프라인 감사를 다시 실행
+# Node.js·Chromium·ARM64 의존성·세 언어 정적 build·오프라인 감사를 다시 실행
 bash scripts/bootstrap-pi.sh
 ```
 
@@ -210,7 +221,7 @@ bash scripts/provision-pi.sh --enable-autostart --market ko
 2. `apt update`, `apt full-upgrade`, Git·Chromium·오디오·디스플레이·HID 진단 패키지를 설치합니다.
 3. 공식 Node.js `v24.19.0` Linux ARM64 archive와 공식 `SHASUMS256.txt`를 HTTPS로 받고 SHA-256 `01443c1e…86fdc`를 검증합니다.
 4. Node를 `/opt/haru/node-v24.19.0-linux-arm64`에 설치하고 전용 symlink/PATH를 만듭니다. 다른 `/usr/local/bin` 파일은 덮어쓰지 않습니다.
-5. lockfile의 dev·optional ARM64 패키지를 포함해 `npm ci` 후 한국어·일본어 build와 오프라인 감사를 실행합니다.
+5. lockfile의 dev·optional ARM64 패키지를 포함해 `npm ci` 후 한국어·일본어·영어 build와 오프라인 감사를 실행합니다.
 6. Labwc/Wayland, Desktop 자동 로그인, 화면 blanking 해제, 한국어 Haru 자동 시작을 설정합니다.
 
 `--enable-autostart`는 비밀번호 입력 없는 Desktop 로그인 상태를 만듭니다. 전용 kiosk를 물리적으로 보호하고 노출된 USB 포트를 통제해야 합니다. 자동 로그인이 필요 없으면 해당 옵션을 빼고 수동 시작을 사용합니다. OS 전체 업그레이드를 명시적으로 미루는 경우에만 `--skip-full-upgrade`를 추가합니다.
@@ -227,7 +238,7 @@ bash scripts/bootstrap-pi.sh
 - ARM64 커널·64-bit userland
 - Node.js `>=24.19.0 <25`, npm, Chromium
 - `config/runtime.json` 형식
-- 한국어·일본어 정적 빌드의 로컬 자산과 외부 통신 참조 부재
+- 한국어·일본어·영어 정적 빌드의 로컬 자산과 외부 통신 참조 부재
 
 두 스크립트는 같은 명령을 다시 실행해도 중복 Haru autostart block을 만들지 않습니다. 기존 Labwc autostart 내용은 보존하고 Haru marker block만 교체합니다. 설치 로그는 `~/.local/state/haru/provision.log`, 자동 실행 로그는 `runtime/autostart-ko.log`입니다.
 
@@ -237,10 +248,11 @@ bash scripts/bootstrap-pi.sh
 npm ci --include=dev --include=optional --ignore-scripts=false --no-audit --no-fund
 npm run build:ko
 npm run build:ja
+npm run build:en
 npm run check:offline
 ```
 
-수동 `npm ci`도 dev·optional package 생략 설정이 없어야 합니다. 권장 명령은 `npm ci --include=dev --include=optional --ignore-scripts=false --no-audit --no-fund`입니다. `build:ko`는 `VITE_HARU_MARKET=kr`, `HARU_OUT_DIR=dist/ko`, `build:ja`는 `jp`, `dist/ja`를 사용합니다.
+수동 `npm ci`도 dev·optional package 생략 설정이 없어야 합니다. 권장 명령은 `npm ci --include=dev --include=optional --ignore-scripts=false --no-audit --no-fund`입니다. `build:ko`는 `VITE_HARU_MARKET=kr`, `HARU_OUT_DIR=dist/ko`, `build:ja`는 `jp`, `dist/ja`, `build:en`은 `en`, `dist/en`을 사용합니다.
 
 한국어만 빠르게 준비할 때는 다음 명령만 사용해도 됩니다. `build:ko` 자체가 해당 build의 오프라인 검사를 포함합니다.
 
@@ -248,6 +260,20 @@ npm run check:offline
 npm ci --include=dev --include=optional --ignore-scripts=false --no-audit --no-fund
 npm run build:ko
 ```
+
+## 영어 웹 데모 배포
+
+영어 웹 데모는 기존 한국어·일본어 Vercel 프로젝트와 분리된 `haru-raspberry-pi-en` 프로젝트에 배포합니다. [`vercel.en.json`](vercel.en.json)은 영어 build와 `dist/en` 출력만 지정하므로, 현재 일본어 프로젝트용 [`vercel.json`](vercel.json)을 바꾸지 않습니다.
+
+기존 한국어·일본어 프로젝트에 연결된 작업 디렉터리에서는 배포하지 않습니다. 영어 전용 Vercel 프로젝트에 연결한 별도 clone 또는 worktree에서 다음처럼 배포합니다.
+
+```bash
+vercel --local-config vercel.en.json --prod --yes
+```
+
+일반 `vercel --prod` 명령은 현재 연결된 프로젝트를 대상으로 하므로, 기존 언어 프로젝트의 `.vercel` 연결을 영어 프로젝트용으로 바꾸지 않습니다.
+
+배포 뒤에는 영어 HTML `lang`, NFC 키 `5` 로그인, 7일 루틴, 로컬 효과음, 외부 요청 부재를 확인합니다. 현재 영어 build에는 narration이 비활성화되어 있으므로 영어 narration 파일 요청이 없어야 합니다.
 
 ## 디스플레이·오디오·버튼 최종 설정
 
@@ -336,6 +362,13 @@ bash scripts/start-ko.sh
 ```bash
 cd ~/saerok-memory/raspberry-pi-demo
 bash scripts/start-ja.sh
+```
+
+영어:
+
+```bash
+cd ~/saerok-memory/raspberry-pi-demo
+bash scripts/start-en.sh
 ```
 
 실행 스크립트는 다음 작업만 수행합니다.

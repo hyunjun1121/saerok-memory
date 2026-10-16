@@ -1,0 +1,25 @@
+Deck topic: Haru voice UX pre-pilot analysis.
+
+Primary internal data sources:
+- C:/project/saerok-memory/docs/voice-pilot-sample-20x7/manifest.json
+  - dataKind=sample, 20 synthetic profiles, 10 matched pairs, 140 participant-days.
+- C:/project/saerok-memory/docs/voice-pilot-sample-20x7/analysis/metrics.json
+  - 832 question attempts, 5,328 telemetry events, 140 voice attempts.
+  - Sample scenario: 14/140 voice dropouts; D1_Q5 and D4_Q5 each 4/20.
+  - Sample scenario deltas: usable transcript 78.6% to 91.4%; no-speech 11.4% to 4.3%; retry 21.4% to 7.1%; median latency 5.5s to 3.2s.
+- C:/project/saerok-memory/docs/voice-pilot-sample-20x7/analysis/methodology.md
+  - No significance test or confidence interval; actual matched-input decode and blinded review remain future work.
+- C:/project/saerok-memory/src/features/analytics/syntheticVoicePilot.ts
+  - Outcomes are generated from fixed targets; not actual Qwen inference or user observations.
+
+Visual assets:
+- C:/project/saerok-memory/public/assets/haru/logo.png (internal Haru brand asset).
+- C:/project/saerok-memory/피우다프로젝트/application_assets/auto_screenshots/ko/19_오늘_하루_말하기.png (internal app capture).
+- C:/project/saerok-memory/docs/voice-pilot-sample-20x7/analysis/charts/png/06-dropoff-hotspots.png (generated internal sample chart).
+- C:/project/saerok-memory/docs/voice-pilot-sample-20x7/analysis/charts/png/05-stt-comparison.png (generated internal sample chart).
+- C:/project/saerok-memory/docs/voice-pilot-sample-20x7/analysis/charts/png/02-assist-intervention.png (generated internal intervention visual).
+
+Truthfulness constraint:
+- Do not describe these outputs as an actual 50-70s family/acquaintance user test.
+- Visible footer on every slide: “합성 시뮬레이션 · 실제 사용자/실제 음성 결과 아님”.
+- Final slide converts requested field-test narrative into an explicit next-step plan.

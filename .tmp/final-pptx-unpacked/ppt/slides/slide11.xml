@@ -1,0 +1,3509 @@
+<?xml version="1.0" encoding="UTF-8"?><p:sld xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
+  <p:cSld>
+    <p:spTree>
+      <p:nvGrpSpPr>
+        <p:cNvPr id="1" name=""/>
+        <p:cNvGrpSpPr/>
+        <p:nvPr/>
+      </p:nvGrpSpPr>
+      <p:grpSpPr>
+        <a:xfrm>
+          <a:off x="0" y="0"/>
+          <a:ext cx="0" cy="0"/>
+          <a:chOff x="0" y="0"/>
+          <a:chExt cx="0" cy="0"/>
+        </a:xfrm>
+      </p:grpSpPr>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="2" name="TextBox 1"/>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="594360" y="420624"/>
+            <a:ext cx="11003249" cy="244094"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="l">
+              <a:lnSpc>
+                <a:spcPct val="100000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1240" b="0" spc="140">
+                <a:solidFill>
+                  <a:srgbClr val="2F80ED"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Bold"/>
+                <a:ea typeface="나눔스퀘어라운드 Bold"/>
+                <a:cs typeface="나눔스퀘어라운드 Bold"/>
+              </a:rPr>
+              <a:t>ROADMAP · 로드맵과 예산</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="3" name="TextBox 2"/>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="594360" y="694944"/>
+            <a:ext cx="11003249" cy="600075"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="l">
+              <a:lnSpc>
+                <a:spcPct val="100000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="3150" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:ea typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:cs typeface="나눔스퀘어라운드 ExtraBold"/>
+              </a:rPr>
+              <a:t xml:space="preserve">개발 및 </a:t>
+            </a:r>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="3150" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="2F80ED"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:ea typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:cs typeface="나눔스퀘어라운드 ExtraBold"/>
+              </a:rPr>
+              <a:t>실증</a:t>
+            </a:r>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="3150" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:ea typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:cs typeface="나눔스퀘어라운드 ExtraBold"/>
+              </a:rPr>
+              <a:t xml:space="preserve"> 로드맵</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="4" name="TextBox 3"/>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="594360" y="1220724"/>
+            <a:ext cx="11003249" cy="311023"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="l">
+              <a:lnSpc>
+                <a:spcPct val="100000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1580" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Bold"/>
+                <a:ea typeface="나눔스퀘어라운드 Bold"/>
+                <a:cs typeface="나눔스퀘어라운드 Bold"/>
+              </a:rPr>
+              <a:t>대회 일정에 맞춘 실행 순서와 상금 사용 계획</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="5" name="Rectangle 4"/>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="1728216" y="2377440"/>
+            <a:ext cx="8735537" cy="31750"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="B5D4F8"/>
+          </a:solidFill>
+          <a:ln>
+            <a:noFill/>
+          </a:ln>
+          <a:effectLst/>
+        </p:spPr>
+        <p:style>
+          <a:lnRef idx="1">
+            <a:schemeClr val="accent1"/>
+          </a:lnRef>
+          <a:fillRef idx="3">
+            <a:schemeClr val="accent1"/>
+          </a:fillRef>
+          <a:effectRef idx="2">
+            <a:schemeClr val="accent1"/>
+          </a:effectRef>
+          <a:fontRef idx="minor">
+            <a:schemeClr val="lt1"/>
+          </a:fontRef>
+        </p:style>
+        <p:txBody>
+          <a:bodyPr rtlCol="0" anchor="ctr"/>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr"/>
+            <a:endParaRPr/>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="6" name="Rounded Rectangle 5"/>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="1267968" y="1810512"/>
+            <a:ext cx="920495" cy="292608"/>
+          </a:xfrm>
+          <a:prstGeom prst="roundRect">
+            <a:avLst>
+              <a:gd name="adj" fmla="val 50000"/>
+            </a:avLst>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="2F80ED"/>
+          </a:solidFill>
+          <a:ln>
+            <a:noFill/>
+          </a:ln>
+          <a:effectLst/>
+        </p:spPr>
+        <p:style>
+          <a:lnRef idx="1">
+            <a:schemeClr val="accent1"/>
+          </a:lnRef>
+          <a:fillRef idx="3">
+            <a:schemeClr val="accent1"/>
+          </a:fillRef>
+          <a:effectRef idx="2">
+            <a:schemeClr val="accent1"/>
+          </a:effectRef>
+          <a:fontRef idx="minor">
+            <a:schemeClr val="lt1"/>
+          </a:fontRef>
+        </p:style>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0" anchor="ctr"/>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr">
+              <a:lnSpc>
+                <a:spcPct val="100000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" b="0" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Bold"/>
+                <a:ea typeface="나눔스퀘어라운드 Bold"/>
+                <a:cs typeface="나눔스퀘어라운드 Bold"/>
+              </a:rPr>
+              <a:t>2026.0</a:t>
+            </a:r>
+            <a:r>
+              <a:rPr lang="en-US" altLang="ko-KR" sz="1200" b="0" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Bold"/>
+                <a:ea typeface="나눔스퀘어라운드 Bold"/>
+                <a:cs typeface="나눔스퀘어라운드 Bold"/>
+              </a:rPr>
+              <a:t>8</a:t>
+            </a:r>
+            <a:endParaRPr lang="ko-KR" altLang="en-US" sz="1200" b="0" dirty="0">
+              <a:solidFill>
+                <a:srgbClr val="FFFFFF"/>
+              </a:solidFill>
+              <a:latin typeface="나눔스퀘어라운드 Bold"/>
+              <a:ea typeface="나눔스퀘어라운드 Bold"/>
+              <a:cs typeface="나눔스퀘어라운드 Bold"/>
+            </a:endParaRPr>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="7" name="Isosceles Triangle 6"/>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm rot="5400000">
+            <a:off x="2728718" y="2291486"/>
+            <a:ext cx="182880" cy="182880"/>
+          </a:xfrm>
+          <a:prstGeom prst="triangle">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="2F80ED"/>
+          </a:solidFill>
+          <a:ln>
+            <a:noFill/>
+          </a:ln>
+          <a:effectLst/>
+        </p:spPr>
+        <p:style>
+          <a:lnRef idx="1">
+            <a:schemeClr val="accent1"/>
+          </a:lnRef>
+          <a:fillRef idx="3">
+            <a:schemeClr val="accent1"/>
+          </a:fillRef>
+          <a:effectRef idx="2">
+            <a:schemeClr val="accent1"/>
+          </a:effectRef>
+          <a:fontRef idx="minor">
+            <a:schemeClr val="lt1"/>
+          </a:fontRef>
+        </p:style>
+        <p:txBody>
+          <a:bodyPr wrap="none" rtlCol="0" anchor="ctr"/>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr"/>
+            <a:endParaRPr/>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="8" name="Oval 7"/>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="1581912" y="2236622"/>
+            <a:ext cx="292608" cy="292608"/>
+          </a:xfrm>
+          <a:prstGeom prst="ellipse">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="2F80ED"/>
+          </a:solidFill>
+          <a:ln w="19050">
+            <a:solidFill>
+              <a:srgbClr val="2F80ED"/>
+            </a:solidFill>
+          </a:ln>
+          <a:effectLst/>
+        </p:spPr>
+        <p:style>
+          <a:lnRef idx="1">
+            <a:schemeClr val="accent1"/>
+          </a:lnRef>
+          <a:fillRef idx="3">
+            <a:schemeClr val="accent1"/>
+          </a:fillRef>
+          <a:effectRef idx="2">
+            <a:schemeClr val="accent1"/>
+          </a:effectRef>
+          <a:fontRef idx="minor">
+            <a:schemeClr val="lt1"/>
+          </a:fontRef>
+        </p:style>
+        <p:txBody>
+          <a:bodyPr wrap="none" rtlCol="0" anchor="ctr"/>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr"/>
+            <a:endParaRPr/>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="9" name="Oval 8"/>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="1673352" y="2328062"/>
+            <a:ext cx="109728" cy="109728"/>
+          </a:xfrm>
+          <a:prstGeom prst="ellipse">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="FFFFFF"/>
+          </a:solidFill>
+          <a:ln>
+            <a:noFill/>
+          </a:ln>
+          <a:effectLst/>
+        </p:spPr>
+        <p:style>
+          <a:lnRef idx="1">
+            <a:schemeClr val="accent1"/>
+          </a:lnRef>
+          <a:fillRef idx="3">
+            <a:schemeClr val="accent1"/>
+          </a:fillRef>
+          <a:effectRef idx="2">
+            <a:schemeClr val="accent1"/>
+          </a:effectRef>
+          <a:fontRef idx="minor">
+            <a:schemeClr val="lt1"/>
+          </a:fontRef>
+        </p:style>
+        <p:txBody>
+          <a:bodyPr wrap="none" rtlCol="0" anchor="ctr"/>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr"/>
+            <a:endParaRPr/>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="10" name="TextBox 9"/>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="612648" y="2651760"/>
+            <a:ext cx="2231136" cy="289369"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr">
+              <a:lnSpc>
+                <a:spcPct val="100000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1470" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:ea typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:cs typeface="나눔스퀘어라운드 ExtraBold"/>
+              </a:rPr>
+              <a:t>마무리 개발</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="11" name="TextBox 10"/>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="576072" y="2944368"/>
+            <a:ext cx="2304288" cy="713232"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr">
+              <a:lnSpc>
+                <a:spcPct val="144000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" b="0" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t>디바이스 · 음성 · 기억 · 리포트</a:t>
+            </a:r>
+          </a:p>
+          <a:p>
+            <a:pPr algn="ctr">
+              <a:lnSpc>
+                <a:spcPct val="144000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" b="0" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t>현장형 연결과 안정화</a:t>
+            </a:r>
+          </a:p>
+          <a:p>
+            <a:pPr algn="ctr">
+              <a:lnSpc>
+                <a:spcPct val="144000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" b="0" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t>IRB 승인 목표 시점</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="12" name="Rounded Rectangle 11"/>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="3451852" y="1810512"/>
+            <a:ext cx="920495" cy="292608"/>
+          </a:xfrm>
+          <a:prstGeom prst="roundRect">
+            <a:avLst>
+              <a:gd name="adj" fmla="val 50000"/>
+            </a:avLst>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="E8F4FF"/>
+          </a:solidFill>
+          <a:ln>
+            <a:noFill/>
+          </a:ln>
+          <a:effectLst/>
+        </p:spPr>
+        <p:style>
+          <a:lnRef idx="1">
+            <a:schemeClr val="accent1"/>
+          </a:lnRef>
+          <a:fillRef idx="3">
+            <a:schemeClr val="accent1"/>
+          </a:fillRef>
+          <a:effectRef idx="2">
+            <a:schemeClr val="accent1"/>
+          </a:effectRef>
+          <a:fontRef idx="minor">
+            <a:schemeClr val="lt1"/>
+          </a:fontRef>
+        </p:style>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0" anchor="ctr"/>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr">
+              <a:lnSpc>
+                <a:spcPct val="100000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" b="0" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Bold"/>
+                <a:ea typeface="나눔스퀘어라운드 Bold"/>
+                <a:cs typeface="나눔스퀘어라운드 Bold"/>
+              </a:rPr>
+              <a:t>2026.</a:t>
+            </a:r>
+            <a:r>
+              <a:rPr lang="en-US" altLang="ko-KR" sz="1200" b="0" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Bold"/>
+                <a:ea typeface="나눔스퀘어라운드 Bold"/>
+                <a:cs typeface="나눔스퀘어라운드 Bold"/>
+              </a:rPr>
+              <a:t>09</a:t>
+            </a:r>
+            <a:endParaRPr lang="ko-KR" altLang="en-US" sz="1200" b="0" dirty="0">
+              <a:solidFill>
+                <a:srgbClr val="0D2F6E"/>
+              </a:solidFill>
+              <a:latin typeface="나눔스퀘어라운드 Bold"/>
+              <a:ea typeface="나눔스퀘어라운드 Bold"/>
+              <a:cs typeface="나눔스퀘어라운드 Bold"/>
+            </a:endParaRPr>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="13" name="Isosceles Triangle 12"/>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm rot="5400000">
+            <a:off x="4912602" y="2291486"/>
+            <a:ext cx="182880" cy="182880"/>
+          </a:xfrm>
+          <a:prstGeom prst="triangle">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="FFC83D"/>
+          </a:solidFill>
+          <a:ln>
+            <a:noFill/>
+          </a:ln>
+          <a:effectLst/>
+        </p:spPr>
+        <p:style>
+          <a:lnRef idx="1">
+            <a:schemeClr val="accent1"/>
+          </a:lnRef>
+          <a:fillRef idx="3">
+            <a:schemeClr val="accent1"/>
+          </a:fillRef>
+          <a:effectRef idx="2">
+            <a:schemeClr val="accent1"/>
+          </a:effectRef>
+          <a:fontRef idx="minor">
+            <a:schemeClr val="lt1"/>
+          </a:fontRef>
+        </p:style>
+        <p:txBody>
+          <a:bodyPr wrap="none" rtlCol="0" anchor="ctr"/>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr"/>
+            <a:endParaRPr/>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="14" name="Oval 13"/>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="3802372" y="2273198"/>
+            <a:ext cx="219456" cy="219456"/>
+          </a:xfrm>
+          <a:prstGeom prst="ellipse">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="F7F5F2"/>
+          </a:solidFill>
+          <a:ln w="19050">
+            <a:solidFill>
+              <a:srgbClr val="FFC83D"/>
+            </a:solidFill>
+          </a:ln>
+          <a:effectLst/>
+        </p:spPr>
+        <p:style>
+          <a:lnRef idx="1">
+            <a:schemeClr val="accent1"/>
+          </a:lnRef>
+          <a:fillRef idx="3">
+            <a:schemeClr val="accent1"/>
+          </a:fillRef>
+          <a:effectRef idx="2">
+            <a:schemeClr val="accent1"/>
+          </a:effectRef>
+          <a:fontRef idx="minor">
+            <a:schemeClr val="lt1"/>
+          </a:fontRef>
+        </p:style>
+        <p:txBody>
+          <a:bodyPr wrap="none" rtlCol="0" anchor="ctr"/>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr"/>
+            <a:endParaRPr/>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="15" name="TextBox 14"/>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="3545813" y="2651760"/>
+            <a:ext cx="732573" cy="226216"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr">
+              <a:lnSpc>
+                <a:spcPct val="100000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1470" b="0" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="2F80ED"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:ea typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:cs typeface="나눔스퀘어라운드 ExtraBold"/>
+              </a:rPr>
+              <a:t>국내 실증</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="16" name="TextBox 15"/>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="3087354" y="2944368"/>
+            <a:ext cx="1649491" cy="773930"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr">
+              <a:lnSpc>
+                <a:spcPct val="144000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" b="0" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t>디바이스 버튼 사용성 검증</a:t>
+            </a:r>
+          </a:p>
+          <a:p>
+            <a:pPr algn="ctr">
+              <a:lnSpc>
+                <a:spcPct val="144000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" b="0" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t>사용자 맞춤형 문항 고도화</a:t>
+            </a:r>
+          </a:p>
+          <a:p>
+            <a:pPr algn="ctr">
+              <a:lnSpc>
+                <a:spcPct val="144000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" b="0" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t xml:space="preserve">가정 보급 </a:t>
+            </a:r>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" b="0" dirty="0" err="1">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t>채널</a:t>
+            </a:r>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" b="0" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t xml:space="preserve"> 구축</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="17" name="Rounded Rectangle 16"/>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="5635736" y="1810512"/>
+            <a:ext cx="920495" cy="292608"/>
+          </a:xfrm>
+          <a:prstGeom prst="roundRect">
+            <a:avLst>
+              <a:gd name="adj" fmla="val 50000"/>
+            </a:avLst>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="E8F4FF"/>
+          </a:solidFill>
+          <a:ln>
+            <a:noFill/>
+          </a:ln>
+          <a:effectLst/>
+        </p:spPr>
+        <p:style>
+          <a:lnRef idx="1">
+            <a:schemeClr val="accent1"/>
+          </a:lnRef>
+          <a:fillRef idx="3">
+            <a:schemeClr val="accent1"/>
+          </a:fillRef>
+          <a:effectRef idx="2">
+            <a:schemeClr val="accent1"/>
+          </a:effectRef>
+          <a:fontRef idx="minor">
+            <a:schemeClr val="lt1"/>
+          </a:fontRef>
+        </p:style>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0" anchor="ctr"/>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr">
+              <a:lnSpc>
+                <a:spcPct val="100000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="en-US" altLang="ko-KR" sz="1200" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Bold"/>
+                <a:ea typeface="나눔스퀘어라운드 Bold"/>
+                <a:cs typeface="나눔스퀘어라운드 Bold"/>
+              </a:rPr>
+              <a:t>2026.10</a:t>
+            </a:r>
+            <a:endParaRPr lang="ko-KR" altLang="en-US" sz="1200" b="0" dirty="0">
+              <a:solidFill>
+                <a:srgbClr val="0D2F6E"/>
+              </a:solidFill>
+              <a:latin typeface="나눔스퀘어라운드 Bold"/>
+              <a:ea typeface="나눔스퀘어라운드 Bold"/>
+              <a:cs typeface="나눔스퀘어라운드 Bold"/>
+            </a:endParaRPr>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="18" name="Isosceles Triangle 17"/>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm rot="5400000">
+            <a:off x="7096486" y="2291486"/>
+            <a:ext cx="182880" cy="182880"/>
+          </a:xfrm>
+          <a:prstGeom prst="triangle">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="34C759"/>
+          </a:solidFill>
+          <a:ln>
+            <a:noFill/>
+          </a:ln>
+          <a:effectLst/>
+        </p:spPr>
+        <p:style>
+          <a:lnRef idx="1">
+            <a:schemeClr val="accent1"/>
+          </a:lnRef>
+          <a:fillRef idx="3">
+            <a:schemeClr val="accent1"/>
+          </a:fillRef>
+          <a:effectRef idx="2">
+            <a:schemeClr val="accent1"/>
+          </a:effectRef>
+          <a:fontRef idx="minor">
+            <a:schemeClr val="lt1"/>
+          </a:fontRef>
+        </p:style>
+        <p:txBody>
+          <a:bodyPr wrap="none" rtlCol="0" anchor="ctr"/>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr"/>
+            <a:endParaRPr/>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="19" name="Oval 18"/>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="5986256" y="2273198"/>
+            <a:ext cx="219456" cy="219456"/>
+          </a:xfrm>
+          <a:prstGeom prst="ellipse">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="F7F5F2"/>
+          </a:solidFill>
+          <a:ln w="19050">
+            <a:solidFill>
+              <a:srgbClr val="34C759"/>
+            </a:solidFill>
+          </a:ln>
+          <a:effectLst/>
+        </p:spPr>
+        <p:style>
+          <a:lnRef idx="1">
+            <a:schemeClr val="accent1"/>
+          </a:lnRef>
+          <a:fillRef idx="3">
+            <a:schemeClr val="accent1"/>
+          </a:fillRef>
+          <a:effectRef idx="2">
+            <a:schemeClr val="accent1"/>
+          </a:effectRef>
+          <a:fontRef idx="minor">
+            <a:schemeClr val="lt1"/>
+          </a:fontRef>
+        </p:style>
+        <p:txBody>
+          <a:bodyPr wrap="none" rtlCol="0" anchor="ctr"/>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr"/>
+            <a:endParaRPr/>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="20" name="TextBox 19"/>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="5729697" y="2651760"/>
+            <a:ext cx="732573" cy="226216"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr">
+              <a:lnSpc>
+                <a:spcPct val="100000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1470" b="0" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="2F80ED"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:ea typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:cs typeface="나눔스퀘어라운드 ExtraBold"/>
+              </a:rPr>
+              <a:t>개인화</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="21" name="TextBox 20"/>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="5112541" y="2944368"/>
+            <a:ext cx="1966885" cy="773930"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr">
+              <a:lnSpc>
+                <a:spcPct val="144000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" b="0" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t>CIST·MMSE 문항 강화</a:t>
+            </a:r>
+          </a:p>
+          <a:p>
+            <a:pPr algn="ctr">
+              <a:lnSpc>
+                <a:spcPct val="144000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" b="0" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t>전자 일기 기록의 상세도 확인</a:t>
+            </a:r>
+          </a:p>
+          <a:p>
+            <a:pPr algn="ctr">
+              <a:lnSpc>
+                <a:spcPct val="144000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" b="0" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t>보호자 리포트 확인</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="22" name="Rounded Rectangle 21"/>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="7819621" y="1810512"/>
+            <a:ext cx="920495" cy="292608"/>
+          </a:xfrm>
+          <a:prstGeom prst="roundRect">
+            <a:avLst>
+              <a:gd name="adj" fmla="val 50000"/>
+            </a:avLst>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="E8F4FF"/>
+          </a:solidFill>
+          <a:ln>
+            <a:noFill/>
+          </a:ln>
+          <a:effectLst/>
+        </p:spPr>
+        <p:style>
+          <a:lnRef idx="1">
+            <a:schemeClr val="accent1"/>
+          </a:lnRef>
+          <a:fillRef idx="3">
+            <a:schemeClr val="accent1"/>
+          </a:fillRef>
+          <a:effectRef idx="2">
+            <a:schemeClr val="accent1"/>
+          </a:effectRef>
+          <a:fontRef idx="minor">
+            <a:schemeClr val="lt1"/>
+          </a:fontRef>
+        </p:style>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0" anchor="ctr"/>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr">
+              <a:lnSpc>
+                <a:spcPct val="100000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Bold"/>
+                <a:ea typeface="나눔스퀘어라운드 Bold"/>
+                <a:cs typeface="나눔스퀘어라운드 Bold"/>
+              </a:rPr>
+              <a:t>2026.12</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="23" name="Isosceles Triangle 22"/>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm rot="5400000">
+            <a:off x="9280371" y="2291486"/>
+            <a:ext cx="182880" cy="182880"/>
+          </a:xfrm>
+          <a:prstGeom prst="triangle">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="00B39A"/>
+          </a:solidFill>
+          <a:ln>
+            <a:noFill/>
+          </a:ln>
+          <a:effectLst/>
+        </p:spPr>
+        <p:style>
+          <a:lnRef idx="1">
+            <a:schemeClr val="accent1"/>
+          </a:lnRef>
+          <a:fillRef idx="3">
+            <a:schemeClr val="accent1"/>
+          </a:fillRef>
+          <a:effectRef idx="2">
+            <a:schemeClr val="accent1"/>
+          </a:effectRef>
+          <a:fontRef idx="minor">
+            <a:schemeClr val="lt1"/>
+          </a:fontRef>
+        </p:style>
+        <p:txBody>
+          <a:bodyPr wrap="none" rtlCol="0" anchor="ctr"/>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr"/>
+            <a:endParaRPr/>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="24" name="Oval 23"/>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="8170141" y="2273198"/>
+            <a:ext cx="219456" cy="219456"/>
+          </a:xfrm>
+          <a:prstGeom prst="ellipse">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="F7F5F2"/>
+          </a:solidFill>
+          <a:ln w="19050">
+            <a:solidFill>
+              <a:srgbClr val="00B39A"/>
+            </a:solidFill>
+          </a:ln>
+          <a:effectLst/>
+        </p:spPr>
+        <p:style>
+          <a:lnRef idx="1">
+            <a:schemeClr val="accent1"/>
+          </a:lnRef>
+          <a:fillRef idx="3">
+            <a:schemeClr val="accent1"/>
+          </a:fillRef>
+          <a:effectRef idx="2">
+            <a:schemeClr val="accent1"/>
+          </a:effectRef>
+          <a:fontRef idx="minor">
+            <a:schemeClr val="lt1"/>
+          </a:fontRef>
+        </p:style>
+        <p:txBody>
+          <a:bodyPr wrap="none" rtlCol="0" anchor="ctr"/>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr"/>
+            <a:endParaRPr/>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="25" name="TextBox 24"/>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="7164301" y="2651760"/>
+            <a:ext cx="2231136" cy="289369"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr">
+              <a:lnSpc>
+                <a:spcPct val="100000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1470" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:ea typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:cs typeface="나눔스퀘어라운드 ExtraBold"/>
+              </a:rPr>
+              <a:t>조정 · 분석</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="26" name="TextBox 25"/>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="7127725" y="2944368"/>
+            <a:ext cx="2304288" cy="713232"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr">
+              <a:lnSpc>
+                <a:spcPct val="144000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t>실증 데이터 분석</a:t>
+            </a:r>
+          </a:p>
+          <a:p>
+            <a:pPr algn="ctr">
+              <a:lnSpc>
+                <a:spcPct val="144000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t>제품 세부 조정</a:t>
+            </a:r>
+          </a:p>
+          <a:p>
+            <a:pPr algn="ctr">
+              <a:lnSpc>
+                <a:spcPct val="144000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t>가정 보급 채널 컨택</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="27" name="Rounded Rectangle 26"/>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="10027318" y="1810512"/>
+            <a:ext cx="872871" cy="292608"/>
+          </a:xfrm>
+          <a:prstGeom prst="roundRect">
+            <a:avLst>
+              <a:gd name="adj" fmla="val 50000"/>
+            </a:avLst>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="E8F4FF"/>
+          </a:solidFill>
+          <a:ln>
+            <a:noFill/>
+          </a:ln>
+          <a:effectLst/>
+        </p:spPr>
+        <p:style>
+          <a:lnRef idx="1">
+            <a:schemeClr val="accent1"/>
+          </a:lnRef>
+          <a:fillRef idx="3">
+            <a:schemeClr val="accent1"/>
+          </a:fillRef>
+          <a:effectRef idx="2">
+            <a:schemeClr val="accent1"/>
+          </a:effectRef>
+          <a:fontRef idx="minor">
+            <a:schemeClr val="lt1"/>
+          </a:fontRef>
+        </p:style>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0" anchor="ctr"/>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr">
+              <a:lnSpc>
+                <a:spcPct val="100000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Bold"/>
+                <a:ea typeface="나눔스퀘어라운드 Bold"/>
+                <a:cs typeface="나눔스퀘어라운드 Bold"/>
+              </a:rPr>
+              <a:t>2027 초</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="28" name="Oval 27"/>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="10354025" y="2273198"/>
+            <a:ext cx="219456" cy="219456"/>
+          </a:xfrm>
+          <a:prstGeom prst="ellipse">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="F7F5F2"/>
+          </a:solidFill>
+          <a:ln w="19050">
+            <a:solidFill>
+              <a:srgbClr val="4A779B"/>
+            </a:solidFill>
+          </a:ln>
+          <a:effectLst/>
+        </p:spPr>
+        <p:style>
+          <a:lnRef idx="1">
+            <a:schemeClr val="accent1"/>
+          </a:lnRef>
+          <a:fillRef idx="3">
+            <a:schemeClr val="accent1"/>
+          </a:fillRef>
+          <a:effectRef idx="2">
+            <a:schemeClr val="accent1"/>
+          </a:effectRef>
+          <a:fontRef idx="minor">
+            <a:schemeClr val="lt1"/>
+          </a:fontRef>
+        </p:style>
+        <p:txBody>
+          <a:bodyPr wrap="none" rtlCol="0" anchor="ctr"/>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr"/>
+            <a:endParaRPr/>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="29" name="TextBox 28"/>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="9348185" y="2651760"/>
+            <a:ext cx="2231136" cy="289369"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr">
+              <a:lnSpc>
+                <a:spcPct val="100000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1470" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:ea typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:cs typeface="나눔스퀘어라운드 ExtraBold"/>
+              </a:rPr>
+              <a:t>B2C 보급 · 글로벌</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="30" name="TextBox 29"/>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="9311609" y="2944368"/>
+            <a:ext cx="2304288" cy="713232"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr">
+              <a:lnSpc>
+                <a:spcPct val="144000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" b="0" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t>가정용 판매 · 구독 패키지</a:t>
+            </a:r>
+          </a:p>
+          <a:p>
+            <a:pPr algn="ctr">
+              <a:lnSpc>
+                <a:spcPct val="144000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" b="0" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t>특허 후속 · 논문 투고</a:t>
+            </a:r>
+          </a:p>
+          <a:p>
+            <a:pPr algn="ctr">
+              <a:lnSpc>
+                <a:spcPct val="144000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" b="0" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t>국내 결과 기반 글로벌 진출</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="31" name="Rectangle 30"/>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="594360" y="3844289"/>
+            <a:ext cx="11003249" cy="9525"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="B5D4F8"/>
+          </a:solidFill>
+          <a:ln>
+            <a:noFill/>
+          </a:ln>
+          <a:effectLst/>
+        </p:spPr>
+        <p:style>
+          <a:lnRef idx="1">
+            <a:schemeClr val="accent1"/>
+          </a:lnRef>
+          <a:fillRef idx="3">
+            <a:schemeClr val="accent1"/>
+          </a:fillRef>
+          <a:effectRef idx="2">
+            <a:schemeClr val="accent1"/>
+          </a:effectRef>
+          <a:fontRef idx="minor">
+            <a:schemeClr val="lt1"/>
+          </a:fontRef>
+        </p:style>
+        <p:txBody>
+          <a:bodyPr rtlCol="0" anchor="ctr"/>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr"/>
+            <a:endParaRPr/>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="32" name="TextBox 31"/>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="737600" y="3978007"/>
+            <a:ext cx="1298448" cy="246221"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="square" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1600" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:ea typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:cs typeface="나눔스퀘어라운드 ExtraBold"/>
+              </a:rPr>
+              <a:t>실증 준비 계획</a:t>
+            </a:r>
+            <a:endParaRPr lang="ko-KR" altLang="en-US" sz="1600" b="0" dirty="0">
+              <a:solidFill>
+                <a:srgbClr val="0D2F6E"/>
+              </a:solidFill>
+              <a:latin typeface="나눔스퀘어라운드 ExtraBold"/>
+              <a:ea typeface="나눔스퀘어라운드 ExtraBold"/>
+              <a:cs typeface="나눔스퀘어라운드 ExtraBold"/>
+            </a:endParaRPr>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="61" name="Rounded Rectangle 60"/>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="594360" y="5614416"/>
+            <a:ext cx="11003249" cy="493776"/>
+          </a:xfrm>
+          <a:prstGeom prst="roundRect">
+            <a:avLst>
+              <a:gd name="adj" fmla="val 8000"/>
+            </a:avLst>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="E8F4FF"/>
+          </a:solidFill>
+          <a:ln>
+            <a:noFill/>
+          </a:ln>
+          <a:effectLst/>
+        </p:spPr>
+        <p:style>
+          <a:lnRef idx="1">
+            <a:schemeClr val="accent1"/>
+          </a:lnRef>
+          <a:fillRef idx="3">
+            <a:schemeClr val="accent1"/>
+          </a:fillRef>
+          <a:effectRef idx="2">
+            <a:schemeClr val="accent1"/>
+          </a:effectRef>
+          <a:fontRef idx="minor">
+            <a:schemeClr val="lt1"/>
+          </a:fontRef>
+        </p:style>
+        <p:txBody>
+          <a:bodyPr wrap="none" rtlCol="0" anchor="ctr"/>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr"/>
+            <a:endParaRPr/>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:grpSp>
+        <p:nvGrpSpPr>
+          <p:cNvPr id="81" name="그룹 80">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{32D8ACAA-9856-AAEB-9B37-69ABE76B1236}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvGrpSpPr/>
+          <p:nvPr/>
+        </p:nvGrpSpPr>
+        <p:grpSpPr>
+          <a:xfrm>
+            <a:off x="4579413" y="5696712"/>
+            <a:ext cx="6436995" cy="329184"/>
+            <a:chOff x="978408" y="5696712"/>
+            <a:chExt cx="6436995" cy="329184"/>
+          </a:xfrm>
+        </p:grpSpPr>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="62" name="Rounded Rectangle 61"/>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="978408" y="5696712"/>
+              <a:ext cx="596646" cy="329184"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 50000"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="FFFFFF"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+            <a:effectLst/>
+          </p:spPr>
+          <p:style>
+            <a:lnRef idx="1">
+              <a:schemeClr val="accent1"/>
+            </a:lnRef>
+            <a:fillRef idx="3">
+              <a:schemeClr val="accent1"/>
+            </a:fillRef>
+            <a:effectRef idx="2">
+              <a:schemeClr val="accent1"/>
+            </a:effectRef>
+            <a:fontRef idx="minor">
+              <a:schemeClr val="lt1"/>
+            </a:fontRef>
+          </p:style>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0" anchor="ctr"/>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="ctr">
+                <a:lnSpc>
+                  <a:spcPct val="100000"/>
+                </a:lnSpc>
+              </a:pPr>
+              <a:r>
+                <a:rPr lang="ko-KR" altLang="en-US" sz="1240" b="0" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드 Bold"/>
+                  <a:ea typeface="나눔스퀘어라운드 Bold"/>
+                  <a:cs typeface="나눔스퀘어라운드 Bold"/>
+                </a:rPr>
+                <a:t>개발</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="63" name="Isosceles Triangle 62"/>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm rot="5400000">
+              <a:off x="1657255" y="5832729"/>
+              <a:ext cx="146304" cy="57150"/>
+            </a:xfrm>
+            <a:prstGeom prst="triangle">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="2F80ED"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+            <a:effectLst/>
+          </p:spPr>
+          <p:style>
+            <a:lnRef idx="1">
+              <a:schemeClr val="accent1"/>
+            </a:lnRef>
+            <a:fillRef idx="3">
+              <a:schemeClr val="accent1"/>
+            </a:fillRef>
+            <a:effectRef idx="2">
+              <a:schemeClr val="accent1"/>
+            </a:effectRef>
+            <a:fontRef idx="minor">
+              <a:schemeClr val="lt1"/>
+            </a:fontRef>
+          </p:style>
+          <p:txBody>
+            <a:bodyPr wrap="none" rtlCol="0" anchor="ctr"/>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="ctr"/>
+              <a:endParaRPr/>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="64" name="Rounded Rectangle 63"/>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="1940814" y="5696712"/>
+              <a:ext cx="920495" cy="329184"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 50000"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="FFFFFF"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+            <a:effectLst/>
+          </p:spPr>
+          <p:style>
+            <a:lnRef idx="1">
+              <a:schemeClr val="accent1"/>
+            </a:lnRef>
+            <a:fillRef idx="3">
+              <a:schemeClr val="accent1"/>
+            </a:fillRef>
+            <a:effectRef idx="2">
+              <a:schemeClr val="accent1"/>
+            </a:effectRef>
+            <a:fontRef idx="minor">
+              <a:schemeClr val="lt1"/>
+            </a:fontRef>
+          </p:style>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0" anchor="ctr"/>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="ctr">
+                <a:lnSpc>
+                  <a:spcPct val="100000"/>
+                </a:lnSpc>
+              </a:pPr>
+              <a:r>
+                <a:rPr lang="ko-KR" altLang="en-US" sz="1240" b="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드 Bold"/>
+                  <a:ea typeface="나눔스퀘어라운드 Bold"/>
+                  <a:cs typeface="나눔스퀘어라운드 Bold"/>
+                </a:rPr>
+                <a:t>국내 실증</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="65" name="Isosceles Triangle 64"/>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm rot="5400000">
+              <a:off x="2943511" y="5832729"/>
+              <a:ext cx="146304" cy="57150"/>
+            </a:xfrm>
+            <a:prstGeom prst="triangle">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="2F80ED"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+            <a:effectLst/>
+          </p:spPr>
+          <p:style>
+            <a:lnRef idx="1">
+              <a:schemeClr val="accent1"/>
+            </a:lnRef>
+            <a:fillRef idx="3">
+              <a:schemeClr val="accent1"/>
+            </a:fillRef>
+            <a:effectRef idx="2">
+              <a:schemeClr val="accent1"/>
+            </a:effectRef>
+            <a:fontRef idx="minor">
+              <a:schemeClr val="lt1"/>
+            </a:fontRef>
+          </p:style>
+          <p:txBody>
+            <a:bodyPr wrap="none" rtlCol="0" anchor="ctr"/>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="ctr"/>
+              <a:endParaRPr/>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="66" name="Rounded Rectangle 65"/>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="3227069" y="5696712"/>
+              <a:ext cx="920495" cy="329184"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 50000"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="FFFFFF"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+            <a:effectLst/>
+          </p:spPr>
+          <p:style>
+            <a:lnRef idx="1">
+              <a:schemeClr val="accent1"/>
+            </a:lnRef>
+            <a:fillRef idx="3">
+              <a:schemeClr val="accent1"/>
+            </a:fillRef>
+            <a:effectRef idx="2">
+              <a:schemeClr val="accent1"/>
+            </a:effectRef>
+            <a:fontRef idx="minor">
+              <a:schemeClr val="lt1"/>
+            </a:fontRef>
+          </p:style>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0" anchor="ctr"/>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="ctr">
+                <a:lnSpc>
+                  <a:spcPct val="100000"/>
+                </a:lnSpc>
+              </a:pPr>
+              <a:r>
+                <a:rPr lang="ko-KR" altLang="en-US" sz="1240" b="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드 Bold"/>
+                  <a:ea typeface="나눔스퀘어라운드 Bold"/>
+                  <a:cs typeface="나눔스퀘어라운드 Bold"/>
+                </a:rPr>
+                <a:t>개인화</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="67" name="Isosceles Triangle 66"/>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm rot="5400000">
+              <a:off x="4229767" y="5832729"/>
+              <a:ext cx="146304" cy="57150"/>
+            </a:xfrm>
+            <a:prstGeom prst="triangle">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="2F80ED"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+            <a:effectLst/>
+          </p:spPr>
+          <p:style>
+            <a:lnRef idx="1">
+              <a:schemeClr val="accent1"/>
+            </a:lnRef>
+            <a:fillRef idx="3">
+              <a:schemeClr val="accent1"/>
+            </a:fillRef>
+            <a:effectRef idx="2">
+              <a:schemeClr val="accent1"/>
+            </a:effectRef>
+            <a:fontRef idx="minor">
+              <a:schemeClr val="lt1"/>
+            </a:fontRef>
+          </p:style>
+          <p:txBody>
+            <a:bodyPr wrap="none" rtlCol="0" anchor="ctr"/>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="ctr"/>
+              <a:endParaRPr/>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="68" name="Rounded Rectangle 67"/>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="4513326" y="5696712"/>
+              <a:ext cx="1034795" cy="329184"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 50000"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="FFFFFF"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+            <a:effectLst/>
+          </p:spPr>
+          <p:style>
+            <a:lnRef idx="1">
+              <a:schemeClr val="accent1"/>
+            </a:lnRef>
+            <a:fillRef idx="3">
+              <a:schemeClr val="accent1"/>
+            </a:fillRef>
+            <a:effectRef idx="2">
+              <a:schemeClr val="accent1"/>
+            </a:effectRef>
+            <a:fontRef idx="minor">
+              <a:schemeClr val="lt1"/>
+            </a:fontRef>
+          </p:style>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0" anchor="ctr"/>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="ctr">
+                <a:lnSpc>
+                  <a:spcPct val="100000"/>
+                </a:lnSpc>
+              </a:pPr>
+              <a:r>
+                <a:rPr lang="ko-KR" altLang="en-US" sz="1240" b="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드 Bold"/>
+                  <a:ea typeface="나눔스퀘어라운드 Bold"/>
+                  <a:cs typeface="나눔스퀘어라운드 Bold"/>
+                </a:rPr>
+                <a:t>조정 · 분석</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="69" name="Isosceles Triangle 68"/>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm rot="5400000">
+              <a:off x="5630323" y="5832729"/>
+              <a:ext cx="146304" cy="57150"/>
+            </a:xfrm>
+            <a:prstGeom prst="triangle">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="2F80ED"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+            <a:effectLst/>
+          </p:spPr>
+          <p:style>
+            <a:lnRef idx="1">
+              <a:schemeClr val="accent1"/>
+            </a:lnRef>
+            <a:fillRef idx="3">
+              <a:schemeClr val="accent1"/>
+            </a:fillRef>
+            <a:effectRef idx="2">
+              <a:schemeClr val="accent1"/>
+            </a:effectRef>
+            <a:fontRef idx="minor">
+              <a:schemeClr val="lt1"/>
+            </a:fontRef>
+          </p:style>
+          <p:txBody>
+            <a:bodyPr wrap="none" rtlCol="0" anchor="ctr"/>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="ctr"/>
+              <a:endParaRPr/>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="70" name="Rounded Rectangle 69"/>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="5913882" y="5696712"/>
+              <a:ext cx="1501521" cy="329184"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 50000"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="FFFFFF"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+            <a:effectLst/>
+          </p:spPr>
+          <p:style>
+            <a:lnRef idx="1">
+              <a:schemeClr val="accent1"/>
+            </a:lnRef>
+            <a:fillRef idx="3">
+              <a:schemeClr val="accent1"/>
+            </a:fillRef>
+            <a:effectRef idx="2">
+              <a:schemeClr val="accent1"/>
+            </a:effectRef>
+            <a:fontRef idx="minor">
+              <a:schemeClr val="lt1"/>
+            </a:fontRef>
+          </p:style>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0" anchor="ctr"/>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="ctr">
+                <a:lnSpc>
+                  <a:spcPct val="100000"/>
+                </a:lnSpc>
+              </a:pPr>
+              <a:r>
+                <a:rPr lang="ko-KR" altLang="en-US" sz="1240" b="0" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드 Bold"/>
+                  <a:ea typeface="나눔스퀘어라운드 Bold"/>
+                  <a:cs typeface="나눔스퀘어라운드 Bold"/>
+                </a:rPr>
+                <a:t>B2C 보급 · 글로벌</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+      </p:grpSp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="71" name="Rectangle 70"/>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="594360" y="6291072"/>
+            <a:ext cx="11003249" cy="9525"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="B5D4F8"/>
+          </a:solidFill>
+          <a:ln>
+            <a:noFill/>
+          </a:ln>
+          <a:effectLst/>
+        </p:spPr>
+        <p:style>
+          <a:lnRef idx="1">
+            <a:schemeClr val="accent1"/>
+          </a:lnRef>
+          <a:fillRef idx="3">
+            <a:schemeClr val="accent1"/>
+          </a:fillRef>
+          <a:effectRef idx="2">
+            <a:schemeClr val="accent1"/>
+          </a:effectRef>
+          <a:fontRef idx="minor">
+            <a:schemeClr val="lt1"/>
+          </a:fontRef>
+        </p:style>
+        <p:txBody>
+          <a:bodyPr rtlCol="0" anchor="ctr"/>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr"/>
+            <a:endParaRPr/>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="72" name="TextBox 71"/>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="594360" y="6364224"/>
+            <a:ext cx="6400800" cy="236219"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="l">
+              <a:lnSpc>
+                <a:spcPct val="100000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="2F80ED"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t>치매링고 · 보편교육연구소 · 로드맵과 예산</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="73" name="TextBox 72"/>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="10500329" y="6364224"/>
+            <a:ext cx="1097280" cy="236219"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="r">
+              <a:lnSpc>
+                <a:spcPct val="100000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="2F80ED"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Bold"/>
+                <a:ea typeface="나눔스퀘어라운드 Bold"/>
+                <a:cs typeface="나눔스퀘어라운드 Bold"/>
+              </a:rPr>
+              <a:t>11</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:pic>
+        <p:nvPicPr>
+          <p:cNvPr id="74" name="Picture 73" descr="logo.png"/>
+          <p:cNvPicPr>
+            <a:picLocks noChangeAspect="1"/>
+          </p:cNvPicPr>
+          <p:nvPr/>
+        </p:nvPicPr>
+        <p:blipFill>
+          <a:blip r:embed="rId3"/>
+          <a:stretch>
+            <a:fillRect/>
+          </a:stretch>
+        </p:blipFill>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="10774649" y="250000"/>
+            <a:ext cx="822960" cy="822960"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:effectLst/>
+        </p:spPr>
+      </p:pic>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="83" name="TextBox 82">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{EC8797A6-9B10-5CA6-E489-2D64D23D8B3E}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="737600" y="5742336"/>
+            <a:ext cx="1479742" cy="246221"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="square" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1600" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:ea typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:cs typeface="나눔스퀘어라운드 ExtraBold"/>
+              </a:rPr>
+              <a:t>사업화 진행 계획</a:t>
+            </a:r>
+            <a:endParaRPr lang="ko-KR" altLang="en-US" sz="1600" b="0" dirty="0">
+              <a:solidFill>
+                <a:srgbClr val="0D2F6E"/>
+              </a:solidFill>
+              <a:latin typeface="나눔스퀘어라운드 ExtraBold"/>
+              <a:ea typeface="나눔스퀘어라운드 ExtraBold"/>
+              <a:cs typeface="나눔스퀘어라운드 ExtraBold"/>
+            </a:endParaRPr>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="169" name="Rounded Rectangle 25">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{325A8D6D-571F-B7A1-D232-83319D59686F}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="2191027" y="3971899"/>
+            <a:ext cx="2932298" cy="1426559"/>
+          </a:xfrm>
+          <a:prstGeom prst="roundRect">
+            <a:avLst>
+              <a:gd name="adj" fmla="val 5500"/>
+            </a:avLst>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="FFFFFF"/>
+          </a:solidFill>
+          <a:ln w="9525">
+            <a:solidFill>
+              <a:srgbClr val="B5D4F8"/>
+            </a:solidFill>
+          </a:ln>
+          <a:effectLst/>
+        </p:spPr>
+        <p:style>
+          <a:lnRef idx="1">
+            <a:schemeClr val="accent1"/>
+          </a:lnRef>
+          <a:fillRef idx="3">
+            <a:schemeClr val="accent1"/>
+          </a:fillRef>
+          <a:effectRef idx="2">
+            <a:schemeClr val="accent1"/>
+          </a:effectRef>
+          <a:fontRef idx="minor">
+            <a:schemeClr val="lt1"/>
+          </a:fontRef>
+        </p:style>
+        <p:txBody>
+          <a:bodyPr wrap="none" rtlCol="0" anchor="ctr"/>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr"/>
+            <a:endParaRPr dirty="0"/>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="171" name="Rectangle 26">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{CC2ADD95-AE58-0EA2-3F79-1D3140D4650F}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="2191027" y="4209643"/>
+            <a:ext cx="46536" cy="658368"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="2F80ED"/>
+          </a:solidFill>
+          <a:ln>
+            <a:noFill/>
+          </a:ln>
+          <a:effectLst/>
+        </p:spPr>
+        <p:style>
+          <a:lnRef idx="1">
+            <a:schemeClr val="accent1"/>
+          </a:lnRef>
+          <a:fillRef idx="3">
+            <a:schemeClr val="accent1"/>
+          </a:fillRef>
+          <a:effectRef idx="2">
+            <a:schemeClr val="accent1"/>
+          </a:effectRef>
+          <a:fontRef idx="minor">
+            <a:schemeClr val="lt1"/>
+          </a:fontRef>
+        </p:style>
+        <p:txBody>
+          <a:bodyPr wrap="none" rtlCol="0" anchor="ctr"/>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr"/>
+            <a:endParaRPr/>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="173" name="Rounded Rectangle 27">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{627BCEEC-272F-A7CE-CAAA-3CB7EC9D1449}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="2377172" y="4099915"/>
+            <a:ext cx="396262" cy="219456"/>
+          </a:xfrm>
+          <a:prstGeom prst="roundRect">
+            <a:avLst>
+              <a:gd name="adj" fmla="val 50000"/>
+            </a:avLst>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="2F80ED"/>
+          </a:solidFill>
+          <a:ln>
+            <a:noFill/>
+          </a:ln>
+          <a:effectLst/>
+        </p:spPr>
+        <p:style>
+          <a:lnRef idx="1">
+            <a:schemeClr val="accent1"/>
+          </a:lnRef>
+          <a:fillRef idx="3">
+            <a:schemeClr val="accent1"/>
+          </a:fillRef>
+          <a:effectRef idx="2">
+            <a:schemeClr val="accent1"/>
+          </a:effectRef>
+          <a:fontRef idx="minor">
+            <a:schemeClr val="lt1"/>
+          </a:fontRef>
+        </p:style>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0" anchor="ctr"/>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr">
+              <a:lnSpc>
+                <a:spcPct val="100000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:ea typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:cs typeface="나눔스퀘어라운드 ExtraBold"/>
+              </a:rPr>
+              <a:t>01</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="175" name="TextBox 174">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{BD1C7F1E-85FF-6495-7F79-730766E51C70}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="2850663" y="4109106"/>
+            <a:ext cx="1728750" cy="246221"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="square" lIns="0" tIns="0" rIns="0" bIns="0" anchor="ctr">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1600" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:ea typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:cs typeface="나눔스퀘어라운드 ExtraBold"/>
+              </a:rPr>
+              <a:t>시제품 완성</a:t>
+            </a:r>
+            <a:endParaRPr lang="ko-KR" altLang="en-US" sz="1600" b="0" dirty="0">
+              <a:solidFill>
+                <a:srgbClr val="0D2F6E"/>
+              </a:solidFill>
+              <a:latin typeface="나눔스퀘어라운드 ExtraBold"/>
+              <a:ea typeface="나눔스퀘어라운드 ExtraBold"/>
+              <a:cs typeface="나눔스퀘어라운드 ExtraBold"/>
+            </a:endParaRPr>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="181" name="TextBox 180">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{9EEA1FE3-C960-7A51-3E22-CCAD90E708E5}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="2511640" y="4420145"/>
+            <a:ext cx="2375681" cy="804387"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="square" lIns="0" tIns="0" rIns="0" bIns="0" anchor="ctr">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr>
+              <a:lnSpc>
+                <a:spcPct val="150000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t xml:space="preserve">아크릴 소재 제품마감 </a:t>
+            </a:r>
+            <a:r>
+              <a:rPr lang="en-US" altLang="ko-KR" sz="1200" b="1" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t>(</a:t>
+            </a:r>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" b="1" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t>상금 재투자</a:t>
+            </a:r>
+            <a:r>
+              <a:rPr lang="en-US" altLang="ko-KR" sz="1200" b="1" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t>)</a:t>
+            </a:r>
+            <a:endParaRPr lang="ko-KR" altLang="en-US" sz="1200" b="1" dirty="0">
+              <a:solidFill>
+                <a:srgbClr val="0D2F6E"/>
+              </a:solidFill>
+              <a:latin typeface="나눔스퀘어라운드 Regular"/>
+              <a:ea typeface="나눔스퀘어라운드 Regular"/>
+              <a:cs typeface="나눔스퀘어라운드 Regular"/>
+            </a:endParaRPr>
+          </a:p>
+          <a:p>
+            <a:pPr>
+              <a:lnSpc>
+                <a:spcPct val="150000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="en-US" altLang="ko-KR" sz="1200" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t xml:space="preserve">NFC </a:t>
+            </a:r>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t>기반 사용자 인식</a:t>
+            </a:r>
+          </a:p>
+          <a:p>
+            <a:pPr>
+              <a:lnSpc>
+                <a:spcPct val="150000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t>특허 출원 완료</a:t>
+            </a:r>
+            <a:endParaRPr lang="ko-KR" altLang="en-US" sz="1200" b="0" dirty="0">
+              <a:solidFill>
+                <a:srgbClr val="0D2F6E"/>
+              </a:solidFill>
+              <a:latin typeface="나눔스퀘어라운드 Regular"/>
+              <a:ea typeface="나눔스퀘어라운드 Regular"/>
+              <a:cs typeface="나눔스퀘어라운드 Regular"/>
+            </a:endParaRPr>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="195" name="Rounded Rectangle 38">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{795A8C81-52DC-D0CA-B7CE-A6F80F5274A8}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="5397403" y="3971899"/>
+            <a:ext cx="2932298" cy="1426559"/>
+          </a:xfrm>
+          <a:prstGeom prst="roundRect">
+            <a:avLst>
+              <a:gd name="adj" fmla="val 5500"/>
+            </a:avLst>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="FFFFFF"/>
+          </a:solidFill>
+          <a:ln w="9525">
+            <a:solidFill>
+              <a:srgbClr val="B5D4F8"/>
+            </a:solidFill>
+          </a:ln>
+          <a:effectLst/>
+        </p:spPr>
+        <p:style>
+          <a:lnRef idx="1">
+            <a:schemeClr val="accent1"/>
+          </a:lnRef>
+          <a:fillRef idx="3">
+            <a:schemeClr val="accent1"/>
+          </a:fillRef>
+          <a:effectRef idx="2">
+            <a:schemeClr val="accent1"/>
+          </a:effectRef>
+          <a:fontRef idx="minor">
+            <a:schemeClr val="lt1"/>
+          </a:fontRef>
+        </p:style>
+        <p:txBody>
+          <a:bodyPr wrap="none" rtlCol="0" anchor="ctr"/>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr"/>
+            <a:endParaRPr/>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="197" name="Rectangle 39">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{81C0016B-AD27-FF70-50F1-CB50DCE8DD46}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="5397403" y="4209643"/>
+            <a:ext cx="46536" cy="658368"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="34C759"/>
+          </a:solidFill>
+          <a:ln>
+            <a:noFill/>
+          </a:ln>
+          <a:effectLst/>
+        </p:spPr>
+        <p:style>
+          <a:lnRef idx="1">
+            <a:schemeClr val="accent1"/>
+          </a:lnRef>
+          <a:fillRef idx="3">
+            <a:schemeClr val="accent1"/>
+          </a:fillRef>
+          <a:effectRef idx="2">
+            <a:schemeClr val="accent1"/>
+          </a:effectRef>
+          <a:fontRef idx="minor">
+            <a:schemeClr val="lt1"/>
+          </a:fontRef>
+        </p:style>
+        <p:txBody>
+          <a:bodyPr wrap="none" rtlCol="0" anchor="ctr"/>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr"/>
+            <a:endParaRPr/>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="199" name="Rounded Rectangle 40">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{4116BAEC-37E3-4ADA-B859-3DCD73E4A6E7}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="5583548" y="4099915"/>
+            <a:ext cx="396262" cy="219456"/>
+          </a:xfrm>
+          <a:prstGeom prst="roundRect">
+            <a:avLst>
+              <a:gd name="adj" fmla="val 50000"/>
+            </a:avLst>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="34C759"/>
+          </a:solidFill>
+          <a:ln>
+            <a:noFill/>
+          </a:ln>
+          <a:effectLst/>
+        </p:spPr>
+        <p:style>
+          <a:lnRef idx="1">
+            <a:schemeClr val="accent1"/>
+          </a:lnRef>
+          <a:fillRef idx="3">
+            <a:schemeClr val="accent1"/>
+          </a:fillRef>
+          <a:effectRef idx="2">
+            <a:schemeClr val="accent1"/>
+          </a:effectRef>
+          <a:fontRef idx="minor">
+            <a:schemeClr val="lt1"/>
+          </a:fontRef>
+        </p:style>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0" anchor="ctr"/>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr">
+              <a:lnSpc>
+                <a:spcPct val="100000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:ea typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:cs typeface="나눔스퀘어라운드 ExtraBold"/>
+              </a:rPr>
+              <a:t>02</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="201" name="TextBox 200">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{3E238F24-7717-2EFC-9B7C-416ED057202E}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="6057039" y="4109106"/>
+            <a:ext cx="2020758" cy="246221"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="square" lIns="0" tIns="0" rIns="0" bIns="0" anchor="ctr">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1600" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:ea typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:cs typeface="나눔스퀘어라운드 ExtraBold"/>
+              </a:rPr>
+              <a:t>국내 실증</a:t>
+            </a:r>
+            <a:endParaRPr lang="ko-KR" altLang="en-US" sz="1600" b="0" dirty="0">
+              <a:solidFill>
+                <a:srgbClr val="0D2F6E"/>
+              </a:solidFill>
+              <a:latin typeface="나눔스퀘어라운드 ExtraBold"/>
+              <a:ea typeface="나눔스퀘어라운드 ExtraBold"/>
+              <a:cs typeface="나눔스퀘어라운드 ExtraBold"/>
+            </a:endParaRPr>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="221" name="Rounded Rectangle 51">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{9FAC54F4-F4A3-F286-7E32-6B26AE0106DC}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="8621709" y="3971898"/>
+            <a:ext cx="2932298" cy="1426559"/>
+          </a:xfrm>
+          <a:prstGeom prst="roundRect">
+            <a:avLst>
+              <a:gd name="adj" fmla="val 5500"/>
+            </a:avLst>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="FFFFFF"/>
+          </a:solidFill>
+          <a:ln w="9525">
+            <a:solidFill>
+              <a:srgbClr val="B5D4F8"/>
+            </a:solidFill>
+          </a:ln>
+          <a:effectLst/>
+        </p:spPr>
+        <p:style>
+          <a:lnRef idx="1">
+            <a:schemeClr val="accent1"/>
+          </a:lnRef>
+          <a:fillRef idx="3">
+            <a:schemeClr val="accent1"/>
+          </a:fillRef>
+          <a:effectRef idx="2">
+            <a:schemeClr val="accent1"/>
+          </a:effectRef>
+          <a:fontRef idx="minor">
+            <a:schemeClr val="lt1"/>
+          </a:fontRef>
+        </p:style>
+        <p:txBody>
+          <a:bodyPr wrap="none" rtlCol="0" anchor="ctr"/>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr"/>
+            <a:endParaRPr/>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="223" name="Rectangle 52">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{12198168-662B-D2DB-C853-1643300C36A8}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="8621709" y="4209642"/>
+            <a:ext cx="46536" cy="658368"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="FFC83D"/>
+          </a:solidFill>
+          <a:ln>
+            <a:noFill/>
+          </a:ln>
+          <a:effectLst/>
+        </p:spPr>
+        <p:style>
+          <a:lnRef idx="1">
+            <a:schemeClr val="accent1"/>
+          </a:lnRef>
+          <a:fillRef idx="3">
+            <a:schemeClr val="accent1"/>
+          </a:fillRef>
+          <a:effectRef idx="2">
+            <a:schemeClr val="accent1"/>
+          </a:effectRef>
+          <a:fontRef idx="minor">
+            <a:schemeClr val="lt1"/>
+          </a:fontRef>
+        </p:style>
+        <p:txBody>
+          <a:bodyPr wrap="none" rtlCol="0" anchor="ctr"/>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr"/>
+            <a:endParaRPr/>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="225" name="Rounded Rectangle 53">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{832DFD08-7A89-8121-67A1-5B3900761FB7}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="8807854" y="4099914"/>
+            <a:ext cx="396262" cy="219456"/>
+          </a:xfrm>
+          <a:prstGeom prst="roundRect">
+            <a:avLst>
+              <a:gd name="adj" fmla="val 50000"/>
+            </a:avLst>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="FFC83D"/>
+          </a:solidFill>
+          <a:ln>
+            <a:noFill/>
+          </a:ln>
+          <a:effectLst/>
+        </p:spPr>
+        <p:style>
+          <a:lnRef idx="1">
+            <a:schemeClr val="accent1"/>
+          </a:lnRef>
+          <a:fillRef idx="3">
+            <a:schemeClr val="accent1"/>
+          </a:fillRef>
+          <a:effectRef idx="2">
+            <a:schemeClr val="accent1"/>
+          </a:effectRef>
+          <a:fontRef idx="minor">
+            <a:schemeClr val="lt1"/>
+          </a:fontRef>
+        </p:style>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0" anchor="ctr"/>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr">
+              <a:lnSpc>
+                <a:spcPct val="100000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="FFFFFF"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:ea typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:cs typeface="나눔스퀘어라운드 ExtraBold"/>
+              </a:rPr>
+              <a:t>03</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="227" name="TextBox 226">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{DA9D15D1-EF66-A6A4-E4CF-FA070A261EE3}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="9281345" y="4109105"/>
+            <a:ext cx="2050043" cy="246221"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="square" lIns="0" tIns="0" rIns="0" bIns="0" anchor="ctr">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1600" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:ea typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:cs typeface="나눔스퀘어라운드 ExtraBold"/>
+              </a:rPr>
+              <a:t>글로벌 준비</a:t>
+            </a:r>
+            <a:endParaRPr lang="ko-KR" altLang="en-US" sz="1600" b="0" dirty="0">
+              <a:solidFill>
+                <a:srgbClr val="0D2F6E"/>
+              </a:solidFill>
+              <a:latin typeface="나눔스퀘어라운드 ExtraBold"/>
+              <a:ea typeface="나눔스퀘어라운드 ExtraBold"/>
+              <a:cs typeface="나눔스퀘어라운드 ExtraBold"/>
+            </a:endParaRPr>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="250" name="TextBox 249">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{CDB04C42-C0D2-BAB5-08BE-DA24A4CBBC3E}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="5715123" y="4420145"/>
+            <a:ext cx="2104497" cy="804387"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="square" lIns="0" tIns="0" rIns="0" bIns="0" anchor="ctr">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr>
+              <a:lnSpc>
+                <a:spcPct val="150000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="en-US" altLang="ko-KR" sz="1200" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t xml:space="preserve">2X2 </a:t>
+            </a:r>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t>버튼 디바이스의 사용성 검증</a:t>
+            </a:r>
+          </a:p>
+          <a:p>
+            <a:pPr>
+              <a:lnSpc>
+                <a:spcPct val="150000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t>사용자 맞춤형 문항 고도화</a:t>
+            </a:r>
+          </a:p>
+          <a:p>
+            <a:pPr>
+              <a:lnSpc>
+                <a:spcPct val="150000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t xml:space="preserve">가정 보급 </a:t>
+            </a:r>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" dirty="0" err="1">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t>채널</a:t>
+            </a:r>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t xml:space="preserve"> 구축</a:t>
+            </a:r>
+            <a:endParaRPr lang="ko-KR" altLang="en-US" sz="1200" b="0" dirty="0">
+              <a:solidFill>
+                <a:srgbClr val="0D2F6E"/>
+              </a:solidFill>
+              <a:latin typeface="나눔스퀘어라운드 Regular"/>
+              <a:ea typeface="나눔스퀘어라운드 Regular"/>
+              <a:cs typeface="나눔스퀘어라운드 Regular"/>
+            </a:endParaRPr>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="252" name="TextBox 251">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{B5388E53-57F6-0720-785E-54EA18F8CA40}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="8942322" y="4420145"/>
+            <a:ext cx="2512077" cy="804387"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="square" lIns="0" tIns="0" rIns="0" bIns="0" anchor="ctr">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr>
+              <a:lnSpc>
+                <a:spcPct val="150000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="en-US" altLang="ko-KR" sz="1200" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t xml:space="preserve">다국어 </a:t>
+            </a:r>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t>동의서 · 해외 보급 검토</a:t>
+            </a:r>
+          </a:p>
+          <a:p>
+            <a:pPr>
+              <a:lnSpc>
+                <a:spcPct val="150000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t>국내 실증 결과 반영</a:t>
+            </a:r>
+          </a:p>
+          <a:p>
+            <a:pPr>
+              <a:lnSpc>
+                <a:spcPct val="150000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t>글로벌 진출 채널 검토</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+    </p:spTree>
+  </p:cSld>
+  <p:clrMapOvr>
+    <a:masterClrMapping/>
+  </p:clrMapOvr>
+</p:sld>

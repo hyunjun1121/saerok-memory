@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="245" height="68" viewBox="0 0 245 68">
+  <rect x="1.5" y="1.5" width="242" height="65" rx="12" fill="#F9F0E2" stroke="#D95F4F" stroke-width="2"/>
+  <text x="15" y="20" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#D95F4F">Haru 개인화 흐름</text>
+  <text x="15" y="41" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#2D5039">어제 이야기 → 오늘 문항</text>
+  <text x="15" y="59" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#2D5039">→ 가족 대화</text>
+</svg>

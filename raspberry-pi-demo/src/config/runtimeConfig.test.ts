@@ -17,8 +17,16 @@ function response(ok: boolean, payload: unknown): Response {
 
 describe("runtime input config loader", () => {
   it("accepts a complete externally loaded four-button mapping", async () => {
+    const result = await loadRuntimeInputConfig(async () => response(true, {
+      input: validInput,
+      audio: { narrationEnabled: false },
+    }) as never);
+    expect(result).toEqual({ status: "ready", config: validInput, narrationEnabled: false });
+  });
+
+  it("defaults narration to enabled for a compatible runtime mapping", async () => {
     const result = await loadRuntimeInputConfig(async () => response(true, { input: validInput }) as never);
-    expect(result).toEqual({ status: "ready", config: validInput });
+    expect(result).toEqual({ status: "ready", config: validInput, narrationEnabled: true });
   });
 
   it("fails closed when the runtime file is missing", async () => {
@@ -29,6 +37,14 @@ describe("runtime input config loader", () => {
   it("fails closed when the mapping is malformed", async () => {
     const result = await loadRuntimeInputConfig(async () => response(true, {
       input: { ...validInput, bindings: { ...validInput.bindings, topRight: validInput.bindings.topLeft } },
+    }) as never);
+    expect(result).toEqual({ status: "error", reason: "invalid" });
+  });
+
+  it("fails closed when narration settings are malformed", async () => {
+    const result = await loadRuntimeInputConfig(async () => response(true, {
+      input: validInput,
+      audio: { narrationEnabled: "later" },
     }) as never);
     expect(result).toEqual({ status: "error", reason: "invalid" });
   });

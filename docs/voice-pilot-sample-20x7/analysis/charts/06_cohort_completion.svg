@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="Cohort별 세션 완료">
+  <rect width="1200" height="675" rx="28" fill="#FFFDF7"/>
+  <text x="54" y="62" fill="#2F2A24" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="30" font-weight="800">Cohort별 세션 완료</text>
+  <text x="54" y="94" fill="#706A61" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="17">n&lt;3 집단은 숨김 · 차이는 원인 해석 금지</text>
+  <text x="330" y="167" text-anchor="end" fill="#2F2A24" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="15" font-weight="700">연령대 · 70-79</text>
+            <rect x="360" y="145" width="660" height="28" rx="8" fill="#D9D5CC" opacity="0.42"/>
+            <rect x="360" y="145" width="594" height="28" rx="8" fill="#427A4A" opacity="0.88"/>
+            <text x="1034" y="166" fill="#2F2A24" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="14">90.0% · n=20</text>
+<text x="330" y="218" text-anchor="end" fill="#2F2A24" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="15" font-weight="700">음성 난이도 · high</text>
+            <rect x="360" y="196" width="660" height="28" rx="8" fill="#D9D5CC" opacity="0.42"/>
+            <rect x="360" y="196" width="589.2857142857143" height="28" rx="8" fill="#4F79A7" opacity="0.88"/>
+            <text x="1034" y="217" fill="#2F2A24" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="14">89.3% · n=8</text>
+<text x="330" y="269" text-anchor="end" fill="#2F2A24" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="15" font-weight="700">음성 난이도 · medium</text>
+            <rect x="360" y="247" width="660" height="28" rx="8" fill="#D9D5CC" opacity="0.42"/>
+            <rect x="360" y="247" width="589.2857142857143" height="28" rx="8" fill="#4F79A7" opacity="0.88"/>
+            <text x="1034" y="268" fill="#2F2A24" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="14">89.3% · n=8</text>
+<text x="330" y="320" text-anchor="end" fill="#2F2A24" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="15" font-weight="700">음성 난이도 · low</text>
+            <rect x="360" y="298" width="660" height="28" rx="8" fill="#D9D5CC" opacity="0.42"/>
+            <rect x="360" y="298" width="612.8571428571429" height="28" rx="8" fill="#4F79A7" opacity="0.88"/>
+            <text x="1034" y="319" fill="#2F2A24" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="14">92.9% · n=4</text>
+<text x="330" y="371" text-anchor="end" fill="#2F2A24" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="15" font-weight="700">음성 조건 · assist_v2</text>
+            <rect x="360" y="349" width="660" height="28" rx="8" fill="#D9D5CC" opacity="0.42"/>
+            <rect x="360" y="349" width="622.2857142857142" height="28" rx="8" fill="#E59A35" opacity="0.88"/>
+            <text x="1034" y="370" fill="#2F2A24" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="14">94.3% · n=10</text>
+<text x="330" y="422" text-anchor="end" fill="#2F2A24" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="15" font-weight="700">음성 조건 · baseline_v1</text>
+            <rect x="360" y="400" width="660" height="28" rx="8" fill="#D9D5CC" opacity="0.42"/>
+            <rect x="360" y="400" width="565.7142857142857" height="28" rx="8" fill="#E59A35" opacity="0.88"/>
+            <text x="1034" y="421" fill="#2F2A24" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="14">85.7% · n=10</text>
+  <text x="54" y="646" fill="#706A61" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="15">Haru 음성 UX · 샘플 데이터 · 20명 × 7일</text>
+</svg>

@@ -14,6 +14,7 @@ import {
   clearHaruDemoSessions,
   scrubHaruDemoVoiceData,
 } from "@/features/lessons/haruDemoSessionStorage";
+import { clearHaruGeneratedQuestion } from "@/features/lessons/haruGeneratedQuestionStorage";
 import {
   authorizeHaruRagReenrollment,
   clearHaruRagOutbox,
@@ -41,6 +42,7 @@ export const HARU_PRIVACY_CLEANUP_PENDING_KEY = "haruPrivacyCleanupPending";
 interface HaruPrivacyCleanupIntent {
   longitudinalDeletion: boolean;
   personalizationDeletion: boolean;
+  museQuestionCacheDeletion: boolean;
   analyticsDeletion: boolean;
   processingCancellation: boolean;
   transcriptScrub: boolean;
@@ -108,6 +110,10 @@ function normalizeCleanupIntent(
       typeof value.personalizationDeletion === "boolean"
         ? value.personalizationDeletion
         : value.longitudinalDeletion,
+    museQuestionCacheDeletion:
+      value.museQuestionCacheDeletion === true ||
+      value.longitudinalDeletion === true ||
+      value.personalizationDeletion === true,
     analyticsDeletion:
       typeof value.analyticsDeletion === "boolean"
         ? value.analyticsDeletion
@@ -136,6 +142,7 @@ function malformedCleanupIntent(key: string): HaruPrivacyCleanupIntent {
   return {
     longitudinalDeletion: true,
     personalizationDeletion: true,
+    museQuestionCacheDeletion: true,
     analyticsDeletion: true,
     processingCancellation: true,
     transcriptScrub: true,
@@ -179,6 +186,10 @@ function cleanupIntentForConsent(
   const longitudinalDeletion = !consent.longitudinalUsageStorage;
   const personalizationDeletion =
     !consent.personalizedQuestionUse || longitudinalDeletion;
+  const museQuestionCacheDeletion =
+    consent.museQuestionGeneration !== true ||
+    !consent.personalizedQuestionUse ||
+    longitudinalDeletion;
   const analyticsDeletion = !consent.usageAnalytics || longitudinalDeletion;
   const processingCancellation =
     !consent.voiceRecording ||
@@ -191,6 +202,7 @@ function cleanupIntentForConsent(
   if (
     !longitudinalDeletion &&
     !personalizationDeletion &&
+    !museQuestionCacheDeletion &&
     !analyticsDeletion &&
     !processingCancellation &&
     !transcriptScrub &&
@@ -201,6 +213,7 @@ function cleanupIntentForConsent(
   return {
     longitudinalDeletion,
     personalizationDeletion,
+    museQuestionCacheDeletion,
     analyticsDeletion,
     processingCancellation,
     transcriptScrub,
@@ -251,6 +264,10 @@ async function executeCleanup(intent: HaruPrivacyCleanupIntent): Promise<void> {
     results.push(
       runBooleanCleanup(() => enqueueHaruRagUserDeletion(HARU_ADMIN_USER_ID)),
     );
+  }
+
+  if (intent.museQuestionCacheDeletion) {
+    results.push(runBooleanCleanup(clearHaruGeneratedQuestion));
   }
 
   if (intent.analyticsDeletion) {

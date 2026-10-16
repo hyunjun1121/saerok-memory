@@ -11,6 +11,7 @@ vi.mock("@/config/runtimeConfig", () => ({
 vi.mock("@/features/audio", () => ({
   audioManager: {
     load: vi.fn().mockResolvedValue(true),
+    setNarrationEnabled: vi.fn(),
     playNarration: vi.fn().mockResolvedValue({ status: "played" }),
     playUi: vi.fn().mockResolvedValue({ status: "played" }),
     stopNarration: vi.fn(),
@@ -67,6 +68,7 @@ describe("offline product-shell contract", () => {
     vi.mocked(loadRuntimeInputConfig).mockResolvedValue({
       status: "ready",
       config: runtimeConfig,
+      narrationEnabled: true,
     });
   });
 

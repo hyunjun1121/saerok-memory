@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="110" height="122" viewBox="0 0 110 122">
+  <rect x="7" y="1.5" width="96" height="96" rx="11" fill="#FFFDF8" stroke="#9BAEAA" stroke-width="2.5" stroke-dasharray="7 5"/>
+  <circle cx="55" cy="43" r="13" fill="#EDF3F0"/>
+  <path d="M55 36V50M48 43H62" stroke="#4F7773" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="55" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#6D7772">QR 이미지</text>
+  <text x="55" y="117" text-anchor="middle" font-family="Arial, sans-serif" font-size="10.5" font-weight="700" fill="#4F7773">공식 사이트</text>
+</svg>

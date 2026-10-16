@@ -1,0 +1,122 @@
+[
+  {
+    "participantId": "HARU-P001",
+    "datasetId": "HARU-VOICE-PILOT-SAMPLE-HARU-P001",
+    "path": "HARU-P001.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "HARU-P002",
+    "datasetId": "HARU-VOICE-PILOT-SAMPLE-HARU-P002",
+    "path": "HARU-P002.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "HARU-P003",
+    "datasetId": "HARU-VOICE-PILOT-SAMPLE-HARU-P003",
+    "path": "HARU-P003.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "HARU-P004",
+    "datasetId": "HARU-VOICE-PILOT-SAMPLE-HARU-P004",
+    "path": "HARU-P004.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "HARU-P005",
+    "datasetId": "HARU-VOICE-PILOT-SAMPLE-HARU-P005",
+    "path": "HARU-P005.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "HARU-P006",
+    "datasetId": "HARU-VOICE-PILOT-SAMPLE-HARU-P006",
+    "path": "HARU-P006.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "HARU-P007",
+    "datasetId": "HARU-VOICE-PILOT-SAMPLE-HARU-P007",
+    "path": "HARU-P007.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "HARU-P008",
+    "datasetId": "HARU-VOICE-PILOT-SAMPLE-HARU-P008",
+    "path": "HARU-P008.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "HARU-P009",
+    "datasetId": "HARU-VOICE-PILOT-SAMPLE-HARU-P009",
+    "path": "HARU-P009.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "HARU-P010",
+    "datasetId": "HARU-VOICE-PILOT-SAMPLE-HARU-P010",
+    "path": "HARU-P010.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "HARU-P011",
+    "datasetId": "HARU-VOICE-PILOT-SAMPLE-HARU-P011",
+    "path": "HARU-P011.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "HARU-P012",
+    "datasetId": "HARU-VOICE-PILOT-SAMPLE-HARU-P012",
+    "path": "HARU-P012.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "HARU-P013",
+    "datasetId": "HARU-VOICE-PILOT-SAMPLE-HARU-P013",
+    "path": "HARU-P013.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "HARU-P014",
+    "datasetId": "HARU-VOICE-PILOT-SAMPLE-HARU-P014",
+    "path": "HARU-P014.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "HARU-P015",
+    "datasetId": "HARU-VOICE-PILOT-SAMPLE-HARU-P015",
+    "path": "HARU-P015.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "HARU-P016",
+    "datasetId": "HARU-VOICE-PILOT-SAMPLE-HARU-P016",
+    "path": "HARU-P016.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "HARU-P017",
+    "datasetId": "HARU-VOICE-PILOT-SAMPLE-HARU-P017",
+    "path": "HARU-P017.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "HARU-P018",
+    "datasetId": "HARU-VOICE-PILOT-SAMPLE-HARU-P018",
+    "path": "HARU-P018.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "HARU-P019",
+    "datasetId": "HARU-VOICE-PILOT-SAMPLE-HARU-P019",
+    "path": "HARU-P019.json",
+    "sessionCount": 7
+  },
+  {
+    "participantId": "HARU-P020",
+    "datasetId": "HARU-VOICE-PILOT-SAMPLE-HARU-P020",
+    "path": "HARU-P020.json",
+    "sessionCount": 7
+  }
+]

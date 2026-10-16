@@ -1,4 +1,4 @@
-"""Bounded async admission for the single resident Qwen inference worker."""
+"""Bounded async admission for remote speech transcription requests."""
 from __future__ import annotations
 
 import asyncio

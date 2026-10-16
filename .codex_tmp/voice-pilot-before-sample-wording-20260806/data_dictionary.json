@@ -1,0 +1,104 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-08-06T09:00:00+09:00",
+  "isSynthetic": true,
+  "privacyClasses": {
+    "general_analytics": "직접 식별자와 전사문을 제외한 합성 분석 자료. normalized CSV 전체가 해당됨.",
+    "restricted_synthetic_review": "합성 reference/hypothesis transcript와 semantic slot을 포함. 실제 개인정보는 없음.",
+    "restricted_synthetic_admin_fixture": "사용자별 runtime-valid haru_kiosk_usage_record. 합성 전사 포함, 음성 object 없음."
+  },
+  "tables": {
+    "participants": {
+      "grain": "participant",
+      "primaryKey": [
+        "participant_id"
+      ],
+      "description": "20명 합성 참여자의 익명화 분석 특성 및 A/B 배정"
+    },
+    "daily_sessions": {
+      "grain": "participant-day",
+      "primaryKey": [
+        "participant_id",
+        "day"
+      ],
+      "description": "7일 일정별 완료·음성 단계 이탈·다음 날 복귀 상태"
+    },
+    "consent_receipts": {
+      "grain": "participant consent revision",
+      "primaryKey": [
+        "receipt_id"
+      ],
+      "description": "합성 파일럿 시작 시점의 독립 동의 snapshot"
+    },
+    "question_attempts": {
+      "grain": "question instance",
+      "primaryKey": [
+        "question_instance_id"
+      ],
+      "description": "문항별 반응·완료·개인화 provenance의 내용 비식별 분석 자료"
+    },
+    "voice_steps": {
+      "grain": "scheduled voice step",
+      "primaryKey": [
+        "participant_id",
+        "day"
+      ],
+      "description": "음성 UX 결과·STT 지연·semantic 보존 집계. 전사문 미포함."
+    },
+    "stt_review_rows": {
+      "grain": "scheduled voice step",
+      "primaryKey": [
+        "reviewRowId"
+      ],
+      "description": "합성 전사 평가용 제한 자료. 운영 일반 분석 export와 분리."
+    },
+    "telemetry_events": {
+      "grain": "telemetry event",
+      "primaryKey": [
+        "event_id"
+      ],
+      "description": "내용·전사·음성 없이 ID·상태·시간만 담은 분석 이벤트"
+    }
+  },
+  "controlledValues": {
+    "voiceExperienceVariant": [
+      "baseline_v1",
+      "assist_v2"
+    ],
+    "sessionState": [
+      "completed",
+      "abandoned"
+    ],
+    "dropoutCause": [
+      "voice_step",
+      null
+    ],
+    "sttStatus": [
+      "completed",
+      "failed",
+      "no_speech",
+      "abandoned"
+    ],
+    "personalizationKind": [
+      "none",
+      "profile",
+      "prior_response",
+      "fallback"
+    ]
+  },
+  "metricDefinitions": {
+    "usableTranscriptRate": "usable_transcript=true인 voice step / variant별 70개 scheduled voice step",
+    "noSpeechRate": "no_speech=true인 voice step / variant별 70개 scheduled voice step",
+    "retryRate": "retry_count>0인 voice step / variant별 70개 scheduled voice step",
+    "voiceStepDropoutRate": "dropped_at_voice_step=true인 voice step / variant별 70개 scheduled voice step",
+    "sttLatencyP50Ms": "variant별 latency_ms의 중앙값",
+    "activeDurationMs": "문항 상호작용으로 기록된 활성 시간 합계",
+    "wallDurationMs": "세션 시작부터 종료 관찰까지 실제 경과 시간"
+  },
+  "caveats": [
+    "모든 결과는 목표 가정을 재현하도록 만든 결정적 합성 자료임",
+    "실제 효과 크기, 유의확률, 고령 사용자 행동을 입증하지 않음",
+    "의료적 결과나 임상 해석에 사용할 수 없음",
+    "실증 전 계측·분석 파이프라인과 개선 우선순위 예행연습에만 사용"
+  ]
+}

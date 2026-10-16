@@ -1,4 +1,4 @@
-"""FastAPI app for the local Haru Qwen3-ASR service.
+"""FastAPI app for Haru's local Microsoft Speech gateway.
 
 The app factory keeps model, executor, admission queue, settings, and lifecycle
 state on ``request.app.state``. A default ``app`` remains for Uvicorn and the
@@ -62,9 +62,7 @@ def create_app(
             max_pending=resolved_settings.max_pending_requests,
             retry_after_seconds=resolved_settings.queue_retry_after_seconds,
         )
-        # Gate request parsing separately from GPU admission. This bounds
-        # multipart spooling/buffering to the same total active + pending
-        # capacity without reserving the GPU slot during a slow upload.
+        # Bound multipart spooling separately from remote transcription calls.
         application.state.upload_admission = InferenceAdmission(
             max_active=1 + resolved_settings.max_pending_requests,
             max_pending=0,
@@ -72,7 +70,7 @@ def create_app(
         )
         application.state.inference_tasks = {}
         log.info(
-            "starting Haru STT service (model=%s)", resolved_settings.model_id
+            "starting Haru Microsoft STT gateway (model=%s)", resolved_settings.model_id
         )
 
         async def load_engine() -> None:
@@ -87,7 +85,7 @@ def create_app(
             except Exception as exc:  # health remains available on load failure
                 next_lifecycle = "failed"
                 log.exception(
-                    "model load failed; serving in not-ready state: %s", exc
+                    "STT gateway setup failed; serving in not-ready state: %s", exc
                 )
             if application.state.lifecycle != "draining":
                 application.state.lifecycle = next_lifecycle
@@ -109,9 +107,8 @@ def create_app(
             if waiting:
                 await asyncio.gather(*waiting, return_exceptions=True)
 
-            # Python cannot interrupt model loading or an already-running Qwen
-            # thread. Drain those jobs before executor shutdown so lifecycle and
-            # GPU admission never claim completion while work is still alive.
+            # Python cannot interrupt an active HTTP request in its worker thread.
+            # Drain it before executor shutdown so lifecycle remains accurate.
             draining = [
                 task for task, started in tracked.items() if started.is_set()
             ]
@@ -178,21 +175,13 @@ def create_app(
         return HealthResponse(
             status="ok",
             service="haru-stt",
-            engine="qwen3-asr",
+            engine="microsoft-azure-speech",
             backend=current_settings.backend,
             model=current_settings.model_id,
             modelRevision=current_settings.model_revision,
-            alignerModel=(
-                current_settings.aligner_id
-                if current_settings.return_timestamps
-                else None
-            ),
-            alignerRevision=(
-                current_settings.aligner_revision
-                if current_settings.return_timestamps
-                else None
-            ),
-            device=current_settings.device,
+            alignerModel=None,
+            alignerRevision=None,
+            device="remote",
             dtype=current_settings.dtype,
             cuda_devices=current_engine.cuda_devices,
             ready=(state.lifecycle == "ready" and current_engine.is_ready),
@@ -252,7 +241,7 @@ def create_app(
             return await asyncio.shield(task)
         except asyncio.CancelledError:
             if not executor_started.is_set():
-                # Still waiting for GPU admission: remove abandoned work before
+                # Still waiting for provider admission: remove abandoned work before
                 # it can reach the executor. Once submitted, Python cannot stop
                 # the worker thread, so the task keeps ownership until finish.
                 task.cancel()

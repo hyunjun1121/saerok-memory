@@ -1,0 +1,55 @@
+/* Haru 웹사이트 디자인 토큰 — 팀 승인 화이트 전단지 v13 팔레트에서 파생 */
+
+:root {
+  /* 표면 */
+  --bg: #ffffff;
+  --bg-soft: #faf7f2;
+  --bg-tint-accent: #fff6f0;
+  --bg-tint-green: #e7f2dc;
+
+  /* 텍스트 */
+  --ink: #281b15;
+  --body: #413a36;
+  --muted: #8a8078;
+  --line: #e8e1d9;
+  --line-strong: #decfc4;
+
+  /* 브랜드 */
+  --accent: #e95b17;
+  --accent-ink: #d14e0c;
+  --accent-soft: #fdeadf;
+  --green: #55763e;
+  --green-soft: #e7f2dc;
+  --gold: #f0a208;
+  --gold-soft: #fdf3dc;
+  --blue: #3e70b3;
+  --blue-soft: #e3edf8;
+  --purple: #745198;
+  --purple-soft: #efe8f6;
+
+  /* 타이포그래피 */
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo",
+    "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+  --text-hero: clamp(2.25rem, 5vw, 3.5rem);
+  --text-h2: clamp(1.5rem, 3vw, 2.125rem);
+  --text-h3: 1.125rem;
+  --text-body: 1rem;
+  --text-sm: 0.875rem;
+  --text-xs: 0.8125rem;
+
+  /* 공간 */
+  --space-section: clamp(4rem, 8vw, 6.5rem);
+  --container: 1120px;
+  --gap-card: 1.25rem;
+
+  /* 반경 · 그림자 */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --shadow-card: 0 1px 2px rgba(40, 27, 21, 0.04), 0 8px 24px rgba(40, 27, 21, 0.06);
+  --shadow-float: 0 12px 40px rgba(40, 27, 21, 0.14);
+  --border-card: 1px solid var(--line);
+
+  --header-h: 64px;
+  --ease: cubic-bezier(0.2, 0.7, 0.3, 1);
+}

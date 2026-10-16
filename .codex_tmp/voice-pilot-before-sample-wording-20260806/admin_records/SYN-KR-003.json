@@ -1,0 +1,3339 @@
+{
+  "schema": {
+    "name": "haru_kiosk_usage_record",
+    "version": "1.0.0",
+    "purpose": "실증 전 음성 UX A/B 분석을 위한 결정적 합성 사용 기록",
+    "recording_principle": [
+      "모든 사용자와 응답은 합성 자료임",
+      "사용자에게 제시된 문항 스냅샷과 응답 시각을 저장",
+      "음성 파일은 생성하거나 저장하지 않음",
+      "전사문은 제한된 합성 STT 검토 자료와 제한된 합성 관리자 fixture에만 제공",
+      "결과는 제품 흐름 분석용이며 의료적 판단에 사용하지 않음"
+    ]
+  },
+  "dataset": {
+    "dataset_id": "HARU-SYNTHETIC-VOICE-PILOT-SYN-KR-003",
+    "generated_at": "2026-08-06T09:00:00+09:00",
+    "market": "kr",
+    "ui_locale": "ko-KR",
+    "content_pack_version": "haru-kr-2026.08-pilot",
+    "currency": "KRW",
+    "data_classification": "restricted_synthetic_admin_fixture",
+    "is_synthetic": true,
+    "period": {
+      "start": "2026-07-20",
+      "end": "2026-07-26"
+    }
+  },
+  "user": {
+    "user_id": "SYN-KR-003",
+    "card_token_id": "CARD-SYN-KR-003",
+    "market": "kr",
+    "ui_locale": "ko-KR",
+    "display_name": "이순자",
+    "birth_year": 1955,
+    "age_at_period_start": 71,
+    "gender": "여성",
+    "residence": "세종특별자치시",
+    "living_arrangement": "배우자와 함께 거주",
+    "speech_profile_note": "말끝이 부드럽고 간헐적으로 반복함",
+    "registered_profile_fields": {
+      "고향": "충북 청주",
+      "졸업학교": "청주중앙초등학교",
+      "과거직업": "재봉사",
+      "딸": "이현주",
+      "손자": "최민준",
+      "가까운친구": "박정희",
+      "이웃": "오영자",
+      "좋아하는음식": "청국장",
+      "복약시간": "오전 7시 30분"
+    },
+    "consents": {
+      "voice_recording": true,
+      "stt_processing": true,
+      "transcript_storage": true,
+      "audio_storage": false,
+      "longitudinal_usage_storage": true,
+      "personalized_question_use": true,
+      "consented_at": "2026-07-19T14:00:00+09:00"
+    }
+  },
+  "device": {
+    "device_id": "TABLET-03",
+    "site_id": "SITE-SYNTHETIC-02",
+    "site_name": "합성 실증 장소 2",
+    "input_devices": [
+      "microphone",
+      "physical_button_2x2",
+      "touchscreen"
+    ],
+    "button_layout": {
+      "A": {
+        "position": "왼쪽 위",
+        "color": "빨강"
+      },
+      "B": {
+        "position": "오른쪽 위",
+        "color": "노랑"
+      },
+      "C": {
+        "position": "왼쪽 아래",
+        "color": "초록"
+      },
+      "D": {
+        "position": "오른쪽 아래",
+        "color": "파랑"
+      }
+    },
+    "software_version": "haru-synthetic-pilot-1.0.0",
+    "timezone": "Asia/Seoul"
+  },
+  "sessions": [
+    {
+      "session_id": "routine_377f4611367f447e357f42eb347f4158",
+      "user_id": "SYN-KR-003",
+      "device_id": "TABLET-03",
+      "session_date": "2026-07-20",
+      "weekday": "월요일",
+      "authentication": {
+        "method": "registered_card",
+        "card_token_id": "CARD-SYN-KR-003",
+        "authenticated_at": "2026-07-20T10:08:00+09:00",
+        "result": "success"
+      },
+      "session_started_at": "2026-07-20T10:08:00+09:00",
+      "session_completed_at": "2026-07-20T10:09:18.164+09:00",
+      "completion_status": "completed",
+      "question_count": 6,
+      "question_records": [
+        {
+          "presentation": {
+            "presented_at": "2026-07-20T10:08:08.000+09:00",
+            "screen_state": "question",
+            "character_message": "오늘 기분을 알려주셔서 고마워요."
+          },
+          "question": {
+            "question_id": "D1_Q1",
+            "order": 1,
+            "domain": "감정",
+            "response_type": "single_choice",
+            "prompt_text": "정희 어르신, 오늘 기분은 어떠세요?",
+            "prompt_audio_text": "정희 어르신, 오늘 기분은 어떠세요?",
+            "scored": false,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "매우 좋음"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "좋음"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "그저 그럼"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "좋지 않음"
+              }
+            ],
+            "correct_answer": null,
+            "personalization_source_note": null,
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D1_Q1",
+            "input_mode": "physical_button",
+            "button_event": {
+              "button": "D",
+              "position": "오른쪽 아래",
+              "color": "파랑",
+              "pressed_at": "2026-07-20T10:08:13.978+09:00"
+            },
+            "selected_choice": {
+              "button": "D",
+              "label": "좋지 않음"
+            },
+            "response_time_ms": 5978,
+            "evaluation": {
+              "is_correct": null,
+              "score": null
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "오늘 기분을 알려주셔서 고마워요.",
+            "shown_at": "2026-07-20T10:08:14.228+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-20T10:08:16.778+09:00",
+            "screen_state": "question",
+            "character_message": "맞아요. 오늘은 월요일이에요."
+          },
+          "question": {
+            "question_id": "D1_Q2",
+            "order": 2,
+            "domain": "시간 지남력",
+            "response_type": "single_choice",
+            "prompt_text": "오늘은 무슨 요일인가요?",
+            "prompt_audio_text": "오늘은 무슨 요일인가요?",
+            "scored": true,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "월요일"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "화요일"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "토요일"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "일요일"
+              }
+            ],
+            "correct_answer": {
+              "button": "A",
+              "label": "월요일"
+            },
+            "personalization_source_note": null,
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D1_Q2",
+            "input_mode": "physical_button",
+            "button_event": {
+              "button": "A",
+              "position": "왼쪽 위",
+              "color": "빨강",
+              "pressed_at": "2026-07-20T10:08:23.226+09:00"
+            },
+            "selected_choice": {
+              "button": "A",
+              "label": "월요일"
+            },
+            "response_time_ms": 6448,
+            "evaluation": {
+              "is_correct": true,
+              "score": 1
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "맞아요. 오늘은 월요일이에요.",
+            "shown_at": "2026-07-20T10:08:23.476+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-20T10:08:26.026+09:00",
+            "screen_state": "question",
+            "character_message": "맞아요. 충북 청주라고 말씀해 주셨어요."
+          },
+          "question": {
+            "question_id": "D1_Q3",
+            "order": 3,
+            "domain": "일반 개인 기억",
+            "response_type": "single_choice",
+            "prompt_text": "정희 어르신이 태어나고 자란 고향은 어디인가요?",
+            "prompt_audio_text": "정희 어르신이 태어나고 자란 고향은 어디인가요?",
+            "scored": true,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "충북 청주"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "대전 유성"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "전주 완산"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "서울 종로"
+              }
+            ],
+            "correct_answer": {
+              "button": "A",
+              "label": "충북 청주"
+            },
+            "personalization_source_note": "초기 등록 정보 기반 개인화",
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D1_Q3",
+            "input_mode": "physical_button",
+            "button_event": {
+              "button": "A",
+              "position": "왼쪽 위",
+              "color": "빨강",
+              "pressed_at": "2026-07-20T10:08:31.466+09:00"
+            },
+            "selected_choice": {
+              "button": "A",
+              "label": "충북 청주"
+            },
+            "response_time_ms": 5440,
+            "evaluation": {
+              "is_correct": true,
+              "score": 1
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "맞아요. 충북 청주라고 말씀해 주셨어요.",
+            "shown_at": "2026-07-20T10:08:31.716+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-20T10:08:34.266+09:00",
+            "screen_state": "question",
+            "character_message": "맞아요. 거스름돈은 4,000원이에요."
+          },
+          "question": {
+            "question_id": "D1_Q4",
+            "order": 4,
+            "domain": "주의·계산",
+            "response_type": "single_choice",
+            "prompt_text": "두부 2,000원과 달걀 4,000원을 사고 10,000원을 냈습니다. 거스름돈은 얼마일까요?",
+            "prompt_audio_text": "두부 2,000원과 달걀 4,000원을 사고 10,000원을 냈습니다. 거스름돈은 얼마일까요?",
+            "scored": true,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "2,000원"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "3,000원"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "4,000원"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "5,000원"
+              }
+            ],
+            "correct_answer": {
+              "button": "C",
+              "label": "4,000원"
+            },
+            "personalization_source_note": null,
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D1_Q4",
+            "input_mode": "touch",
+            "button_event": {
+              "button": "A",
+              "position": "왼쪽 위",
+              "color": "빨강",
+              "pressed_at": "2026-07-20T10:08:39.874+09:00"
+            },
+            "selected_choice": {
+              "button": "A",
+              "label": "2,000원"
+            },
+            "response_time_ms": 5608,
+            "evaluation": {
+              "is_correct": false,
+              "score": 0
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "맞아요. 거스름돈은 4,000원이에요.",
+            "shown_at": "2026-07-20T10:08:40.124+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-20T10:08:42.674+09:00",
+            "screen_state": "question",
+            "character_message": "오늘 이야기를 남겨주셔서 고마워요."
+          },
+          "question": {
+            "question_id": "D1_Q5",
+            "order": 5,
+            "domain": "일상·개인화 정보 수집",
+            "response_type": "voice",
+            "prompt_text": "오늘 다녀온 곳과 한 일을 천천히 말씀해 주세요.",
+            "prompt_audio_text": "오늘 다녀온 곳과 한 일을 천천히 말씀해 주세요.",
+            "scored": false,
+            "choices": null,
+            "correct_answer": null,
+            "personalization_source_note": null,
+            "max_response_seconds": 25
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D1_Q5",
+            "input_mode": "voice",
+            "recording_started_at": "2026-07-20T10:08:44.940+09:00",
+            "recording_ended_at": "2026-07-20T10:08:58.003+09:00",
+            "audio_duration_seconds": 13.063,
+            "audio_storage": {
+              "object_key": "",
+              "mime_type": null,
+              "sample_rate_hz": null,
+              "channels": null,
+              "retention_status": "not_stored"
+            },
+            "raw_user_utterance_transcript": "오전에 한빛시장에 가서 두부, 양파 두 가지를 샀어요. 딸 이현주가 저녁에 온다고 해서 청국장도 준비하려고요. 기분은 좋아요.",
+            "stt": {
+              "engine": "qwen3-asr:Qwen/Qwen3-ASR-1.7B@synthetic-pilot-revision",
+              "status": "completed",
+              "no_speech": false,
+              "transcript": "오전에 한빛시장에 가서 두부, 양파 두 가지를 샀어요. 딸 이현주가 저녁에 온다고 해서 청국장도 준비하려고요. 기분은 좋아요.",
+              "language": "ko-KR",
+              "confidence": null,
+              "processed_at": "2026-07-20T10:09:05.628+09:00",
+              "model": "Qwen/Qwen3-ASR-1.7B",
+              "model_revision": "synthetic-pilot-revision",
+              "aligner_model": "Qwen/Qwen3-ForcedAligner-0.6B",
+              "aligner_revision": "synthetic-pilot-aligner-revision",
+              "preprocessing_version": "decode-resample-only-v1",
+              "segments": [
+                {
+                  "id": 0,
+                  "start": 0,
+                  "end": 13.063,
+                  "text": "오전에 한빛시장에 가서 두부, 양파 두 가지를 샀어요. 딸 이현주가 저녁에 온다고 해서 청국장도 준비하려고요. 기분은 좋아요."
+                }
+              ]
+            },
+            "user_correction": {
+              "was_corrected": false,
+              "corrected_transcript": null
+            },
+            "derived_annotations": {
+              "status": "completed",
+              "items": [
+                {
+                  "entity_type": "장소",
+                  "value": "한빛시장"
+                },
+                {
+                  "entity_type": "구매물품",
+                  "value": "두부"
+                },
+                {
+                  "entity_type": "구매물품",
+                  "value": "양파"
+                },
+                {
+                  "entity_type": "인물",
+                  "value": "딸 이현주"
+                },
+                {
+                  "entity_type": "계획",
+                  "value": "청국장 준비하기"
+                },
+                {
+                  "entity_type": "감정",
+                  "value": "좋음"
+                }
+              ],
+              "note": "합성 전사에서 명시적으로 확인된 개인화 후보 정보"
+            },
+            "response_time_ms": 23554,
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "오늘 이야기를 남겨주셔서 고마워요.",
+            "shown_at": "2026-07-20T10:09:06.478+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-20T10:09:09.228+09:00",
+            "screen_state": "question",
+            "character_message": "세 단어를 순서대로 잘 기억하셨어요."
+          },
+          "question": {
+            "question_id": "D1_Q6",
+            "order": 6,
+            "domain": "단어·순서 기억",
+            "response_type": "button_sequence",
+            "prompt_text": "처음 들은 순서대로 버튼을 눌러 주세요.",
+            "prompt_audio_text": "처음 들은 순서대로 버튼을 눌러 주세요.",
+            "scored": true,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "사과"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "우산"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "버스"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "모자"
+              }
+            ],
+            "correct_answer": {
+              "sequence": [
+                "A",
+                "B",
+                "C"
+              ],
+              "labels": [
+                "사과",
+                "우산",
+                "버스"
+              ]
+            },
+            "personalization_source_note": null,
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D1_Q6",
+            "input_mode": "touch_sequence",
+            "button_events": [
+              {
+                "sequence_index": 0,
+                "button": "A",
+                "choice_label": "사과",
+                "pressed_at": "2026-07-20T10:09:10.762+09:00",
+                "elapsed_ms_from_question": 1534
+              },
+              {
+                "sequence_index": 1,
+                "button": "B",
+                "choice_label": "우산",
+                "pressed_at": "2026-07-20T10:09:12.296+09:00",
+                "elapsed_ms_from_question": 3068
+              },
+              {
+                "sequence_index": 2,
+                "button": "C",
+                "choice_label": "버스",
+                "pressed_at": "2026-07-20T10:09:13.830+09:00",
+                "elapsed_ms_from_question": 4602
+              }
+            ],
+            "submitted_sequence": [
+              "A",
+              "B",
+              "C"
+            ],
+            "submitted_labels": [
+              "사과",
+              "우산",
+              "버스"
+            ],
+            "submitted_at": "2026-07-20T10:09:15.364+09:00",
+            "response_time_ms": 6136,
+            "evaluation": {
+              "is_correct": true,
+              "score": 1
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "세 단어를 순서대로 잘 기억하셨어요.",
+            "shown_at": "2026-07-20T10:09:15.614+09:00"
+          }
+        }
+      ],
+      "session_summary": {
+        "duration_seconds": 78,
+        "scored_question_count": 4,
+        "correct_count": 3,
+        "incorrect_count": 1,
+        "completion_message": "오늘 활동을 모두 마쳤어요. 내일 또 만나요.",
+        "clinical_interpretation": null,
+        "risk_classification": null,
+        "admin_note": "합성 활동 완료 기록이며 의료적 판정이 아님"
+      }
+    },
+    {
+      "session_id": "routine_5966b5e05a66b7735b66b9065c66ba99",
+      "user_id": "SYN-KR-003",
+      "device_id": "TABLET-03",
+      "session_date": "2026-07-21",
+      "weekday": "화요일",
+      "authentication": {
+        "method": "registered_card",
+        "card_token_id": "CARD-SYN-KR-003",
+        "authenticated_at": "2026-07-21T10:08:00+09:00",
+        "result": "success"
+      },
+      "session_started_at": "2026-07-21T10:08:00+09:00",
+      "session_completed_at": "2026-07-21T10:09:19.517+09:00",
+      "completion_status": "completed",
+      "question_count": 6,
+      "question_records": [
+        {
+          "presentation": {
+            "presented_at": "2026-07-21T10:08:08.000+09:00",
+            "screen_state": "question",
+            "character_message": "오늘 기분을 알려주셔서 고마워요."
+          },
+          "question": {
+            "question_id": "D2_Q1",
+            "order": 1,
+            "domain": "감정",
+            "response_type": "single_choice",
+            "prompt_text": "어제 기분을 \"좋지 않음\"이라고 알려주셨어요. 오늘 기분은 어떠세요?",
+            "prompt_audio_text": "어제 기분을 \"좋지 않음\"이라고 알려주셨어요. 오늘 기분은 어떠세요?",
+            "scored": false,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "매우 좋음"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "좋음"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "그저 그럼"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "좋지 않음"
+              }
+            ],
+            "correct_answer": null,
+            "personalization_source_note": "1일차 응답 기반 개인화",
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D2_Q1",
+            "input_mode": "physical_button",
+            "button_event": {
+              "button": "C",
+              "position": "왼쪽 아래",
+              "color": "초록",
+              "pressed_at": "2026-07-21T10:08:13.968+09:00"
+            },
+            "selected_choice": {
+              "button": "C",
+              "label": "그저 그럼"
+            },
+            "response_time_ms": 5968,
+            "evaluation": {
+              "is_correct": null,
+              "score": null
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "오늘 기분을 알려주셔서 고마워요.",
+            "shown_at": "2026-07-21T10:08:14.218+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-21T10:08:16.768+09:00",
+            "screen_state": "question",
+            "character_message": "맞아요. 내일은 수요일이에요."
+          },
+          "question": {
+            "question_id": "D2_Q2",
+            "order": 2,
+            "domain": "시간 지남력",
+            "response_type": "single_choice",
+            "prompt_text": "내일은 무슨 요일인가요?",
+            "prompt_audio_text": "내일은 무슨 요일인가요?",
+            "scored": true,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "월요일"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "수요일"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "금요일"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "일요일"
+              }
+            ],
+            "correct_answer": {
+              "button": "B",
+              "label": "수요일"
+            },
+            "personalization_source_note": null,
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D2_Q2",
+            "input_mode": "touch",
+            "button_event": {
+              "button": "B",
+              "position": "오른쪽 위",
+              "color": "노랑",
+              "pressed_at": "2026-07-21T10:08:22.717+09:00"
+            },
+            "selected_choice": {
+              "button": "B",
+              "label": "수요일"
+            },
+            "response_time_ms": 5949,
+            "evaluation": {
+              "is_correct": true,
+              "score": 1
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "맞아요. 내일은 수요일이에요.",
+            "shown_at": "2026-07-21T10:08:22.967+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-21T10:08:25.517+09:00",
+            "screen_state": "question",
+            "character_message": "맞아요. 두부라고 말씀하셨어요."
+          },
+          "question": {
+            "question_id": "D2_Q3",
+            "order": 3,
+            "domain": "전날 활동 회상",
+            "response_type": "single_choice",
+            "prompt_text": "어제 한빛시장에서 샀다고 말씀하신 것 중 하나는 무엇인가요?",
+            "prompt_audio_text": "어제 한빛시장에서 샀다고 말씀하신 것 중 하나는 무엇인가요?",
+            "scored": true,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "두부"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "감자"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "양파"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "무"
+              }
+            ],
+            "correct_answer": {
+              "button": "A",
+              "label": "두부"
+            },
+            "personalization_source_note": "1일차 음성 응답 기반 개인화",
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D2_Q3",
+            "input_mode": "physical_button",
+            "button_event": {
+              "button": "B",
+              "position": "오른쪽 위",
+              "color": "노랑",
+              "pressed_at": "2026-07-21T10:08:30.864+09:00"
+            },
+            "selected_choice": {
+              "button": "B",
+              "label": "감자"
+            },
+            "response_time_ms": 5347,
+            "evaluation": {
+              "is_correct": false,
+              "score": 0
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "맞아요. 두부라고 말씀하셨어요.",
+            "shown_at": "2026-07-21T10:08:31.114+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-21T10:08:33.664+09:00",
+            "screen_state": "question",
+            "character_message": "맞아요. '오는 말이 곱다'예요."
+          },
+          "question": {
+            "question_id": "D2_Q4",
+            "order": 4,
+            "domain": "언어 이해",
+            "response_type": "single_choice",
+            "prompt_text": "속담 '가는 말이 고와야' 뒤에 이어지는 말은 무엇인가요?",
+            "prompt_audio_text": "속담 '가는 말이 고와야' 뒤에 이어지는 말은 무엇인가요?",
+            "scored": true,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "오는 말이 곱다"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "발이 편하다"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "밥이 맛있다"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "길이 보인다"
+              }
+            ],
+            "correct_answer": {
+              "button": "A",
+              "label": "오는 말이 곱다"
+            },
+            "personalization_source_note": null,
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D2_Q4",
+            "input_mode": "touch",
+            "button_event": {
+              "button": "A",
+              "position": "왼쪽 위",
+              "color": "빨강",
+              "pressed_at": "2026-07-21T10:08:39.285+09:00"
+            },
+            "selected_choice": {
+              "button": "A",
+              "label": "오는 말이 곱다"
+            },
+            "response_time_ms": 5621,
+            "evaluation": {
+              "is_correct": true,
+              "score": 1
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "맞아요. '오는 말이 곱다'예요.",
+            "shown_at": "2026-07-21T10:08:39.535+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-21T10:08:42.085+09:00",
+            "screen_state": "question",
+            "character_message": "맞아요. 다음은 왼쪽 아래예요."
+          },
+          "question": {
+            "question_id": "D2_Q5",
+            "order": 5,
+            "domain": "시공간·주의",
+            "response_type": "single_choice",
+            "prompt_text": "점이 왼쪽 위, 오른쪽 위, 오른쪽 아래 순서로 움직였습니다. 같은 방향으로 계속 움직이면 다음 위치는 어디일까요?",
+            "prompt_audio_text": "점이 왼쪽 위, 오른쪽 위, 오른쪽 아래 순서로 움직였습니다. 같은 방향으로 계속 움직이면 다음 위치는 어디일까요?",
+            "scored": true,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "왼쪽 위"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "오른쪽 위"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "왼쪽 아래"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "오른쪽 아래"
+              }
+            ],
+            "correct_answer": {
+              "button": "C",
+              "label": "왼쪽 아래"
+            },
+            "personalization_source_note": null,
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D2_Q5",
+            "input_mode": "physical_button",
+            "button_event": {
+              "button": "C",
+              "position": "왼쪽 아래",
+              "color": "초록",
+              "pressed_at": "2026-07-21T10:08:48.498+09:00"
+            },
+            "selected_choice": {
+              "button": "C",
+              "label": "왼쪽 아래"
+            },
+            "response_time_ms": 6413,
+            "evaluation": {
+              "is_correct": true,
+              "score": 1
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "맞아요. 다음은 왼쪽 아래예요.",
+            "shown_at": "2026-07-21T10:08:48.748+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-21T10:08:51.298+09:00",
+            "screen_state": "question",
+            "character_message": "오늘 이야기를 남겨주셔서 고마워요."
+          },
+          "question": {
+            "question_id": "D2_Q6",
+            "order": 6,
+            "domain": "일상·개인화 정보 수집",
+            "response_type": "voice",
+            "prompt_text": "오늘 누구를 만나 무엇을 했고, 무엇을 드셨는지 말씀해 주세요.",
+            "prompt_audio_text": "오늘 누구를 만나 무엇을 했고, 무엇을 드셨는지 말씀해 주세요.",
+            "scored": false,
+            "choices": null,
+            "correct_answer": null,
+            "personalization_source_note": null,
+            "max_response_seconds": 25
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D2_Q6",
+            "input_mode": "voice",
+            "recording_started_at": "2026-07-21T10:08:53.684+09:00",
+            "recording_ended_at": "2026-07-21T10:09:08.122+09:00",
+            "audio_duration_seconds": 14.438,
+            "audio_storage": {
+              "object_key": "",
+              "mime_type": null,
+              "sample_rate_hz": null,
+              "channels": null,
+              "retention_status": "not_stored"
+            },
+            "raw_user_utterance_transcript": "한마음복지관에서 친구 박정희를 만나 종이접기 활동을 했어요. 점심을 함께 먹고 많이 웃어서 기분이 아주 좋았어요.",
+            "stt": {
+              "engine": "qwen3-asr:Qwen/Qwen3-ASR-1.7B@synthetic-pilot-revision",
+              "status": "completed",
+              "no_speech": false,
+              "transcript": "한마음복지관에서 친구 박정희를 만나 종이접기 활동을 했어요. 점심을 함께 먹고 많이 웃어서 기분이 아주 좋았어요.",
+              "language": "ko-KR",
+              "confidence": null,
+              "processed_at": "2026-07-21T10:09:15.917+09:00",
+              "model": "Qwen/Qwen3-ASR-1.7B",
+              "model_revision": "synthetic-pilot-revision",
+              "aligner_model": "Qwen/Qwen3-ForcedAligner-0.6B",
+              "aligner_revision": "synthetic-pilot-aligner-revision",
+              "preprocessing_version": "decode-resample-only-v1",
+              "segments": [
+                {
+                  "id": 0,
+                  "start": 0,
+                  "end": 14.438,
+                  "text": "한마음복지관에서 친구 박정희를 만나 종이접기 활동을 했어요. 점심을 함께 먹고 많이 웃어서 기분이 아주 좋았어요."
+                }
+              ]
+            },
+            "user_correction": {
+              "was_corrected": false,
+              "corrected_transcript": null
+            },
+            "derived_annotations": {
+              "status": "completed",
+              "items": [
+                {
+                  "entity_type": "장소",
+                  "value": "한마음복지관"
+                },
+                {
+                  "entity_type": "인물",
+                  "value": "친구 박정희"
+                },
+                {
+                  "entity_type": "활동",
+                  "value": "종이접기"
+                },
+                {
+                  "entity_type": "음식",
+                  "value": "점심 식사"
+                },
+                {
+                  "entity_type": "감정",
+                  "value": "매우 좋음"
+                }
+              ],
+              "note": "합성 전사에서 명시적으로 확인된 개인화 후보 정보"
+            },
+            "response_time_ms": 25219,
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "오늘 이야기를 남겨주셔서 고마워요.",
+            "shown_at": "2026-07-21T10:09:16.767+09:00"
+          }
+        }
+      ],
+      "session_summary": {
+        "duration_seconds": 80,
+        "scored_question_count": 4,
+        "correct_count": 3,
+        "incorrect_count": 1,
+        "completion_message": "오늘 활동을 모두 마쳤어요. 내일도 편하게 들러 주세요.",
+        "clinical_interpretation": null,
+        "risk_classification": null,
+        "admin_note": "합성 활동 완료 기록이며 의료적 판정이 아님"
+      }
+    },
+    {
+      "session_id": "routine_d7fe1c0bd6fe1a78d9fe1f31d8fe1d9e",
+      "user_id": "SYN-KR-003",
+      "device_id": "TABLET-03",
+      "session_date": "2026-07-22",
+      "weekday": "수요일",
+      "authentication": {
+        "method": "registered_card",
+        "card_token_id": "CARD-SYN-KR-003",
+        "authenticated_at": "2026-07-22T10:08:00+09:00",
+        "result": "success"
+      },
+      "session_started_at": "2026-07-22T10:08:00+09:00",
+      "session_completed_at": "2026-07-22T10:09:22.218+09:00",
+      "completion_status": "completed",
+      "question_count": 6,
+      "question_records": [
+        {
+          "presentation": {
+            "presented_at": "2026-07-22T10:08:08.000+09:00",
+            "screen_state": "question",
+            "character_message": "오늘 기분을 알려주셔서 고마워요."
+          },
+          "question": {
+            "question_id": "D3_Q1",
+            "order": 1,
+            "domain": "감정",
+            "response_type": "single_choice",
+            "prompt_text": "어제 기분을 \"그저 그럼\"이라고 알려주셨어요. 오늘 기분은 어떠세요?",
+            "prompt_audio_text": "어제 기분을 \"그저 그럼\"이라고 알려주셨어요. 오늘 기분은 어떠세요?",
+            "scored": false,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "매우 좋음"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "좋음"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "그저 그럼"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "좋지 않음"
+              }
+            ],
+            "correct_answer": null,
+            "personalization_source_note": "2일차 응답 기반 개인화",
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D3_Q1",
+            "input_mode": "physical_button",
+            "button_event": {
+              "button": "D",
+              "position": "오른쪽 아래",
+              "color": "파랑",
+              "pressed_at": "2026-07-22T10:08:13.216+09:00"
+            },
+            "selected_choice": {
+              "button": "D",
+              "label": "좋지 않음"
+            },
+            "response_time_ms": 5216,
+            "evaluation": {
+              "is_correct": null,
+              "score": null
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "오늘 기분을 알려주셔서 고마워요.",
+            "shown_at": "2026-07-22T10:08:13.466+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-22T10:08:16.016+09:00",
+            "screen_state": "question",
+            "character_message": "맞아요. 어제는 화요일이었어요."
+          },
+          "question": {
+            "question_id": "D3_Q2",
+            "order": 2,
+            "domain": "시간 지남력",
+            "response_type": "single_choice",
+            "prompt_text": "어제는 무슨 요일이었나요?",
+            "prompt_audio_text": "어제는 무슨 요일이었나요?",
+            "scored": true,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "월요일"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "화요일"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "수요일"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "목요일"
+              }
+            ],
+            "correct_answer": {
+              "button": "B",
+              "label": "화요일"
+            },
+            "personalization_source_note": null,
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D3_Q2",
+            "input_mode": "physical_button",
+            "button_event": {
+              "button": "B",
+              "position": "오른쪽 위",
+              "color": "노랑",
+              "pressed_at": "2026-07-22T10:08:22.286+09:00"
+            },
+            "selected_choice": {
+              "button": "B",
+              "label": "화요일"
+            },
+            "response_time_ms": 6270,
+            "evaluation": {
+              "is_correct": true,
+              "score": 1
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "맞아요. 어제는 화요일이었어요.",
+            "shown_at": "2026-07-22T10:08:22.536+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-22T10:08:25.086+09:00",
+            "screen_state": "question",
+            "character_message": "맞아요. 친구 박정희와 함께했다고 말씀하셨어요."
+          },
+          "question": {
+            "question_id": "D3_Q3",
+            "order": 3,
+            "domain": "전날 활동 회상",
+            "response_type": "single_choice",
+            "prompt_text": "어제 한마음복지관에서 종이접기를 함께한 사람은 누구인가요?",
+            "prompt_audio_text": "어제 한마음복지관에서 종이접기를 함께한 사람은 누구인가요?",
+            "scored": true,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "친구 박정희"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "이현주"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "최민준"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "오순자"
+              }
+            ],
+            "correct_answer": {
+              "button": "A",
+              "label": "친구 박정희"
+            },
+            "personalization_source_note": "2일차 음성 응답 기반 개인화",
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D3_Q3",
+            "input_mode": "physical_button",
+            "button_event": {
+              "button": "A",
+              "position": "왼쪽 위",
+              "color": "빨강",
+              "pressed_at": "2026-07-22T10:08:30.509+09:00"
+            },
+            "selected_choice": {
+              "button": "A",
+              "label": "친구 박정희"
+            },
+            "response_time_ms": 5423,
+            "evaluation": {
+              "is_correct": true,
+              "score": 1
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "맞아요. 친구 박정희와 함께했다고 말씀하셨어요.",
+            "shown_at": "2026-07-22T10:08:30.759+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-22T10:08:33.309+09:00",
+            "screen_state": "question",
+            "character_message": "맞아요. 30분 뒤는 오전 8시입니다."
+          },
+          "question": {
+            "question_id": "D3_Q4",
+            "order": 4,
+            "domain": "주의·계산",
+            "response_type": "single_choice",
+            "prompt_text": "혈압약을 오전 7시 30분에 먹고 30분 뒤에 아침을 먹습니다. 아침은 몇 시에 먹을까요?",
+            "prompt_audio_text": "혈압약을 오전 7시 30분에 먹고 30분 뒤에 아침을 먹습니다. 아침은 몇 시에 먹을까요?",
+            "scored": true,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "오전 7시 45분"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "오전 8시"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "오전 8시 30분"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "오전 9시"
+              }
+            ],
+            "correct_answer": {
+              "button": "B",
+              "label": "오전 8시"
+            },
+            "personalization_source_note": "초기 등록 정보 기반 개인화",
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D3_Q4",
+            "input_mode": "physical_button",
+            "button_event": {
+              "button": "B",
+              "position": "오른쪽 위",
+              "color": "노랑",
+              "pressed_at": "2026-07-22T10:08:39.774+09:00"
+            },
+            "selected_choice": {
+              "button": "B",
+              "label": "오전 8시"
+            },
+            "response_time_ms": 6465,
+            "evaluation": {
+              "is_correct": true,
+              "score": 1
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "맞아요. 30분 뒤는 오전 8시입니다.",
+            "shown_at": "2026-07-22T10:08:40.024+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-22T10:08:42.574+09:00",
+            "screen_state": "question",
+            "character_message": "맞아요. 학교 급식실에서 일하셨다고 말씀해 주셨어요."
+          },
+          "question": {
+            "question_id": "D3_Q5",
+            "order": 5,
+            "domain": "일반 개인 기억",
+            "response_type": "single_choice",
+            "prompt_text": "정희 어르신이 예전에 하셨던 일은 무엇인가요?",
+            "prompt_audio_text": "정희 어르신이 예전에 하셨던 일은 무엇인가요?",
+            "scored": true,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "재봉사"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "버스 기사"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "은행원"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "미용사"
+              }
+            ],
+            "correct_answer": {
+              "button": "A",
+              "label": "재봉사"
+            },
+            "personalization_source_note": "초기 등록 정보 기반 개인화",
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D3_Q5",
+            "input_mode": "physical_button",
+            "button_event": {
+              "button": "A",
+              "position": "왼쪽 위",
+              "color": "빨강",
+              "pressed_at": "2026-07-22T10:08:48.570+09:00"
+            },
+            "selected_choice": {
+              "button": "A",
+              "label": "재봉사"
+            },
+            "response_time_ms": 5996,
+            "evaluation": {
+              "is_correct": true,
+              "score": 1
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "맞아요. 학교 급식실에서 일하셨다고 말씀해 주셨어요.",
+            "shown_at": "2026-07-22T10:08:48.820+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-22T10:08:51.370+09:00",
+            "screen_state": "question",
+            "character_message": "오늘 이야기를 남겨주셔서 고마워요."
+          },
+          "question": {
+            "question_id": "D3_Q6",
+            "order": 6,
+            "domain": "일상·개인화 정보 수집",
+            "response_type": "voice",
+            "prompt_text": "오늘 다녀온 곳과 몸 상태를 말씀해 주세요.",
+            "prompt_audio_text": "오늘 다녀온 곳과 몸 상태를 말씀해 주세요.",
+            "scored": false,
+            "choices": null,
+            "correct_answer": null,
+            "personalization_source_note": null,
+            "max_response_seconds": 25
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D3_Q6",
+            "input_mode": "voice",
+            "recording_started_at": "2026-07-22T10:08:52.975+09:00",
+            "recording_ended_at": "2026-07-22T10:09:10.908+09:00",
+            "audio_duration_seconds": 17.933,
+            "audio_storage": {
+              "object_key": "",
+              "mime_type": null,
+              "sample_rate_hz": null,
+              "channels": null,
+              "retention_status": "not_stored"
+            },
+            "raw_user_utterance_transcript": "동네 건강센터에서 상담을 받고 집에 오는 길에 약국 옆 공원에 들렀어요. 조금 피곤했지만 마음은 편안했어요.",
+            "stt": {
+              "engine": "qwen3-asr:Qwen/Qwen3-ASR-1.7B@synthetic-pilot-revision",
+              "status": "completed",
+              "no_speech": false,
+              "transcript": "동네 건강센터에서 상담을 받고 집에 오는 길에 약국 옆 공원에 들렀어요. 조금 피곤했지만 마음은 편안했어요.",
+              "language": "ko-KR",
+              "confidence": null,
+              "processed_at": "2026-07-22T10:09:18.618+09:00",
+              "model": "Qwen/Qwen3-ASR-1.7B",
+              "model_revision": "synthetic-pilot-revision",
+              "aligner_model": "Qwen/Qwen3-ForcedAligner-0.6B",
+              "aligner_revision": "synthetic-pilot-aligner-revision",
+              "preprocessing_version": "decode-resample-only-v1",
+              "segments": [
+                {
+                  "id": 0,
+                  "start": 0,
+                  "end": 17.933,
+                  "text": "동네 건강센터에서 상담을 받고 집에 오는 길에 약국 옆 공원에 들렀어요. 조금 피곤했지만 마음은 편안했어요."
+                }
+              ]
+            },
+            "user_correction": {
+              "was_corrected": false,
+              "corrected_transcript": null
+            },
+            "derived_annotations": {
+              "status": "completed",
+              "items": [
+                {
+                  "entity_type": "장소",
+                  "value": "동네 건강센터"
+                },
+                {
+                  "entity_type": "활동",
+                  "value": "건강 상담"
+                },
+                {
+                  "entity_type": "장소",
+                  "value": "동네 공원"
+                },
+                {
+                  "entity_type": "신체상태",
+                  "value": "조금 피곤함"
+                },
+                {
+                  "entity_type": "감정",
+                  "value": "편안함"
+                }
+              ],
+              "note": "합성 전사에서 명시적으로 확인된 개인화 후보 정보"
+            },
+            "response_time_ms": 27848,
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "오늘 이야기를 남겨주셔서 고마워요.",
+            "shown_at": "2026-07-22T10:09:19.468+09:00"
+          }
+        }
+      ],
+      "session_summary": {
+        "duration_seconds": 82,
+        "scored_question_count": 4,
+        "correct_count": 4,
+        "incorrect_count": 0,
+        "completion_message": "오늘 활동을 모두 마쳤어요. 편안한 하루 보내세요.",
+        "clinical_interpretation": null,
+        "risk_classification": null,
+        "admin_note": "합성 활동 완료 기록이며 의료적 판정이 아님"
+      }
+    },
+    {
+      "session_id": "routine_9c5f5dba9d5f5f4d9a5f5a949b5f5c27",
+      "user_id": "SYN-KR-003",
+      "device_id": "TABLET-03",
+      "session_date": "2026-07-23",
+      "weekday": "목요일",
+      "authentication": {
+        "method": "registered_card",
+        "card_token_id": "CARD-SYN-KR-003",
+        "authenticated_at": "2026-07-23T10:08:00+09:00",
+        "result": "success"
+      },
+      "session_started_at": "2026-07-23T10:08:00+09:00",
+      "session_completed_at": "2026-07-23T10:09:10.005+09:00",
+      "completion_status": "abandoned",
+      "question_count": 6,
+      "question_records": [
+        {
+          "presentation": {
+            "presented_at": "2026-07-23T10:08:08.000+09:00",
+            "screen_state": "question",
+            "character_message": "오늘 기분을 알려주셔서 고마워요."
+          },
+          "question": {
+            "question_id": "D4_Q1",
+            "order": 1,
+            "domain": "감정",
+            "response_type": "single_choice",
+            "prompt_text": "어제는 조금 피곤하지만 마음은 편하다고 하셨어요. 오늘 기분은 어떠세요?",
+            "prompt_audio_text": "어제는 조금 피곤하지만 마음은 편하다고 하셨어요. 오늘 기분은 어떠세요?",
+            "scored": false,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "매우 좋음"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "좋음"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "그저 그럼"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "좋지 않음"
+              }
+            ],
+            "correct_answer": null,
+            "personalization_source_note": "3일차 음성 응답 기반 개인화",
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D4_Q1",
+            "input_mode": "physical_button",
+            "button_event": {
+              "button": "D",
+              "position": "오른쪽 아래",
+              "color": "파랑",
+              "pressed_at": "2026-07-23T10:08:14.243+09:00"
+            },
+            "selected_choice": {
+              "button": "D",
+              "label": "좋지 않음"
+            },
+            "response_time_ms": 6243,
+            "evaluation": {
+              "is_correct": null,
+              "score": null
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "오늘 기분을 알려주셔서 고마워요.",
+            "shown_at": "2026-07-23T10:08:14.493+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-23T10:08:17.043+09:00",
+            "screen_state": "question",
+            "character_message": "맞아요. 지금은 7월이에요."
+          },
+          "question": {
+            "question_id": "D4_Q2",
+            "order": 2,
+            "domain": "시간 지남력",
+            "response_type": "single_choice",
+            "prompt_text": "지금은 몇 월인가요?",
+            "prompt_audio_text": "지금은 몇 월인가요?",
+            "scored": true,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "6월"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "7월"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "8월"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "9월"
+              }
+            ],
+            "correct_answer": {
+              "button": "B",
+              "label": "7월"
+            },
+            "personalization_source_note": null,
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D4_Q2",
+            "input_mode": "physical_button",
+            "button_event": {
+              "button": "B",
+              "position": "오른쪽 위",
+              "color": "노랑",
+              "pressed_at": "2026-07-23T10:08:22.332+09:00"
+            },
+            "selected_choice": {
+              "button": "B",
+              "label": "7월"
+            },
+            "response_time_ms": 5289,
+            "evaluation": {
+              "is_correct": true,
+              "score": 1
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "맞아요. 지금은 7월이에요.",
+            "shown_at": "2026-07-23T10:08:22.582+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-23T10:08:25.132+09:00",
+            "screen_state": "question",
+            "character_message": "맞아요. 동네 건강센터라고 말씀하셨어요."
+          },
+          "question": {
+            "question_id": "D4_Q3",
+            "order": 3,
+            "domain": "전날 활동 회상",
+            "response_type": "single_choice",
+            "prompt_text": "어제 건강 상담을 한 곳은 어디인가요?",
+            "prompt_audio_text": "어제 건강 상담을 한 곳은 어디인가요?",
+            "scored": true,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "동네 건강센터"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "복지관"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "유성시장"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "은행"
+              }
+            ],
+            "correct_answer": {
+              "button": "A",
+              "label": "동네 건강센터"
+            },
+            "personalization_source_note": "3일차 음성 응답 기반 개인화",
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D4_Q3",
+            "input_mode": "physical_button",
+            "button_event": {
+              "button": "B",
+              "position": "오른쪽 위",
+              "color": "노랑",
+              "pressed_at": "2026-07-23T10:08:31.930+09:00"
+            },
+            "selected_choice": {
+              "button": "B",
+              "label": "복지관"
+            },
+            "response_time_ms": 6798,
+            "evaluation": {
+              "is_correct": false,
+              "score": 0
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "맞아요. 동네 건강센터라고 말씀하셨어요.",
+            "shown_at": "2026-07-23T10:08:32.180+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-23T10:08:34.730+09:00",
+            "screen_state": "question",
+            "character_message": "맞아요. 15분 뒤인 오후 1시 25분이에요."
+          },
+          "question": {
+            "question_id": "D4_Q4",
+            "order": 4,
+            "domain": "주의·계산",
+            "response_type": "single_choice",
+            "prompt_text": "지하철이 15분 간격으로 옵니다. 이전 지하철이 오후 1시 10분에 출발했다면 다음 지하철은 몇 시에 올까요?",
+            "prompt_audio_text": "지하철이 15분 간격으로 옵니다. 이전 지하철이 오후 1시 10분에 출발했다면 다음 지하철은 몇 시에 올까요?",
+            "scored": true,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "오후 1시 15분"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "오후 1시 20분"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "오후 1시 25분"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "오후 1시 30분"
+              }
+            ],
+            "correct_answer": {
+              "button": "C",
+              "label": "오후 1시 25분"
+            },
+            "personalization_source_note": null,
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D4_Q4",
+            "input_mode": "physical_button",
+            "button_event": {
+              "button": "C",
+              "position": "왼쪽 아래",
+              "color": "초록",
+              "pressed_at": "2026-07-23T10:08:40.002+09:00"
+            },
+            "selected_choice": {
+              "button": "C",
+              "label": "오후 1시 25분"
+            },
+            "response_time_ms": 5272,
+            "evaluation": {
+              "is_correct": true,
+              "score": 1
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "맞아요. 15분 뒤인 오후 1시 25분이에요.",
+            "shown_at": "2026-07-23T10:08:40.252+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-23T10:08:42.802+09:00",
+            "screen_state": "question",
+            "character_message": null
+          },
+          "question": {
+            "question_id": "D4_Q5",
+            "order": 5,
+            "domain": "일상·개인화 정보 수집",
+            "response_type": "voice",
+            "prompt_text": "오늘 어디를 걸었고, 누구를 만났는지 말씀해 주세요.",
+            "prompt_audio_text": "오늘 어디를 걸었고, 누구를 만났는지 말씀해 주세요.",
+            "scored": false,
+            "choices": null,
+            "correct_answer": null,
+            "personalization_source_note": null,
+            "max_response_seconds": 25
+          },
+          "response": null,
+          "system_feedback": null
+        }
+      ],
+      "session_summary": null
+    },
+    {
+      "session_id": "routine_0ae322fd09e3216a08e31fd707e31e44",
+      "user_id": "SYN-KR-003",
+      "device_id": "TABLET-03",
+      "session_date": "2026-07-24",
+      "weekday": "금요일",
+      "authentication": {
+        "method": "registered_card",
+        "card_token_id": "CARD-SYN-KR-003",
+        "authenticated_at": "2026-07-24T10:08:00+09:00",
+        "result": "success"
+      },
+      "session_started_at": "2026-07-24T10:08:00+09:00",
+      "session_completed_at": "2026-07-24T10:09:17.407+09:00",
+      "completion_status": "completed",
+      "question_count": 6,
+      "question_records": [
+        {
+          "presentation": {
+            "presented_at": "2026-07-24T10:08:08.000+09:00",
+            "screen_state": "question",
+            "character_message": "오늘 기분을 알려주셔서 고마워요."
+          },
+          "question": {
+            "question_id": "D5_Q1",
+            "order": 1,
+            "domain": "감정",
+            "response_type": "single_choice",
+            "prompt_text": "오늘 기분은 어떠세요?",
+            "prompt_audio_text": "오늘 기분은 어떠세요?",
+            "scored": false,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "매우 좋음"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "좋음"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "그저 그럼"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "좋지 않음"
+              }
+            ],
+            "correct_answer": null,
+            "personalization_source_note": null,
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D5_Q1",
+            "input_mode": "touch",
+            "button_event": {
+              "button": "A",
+              "position": "왼쪽 위",
+              "color": "빨강",
+              "pressed_at": "2026-07-24T10:08:13.794+09:00"
+            },
+            "selected_choice": {
+              "button": "A",
+              "label": "매우 좋음"
+            },
+            "response_time_ms": 5794,
+            "evaluation": {
+              "is_correct": null,
+              "score": null
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "오늘 기분을 알려주셔서 고마워요.",
+            "shown_at": "2026-07-24T10:08:14.044+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-24T10:08:16.594+09:00",
+            "screen_state": "question",
+            "character_message": "맞아요. 내일은 토요일이에요."
+          },
+          "question": {
+            "question_id": "D5_Q2",
+            "order": 2,
+            "domain": "시간 지남력",
+            "response_type": "single_choice",
+            "prompt_text": "내일은 무슨 요일인가요?",
+            "prompt_audio_text": "내일은 무슨 요일인가요?",
+            "scored": true,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "금요일"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "토요일"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "일요일"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "월요일"
+              }
+            ],
+            "correct_answer": {
+              "button": "B",
+              "label": "토요일"
+            },
+            "personalization_source_note": null,
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D5_Q2",
+            "input_mode": "physical_button",
+            "button_event": {
+              "button": "B",
+              "position": "오른쪽 위",
+              "color": "노랑",
+              "pressed_at": "2026-07-24T10:08:22.894+09:00"
+            },
+            "selected_choice": {
+              "button": "B",
+              "label": "토요일"
+            },
+            "response_time_ms": 6300,
+            "evaluation": {
+              "is_correct": true,
+              "score": 1
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "맞아요. 내일은 토요일이에요.",
+            "shown_at": "2026-07-24T10:08:23.144+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-24T10:08:25.694+09:00",
+            "screen_state": "question",
+            "character_message": "편하게 골라 주셔서 고마워요."
+          },
+          "question": {
+            "question_id": "D5_Q3",
+            "order": 3,
+            "domain": "전날 활동 회상",
+            "response_type": "single_choice",
+            "prompt_text": "지금 가장 편하게 떠오르는 시간은 언제인가요?",
+            "prompt_audio_text": "지금 가장 편하게 떠오르는 시간은 언제인가요?",
+            "scored": true,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "아침"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "점심"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "저녁"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "밤"
+              }
+            ],
+            "correct_answer": null,
+            "personalization_source_note": null,
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D5_Q3",
+            "input_mode": "physical_button",
+            "button_event": {
+              "button": "D",
+              "position": "오른쪽 아래",
+              "color": "파랑",
+              "pressed_at": "2026-07-24T10:08:32.323+09:00"
+            },
+            "selected_choice": {
+              "button": "D",
+              "label": "밤"
+            },
+            "response_time_ms": 6629,
+            "evaluation": {
+              "is_correct": null,
+              "score": null
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "편하게 골라 주셔서 고마워요.",
+            "shown_at": "2026-07-24T10:08:32.573+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-24T10:08:35.123+09:00",
+            "screen_state": "question",
+            "character_message": "맞아요. 힘을 합치면 일이 쉬워진다는 뜻이에요."
+          },
+          "question": {
+            "question_id": "D5_Q4",
+            "order": 4,
+            "domain": "언어 이해",
+            "response_type": "single_choice",
+            "prompt_text": "속담 '백지장도 맞들면 낫다'와 가장 가까운 뜻은 무엇인가요?",
+            "prompt_audio_text": "속담 '백지장도 맞들면 낫다'와 가장 가까운 뜻은 무엇인가요?",
+            "scored": true,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "함께 하면 일이 쉬워진다"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "흰 종이는 깨끗하다"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "혼자 해야 일이 빠르다"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "무거운 짐은 버려야 한다"
+              }
+            ],
+            "correct_answer": {
+              "button": "A",
+              "label": "함께 하면 일이 쉬워진다"
+            },
+            "personalization_source_note": null,
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D5_Q4",
+            "input_mode": "touch",
+            "button_event": {
+              "button": "B",
+              "position": "오른쪽 위",
+              "color": "노랑",
+              "pressed_at": "2026-07-24T10:08:40.534+09:00"
+            },
+            "selected_choice": {
+              "button": "B",
+              "label": "흰 종이는 깨끗하다"
+            },
+            "response_time_ms": 5411,
+            "evaluation": {
+              "is_correct": false,
+              "score": 0
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "맞아요. 힘을 합치면 일이 쉬워진다는 뜻이에요.",
+            "shown_at": "2026-07-24T10:08:40.784+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-24T10:08:43.334+09:00",
+            "screen_state": "question",
+            "character_message": "맞아요. 같은 모양을 잘 찾으셨어요."
+          },
+          "question": {
+            "question_id": "D5_Q5",
+            "order": 5,
+            "domain": "시공간",
+            "response_type": "single_choice",
+            "prompt_text": "위에 보이는 모양과 똑같은 것을 고르세요.",
+            "prompt_audio_text": "위에 보이는 모양과 똑같은 것을 고르세요.",
+            "scored": true,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "● ▲"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "▲ ●"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "● ●"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "▲ ▲"
+              }
+            ],
+            "correct_answer": {
+              "button": "A",
+              "label": "● ▲"
+            },
+            "personalization_source_note": null,
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D5_Q5",
+            "input_mode": "physical_button",
+            "button_event": {
+              "button": "A",
+              "position": "왼쪽 위",
+              "color": "빨강",
+              "pressed_at": "2026-07-24T10:08:48.384+09:00"
+            },
+            "selected_choice": {
+              "button": "A",
+              "label": "● ▲"
+            },
+            "response_time_ms": 5050,
+            "evaluation": {
+              "is_correct": true,
+              "score": 1
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "맞아요. 같은 모양을 잘 찾으셨어요.",
+            "shown_at": "2026-07-24T10:08:48.634+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-24T10:08:51.184+09:00",
+            "screen_state": "question",
+            "character_message": "오늘 이야기를 남겨주셔서 고마워요."
+          },
+          "question": {
+            "question_id": "D5_Q6",
+            "order": 6,
+            "domain": "일상·개인화 정보 수집",
+            "response_type": "voice",
+            "prompt_text": "오늘 집에 온 사람과 함께 먹은 음식을 말씀해 주세요.",
+            "prompt_audio_text": "오늘 집에 온 사람과 함께 먹은 음식을 말씀해 주세요.",
+            "scored": false,
+            "choices": null,
+            "correct_answer": null,
+            "personalization_source_note": null,
+            "max_response_seconds": 25
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D5_Q6",
+            "input_mode": "voice",
+            "recording_started_at": "2026-07-24T10:08:53.087+09:00",
+            "recording_ended_at": "2026-07-24T10:09:06.522+09:00",
+            "audio_duration_seconds": 13.435,
+            "audio_storage": {
+              "object_key": "",
+              "mime_type": null,
+              "sample_rate_hz": null,
+              "channels": null,
+              "retention_status": "not_stored"
+            },
+            "raw_user_utterance_transcript": "딸 이현주, 손자 최민준 두 사람이 집에 왔어요. 같이 청국장도 먹고 학교 이야기를 들었어요. 만나서 반가웠어요.",
+            "stt": {
+              "engine": "qwen3-asr:Qwen/Qwen3-ASR-1.7B@synthetic-pilot-revision",
+              "status": "completed",
+              "no_speech": false,
+              "transcript": "딸 이현주, 손자 최민준 두 사람이 집에 왔어요. 같이 청국장도 먹고 학교 이야기를 들었어요. 만나서 반가웠어요.",
+              "language": "ko-KR",
+              "confidence": null,
+              "processed_at": "2026-07-24T10:09:13.807+09:00",
+              "model": "Qwen/Qwen3-ASR-1.7B",
+              "model_revision": "synthetic-pilot-revision",
+              "aligner_model": "Qwen/Qwen3-ForcedAligner-0.6B",
+              "aligner_revision": "synthetic-pilot-aligner-revision",
+              "preprocessing_version": "decode-resample-only-v1",
+              "segments": [
+                {
+                  "id": 0,
+                  "start": 0,
+                  "end": 13.435,
+                  "text": "딸 이현주, 손자 최민준 두 사람이 집에 왔어요. 같이 청국장도 먹고 학교 이야기를 들었어요. 만나서 반가웠어요."
+                }
+              ]
+            },
+            "user_correction": {
+              "was_corrected": false,
+              "corrected_transcript": null
+            },
+            "derived_annotations": {
+              "status": "completed",
+              "items": [
+                {
+                  "entity_type": "인물",
+                  "value": "딸 이현주"
+                },
+                {
+                  "entity_type": "인물",
+                  "value": "손자 최민준"
+                },
+                {
+                  "entity_type": "장소",
+                  "value": "사용자 집"
+                },
+                {
+                  "entity_type": "음식",
+                  "value": "청국장"
+                },
+                {
+                  "entity_type": "대화주제",
+                  "value": "손자의 학교 이야기"
+                },
+                {
+                  "entity_type": "감정",
+                  "value": "반가움"
+                }
+              ],
+              "note": "합성 전사에서 명시적으로 확인된 개인화 후보 정보"
+            },
+            "response_time_ms": 23223,
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "오늘 이야기를 남겨주셔서 고마워요.",
+            "shown_at": "2026-07-24T10:09:14.657+09:00"
+          }
+        }
+      ],
+      "session_summary": {
+        "duration_seconds": 77,
+        "scored_question_count": 4,
+        "correct_count": 2,
+        "incorrect_count": 1,
+        "completion_message": "오늘 활동을 모두 마쳤어요. 가족과 편안한 시간 보내세요.",
+        "clinical_interpretation": null,
+        "risk_classification": null,
+        "admin_note": "합성 활동 완료 기록이며 의료적 판정이 아님"
+      }
+    },
+    {
+      "session_id": "routine_af44324cb04433dfb1443572b2443705",
+      "user_id": "SYN-KR-003",
+      "device_id": "TABLET-03",
+      "session_date": "2026-07-25",
+      "weekday": "토요일",
+      "authentication": {
+        "method": "registered_card",
+        "card_token_id": "CARD-SYN-KR-003",
+        "authenticated_at": "2026-07-25T10:08:00+09:00",
+        "result": "success"
+      },
+      "session_started_at": "2026-07-25T10:08:00+09:00",
+      "session_completed_at": "2026-07-25T10:09:20.190+09:00",
+      "completion_status": "completed",
+      "question_count": 6,
+      "question_records": [
+        {
+          "presentation": {
+            "presented_at": "2026-07-25T10:08:08.000+09:00",
+            "screen_state": "question",
+            "character_message": "오늘 기분을 알려주셔서 고마워요."
+          },
+          "question": {
+            "question_id": "D6_Q1",
+            "order": 1,
+            "domain": "감정",
+            "response_type": "single_choice",
+            "prompt_text": "어제 가족을 만나 반가웠다고 하셨어요. 오늘 기분은 어떠세요?",
+            "prompt_audio_text": "어제 가족을 만나 반가웠다고 하셨어요. 오늘 기분은 어떠세요?",
+            "scored": false,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "매우 좋음"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "좋음"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "그저 그럼"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "좋지 않음"
+              }
+            ],
+            "correct_answer": null,
+            "personalization_source_note": "5일차 음성 응답 기반 개인화",
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D6_Q1",
+            "input_mode": "physical_button",
+            "button_event": {
+              "button": "A",
+              "position": "왼쪽 위",
+              "color": "빨강",
+              "pressed_at": "2026-07-25T10:08:13.134+09:00"
+            },
+            "selected_choice": {
+              "button": "A",
+              "label": "매우 좋음"
+            },
+            "response_time_ms": 5134,
+            "evaluation": {
+              "is_correct": null,
+              "score": null
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "오늘 기분을 알려주셔서 고마워요.",
+            "shown_at": "2026-07-25T10:08:13.384+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-25T10:08:15.934+09:00",
+            "screen_state": "question",
+            "character_message": "맞아요. 어제는 금요일이었어요."
+          },
+          "question": {
+            "question_id": "D6_Q2",
+            "order": 2,
+            "domain": "시간 지남력",
+            "response_type": "single_choice",
+            "prompt_text": "어제는 무슨 요일이었나요?",
+            "prompt_audio_text": "어제는 무슨 요일이었나요?",
+            "scored": true,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "목요일"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "금요일"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "토요일"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "일요일"
+              }
+            ],
+            "correct_answer": {
+              "button": "B",
+              "label": "금요일"
+            },
+            "personalization_source_note": null,
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D6_Q2",
+            "input_mode": "touch",
+            "button_event": {
+              "button": "B",
+              "position": "오른쪽 위",
+              "color": "노랑",
+              "pressed_at": "2026-07-25T10:08:21.915+09:00"
+            },
+            "selected_choice": {
+              "button": "B",
+              "label": "금요일"
+            },
+            "response_time_ms": 5981,
+            "evaluation": {
+              "is_correct": true,
+              "score": 1
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "맞아요. 어제는 금요일이었어요.",
+            "shown_at": "2026-07-25T10:08:22.165+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-25T10:08:24.715+09:00",
+            "screen_state": "question",
+            "character_message": "맞아요. 딸 이현주 · 손자 최민준과 함께했다고 말씀하셨어요."
+          },
+          "question": {
+            "question_id": "D6_Q3",
+            "order": 3,
+            "domain": "전날 활동 회상",
+            "response_type": "single_choice",
+            "prompt_text": "어제 청국장을 함께 먹은 사람은 누구였나요?",
+            "prompt_audio_text": "어제 청국장을 함께 먹은 사람은 누구였나요?",
+            "scored": true,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "딸 이현주 · 손자 최민준"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "친구 정희와 이웃 정희"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "보건소 직원"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "혼자"
+              }
+            ],
+            "correct_answer": {
+              "button": "A",
+              "label": "딸 이현주 · 손자 최민준"
+            },
+            "personalization_source_note": "5일차 음성 응답 기반 개인화",
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D6_Q3",
+            "input_mode": "touch",
+            "button_event": {
+              "button": "A",
+              "position": "왼쪽 위",
+              "color": "빨강",
+              "pressed_at": "2026-07-25T10:08:30.539+09:00"
+            },
+            "selected_choice": {
+              "button": "A",
+              "label": "딸 이현주 · 손자 최민준"
+            },
+            "response_time_ms": 5824,
+            "evaluation": {
+              "is_correct": true,
+              "score": 1
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "맞아요. 딸 이현주 · 손자 최민준과 함께했다고 말씀하셨어요.",
+            "shown_at": "2026-07-25T10:08:30.789+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-25T10:08:33.339+09:00",
+            "screen_state": "question",
+            "character_message": "맞아요. 20분 뒤인 오전 10시 30분이에요."
+          },
+          "question": {
+            "question_id": "D6_Q4",
+            "order": 4,
+            "domain": "주의·계산",
+            "response_type": "single_choice",
+            "prompt_text": "버스가 20분 간격으로 옵니다. 이전 버스가 오전 10시 10분에 출발했다면 다음 버스는 몇 시에 올까요?",
+            "prompt_audio_text": "버스가 20분 간격으로 옵니다. 이전 버스가 오전 10시 10분에 출발했다면 다음 버스는 몇 시에 올까요?",
+            "scored": true,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "오전 10시 20분"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "오전 10시 30분"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "오전 10시 40분"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "오전 11시 10분"
+              }
+            ],
+            "correct_answer": {
+              "button": "B",
+              "label": "오전 10시 30분"
+            },
+            "personalization_source_note": null,
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D6_Q4",
+            "input_mode": "physical_button",
+            "button_event": {
+              "button": "B",
+              "position": "오른쪽 위",
+              "color": "노랑",
+              "pressed_at": "2026-07-25T10:08:38.572+09:00"
+            },
+            "selected_choice": {
+              "button": "B",
+              "label": "오전 10시 30분"
+            },
+            "response_time_ms": 5233,
+            "evaluation": {
+              "is_correct": true,
+              "score": 1
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "맞아요. 20분 뒤인 오전 10시 30분이에요.",
+            "shown_at": "2026-07-25T10:08:38.822+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-25T10:08:41.372+09:00",
+            "screen_state": "question",
+            "character_message": "맞아요. 딸 이름은 현주예요."
+          },
+          "question": {
+            "question_id": "D6_Q5",
+            "order": 5,
+            "domain": "일반 개인 기억",
+            "response_type": "single_choice",
+            "prompt_text": "정희 어르신의 딸 이름은 무엇인가요?",
+            "prompt_audio_text": "정희 어르신의 딸 이름은 무엇인가요?",
+            "scored": true,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "이현주"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "박정희"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "오순자"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "김미영"
+              }
+            ],
+            "correct_answer": {
+              "button": "A",
+              "label": "이현주"
+            },
+            "personalization_source_note": "초기 등록 정보 기반 개인화",
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D6_Q5",
+            "input_mode": "touch",
+            "button_event": {
+              "button": "A",
+              "position": "왼쪽 위",
+              "color": "빨강",
+              "pressed_at": "2026-07-25T10:08:47.526+09:00"
+            },
+            "selected_choice": {
+              "button": "A",
+              "label": "이현주"
+            },
+            "response_time_ms": 6154,
+            "evaluation": {
+              "is_correct": true,
+              "score": 1
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "맞아요. 딸 이름은 현주예요.",
+            "shown_at": "2026-07-25T10:08:47.776+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-25T10:08:50.326+09:00",
+            "screen_state": "question",
+            "character_message": "오늘 이야기를 남겨주셔서 고마워요."
+          },
+          "question": {
+            "question_id": "D6_Q6",
+            "order": 6,
+            "domain": "일상·개인화 정보 수집",
+            "response_type": "voice",
+            "prompt_text": "오늘 다녀온 곳과 돌아오는 길에 산 것을 말씀해 주세요.",
+            "prompt_audio_text": "오늘 다녀온 곳과 돌아오는 길에 산 것을 말씀해 주세요.",
+            "scored": false,
+            "choices": null,
+            "correct_answer": null,
+            "personalization_source_note": null,
+            "max_response_seconds": 25
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D6_Q6",
+            "input_mode": "voice",
+            "recording_started_at": "2026-07-25T10:08:53.808+09:00",
+            "recording_ended_at": "2026-07-25T10:09:09.050+09:00",
+            "audio_duration_seconds": 15.242,
+            "audio_storage": {
+              "object_key": "",
+              "mime_type": null,
+              "sample_rate_hz": null,
+              "channels": null,
+              "retention_status": "not_stored"
+            },
+            "raw_user_utterance_transcript": "오전에 동네 도서관에서 생활 강좌를 들었어요. 돌아오는 길에 빵집에서 소보로빵 두 개를 샀고 오후에는 집에서 쉬었어요.",
+            "stt": {
+              "engine": "qwen3-asr:Qwen/Qwen3-ASR-1.7B@synthetic-pilot-revision",
+              "status": "completed",
+              "no_speech": false,
+              "transcript": "오전에 동네 도서관에서 생활 강좌를 들었어요. 돌아오는 길에 빵집에서 소보로빵 두 개를 샀고 오후에는 집에서 쉬었어요.",
+              "language": "ko-KR",
+              "confidence": null,
+              "processed_at": "2026-07-25T10:09:16.590+09:00",
+              "model": "Qwen/Qwen3-ASR-1.7B",
+              "model_revision": "synthetic-pilot-revision",
+              "aligner_model": "Qwen/Qwen3-ForcedAligner-0.6B",
+              "aligner_revision": "synthetic-pilot-aligner-revision",
+              "preprocessing_version": "decode-resample-only-v1",
+              "segments": [
+                {
+                  "id": 0,
+                  "start": 0,
+                  "end": 15.242,
+                  "text": "오전에 동네 도서관에서 생활 강좌를 들었어요. 돌아오는 길에 빵집에서 소보로빵 두 개를 샀고 오후에는 집에서 쉬었어요."
+                }
+              ]
+            },
+            "user_correction": {
+              "was_corrected": false,
+              "corrected_transcript": null
+            },
+            "derived_annotations": {
+              "status": "completed",
+              "items": [
+                {
+                  "entity_type": "장소",
+                  "value": "동네 도서관"
+                },
+                {
+                  "entity_type": "활동",
+                  "value": "생활 강좌 수강"
+                },
+                {
+                  "entity_type": "장소",
+                  "value": "동네 빵집"
+                },
+                {
+                  "entity_type": "구매물품",
+                  "value": "소보로빵"
+                },
+                {
+                  "entity_type": "수량",
+                  "value": "2개"
+                },
+                {
+                  "entity_type": "활동",
+                  "value": "오후에 집에서 휴식"
+                }
+              ],
+              "note": "합성 전사에서 명시적으로 확인된 개인화 후보 정보"
+            },
+            "response_time_ms": 26864,
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "오늘 이야기를 남겨주셔서 고마워요.",
+            "shown_at": "2026-07-25T10:09:17.440+09:00"
+          }
+        }
+      ],
+      "session_summary": {
+        "duration_seconds": 80,
+        "scored_question_count": 4,
+        "correct_count": 4,
+        "incorrect_count": 0,
+        "completion_message": "오늘 활동을 모두 마쳤어요. 편안히 쉬세요.",
+        "clinical_interpretation": null,
+        "risk_classification": null,
+        "admin_note": "합성 활동 완료 기록이며 의료적 판정이 아님"
+      }
+    },
+    {
+      "session_id": "routine_2ddb98772cdb96e42fdb9b9d2edb9a0a",
+      "user_id": "SYN-KR-003",
+      "device_id": "TABLET-03",
+      "session_date": "2026-07-26",
+      "weekday": "일요일",
+      "authentication": {
+        "method": "registered_card",
+        "card_token_id": "CARD-SYN-KR-003",
+        "authenticated_at": "2026-07-26T10:08:00+09:00",
+        "result": "success"
+      },
+      "session_started_at": "2026-07-26T10:08:00+09:00",
+      "session_completed_at": "2026-07-26T10:09:19.864+09:00",
+      "completion_status": "completed",
+      "question_count": 6,
+      "question_records": [
+        {
+          "presentation": {
+            "presented_at": "2026-07-26T10:08:08.000+09:00",
+            "screen_state": "question",
+            "character_message": "오늘 기분을 알려주셔서 고마워요."
+          },
+          "question": {
+            "question_id": "D7_Q1",
+            "order": 1,
+            "domain": "감정",
+            "response_type": "single_choice",
+            "prompt_text": "어제 오후에는 집에서 쉬었다고 하셨어요. 오늘 기분은 어떠세요?",
+            "prompt_audio_text": "어제 오후에는 집에서 쉬었다고 하셨어요. 오늘 기분은 어떠세요?",
+            "scored": false,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "매우 좋음"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "좋음"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "그저 그럼"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "좋지 않음"
+              }
+            ],
+            "correct_answer": null,
+            "personalization_source_note": "6일차 음성 응답 기반 개인화",
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D7_Q1",
+            "input_mode": "touch",
+            "button_event": {
+              "button": "B",
+              "position": "오른쪽 위",
+              "color": "노랑",
+              "pressed_at": "2026-07-26T10:08:13.179+09:00"
+            },
+            "selected_choice": {
+              "button": "B",
+              "label": "좋음"
+            },
+            "response_time_ms": 5179,
+            "evaluation": {
+              "is_correct": null,
+              "score": null
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "오늘 기분을 알려주셔서 고마워요.",
+            "shown_at": "2026-07-26T10:08:13.429+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-26T10:08:15.979+09:00",
+            "screen_state": "question",
+            "character_message": "맞아요. 모레는 화요일이에요."
+          },
+          "question": {
+            "question_id": "D7_Q2",
+            "order": 2,
+            "domain": "시간 지남력",
+            "response_type": "single_choice",
+            "prompt_text": "오늘은 일요일입니다. 모레는 무슨 요일인가요?",
+            "prompt_audio_text": "오늘은 일요일입니다. 모레는 무슨 요일인가요?",
+            "scored": true,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "월요일"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "화요일"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "수요일"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "목요일"
+              }
+            ],
+            "correct_answer": {
+              "button": "B",
+              "label": "화요일"
+            },
+            "personalization_source_note": null,
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D7_Q2",
+            "input_mode": "physical_button",
+            "button_event": {
+              "button": "B",
+              "position": "오른쪽 위",
+              "color": "노랑",
+              "pressed_at": "2026-07-26T10:08:22.385+09:00"
+            },
+            "selected_choice": {
+              "button": "B",
+              "label": "화요일"
+            },
+            "response_time_ms": 6406,
+            "evaluation": {
+              "is_correct": true,
+              "score": 1
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "맞아요. 모레는 화요일이에요.",
+            "shown_at": "2026-07-26T10:08:22.635+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-26T10:08:25.185+09:00",
+            "screen_state": "question",
+            "character_message": "맞아요. 소보로빵 2개라고 말씀하셨어요."
+          },
+          "question": {
+            "question_id": "D7_Q3",
+            "order": 3,
+            "domain": "전날 활동 회상",
+            "response_type": "single_choice",
+            "prompt_text": "어제 동네 빵집에서 산 것은 무엇인가요?",
+            "prompt_audio_text": "어제 동네 빵집에서 산 것은 무엇인가요?",
+            "scored": true,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "소보로빵 2개"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "식빵 1개"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "소보로빵 3개"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "케이크 1개"
+              }
+            ],
+            "correct_answer": {
+              "button": "A",
+              "label": "소보로빵 2개"
+            },
+            "personalization_source_note": "6일차 음성 응답 기반 개인화",
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D7_Q3",
+            "input_mode": "physical_button",
+            "button_event": {
+              "button": "A",
+              "position": "왼쪽 위",
+              "color": "빨강",
+              "pressed_at": "2026-07-26T10:08:30.712+09:00"
+            },
+            "selected_choice": {
+              "button": "A",
+              "label": "소보로빵 2개"
+            },
+            "response_time_ms": 5527,
+            "evaluation": {
+              "is_correct": true,
+              "score": 1
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "맞아요. 소보로빵 2개라고 말씀하셨어요.",
+            "shown_at": "2026-07-26T10:08:30.962+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-26T10:08:33.512+09:00",
+            "screen_state": "question",
+            "character_message": "맞아요. 청국장을 함께 먹었다고 말씀하셨어요."
+          },
+          "question": {
+            "question_id": "D7_Q4",
+            "order": 4,
+            "domain": "장기·주간 개인 기억",
+            "response_type": "single_choice",
+            "prompt_text": "이번 주에 딸 이현주 · 손자 최민준과 함께 먹은 음식은 무엇인가요?",
+            "prompt_audio_text": "이번 주에 딸 이현주 · 손자 최민준과 함께 먹은 음식은 무엇인가요?",
+            "scored": true,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "청국장"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "잔치국수"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "청국장"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "단팥빵"
+              }
+            ],
+            "correct_answer": {
+              "button": "A",
+              "label": "청국장"
+            },
+            "personalization_source_note": "5일차 음성 응답 기반 개인화",
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D7_Q4",
+            "input_mode": "touch",
+            "button_event": {
+              "button": "A",
+              "position": "왼쪽 위",
+              "color": "빨강",
+              "pressed_at": "2026-07-26T10:08:39.490+09:00"
+            },
+            "selected_choice": {
+              "button": "A",
+              "label": "청국장"
+            },
+            "response_time_ms": 5978,
+            "evaluation": {
+              "is_correct": true,
+              "score": 1
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "맞아요. 청국장을 함께 먹었다고 말씀하셨어요.",
+            "shown_at": "2026-07-26T10:08:39.740+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-26T10:08:42.290+09:00",
+            "screen_state": "question",
+            "character_message": "맞아요. 1개가 남아요."
+          },
+          "question": {
+            "question_id": "D7_Q5",
+            "order": 5,
+            "domain": "개인화 주의·계산",
+            "response_type": "single_choice",
+            "prompt_text": "어제 산 소보로빵 2개 중 오늘 1개를 먹으면 몇 개가 남을까요?",
+            "prompt_audio_text": "어제 산 소보로빵 2개 중 오늘 1개를 먹으면 몇 개가 남을까요?",
+            "scored": true,
+            "choices": [
+              {
+                "button": "A",
+                "position": "왼쪽 위",
+                "color": "빨강",
+                "label": "0개"
+              },
+              {
+                "button": "B",
+                "position": "오른쪽 위",
+                "color": "노랑",
+                "label": "1개"
+              },
+              {
+                "button": "C",
+                "position": "왼쪽 아래",
+                "color": "초록",
+                "label": "2개"
+              },
+              {
+                "button": "D",
+                "position": "오른쪽 아래",
+                "color": "파랑",
+                "label": "3개"
+              }
+            ],
+            "correct_answer": {
+              "button": "B",
+              "label": "1개"
+            },
+            "personalization_source_note": "6일차 음성 응답 기반 개인화",
+            "max_response_seconds": null
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D7_Q5",
+            "input_mode": "touch",
+            "button_event": {
+              "button": "B",
+              "position": "오른쪽 위",
+              "color": "노랑",
+              "pressed_at": "2026-07-26T10:08:47.487+09:00"
+            },
+            "selected_choice": {
+              "button": "B",
+              "label": "1개"
+            },
+            "response_time_ms": 5197,
+            "evaluation": {
+              "is_correct": true,
+              "score": 1
+            },
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "맞아요. 1개가 남아요.",
+            "shown_at": "2026-07-26T10:08:47.737+09:00"
+          }
+        },
+        {
+          "presentation": {
+            "presented_at": "2026-07-26T10:08:50.287+09:00",
+            "screen_state": "question",
+            "character_message": "오늘 이야기를 남겨주셔서 고마워요."
+          },
+          "question": {
+            "question_id": "D7_Q6",
+            "order": 6,
+            "domain": "주간 회고·개인화 정보 수집",
+            "response_type": "voice",
+            "prompt_text": "오늘 한 일과 이번 주에 가장 기억에 남는 일을 함께 말씀해 주세요.",
+            "prompt_audio_text": "오늘 한 일과 이번 주에 가장 기억에 남는 일을 함께 말씀해 주세요.",
+            "scored": false,
+            "choices": null,
+            "correct_answer": null,
+            "personalization_source_note": null,
+            "max_response_seconds": 30
+          },
+          "response": {
+            "response_id": "RES-SYN-KR-003-D7_Q6",
+            "input_mode": "voice",
+            "recording_started_at": "2026-07-26T10:08:52.606+09:00",
+            "recording_ended_at": "2026-07-26T10:09:08.809+09:00",
+            "audio_duration_seconds": 16.203,
+            "audio_storage": {
+              "object_key": "",
+              "mime_type": null,
+              "sample_rate_hz": null,
+              "channels": null,
+              "retention_status": "not_stored"
+            },
+            "raw_user_utterance_transcript": "오늘은 집에서 화분에 물을 주고 손자 최민준에게 전화했어 요. 이번 주에는 딸 이현주, 손자 최민준 두 사람이 와서 청국장도 함께 먹은 일이 가장 기억에 남아요. 행복했어요.",
+            "stt": {
+              "engine": "qwen3-asr:Qwen/Qwen3-ASR-1.7B@synthetic-pilot-revision",
+              "status": "completed",
+              "no_speech": false,
+              "transcript": "오늘은 집에서 화분에 물을 주고 손자 최민준에게 전화했어 요. 이번 주에는 딸 이현주, 손자 최민준 두 사람이 와서 청국장도 함께 먹은 일이 가장 기억에 남아요. 행복했어요.",
+              "language": "ko-KR",
+              "confidence": null,
+              "processed_at": "2026-07-26T10:09:16.264+09:00",
+              "model": "Qwen/Qwen3-ASR-1.7B",
+              "model_revision": "synthetic-pilot-revision",
+              "aligner_model": "Qwen/Qwen3-ForcedAligner-0.6B",
+              "aligner_revision": "synthetic-pilot-aligner-revision",
+              "preprocessing_version": "decode-resample-only-v1",
+              "segments": [
+                {
+                  "id": 0,
+                  "start": 0,
+                  "end": 16.203,
+                  "text": "오늘은 집에서 화분에 물을 주고 손자 최민준에게 전화했어 요. 이번 주에는 딸 이현주, 손자 최민준 두 사람이 와서 청국장도 함께 먹은 일이 가장 기억에 남아요. 행복했어요."
+                }
+              ]
+            },
+            "user_correction": {
+              "was_corrected": false,
+              "corrected_transcript": null
+            },
+            "derived_annotations": {
+              "status": "completed",
+              "items": [
+                {
+                  "entity_type": "오늘 활동",
+                  "value": "화분에 물 주기"
+                },
+                {
+                  "entity_type": "오늘 인물",
+                  "value": "손자 최민준"
+                },
+                {
+                  "entity_type": "오늘 활동",
+                  "value": "전화 통화"
+                },
+                {
+                  "entity_type": "주간 핵심 기억",
+                  "value": "딸과 손자의 방문"
+                },
+                {
+                  "entity_type": "주간 핵심 음식",
+                  "value": "청국장"
+                },
+                {
+                  "entity_type": "감정",
+                  "value": "행복함"
+                }
+              ],
+              "note": "합성 전사에서 명시적으로 확인된 개인화 후보 정보"
+            },
+            "response_time_ms": 26577,
+            "is_valid": true
+          },
+          "system_feedback": {
+            "feedback_text": "오늘 이야기를 남겨주셔서 고마워요.",
+            "shown_at": "2026-07-26T10:09:17.114+09:00"
+          }
+        }
+      ],
+      "session_summary": {
+        "duration_seconds": 80,
+        "scored_question_count": 4,
+        "correct_count": 4,
+        "incorrect_count": 0,
+        "completion_message": "일주일 활동을 모두 마쳤어요. 다음 주에도 편하게 만나요.",
+        "clinical_interpretation": null,
+        "risk_classification": null,
+        "admin_note": "합성 활동 완료 기록이며 의료적 판정이 아님"
+      }
+    }
+  ]
+}

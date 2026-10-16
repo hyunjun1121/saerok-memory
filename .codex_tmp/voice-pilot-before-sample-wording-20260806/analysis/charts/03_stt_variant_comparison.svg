@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="STT 사용성 비교">
+  <rect width="1200" height="675" rx="28" fill="#FFFDF7"/>
+  <text x="54" y="62" fill="#2F2A24" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="30" font-weight="800">STT 사용성 비교</text>
+  <text x="54" y="94" fill="#706A61" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="17">주 지표: 후속 기억 단서에 사용 가능하다고 가정한 합성 라벨 비율</text>
+  <g transform="translate(760 112)"><rect width="17" height="17" rx="4" fill="#427A4A"/><text x="25" y="15" fill="#706A61" font-family="Arial, sans-serif" font-size="15">assist_v2</text></g><g transform="translate(950 112)"><rect width="17" height="17" rx="4" fill="#E59A35"/><text x="25" y="15" fill="#706A61" font-family="Arial, sans-serif" font-size="15">baseline_v1</text></g><text x="255" y="179" text-anchor="end" fill="#2F2A24" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="17" font-weight="700">합성 사용 가능 라벨</text>
+        <text x="255" y="204" text-anchor="end" fill="#706A61" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="13">높을수록 좋음</text><rect x="290" y="160" width="640" height="23" rx="6" fill="#427A4A"/>
+            <text x="940" y="177" fill="#2F2A24" font-family="Arial, sans-serif" font-size="15" font-weight="700">91.4%</text><rect x="290" y="191" width="550" height="23" rx="6" fill="#E59A35"/>
+            <text x="850" y="208" fill="#2F2A24" font-family="Arial, sans-serif" font-size="15" font-weight="700">78.6%</text>
+<text x="255" y="271" text-anchor="end" fill="#2F2A24" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="17" font-weight="700">의미 단서 보존</text>
+        <text x="255" y="296" text-anchor="end" fill="#706A61" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="13">높을수록 좋음</text><rect x="290" y="252" width="640.7692307692307" height="23" rx="6" fill="#427A4A"/>
+            <text x="940.7692307692307" y="269" fill="#2F2A24" font-family="Arial, sans-serif" font-size="15" font-weight="700">91.5%</text><rect x="290" y="283" width="551.025641025641" height="23" rx="6" fill="#E59A35"/>
+            <text x="851.025641025641" y="300" fill="#2F2A24" font-family="Arial, sans-serif" font-size="15" font-weight="700">78.7%</text>
+<text x="255" y="363" text-anchor="end" fill="#2F2A24" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="17" font-weight="700">무음 판정</text>
+        <text x="255" y="388" text-anchor="end" fill="#706A61" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="13">낮을수록 좋음</text><rect x="290" y="344" width="30" height="23" rx="6" fill="#427A4A"/>
+            <text x="330" y="361" fill="#2F2A24" font-family="Arial, sans-serif" font-size="15" font-weight="700">4.3%</text><rect x="290" y="375" width="80" height="23" rx="6" fill="#E59A35"/>
+            <text x="380" y="392" fill="#2F2A24" font-family="Arial, sans-serif" font-size="15" font-weight="700">11.4%</text>
+<text x="255" y="455" text-anchor="end" fill="#2F2A24" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="17" font-weight="700">재시도</text>
+        <text x="255" y="480" text-anchor="end" fill="#706A61" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="13">낮을수록 좋음</text><rect x="290" y="436" width="50" height="23" rx="6" fill="#427A4A"/>
+            <text x="350" y="453" fill="#2F2A24" font-family="Arial, sans-serif" font-size="15" font-weight="700">7.1%</text><rect x="290" y="467" width="150" height="23" rx="6" fill="#E59A35"/>
+            <text x="450" y="484" fill="#2F2A24" font-family="Arial, sans-serif" font-size="15" font-weight="700">21.4%</text>
+  <text x="54" y="646" fill="#706A61" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="15">합성 시뮬레이션 · 실제 사용자 결과나 임상 성능 아님</text>
+</svg>

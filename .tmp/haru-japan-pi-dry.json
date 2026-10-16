@@ -1,0 +1,3566 @@
+{
+  "framework": {
+    "name": "Vite",
+    "slug": "vite"
+  },
+  "basePath": "C:\\project\\saerok-memory\\raspberry-pi-demo",
+  "fileCount": 552,
+  "totalSize": 58080132,
+  "ignoredCount": 52,
+  "ignored": [
+    ".env.local",
+    ".gitignore",
+    ".vercel",
+    "dist\\ja",
+    "dist\\ko",
+    "node_modules",
+    "runtime\\server-ko.err.log",
+    "runtime\\server-ko.out.log",
+    "runtime\\tts-selector",
+    "runtime\\visual-review",
+    "test-results\\.last-run.json",
+    "tools\\fish-day1-browser\\.gitignore",
+    "tools\\fish-day1-browser\\.work",
+    "tools\\fish-day1-browser\\README.md",
+    "tools\\fish-day1-browser\\app.js",
+    "tools\\fish-day1-browser\\audio",
+    "tools\\fish-day1-browser\\calm-mood-candidates",
+    "tools\\fish-day1-browser\\day1-inventory.json",
+    "tools\\fish-day1-browser\\day1-runtime-import.json",
+    "tools\\fish-day1-browser\\day1-selections.json",
+    "tools\\fish-day1-browser\\day1RuntimeAssets.test.mjs",
+    "tools\\fish-day1-browser\\day1RuntimeImport.mjs",
+    "tools\\fish-day1-browser\\day1RuntimeImport.test.mjs",
+    "tools\\fish-day1-browser\\importDay1RightNarration.mjs",
+    "tools\\fish-day1-browser\\index.html",
+    "tools\\fish-day1-browser\\ja",
+    "tools\\fish-day1-browser\\selectionStore.mjs",
+    "tools\\fish-day1-browser\\selectionStore.test.mjs",
+    "tools\\fish-day1-browser\\selector.e2e.test.mjs",
+    "tools\\fish-day1-browser\\server.mjs",
+    "tools\\fish-day1-browser\\server.test.mjs",
+    "tools\\fish-day1-browser\\styles.css",
+    "tools\\tts-comparison\\.gitignore",
+    "tools\\tts-comparison\\build-manifest.mjs",
+    "tools\\tts-comparison\\build-player.mjs",
+    "tools\\tts-comparison\\fish",
+    "tools\\tts-comparison\\index.html",
+    "tools\\tts-comparison\\ko",
+    "tools\\tts-comparison\\kokoro",
+    "tools\\tts-comparison\\manifest.json",
+    "tools\\tts-comparison\\package.json",
+    "tools\\tts-comparison\\qwen",
+    "tools\\tts-comparison\\serve.mjs",
+    "tools\\tts-comparison\\serve.test.mjs",
+    "tools\\tts-comparison\\validate-comparison.mjs",
+    "tools\\tts-comparison\\validate-comparison.test.mjs",
+    "tools\\tts-comparison\\validate-generated.test.mjs",
+    "tools\\tts\\.cache",
+    "tools\\tts\\.gitignore",
+    "tools\\tts\\.venv",
+    "tools\\tts\\.work\\orphaned-20260810-2127",
+    "tools\\tts\\.work\\wav"
+  ],
+  "directories": [
+    {
+      "path": "public",
+      "fileCount": 446,
+      "size": 57279252
+    },
+    {
+      "path": "src",
+      "fileCount": 44,
+      "size": 259211
+    },
+    {
+      "path": "package-lock.json",
+      "fileCount": 1,
+      "size": 156010
+    },
+    {
+      "path": "scripts",
+      "fileCount": 20,
+      "size": 97325
+    },
+    {
+      "path": ".tmp",
+      "fileCount": 3,
+      "size": 90276
+    },
+    {
+      "path": "tools",
+      "fileCount": 12,
+      "size": 84112
+    },
+    {
+      "path": "e2e",
+      "fileCount": 7,
+      "size": 80544
+    },
+    {
+      "path": "README.md",
+      "fileCount": 1,
+      "size": 23911
+    },
+    {
+      "path": "package.json",
+      "fileCount": 1,
+      "size": 2800
+    },
+    {
+      "path": "vite.config.ts",
+      "fileCount": 1,
+      "size": 1341
+    },
+    {
+      "path": "eslint.config.js",
+      "fileCount": 1,
+      "size": 999
+    },
+    {
+      "path": "playwright.config.ts",
+      "fileCount": 1,
+      "size": 861
+    },
+    {
+      "path": "config",
+      "fileCount": 1,
+      "size": 780
+    },
+    {
+      "path": "tsconfig.app.json",
+      "fileCount": 1,
+      "size": 695
+    },
+    {
+      "path": "vitest.config.ts",
+      "fileCount": 1,
+      "size": 554
+    },
+    {
+      "path": "tsconfig.node.json",
+      "fileCount": 1,
+      "size": 480
+    },
+    {
+      "path": "index.html",
+      "fileCount": 1,
+      "size": 368
+    },
+    {
+      "path": "vercel.json",
+      "fileCount": 1,
+      "size": 220
+    },
+    {
+      "path": ".vercelignore",
+      "fileCount": 1,
+      "size": 214
+    },
+    {
+      "path": "tsconfig.json",
+      "fileCount": 1,
+      "size": 119
+    },
+    {
+      "path": "postcss.config.js",
+      "fileCount": 1,
+      "size": 35
+    },
+    {
+      "path": ".gitattributes",
+      "fileCount": 1,
+      "size": 17
+    },
+    {
+      "path": ".node-version",
+      "fileCount": 1,
+      "size": 8
+    },
+    {
+      "path": "dist",
+      "fileCount": 1,
+      "size": 0
+    },
+    {
+      "path": "runtime",
+      "fileCount": 1,
+      "size": 0
+    },
+    {
+      "path": "test-results",
+      "fileCount": 1,
+      "size": 0
+    }
+  ],
+  "largestFiles": [
+    {
+      "path": "public/assets/fonts/NotoSansKR-Variable.ttf",
+      "size": 10414588,
+      "mode": 33206,
+      "sha": "79bfd054156deb890bac8797feb898a97ca64c7f"
+    },
+    {
+      "path": "public/assets/fonts/NotoSansJP-Variable.ttf",
+      "size": 9589900,
+      "mode": 33206,
+      "sha": "55c06f745ac2893afbe3296fbc6a98787865ea59"
+    },
+    {
+      "path": "public/assets/haru/app_icon.png",
+      "size": 1776572,
+      "mode": 33206,
+      "sha": "1fc4f2a3e4804b5ad185341f0dc7bd64aeacbf27"
+    },
+    {
+      "path": "public/assets/haru/cognitive_routine_icons.png",
+      "size": 1771178,
+      "mode": 33206,
+      "sha": "c844e573dc16c38b32a78f4e12b1e4cf14ea9162"
+    },
+    {
+      "path": "public/assets/haru/background_pattern.png",
+      "size": 1769025,
+      "mode": 33206,
+      "sha": "15be481e43bd437682eae17d2c0efbabc5171c7e"
+    },
+    {
+      "path": "public/assets/haru/garden_scene.png",
+      "size": 1762092,
+      "mode": 33206,
+      "sha": "eee3228f6de0cbab40cc19de827f2326e9a8d81a"
+    },
+    {
+      "path": "public/assets/haru/family_connection.png",
+      "size": 1647034,
+      "mode": 33206,
+      "sha": "37e29bd8855e991e2b041d4f04c7cbed2394525b"
+    },
+    {
+      "path": "public/assets/haru/mascot_pose_sheet.png",
+      "size": 1466315,
+      "mode": 33206,
+      "sha": "93f8f80d01ea9c8efe3c372739d99c9906990acb"
+    },
+    {
+      "path": "public/assets/haru/mascot.png",
+      "size": 1447819,
+      "mode": 33206,
+      "sha": "ceb32dd9547785a6d301a001dc0087942f815cbc"
+    },
+    {
+      "path": "public/assets/haru/water_drop.png",
+      "size": 1232632,
+      "mode": 33206,
+      "sha": "de7f3df59c2d9759a3fa6266f38f36b5f549ad71"
+    }
+  ],
+  "files": [
+    {
+      "path": ".gitattributes",
+      "size": 17,
+      "mode": 33206,
+      "sha": "39f969272ec6ad37302ed8aff51de08ebc701985"
+    },
+    {
+      "path": ".node-version",
+      "size": 8,
+      "mode": 33206,
+      "sha": "6c8262b5f9bcc77b6eb6d856d3590b62fa2653cf"
+    },
+    {
+      "path": ".tmp/tts-hometown-a-before/runtime-before.mp3",
+      "size": 30092,
+      "mode": 33206,
+      "sha": "242969382a3d984b17a1ec571bce85a3c0e86518"
+    },
+    {
+      "path": ".tmp/tts-hometown-a-before/source-before-duplicate.mp3",
+      "size": 30092,
+      "mode": 33206,
+      "sha": "242969382a3d984b17a1ec571bce85a3c0e86518"
+    },
+    {
+      "path": ".tmp/tts-hometown-a-before/source-before.mp3",
+      "size": 30092,
+      "mode": 33206,
+      "sha": "242969382a3d984b17a1ec571bce85a3c0e86518"
+    },
+    {
+      "path": ".vercelignore",
+      "size": 214,
+      "mode": 33206,
+      "sha": "5a054a19557e8a3ef85261015d1348b119e82d0b"
+    },
+    {
+      "path": "config/runtime.json",
+      "size": 780,
+      "mode": 33206,
+      "sha": "d41e8d61ca7133cd830887a4fa83570f99855b52"
+    },
+    {
+      "path": "dist",
+      "size": 0,
+      "mode": 16822
+    },
+    {
+      "path": "e2e/appOrigin.ts",
+      "size": 518,
+      "mode": 33206,
+      "sha": "3a59a4c72ae0fdf649c1c41b563e4204e0da17b1"
+    },
+    {
+      "path": "e2e/day1-b-narration.spec.ts",
+      "size": 4855,
+      "mode": 33206,
+      "sha": "0c1f4ea63aa59486d27900c7967f2ddc73408b82"
+    },
+    {
+      "path": "e2e/day1-b-runtime-playback.spec.ts",
+      "size": 9267,
+      "mode": 33206,
+      "sha": "454c9d34fc1c40bce3b8947778092c7e3ff9011e"
+    },
+    {
+      "path": "e2e/day1-calm-mood-runtime-playback.spec.ts",
+      "size": 5780,
+      "mode": 33206,
+      "sha": "9ba7def89e7746be9abc64ac5d74b4d10c257a42"
+    },
+    {
+      "path": "e2e/offline-audio.spec.ts",
+      "size": 11804,
+      "mode": 33206,
+      "sha": "33307bb3c923ee4d755649b9df98cbe2d65b47f9"
+    },
+    {
+      "path": "e2e/offline-four-button-edge-cases.spec.ts",
+      "size": 21199,
+      "mode": 33206,
+      "sha": "68d6175f611b5ab5419373d84a3adcdad37891b4"
+    },
+    {
+      "path": "e2e/offline-four-button.spec.ts",
+      "size": 27121,
+      "mode": 33206,
+      "sha": "9133bab0b78c98b5c8faa524b1510b8be0ec63dc"
+    },
+    {
+      "path": "eslint.config.js",
+      "size": 999,
+      "mode": 33206,
+      "sha": "8340abb0f76235f26545842ff9eb721da6ba55db"
+    },
+    {
+      "path": "index.html",
+      "size": 368,
+      "mode": 33206,
+      "sha": "4dabb7632a9526a91aa8e7321bfc7fd7e42d481d"
+    },
+    {
+      "path": "package-lock.json",
+      "size": 156010,
+      "mode": 33206,
+      "sha": "ee84180314edecf5a434b8cded6c61d78f077a97"
+    },
+    {
+      "path": "package.json",
+      "size": 2800,
+      "mode": 33206,
+      "sha": "cb9f06a630e73e255d2734b0f9a6ebf3233d7765"
+    },
+    {
+      "path": "playwright.config.ts",
+      "size": 861,
+      "mode": 33206,
+      "sha": "dca8559aaff290fb0331cc482b27deb30e6778d2"
+    },
+    {
+      "path": "postcss.config.js",
+      "size": 35,
+      "mode": 33206,
+      "sha": "7126416d0a0a1317a502a8f595c37e1123cec6ac"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/00f1f5c47c741772cb214c7b.ogg",
+      "size": 7048,
+      "mode": 33206,
+      "sha": "75c157bb774520952ff979e947f904315e48fb96"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/0100f79f90a4f5b7f76c106f.ogg",
+      "size": 11004,
+      "mode": 33206,
+      "sha": "9668c9138994c45a90c285a3cecd2c4067fcf85a"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/01301b11f907c34de674d4ab.ogg",
+      "size": 20566,
+      "mode": 33206,
+      "sha": "e5d0227e3106cbb4cc6fce136beb28d76823b283"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/01670993ffdbea91a9e80e90.ogg",
+      "size": 18754,
+      "mode": 33206,
+      "sha": "9584fdcbbe25c2ae6b192dede9174e4183269d1d"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/024c71e9c2f9234dff7ea08a.ogg",
+      "size": 9769,
+      "mode": 33206,
+      "sha": "459d3cdc9e18cc65813098e7d6e8e29d66058d2a"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/02cb508ca03636881392b95b.ogg",
+      "size": 10546,
+      "mode": 33206,
+      "sha": "7fe2c33b77383b6166e3849a727cfec574da26b2"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/0368dc8f4bf6a0d958993cb4.ogg",
+      "size": 78002,
+      "mode": 33206,
+      "sha": "33097148b7008e675e08e11c051c6d26106ec349"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/05641d1e1a04a38ed9bd493f.ogg",
+      "size": 14786,
+      "mode": 33206,
+      "sha": "927c9e60e182dcfc9f3e73609a9146e701d3bbe0"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/057dbb4d83314f97b3dd8a6c.ogg",
+      "size": 5119,
+      "mode": 33206,
+      "sha": "4383463e26099bbf4e43a21c8ff489031295f1e0"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/05e91bd241ee3d15ba17d8ec.ogg",
+      "size": 19188,
+      "mode": 33206,
+      "sha": "9981c5c7280154ecc86c9be66e2c735b9e93a583"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/05f4e743122ce5c2f040f1ad.ogg",
+      "size": 15071,
+      "mode": 33206,
+      "sha": "c7f65abf49e42652a06fef7408c403e5909bd7e3"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/07388f87fc3dcf5d8ddec7ce.ogg",
+      "size": 10676,
+      "mode": 33206,
+      "sha": "3db3e2effe165882c7f3f2ce40ca0dae6b884cf2"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/07e0e9e9634d971e8f82405f.ogg",
+      "size": 11177,
+      "mode": 33206,
+      "sha": "46988099b1e444b17a355fcf120c23aaaeb7aab1"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/09132738df7ad7fea675e4e7.ogg",
+      "size": 5731,
+      "mode": 33206,
+      "sha": "b651ef6c85a3136e0ad83383a7145cc77096b27b"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/09ab7be38a56814796074f69.ogg",
+      "size": 10605,
+      "mode": 33206,
+      "sha": "a6f45e6de7610d3105c189a839d8a43b3b64f38e"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/0aa623838ce10ee032f0168c.ogg",
+      "size": 25339,
+      "mode": 33206,
+      "sha": "1ecbb62e43c72783e87418424413e46282f6a596"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/0d9d71a476e20ba6622d930c.ogg",
+      "size": 7551,
+      "mode": 33206,
+      "sha": "59bcb7e81ea4f4841d4141f0684cf87242f6a07a"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/0daaf3009ed39dc0c73e69bd.ogg",
+      "size": 10359,
+      "mode": 33206,
+      "sha": "405ce25b6bbdf50b72c6e529e6c07a7186de5f56"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/143f3951d760a3ad93c24618.ogg",
+      "size": 21108,
+      "mode": 33206,
+      "sha": "922cfc57ece3f9f833b10bec4aac604a7771c100"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/1582b03d4902a990b3859f02.ogg",
+      "size": 11528,
+      "mode": 33206,
+      "sha": "cd8a49ac6a757b9796d2bc2a3eb946780a5d667b"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/1bee8767c4cda1194c65c6a9.ogg",
+      "size": 8317,
+      "mode": 33206,
+      "sha": "d8e2883069222d001564f3f6b54ddd9a57d374a8"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/1c691816c6b99736a54461ea.ogg",
+      "size": 8452,
+      "mode": 33206,
+      "sha": "e85766b3491deeb575bb31d198d9563b1e214694"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/1e12f659ddcd857b539275f4.ogg",
+      "size": 28606,
+      "mode": 33206,
+      "sha": "3f3d843139a4c101fd6c61675091c51d53d9922c"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/20636ae2337489c3f3e63a6e.ogg",
+      "size": 38466,
+      "mode": 33206,
+      "sha": "dd48e8c4ef7272a5b06e3aaf6953ed5fd33768a2"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/227d6c10527a6bf3cafd21e4.ogg",
+      "size": 17559,
+      "mode": 33206,
+      "sha": "cd562e3f6854eb07d2e3582c8b38143aad352ba4"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/23883a883c1f1fa422b9eeec.ogg",
+      "size": 38967,
+      "mode": 33206,
+      "sha": "daeea3c2b79c9f607a0eef6bf14d299c69b049bd"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/2399e0e2e232170a973bd5b4.ogg",
+      "size": 6463,
+      "mode": 33206,
+      "sha": "aa9a8417bb6044ff4fb71044dd3dcd4ed2ea43dc"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/247b5d65bb8b91aca3022193.ogg",
+      "size": 18688,
+      "mode": 33206,
+      "sha": "f6ccfd1ef0b9d02d710391c11dd7b01a77ceb42d"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/2482b602485fff3b2275b112.ogg",
+      "size": 18452,
+      "mode": 33206,
+      "sha": "19caa7db0fa851c5076b60ba9af34118f2e275ba"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/25ee5a5954218c38dda8d4f3.ogg",
+      "size": 38708,
+      "mode": 33206,
+      "sha": "10625be80f85897487ee1ed2e8bff6df83a792f5"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/26efe21d96a4a0e7bc169a58.ogg",
+      "size": 7871,
+      "mode": 33206,
+      "sha": "7188605e5eba1a6eaaf9e6dbd27c5df191a13a43"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/292d43aaf96c02c4d9cc8667.ogg",
+      "size": 6851,
+      "mode": 33206,
+      "sha": "51951db507aa35848d9d666b2af728af2dc837e6"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/2a6fd28f5be6e35d04ec6c55.ogg",
+      "size": 27508,
+      "mode": 33206,
+      "sha": "2b916f67d903ddc31c1f412e6f0576abba15927f"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/2b3eec93cefd3ed10282d415.ogg",
+      "size": 38000,
+      "mode": 33206,
+      "sha": "d4473faaa6e40ef5482db0eda09bda6cffc95643"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/2c298e402f724daf8fe92ce1.ogg",
+      "size": 6843,
+      "mode": 33206,
+      "sha": "f88b163204a73b9325e625be508cf7a48955cadd"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/2cc9b6115aca34c323d4ea94.ogg",
+      "size": 27688,
+      "mode": 33206,
+      "sha": "30aba5be57d205f430dba0d664086711cdafd09a"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/2d604353d4265fa8766d88cc.ogg",
+      "size": 43307,
+      "mode": 33206,
+      "sha": "10945b85d53db56a6c4a589d6aaa9b8dd32a9335"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/325a88a1a0c89ea499ffd276.ogg",
+      "size": 23523,
+      "mode": 33206,
+      "sha": "7ea54b27176290c4691987a5256d20a3c2200ed9"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/34d6bf740962124a4f9a4749.ogg",
+      "size": 22978,
+      "mode": 33206,
+      "sha": "aab22b8cc19f5ddf5c179620eb791c70bb25f422"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/35ea02f8c3108858eecf6545.ogg",
+      "size": 4439,
+      "mode": 33206,
+      "sha": "b896e96c7a1ba8edfe1b1d3c39b698956d6c171a"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/372caba88e2f59f66791debf.ogg",
+      "size": 6430,
+      "mode": 33206,
+      "sha": "1f54a9167647069e6fec278b3531420ea6c36087"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/37524d03f81490a4947e81d7.ogg",
+      "size": 35061,
+      "mode": 33206,
+      "sha": "bab014d227385bb091b56ed90c47bd15640a9aff"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/3de6efbac921bf9605aaa903.ogg",
+      "size": 70860,
+      "mode": 33206,
+      "sha": "68d129578bb90cf80adfc41ab9e356cc2a274d29"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/3f45e4203adc8f29a9029c81.ogg",
+      "size": 14020,
+      "mode": 33206,
+      "sha": "e74dd345fc8a4c380ef8c3ec78dbf49b8b534c1a"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/41d4d5b973ac699b7e203cb9.ogg",
+      "size": 12553,
+      "mode": 33206,
+      "sha": "ed72966695cba53157515cc8ec7a8bfd1e4970ec"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/427f8e0b2b21ae169cc93d0f.ogg",
+      "size": 19490,
+      "mode": 33206,
+      "sha": "8e19a2f27b16f7535c680c0a342b2873d25d5c7a"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/42c9185eb3c4a11c7844bd66.ogg",
+      "size": 56166,
+      "mode": 33206,
+      "sha": "c1329ed459cdeae532b27882ce05460c88fb3441"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/439e627cc4095992bb2754ec.ogg",
+      "size": 17940,
+      "mode": 33206,
+      "sha": "778b63bd8bab5b15d649f328b506aa81fb663c61"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/4656a4eaf749f77cff26a5aa.ogg",
+      "size": 14690,
+      "mode": 33206,
+      "sha": "11a2034c2f9cf83b3a6ef1a7a55276e1c12185ed"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/4790e4b87cf2fc5bec9455d8.ogg",
+      "size": 8880,
+      "mode": 33206,
+      "sha": "a7da26bac9846e35b136066e327a7ce386bff13e"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/47b739498dbcd7425f6994bb.ogg",
+      "size": 6535,
+      "mode": 33206,
+      "sha": "342bdce2b524a89f8674a7fb8b647c1f922d2d08"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/47da2a48ecfbcb6526d9ea28.ogg",
+      "size": 9468,
+      "mode": 33206,
+      "sha": "d74d9fe842e4451565e6d4174db5b4d7ed82b2e4"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/494c3da021ea24e85e37aa7b.ogg",
+      "size": 27864,
+      "mode": 33206,
+      "sha": "b6ed838b3788801d5a3ce006200a044e2726d054"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/4b0eca66eb642d7d80aa4fd1.ogg",
+      "size": 19009,
+      "mode": 33206,
+      "sha": "e1bde1f071a8a607263f6a79cc5cd081a994964c"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/4c95e15b6ea099c75f3fe6a9.ogg",
+      "size": 29284,
+      "mode": 33206,
+      "sha": "298d5cc1e6ba83b0a778d3a167eb01ff18954ae3"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/4cee4a71fd844dad4ae1b18c.ogg",
+      "size": 26106,
+      "mode": 33206,
+      "sha": "d587249909b334690ff9dd77b4ba1f176d36890f"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/4d1c78b55f1ffd037fcc1944.ogg",
+      "size": 15793,
+      "mode": 33206,
+      "sha": "fb9726c4d3d77de2c437a6869c63e98b70213ac9"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/4f35bc50b2b02d87c770dab6.ogg",
+      "size": 49053,
+      "mode": 33206,
+      "sha": "f7bacbfb0cd43a087b14d09dcc501b6630a6001a"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/4fc6e0ff1fd6593c1e0a9edf.ogg",
+      "size": 39413,
+      "mode": 33206,
+      "sha": "81c1381ca4b5fa390e6301243f78f158206932d3"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/50da218763cde9dff2e36038.ogg",
+      "size": 33715,
+      "mode": 33206,
+      "sha": "45e54c05d24ad218804de59ebf289cd852b3f808"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/51603587e493c2779f44c707.ogg",
+      "size": 28389,
+      "mode": 33206,
+      "sha": "4407da8f2882e93fc17a6496ae762177808d2427"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/54ca73987fa47ee0dc389bbd.ogg",
+      "size": 6541,
+      "mode": 33206,
+      "sha": "e4ab485da4c7b32f6c4dfd2497e2aab8fa70f869"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/570507126319b5daaaaa61d2.ogg",
+      "size": 6546,
+      "mode": 33206,
+      "sha": "334a7c333c54cc34eeb74d76f4fd21c38857023e"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/57587056e139476b25535c4a.ogg",
+      "size": 8934,
+      "mode": 33206,
+      "sha": "248ab4d0d8eeee563a3d34fcead7dfd7580d6818"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/57ddf5509fd59a3d5af38895.ogg",
+      "size": 17355,
+      "mode": 33206,
+      "sha": "abaa33aebaed7de7f2f5bc75747a5c8610e2fc02"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/59bf67a2f1ed6462dbb31572.ogg",
+      "size": 15942,
+      "mode": 33206,
+      "sha": "fed1b73e54054228107c823eb84a2f0aebe85c95"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/5a309b1fa31ea7727ef6eabd.ogg",
+      "size": 17256,
+      "mode": 33206,
+      "sha": "6142154165cbd166435c136af858688baa6880b3"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/5ab165a2bc5501b804b0d6c2.ogg",
+      "size": 4404,
+      "mode": 33206,
+      "sha": "7d0f49f9327db152d19c8ee05c6e0000ca871f84"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/5f9c53c6b0849c95a963392f.ogg",
+      "size": 12204,
+      "mode": 33206,
+      "sha": "9b4386b7b607c7c615b5879fd59cb516e608772f"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/60c08c3718288a1d2c8b41a1.ogg",
+      "size": 26161,
+      "mode": 33206,
+      "sha": "74f849704ec89a828d63135c980a169dabd7b1d1"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/616917aabc10a59cb437b5bd.ogg",
+      "size": 9225,
+      "mode": 33206,
+      "sha": "861c5d5a54bfb43d7d7eabdaa0024e8f5a1855b1"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/624a0d5574c9e66f2e35c321.ogg",
+      "size": 15532,
+      "mode": 33206,
+      "sha": "28a60ed73dd48d7c885819e144c1b4dd619003a4"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/62cad3e738666a5d8e51f01f.ogg",
+      "size": 12321,
+      "mode": 33206,
+      "sha": "517ede567bfeedc5bf85de8cf0ebe3a1c2853a15"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/62d94d363f5778cc8178dbd6.ogg",
+      "size": 19508,
+      "mode": 33206,
+      "sha": "c014928107bce1f162aa456a5d5195291591f6c1"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/640f6e14ce0b9f2f238f0b3d.ogg",
+      "size": 4873,
+      "mode": 33206,
+      "sha": "d32e5c4dddd8129f00f13c9e64f3067fb23b518b"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/64120dd28a98d24f575f7bd1.ogg",
+      "size": 6052,
+      "mode": 33206,
+      "sha": "c52600baf5388fcc9e300e9b1aaa5be716b191b5"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/6495b1b26ce6f802c27a23ac.ogg",
+      "size": 31875,
+      "mode": 33206,
+      "sha": "75b37110686fabff9521ac94a8f7b02a489371e5"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/64dbd51c8d314d3aa2263027.ogg",
+      "size": 23014,
+      "mode": 33206,
+      "sha": "6397e4e3856b9ac048507c46a19425c2f364cc73"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/674ac229b143cb92b52aee3f.ogg",
+      "size": 5411,
+      "mode": 33206,
+      "sha": "2fa684df3bb024340e2f95d3f82e640af3de102f"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/69036bddd6113dbaab953571.ogg",
+      "size": 32778,
+      "mode": 33206,
+      "sha": "1df90bcfcfcdd946636d181e3ce79e277e9ab529"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/69d345062ce32f59ae0b4349.ogg",
+      "size": 43608,
+      "mode": 33206,
+      "sha": "6b28c9b22667c536d316a3a86a436ac2f6b8c02c"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/6ad0d916e5f58e47ce35885c.ogg",
+      "size": 45934,
+      "mode": 33206,
+      "sha": "de9eacd662157563490c2ea58c8e48ffe992d914"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/6bb6dd475dd9a11a077c81f9.ogg",
+      "size": 19056,
+      "mode": 33206,
+      "sha": "a29bf0948fa3980045b7eaf29d671a9349dce5fb"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/6e4c9ee9c0fcfaadfc81364e.ogg",
+      "size": 34085,
+      "mode": 33206,
+      "sha": "8c56de32702f3f9a900d85f99871db08cb8c2209"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/6e4e77951638fbde23e153b6.ogg",
+      "size": 8287,
+      "mode": 33206,
+      "sha": "799dd55a37f34e8166a68c9cf6e173cdd41c4f5a"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/70c5950794762cc06258212e.ogg",
+      "size": 19493,
+      "mode": 33206,
+      "sha": "3230a118a48938174b059bd0b5a7d6d8c02e7d6e"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/70e0dbdc2c22031224cc1fb8.ogg",
+      "size": 21884,
+      "mode": 33206,
+      "sha": "aa6d4df6b4839c62803463b80e4f0f4cd9336b73"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/7350c55cf68b8963056ff263.ogg",
+      "size": 15353,
+      "mode": 33206,
+      "sha": "83550d122f2e052700195e1352811852d29c4f18"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/762e7209f9b10ed1e9deb8fa.ogg",
+      "size": 20129,
+      "mode": 33206,
+      "sha": "74b42197f4ea02ec2e7e9f147cda85427c8e7c6d"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/80fe0167b057f6fe3bd83de2.ogg",
+      "size": 9739,
+      "mode": 33206,
+      "sha": "cb516ccef477e9e6c294f6a4cfc3ec88f618302f"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/8399b6f8d6da5e8a317e050a.ogg",
+      "size": 11578,
+      "mode": 33206,
+      "sha": "b7ecfc7668f492f0284c0027530d800a32966e9e"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/86653e5236811639c5b225b7.ogg",
+      "size": 9412,
+      "mode": 33206,
+      "sha": "573aff39b480659b7ed613a6505df046aafc30d5"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/87444eed057791a852bcf63d.ogg",
+      "size": 9041,
+      "mode": 33206,
+      "sha": "b41f408c6b12bc625cf145ccbece532074ed6cd9"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/8966ba336706f0685772e194.ogg",
+      "size": 11070,
+      "mode": 33206,
+      "sha": "8ad57d554c3c81565449bc3254b88b1d30b986cd"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/8cba106c501b12c0b28267d8.ogg",
+      "size": 8799,
+      "mode": 33206,
+      "sha": "666a76b14261f5ddded3260937cf1dc11c0b7f30"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/8d13e90bfcaa5cb19566b5bc.ogg",
+      "size": 36512,
+      "mode": 33206,
+      "sha": "5c0a359090f5c47c0202076a0787e9b43b711fa8"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/8d3f95c9ab97d6ec947621be.ogg",
+      "size": 14880,
+      "mode": 33206,
+      "sha": "a8308474f710449dd63165b5a4b19701bd4fd598"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/90ba8549ef91d0e3006339c1.ogg",
+      "size": 20320,
+      "mode": 33206,
+      "sha": "2d32097779f615f9ef4f5d22c875998dcb9ca664"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/90df9f47ada641a24f3115f2.ogg",
+      "size": 41932,
+      "mode": 33206,
+      "sha": "e8002968bfa1d5d49c0f2b224c12166b1c583f74"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/912a531d95470015fbc322b3.ogg",
+      "size": 7360,
+      "mode": 33206,
+      "sha": "7d07e9b21cd23fd8c25c15dcdc68fb9f6f9f2d9a"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/91938bcb5284ab40ad1d2214.ogg",
+      "size": 7106,
+      "mode": 33206,
+      "sha": "fa8b70e31e430aa65637117312240c06da50d4cb"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/95c103605eb7121b017b9701.ogg",
+      "size": 21987,
+      "mode": 33206,
+      "sha": "9536e75cf477a0340d3e70aaaaab928beffae477"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/96c6a8215700b913f8f3d582.ogg",
+      "size": 26016,
+      "mode": 33206,
+      "sha": "f765ec255df9321b9d1b2849792ce5e1998d2cf6"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/983d33e58a6cd54da0ed827c.ogg",
+      "size": 7264,
+      "mode": 33206,
+      "sha": "ba45cad68130e882e9974b2cbd386013e33f4114"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/9992c35a14b99119239717a3.ogg",
+      "size": 18129,
+      "mode": 33206,
+      "sha": "ad4eba78a28a9eff093653405889325728ae0024"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/9a11eef53d0c51b20cde57d5.ogg",
+      "size": 17208,
+      "mode": 33206,
+      "sha": "07c58c7b60656406db58cc2194d1fad5178d51bd"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/9a6be3db05bd6c089d113fef.ogg",
+      "size": 6439,
+      "mode": 33206,
+      "sha": "07c349a69b3737a57abc42fe7a50980ad652f774"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/9eed51a153d348a007c9aa2c.ogg",
+      "size": 12028,
+      "mode": 33206,
+      "sha": "30bfe9f45a9b6d1d4db9be2724b0de042cc3e03c"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/9f027ca6909a7647842ea34e.ogg",
+      "size": 21029,
+      "mode": 33206,
+      "sha": "3d220265c76c6cf7c26d130b892fa15cf6b95619"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/9f477471bcdc2e4e42192044.ogg",
+      "size": 19811,
+      "mode": 33206,
+      "sha": "4c609e6a184e76b0275eb52a92bef01ef0536b3a"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/9f4b5e57d554b9796484fca9.ogg",
+      "size": 18093,
+      "mode": 33206,
+      "sha": "1f5db7fbc16c79468834ce392cbfa3d1c8e7fa62"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/a07fc0a0ff72fead306c38d5.ogg",
+      "size": 17783,
+      "mode": 33206,
+      "sha": "2bb8ccc1813d1cb3a153b95d69f6f6484afd3112"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/a12cc4320f7e3b31937aa538.ogg",
+      "size": 10231,
+      "mode": 33206,
+      "sha": "edd454afefefb68305ef8522195014c9442767ab"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/a207d4148d7f5c0eccf23ef5.ogg",
+      "size": 6394,
+      "mode": 33206,
+      "sha": "c1d0aa3251a797762164cf967fd1d8d248e338b8"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/a46a04b96d94fbebe7c27051.ogg",
+      "size": 10759,
+      "mode": 33206,
+      "sha": "afd4b7e608598143887ad242fe573814d35f2c0e"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/a4ff6d6e6389c5c4397b6ba8.ogg",
+      "size": 25192,
+      "mode": 33206,
+      "sha": "b3c9bf8d5b51681e4af3d45e8e461f85f5fd6f16"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/a5020de8b2c2f1fe18e2c226.ogg",
+      "size": 7880,
+      "mode": 33206,
+      "sha": "73121d3e528ceb23c58ecb8359e42505b9cc287a"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/a510b29f8a799dee6289f926.ogg",
+      "size": 31583,
+      "mode": 33206,
+      "sha": "357deaca198edcdaca62124de043fb9b93916d4a"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/a5b37519f36ab57018b0ad92.ogg",
+      "size": 48614,
+      "mode": 33206,
+      "sha": "ef1f04ac37c2033b299d9c1f233e4a3ed3eef644"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/a7c0814babdacd4822719c6a.ogg",
+      "size": 31929,
+      "mode": 33206,
+      "sha": "42b30d2f6e49c210fff039fb59f41e22701eed7d"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/abec5da357c922d7d01fbb6e.ogg",
+      "size": 19819,
+      "mode": 33206,
+      "sha": "8dfb9bcd970eee1d95755576c6fb93e27598f138"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/ac4b93087b3c8e3d992268ca.ogg",
+      "size": 11055,
+      "mode": 33206,
+      "sha": "9c6550cbdf64f3735084442ff1d27a487f9ddb74"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/acd2afd8d027b7893a85277d.ogg",
+      "size": 25218,
+      "mode": 33206,
+      "sha": "6e4b634b73dec495e71ea026fae44e55544b318f"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/aeb1b2b19c94b1e1459a394c.ogg",
+      "size": 15714,
+      "mode": 33206,
+      "sha": "b539a04b1e46db478655eba6995245753e0085a4"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/af7876c3aee3213216d82cd2.ogg",
+      "size": 14324,
+      "mode": 33206,
+      "sha": "be5425cea61c6629dfe24136c040c1ab282a7b88"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/afb78cf6fc31f62089b237da.ogg",
+      "size": 24870,
+      "mode": 33206,
+      "sha": "07cbd7fd03f032bf1779fd427c0e3bfb1a1cab34"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/afdedd1411d20b41efda165e.ogg",
+      "size": 6129,
+      "mode": 33206,
+      "sha": "16e8171fc97ccc6ded5862b0ca29356280697e87"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/b13a0d6ef227f4b69aa1655d.ogg",
+      "size": 20448,
+      "mode": 33206,
+      "sha": "a41529470c3d898af0d614f2d00066b4afe231a4"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/b2cb587ce945d3f6a0fa0213.ogg",
+      "size": 18629,
+      "mode": 33206,
+      "sha": "0cf9c7ed6b5381ab23dd8457caa1dcca70c9701b"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/b405bc447a2d51cb980b9a20.ogg",
+      "size": 13831,
+      "mode": 33206,
+      "sha": "4b5d8a9f3426b695f1d646403d9ebe40de6386d7"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/b41a9f4b674aca248b102faf.ogg",
+      "size": 31882,
+      "mode": 33206,
+      "sha": "823138171fcad78b6ee2de22391496ca271e9906"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/b63c6e9966d29e5214e134c5.ogg",
+      "size": 11899,
+      "mode": 33206,
+      "sha": "10cfd52261d69a0e66dc4f51c2109c925053d4d2"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/b7846725d9547e26b39b5672.ogg",
+      "size": 4117,
+      "mode": 33206,
+      "sha": "6c0d80fe822a75dc17ceccdfd89881eee1d53802"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/b8903e6447051c4fbe2a9a36.ogg",
+      "size": 27885,
+      "mode": 33206,
+      "sha": "d67c311ab07334ec9f6fe1e1698176b30903ddbf"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/bc0a0a82ae03012aeea3e48c.ogg",
+      "size": 8102,
+      "mode": 33206,
+      "sha": "845b358b11416ef9a4ddef2f6e9cb3f4f8b28beb"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/c33c4148d4ca14b69f06e4ca.ogg",
+      "size": 52982,
+      "mode": 33206,
+      "sha": "424eac9b314e25d51493683ca808c5c439ac0ad3"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/c4dea220abb020eed13324f3.ogg",
+      "size": 11348,
+      "mode": 33206,
+      "sha": "31425bdefa414d6672aa1dbe098901ff6e6851cd"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/c5e8084ccbeb738adde09e36.ogg",
+      "size": 6953,
+      "mode": 33206,
+      "sha": "349491bdda593348981a9a23311ea71b95908792"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/c663239ad8dbfd7f146effa3.ogg",
+      "size": 6815,
+      "mode": 33206,
+      "sha": "cd2dbaad1508abec5904709628a09c6b3a9afdb5"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/c71b5be8a93ec2adc5ba9644.ogg",
+      "size": 26521,
+      "mode": 33206,
+      "sha": "f9175d2294d07c5df13f01c135e2233208793d00"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/c831789c253fd689e815789f.ogg",
+      "size": 10881,
+      "mode": 33206,
+      "sha": "dd363e23261d468f4da40655a3b7ec013b390a10"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/c86c26996860877657effe5e.ogg",
+      "size": 21345,
+      "mode": 33206,
+      "sha": "f75b3969c47adc3ecaa48df95221d6f99d14e9a3"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/c8718164cc533017564ca11b.ogg",
+      "size": 25150,
+      "mode": 33206,
+      "sha": "c18030363631abbfbb335b7c9e19d0854f6732a5"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/c884fb3020ac72abf8604fc4.ogg",
+      "size": 8635,
+      "mode": 33206,
+      "sha": "efc316ea5fb3028493a67c190160648a9c8c7475"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/c8d4ac11a70adaf074af22fd.ogg",
+      "size": 17495,
+      "mode": 33206,
+      "sha": "5262d3312ffde03c1d1e5b23355ec33379c77460"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/c9b7778c1b77596ff64b7b3a.ogg",
+      "size": 8390,
+      "mode": 33206,
+      "sha": "36e3b283010481219ceb847bdc7ca0f4c687c5c4"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/cafad30d7e06d9f3b02c373d.ogg",
+      "size": 24574,
+      "mode": 33206,
+      "sha": "aea3720a2c017f01579a2b96627a22a7e1ae7914"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/cb29e94c4ba2a1a0a58b43b9.ogg",
+      "size": 45929,
+      "mode": 33206,
+      "sha": "63e8b06fbe75f499a4a3344608f1874fde930e1a"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/cc664aad1eea1abff23e31e5.ogg",
+      "size": 24046,
+      "mode": 33206,
+      "sha": "9bda6b590cd4819667f3d96b82093b074498b132"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/cca09ff71be40af6907907c1.ogg",
+      "size": 4407,
+      "mode": 33206,
+      "sha": "0056de17cd7131c80b25897b6caaaec8c3eb3ab4"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/d0143aa2ee8e26b51cff9cea.ogg",
+      "size": 12511,
+      "mode": 33206,
+      "sha": "f7bfaff359a1d55f3016c29b033699ba51df1e21"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/d02ce37b5b0968a7b7d5998c.ogg",
+      "size": 7662,
+      "mode": 33206,
+      "sha": "c57434038417738eb08589188bbf18990412d572"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/d08c464163a27120089caf68.ogg",
+      "size": 13584,
+      "mode": 33206,
+      "sha": "2f0d8a6e5b8691a8390fbe90dc3a51da8a897db2"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/d16f6e24594c661d6199bbe4.ogg",
+      "size": 13592,
+      "mode": 33206,
+      "sha": "ff4069d276632cfc47e986d2a1a9df3380801848"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/d2ca5e526bb11a487189dd99.ogg",
+      "size": 13532,
+      "mode": 33206,
+      "sha": "e62e19d7b7a93310332137cae91b82b706668db8"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/d3dbc3450fe42e3da10bc3d4.ogg",
+      "size": 22796,
+      "mode": 33206,
+      "sha": "655aed54a84ce33baa6c2cb256421095f56decf7"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/d567dd0533f886e7cd2339ff.ogg",
+      "size": 10095,
+      "mode": 33206,
+      "sha": "346d4439ab734a5f7bc195f33135f0f2fc5d3e7e"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/d96dbe9ea51e5b946b073880.ogg",
+      "size": 28237,
+      "mode": 33206,
+      "sha": "3087723d0bbc1a0a6e3be0ee251b6dde71d4b1a8"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/d994a5502bab36f4e1464bc8.ogg",
+      "size": 8998,
+      "mode": 33206,
+      "sha": "d0fc7f4e2e1ab083dcb3e1310bb124027617e933"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/daf3df33006d8de390cfe148.ogg",
+      "size": 7057,
+      "mode": 33206,
+      "sha": "0595811fa4c274709b33cef33584bb6e859ec83d"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/01_day_1_greeting.mp3",
+      "size": 56841,
+      "mode": 33206,
+      "sha": "d7afa87cfbd445ac08bd61df6a4a7ed1428ab918"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/02_exercise_d1_q1_prompt.mp3",
+      "size": 56841,
+      "mode": 33206,
+      "sha": "b77437738d54f7864393e9bf69c1f4cb9def34d0"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/03_exercise_d1_q1_option_a.mp3",
+      "size": 15881,
+      "mode": 33206,
+      "sha": "7c53d711e71abf58b3cc7c26b7b1b33f3ee4b0dd"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/04_exercise_d1_q1_option_b.mp3",
+      "size": 9194,
+      "mode": 33206,
+      "sha": "4d4e67c81f8a4173037e707640eed79ed6abdf2e"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/05_exercise_d1_q1_option_c.mp3",
+      "size": 14209,
+      "mode": 33206,
+      "sha": "84a966aa6e49d3449b937c7503ab23a26c4b23e8"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/06_exercise_d1_q1_option_d.mp3",
+      "size": 19643,
+      "mode": 33206,
+      "sha": "1087f39174d63d78ffaa640092daffe1e1bd04c2"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/07_exercise_d1_q2_prompt.mp3",
+      "size": 34271,
+      "mode": 33206,
+      "sha": "afbd510f1d6258e46bb6170c13bd9bd285157647"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/08_exercise_d1_q2_option_a.mp3",
+      "size": 17553,
+      "mode": 33206,
+      "sha": "f95fed5be15b34b3cb307ba0815bffd32876d452"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/09_exercise_d1_q2_option_b.mp3",
+      "size": 12955,
+      "mode": 33206,
+      "sha": "1762252893eb5e43f65513e9fd16c8b327d3ae5f"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/10_exercise_d1_q2_option_c.mp3",
+      "size": 14209,
+      "mode": 33206,
+      "sha": "d41caeb4d7ffa91ddc98666c86f0e11cc4177ad1"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/11_exercise_d1_q2_option_d.mp3",
+      "size": 16717,
+      "mode": 33206,
+      "sha": "5723fa2ca61571f741f2e2b738ed3127af4ec4ce"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/12_exercise_d1_q3_prompt.mp3",
+      "size": 45556,
+      "mode": 33206,
+      "sha": "4b78bbdaa5f2ac70fd63b4c0a0b0fa08884c767d"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/13_exercise_d1_q3_option_a.mp3",
+      "size": 33853,
+      "mode": 33206,
+      "sha": "03dde8d29c885e4b178b9d9b0f398a54c53e3ca9"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/14_exercise_d1_q3_option_b.mp3",
+      "size": 27584,
+      "mode": 33206,
+      "sha": "b43154f03089a92328675aab8612d7704bf3d5fa"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/15_exercise_d1_q3_option_c.mp3",
+      "size": 14209,
+      "mode": 33206,
+      "sha": "95d8ea6fc9a72f372a51505c02d1bb750c335c23"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/16_exercise_d1_q3_option_d.mp3",
+      "size": 31346,
+      "mode": 33206,
+      "sha": "378101a95ecf1a5ae5675e03e7515ba7f358ede8"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/17_exercise_d1_q4_prompt.mp3",
+      "size": 134163,
+      "mode": 33206,
+      "sha": "1ae1203096cc936b67b80f340210e05c44200aed"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/18_exercise_d1_q4_option_a.mp3",
+      "size": 13791,
+      "mode": 33206,
+      "sha": "ffc5e15fbb9213099c4516df243352449db15c63"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/19_exercise_d1_q4_option_b.mp3",
+      "size": 17553,
+      "mode": 33206,
+      "sha": "eb6d7c04c164809ba29551dfbb197facf4f31108"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/20_exercise_d1_q4_option_c.mp3",
+      "size": 16717,
+      "mode": 33206,
+      "sha": "41c022356005894b1f459c1ada3df782129bea1c"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/21_exercise_d1_q4_option_d.mp3",
+      "size": 20897,
+      "mode": 33206,
+      "sha": "52e7b9061a2254b1d3fdd633f106a20cfddedc56"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/22_exercise_d1_q5_prompt.mp3",
+      "size": 68544,
+      "mode": 33206,
+      "sha": "d810ef78c598f5305ee5a635aa182abe0d4f9ddd"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/23_guide_voice_review.mp3",
+      "size": 96965,
+      "mode": 33206,
+      "sha": "2610a3a1b44811637d889b1d71d96666f453710c"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/24_exercise_d1_q6_sequence.mp3",
+      "size": 43466,
+      "mode": 33206,
+      "sha": "f18d653129386eb0542495c6fc9591faa2e7837e"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/25_exercise_d1_q6_option_a.mp3",
+      "size": 13791,
+      "mode": 33206,
+      "sha": "865eab825c94a4f4da184b81da7dba6a85b7fa9c"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/26_exercise_d1_q6_option_b.mp3",
+      "size": 10866,
+      "mode": 33206,
+      "sha": "8bfe98c4750a991c22339f02e7996f5e127c534b"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/27_exercise_d1_q6_option_c.mp3",
+      "size": 11283,
+      "mode": 33206,
+      "sha": "76f77a24834c8664833e427fb08a837a7355781d"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/28_exercise_d1_q6_option_d.mp3",
+      "size": 13791,
+      "mode": 33206,
+      "sha": "873849fe31f1cebfeb00316af0a3c41d9ad5a2bd"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/29_feedback_saved.mp3",
+      "size": 30928,
+      "mode": 33206,
+      "sha": "68806189184cfbf71c6f36fb1c9187e7516049c9"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/30_feedback_try_again.mp3",
+      "size": 60603,
+      "mode": 33206,
+      "sha": "1d15b11acd2b693bff4dd531f1ef89333efc9b45"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/31_day_1_completion.mp3",
+      "size": 81083,
+      "mode": 33206,
+      "sha": "b5c4527452e60290529285e4333acce36c241a18"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/day1/manifest.json",
+      "size": 15811,
+      "mode": 33206,
+      "sha": "3e7d08cb2c536f5b3edf6e76afc562fa8ba543ba"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/dbe5d3648c6566aeca1cae41.ogg",
+      "size": 9911,
+      "mode": 33206,
+      "sha": "c3ec55bcec4b88c4547199be35cc60467a48494f"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/dcbc92961a3833f5ab7017bc.ogg",
+      "size": 29153,
+      "mode": 33206,
+      "sha": "186103c4eafa44328b62fcf35aa20653ec8546b2"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/ddde528cbe9c0b82bf25a2d1.ogg",
+      "size": 17117,
+      "mode": 33206,
+      "sha": "0e45d2d589787fad642f8b95b24eb5337f60f6a1"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/e0761685b89fc3542eb4b877.ogg",
+      "size": 25988,
+      "mode": 33206,
+      "sha": "44101ab352dd11d31b83a4a9bc08793f51bac357"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/e2a18172ac993a60ce4bbdbd.ogg",
+      "size": 21266,
+      "mode": 33206,
+      "sha": "4fb393b92a87445b45e31d0773ce42c8555b28d8"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/e2eaecf21a1a3934748a200e.ogg",
+      "size": 25199,
+      "mode": 33206,
+      "sha": "3e5634eddca5ffe59c0ba6e09d4b9a97d305470f"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/e38724eff99a3aedb629a544.ogg",
+      "size": 11721,
+      "mode": 33206,
+      "sha": "224ce85c43b5d1b9b79f3c61a20e164d73b72281"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/e52e024db06f29c2e2fbef83.ogg",
+      "size": 23740,
+      "mode": 33206,
+      "sha": "f999928c09ec804b2f32b08ed7a6ca2a5a2786dd"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/e6cea0a8bb3aefc579b85dc5.ogg",
+      "size": 13506,
+      "mode": 33206,
+      "sha": "464e6a968e1fdf95bd97a8f026937ec71c787f21"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/e8237f88461022f53763c2f3.ogg",
+      "size": 17971,
+      "mode": 33206,
+      "sha": "02845e1189f6088b510a2184b9b8fff76983bade"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/e95ccfd67a0307269f71a8d9.ogg",
+      "size": 43479,
+      "mode": 33206,
+      "sha": "773e5d58170fb3063cac138af93e48f6a5b8fd4e"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/ec0a6f58dec912a25b5953fa.ogg",
+      "size": 91790,
+      "mode": 33206,
+      "sha": "928b349f6c3543443b9c457e696848409e266795"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/ec8ddfeeb782985d1e1340ce.ogg",
+      "size": 11816,
+      "mode": 33206,
+      "sha": "a1bbb685011ca3bb91cb1369344a7f2a5ca1b7bd"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/eea597228f0e905c01b8ce26.ogg",
+      "size": 34141,
+      "mode": 33206,
+      "sha": "e5f0e679679cab2fc94f5bf14381ee53b7b5e922"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/ef9a4c5f5389d34e8a4c4d27.ogg",
+      "size": 19417,
+      "mode": 33206,
+      "sha": "dc7a0e523bd970f32184992702ef4e0f66fdbc30"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/efa9b021017da33fc6adb61f.ogg",
+      "size": 7490,
+      "mode": 33206,
+      "sha": "2b214f1e4eecc19072c1c60c96da8c00ab4bbe45"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/f4a68815b732526d603d0568.ogg",
+      "size": 30209,
+      "mode": 33206,
+      "sha": "c577da639a775a3fd190f88a709c5e5a980a0d98"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/f54f4e23ee791110717fa19c.ogg",
+      "size": 3866,
+      "mode": 33206,
+      "sha": "1e7ab71d55a05fe70631134898af699819eb9b47"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/fa8196cf44b936627117412f.ogg",
+      "size": 25607,
+      "mode": 33206,
+      "sha": "f0610b6d75d4389965bc3b61ab24621ad9427bde"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/fb1967b89f9ddd94501cbc84.ogg",
+      "size": 11854,
+      "mode": 33206,
+      "sha": "ff188d23139f9dc2ef519edb1ad938682fd291ec"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/fb373d6e55f817118c591dd2.ogg",
+      "size": 24348,
+      "mode": 33206,
+      "sha": "b66caf683919bee5c6b8c84730d17d8ecec7834e"
+    },
+    {
+      "path": "public/assets/audio/narration/ja/fcaa3d137593de6c3a27f7be.ogg",
+      "size": 26931,
+      "mode": 33206,
+      "sha": "3c778404449fb5b850e81cc6544296f6e2a614c1"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/01ce59f671619be74f645da2.ogg",
+      "size": 7032,
+      "mode": 33206,
+      "sha": "15066545e943f8342400fa24215a5f79bbfd45a7"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/032daf104b2a303f5ffca65e.ogg",
+      "size": 8657,
+      "mode": 33206,
+      "sha": "149a34bf5229f045b4cd8503090edbdf7f1eb54c"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/03afa8ed5b5c4a759bcb64de.ogg",
+      "size": 19231,
+      "mode": 33206,
+      "sha": "579f9df512ecd560afc4d6c1787e7d59f10a03e8"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/07d68b674a156d184d6ab065.ogg",
+      "size": 4017,
+      "mode": 33206,
+      "sha": "51da5f6dd97ab8897a196776ae43473a7bdc4f40"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/086b1dc3e54e1f9080d1b8c1.ogg",
+      "size": 25192,
+      "mode": 33206,
+      "sha": "7655f9e8a33093e71397ea356a806232ac4a4970"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/09e661e60f5f5cec3f3ac255.ogg",
+      "size": 6686,
+      "mode": 33206,
+      "sha": "3f89f1a543d0cfe9db08b1147cdb0652830cac0d"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/0b5c7a181186900c9c882288.ogg",
+      "size": 5639,
+      "mode": 33206,
+      "sha": "dfa09f471e81485a1d21a8aa12bcd03fdac65a87"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/0b6537a5996d1be09579e4d4.ogg",
+      "size": 5788,
+      "mode": 33206,
+      "sha": "ec0890b5cf4fb63d5258ea96e06b913d72e3470f"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/0c172ae2b15e1c93f89eff7e.ogg",
+      "size": 13872,
+      "mode": 33206,
+      "sha": "aa7978972954055d06d4db0712ebfdbad6c4b170"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/0ca85c23a45b561d2934ef80.ogg",
+      "size": 7223,
+      "mode": 33206,
+      "sha": "5821c0fb3497666b147419b006989dfe8f958702"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/0ddf4869072a48a1294700bb.ogg",
+      "size": 5146,
+      "mode": 33206,
+      "sha": "5e5051598e56b5e2fbb754c8de26bd28ab455aa9"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/0f7cf11bc90c978ae1185495.ogg",
+      "size": 5276,
+      "mode": 33206,
+      "sha": "b7fa047e44baa619ff4c527251316ce3859e35d5"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/100e57ec12b74a955247a5c7.ogg",
+      "size": 9199,
+      "mode": 33206,
+      "sha": "82d2651066590174caa35394b757d0d324ba720b"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/12483520660157025bf77fb4.ogg",
+      "size": 5081,
+      "mode": 33206,
+      "sha": "88e22090b4bfa06f81feba986d3df16af8ffb515"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/16bff9bd1ccab5d9bdae50d6.ogg",
+      "size": 10669,
+      "mode": 33206,
+      "sha": "70e7254b80af10c581ba36cdcfa15a66bd6d20eb"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/1c35a8a7d6dde9b567743c64.ogg",
+      "size": 8228,
+      "mode": 33206,
+      "sha": "51739f25216150f566accefebf88f076705e5762"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/1df9f4553e1e5860aaddb8db.ogg",
+      "size": 20423,
+      "mode": 33206,
+      "sha": "71259072c79334531ec6e5bf6eab31ca802e45f9"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/2177f2abb28461e3d6f6a855.ogg",
+      "size": 11128,
+      "mode": 33206,
+      "sha": "884c90ecea08071d4e084585bbfa6626f521db22"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/22789ba124bd6e34e0d7a8a2.ogg",
+      "size": 16144,
+      "mode": 33206,
+      "sha": "4415b58950e716e5329113f1cc477fb672018853"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/2292012941b71321551f844a.ogg",
+      "size": 23596,
+      "mode": 33206,
+      "sha": "b4eea7aa28613a3cc71dd6b5215930b3214b813d"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/22abb8a9a71330c84aa3846d.ogg",
+      "size": 6852,
+      "mode": 33206,
+      "sha": "05acdc785b869b3ca901822d2a4befac46fa17b2"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/231c09777d5ae7c3cba22363.ogg",
+      "size": 5402,
+      "mode": 33206,
+      "sha": "a215fb47c353a826b5b2393d6f95df3a52aa662e"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/24d280bbdda58f40322a2643.ogg",
+      "size": 13415,
+      "mode": 33206,
+      "sha": "b577643a6c6d588a88b3e041ee6ee5dcb98fe60b"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/272920e1f756943c1fedae82.ogg",
+      "size": 6915,
+      "mode": 33206,
+      "sha": "12a47c3228e2ee2702a52de9ba6c6108673ddcc8"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/299f31a266ea1524a897da22.ogg",
+      "size": 15239,
+      "mode": 33206,
+      "sha": "0d0ce9fd1c927e9edd73b7f114cef24bc17a4c3f"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/29e985a9953d72743afca584.ogg",
+      "size": 61727,
+      "mode": 33206,
+      "sha": "8bff88f7cd071185e8722fca5ba49e731f959187"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/2a4f82f2cb2259c347b88eff.ogg",
+      "size": 6733,
+      "mode": 33206,
+      "sha": "7aa147883d8ce2733b8d6a370da1060101ffc0d5"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/2b48406f7c24cc222bf240cd.ogg",
+      "size": 10680,
+      "mode": 33206,
+      "sha": "cdc53dd8c5a52348516a5e8e94a8e7e9015d1618"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/2ba771f1012f43be71162a46.ogg",
+      "size": 16102,
+      "mode": 33206,
+      "sha": "188b8271fd738fe555c264d7e7e06510722c44df"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/2d646dd5e89a5aa31a7f08c3.ogg",
+      "size": 6582,
+      "mode": 33206,
+      "sha": "3f94aadfa1b272f773e146a14a78e8da808d12a3"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/311d508755af5df0dc1570de.ogg",
+      "size": 16044,
+      "mode": 33206,
+      "sha": "b30bde9050381646bb270d4d267c8b404255e9b7"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/32451a2140cb5b7bdccd64fb.ogg",
+      "size": 5316,
+      "mode": 33206,
+      "sha": "069287866bd33cd2b0203a8e7c52e0960bf1f75a"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/33ff7ba46d3531c1e7832055.ogg",
+      "size": 8771,
+      "mode": 33206,
+      "sha": "7924ff5fe4911293b9560a1540c7493b11bcb5ca"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/3738668b390ecc196e6957ec.ogg",
+      "size": 12196,
+      "mode": 33206,
+      "sha": "bcd2e014882192632f4fbbaada3ebc6b9eafad8c"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/3a2b37273d4247bddce0f4ee.ogg",
+      "size": 16312,
+      "mode": 33206,
+      "sha": "46d3ac43cd768c5e63959a009c2938b7d951e809"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/3a9e6e98b550f656901558d3.ogg",
+      "size": 3760,
+      "mode": 33206,
+      "sha": "c4d471c502ed6b9b331d05a510efecd1ad041fb9"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/3d73451b966f7a3ebf87a717.ogg",
+      "size": 60714,
+      "mode": 33206,
+      "sha": "898a1cd178b96d5b2b01ba89e4849c8cd5299dd6"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/404191dfe20a399583c1c752.ogg",
+      "size": 9108,
+      "mode": 33206,
+      "sha": "862ac0fb5fb3be3a6f49f4f705506ec27ca539d8"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/4052e093205ccbd4b65ad455.ogg",
+      "size": 13744,
+      "mode": 33206,
+      "sha": "50afa25ba4349877da07fed4f3ab81c48ca04c2a"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/41b22fec5b69d8d1ffc465c6.ogg",
+      "size": 11290,
+      "mode": 33206,
+      "sha": "800d4536c2441a875c108c5b6ea41857ed46bd55"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/44aae4f11ce05a46dd4b92f1.ogg",
+      "size": 8655,
+      "mode": 33206,
+      "sha": "a06bced9cbbe790693547524d1831d9e5ca1ef62"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/4b25259b7300786b951ae928.ogg",
+      "size": 9471,
+      "mode": 33206,
+      "sha": "6f2f8e0fb8d88fcb34cebb7081583bd19c20b70a"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/4c3f8cb4bba819c9df26e464.ogg",
+      "size": 6086,
+      "mode": 33206,
+      "sha": "7d491d48e69b8409c1650e90a4f26e8a79fc8dcd"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/4e31ba1fb67c7578d4167fc8.ogg",
+      "size": 15424,
+      "mode": 33206,
+      "sha": "639bfe5c413e5ff51139b8ddec3a5835129440e5"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/4e99db0c6bb3bc2cfe07fd76.ogg",
+      "size": 40014,
+      "mode": 33206,
+      "sha": "7ae35e0551cd6249657a3fb9da007e7b8a3a3f4d"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/4fca4d262521135858cf67d8.ogg",
+      "size": 12454,
+      "mode": 33206,
+      "sha": "1af6cab61b1612078bf71f6afeddf4cba5ee25ea"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/501f59e87cd845c2c23c72d9.ogg",
+      "size": 33375,
+      "mode": 33206,
+      "sha": "7668d401d494f10c7770dbcc1b8dfaa62496e32e"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/513649ae24b0b8b40842b4f8.ogg",
+      "size": 10544,
+      "mode": 33206,
+      "sha": "f6bc0218e2be7e59ba7e0e0f163794095d25f249"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/528b413044e19d094b30d470.ogg",
+      "size": 11080,
+      "mode": 33206,
+      "sha": "b906f5a80d0fa3f8091718fd771e253d03e1262b"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/531cd585af4361484f6a6f84.ogg",
+      "size": 16062,
+      "mode": 33206,
+      "sha": "1be7cf453f45596c72d48ebb367d1f18d6c1a05a"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/54242575b325be27155c1786.ogg",
+      "size": 37942,
+      "mode": 33206,
+      "sha": "f2558b4df987606ff6a0e663ff7a996dfda9efbc"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/54b6da0e06c5ec4f6344c064.ogg",
+      "size": 6335,
+      "mode": 33206,
+      "sha": "68be7ca0b1d8648a89f611e39e2cda48d7a9ff3a"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/55658158e731f7d03a3ac541.ogg",
+      "size": 6145,
+      "mode": 33206,
+      "sha": "bec725fd6a064a635438d0c4fa5bfb080bacc47e"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/5697eb11b205ce49ae493b23.ogg",
+      "size": 6361,
+      "mode": 33206,
+      "sha": "12a008fd182aac5a0a55559aa05fd29abf38c421"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/56d27e03a91e9921dde06ffc.ogg",
+      "size": 7420,
+      "mode": 33206,
+      "sha": "ac958020af5248594ff01f92ceb1ff51cd82d624"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/5af7bc7cf2f63a12b3b0bf9b.ogg",
+      "size": 22546,
+      "mode": 33206,
+      "sha": "90f998e35fb21f3e6c36f56a2859b4857aa0ee22"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/5be7c42d063edfdb6ac00f71.ogg",
+      "size": 4474,
+      "mode": 33206,
+      "sha": "425d7560a86979ae1ca8877c967e2ba06be194ef"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/5f6ddab1c4dd9a8e350375b5.ogg",
+      "size": 4407,
+      "mode": 33206,
+      "sha": "d85d4026381b83b255671891604145546d48307b"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/629eb04dad333a273f968d92.ogg",
+      "size": 5192,
+      "mode": 33206,
+      "sha": "72b10a9da2b16156eccdb7826f8e64ba5c5da7ff"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/62b2ffaed26c90141399818d.ogg",
+      "size": 25018,
+      "mode": 33206,
+      "sha": "e090a02fa19a5134a17c0dddc33aa0c1b0ad63aa"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/62ca16a9808b4f3613ffba20.ogg",
+      "size": 4694,
+      "mode": 33206,
+      "sha": "2c904a02c5982f937051458e9c64e59713ca54e9"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/640f669aa42bae771d806080.ogg",
+      "size": 11072,
+      "mode": 33206,
+      "sha": "02c684df4d23806120527605cb435f04c2af6aea"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/64fe9d848e9cdaae1f074f04.ogg",
+      "size": 31655,
+      "mode": 33206,
+      "sha": "ef4d17dbd6ee45f7531c3644dbc69a7373945450"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/69a3bb3873087183773d3921.ogg",
+      "size": 31592,
+      "mode": 33206,
+      "sha": "294a86cbeb7a7e62b3b1d48b958434f5e037757a"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/69e1359c9c15cc5db97067bf.ogg",
+      "size": 33177,
+      "mode": 33206,
+      "sha": "0c2d55e01b552c0e67f598b022e1c2911923a5e0"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/6a02ae721c8c4cb366b0509a.ogg",
+      "size": 4321,
+      "mode": 33206,
+      "sha": "53001d40e6c96926fec4110339eff3b167834f16"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/6cd3202321a994ce46e9beef.ogg",
+      "size": 36079,
+      "mode": 33206,
+      "sha": "bc8570352a5b3e0a12f200dd9cc5d3d351484645"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/6d26d93650c241496e424403.ogg",
+      "size": 16925,
+      "mode": 33206,
+      "sha": "a52e56eed4f1980d3bf5919d177bbc5b6fc21529"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/6d866ee90d0c546621e6640c.ogg",
+      "size": 19017,
+      "mode": 33206,
+      "sha": "e70a2827dc649306d2891dc6ae4abedf7588e2f3"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/6e0391efdceca1c1d90ca443.ogg",
+      "size": 20762,
+      "mode": 33206,
+      "sha": "610f6aeee4991a4d1081436bb51259ebfdf379a7"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/6feedb28f01101b0861842ab.ogg",
+      "size": 19255,
+      "mode": 33206,
+      "sha": "ce2fe88ae690245cf26648a44511145bba9b5499"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/70c2fe4bdd7eb00740973728.ogg",
+      "size": 18745,
+      "mode": 33206,
+      "sha": "cb54c1f891ae35f459cf22e86c731606ef52a919"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/7204b1681c2e7aceb8bd5ef5.ogg",
+      "size": 8063,
+      "mode": 33206,
+      "sha": "6ea47f1a4d93b4da6182008824f5fe102840d441"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/733d15047770429c6377797a.ogg",
+      "size": 26200,
+      "mode": 33206,
+      "sha": "9d560b4427a46d8eaef5a445aa4b1b22fc477de3"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/76e56a897accec3ece482800.ogg",
+      "size": 4658,
+      "mode": 33206,
+      "sha": "0906f452ed5629f1bb7e4ca68591c25898fba040"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/77963af8623612f4ca4784da.ogg",
+      "size": 31246,
+      "mode": 33206,
+      "sha": "c3cd222809c391c1d2236a5b920fce38ebd5b36a"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/78d084d833c6d38a784e53b0.ogg",
+      "size": 21388,
+      "mode": 33206,
+      "sha": "cc312617b45dc7b111ce9838dee74675c9212e3c"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/7910a9572572d8d30eaada60.ogg",
+      "size": 18385,
+      "mode": 33206,
+      "sha": "b457be304961067c991d185a4e2f353d3af62ba5"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/7cdcbd3a5d178fedbe0f6ddf.ogg",
+      "size": 5496,
+      "mode": 33206,
+      "sha": "ab003dc18ee8ff1679fae095cd83aa9d91ff8e37"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/821ea7faabf90a520d366649.ogg",
+      "size": 8358,
+      "mode": 33206,
+      "sha": "0f64ca9621894855d6ac5948c5e5648a233a829a"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/835c13019f85de927c09b3a1.ogg",
+      "size": 4354,
+      "mode": 33206,
+      "sha": "6959b0e5853adab2b9f92f7ecb205f97a42cf8b1"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/839cd0be7459e82606b2fee8.ogg",
+      "size": 11720,
+      "mode": 33206,
+      "sha": "21d2a69c22410ece3a8472b89ba1aef79d27ef68"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/8519bb0d37153ab83daed443.ogg",
+      "size": 15778,
+      "mode": 33206,
+      "sha": "11c30c90d2982b7e033ca23a50aae12930366550"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/85b7840018aad3b980861f42.ogg",
+      "size": 17453,
+      "mode": 33206,
+      "sha": "50d119b25112bf6dfb1c81f19d88fbf0d64ca4ed"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/88314c6e9781fa75f023c17c.ogg",
+      "size": 13723,
+      "mode": 33206,
+      "sha": "3f9ea0cf17eb71951f81a3c3a001da46a2949307"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/8b8d31a08a6452a0b6a8a800.ogg",
+      "size": 7035,
+      "mode": 33206,
+      "sha": "46c58f0e9ee8a1ab54fd6c3ca05e066cb9bb17bf"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/8bdb721dd9b28057dac92863.ogg",
+      "size": 12647,
+      "mode": 33206,
+      "sha": "8e30b8b04c28289ce666feda8d515d99a3271b43"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/8f18bcbb922ad221f185171a.ogg",
+      "size": 6956,
+      "mode": 33206,
+      "sha": "aa26d96ef0047198ab290702990b44a0cfc79ddf"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/8fec33433435c087bfde1b26.ogg",
+      "size": 34526,
+      "mode": 33206,
+      "sha": "e614eb593a4cba7048b2444643c0f5df1aee6601"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/90b968cf9b893c1ca419d8e5.ogg",
+      "size": 13965,
+      "mode": 33206,
+      "sha": "247b2d3af34031767788fb140e37a374fd255367"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/920a0ef6d73aa3d182d1ae5b.ogg",
+      "size": 31511,
+      "mode": 33206,
+      "sha": "f2ed8b1c560fa70b6df6150c26adc161299f9b5d"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/922ec421e6a977c07942a8e5.ogg",
+      "size": 10197,
+      "mode": 33206,
+      "sha": "1556d933422e727434b0e6cd210c0616a9eeb1f4"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/9378321565c8741e903dfc07.ogg",
+      "size": 7275,
+      "mode": 33206,
+      "sha": "c5797e9244b37ed899a2cf02cc95d6fba0280fa6"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/946314ac465df1492178f54a.ogg",
+      "size": 20844,
+      "mode": 33206,
+      "sha": "0b996a46a3cbf53192d2937c7a55d95652daeca9"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/94bd2cd8c84cd542a09b78ec.ogg",
+      "size": 26026,
+      "mode": 33206,
+      "sha": "83333bc477367aeffcaa5cef85ccc154fad2738b"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/96b9a969ea398fcd696202d4.ogg",
+      "size": 18095,
+      "mode": 33206,
+      "sha": "a1449b97405090e89d35d79739210e4f4aa48449"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/97c38496b999b310c8785888.ogg",
+      "size": 5255,
+      "mode": 33206,
+      "sha": "6c68d44df09fa58cc4c5a6a4611c7dcbee87f44f"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/99ee008442315e4f45527c18.ogg",
+      "size": 20793,
+      "mode": 33206,
+      "sha": "1c72544106d29f024a675472fc16dabde9201335"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/9ab2e153d66811f151a1b7ec.ogg",
+      "size": 14167,
+      "mode": 33206,
+      "sha": "cb41faac5c6382fcf30795897acbfdb5f38688a5"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/9b966edaa5fc0606f8af492c.ogg",
+      "size": 6049,
+      "mode": 33206,
+      "sha": "5103b51e6ab119b99c8e41d0442cd884c1494cec"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/9c5c67b1650d02938c14a390.ogg",
+      "size": 8314,
+      "mode": 33206,
+      "sha": "ee7590895f3348e01facc6cb1edc2f130d74c1e2"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/9d2e2dcae0193a4fe7497203.ogg",
+      "size": 12323,
+      "mode": 33206,
+      "sha": "f5f04dd3c835b87409686af12e9c5fd88d2e6ee6"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/9d33eed726940345facca045.ogg",
+      "size": 23827,
+      "mode": 33206,
+      "sha": "69a2587d30d2a150c3c61f003d542adab4dc140d"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/9de1b5d9ed15dc7a78f3fa7d.ogg",
+      "size": 6238,
+      "mode": 33206,
+      "sha": "88abfa644090304227605336fba2736e6d5b1eaa"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/9dfb826f2c2d4d980bdc5856.ogg",
+      "size": 7469,
+      "mode": 33206,
+      "sha": "18587e6a13981830fc3077ca9772912cda87581b"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/9ea7480f3166432b75225b8d.ogg",
+      "size": 19610,
+      "mode": 33206,
+      "sha": "dfb47f04ecb750db5a6584206ed86550fd73008d"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/a05a6681888e26d7d4008ef3.ogg",
+      "size": 23744,
+      "mode": 33206,
+      "sha": "ef6b4c1131a553fbb4e15d8a4ae50e3242169ee8"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/a14ac5a49437d2605daa78c5.ogg",
+      "size": 12577,
+      "mode": 33206,
+      "sha": "163e1c877d5e257064a45aa6da41890320d8a9c0"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/a1a23e6be7e27ec74eeabe22.ogg",
+      "size": 5630,
+      "mode": 33206,
+      "sha": "eabecb561b95c9e402d54de74b0f0a648a47bc4d"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/a3e644574647500d219ec8d5.ogg",
+      "size": 30576,
+      "mode": 33206,
+      "sha": "f1069d423ced5c591e506d3156e62e5c90291cb0"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/a58be33b2549e45b37efc338.ogg",
+      "size": 5357,
+      "mode": 33206,
+      "sha": "ce7ac2db0404bcb0118f4196cacb3ec033f6d090"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/a68f213ce24dc978114679f1.ogg",
+      "size": 5717,
+      "mode": 33206,
+      "sha": "d83ff441b2b74eb2cc475a9502331a871db92c48"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/a6ea020f1f90bdcdf8abf009.ogg",
+      "size": 30646,
+      "mode": 33206,
+      "sha": "dad3f8d9c1d99fd2438b95aafeea45bbdb8c477c"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/a80312a94197cdb5b21479b4.ogg",
+      "size": 6265,
+      "mode": 33206,
+      "sha": "9cbc7056c11e5ff64ae855097cab1685c0c82bf4"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/a88ba8e1c4e89c5a19e105d2.ogg",
+      "size": 6038,
+      "mode": 33206,
+      "sha": "1e1a3779bf31d09747ae629c5d92370aba50848d"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/aa0cef900d51fe72f861aebb.ogg",
+      "size": 13682,
+      "mode": 33206,
+      "sha": "bbb8ee33f8ec8d52a653623ec77112e7e8439db9"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/aa49b4adf30288f16acfb189.ogg",
+      "size": 7002,
+      "mode": 33206,
+      "sha": "498c869486620c7b2f205184af0ad719fe8561ca"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/aaafeb8e18309918a5af726a.ogg",
+      "size": 7330,
+      "mode": 33206,
+      "sha": "8b53d98d226b813dbe81b62798a69206010b4186"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/ab070dc7393c62b3ac939b86.ogg",
+      "size": 24098,
+      "mode": 33206,
+      "sha": "41f390266d15a875f7939c2f8e3f0d81e559452e"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/ad74326b56357c3c04280fbc.ogg",
+      "size": 17536,
+      "mode": 33206,
+      "sha": "0bad1216048312aa627148e35fc1e16deeb4a0e2"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/ae1099ff0cd4936f0fd209e0.ogg",
+      "size": 20275,
+      "mode": 33206,
+      "sha": "b89f9c93334f51f5cdfaf85b94fd6b34fdf7260b"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/af5dd41611a20772bac9b962.ogg",
+      "size": 6308,
+      "mode": 33206,
+      "sha": "af3aba4ffc85aa94a85c14a4aa4490aa59200f73"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/b1129d0de16cb715e078cf04.ogg",
+      "size": 24417,
+      "mode": 33206,
+      "sha": "cd9eb375c1b0cbfc4c7d43f84a94ece3d554ed8c"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/b2ef69f6b981d4eaf33364bd.ogg",
+      "size": 31758,
+      "mode": 33206,
+      "sha": "00bfc8240c81ee35cb699ab637902985f7336e3a"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/b2f4b0cf848e4177d4a55af1.ogg",
+      "size": 4427,
+      "mode": 33206,
+      "sha": "2360c30116a3bf04819821bd8e5703f21602d747"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/b356a1521fef232970e6213e.ogg",
+      "size": 50434,
+      "mode": 33206,
+      "sha": "fa23f5760ad52659dff0ebc5c18c39935761a5b9"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/b39fc687950b18203d79b9c0.ogg",
+      "size": 31209,
+      "mode": 33206,
+      "sha": "6fa676b2ed35a465c82432fad48555739c6a0fa0"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/b4b38ea95d2d8eaca60b6245.ogg",
+      "size": 24571,
+      "mode": 33206,
+      "sha": "b25f240cec584cd4f9de11442bd0474d35c61643"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/b5426227dc2ef4552c7c9115.ogg",
+      "size": 22427,
+      "mode": 33206,
+      "sha": "c61aa814c316d9d5f25d00256c4b4614193b1949"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/b9a2fc67fba404acd189fcd6.ogg",
+      "size": 21637,
+      "mode": 33206,
+      "sha": "0e9d238bf86f31ce88fd89a3c29bd6061bf11d42"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/b9ae4f9462fc8ef3c7439462.ogg",
+      "size": 4227,
+      "mode": 33206,
+      "sha": "3052a2b8621bad47adaa390961c36ef5ec511afc"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/bd8c2958b37190600fb5260b.ogg",
+      "size": 32386,
+      "mode": 33206,
+      "sha": "d45ce15df224cda29cc6f493bb2a53127ba8775c"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/befe29d0cc7bc01a344bcd8f.ogg",
+      "size": 44136,
+      "mode": 33206,
+      "sha": "461cc27959b7e71422a3984f0f32b6e1d31c32ee"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/bf08378154e9770b8c5404de.ogg",
+      "size": 5801,
+      "mode": 33206,
+      "sha": "ded181780a1a95fe83538db82ed6e2a2a65a043f"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/bfa7141fd755a009e1c822b8.ogg",
+      "size": 6566,
+      "mode": 33206,
+      "sha": "bfb3f74a6bd3288e1d47822516c91191688bc072"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/c0cabd10557a3c1f18ad8d66.ogg",
+      "size": 6404,
+      "mode": 33206,
+      "sha": "a254a40dbfea6da77a90027627711366930ef58a"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/c1bf5699b300a7c16f7e1e03.ogg",
+      "size": 19718,
+      "mode": 33206,
+      "sha": "de2afe0942644addd9d5011d57be1ee7350f95ce"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/c27693fdc66e2cb6322d1111.ogg",
+      "size": 25597,
+      "mode": 33206,
+      "sha": "5245e4a95f8c91c3f0be12272f3cd4e267dc9246"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/c3a92ee06b9c02b86425c0f5.ogg",
+      "size": 18260,
+      "mode": 33206,
+      "sha": "ea919017f568a7711d374278fecd894eac3fa027"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/c3d7a9ba2a0933dd6fd24d6e.ogg",
+      "size": 13186,
+      "mode": 33206,
+      "sha": "19b628b151639dadadf8e0c4b9a18d21cfd377b2"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/c6dcb920dc1fd3480a0abed6.ogg",
+      "size": 18739,
+      "mode": 33206,
+      "sha": "6ea31581bd549a31c3ddd76c1b5cb9be6b71017d"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/c6ff7ee4f9e4da2a5927b5a1.ogg",
+      "size": 8138,
+      "mode": 33206,
+      "sha": "49ea8a8453e1a5f807d66f495e4e2ae8b445f13d"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/c7e833e1b963f1bb22337981.ogg",
+      "size": 3500,
+      "mode": 33206,
+      "sha": "b137b8639a8e0b517ee3f00df040d3596bfb69f4"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/c9acdebc495b88a6ca6b8724.ogg",
+      "size": 3984,
+      "mode": 33206,
+      "sha": "5ceb4d2bcbbcd9a454be4a52fa711ce7d02364cb"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/ca1d1fe5a20127f8fb174977.ogg",
+      "size": 4187,
+      "mode": 33206,
+      "sha": "8144436f9710727daf9e2b9731a91405e1cda511"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/cad1f41d1f3211aa83e6e932.ogg",
+      "size": 5143,
+      "mode": 33206,
+      "sha": "c298b5f2f1c9a79e3698398be95832ac6e473902"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/cc9872fa586dd187a030f70d.ogg",
+      "size": 4218,
+      "mode": 33206,
+      "sha": "07d26edb2a99b2d2db351d58d751279ff520cdec"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/cd7205e450806cef097dc906.ogg",
+      "size": 8130,
+      "mode": 33206,
+      "sha": "1521c750e5e0967989876fcbd3e1cbe394513a61"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/cd95bd8be096a70604bea510.ogg",
+      "size": 15079,
+      "mode": 33206,
+      "sha": "b3f137d3d72464267322e24369183ba6a2c3d8a5"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/ce0c9b0bd23d95f552e819dd.ogg",
+      "size": 7136,
+      "mode": 33206,
+      "sha": "fa837a17fc9404fc194493f35b48d45e1c4a80f3"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/cebec537e79dc5b987605598.ogg",
+      "size": 8674,
+      "mode": 33206,
+      "sha": "93afb8562bdb8aaf2552174a7d8b63615bc2fa34"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/cef8434f8dd2a8afcac956b8.ogg",
+      "size": 6218,
+      "mode": 33206,
+      "sha": "735377fbdd83697d79586af78abd6894ad7764ef"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/cf0652b369f7b7b6263f66c9.ogg",
+      "size": 25839,
+      "mode": 33206,
+      "sha": "c9b85f04b000a3ea70da577905a78c20396d1714"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/d0619fbf0927efef68bb2091.ogg",
+      "size": 20544,
+      "mode": 33206,
+      "sha": "5386605da0eb64899776244d97f015561f6c08b9"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/d142b471ca39045e7efc526a.ogg",
+      "size": 12048,
+      "mode": 33206,
+      "sha": "01ce2cea115bc01caf7cbadd7a96e062042a3a3a"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/d222f989a905dac8482cb192.ogg",
+      "size": 5195,
+      "mode": 33206,
+      "sha": "6dc456e867100e4e66eb6deaafb7e5c7532cd6e0"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/d3ebc01cbedf21304a99b556.ogg",
+      "size": 57505,
+      "mode": 33206,
+      "sha": "aae683cc7605e20dc47dad97ded75462dfb18dc4"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/d4a4bb455f288beb8804e2ab.ogg",
+      "size": 5388,
+      "mode": 33206,
+      "sha": "4ad23119219e8264f71580661ba17c651ab7d153"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/d56d4082ffe7a69cd3bef409.ogg",
+      "size": 4250,
+      "mode": 33206,
+      "sha": "9e6ed27475c67e9c04918927f4555bd32a527a8d"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/d6eefb3b3a6b2f38fd9fe692.ogg",
+      "size": 3405,
+      "mode": 33206,
+      "sha": "baf883282ad3f82cff47c2611d464def74a86a2f"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/d71d7076bf16ca2f06fd8f7d.ogg",
+      "size": 4869,
+      "mode": 33206,
+      "sha": "820063e5837030e44549ec15e1ee14e987f24e5d"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/d734978cb845bd15a60e7e0f.ogg",
+      "size": 3488,
+      "mode": 33206,
+      "sha": "6739f8107f7546873e91242042c56d2ba63b6ade"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/d8587393ef73bccc98be7ab3.ogg",
+      "size": 9185,
+      "mode": 33206,
+      "sha": "f85ce1bf7b61634cb84c1093b835e838b0991e17"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/d87539261109b4d0239529f8.ogg",
+      "size": 10812,
+      "mode": 33206,
+      "sha": "f60419f81ec0a119aa1d21fca787124d3d8d989b"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/d8e6a0c27bd84d3f58b59e8c.ogg",
+      "size": 15584,
+      "mode": 33206,
+      "sha": "4b2797df471687e2aef9d42fb76b6f6c403c3573"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/d9c7e4b0a83b08fbc9129691.ogg",
+      "size": 4838,
+      "mode": 33206,
+      "sha": "75cbb78e7ae90e4deff2ad3d9de0101bd9c0cd06"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/db3f71130460a3d64a40a9cd.ogg",
+      "size": 15921,
+      "mode": 33206,
+      "sha": "f89b8ffba14163090175f7e9ea61a650c5361646"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/dc5ef417d1b5f4057cf35ae6.ogg",
+      "size": 34704,
+      "mode": 33206,
+      "sha": "2d0de04813d1e8c13d98763b702c667cf1922843"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/dd4dd8801403ae429910b562.ogg",
+      "size": 24031,
+      "mode": 33206,
+      "sha": "881a34b9e8f657d76d25ca8456ae52f8d35a872b"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/dd53fcda37f8e05eeb313ba8.ogg",
+      "size": 44565,
+      "mode": 33206,
+      "sha": "a4323456448f5456e69468b73bafdc0afb1cd14d"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/dd5a8f2a2a36e35cd436fa32.ogg",
+      "size": 24355,
+      "mode": 33206,
+      "sha": "57062cc5b6c01362bb19a9b861dcbee5fbc3386a"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/de7fc8badbd2298d7721cfe4.ogg",
+      "size": 9121,
+      "mode": 33206,
+      "sha": "ad925830654c9f62eb19dc0649ce45d22581e3eb"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/df7b85ddf63f0f33c7764fd6.ogg",
+      "size": 20061,
+      "mode": 33206,
+      "sha": "52fb1ba2660010c41e054fc871117ad0dcd9dc4e"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/e3b9adcbbb4119990ee6c386.ogg",
+      "size": 4727,
+      "mode": 33206,
+      "sha": "654fd4d3d93daa036ea1f5d56d8bca4c22ed4e19"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/e56ba98fbe8bb42e1e6a634b.ogg",
+      "size": 7324,
+      "mode": 33206,
+      "sha": "db3a8a518e56844e29c4f4dd04f794ccee673b4f"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/eb0f2f3e0775661ca607605a.ogg",
+      "size": 19767,
+      "mode": 33206,
+      "sha": "c0637e688e957705741246714f7b68d4c8a10ce7"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/ecba57659aa6bd58861fbdff.ogg",
+      "size": 5608,
+      "mode": 33206,
+      "sha": "11e059dbc41d89be8c2032d3cbaafdd7c83902c4"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/ee530c9bdf9db251090d2811.ogg",
+      "size": 29208,
+      "mode": 33206,
+      "sha": "849aa5d8bbe60e4c7c5251f391816dea592367ad"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/ee95dec67343a43cc0fc4ab1.ogg",
+      "size": 14122,
+      "mode": 33206,
+      "sha": "eb594580adb2e596d837303b6738376f44da4aaf"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/ef23b646f7faf65d5b54836f.ogg",
+      "size": 5890,
+      "mode": 33206,
+      "sha": "671929acfd6c5db684c5f2dac0f51e758bccc5fb"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/f188019462982a401810369c.ogg",
+      "size": 12779,
+      "mode": 33206,
+      "sha": "abd552fc7579bdeb8d543dddb1eb84f10703c3cf"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/f33b3f7d54312a810cf9c1b9.ogg",
+      "size": 8504,
+      "mode": 33206,
+      "sha": "5379aca7d799dbb36c51ba05c0249dd509f796be"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/f4c2a83c532cc6bc090e6871.ogg",
+      "size": 26451,
+      "mode": 33206,
+      "sha": "2d7889fc9c23d4c84ac70fab01cd935b6c9e57f1"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/f5dc0d79c431c8c4e5f04349.ogg",
+      "size": 29319,
+      "mode": 33206,
+      "sha": "1b3f4a3ef153ed50f914129a9cc407a4144ec19b"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/f6a12ca0eaf2db122358f54f.ogg",
+      "size": 5877,
+      "mode": 33206,
+      "sha": "c36a1bdf857bb15196cf7301f485b0346da7e867"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/f7348b9c60acad731382f83b.ogg",
+      "size": 7400,
+      "mode": 33206,
+      "sha": "85a5383845de543175746675b204492e5c1e0707"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/f8eb509711f32297b3969c80.ogg",
+      "size": 4297,
+      "mode": 33206,
+      "sha": "fc19cc7b7d9b1275e3536f80de1e30cb276d1e6f"
+    },
+    {
+      "path": "public/assets/audio/narration/ko/fba8746fdc9d8492a59446dd.ogg",
+      "size": 29919,
+      "mode": 33206,
+      "sha": "fe816e837b0303a703d41fb667d818cd63b8be4c"
+    },
+    {
+      "path": "public/assets/audio/narration/LICENSE.txt",
+      "size": 1302,
+      "mode": 33206,
+      "sha": "f1a6e60fe896a3a75e66acce7619617114803aeb"
+    },
+    {
+      "path": "public/assets/audio/narration/manifest.json",
+      "size": 183437,
+      "mode": 33206,
+      "sha": "b6ac2ed0e20b54c63d65b1c4b163a8ce03298fd7"
+    },
+    {
+      "path": "public/assets/audio/narration/model-source.json",
+      "size": 1028,
+      "mode": 33206,
+      "sha": "6e51eb9b7aa9f7d3984882a98eac17a0b29dd4d2"
+    },
+    {
+      "path": "public/assets/audio/ui/confirm.wav",
+      "size": 8856,
+      "mode": 33206,
+      "sha": "8ab26c9b3fb12f991c7411168449140bc2e1167b"
+    },
+    {
+      "path": "public/assets/audio/ui/LICENSE.txt",
+      "size": 333,
+      "mode": 33206,
+      "sha": "0acf8a88a34c1fd8337832543fe8a73bf36fc32a"
+    },
+    {
+      "path": "public/assets/audio/ui/manifest.json",
+      "size": 2781,
+      "mode": 33206,
+      "sha": "3b6dc1d2a9c04155df020b2f64cd9c7cdd357f57"
+    },
+    {
+      "path": "public/assets/audio/ui/record-start.wav",
+      "size": 13112,
+      "mode": 33206,
+      "sha": "e81306999ef713681fe25bb3e370ac56ac205e25"
+    },
+    {
+      "path": "public/assets/audio/ui/record-stop.wav",
+      "size": 13112,
+      "mode": 33206,
+      "sha": "b1c8c9c197e52ba35a55a44f2bace14e96c6bfff"
+    },
+    {
+      "path": "public/assets/audio/ui/retry.wav",
+      "size": 9294,
+      "mode": 33206,
+      "sha": "f2abe3e91c7eee747384f7660d360e6e74f7240c"
+    },
+    {
+      "path": "public/assets/audio/ui/routine-complete.wav",
+      "size": 47618,
+      "mode": 33206,
+      "sha": "a426e11c946114ff863bd562db3efe1129ddf8e2"
+    },
+    {
+      "path": "public/assets/audio/ui/select.wav",
+      "size": 3640,
+      "mode": 33206,
+      "sha": "008570cf105ea7bedb27f71bf82dfc3b41e8c353"
+    },
+    {
+      "path": "public/assets/audio/ui/success.wav",
+      "size": 25642,
+      "mode": 33206,
+      "sha": "4681ffa4e1499ebdfb51b31b453e3e787743b54c"
+    },
+    {
+      "path": "public/assets/fonts/NotoSansJP-Variable.ttf",
+      "size": 9589900,
+      "mode": 33206,
+      "sha": "55c06f745ac2893afbe3296fbc6a98787865ea59"
+    },
+    {
+      "path": "public/assets/fonts/NotoSansKR-Variable.ttf",
+      "size": 10414588,
+      "mode": 33206,
+      "sha": "79bfd054156deb890bac8797feb898a97ca64c7f"
+    },
+    {
+      "path": "public/assets/fonts/OFL-NotoSansJP.txt",
+      "size": 4387,
+      "mode": 33206,
+      "sha": "13d0e535f77fb8e430c0a8acfc409fc4174a28df"
+    },
+    {
+      "path": "public/assets/fonts/OFL-NotoSansKR.txt",
+      "size": 4387,
+      "mode": 33206,
+      "sha": "13d0e535f77fb8e430c0a8acfc409fc4174a28df"
+    },
+    {
+      "path": "public/assets/haru/app_icon.png",
+      "size": 1776572,
+      "mode": 33206,
+      "sha": "1fc4f2a3e4804b5ad185341f0dc7bd64aeacbf27"
+    },
+    {
+      "path": "public/assets/haru/background_pattern.png",
+      "size": 1769025,
+      "mode": 33206,
+      "sha": "15be481e43bd437682eae17d2c0efbabc5171c7e"
+    },
+    {
+      "path": "public/assets/haru/buddy/cheer_1.png",
+      "size": 906143,
+      "mode": 33206,
+      "sha": "a132575769a0fb2f1d30f9422b050784b1e04396"
+    },
+    {
+      "path": "public/assets/haru/buddy/cheer_2.png",
+      "size": 996819,
+      "mode": 33206,
+      "sha": "9a3f0cf9e4c89938a09e7910a5ae5803df61ed38"
+    },
+    {
+      "path": "public/assets/haru/buddy/cheer_3.png",
+      "size": 938646,
+      "mode": 33206,
+      "sha": "e086b61768390734fe41fcd9b7efffdab0526dba"
+    },
+    {
+      "path": "public/assets/haru/buddy/encourage_1.png",
+      "size": 980707,
+      "mode": 33206,
+      "sha": "b2d3de886a9187b2fd16bae57738625cc7b304eb"
+    },
+    {
+      "path": "public/assets/haru/buddy/idle_1.png",
+      "size": 823735,
+      "mode": 33206,
+      "sha": "050fd4ce0e53a87716cc5016f183ac94e5ff3b80"
+    },
+    {
+      "path": "public/assets/haru/buddy/jump_1.png",
+      "size": 741676,
+      "mode": 33206,
+      "sha": "5510d1f20d0c2e1df183dc4cee93040a693a6a7a"
+    },
+    {
+      "path": "public/assets/haru/buddy/jump_2.png",
+      "size": 845152,
+      "mode": 33206,
+      "sha": "b6ac31366ef5001e26636896add43955fa6764d6"
+    },
+    {
+      "path": "public/assets/haru/buddy/jump_3.png",
+      "size": 779692,
+      "mode": 33206,
+      "sha": "fe535275c157917332150f72b7fb0ccf14236de3"
+    },
+    {
+      "path": "public/assets/haru/buddy/jump_4.png",
+      "size": 745021,
+      "mode": 33206,
+      "sha": "c29fe80347cf2152d76adf0ac23226493f2c73f6"
+    },
+    {
+      "path": "public/assets/haru/buddy/jump_5.png",
+      "size": 849173,
+      "mode": 33206,
+      "sha": "42fdbffa8694d2f2e6a70924d8e7678ca7a02509"
+    },
+    {
+      "path": "public/assets/haru/buddy/wave_1.png",
+      "size": 810128,
+      "mode": 33206,
+      "sha": "7a84e41ebbc6afd6ae80cc72eb52fd001950173f"
+    },
+    {
+      "path": "public/assets/haru/buddy/wave_2.png",
+      "size": 851800,
+      "mode": 33206,
+      "sha": "1e171f27b662b6491bf30960205e3b25aecdf7ef"
+    },
+    {
+      "path": "public/assets/haru/buddy/wave_3.png",
+      "size": 857157,
+      "mode": 33206,
+      "sha": "912fcfaf03967c4c3b02764c77a4eac865982ba4"
+    },
+    {
+      "path": "public/assets/haru/cognitive_routine_icons.png",
+      "size": 1771178,
+      "mode": 33206,
+      "sha": "c844e573dc16c38b32a78f4e12b1e4cf14ea9162"
+    },
+    {
+      "path": "public/assets/haru/family_connection.png",
+      "size": 1647034,
+      "mode": 33206,
+      "sha": "37e29bd8855e991e2b041d4f04c7cbed2394525b"
+    },
+    {
+      "path": "public/assets/haru/garden_scene.png",
+      "size": 1762092,
+      "mode": 33206,
+      "sha": "eee3228f6de0cbab40cc19de827f2326e9a8d81a"
+    },
+    {
+      "path": "public/assets/haru/haru_logo_color.png",
+      "size": 791832,
+      "mode": 33206,
+      "sha": "6ed2ca605997f7c6159721957a67acf37fb0f63b"
+    },
+    {
+      "path": "public/assets/haru/logo_ja_hiragana.png",
+      "size": 843627,
+      "mode": 33206,
+      "sha": "64b61bd82f4fe836869a0d6a62ff626b1906dfae"
+    },
+    {
+      "path": "public/assets/haru/logo_ja_kanji.png",
+      "size": 1199958,
+      "mode": 33206,
+      "sha": "4fff0e6f61c5b2c804dc0949d8f0f9bcc28e52e9"
+    },
+    {
+      "path": "public/assets/haru/logo_ko.png",
+      "size": 799771,
+      "mode": 33206,
+      "sha": "df5b74545449759f072e2fa249979b26998cbdf0"
+    },
+    {
+      "path": "public/assets/haru/logo.png",
+      "size": 791832,
+      "mode": 33206,
+      "sha": "6ed2ca605997f7c6159721957a67acf37fb0f63b"
+    },
+    {
+      "path": "public/assets/haru/mascot_pose_sheet.png",
+      "size": 1466315,
+      "mode": 33206,
+      "sha": "93f8f80d01ea9c8efe3c372739d99c9906990acb"
+    },
+    {
+      "path": "public/assets/haru/mascot_turtle.jpg",
+      "size": 20185,
+      "mode": 33206,
+      "sha": "e25be481e522bde2b6538699cd471e2ef515dc9a"
+    },
+    {
+      "path": "public/assets/haru/mascot.png",
+      "size": 1447819,
+      "mode": 33206,
+      "sha": "ceb32dd9547785a6d301a001dc0087942f815cbc"
+    },
+    {
+      "path": "public/assets/haru/memory_bloom.png",
+      "size": 1047452,
+      "mode": 33206,
+      "sha": "96530fcbf313fd0fd6807f34f0ae8c72cf7a7fe0"
+    },
+    {
+      "path": "public/assets/haru/water_drop.png",
+      "size": 1232632,
+      "mode": 33206,
+      "sha": "de7f3df59c2d9759a3fa6266f38f36b5f549ad71"
+    },
+    {
+      "path": "README.md",
+      "size": 23911,
+      "mode": 33206,
+      "sha": "cb4528c69a270623093982959cd9726404707cc3"
+    },
+    {
+      "path": "runtime",
+      "size": 0,
+      "mode": 16822
+    },
+    {
+      "path": "scripts/autostart-launch.sh",
+      "size": 1751,
+      "mode": 33206,
+      "sha": "37488da9465c20066017638c2d8df99a320b4504"
+    },
+    {
+      "path": "scripts/autostart-pi.sh",
+      "size": 1755,
+      "mode": 33206,
+      "sha": "f1bfb2abd390ab1e152af2f553a76ac6dfb9f5d6"
+    },
+    {
+      "path": "scripts/bootstrap-pi.sh",
+      "size": 3280,
+      "mode": 33206,
+      "sha": "bcb07380c8c5eb24ab2a9be24b85ef7c3a1858be"
+    },
+    {
+      "path": "scripts/build-market.mjs",
+      "size": 2664,
+      "mode": 33206,
+      "sha": "99dfb50f160e84e2ef79b91a691cd08882c401de"
+    },
+    {
+      "path": "scripts/capture-review.mjs",
+      "size": 2074,
+      "mode": 33206,
+      "sha": "8a040fb1069d0f06272df8ad75432961bdc24826"
+    },
+    {
+      "path": "scripts/check-offline-build.mjs",
+      "size": 13096,
+      "mode": 33206,
+      "sha": "ab2df2ce6df09f96664930d7163fbf380411ac73"
+    },
+    {
+      "path": "scripts/display-pi.sh",
+      "size": 1687,
+      "mode": 33206,
+      "sha": "2a114b2fba2d77afc536e0fcee26e856c15ff2bb"
+    },
+    {
+      "path": "scripts/doctor-pi.sh",
+      "size": 8148,
+      "mode": 33206,
+      "sha": "c87c174082afa720e7ce761cd26b5938bd10c25c"
+    },
+    {
+      "path": "scripts/haru-env.sh",
+      "size": 210,
+      "mode": 33206,
+      "sha": "ebd4d2f6113a85d408464a56516e6441f21c5a54"
+    },
+    {
+      "path": "scripts/pi-setup-utils.mjs",
+      "size": 5658,
+      "mode": 33206,
+      "sha": "c9d043552f96fdcdc7e53e903ae5b2d6f63b5d52"
+    },
+    {
+      "path": "scripts/pi-setup-utils.test.mjs",
+      "size": 4642,
+      "mode": 33206,
+      "sha": "d9216ad809a01ec0692d63b5e34847ed5956a013"
+    },
+    {
+      "path": "scripts/provision-pi.sh",
+      "size": 9302,
+      "mode": 33206,
+      "sha": "eb05e53c500249673bfc12b23be6d57923865890"
+    },
+    {
+      "path": "scripts/reset-demo.sh",
+      "size": 1219,
+      "mode": 33206,
+      "sha": "fc5e75a5d2ddf1c7ceb99ad406da79b506f51ef4"
+    },
+    {
+      "path": "scripts/runtime-config.mjs",
+      "size": 2784,
+      "mode": 33206,
+      "sha": "4f3ca5f4ee44b4202aa7a231022e4ea23f1cdf58"
+    },
+    {
+      "path": "scripts/runtime-utils.mjs",
+      "size": 12435,
+      "mode": 33206,
+      "sha": "41d01271756a857780e908a866c9ed3db0b532b7"
+    },
+    {
+      "path": "scripts/runtime.test.mjs",
+      "size": 16071,
+      "mode": 33206,
+      "sha": "414253a6d94aabe1bb1a6d2d98a4fd99a346c528"
+    },
+    {
+      "path": "scripts/server.mjs",
+      "size": 6325,
+      "mode": 33206,
+      "sha": "3a2d071bda70043e21ae757a88f13fa92c1fc828"
+    },
+    {
+      "path": "scripts/start-ja.sh",
+      "size": 150,
+      "mode": 33206,
+      "sha": "847ae67f49ee173107d1da16a9c200e3e5db420b"
+    },
+    {
+      "path": "scripts/start-ko.sh",
+      "size": 150,
+      "mode": 33206,
+      "sha": "d424e7617f2a9afdcf429a37b22c7cd3acb6eeaf"
+    },
+    {
+      "path": "scripts/start-market.sh",
+      "size": 3924,
+      "mode": 33206,
+      "sha": "5d43c47af890d4aaadaf72c74a1bfb81b7bfa6ff"
+    },
+    {
+      "path": "src/App.tsx",
+      "size": 3609,
+      "mode": 33206,
+      "sha": "efe6fe26c526f78de327fb77519bfa0c64e5f341"
+    },
+    {
+      "path": "src/app/OverviewScreens.tsx",
+      "size": 13714,
+      "mode": 33206,
+      "sha": "81d36e8f0da90d7b64c26e2d056b41eb8a16eb99"
+    },
+    {
+      "path": "src/app/productShell.contract.test.tsx",
+      "size": 6605,
+      "mode": 33206,
+      "sha": "8ca7e667eef216359fb570888811993ed17a2d7a"
+    },
+    {
+      "path": "src/components/AppFrame.tsx",
+      "size": 1538,
+      "mode": 33206,
+      "sha": "fe36eaea8f6d4632aeb2d660de8ee8aa760478ea"
+    },
+    {
+      "path": "src/components/ChoiceCard.tsx",
+      "size": 1135,
+      "mode": 33206,
+      "sha": "b7094c0b9a0c1ea83c28d7883b51460d1bc18a9b"
+    },
+    {
+      "path": "src/components/PhysicalButtonGuide.tsx",
+      "size": 965,
+      "mode": 33206,
+      "sha": "251831fb9e2d66d8bcf0fc2ac9d890d670a6a60e"
+    },
+    {
+      "path": "src/components/ProgressBar.tsx",
+      "size": 513,
+      "mode": 33206,
+      "sha": "4cd64b6f404b4b6b0ceb486c67b47099554b3fbf"
+    },
+    {
+      "path": "src/config/market.ts",
+      "size": 1684,
+      "mode": 33206,
+      "sha": "687642c2f3764a8a9248bfa5edf46480c7289a71"
+    },
+    {
+      "path": "src/config/runtimeConfig.test.ts",
+      "size": 1336,
+      "mode": 33206,
+      "sha": "19e11fe5a18040441cabf276d15c08d6b07aa4b4"
+    },
+    {
+      "path": "src/config/runtimeConfig.ts",
+      "size": 1107,
+      "mode": 33206,
+      "sha": "d5ab468e71b150716914566a07bc85a6fa51c84a"
+    },
+    {
+      "path": "src/data/haru7DayExercises.ts",
+      "size": 60101,
+      "mode": 33206,
+      "sha": "f6e33d0abec7e3cb0369c1fcc3fadcd0df18d685"
+    },
+    {
+      "path": "src/data/haruDemoPersona.ts",
+      "size": 2692,
+      "mode": 33206,
+      "sha": "45513aa73eb67881e00167bd42110be1ee3dc80c"
+    },
+    {
+      "path": "src/data/mockExercises.ts",
+      "size": 952,
+      "mode": 33206,
+      "sha": "4363472e6540faf785393c53b589ecd649cc7d31"
+    },
+    {
+      "path": "src/features/audio/AudioManager.test.ts",
+      "size": 6994,
+      "mode": 33206,
+      "sha": "e7548f58f92edf6f2722e86968bd46cd7ea0070b"
+    },
+    {
+      "path": "src/features/audio/AudioManager.ts",
+      "size": 5182,
+      "mode": 33206,
+      "sha": "89d2772ea54a074a30ab5ea8843b14da357a21ec"
+    },
+    {
+      "path": "src/features/audio/index.ts",
+      "size": 420,
+      "mode": 33206,
+      "sha": "90e6c1d9110a23aa216d11efcf78a12107761070"
+    },
+    {
+      "path": "src/features/audio/narrationManifest.test.ts",
+      "size": 5334,
+      "mode": 33206,
+      "sha": "1a9e2dfdd31bfebdfc0860742ed9fcdc1af08ea5"
+    },
+    {
+      "path": "src/features/audio/narrationManifest.ts",
+      "size": 16703,
+      "mode": 33206,
+      "sha": "4c39a4700d57d22f3584a79ad6da6d00f95bfb6c"
+    },
+    {
+      "path": "src/features/input/fourButtonContext.ts",
+      "size": 1451,
+      "mode": 33206,
+      "sha": "e7158d1b7ad299882d3b247581351f7aea323ee5"
+    },
+    {
+      "path": "src/features/input/fourButtonMachine.test.ts",
+      "size": 5262,
+      "mode": 33206,
+      "sha": "15cc954737b3cf01a19665dd12ee35c4d019412c"
+    },
+    {
+      "path": "src/features/input/fourButtonMachine.ts",
+      "size": 7152,
+      "mode": 33206,
+      "sha": "b618d7101b6585594090b58ab37db1fdb9b30450"
+    },
+    {
+      "path": "src/features/input/FourButtonProvider.test.tsx",
+      "size": 12362,
+      "mode": 33206,
+      "sha": "29083da77771b8eeac382221b364810a0e0ff15b"
+    },
+    {
+      "path": "src/features/input/FourButtonProvider.tsx",
+      "size": 5109,
+      "mode": 33206,
+      "sha": "9399785cbcb802d5a1c4d0d43e15f3cc3bbcde00"
+    },
+    {
+      "path": "src/features/input/index.ts",
+      "size": 201,
+      "mode": 33206,
+      "sha": "258e278b2a6aaffef6f113f6e179bacb9ffd3f78"
+    },
+    {
+      "path": "src/features/input/keyConfig.test.ts",
+      "size": 5773,
+      "mode": 33206,
+      "sha": "57187b77b0744fbcc13592271648438b91a534d2"
+    },
+    {
+      "path": "src/features/input/keyConfig.ts",
+      "size": 7185,
+      "mode": 33206,
+      "sha": "7907640ab42432fbd36ca36e98e770cb63a9d7a0"
+    },
+    {
+      "path": "src/features/input/types.ts",
+      "size": 496,
+      "mode": 33206,
+      "sha": "1425061fc5f7d6fedf05d9b05b80f0f66edcb969"
+    },
+    {
+      "path": "src/features/lesson/fallbackWaveform.test.ts",
+      "size": 1201,
+      "mode": 33206,
+      "sha": "bc1ecab0777ae50366bd62901fdbeb10984b4776"
+    },
+    {
+      "path": "src/features/lesson/fallbackWaveform.ts",
+      "size": 2411,
+      "mode": 33206,
+      "sha": "c0f4403141a9346bd82e18ed71ac52af49f0c84a"
+    },
+    {
+      "path": "src/features/lesson/OfflineLesson.test.tsx",
+      "size": 11788,
+      "mode": 33206,
+      "sha": "ec926f7e25a80e3e49eca129b4d7d46b1ba94c96"
+    },
+    {
+      "path": "src/features/lesson/OfflineLesson.tsx",
+      "size": 21231,
+      "mode": 33206,
+      "sha": "e5a2430de4a7cf02b27cff91473feae1a26a3512"
+    },
+    {
+      "path": "src/features/lesson/progressStorage.test.ts",
+      "size": 3081,
+      "mode": 33206,
+      "sha": "6484804ef4f51e11f869d542185f2392c83e97a2"
+    },
+    {
+      "path": "src/features/lesson/progressStorage.ts",
+      "size": 4246,
+      "mode": 33206,
+      "sha": "a098ad5a64c517cde0fd8fdd42938cdd09a3510f"
+    },
+    {
+      "path": "src/features/lesson/questionModel.test.ts",
+      "size": 2168,
+      "mode": 33206,
+      "sha": "37c837397028d7e3e092ff150f4474d8b198b3de"
+    },
+    {
+      "path": "src/features/lesson/questionModel.ts",
+      "size": 2001,
+      "mode": 33206,
+      "sha": "3ef8b2ded1927856cbed6b3320be6f19f5c1994c"
+    },
+    {
+      "path": "src/features/lesson/VoiceAmplitude.test.tsx",
+      "size": 1037,
+      "mode": 33206,
+      "sha": "13942c597dc0b4f01a0ee15de7fd0e1597142e6d"
+    },
+    {
+      "path": "src/features/lesson/VoiceAmplitude.tsx",
+      "size": 4306,
+      "mode": 33206,
+      "sha": "2ed6624735c8f87d52053191db3d244e12e11db2"
+    },
+    {
+      "path": "src/i18n/copy.test.ts",
+      "size": 2363,
+      "mode": 33206,
+      "sha": "1a4979482b11729398f50b1ad7442f6620e67f01"
+    },
+    {
+      "path": "src/i18n/copy.ts",
+      "size": 10242,
+      "mode": 33206,
+      "sha": "70f2b650a0cf5206b58fe96d25c1f682645e6b83"
+    },
+    {
+      "path": "src/main.tsx",
+      "size": 304,
+      "mode": 33206,
+      "sha": "687960b64b16acc1e1cc0655f5d78904783d8d9d"
+    },
+    {
+      "path": "src/setupTests.ts",
+      "size": 43,
+      "mode": 33206,
+      "sha": "6a3a484a8acaed332e38788a722adae708f66542"
+    },
+    {
+      "path": "src/styles.css",
+      "size": 16190,
+      "mode": 33206,
+      "sha": "1f0dc9fd6d848bab5fe94b2ba2630f328f8ba9b9"
+    },
+    {
+      "path": "src/utils/localizedText.ts",
+      "size": 914,
+      "mode": 33206,
+      "sha": "b7a5fa55cb7c3fd7a4790f51f74a7b90f9df2b4f"
+    },
+    {
+      "path": "src/vite-env.d.ts",
+      "size": 110,
+      "mode": 33206,
+      "sha": "6dd3946517da65f231fd44e7a0fd6a0a471b8331"
+    },
+    {
+      "path": "test-results",
+      "size": 0,
+      "mode": 16822
+    },
+    {
+      "path": "tools/fish-day1-browser",
+      "size": 0,
+      "mode": 16822
+    },
+    {
+      "path": "tools/tts-comparison",
+      "size": 0,
+      "mode": 16822
+    },
+    {
+      "path": "tools/tts/.work",
+      "size": 0,
+      "mode": 16822
+    },
+    {
+      "path": "tools/tts/build-source-manifest.mjs",
+      "size": 1344,
+      "mode": 33206,
+      "sha": "e58a013869bf7c8cd259476856b2d706d97ea50b"
+    },
+    {
+      "path": "tools/tts/generate.py",
+      "size": 12241,
+      "mode": 33206,
+      "sha": "de8ba5314b66f004ba14054944a6202ab225d8dd"
+    },
+    {
+      "path": "tools/tts/narration-source.json",
+      "size": 55633,
+      "mode": 33206,
+      "sha": "16074f86c3be7f6b1f3f57863a372ed53c814827"
+    },
+    {
+      "path": "tools/tts/README.md",
+      "size": 1725,
+      "mode": 33206,
+      "sha": "ef6dc1facc2f7405ace4ec4778b07e3ed2214364"
+    },
+    {
+      "path": "tools/tts/requirements-windows-cu126.txt",
+      "size": 120,
+      "mode": 33206,
+      "sha": "3a5b304daff01939081aee93fd496f7af8b9d46b"
+    },
+    {
+      "path": "tools/tts/requirements.txt",
+      "size": 37,
+      "mode": 33206,
+      "sha": "f2cca81ac4bd086b4adafd6af59eefabc86b963c"
+    },
+    {
+      "path": "tools/tts/sourceManifest.mjs",
+      "size": 7503,
+      "mode": 33206,
+      "sha": "2b12b1b27957b14686e6eb97ab3cf21d0dda5b5c"
+    },
+    {
+      "path": "tools/tts/sourceManifest.test.ts",
+      "size": 3380,
+      "mode": 33206,
+      "sha": "247fe27d22de193aba2320adaa30063e90aae385"
+    },
+    {
+      "path": "tools/tts/validate-output.mjs",
+      "size": 2129,
+      "mode": 33206,
+      "sha": "5c3c2710230582256c9b08d04b61b00d7103fac5"
+    },
+    {
+      "path": "tsconfig.app.json",
+      "size": 695,
+      "mode": 33206,
+      "sha": "3f9c6b00a824e81f1d235922d0669e216fe00195"
+    },
+    {
+      "path": "tsconfig.json",
+      "size": 119,
+      "mode": 33206,
+      "sha": "916168243c072245e89f349fb50e0d11696086fb"
+    },
+    {
+      "path": "tsconfig.node.json",
+      "size": 480,
+      "mode": 33206,
+      "sha": "4b627ec1bc9f5c82d7e85d3b1759781118151e0f"
+    },
+    {
+      "path": "vercel.json",
+      "size": 220,
+      "mode": 33206,
+      "sha": "a7cb50916f5ee7e200dcb828d045e9c40c18e114"
+    },
+    {
+      "path": "vite.config.ts",
+      "size": 1341,
+      "mode": 33206,
+      "sha": "45783abe739308864fa5d95c50a0d2890b8658d2"
+    },
+    {
+      "path": "vitest.config.ts",
+      "size": 554,
+      "mode": 33206,
+      "sha": "d511952fc7c8d925b1ba7ce44c86fcb1e277b7ac"
+    }
+  ]
+}

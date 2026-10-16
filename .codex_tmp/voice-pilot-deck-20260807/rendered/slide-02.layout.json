@@ -1,0 +1,1056 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/06fkn1",
+    "id": "06fkn1",
+    "slide": 2,
+    "layoutId": "00fb8ae6-fb45-43e6-b399-b57e7645f3f2",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "da8b4974-fe4f-49ac-841d-bf8e6da02177",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#FFFFFF",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "Pretendard"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "00fb8ae6-fb45-43e6-b399-b57e7645f3f2",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "da8b4974-fe4f-49ac-841d-bf8e6da02177",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "da8b4974-fe4f-49ac-841d-bf8e6da02177",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/be1knedg",
+      "id": "1",
+      "bbox": [
+        1110,
+        38,
+        104,
+        54
+      ],
+      "geometry": "roundRect",
+      "alt": "Haru logo",
+      "contentType": "image/png",
+      "imageFit": "contain",
+      "imageMask": {
+        "geometry": "roundRect",
+        "adjustmentList": [
+          {
+            "name": "adj",
+            "formula": "val 33333"
+          }
+        ]
+      },
+      "asset": {
+        "assetId": "d48927d8-c011-41d4-8e5c-78c4fed7bbc4",
+        "contentType": "image/png",
+        "byteLength": 791832
+      }
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/xczi5k3e",
+      "id": "2",
+      "name": "section-2",
+      "bbox": [
+        70,
+        40,
+        420,
+        26
+      ],
+      "geometry": "rect",
+      "text": "문제 가설",
+      "textPreview": "문제 가설",
+      "resolvedFontSize": 18,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 18,
+        "typeface": "Pretendard",
+        "color": "#B7372E",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "문제 가설"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "문제 가설",
+          "lineSpacingPercent": 108000,
+          "resolvedTextStyle": {
+            "fontSize": 18,
+            "typeface": "Pretendard",
+            "color": "#B7372E",
+            "bold": true,
+            "alignment": "left",
+            "lineSpacing": 1.08
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "문제 가설",
+              "fontSize": 18,
+              "typeface": "Pretendard",
+              "color": "#B7372E",
+              "bold": true,
+              "alignment": "left",
+              "lineSpacing": 1.08
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/wrqhcf2t",
+      "id": "3",
+      "bbox": [
+        70,
+        674,
+        1140,
+        0
+      ],
+      "geometry": "line",
+      "lineColor": "#E7E1D8",
+      "lineWidth": 1
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/jeh07ul4",
+      "id": "4",
+      "name": "footer-left-2",
+      "bbox": [
+        70,
+        684,
+        320,
+        20
+      ],
+      "geometry": "rect",
+      "text": "Haru Voice UX · PRE-PILOT",
+      "textPreview": "Haru Voice UX · PRE-PILOT",
+      "resolvedFontSize": 15,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 15,
+        "typeface": "Pretendard",
+        "color": "#9AA1AA",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Haru Voice UX · PRE-PILOT"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Haru Voice UX · PRE-PILOT",
+          "lineSpacingPercent": 108000,
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "typeface": "Pretendard",
+            "color": "#9AA1AA",
+            "alignment": "left",
+            "lineSpacing": 1.08
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Haru Voice UX · PRE-PILOT",
+              "fontSize": 15,
+              "typeface": "Pretendard",
+              "color": "#9AA1AA",
+              "alignment": "left",
+              "lineSpacing": 1.08
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/yd8zepkz",
+      "id": "5",
+      "name": "footer-caution-2",
+      "bbox": [
+        700,
+        682,
+        430,
+        22
+      ],
+      "geometry": "rect",
+      "text": "합성 시뮬레이션 · 실제 사용자/실제 음성 결과 아님",
+      "textPreview": "합성 시뮬레이션 · 실제 사용자/실제 음성 결과 아님",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 16,
+        "typeface": "Pretendard",
+        "color": "#B7372E",
+        "bold": true,
+        "alignment": "right",
+        "verticalAlignment": "top",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "합성 시뮬레이션 · 실제 사용자/실제 음성 결과 아님"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "합성 시뮬레이션 · 실제 사용자/실제 음성 결과 아님",
+          "lineSpacingPercent": 108000,
+          "resolvedTextStyle": {
+            "fontSize": 16,
+            "typeface": "Pretendard",
+            "color": "#B7372E",
+            "bold": true,
+            "alignment": "right",
+            "lineSpacing": 1.08
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "합성 시뮬레이션 · 실제 사용자/실제 음성 결과 아님",
+              "fontSize": 16,
+              "typeface": "Pretendard",
+              "color": "#B7372E",
+              "bold": true,
+              "alignment": "right",
+              "lineSpacing": 1.08
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/lgzi9k3a",
+      "id": "6",
+      "name": "page-2",
+      "bbox": [
+        1150,
+        682,
+        60,
+        22
+      ],
+      "geometry": "rect",
+      "text": "02",
+      "textPreview": "02",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 16,
+        "typeface": "Pretendard",
+        "color": "#9AA1AA",
+        "bold": true,
+        "alignment": "right",
+        "verticalAlignment": "top",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "02"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "02",
+          "lineSpacingPercent": 108000,
+          "resolvedTextStyle": {
+            "fontSize": 16,
+            "typeface": "Pretendard",
+            "color": "#9AA1AA",
+            "bold": true,
+            "alignment": "right",
+            "lineSpacing": 1.08
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "02",
+              "fontSize": 16,
+              "typeface": "Pretendard",
+              "color": "#9AA1AA",
+              "bold": true,
+              "alignment": "right",
+              "lineSpacing": 1.08
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/kfqhgz2p",
+      "id": "7",
+      "name": "s2-title",
+      "bbox": [
+        70,
+        96,
+        1020,
+        68
+      ],
+      "geometry": "rect",
+      "text": "샘플 흐름에서 이탈은 말하기 구간에 집중됐다",
+      "textPreview": "샘플 흐름에서 이탈은 말하기 구간에 집중됐다",
+      "resolvedFontSize": 50,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 50,
+        "typeface": "Pretendard",
+        "color": "#232528",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "샘플 흐름에서 이탈은 말하기 구간에 집중됐다"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "샘플 흐름에서 이탈은 말하기 구간에 집중됐다",
+          "lineSpacingPercent": 108000,
+          "resolvedTextStyle": {
+            "fontSize": 50,
+            "typeface": "Pretendard",
+            "color": "#232528",
+            "bold": true,
+            "alignment": "left",
+            "lineSpacing": 1.08
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "샘플 흐름에서 이탈은 말하기 구간에 집중됐다",
+              "fontSize": 50,
+              "typeface": "Pretendard",
+              "color": "#232528",
+              "bold": true,
+              "alignment": "left",
+              "lineSpacing": 1.08
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/7i10bulg",
+      "id": "8",
+      "name": "s2-subtitle",
+      "bbox": [
+        72,
+        166,
+        940,
+        40
+      ],
+      "geometry": "rect",
+      "text": "실제 파일럿에서 먼저 원인 코드를 심어야 할 위치가 선명해졌습니다.",
+      "textPreview": "실제 파일럿에서 먼저 원인 코드를 심어야 할 위치가 선명해졌습니다.",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 24,
+        "typeface": "Pretendard",
+        "color": "#68707C",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "실제 파일럿에서 먼저 원인 코드를 심어야 할 위치가 선명해졌습니다."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "실제 파일럿에서 먼저 원인 코드를 심어야 할 위치가 선명해졌습니다.",
+          "lineSpacingPercent": 108000,
+          "resolvedTextStyle": {
+            "fontSize": 24,
+            "typeface": "Pretendard",
+            "color": "#68707C",
+            "alignment": "left",
+            "lineSpacing": 1.08
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "실제 파일럿에서 먼저 원인 코드를 심어야 할 위치가 선명해졌습니다.",
+              "fontSize": 24,
+              "typeface": "Pretendard",
+              "color": "#68707C",
+              "alignment": "left",
+              "lineSpacing": 1.08
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/6h8zipkv",
+      "id": "9",
+      "name": "s2-chart-frame",
+      "bbox": [
+        68,
+        224,
+        726,
+        424
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#FFFFFF",
+      "lineColor": "#E7E1D8",
+      "lineWidth": 1
+    },
+    {
+      "order": 10,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/3atcra9g",
+      "id": "10",
+      "bbox": [
+        82,
+        236,
+        698,
+        400
+      ],
+      "geometry": "roundRect",
+      "alt": "Sample voice question dropout hotspot chart",
+      "contentType": "image/png",
+      "imageFit": "contain",
+      "imageMask": {
+        "geometry": "roundRect",
+        "adjustmentList": [
+          {
+            "name": "adj",
+            "formula": "val 3500"
+          }
+        ]
+      },
+      "asset": {
+        "assetId": "ed7845fd-2636-45f9-81b3-758db72dcdd9",
+        "contentType": "image/png",
+        "byteLength": 19701
+      }
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/xsv2hkz2",
+      "id": "11",
+      "name": "s2-big-rate",
+      "bbox": [
+        842,
+        240,
+        330,
+        82
+      ],
+      "geometry": "rect",
+      "text": "10.0%",
+      "textPreview": "10.0%",
+      "resolvedFontSize": 64,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 64,
+        "typeface": "Pretendard",
+        "color": "#F05E52",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "10.0%"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "10.0%",
+          "lineSpacingPercent": 108000,
+          "resolvedTextStyle": {
+            "fontSize": 64,
+            "typeface": "Pretendard",
+            "color": "#F05E52",
+            "bold": true,
+            "alignment": "left",
+            "lineSpacing": 1.08
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "10.0%",
+              "fontSize": 64,
+              "typeface": "Pretendard",
+              "color": "#F05E52",
+              "bold": true,
+              "alignment": "left",
+              "lineSpacing": 1.08
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 12,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/apk3m50r",
+      "id": "12",
+      "name": "s2-big-rate-label",
+      "bbox": [
+        846,
+        326,
+        310,
+        68
+      ],
+      "geometry": "rect",
+      "text": "음성 문항 이탈\n14 / 140",
+      "textPreview": "음성 문항 이탈 | 14 / 140",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 24,
+        "typeface": "Pretendard",
+        "color": "#232528",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "음성 문항 이탈"
+          },
+          {
+            "index": 2,
+            "text": "14 / 140"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "음성 문항 이탈",
+          "lineSpacingPercent": 108000,
+          "resolvedTextStyle": {
+            "fontSize": 24,
+            "typeface": "Pretendard",
+            "color": "#232528",
+            "bold": true,
+            "alignment": "left",
+            "lineSpacing": 1.08
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "음성 문항 이탈",
+              "fontSize": 24,
+              "typeface": "Pretendard",
+              "color": "#232528",
+              "bold": true,
+              "alignment": "left",
+              "lineSpacing": 1.08
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "14 / 140",
+          "lineSpacingPercent": 108000,
+          "resolvedTextStyle": {
+            "fontSize": 24,
+            "typeface": "Pretendard",
+            "color": "#232528",
+            "bold": true,
+            "alignment": "left",
+            "lineSpacing": 1.08
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "14 / 140",
+              "fontSize": 24,
+              "typeface": "Pretendard",
+              "color": "#232528",
+              "bold": true,
+              "alignment": "left",
+              "lineSpacing": 1.08
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/vqtkfahc",
+      "id": "13",
+      "bbox": [
+        844,
+        418,
+        334,
+        0
+      ],
+      "geometry": "line",
+      "lineColor": "#E7E1D8",
+      "lineWidth": 1
+    },
+    {
+      "order": 14,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/kvmlsfyt",
+      "id": "14",
+      "name": "s2-hotspot-rate",
+      "bbox": [
+        844,
+        442,
+        240,
+        58
+      ],
+      "geometry": "rect",
+      "text": "20.0%",
+      "textPreview": "20.0%",
+      "resolvedFontSize": 46,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 46,
+        "typeface": "Pretendard",
+        "color": "#B7372E",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "autoFit": "none",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "20.0%"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "20.0%",
+          "lineSpacingPercent": 108000,
+          "resolvedTextStyle": {
+            "fontSize": 46,
+            "typeface": "Pretendard",
+            "color": "#B7372E",
+            "bold": true,
+            "alignment": "left",
+            "lineSpacing": 1.08
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "20.0%",
+              "fontSize": 46,
+              "typeface": "Pretendard",
+              "color": "#B7372E",
+              "bold": true,
+              "alignment": "left",
+              "lineSpacing": 1.08
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 15,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/5wv2lkze",
+      "id": "15",
+      "name": "s2-hotspot-label",
+      "bbox": [
+        846,
+        506,
+        300,
+        62
+      ],
+      "geometry": "rect",
+      "text": "D1_Q5 · D4_Q5\n각 4 / 20",
+      "textPreview": "D1_Q5 · D4_Q5 | 각 4 / 20",
+      "resolvedFontSize": 22,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 22,
+        "typeface": "Pretendard",
+        "color": "#68707C",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "D1_Q5 · D4_Q5"
+          },
+          {
+            "index": 2,
+            "text": "각 4 / 20"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "D1_Q5 · D4_Q5",
+          "lineSpacingPercent": 108000,
+          "resolvedTextStyle": {
+            "fontSize": 22,
+            "typeface": "Pretendard",
+            "color": "#68707C",
+            "bold": true,
+            "alignment": "left",
+            "lineSpacing": 1.08
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "D1_Q5 · D4_Q5",
+              "fontSize": 22,
+              "typeface": "Pretendard",
+              "color": "#68707C",
+              "bold": true,
+              "alignment": "left",
+              "lineSpacing": 1.08
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "각 4 / 20",
+          "lineSpacingPercent": 108000,
+          "resolvedTextStyle": {
+            "fontSize": 22,
+            "typeface": "Pretendard",
+            "color": "#68707C",
+            "bold": true,
+            "alignment": "left",
+            "lineSpacing": 1.08
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "각 4 / 20",
+              "fontSize": 22,
+              "typeface": "Pretendard",
+              "color": "#68707C",
+              "bold": true,
+              "alignment": "left",
+              "lineSpacing": 1.08
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 16,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/it43qp0n",
+      "id": "16",
+      "name": "s2-takeaway",
+      "bbox": [
+        844,
+        584,
+        330,
+        62
+      ],
+      "geometry": "rect",
+      "text": "정확도만이 아니라\n말하기 전후 전체를 측정",
+      "textPreview": "정확도만이 아니라 | 말하기 전후 전체를 측정",
+      "resolvedFontSize": 23.92,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 24,
+        "typeface": "Pretendard",
+        "color": "#2F6036",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "정확도만이 아니라"
+          },
+          {
+            "index": 2,
+            "text": "말하기 전후 전체를 측정"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "정확도만이 아니라",
+          "lineSpacingPercent": 108000,
+          "resolvedTextStyle": {
+            "fontSize": 24,
+            "typeface": "Pretendard",
+            "color": "#2F6036",
+            "bold": true,
+            "alignment": "left",
+            "lineSpacing": 1.08
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "정확도만이 아니라",
+              "fontSize": 24,
+              "typeface": "Pretendard",
+              "color": "#2F6036",
+              "bold": true,
+              "alignment": "left",
+              "lineSpacing": 1.08
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "말하기 전후 전체를 측정",
+          "lineSpacingPercent": 108000,
+          "resolvedTextStyle": {
+            "fontSize": 24,
+            "typeface": "Pretendard",
+            "color": "#2F6036",
+            "bold": true,
+            "alignment": "left",
+            "lineSpacing": 1.08
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "말하기 전후 전체를 측정",
+              "fontSize": 24,
+              "typeface": "Pretendard",
+              "color": "#2F6036",
+              "bold": true,
+              "alignment": "left",
+              "lineSpacing": 1.08
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

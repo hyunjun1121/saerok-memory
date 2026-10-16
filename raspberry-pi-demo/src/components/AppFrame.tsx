@@ -25,11 +25,15 @@ export function AppFrame({
   return (
     <div
       className={`offline-app${reserveLessonBottomSpace ? " offline-app--lesson-spacing" : ""}`}
-      data-market={language === "ja" ? "jp" : "kr"}
+      data-market={language === "ja" ? "jp" : language === "en" ? "en" : "kr"}
     >
       <div className="offline-app__stage">
         <header className="screen-header">
-          <img className="screen-header__logo" src={logo} alt={getUiCopy(language, "appName")} />
+          {language === "en" ? (
+            <span className="screen-header__wordmark">{getUiCopy(language, "appName")}</span>
+          ) : (
+            <img className="screen-header__logo" src={logo} alt={getUiCopy(language, "appName")} />
+          )}
           <div className="screen-header__brand">
             <span>{getUiCopy(language, "brandLine")}</span>
           </div>

@@ -99,11 +99,10 @@ npm run build
 npm run dev:local
 ```
 
-STT·RAG는 로컬 GPU/로컬 서비스이며 Vercel 정적 배포에 포함하지 않습니다. 필요한 경우에만 다음을 별도로 실행합니다.
+STT gateway와 RAG는 로컬 서비스이며 Vercel 정적 배포에 포함하지 않습니다. 음성 인식은 동의한 경우 Microsoft에 요청하고, Meta 문항 문구 생성은 별도 동의가 있을 때만 사용합니다.
 
 ```bash
 npm run stt:install
-npm run stt:download
 npm run stt:dev       # 127.0.0.1:8765
 npm run rag:install
 npm run rag:download
@@ -140,20 +139,21 @@ git push origin feat/haru-sound-feedback
 
 상세는 `docs/mentoring-implementation-log.md`, `high_level_plan.md`, `specifie_plan.md` 참고.
 
-## 음성 인식(로컬 GPU STT 백엔드)
+## 음성 인식(Microsoft STT gateway)
 
-모든 음성 응답은 `backend/`의 로컬 Qwen 서비스로 전사합니다.
+`backend/` FastAPI service는 로컬에서 입력을 디코딩·전처리한 뒤 NexQ에 설정된 Microsoft MAI-Transcribe-2 API로 보냅니다. 동의한 원본 음성은 브라우저 IndexedDB에 남습니다.
 
-- 전사: `Qwen/Qwen3-ASR-1.7B` 고정 revision, `cuda:0`, BF16.
-- 타임스탬프: `Qwen/Qwen3-ForcedAligner-0.6B` 고정 revision.
 - API: `POST http://127.0.0.1:8765/api/stt`.
 - 프론트엔드: `src/features/speech/stt.ts`가 녹음 Blob을 업로드합니다.
-- Qwen이 보정된 confidence를 제공하지 않으므로 JSON에는 `null`을 저장합니다.
+- NexQ의 Windows Credential Manager `NexQ:azure_speech` 키를 사용하며, 비밀값을 저장소에 둘 필요가 없습니다.
+- Microsoft에 음성 인식용 WAV가 전송됩니다. 원본 오디오와 저장 동의한 전사문은 이 기기의 브라우저 저장소와 로컬 SQLite에 남습니다.
+- 이전 로컬 STT 동의는 Microsoft 전송 동의로 이어지지 않습니다. 새 설명을 확인하고 설정에서 다시 켜야 합니다.
+- 보정된 confidence를 제공하지 않으므로 JSON에는 `null`을 저장합니다.
 - DC 제거, 80 Hz high-pass, bounded RMS 뒤 전체 발화 무응답만 차단합니다. 조용한 발화와 긴 쉼은 자르지 않습니다.
-- 모델·revision·aligner·전처리·segment·실제 capture sample rate/channel을 JSON에 남깁니다.
-- STT 장애 시에도 루틴 완료는 막지 않습니다. 동의한 음성 Blob과 실패 메타데이터를 남기고 durable outbox가 Qwen을 재시도합니다.
+- 전처리·segment·실제 capture sample rate/channel을 JSON에 남깁니다.
+- STT 장애 시에도 루틴 완료는 막지 않습니다. 전사는 선택 기능이며 실패해도 계속할 수 있습니다.
 
-두 모델과 STT 서비스는 로컬 GPU 전용이며 Vercel 배포 대상이 아닙니다. 상세 계약은 `backend/README.md`를 참고하십시오.
+실행 코드에서 로컬 음성 모델 로더와 GPU 의존성은 제거했습니다. 이전에 받은 모델·캐시는 별도 정리가 필요합니다. 상세 계약은 `backend/README.md`를 참고하십시오.
 
 ## 개인 기억 RAG(로컬 서비스)
 
@@ -167,8 +167,9 @@ git push origin feat/haru-sound-feedback
 - 전체 canonical JSON은 사용자·dataset·body SHA-256별 immutable snapshot으로 보존합니다.
 - SQLite가 원본이고 Neo4j는 선택적 파생 미러입니다. RAG 서비스와 개인 기억 DB도 Vercel 배포 대상이 아닙니다.
 - 관련성 threshold 미만 질문은 근거 없음으로 반환하고 민감 transcript는 기본 검색·자동 문항에서 제외합니다.
+- 다음 날 문항의 답·선택지·전사·개인 사실은 로컬 DB에서 고릅니다. Meta Muse 동의 시 문항 유형·언어 지시·일반 예문만 보내 문구를 만들며, 음성·전사·이름·정답은 보내지 않습니다.
 
-생성형 LLM이 임의 답을 만드는 구조가 아니라 저장된 응답과 원문 근거를 반환하는 구조입니다. 상세 계약은 `rag_backend/README.md`를 참고하십시오.
+Meta API 오류나 키 부재 시 기존 로컬 문항 문구를 사용합니다. 상세 계약은 `rag_backend/README.md`를 참고하십시오.
 
 ## 기술 스택
 
@@ -250,11 +251,10 @@ git push origin feat/haru-sound-feedback
 npm install
 npm run stt:install
 npm run rag:install
-npm run stt:download
 npm run rag:download
 ```
 
-모델 weight는 각각 `backend/models/`, `rag_backend/models/`에 저장되며 Git에서 제외됩니다.
+RAG 임베딩 모델은 `rag_backend/models/`에 저장되며, STT 음성 모델은 내려받지 않습니다.
 
 ## 개발 서버
 
@@ -264,7 +264,7 @@ npm run rag:download
 npm run dev
 ```
 
-Qwen STT, E5 RAG, Vite를 함께 실행:
+Microsoft STT gateway, E5 RAG, Vite를 함께 실행:
 
 ```powershell
 npm run dev:local
@@ -281,12 +281,12 @@ npm test
 npm run build
 ```
 
-현재 검증 상태:
+이 검증 상태는 음성 백엔드 교체 전 기록입니다. 이번 변경에서는 테스트를 실행하지 않았습니다.
 
 - TypeScript build mode 통과
 - ESLint 통과
 - Vitest 59개 파일, 303개 테스트 통과
-- STT 30개 테스트 통과, 실제 GPU/model smoke 1개는 기본 suite에서 제외
+- 이전 STT 30개 테스트와 GPU smoke 기록은 현재 Microsoft gateway 구현에 적용되지 않습니다.
 - RAG 24개 테스트 통과
 - Vite production build 통과
 - Playwright 화면 캡처 69개 통과. 기본 webServer 방식은 Windows에서 worker 종료 지연이 발생해, 최종 검증은 Vite preview 서버를 별도로 띄우고 `PLAYWRIGHT_BASE_URL`을 지정해 exit code 0으로 완료함

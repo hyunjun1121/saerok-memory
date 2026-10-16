@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="7일 참여 흐름">
+  <rect width="1200" height="675" rx="28" fill="#FFFDF7"/>
+  <text x="54" y="62" fill="#2F2A24" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="30" font-weight="800">7일 참여 흐름</text>
+  <text x="54" y="94" fill="#706A61" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="17">일자별 루틴 시작·완료 인원</text>
+  <line x1="86" y1="535" x2="1136" y2="535" stroke="#D9D5CC" stroke-width="2"/>
+  <g>
+        <rect x="108" y="145" width="44" height="390" rx="8" fill="#F8E5BE"/>
+        <rect x="156" y="223" width="44" height="312" rx="8" fill="#427A4A"/>
+        <text x="154" y="565" text-anchor="middle" fill="#2F2A24" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="17" font-weight="700">1일</text>
+        <text x="130" y="135" text-anchor="middle" fill="#706A61" font-family="Arial, sans-serif" font-size="15">20</text>
+        <text x="178" y="213" text-anchor="middle" fill="#427A4A" font-family="Arial, sans-serif" font-size="15" font-weight="700">16</text>
+      </g>
+<g>
+        <rect x="258" y="145" width="44" height="390" rx="8" fill="#F8E5BE"/>
+        <rect x="306" y="184" width="44" height="351" rx="8" fill="#427A4A"/>
+        <text x="304" y="565" text-anchor="middle" fill="#2F2A24" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="17" font-weight="700">2일</text>
+        <text x="280" y="135" text-anchor="middle" fill="#706A61" font-family="Arial, sans-serif" font-size="15">20</text>
+        <text x="328" y="174" text-anchor="middle" fill="#427A4A" font-family="Arial, sans-serif" font-size="15" font-weight="700">18</text>
+      </g>
+<g>
+        <rect x="408" y="145" width="44" height="390" rx="8" fill="#F8E5BE"/>
+        <rect x="456" y="164.5" width="44" height="370.5" rx="8" fill="#427A4A"/>
+        <text x="454" y="565" text-anchor="middle" fill="#2F2A24" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="17" font-weight="700">3일</text>
+        <text x="430" y="135" text-anchor="middle" fill="#706A61" font-family="Arial, sans-serif" font-size="15">20</text>
+        <text x="478" y="154.5" text-anchor="middle" fill="#427A4A" font-family="Arial, sans-serif" font-size="15" font-weight="700">19</text>
+      </g>
+<g>
+        <rect x="558" y="145" width="44" height="390" rx="8" fill="#F8E5BE"/>
+        <rect x="606" y="223" width="44" height="312" rx="8" fill="#427A4A"/>
+        <text x="604" y="565" text-anchor="middle" fill="#2F2A24" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="17" font-weight="700">4일</text>
+        <text x="580" y="135" text-anchor="middle" fill="#706A61" font-family="Arial, sans-serif" font-size="15">20</text>
+        <text x="628" y="213" text-anchor="middle" fill="#427A4A" font-family="Arial, sans-serif" font-size="15" font-weight="700">16</text>
+      </g>
+<g>
+        <rect x="708" y="145" width="44" height="390" rx="8" fill="#F8E5BE"/>
+        <rect x="756" y="184" width="44" height="351" rx="8" fill="#427A4A"/>
+        <text x="754" y="565" text-anchor="middle" fill="#2F2A24" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="17" font-weight="700">5일</text>
+        <text x="730" y="135" text-anchor="middle" fill="#706A61" font-family="Arial, sans-serif" font-size="15">20</text>
+        <text x="778" y="174" text-anchor="middle" fill="#427A4A" font-family="Arial, sans-serif" font-size="15" font-weight="700">18</text>
+      </g>
+<g>
+        <rect x="858" y="145" width="44" height="390" rx="8" fill="#F8E5BE"/>
+        <rect x="906" y="164.5" width="44" height="370.5" rx="8" fill="#427A4A"/>
+        <text x="904" y="565" text-anchor="middle" fill="#2F2A24" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="17" font-weight="700">6일</text>
+        <text x="880" y="135" text-anchor="middle" fill="#706A61" font-family="Arial, sans-serif" font-size="15">20</text>
+        <text x="928" y="154.5" text-anchor="middle" fill="#427A4A" font-family="Arial, sans-serif" font-size="15" font-weight="700">19</text>
+      </g>
+<g>
+        <rect x="1008" y="145" width="44" height="390" rx="8" fill="#F8E5BE"/>
+        <rect x="1056" y="145" width="44" height="390" rx="8" fill="#427A4A"/>
+        <text x="1054" y="565" text-anchor="middle" fill="#2F2A24" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="17" font-weight="700">7일</text>
+        <text x="1030" y="135" text-anchor="middle" fill="#706A61" font-family="Arial, sans-serif" font-size="15">20</text>
+        <text x="1078" y="135" text-anchor="middle" fill="#427A4A" font-family="Arial, sans-serif" font-size="15" font-weight="700">20</text>
+      </g>
+  <g transform="translate(850 112)">
+    <rect width="18" height="18" rx="4" fill="#F8E5BE"/><text x="27" y="15" fill="#706A61" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="16">시작</text>
+    <rect x="100" width="18" height="18" rx="4" fill="#427A4A"/><text x="127" y="15" fill="#706A61" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="16">완료</text>
+  </g>
+  <text x="54" y="646" fill="#706A61" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="15">Haru 음성 UX · 샘플 데이터 · 20명 × 7일</text>
+</svg>

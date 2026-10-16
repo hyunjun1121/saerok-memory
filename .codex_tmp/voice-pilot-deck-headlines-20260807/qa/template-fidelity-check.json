@@ -1,0 +1,13 @@
+{
+  "status": "pass",
+  "checkedAt": "2026-08-07T04:29:24.262Z",
+  "workspace": "C:\\project\\saerok-memory\\.codex_tmp\\voice-pilot-deck-headlines-20260807",
+  "finalPptx": "C:\\project\\saerok-memory\\.codex_tmp\\voice-pilot-deck-headlines-20260807\\edited.pptx",
+  "starterPptx": "C:\\project\\saerok-memory\\.codex_tmp\\voice-pilot-deck-headlines-20260807\\template-starter.pptx",
+  "mapPath": "C:\\project\\saerok-memory\\.codex_tmp\\voice-pilot-deck-headlines-20260807\\template-frame-map.json",
+  "starterLayoutDir": "C:\\project\\saerok-memory\\.codex_tmp\\voice-pilot-deck-headlines-20260807\\manual-inspect",
+  "finalLayoutDir": "C:\\project\\saerok-memory\\.codex_tmp\\voice-pilot-deck-headlines-20260807\\final-render",
+  "editDir": "C:\\project\\saerok-memory\\.codex_tmp\\voice-pilot-deck-headlines-20260807",
+  "issueCount": 0,
+  "issues": []
+}

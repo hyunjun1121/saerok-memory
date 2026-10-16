@@ -80,7 +80,10 @@ export default function App() {
     void loadRuntimeInputConfig().then((result) => {
       if (disposed) return;
       setRuntimeConfig(result);
-      if (result.status === "ready") void audioManager.load();
+      if (result.status === "ready") {
+        audioManager.setNarrationEnabled(result.narrationEnabled);
+        if (result.narrationEnabled) void audioManager.load();
+      }
     });
     return () => {
       disposed = true;

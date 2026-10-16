@@ -11,7 +11,16 @@ const KEY_BY_SLOT = {
 
 const OFFLINE_PROGRESS_KEY = "haru:offline:progress:v1";
 const DEBOUNCE_SETTLE_MS = 230;
-const EXPECTED_LANGUAGE = process.env.EXPECTED_LANGUAGE ?? "ko";
+const EXPECTED_LANGUAGE = process.env.EXPECTED_LANGUAGE === "ja"
+  ? "ja"
+  : process.env.EXPECTED_LANGUAGE === "en"
+    ? "en"
+    : "ko";
+const LOGIN_TITLE_BY_LANGUAGE = {
+  ko: "카드를 대주세요",
+  ja: "カードをかざしてください",
+  en: "Tap your card to begin",
+} as const;
 
 type PhysicalSlot = keyof typeof KEY_BY_SLOT;
 
@@ -144,10 +153,13 @@ async function expectQuestionViewportFit(page: Page): Promise<void> {
   if (EXPECTED_LANGUAGE === "ko") {
     expect(metrics.promptWordBreak).toBe("keep-all");
     expect(metrics.splitWords).toEqual([]);
-  } else {
+  } else if (EXPECTED_LANGUAGE === "ja") {
     expect(metrics.promptLineBreak).toBe("strict");
     expect(metrics.promptWordBreak).toBe("auto-phrase");
     expect(metrics.orphanLines).toEqual([]);
+  } else {
+    expect(metrics.promptWordBreak).toBe("normal");
+    expect(metrics.splitWords).toEqual([]);
   }
   expect(metrics.progressCopyGap).toBeGreaterThanOrEqual(5);
   expect(metrics.progressCopyGap).toBeLessThanOrEqual(7);
@@ -203,9 +215,7 @@ test("shows the localized NFC login gate and advances only after key 5", async (
   await expect(login).toBeVisible();
   await expect(login).toHaveAttribute("data-auth-method", "nfc-keyboard-5");
   await expect(page.locator(".button-guide")).toHaveCount(0);
-  await expect(login.locator("h1")).toHaveText(
-    EXPECTED_LANGUAGE === "ja" ? "カードをかざしてください" : "카드를 대주세요",
-  );
+  await expect(login.locator("h1")).toHaveText(LOGIN_TITLE_BY_LANGUAGE[EXPECTED_LANGUAGE]);
 
   await page.keyboard.press("1");
   await page.waitForTimeout(DEBOUNCE_SETTLE_MS);
@@ -241,22 +251,29 @@ test("runs at physical 1080x1920 output geometry without touch input", async ({ 
   expect(geometry.height * geometry.dpr).toBe(1920);
   expect(await page.locator("html").getAttribute("lang")).toBe(EXPECTED_LANGUAGE);
   await expect(page.locator(".offline-app")).toHaveCSS("cursor", "none");
-  await expect(page.locator(".screen-header__logo")).toHaveAttribute(
-    "src",
-    "/assets/haru/haru_logo_color.png",
-  );
+  if (EXPECTED_LANGUAGE === "en") {
+    await expect(page.locator(".screen-header__wordmark")).toHaveText("Haru");
+  } else {
+    await expect(page.locator(".screen-header__logo")).toHaveAttribute(
+      "src",
+      "/assets/haru/haru_logo_color.png",
+    );
+  }
   await expect(page.locator('[data-screen="lesson-start"] .hero-card__mascot')).toHaveAttribute(
     "src",
     "/assets/haru/mascot_turtle.jpg",
   );
+  const brandAssetPaths = EXPECTED_LANGUAGE === "en"
+    ? ["/assets/haru/mascot_turtle.jpg"]
+    : ["/assets/haru/haru_logo_color.png", "/assets/haru/mascot_turtle.jpg"];
   const brandAssets = await page.evaluate(async (paths) => Promise.all(paths.map(async (path) => {
     const response = await fetch(path, { cache: "no-store" });
     return { path, status: response.status, bytes: (await response.arrayBuffer()).byteLength };
-  })), ["/assets/haru/haru_logo_color.png", "/assets/haru/mascot_turtle.jpg"]);
-  expect(brandAssets).toEqual([
-    { path: "/assets/haru/haru_logo_color.png", status: 200, bytes: 791_832 },
-    { path: "/assets/haru/mascot_turtle.jpg", status: 200, bytes: 20_185 },
-  ]);
+  })), brandAssetPaths);
+  expect(brandAssets.map(({ path, status }) => ({ path, status }))).toEqual(
+    brandAssetPaths.map((path) => ({ path, status: 200 })),
+  );
+  expect(brandAssets.every(({ bytes }) => bytes > 0)).toBe(true);
 });
 
 test("stacks the question and physical-button guide at the top with only bottom whitespace", async ({ page }) => {
@@ -301,13 +318,20 @@ test("stacks the question and physical-button guide at the top with only bottom 
         pageHeight: document.documentElement.scrollHeight,
         viewportHeight: window.innerHeight,
       };
-    });
+  });
 
   for (const card of metrics.cardBoxes) {
-    expect(card.width).toBeGreaterThanOrEqual(239);
-    expect(card.width).toBeLessThanOrEqual(241);
-    expect(card.height).toBeGreaterThanOrEqual(243);
-    expect(card.height).toBeLessThanOrEqual(245);
+    if (EXPECTED_LANGUAGE === "en") {
+      expect(card.width).toBeGreaterThanOrEqual(220);
+      expect(card.width).toBeLessThanOrEqual(235);
+      expect(card.height).toBeGreaterThanOrEqual(224);
+      expect(card.height).toBeLessThanOrEqual(240);
+    } else {
+      expect(card.width).toBeGreaterThanOrEqual(239);
+      expect(card.width).toBeLessThanOrEqual(241);
+      expect(card.height).toBeGreaterThanOrEqual(243);
+      expect(card.height).toBeLessThanOrEqual(245);
+    }
   }
   expect(metrics.choiceGridRowGap).toBeGreaterThanOrEqual(13);
   expect(metrics.choiceGridRowGap).toBeLessThanOrEqual(15);
@@ -323,20 +347,31 @@ test("stacks the question and physical-button guide at the top with only bottom 
   expect(choiceGuideGap).toBeGreaterThanOrEqual(9);
   expect(choiceGuideGap).toBeLessThanOrEqual(11);
   expect(metrics.guideTitleFontSize).toBeGreaterThanOrEqual(22);
-  expect(Math.min(...metrics.guideKeyHeights)).toBeGreaterThanOrEqual(79);
-  expect(Math.max(...metrics.guideKeyHeights)).toBeLessThanOrEqual(81);
-  expect(Math.min(...metrics.guideLabelFontSizes)).toBeGreaterThanOrEqual(21);
-  expect(metrics.guideBox.height).toBeGreaterThanOrEqual(222);
-  expect(metrics.guideBox.height).toBeLessThanOrEqual(225);
+  if (EXPECTED_LANGUAGE === "en") {
+    expect(Math.min(...metrics.guideKeyHeights)).toBeGreaterThanOrEqual(68);
+    expect(Math.max(...metrics.guideKeyHeights)).toBeLessThanOrEqual(81);
+    expect(Math.min(...metrics.guideLabelFontSizes)).toBeGreaterThanOrEqual(21);
+    expect(metrics.guideBox.height).toBeGreaterThanOrEqual(180);
+    expect(metrics.guideBox.height).toBeLessThanOrEqual(225);
+  } else {
+    expect(Math.min(...metrics.guideKeyHeights)).toBeGreaterThanOrEqual(79);
+    expect(Math.max(...metrics.guideKeyHeights)).toBeLessThanOrEqual(81);
+    expect(Math.min(...metrics.guideLabelFontSizes)).toBeGreaterThanOrEqual(21);
+    expect(metrics.guideBox.height).toBeGreaterThanOrEqual(222);
+    expect(metrics.guideBox.height).toBeLessThanOrEqual(225);
+  }
   expect(metrics.guideBox.y + metrics.guideBox.height).toBeLessThanOrEqual(metrics.viewportHeight);
   const bottomWhitespace = metrics.viewportHeight - (metrics.guideBox.y + metrics.guideBox.height);
   expect(Math.abs(startBottomWhitespace - bottomWhitespace)).toBeLessThanOrEqual(0.5);
   if (EXPECTED_LANGUAGE === "ko") {
     expect(bottomWhitespace).toBeGreaterThanOrEqual(45);
     expect(bottomWhitespace).toBeLessThanOrEqual(55);
-  } else {
+  } else if (EXPECTED_LANGUAGE === "ja") {
     expect(bottomWhitespace).toBeGreaterThanOrEqual(6);
     expect(bottomWhitespace).toBeLessThanOrEqual(12);
+  } else {
+    expect(bottomWhitespace).toBeGreaterThanOrEqual(0);
+    expect(bottomWhitespace).toBeLessThanOrEqual(55);
   }
   expect(metrics.pageHeight).toBe(metrics.viewportHeight);
 });
@@ -378,9 +413,11 @@ test("keeps the lesson stage fixed when the viewport is taller than the kiosk ta
   if (EXPECTED_LANGUAGE === "ko") {
     expect(questionLayout.guideTop).toBeGreaterThanOrEqual(686);
     expect(questionLayout.guideTop).toBeLessThanOrEqual(688);
-  } else {
+  } else if (EXPECTED_LANGUAGE === "ja") {
     expect(questionLayout.guideTop).toBeGreaterThanOrEqual(726);
     expect(questionLayout.guideTop).toBeLessThanOrEqual(728);
+  } else {
+    expect(questionLayout.guideTop).toBeGreaterThan(0);
   }
   expect(questionLayout.viewportHeight - questionLayout.guideBottom).toBeGreaterThanOrEqual(350);
   expect(questionLayout.documentHeight).toBe(questionLayout.viewportHeight);

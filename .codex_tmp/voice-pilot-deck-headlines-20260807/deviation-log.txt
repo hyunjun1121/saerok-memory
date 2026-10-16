@@ -1,0 +1,3 @@
+Slides 1-5: title and subtitle copy changed from sentence form to noun form at user request.
+No layout, style, body, chart, image, footer, page marker, or notes changes.
+Template inventory helper could not run because Windows environment returned `unzip -Z1 ... failed`; complete slide/object inventory and renders were produced with artifact-tool import/inspect/export instead.

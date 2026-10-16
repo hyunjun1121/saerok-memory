@@ -1,0 +1,6 @@
+Source: source.pptx (5 slides, 1280x720)
+Visual system: white canvas, Pretendard typography, coral/green accents, fixed footer and page marker.
+Structure: one imported master and one imported Title Slide layout; visible slide content is slide-local.
+Reusable targets: named title/subtitle textboxes s1-title through s5-subtitle.
+Edit scope: rewrite only ten title/subtitle textboxes. Preserve geometry, typography, body copy, metrics, charts, images, footers, caution labels, and speaker notes.
+Placeholder audit: manual artifact-tool inspection reported no slide-local empty placeholders.

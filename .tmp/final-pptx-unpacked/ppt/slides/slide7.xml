@@ -1,0 +1,5145 @@
+<?xml version="1.0" encoding="UTF-8"?><p:sld xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
+  <p:cSld>
+    <p:spTree>
+      <p:nvGrpSpPr>
+        <p:cNvPr id="1" name=""/>
+        <p:cNvGrpSpPr/>
+        <p:nvPr/>
+      </p:nvGrpSpPr>
+      <p:grpSpPr>
+        <a:xfrm>
+          <a:off x="0" y="0"/>
+          <a:ext cx="0" cy="0"/>
+          <a:chOff x="0" y="0"/>
+          <a:chExt cx="0" cy="0"/>
+        </a:xfrm>
+      </p:grpSpPr>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="2" name="TextBox 1"/>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="594360" y="420624"/>
+            <a:ext cx="11003249" cy="244094"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="l">
+              <a:lnSpc>
+                <a:spcPct val="100000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1240" b="0" spc="140">
+                <a:solidFill>
+                  <a:srgbClr val="2F80ED"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Bold"/>
+                <a:ea typeface="나눔스퀘어라운드 Bold"/>
+                <a:cs typeface="나눔스퀘어라운드 Bold"/>
+              </a:rPr>
+              <a:t>CONTENT · 문항 체계</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="3" name="TextBox 2"/>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="594360" y="694944"/>
+            <a:ext cx="11003249" cy="600075"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="l">
+              <a:lnSpc>
+                <a:spcPct val="100000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="3150" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:ea typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:cs typeface="나눔스퀘어라운드 ExtraBold"/>
+              </a:rPr>
+              <a:t xml:space="preserve">일기 문항은 </a:t>
+            </a:r>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="3150" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="2F80ED"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:ea typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:cs typeface="나눔스퀘어라운드 ExtraBold"/>
+              </a:rPr>
+              <a:t>개인 기억과 CIST·MMSE 영역</a:t>
+            </a:r>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="3150" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:ea typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:cs typeface="나눔스퀘어라운드 ExtraBold"/>
+              </a:rPr>
+              <a:t xml:space="preserve"> 위에 설계됩니다</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="4" name="TextBox 3"/>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="594360" y="1220724"/>
+            <a:ext cx="11003249" cy="311023"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="l">
+              <a:lnSpc>
+                <a:spcPct val="100000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1580" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Bold"/>
+                <a:ea typeface="나눔스퀘어라운드 Bold"/>
+                <a:cs typeface="나눔스퀘어라운드 Bold"/>
+              </a:rPr>
+              <a:t>매일 같은 인지 영역과 개인 기억을 전자 일기처럼 남깁니다</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="60" name="Rectangle 59"/>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="594360" y="6291072"/>
+            <a:ext cx="11003249" cy="9525"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="B5D4F8"/>
+          </a:solidFill>
+          <a:ln>
+            <a:noFill/>
+          </a:ln>
+          <a:effectLst/>
+        </p:spPr>
+        <p:style>
+          <a:lnRef idx="1">
+            <a:schemeClr val="accent1"/>
+          </a:lnRef>
+          <a:fillRef idx="3">
+            <a:schemeClr val="accent1"/>
+          </a:fillRef>
+          <a:effectRef idx="2">
+            <a:schemeClr val="accent1"/>
+          </a:effectRef>
+          <a:fontRef idx="minor">
+            <a:schemeClr val="lt1"/>
+          </a:fontRef>
+        </p:style>
+        <p:txBody>
+          <a:bodyPr rtlCol="0" anchor="ctr"/>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="ctr"/>
+            <a:endParaRPr/>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="61" name="TextBox 60"/>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="594360" y="6364224"/>
+            <a:ext cx="6400800" cy="236219"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="l">
+              <a:lnSpc>
+                <a:spcPct val="100000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="2F80ED"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Regular"/>
+                <a:ea typeface="나눔스퀘어라운드 Regular"/>
+                <a:cs typeface="나눔스퀘어라운드 Regular"/>
+              </a:rPr>
+              <a:t>치매링고 · 보편교육연구소 · 문항 체계</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="62" name="TextBox 61"/>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="10500329" y="6364224"/>
+            <a:ext cx="1097280" cy="236219"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="r">
+              <a:lnSpc>
+                <a:spcPct val="100000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1200" b="0">
+                <a:solidFill>
+                  <a:srgbClr val="2F80ED"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 Bold"/>
+                <a:ea typeface="나눔스퀘어라운드 Bold"/>
+                <a:cs typeface="나눔스퀘어라운드 Bold"/>
+              </a:rPr>
+              <a:t>07</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:pic>
+        <p:nvPicPr>
+          <p:cNvPr id="63" name="Picture 62" descr="logo.png"/>
+          <p:cNvPicPr>
+            <a:picLocks noChangeAspect="1"/>
+          </p:cNvPicPr>
+          <p:nvPr/>
+        </p:nvPicPr>
+        <p:blipFill>
+          <a:blip r:embed="rId3"/>
+          <a:stretch>
+            <a:fillRect/>
+          </a:stretch>
+        </p:blipFill>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="10774649" y="250000"/>
+            <a:ext cx="822960" cy="822960"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:effectLst/>
+        </p:spPr>
+      </p:pic>
+      <p:grpSp>
+        <p:nvGrpSpPr>
+          <p:cNvPr id="64" name="Group 21">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{60782165-601F-A341-F4D2-183668D31558}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvGrpSpPr/>
+          <p:nvPr/>
+        </p:nvGrpSpPr>
+        <p:grpSpPr>
+          <a:xfrm>
+            <a:off x="609600" y="1657350"/>
+            <a:ext cx="3505200" cy="1828800"/>
+            <a:chOff x="609600" y="1543050"/>
+            <a:chExt cx="3505200" cy="1828800"/>
+          </a:xfrm>
+        </p:grpSpPr>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="65" name="Rectangle 9">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{2E04AFD0-D137-B2D4-0D02-E8ADB5F8F8E3}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="609600" y="1543050"/>
+              <a:ext cx="3505200" cy="1828800"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 10417"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="FFFFFF"/>
+            </a:solidFill>
+            <a:ln w="9525">
+              <a:solidFill>
+                <a:srgbClr val="D5DEE5"/>
+              </a:solidFill>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr/>
+            <a:lstStyle/>
+            <a:p>
+              <a:endParaRPr lang="ko-KR" altLang="en-US">
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              </a:endParaRPr>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="66" name="Rectangle 10">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{AF58C334-F112-8D73-0D25-B6B8C1894DCD}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="819150" y="1714500"/>
+              <a:ext cx="381000" cy="381000"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 27500"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="F6C7CF"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr/>
+            <a:lstStyle/>
+            <a:p>
+              <a:endParaRPr lang="ko-KR" altLang="en-US">
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              </a:endParaRPr>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:grpSp>
+          <p:nvGrpSpPr>
+            <p:cNvPr id="67" name="Group 13">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{65C94A03-9B7A-61DD-666F-F5CD16085052}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvGrpSpPr/>
+            <p:nvPr/>
+          </p:nvGrpSpPr>
+          <p:grpSpPr>
+            <a:xfrm>
+              <a:off x="923924" y="1809482"/>
+              <a:ext cx="171452" cy="190769"/>
+              <a:chOff x="923924" y="1809482"/>
+              <a:chExt cx="171452" cy="190769"/>
+            </a:xfrm>
+          </p:grpSpPr>
+          <p:sp>
+            <p:nvSpPr>
+              <p:cNvPr id="75" name="Freeform 11">
+                <a:extLst>
+                  <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                    <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{EC63BA7F-C04B-F37E-15CC-136295311956}"/>
+                  </a:ext>
+                </a:extLst>
+              </p:cNvPr>
+              <p:cNvSpPr/>
+              <p:nvPr/>
+            </p:nvSpPr>
+            <p:spPr>
+              <a:xfrm>
+                <a:off x="923924" y="1809482"/>
+                <a:ext cx="171452" cy="190769"/>
+              </a:xfrm>
+              <a:custGeom>
+                <a:avLst/>
+                <a:gdLst/>
+                <a:ahLst/>
+                <a:cxnLst/>
+                <a:rect l="l" t="t" r="r" b="b"/>
+                <a:pathLst>
+                  <a:path w="171452" h="190769">
+                    <a:moveTo>
+                      <a:pt x="123826" y="268"/>
+                    </a:moveTo>
+                    <a:cubicBezTo>
+                      <a:pt x="128655" y="269"/>
+                      <a:pt x="132719" y="3883"/>
+                      <a:pt x="133284" y="8679"/>
+                    </a:cubicBezTo>
+                    <a:lnTo>
+                      <a:pt x="133351" y="9793"/>
+                    </a:lnTo>
+                    <a:lnTo>
+                      <a:pt x="133351" y="19318"/>
+                    </a:lnTo>
+                    <a:lnTo>
+                      <a:pt x="142876" y="19318"/>
+                    </a:lnTo>
+                    <a:cubicBezTo>
+                      <a:pt x="158007" y="19318"/>
+                      <a:pt x="170516" y="31112"/>
+                      <a:pt x="171403" y="46217"/>
+                    </a:cubicBezTo>
+                    <a:lnTo>
+                      <a:pt x="171451" y="47893"/>
+                    </a:lnTo>
+                    <a:lnTo>
+                      <a:pt x="171451" y="162193"/>
+                    </a:lnTo>
+                    <a:cubicBezTo>
+                      <a:pt x="171452" y="177324"/>
+                      <a:pt x="159657" y="189833"/>
+                      <a:pt x="144552" y="190721"/>
+                    </a:cubicBezTo>
+                    <a:lnTo>
+                      <a:pt x="142876" y="190768"/>
+                    </a:lnTo>
+                    <a:lnTo>
+                      <a:pt x="28576" y="190768"/>
+                    </a:lnTo>
+                    <a:cubicBezTo>
+                      <a:pt x="13445" y="190769"/>
+                      <a:pt x="936" y="178975"/>
+                      <a:pt x="48" y="163870"/>
+                    </a:cubicBezTo>
+                    <a:lnTo>
+                      <a:pt x="1" y="162193"/>
+                    </a:lnTo>
+                    <a:lnTo>
+                      <a:pt x="1" y="47893"/>
+                    </a:lnTo>
+                    <a:cubicBezTo>
+                      <a:pt x="0" y="32762"/>
+                      <a:pt x="11794" y="20254"/>
+                      <a:pt x="26899" y="19366"/>
+                    </a:cubicBezTo>
+                    <a:lnTo>
+                      <a:pt x="28576" y="19318"/>
+                    </a:lnTo>
+                    <a:lnTo>
+                      <a:pt x="38101" y="19318"/>
+                    </a:lnTo>
+                    <a:lnTo>
+                      <a:pt x="38101" y="9793"/>
+                    </a:lnTo>
+                    <a:cubicBezTo>
+                      <a:pt x="38106" y="4754"/>
+                      <a:pt x="42037" y="591"/>
+                      <a:pt x="47068" y="295"/>
+                    </a:cubicBezTo>
+                    <a:cubicBezTo>
+                      <a:pt x="52099" y="0"/>
+                      <a:pt x="56489" y="3675"/>
+                      <a:pt x="57084" y="8679"/>
+                    </a:cubicBezTo>
+                    <a:lnTo>
+                      <a:pt x="57151" y="9793"/>
+                    </a:lnTo>
+                    <a:lnTo>
+                      <a:pt x="57151" y="19318"/>
+                    </a:lnTo>
+                    <a:lnTo>
+                      <a:pt x="114301" y="19318"/>
+                    </a:lnTo>
+                    <a:lnTo>
+                      <a:pt x="114301" y="9793"/>
+                    </a:lnTo>
+                    <a:cubicBezTo>
+                      <a:pt x="114301" y="4533"/>
+                      <a:pt x="118565" y="268"/>
+                      <a:pt x="123826" y="268"/>
+                    </a:cubicBezTo>
+                    <a:close/>
+                    <a:moveTo>
+                      <a:pt x="152401" y="66943"/>
+                    </a:moveTo>
+                    <a:lnTo>
+                      <a:pt x="19051" y="66943"/>
+                    </a:lnTo>
+                    <a:lnTo>
+                      <a:pt x="19051" y="158622"/>
+                    </a:lnTo>
+                    <a:cubicBezTo>
+                      <a:pt x="19051" y="165337"/>
+                      <a:pt x="22727" y="170871"/>
+                      <a:pt x="27461" y="171633"/>
+                    </a:cubicBezTo>
+                    <a:lnTo>
+                      <a:pt x="28576" y="171718"/>
+                    </a:lnTo>
+                    <a:lnTo>
+                      <a:pt x="142876" y="171718"/>
+                    </a:lnTo>
+                    <a:cubicBezTo>
+                      <a:pt x="147762" y="171718"/>
+                      <a:pt x="151791" y="166670"/>
+                      <a:pt x="152334" y="160146"/>
+                    </a:cubicBezTo>
+                    <a:lnTo>
+                      <a:pt x="152401" y="158622"/>
+                    </a:lnTo>
+                    <a:lnTo>
+                      <a:pt x="152401" y="66943"/>
+                    </a:lnTo>
+                    <a:close/>
+                  </a:path>
+                </a:pathLst>
+              </a:custGeom>
+              <a:solidFill>
+                <a:srgbClr val="00B39A"/>
+              </a:solidFill>
+              <a:ln>
+                <a:noFill/>
+              </a:ln>
+            </p:spPr>
+            <p:txBody>
+              <a:bodyPr/>
+              <a:lstStyle/>
+              <a:p>
+                <a:endParaRPr lang="ko-KR" altLang="en-US">
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                </a:endParaRPr>
+              </a:p>
+            </p:txBody>
+          </p:sp>
+          <p:sp>
+            <p:nvSpPr>
+              <p:cNvPr id="76" name="Freeform 12">
+                <a:extLst>
+                  <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                    <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{9F805578-2D51-F4C9-6DDA-8C59AD059AF3}"/>
+                  </a:ext>
+                </a:extLst>
+              </p:cNvPr>
+              <p:cNvSpPr/>
+              <p:nvPr/>
+            </p:nvSpPr>
+            <p:spPr>
+              <a:xfrm>
+                <a:off x="990332" y="1905000"/>
+                <a:ext cx="28843" cy="47893"/>
+              </a:xfrm>
+              <a:custGeom>
+                <a:avLst/>
+                <a:gdLst/>
+                <a:ahLst/>
+                <a:cxnLst/>
+                <a:rect l="l" t="t" r="r" b="b"/>
+                <a:pathLst>
+                  <a:path w="28843" h="47893">
+                    <a:moveTo>
+                      <a:pt x="19318" y="0"/>
+                    </a:moveTo>
+                    <a:cubicBezTo>
+                      <a:pt x="24147" y="1"/>
+                      <a:pt x="28212" y="3615"/>
+                      <a:pt x="28777" y="8411"/>
+                    </a:cubicBezTo>
+                    <a:lnTo>
+                      <a:pt x="28843" y="9525"/>
+                    </a:lnTo>
+                    <a:lnTo>
+                      <a:pt x="28843" y="38100"/>
+                    </a:lnTo>
+                    <a:cubicBezTo>
+                      <a:pt x="28838" y="43140"/>
+                      <a:pt x="24908" y="47303"/>
+                      <a:pt x="19877" y="47598"/>
+                    </a:cubicBezTo>
+                    <a:cubicBezTo>
+                      <a:pt x="14846" y="47893"/>
+                      <a:pt x="10455" y="44219"/>
+                      <a:pt x="9860" y="39214"/>
+                    </a:cubicBezTo>
+                    <a:lnTo>
+                      <a:pt x="9793" y="38100"/>
+                    </a:lnTo>
+                    <a:lnTo>
+                      <a:pt x="9793" y="19050"/>
+                    </a:lnTo>
+                    <a:cubicBezTo>
+                      <a:pt x="4754" y="19044"/>
+                      <a:pt x="591" y="15114"/>
+                      <a:pt x="295" y="10083"/>
+                    </a:cubicBezTo>
+                    <a:cubicBezTo>
+                      <a:pt x="0" y="5052"/>
+                      <a:pt x="3675" y="662"/>
+                      <a:pt x="8679" y="67"/>
+                    </a:cubicBezTo>
+                    <a:lnTo>
+                      <a:pt x="9793" y="0"/>
+                    </a:lnTo>
+                    <a:lnTo>
+                      <a:pt x="19318" y="0"/>
+                    </a:lnTo>
+                    <a:close/>
+                  </a:path>
+                </a:pathLst>
+              </a:custGeom>
+              <a:solidFill>
+                <a:srgbClr val="00B39A"/>
+              </a:solidFill>
+              <a:ln>
+                <a:noFill/>
+              </a:ln>
+            </p:spPr>
+            <p:txBody>
+              <a:bodyPr/>
+              <a:lstStyle/>
+              <a:p>
+                <a:endParaRPr lang="ko-KR" altLang="en-US">
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                </a:endParaRPr>
+              </a:p>
+            </p:txBody>
+          </p:sp>
+        </p:grpSp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="68" name="TextBox 14">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{D36CFF92-7AB5-AC1B-D521-D76C23486B19}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="1295400" y="1781175"/>
+              <a:ext cx="524182" cy="230832"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="l"/>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="1500" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>지남력</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="69" name="TextBox 15">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{6A114974-5B6E-1839-B008-80F28C65F5E4}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="1302544" y="2032397"/>
+              <a:ext cx="799899" cy="144335"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="l"/>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="938" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>시간 · 장소 감각</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="70" name="TextBox 16">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{3238D68D-D1BC-4E2F-D05E-3F6AE082D849}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="806768" y="2314099"/>
+              <a:ext cx="2164054" cy="150041"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="l"/>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="975" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>기존 검사</a:t>
+              </a:r>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="975" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t xml:space="preserve"> · 오늘 날짜 확인, 현재 위치 확인</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="71" name="Rectangle 17">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{16CF1FF2-ED89-273E-36A6-F530076FB765}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="819150" y="2571750"/>
+              <a:ext cx="2057400" cy="247650"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 50000"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="E8F4FF"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr/>
+            <a:lstStyle/>
+            <a:p>
+              <a:endParaRPr lang="ko-KR" altLang="en-US">
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              </a:endParaRPr>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="72" name="TextBox 18">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{796D04D8-F322-B4B2-5601-E2809F2F9EF3}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="940118" y="2637949"/>
+              <a:ext cx="1365758" cy="150041"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="l"/>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="975" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>&quot;오늘은 무슨 요일일까요?&quot;</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="73" name="Rectangle 19">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{A81507A4-3E54-249A-B0E6-9E2FC89660A5}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="819150" y="2895600"/>
+              <a:ext cx="2057400" cy="247650"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 50000"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="E8F4FF"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr/>
+            <a:lstStyle/>
+            <a:p>
+              <a:endParaRPr lang="ko-KR" altLang="en-US">
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              </a:endParaRPr>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="74" name="TextBox 20">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{0E4260A6-7DA6-A78E-F3E8-C1CB31C6ACCD}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="940118" y="2961799"/>
+              <a:ext cx="1479572" cy="150041"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="l"/>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="975" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>&quot;오늘 어디에 다녀오셨어요?&quot;</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+      </p:grpSp>
+      <p:grpSp>
+        <p:nvGrpSpPr>
+          <p:cNvPr id="77" name="Group 32">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{8CEE30E3-A9CB-0CAA-0609-DDF1C0BEF9B6}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvGrpSpPr/>
+          <p:nvPr/>
+        </p:nvGrpSpPr>
+        <p:grpSpPr>
+          <a:xfrm>
+            <a:off x="4343400" y="1657350"/>
+            <a:ext cx="3505200" cy="1828800"/>
+            <a:chOff x="4343400" y="1543050"/>
+            <a:chExt cx="3505200" cy="1828800"/>
+          </a:xfrm>
+        </p:grpSpPr>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="78" name="Rectangle 22">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{20A8FE4C-66E0-8175-2570-5A5C7EA3F06D}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="4343400" y="1543050"/>
+              <a:ext cx="3505200" cy="1828800"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 10417"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="FFFFFF"/>
+            </a:solidFill>
+            <a:ln w="9525">
+              <a:solidFill>
+                <a:srgbClr val="D5DEE5"/>
+              </a:solidFill>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr/>
+            <a:lstStyle/>
+            <a:p>
+              <a:endParaRPr lang="ko-KR" altLang="en-US">
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              </a:endParaRPr>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="79" name="Rectangle 23">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{1081A191-76A3-404F-9E5C-8DA90C106036}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="4552950" y="1714500"/>
+              <a:ext cx="381000" cy="381000"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 27500"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="E8F4FF"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr/>
+            <a:lstStyle/>
+            <a:p>
+              <a:endParaRPr lang="ko-KR" altLang="en-US">
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              </a:endParaRPr>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="80" name="Freeform 24">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{725122E9-990D-97D7-CEBF-92AB8C09B88A}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="4676775" y="1809750"/>
+              <a:ext cx="133351" cy="191032"/>
+            </a:xfrm>
+            <a:custGeom>
+              <a:avLst/>
+              <a:gdLst/>
+              <a:ahLst/>
+              <a:cxnLst/>
+              <a:rect l="l" t="t" r="r" b="b"/>
+              <a:pathLst>
+                <a:path w="133351" h="191032">
+                  <a:moveTo>
+                    <a:pt x="85725" y="0"/>
+                  </a:moveTo>
+                  <a:cubicBezTo>
+                    <a:pt x="112028" y="0"/>
+                    <a:pt x="133350" y="21322"/>
+                    <a:pt x="133350" y="47625"/>
+                  </a:cubicBezTo>
+                  <a:lnTo>
+                    <a:pt x="133350" y="180975"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="133351" y="184489"/>
+                    <a:pt x="131417" y="187717"/>
+                    <a:pt x="128319" y="189375"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="125220" y="191032"/>
+                    <a:pt x="121461" y="190850"/>
+                    <a:pt x="118539" y="188900"/>
+                  </a:cubicBezTo>
+                  <a:lnTo>
+                    <a:pt x="66675" y="154324"/>
+                  </a:lnTo>
+                  <a:lnTo>
+                    <a:pt x="14821" y="188900"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="12057" y="190750"/>
+                    <a:pt x="8527" y="191024"/>
+                    <a:pt x="5511" y="189622"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="2494" y="188221"/>
+                    <a:pt x="427" y="185348"/>
+                    <a:pt x="57" y="182042"/>
+                  </a:cubicBezTo>
+                  <a:lnTo>
+                    <a:pt x="0" y="180975"/>
+                  </a:lnTo>
+                  <a:lnTo>
+                    <a:pt x="0" y="47625"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="0" y="21322"/>
+                    <a:pt x="21322" y="0"/>
+                    <a:pt x="47625" y="0"/>
+                  </a:cubicBezTo>
+                  <a:lnTo>
+                    <a:pt x="85725" y="0"/>
+                  </a:lnTo>
+                  <a:close/>
+                </a:path>
+              </a:pathLst>
+            </a:custGeom>
+            <a:solidFill>
+              <a:srgbClr val="0D2F6E"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr/>
+            <a:lstStyle/>
+            <a:p>
+              <a:endParaRPr lang="ko-KR" altLang="en-US">
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              </a:endParaRPr>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="81" name="TextBox 25">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{DB3DF683-FB89-6881-4836-E418A280171E}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="5029200" y="1781175"/>
+              <a:ext cx="524182" cy="230832"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="l"/>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="1500" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>기억력</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="82" name="TextBox 26">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{38568239-7EF7-733C-5046-F1FBB522B74D}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="5036344" y="2032397"/>
+              <a:ext cx="1048364" cy="144335"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="l"/>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="938" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>기억 등록 · 지연 회상</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="83" name="TextBox 27">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{D0426738-7849-DE00-E57D-0A7C1281BB8B}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="4540568" y="2314099"/>
+              <a:ext cx="1784143" cy="150041"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="l"/>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="975" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>기존 검사</a:t>
+              </a:r>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="975" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t xml:space="preserve"> · 단어·문장 기억 후 회상</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="84" name="Rectangle 28">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{BC5E4B1E-7173-1B93-70F6-DA3896A6E1A3}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="4552950" y="2571750"/>
+              <a:ext cx="2286000" cy="247650"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 50000"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="E8F4FF"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr/>
+            <a:lstStyle/>
+            <a:p>
+              <a:endParaRPr lang="ko-KR" altLang="en-US">
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              </a:endParaRPr>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="85" name="TextBox 29">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{178C077E-58C0-6AC5-954A-724991ABC8CC}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="4673918" y="2637949"/>
+              <a:ext cx="1380186" cy="150041"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:r>
+                <a:rPr lang="ko-KR" altLang="en-US" sz="975" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>어제 일기에서 이어 묻기</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="86" name="Rectangle 30">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{3AFBBCAC-0569-1720-9A05-76F2B43AA00B}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="4552950" y="2895600"/>
+              <a:ext cx="1638300" cy="247650"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 50000"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="E8F4FF"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr/>
+            <a:lstStyle/>
+            <a:p>
+              <a:endParaRPr lang="ko-KR" altLang="en-US">
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              </a:endParaRPr>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="87" name="TextBox 31">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{F2CDC7AF-A051-3C6E-548F-B4B2E38AC2B5}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="4673918" y="2961799"/>
+              <a:ext cx="1208664" cy="150041"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:r>
+                <a:rPr lang="ko-KR" altLang="en-US" sz="975" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t xml:space="preserve">가족 식사 </a:t>
+              </a:r>
+              <a:r>
+                <a:rPr lang="en-US" altLang="ko-KR" sz="975" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t xml:space="preserve">· </a:t>
+              </a:r>
+              <a:r>
+                <a:rPr lang="ko-KR" altLang="en-US" sz="975" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>나들이 회상</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+      </p:grpSp>
+      <p:grpSp>
+        <p:nvGrpSpPr>
+          <p:cNvPr id="88" name="Group 45">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{C8B7F024-389E-0963-2862-7320CA08025E}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvGrpSpPr/>
+          <p:nvPr/>
+        </p:nvGrpSpPr>
+        <p:grpSpPr>
+          <a:xfrm>
+            <a:off x="8077200" y="1657350"/>
+            <a:ext cx="3505200" cy="1828800"/>
+            <a:chOff x="8077200" y="1543050"/>
+            <a:chExt cx="3505200" cy="1828800"/>
+          </a:xfrm>
+        </p:grpSpPr>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="89" name="Rectangle 33">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{867B34B4-2760-649E-A4ED-8A94D3047AA9}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="8077200" y="1543050"/>
+              <a:ext cx="3505200" cy="1828800"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 10417"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="FFFFFF"/>
+            </a:solidFill>
+            <a:ln w="9525">
+              <a:solidFill>
+                <a:srgbClr val="D5DEE5"/>
+              </a:solidFill>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr/>
+            <a:lstStyle/>
+            <a:p>
+              <a:endParaRPr lang="ko-KR" altLang="en-US">
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              </a:endParaRPr>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="90" name="Rectangle 34">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{079F5EF4-B915-47B1-1F92-B66EC909B87E}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="8286750" y="1714500"/>
+              <a:ext cx="381000" cy="381000"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 27500"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="D8F6E3"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr/>
+            <a:lstStyle/>
+            <a:p>
+              <a:endParaRPr lang="ko-KR" altLang="en-US">
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              </a:endParaRPr>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="91" name="Freeform 35">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{F3EC55A5-4C04-1183-5D30-AE2C194E5E82}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="8391525" y="1809750"/>
+              <a:ext cx="171450" cy="190500"/>
+            </a:xfrm>
+            <a:custGeom>
+              <a:avLst/>
+              <a:gdLst/>
+              <a:ahLst/>
+              <a:cxnLst/>
+              <a:rect l="l" t="t" r="r" b="b"/>
+              <a:pathLst>
+                <a:path w="171450" h="190500">
+                  <a:moveTo>
+                    <a:pt x="142875" y="0"/>
+                  </a:moveTo>
+                  <a:cubicBezTo>
+                    <a:pt x="158657" y="0"/>
+                    <a:pt x="171450" y="12793"/>
+                    <a:pt x="171450" y="28575"/>
+                  </a:cubicBezTo>
+                  <a:lnTo>
+                    <a:pt x="171450" y="161925"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="171450" y="177707"/>
+                    <a:pt x="158657" y="190500"/>
+                    <a:pt x="142875" y="190500"/>
+                  </a:cubicBezTo>
+                  <a:lnTo>
+                    <a:pt x="28575" y="190500"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="12793" y="190500"/>
+                    <a:pt x="0" y="177707"/>
+                    <a:pt x="0" y="161925"/>
+                  </a:cubicBezTo>
+                  <a:lnTo>
+                    <a:pt x="0" y="28575"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="0" y="12793"/>
+                    <a:pt x="12793" y="0"/>
+                    <a:pt x="28575" y="0"/>
+                  </a:cubicBezTo>
+                  <a:close/>
+                  <a:moveTo>
+                    <a:pt x="47625" y="142875"/>
+                  </a:moveTo>
+                  <a:cubicBezTo>
+                    <a:pt x="42364" y="142875"/>
+                    <a:pt x="38100" y="147139"/>
+                    <a:pt x="38100" y="152400"/>
+                  </a:cubicBezTo>
+                  <a:lnTo>
+                    <a:pt x="38167" y="153610"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="38762" y="158614"/>
+                    <a:pt x="43152" y="162289"/>
+                    <a:pt x="48183" y="161993"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="53214" y="161698"/>
+                    <a:pt x="57144" y="157535"/>
+                    <a:pt x="57150" y="152495"/>
+                  </a:cubicBezTo>
+                  <a:lnTo>
+                    <a:pt x="57083" y="151286"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="56518" y="146490"/>
+                    <a:pt x="52454" y="142876"/>
+                    <a:pt x="47625" y="142875"/>
+                  </a:cubicBezTo>
+                  <a:close/>
+                  <a:moveTo>
+                    <a:pt x="85725" y="142875"/>
+                  </a:moveTo>
+                  <a:cubicBezTo>
+                    <a:pt x="80464" y="142875"/>
+                    <a:pt x="76200" y="147139"/>
+                    <a:pt x="76200" y="152400"/>
+                  </a:cubicBezTo>
+                  <a:lnTo>
+                    <a:pt x="76267" y="153610"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="76862" y="158614"/>
+                    <a:pt x="81252" y="162289"/>
+                    <a:pt x="86283" y="161993"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="91314" y="161698"/>
+                    <a:pt x="95244" y="157535"/>
+                    <a:pt x="95250" y="152495"/>
+                  </a:cubicBezTo>
+                  <a:lnTo>
+                    <a:pt x="95183" y="151286"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="94618" y="146490"/>
+                    <a:pt x="90554" y="142876"/>
+                    <a:pt x="85725" y="142875"/>
+                  </a:cubicBezTo>
+                  <a:close/>
+                  <a:moveTo>
+                    <a:pt x="123825" y="142875"/>
+                  </a:moveTo>
+                  <a:cubicBezTo>
+                    <a:pt x="118564" y="142875"/>
+                    <a:pt x="114300" y="147139"/>
+                    <a:pt x="114300" y="152400"/>
+                  </a:cubicBezTo>
+                  <a:lnTo>
+                    <a:pt x="114367" y="153610"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="114962" y="158614"/>
+                    <a:pt x="119352" y="162289"/>
+                    <a:pt x="124383" y="161993"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="129414" y="161698"/>
+                    <a:pt x="133344" y="157535"/>
+                    <a:pt x="133350" y="152495"/>
+                  </a:cubicBezTo>
+                  <a:lnTo>
+                    <a:pt x="133283" y="151286"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="132718" y="146490"/>
+                    <a:pt x="128654" y="142876"/>
+                    <a:pt x="123825" y="142875"/>
+                  </a:cubicBezTo>
+                  <a:close/>
+                  <a:moveTo>
+                    <a:pt x="47625" y="104775"/>
+                  </a:moveTo>
+                  <a:cubicBezTo>
+                    <a:pt x="42364" y="104775"/>
+                    <a:pt x="38100" y="109039"/>
+                    <a:pt x="38100" y="114300"/>
+                  </a:cubicBezTo>
+                  <a:lnTo>
+                    <a:pt x="38167" y="115510"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="38762" y="120514"/>
+                    <a:pt x="43152" y="124189"/>
+                    <a:pt x="48183" y="123893"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="53214" y="123598"/>
+                    <a:pt x="57144" y="119435"/>
+                    <a:pt x="57150" y="114395"/>
+                  </a:cubicBezTo>
+                  <a:lnTo>
+                    <a:pt x="57083" y="113186"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="56518" y="108390"/>
+                    <a:pt x="52454" y="104776"/>
+                    <a:pt x="47625" y="104775"/>
+                  </a:cubicBezTo>
+                  <a:close/>
+                  <a:moveTo>
+                    <a:pt x="85725" y="104775"/>
+                  </a:moveTo>
+                  <a:cubicBezTo>
+                    <a:pt x="80464" y="104775"/>
+                    <a:pt x="76200" y="109039"/>
+                    <a:pt x="76200" y="114300"/>
+                  </a:cubicBezTo>
+                  <a:lnTo>
+                    <a:pt x="76267" y="115510"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="76862" y="120514"/>
+                    <a:pt x="81252" y="124189"/>
+                    <a:pt x="86283" y="123893"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="91314" y="123598"/>
+                    <a:pt x="95244" y="119435"/>
+                    <a:pt x="95250" y="114395"/>
+                  </a:cubicBezTo>
+                  <a:lnTo>
+                    <a:pt x="95183" y="113186"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="94618" y="108390"/>
+                    <a:pt x="90554" y="104776"/>
+                    <a:pt x="85725" y="104775"/>
+                  </a:cubicBezTo>
+                  <a:close/>
+                  <a:moveTo>
+                    <a:pt x="123825" y="104775"/>
+                  </a:moveTo>
+                  <a:cubicBezTo>
+                    <a:pt x="118564" y="104775"/>
+                    <a:pt x="114300" y="109039"/>
+                    <a:pt x="114300" y="114300"/>
+                  </a:cubicBezTo>
+                  <a:lnTo>
+                    <a:pt x="114367" y="115510"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="114962" y="120514"/>
+                    <a:pt x="119352" y="124189"/>
+                    <a:pt x="124383" y="123893"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="129414" y="123598"/>
+                    <a:pt x="133344" y="119435"/>
+                    <a:pt x="133350" y="114395"/>
+                  </a:cubicBezTo>
+                  <a:lnTo>
+                    <a:pt x="133283" y="113186"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="132718" y="108390"/>
+                    <a:pt x="128654" y="104776"/>
+                    <a:pt x="123825" y="104775"/>
+                  </a:cubicBezTo>
+                  <a:close/>
+                  <a:moveTo>
+                    <a:pt x="114300" y="38100"/>
+                  </a:moveTo>
+                  <a:lnTo>
+                    <a:pt x="57150" y="38100"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="46629" y="38100"/>
+                    <a:pt x="38100" y="46629"/>
+                    <a:pt x="38100" y="57150"/>
+                  </a:cubicBezTo>
+                  <a:lnTo>
+                    <a:pt x="38100" y="66675"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="38100" y="77196"/>
+                    <a:pt x="46629" y="85725"/>
+                    <a:pt x="57150" y="85725"/>
+                  </a:cubicBezTo>
+                  <a:lnTo>
+                    <a:pt x="114300" y="85725"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="124821" y="85725"/>
+                    <a:pt x="133350" y="77196"/>
+                    <a:pt x="133350" y="66675"/>
+                  </a:cubicBezTo>
+                  <a:lnTo>
+                    <a:pt x="133350" y="57150"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="133350" y="46629"/>
+                    <a:pt x="124821" y="38100"/>
+                    <a:pt x="114300" y="38100"/>
+                  </a:cubicBezTo>
+                  <a:close/>
+                </a:path>
+              </a:pathLst>
+            </a:custGeom>
+            <a:solidFill>
+              <a:srgbClr val="34C759"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr/>
+            <a:lstStyle/>
+            <a:p>
+              <a:endParaRPr lang="ko-KR" altLang="en-US">
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              </a:endParaRPr>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="92" name="TextBox 36">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{A04E5A72-4C5C-C95D-8C6E-89C906ADA5C0}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="8763000" y="1781175"/>
+              <a:ext cx="883255" cy="230832"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="l"/>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="1500" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>주의 · 계산</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="93" name="TextBox 37">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{0A9582FA-3FF6-08E9-0AAE-B80B79D246CC}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="8770144" y="2032397"/>
+              <a:ext cx="769441" cy="144335"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="l"/>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="938" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>주의집중 · 연산</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="94" name="Rectangle 38">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{1203F14B-73F5-A818-43B5-E1F81791F2B5}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="10515600" y="1695450"/>
+              <a:ext cx="876300" cy="209550"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 50000"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="2F80ED"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr/>
+            <a:lstStyle/>
+            <a:p>
+              <a:endParaRPr lang="ko-KR" altLang="en-US" dirty="0">
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              </a:endParaRPr>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="95" name="TextBox 39">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{4EA063ED-0FF7-E096-C08A-249AD08A4B61}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="10687651" y="1737159"/>
+              <a:ext cx="532198" cy="132665"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="ctr"/>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="862" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="FFFFFF"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>멘토링 반영</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="96" name="TextBox 40">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{E9C686B5-E061-CDF6-850A-448D5A96DED5}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="8274368" y="2314099"/>
+              <a:ext cx="1644681" cy="150041"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="l"/>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="975" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>기존 검사</a:t>
+              </a:r>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="975" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t xml:space="preserve"> · 숫자 빼기, 수열 잇기</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="97" name="Rectangle 41">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{358FE79B-76E7-A825-1CBC-C917A02B9BE2}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="8286750" y="2571750"/>
+              <a:ext cx="1390650" cy="247650"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 50000"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="E8F4FF"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr/>
+            <a:lstStyle/>
+            <a:p>
+              <a:endParaRPr lang="ko-KR" altLang="en-US">
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              </a:endParaRPr>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="98" name="TextBox 42">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{E95B5B15-E986-0171-7084-94BCDF6220F0}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="8407718" y="2637949"/>
+              <a:ext cx="860813" cy="150041"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="l"/>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="975" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>시장 돈 계산하기</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="99" name="Rectangle 43">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{EC08778F-9089-C4BB-73E7-A1CBC23A79F6}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="8286750" y="2895600"/>
+              <a:ext cx="1838325" cy="247650"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 50000"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="E8F4FF"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr/>
+            <a:lstStyle/>
+            <a:p>
+              <a:endParaRPr lang="ko-KR" altLang="en-US">
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              </a:endParaRPr>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="100" name="TextBox 44">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{9F8C49C1-7438-59FE-D156-A05C44360912}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="8407718" y="2961799"/>
+              <a:ext cx="1240724" cy="150041"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="l"/>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="975" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>약 복용 시간 · 숫자 패턴</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+      </p:grpSp>
+      <p:grpSp>
+        <p:nvGrpSpPr>
+          <p:cNvPr id="101" name="Group 58">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{930450A9-5970-A823-4303-98B3DAF0C175}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvGrpSpPr/>
+          <p:nvPr/>
+        </p:nvGrpSpPr>
+        <p:grpSpPr>
+          <a:xfrm>
+            <a:off x="609600" y="3657600"/>
+            <a:ext cx="3505200" cy="1828800"/>
+            <a:chOff x="609600" y="3543300"/>
+            <a:chExt cx="3505200" cy="1828800"/>
+          </a:xfrm>
+        </p:grpSpPr>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="102" name="Rectangle 46">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{F9784F3D-6A6F-722C-41D4-2C64A983349F}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="609600" y="3543300"/>
+              <a:ext cx="3505200" cy="1828800"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 10417"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="FFFFFF"/>
+            </a:solidFill>
+            <a:ln w="9525">
+              <a:solidFill>
+                <a:srgbClr val="D5DEE5"/>
+              </a:solidFill>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr/>
+            <a:lstStyle/>
+            <a:p>
+              <a:endParaRPr lang="ko-KR" altLang="en-US">
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              </a:endParaRPr>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="103" name="Rectangle 47">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{3BAE612F-108E-63A0-FAAC-C8E3DEF567A7}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="819150" y="3714750"/>
+              <a:ext cx="381000" cy="381000"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 27500"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="F6C7CF"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr/>
+            <a:lstStyle/>
+            <a:p>
+              <a:endParaRPr lang="ko-KR" altLang="en-US">
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              </a:endParaRPr>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="104" name="Freeform 48">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{28C7573C-B5C1-0236-E226-D6E72510F27B}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="933446" y="3800475"/>
+              <a:ext cx="152408" cy="200025"/>
+            </a:xfrm>
+            <a:custGeom>
+              <a:avLst/>
+              <a:gdLst/>
+              <a:ahLst/>
+              <a:cxnLst/>
+              <a:rect l="l" t="t" r="r" b="b"/>
+              <a:pathLst>
+                <a:path w="152408" h="200025">
+                  <a:moveTo>
+                    <a:pt x="142879" y="76200"/>
+                  </a:moveTo>
+                  <a:cubicBezTo>
+                    <a:pt x="148139" y="76200"/>
+                    <a:pt x="152404" y="80464"/>
+                    <a:pt x="152404" y="85725"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="152408" y="124126"/>
+                    <a:pt x="123837" y="156530"/>
+                    <a:pt x="85738" y="161334"/>
+                  </a:cubicBezTo>
+                  <a:lnTo>
+                    <a:pt x="85729" y="180975"/>
+                  </a:lnTo>
+                  <a:lnTo>
+                    <a:pt x="114304" y="180975"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="119564" y="180975"/>
+                    <a:pt x="123829" y="185239"/>
+                    <a:pt x="123829" y="190500"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="123829" y="195761"/>
+                    <a:pt x="119564" y="200025"/>
+                    <a:pt x="114304" y="200025"/>
+                  </a:cubicBezTo>
+                  <a:lnTo>
+                    <a:pt x="38104" y="200025"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="32843" y="200025"/>
+                    <a:pt x="28579" y="195761"/>
+                    <a:pt x="28579" y="190500"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="28579" y="185239"/>
+                    <a:pt x="32843" y="180975"/>
+                    <a:pt x="38104" y="180975"/>
+                  </a:cubicBezTo>
+                  <a:lnTo>
+                    <a:pt x="66679" y="180975"/>
+                  </a:lnTo>
+                  <a:lnTo>
+                    <a:pt x="66679" y="161334"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="28576" y="156534"/>
+                    <a:pt x="0" y="124129"/>
+                    <a:pt x="4" y="85725"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="4" y="80464"/>
+                    <a:pt x="4268" y="76200"/>
+                    <a:pt x="9529" y="76200"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="14789" y="76200"/>
+                    <a:pt x="19054" y="80464"/>
+                    <a:pt x="19054" y="85725"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="19054" y="117288"/>
+                    <a:pt x="44641" y="142875"/>
+                    <a:pt x="76204" y="142875"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="107767" y="142875"/>
+                    <a:pt x="133354" y="117288"/>
+                    <a:pt x="133354" y="85725"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="133354" y="80464"/>
+                    <a:pt x="137618" y="76200"/>
+                    <a:pt x="142879" y="76200"/>
+                  </a:cubicBezTo>
+                  <a:moveTo>
+                    <a:pt x="76204" y="0"/>
+                  </a:moveTo>
+                  <a:cubicBezTo>
+                    <a:pt x="97246" y="0"/>
+                    <a:pt x="114304" y="17058"/>
+                    <a:pt x="114304" y="38100"/>
+                  </a:cubicBezTo>
+                  <a:lnTo>
+                    <a:pt x="114304" y="85725"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="114304" y="106767"/>
+                    <a:pt x="97246" y="123825"/>
+                    <a:pt x="76204" y="123825"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="55162" y="123825"/>
+                    <a:pt x="38104" y="106767"/>
+                    <a:pt x="38104" y="85725"/>
+                  </a:cubicBezTo>
+                  <a:lnTo>
+                    <a:pt x="38104" y="38100"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="38104" y="17058"/>
+                    <a:pt x="55162" y="0"/>
+                    <a:pt x="76204" y="0"/>
+                  </a:cubicBezTo>
+                </a:path>
+              </a:pathLst>
+            </a:custGeom>
+            <a:solidFill>
+              <a:srgbClr val="00B39A"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr/>
+            <a:lstStyle/>
+            <a:p>
+              <a:endParaRPr lang="ko-KR" altLang="en-US">
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              </a:endParaRPr>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="105" name="TextBox 49">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{1481F92F-F7C5-EC1C-29B0-CD57BB2B8B51}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="1295400" y="3781425"/>
+              <a:ext cx="349455" cy="230832"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="l"/>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="1500" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>언어</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="106" name="TextBox 50">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{231A6560-C424-8D94-2C41-0170623D802A}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="1302544" y="4032647"/>
+              <a:ext cx="1102866" cy="144335"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="l"/>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="938" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>이름대기 · 이해 · 발화</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="107" name="Rectangle 51">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{B28B705D-7A76-8D78-429D-F1026A711FB7}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="3048000" y="3695700"/>
+              <a:ext cx="876300" cy="209550"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 50000"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="2F80ED"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr/>
+            <a:lstStyle/>
+            <a:p>
+              <a:endParaRPr lang="ko-KR" altLang="en-US" dirty="0">
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              </a:endParaRPr>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="108" name="TextBox 52">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{34EB1C96-41C4-1F34-F910-B7C829369EBB}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="3220051" y="3737409"/>
+              <a:ext cx="532198" cy="132665"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="ctr"/>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="862" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="FFFFFF"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>멘토링 반영</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="109" name="TextBox 53">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{BE875033-8E3B-49FA-3075-243B3825CE4B}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="806768" y="4314349"/>
+              <a:ext cx="1840247" cy="150041"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="l"/>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="975" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>기존 검사</a:t>
+              </a:r>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="975" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t xml:space="preserve"> · 이름대기, 문장 따라하기</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="110" name="Rectangle 54">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{CF232EAA-8AC9-F3F2-2D32-B6F8791609DA}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="819150" y="4572000"/>
+              <a:ext cx="1943100" cy="247650"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 50000"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="E8F4FF"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr/>
+            <a:lstStyle/>
+            <a:p>
+              <a:endParaRPr lang="ko-KR" altLang="en-US">
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              </a:endParaRPr>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="111" name="TextBox 55">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{9DBC9E1D-247C-BC09-4B9D-3BEE8614907A}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="940118" y="4638199"/>
+              <a:ext cx="1138132" cy="150041"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:r>
+                <a:rPr lang="ko-KR" altLang="en-US" sz="975" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>오늘 다녀온 곳 말하기</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="112" name="Rectangle 56">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{6C7B09A5-3D28-6CF5-1AE2-82C715510F97}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="819150" y="4895850"/>
+              <a:ext cx="1428750" cy="247650"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 50000"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="E8F4FF"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr/>
+            <a:lstStyle/>
+            <a:p>
+              <a:endParaRPr lang="ko-KR" altLang="en-US">
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              </a:endParaRPr>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="113" name="TextBox 57">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{FF749C33-F3C6-52A9-9546-212FA5E7BAD0}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="940118" y="4962049"/>
+              <a:ext cx="746999" cy="150041"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="l"/>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="975" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>속담 뜻 고르기</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+      </p:grpSp>
+      <p:grpSp>
+        <p:nvGrpSpPr>
+          <p:cNvPr id="114" name="Group 72">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{5E247A69-FCEF-9070-8C00-0E3DCCBF37D6}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvGrpSpPr/>
+          <p:nvPr/>
+        </p:nvGrpSpPr>
+        <p:grpSpPr>
+          <a:xfrm>
+            <a:off x="4343400" y="3657600"/>
+            <a:ext cx="3505200" cy="1828800"/>
+            <a:chOff x="4343400" y="3543300"/>
+            <a:chExt cx="3505200" cy="1828800"/>
+          </a:xfrm>
+        </p:grpSpPr>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="115" name="Rectangle 59">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{7A747763-9A0D-C8F4-48F5-E596D0B5D9D3}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="4343400" y="3543300"/>
+              <a:ext cx="3505200" cy="1828800"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 10417"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="FFFFFF"/>
+            </a:solidFill>
+            <a:ln w="9525">
+              <a:solidFill>
+                <a:srgbClr val="D5DEE5"/>
+              </a:solidFill>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr/>
+            <a:lstStyle/>
+            <a:p>
+              <a:endParaRPr lang="ko-KR" altLang="en-US">
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              </a:endParaRPr>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="116" name="Rectangle 60">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{EE7C53B8-E06B-3BAE-B0D2-CD0A72A0FAB1}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="4552950" y="3714750"/>
+              <a:ext cx="381000" cy="381000"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 27500"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="E8F4FF"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr/>
+            <a:lstStyle/>
+            <a:p>
+              <a:endParaRPr lang="ko-KR" altLang="en-US">
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              </a:endParaRPr>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:grpSp>
+          <p:nvGrpSpPr>
+            <p:cNvPr id="117" name="Group 64">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{7AF5C15A-C245-B27B-646E-D59750C21A5B}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvGrpSpPr/>
+            <p:nvPr/>
+          </p:nvGrpSpPr>
+          <p:grpSpPr>
+            <a:xfrm>
+              <a:off x="4657725" y="3810005"/>
+              <a:ext cx="171791" cy="181642"/>
+              <a:chOff x="4657725" y="3810005"/>
+              <a:chExt cx="171791" cy="181642"/>
+            </a:xfrm>
+          </p:grpSpPr>
+          <p:sp>
+            <p:nvSpPr>
+              <p:cNvPr id="125" name="Freeform 61">
+                <a:extLst>
+                  <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                    <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{C6B2E840-F16C-7202-0528-91B080D7622E}"/>
+                  </a:ext>
+                </a:extLst>
+              </p:cNvPr>
+              <p:cNvSpPr/>
+              <p:nvPr/>
+            </p:nvSpPr>
+            <p:spPr>
+              <a:xfrm>
+                <a:off x="4695399" y="3810005"/>
+                <a:ext cx="96103" cy="85720"/>
+              </a:xfrm>
+              <a:custGeom>
+                <a:avLst/>
+                <a:gdLst/>
+                <a:ahLst/>
+                <a:cxnLst/>
+                <a:rect l="l" t="t" r="r" b="b"/>
+                <a:pathLst>
+                  <a:path w="96103" h="85720">
+                    <a:moveTo>
+                      <a:pt x="39784" y="4795"/>
+                    </a:moveTo>
+                    <a:lnTo>
+                      <a:pt x="1684" y="71470"/>
+                    </a:lnTo>
+                    <a:cubicBezTo>
+                      <a:pt x="0" y="74418"/>
+                      <a:pt x="12" y="78039"/>
+                      <a:pt x="1716" y="80975"/>
+                    </a:cubicBezTo>
+                    <a:cubicBezTo>
+                      <a:pt x="3419" y="83911"/>
+                      <a:pt x="6557" y="85719"/>
+                      <a:pt x="9951" y="85720"/>
+                    </a:cubicBezTo>
+                    <a:lnTo>
+                      <a:pt x="86151" y="85720"/>
+                    </a:lnTo>
+                    <a:cubicBezTo>
+                      <a:pt x="89546" y="85719"/>
+                      <a:pt x="92683" y="83911"/>
+                      <a:pt x="94387" y="80975"/>
+                    </a:cubicBezTo>
+                    <a:cubicBezTo>
+                      <a:pt x="96091" y="78039"/>
+                      <a:pt x="96103" y="74418"/>
+                      <a:pt x="94419" y="71470"/>
+                    </a:cubicBezTo>
+                    <a:lnTo>
+                      <a:pt x="56319" y="4795"/>
+                    </a:lnTo>
+                    <a:cubicBezTo>
+                      <a:pt x="54623" y="1830"/>
+                      <a:pt x="51468" y="0"/>
+                      <a:pt x="48051" y="0"/>
+                    </a:cubicBezTo>
+                    <a:cubicBezTo>
+                      <a:pt x="44635" y="0"/>
+                      <a:pt x="41480" y="1830"/>
+                      <a:pt x="39784" y="4795"/>
+                    </a:cubicBezTo>
+                    <a:close/>
+                  </a:path>
+                </a:pathLst>
+              </a:custGeom>
+              <a:solidFill>
+                <a:srgbClr val="0D2F6E"/>
+              </a:solidFill>
+              <a:ln>
+                <a:noFill/>
+              </a:ln>
+            </p:spPr>
+            <p:txBody>
+              <a:bodyPr/>
+              <a:lstStyle/>
+              <a:p>
+                <a:endParaRPr lang="ko-KR" altLang="en-US">
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                </a:endParaRPr>
+              </a:p>
+            </p:txBody>
+          </p:sp>
+          <p:sp>
+            <p:nvSpPr>
+              <p:cNvPr id="126" name="Freeform 62">
+                <a:extLst>
+                  <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                    <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{C79EECB8-1BBC-17D7-4D0D-9E6E253E13ED}"/>
+                  </a:ext>
+                </a:extLst>
+              </p:cNvPr>
+              <p:cNvSpPr/>
+              <p:nvPr/>
+            </p:nvSpPr>
+            <p:spPr>
+              <a:xfrm>
+                <a:off x="4752975" y="3914775"/>
+                <a:ext cx="76541" cy="76872"/>
+              </a:xfrm>
+              <a:custGeom>
+                <a:avLst/>
+                <a:gdLst/>
+                <a:ahLst/>
+                <a:cxnLst/>
+                <a:rect l="l" t="t" r="r" b="b"/>
+                <a:pathLst>
+                  <a:path w="76541" h="76872">
+                    <a:moveTo>
+                      <a:pt x="38100" y="0"/>
+                    </a:moveTo>
+                    <a:cubicBezTo>
+                      <a:pt x="58894" y="0"/>
+                      <a:pt x="75848" y="16673"/>
+                      <a:pt x="76195" y="37465"/>
+                    </a:cubicBezTo>
+                    <a:cubicBezTo>
+                      <a:pt x="76541" y="58256"/>
+                      <a:pt x="60153" y="75486"/>
+                      <a:pt x="39370" y="76179"/>
+                    </a:cubicBezTo>
+                    <a:cubicBezTo>
+                      <a:pt x="18587" y="76872"/>
+                      <a:pt x="1087" y="60773"/>
+                      <a:pt x="48" y="40005"/>
+                    </a:cubicBezTo>
+                    <a:lnTo>
+                      <a:pt x="0" y="38100"/>
+                    </a:lnTo>
+                    <a:lnTo>
+                      <a:pt x="48" y="36195"/>
+                    </a:lnTo>
+                    <a:cubicBezTo>
+                      <a:pt x="1063" y="15919"/>
+                      <a:pt x="17798" y="0"/>
+                      <a:pt x="38100" y="0"/>
+                    </a:cubicBezTo>
+                    <a:close/>
+                  </a:path>
+                </a:pathLst>
+              </a:custGeom>
+              <a:solidFill>
+                <a:srgbClr val="0D2F6E"/>
+              </a:solidFill>
+              <a:ln>
+                <a:noFill/>
+              </a:ln>
+            </p:spPr>
+            <p:txBody>
+              <a:bodyPr/>
+              <a:lstStyle/>
+              <a:p>
+                <a:endParaRPr lang="ko-KR" altLang="en-US">
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                </a:endParaRPr>
+              </a:p>
+            </p:txBody>
+          </p:sp>
+          <p:sp>
+            <p:nvSpPr>
+              <p:cNvPr id="127" name="Freeform 63">
+                <a:extLst>
+                  <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                    <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{F98479BA-6DA7-A2A6-9AFC-3F9FBAA9F7C1}"/>
+                  </a:ext>
+                </a:extLst>
+              </p:cNvPr>
+              <p:cNvSpPr/>
+              <p:nvPr/>
+            </p:nvSpPr>
+            <p:spPr>
+              <a:xfrm>
+                <a:off x="4657725" y="3914775"/>
+                <a:ext cx="76200" cy="76200"/>
+              </a:xfrm>
+              <a:custGeom>
+                <a:avLst/>
+                <a:gdLst/>
+                <a:ahLst/>
+                <a:cxnLst/>
+                <a:rect l="l" t="t" r="r" b="b"/>
+                <a:pathLst>
+                  <a:path w="76200" h="76200">
+                    <a:moveTo>
+                      <a:pt x="57150" y="0"/>
+                    </a:moveTo>
+                    <a:lnTo>
+                      <a:pt x="19050" y="0"/>
+                    </a:lnTo>
+                    <a:cubicBezTo>
+                      <a:pt x="8529" y="0"/>
+                      <a:pt x="0" y="8529"/>
+                      <a:pt x="0" y="19050"/>
+                    </a:cubicBezTo>
+                    <a:lnTo>
+                      <a:pt x="0" y="57150"/>
+                    </a:lnTo>
+                    <a:cubicBezTo>
+                      <a:pt x="0" y="67671"/>
+                      <a:pt x="8529" y="76200"/>
+                      <a:pt x="19050" y="76200"/>
+                    </a:cubicBezTo>
+                    <a:lnTo>
+                      <a:pt x="57150" y="76200"/>
+                    </a:lnTo>
+                    <a:cubicBezTo>
+                      <a:pt x="67671" y="76200"/>
+                      <a:pt x="76200" y="67671"/>
+                      <a:pt x="76200" y="57150"/>
+                    </a:cubicBezTo>
+                    <a:lnTo>
+                      <a:pt x="76200" y="19050"/>
+                    </a:lnTo>
+                    <a:cubicBezTo>
+                      <a:pt x="76200" y="8529"/>
+                      <a:pt x="67671" y="0"/>
+                      <a:pt x="57150" y="0"/>
+                    </a:cubicBezTo>
+                    <a:close/>
+                  </a:path>
+                </a:pathLst>
+              </a:custGeom>
+              <a:solidFill>
+                <a:srgbClr val="0D2F6E"/>
+              </a:solidFill>
+              <a:ln>
+                <a:noFill/>
+              </a:ln>
+            </p:spPr>
+            <p:txBody>
+              <a:bodyPr/>
+              <a:lstStyle/>
+              <a:p>
+                <a:endParaRPr lang="ko-KR" altLang="en-US">
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                </a:endParaRPr>
+              </a:p>
+            </p:txBody>
+          </p:sp>
+        </p:grpSp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="118" name="TextBox 65">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{DD20CF61-0F44-4C8C-68E4-0CF84F9299F2}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="5029200" y="3781425"/>
+              <a:ext cx="524182" cy="230832"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="l"/>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="1500" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>시공간</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="119" name="TextBox 66">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{F601CD11-C722-DFBD-BAA3-2CBC4FED0C37}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="5036344" y="4032647"/>
+              <a:ext cx="823944" cy="144335"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="l"/>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="938" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>시공간 구성 능력</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="120" name="TextBox 67">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{07CE41D9-0240-7294-D347-C8140F9E88A8}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="4540568" y="4314349"/>
+              <a:ext cx="1468351" cy="150041"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="l"/>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="975" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>기존 검사</a:t>
+              </a:r>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="975" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t xml:space="preserve"> · 겹친 도형 그리기</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="121" name="Rectangle 68">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{B3441CEF-424A-8FB3-7F1B-92565C633424}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="4552950" y="4572000"/>
+              <a:ext cx="2003057" cy="247650"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 50000"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="E8F4FF"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr/>
+            <a:lstStyle/>
+            <a:p>
+              <a:endParaRPr lang="ko-KR" altLang="en-US">
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              </a:endParaRPr>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="122" name="TextBox 69">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{FCFA9D65-D33F-645E-4E47-51E60F89BFED}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="4673918" y="4638199"/>
+              <a:ext cx="1348126" cy="150041"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:r>
+                <a:rPr lang="ko-KR" altLang="en-US" sz="975" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>들은 순서대로 버튼 누르기</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="123" name="Rectangle 70">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{0BE1AC33-CF37-AB67-CA44-4F2FE39336A1}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="4552950" y="4895850"/>
+              <a:ext cx="1866900" cy="247650"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 50000"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="E8F4FF"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr/>
+            <a:lstStyle/>
+            <a:p>
+              <a:endParaRPr lang="ko-KR" altLang="en-US">
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              </a:endParaRPr>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="124" name="TextBox 71">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{1D81F552-35AC-D37F-D647-DD53A5CEFFBA}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="4673918" y="4962049"/>
+              <a:ext cx="1266372" cy="150041"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="l"/>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="975" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>그림 보고 같은 것 고르기</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+      </p:grpSp>
+      <p:grpSp>
+        <p:nvGrpSpPr>
+          <p:cNvPr id="128" name="Group 83">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{A0CA2EDD-10BC-6AAD-0A08-37EB8EA38A32}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvGrpSpPr/>
+          <p:nvPr/>
+        </p:nvGrpSpPr>
+        <p:grpSpPr>
+          <a:xfrm>
+            <a:off x="8077200" y="3657600"/>
+            <a:ext cx="3505200" cy="1828800"/>
+            <a:chOff x="8077200" y="3543300"/>
+            <a:chExt cx="3505200" cy="1828800"/>
+          </a:xfrm>
+        </p:grpSpPr>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="129" name="Rectangle 73">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{2FB03F16-7DA5-A817-3219-CF49F52517BB}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="8077200" y="3543300"/>
+              <a:ext cx="3505200" cy="1828800"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 10417"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="FFFFFF"/>
+            </a:solidFill>
+            <a:ln w="9525">
+              <a:solidFill>
+                <a:srgbClr val="D5DEE5"/>
+              </a:solidFill>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr/>
+            <a:lstStyle/>
+            <a:p>
+              <a:endParaRPr lang="ko-KR" altLang="en-US">
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              </a:endParaRPr>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="130" name="Rectangle 74">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{7EFF1018-EAC6-9EB2-82FA-5433378F5176}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="8286750" y="3714750"/>
+              <a:ext cx="381000" cy="381000"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 27500"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="D8F6E3"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr/>
+            <a:lstStyle/>
+            <a:p>
+              <a:endParaRPr lang="ko-KR" altLang="en-US">
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              </a:endParaRPr>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="131" name="Freeform 75">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{A3BEA368-6B0A-F001-814B-27C1B41B09B3}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="8382000" y="3805733"/>
+              <a:ext cx="200311" cy="200639"/>
+            </a:xfrm>
+            <a:custGeom>
+              <a:avLst/>
+              <a:gdLst/>
+              <a:ahLst/>
+              <a:cxnLst/>
+              <a:rect l="l" t="t" r="r" b="b"/>
+              <a:pathLst>
+                <a:path w="200311" h="200639">
+                  <a:moveTo>
+                    <a:pt x="142875" y="17030"/>
+                  </a:moveTo>
+                  <a:cubicBezTo>
+                    <a:pt x="182569" y="39949"/>
+                    <a:pt x="200311" y="87890"/>
+                    <a:pt x="185099" y="131128"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="169888" y="174367"/>
+                    <a:pt x="126037" y="200639"/>
+                    <a:pt x="80736" y="193656"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="35435" y="186673"/>
+                    <a:pt x="1532" y="148415"/>
+                    <a:pt x="48" y="102603"/>
+                  </a:cubicBezTo>
+                  <a:lnTo>
+                    <a:pt x="0" y="99517"/>
+                  </a:lnTo>
+                  <a:lnTo>
+                    <a:pt x="48" y="96431"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="1133" y="62969"/>
+                    <a:pt x="19706" y="32534"/>
+                    <a:pt x="48967" y="16267"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="78228" y="0"/>
+                    <a:pt x="113882" y="290"/>
+                    <a:pt x="142875" y="17030"/>
+                  </a:cubicBezTo>
+                  <a:close/>
+                  <a:moveTo>
+                    <a:pt x="125730" y="121291"/>
+                  </a:moveTo>
+                  <a:cubicBezTo>
+                    <a:pt x="121974" y="117609"/>
+                    <a:pt x="115944" y="117669"/>
+                    <a:pt x="112262" y="121424"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="107783" y="125997"/>
+                    <a:pt x="101651" y="128574"/>
+                    <a:pt x="95250" y="128574"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="88849" y="128574"/>
+                    <a:pt x="82717" y="125997"/>
+                    <a:pt x="78238" y="121424"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="74540" y="117758"/>
+                    <a:pt x="68583" y="117742"/>
+                    <a:pt x="64865" y="121387"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="61146" y="125033"/>
+                    <a:pt x="61045" y="130989"/>
+                    <a:pt x="64637" y="134759"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="72698" y="142986"/>
+                    <a:pt x="83732" y="147621"/>
+                    <a:pt x="95250" y="147621"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="106768" y="147621"/>
+                    <a:pt x="117802" y="142986"/>
+                    <a:pt x="125863" y="134759"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="129545" y="131003"/>
+                    <a:pt x="129485" y="124973"/>
+                    <a:pt x="125730" y="121291"/>
+                  </a:cubicBezTo>
+                  <a:close/>
+                  <a:moveTo>
+                    <a:pt x="66770" y="70942"/>
+                  </a:moveTo>
+                  <a:lnTo>
+                    <a:pt x="65561" y="71008"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="60556" y="71604"/>
+                    <a:pt x="56882" y="75994"/>
+                    <a:pt x="57177" y="81025"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="57472" y="86056"/>
+                    <a:pt x="61635" y="89986"/>
+                    <a:pt x="66675" y="89992"/>
+                  </a:cubicBezTo>
+                  <a:lnTo>
+                    <a:pt x="67885" y="89925"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="72889" y="89330"/>
+                    <a:pt x="76564" y="84939"/>
+                    <a:pt x="76268" y="79908"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="75973" y="74877"/>
+                    <a:pt x="71810" y="70947"/>
+                    <a:pt x="66770" y="70942"/>
+                  </a:cubicBezTo>
+                  <a:close/>
+                  <a:moveTo>
+                    <a:pt x="123920" y="70942"/>
+                  </a:moveTo>
+                  <a:lnTo>
+                    <a:pt x="122711" y="71008"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="117706" y="71604"/>
+                    <a:pt x="114032" y="75994"/>
+                    <a:pt x="114327" y="81025"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="114622" y="86056"/>
+                    <a:pt x="118785" y="89986"/>
+                    <a:pt x="123825" y="89992"/>
+                  </a:cubicBezTo>
+                  <a:lnTo>
+                    <a:pt x="125035" y="89925"/>
+                  </a:lnTo>
+                  <a:cubicBezTo>
+                    <a:pt x="130039" y="89330"/>
+                    <a:pt x="133714" y="84939"/>
+                    <a:pt x="133418" y="79908"/>
+                  </a:cubicBezTo>
+                  <a:cubicBezTo>
+                    <a:pt x="133123" y="74877"/>
+                    <a:pt x="128960" y="70947"/>
+                    <a:pt x="123920" y="70942"/>
+                  </a:cubicBezTo>
+                  <a:close/>
+                </a:path>
+              </a:pathLst>
+            </a:custGeom>
+            <a:solidFill>
+              <a:srgbClr val="34C759"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr/>
+            <a:lstStyle/>
+            <a:p>
+              <a:endParaRPr lang="ko-KR" altLang="en-US">
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              </a:endParaRPr>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="132" name="TextBox 76">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{A771D792-CAAF-E35D-1E97-61BA93BBAE0A}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="8763000" y="3781425"/>
+              <a:ext cx="349455" cy="230832"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="l"/>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="1500" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>감정</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="133" name="TextBox 77">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{6C7789B4-7383-AFF3-230B-896B824D8D82}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="8770144" y="4032647"/>
+              <a:ext cx="799899" cy="144335"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="l"/>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="938" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>기분 · 정서 관찰</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="134" name="TextBox 78">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{BFDE73E3-010C-242E-4390-9A2CF0898217}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="8274368" y="4314349"/>
+              <a:ext cx="1638269" cy="150041"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:pPr algn="l"/>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="975" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>기존 검사</a:t>
+              </a:r>
+              <a:r>
+                <a:rPr lang="zh-CN" sz="975" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t xml:space="preserve"> · 기분·우울 선별 설문</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="135" name="Rectangle 79">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{B081523F-21D0-0A98-094F-7088A14B4E53}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="8286750" y="4572000"/>
+              <a:ext cx="2038350" cy="247650"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 50000"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="E8F4FF"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr/>
+            <a:lstStyle/>
+            <a:p>
+              <a:endParaRPr lang="ko-KR" altLang="en-US">
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              </a:endParaRPr>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="136" name="TextBox 80">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{4A2513CE-5510-A949-6A7F-E64D8F87368A}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="8407718" y="4638199"/>
+              <a:ext cx="1493999" cy="150041"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:r>
+                <a:rPr lang="ko-KR" altLang="en-US" sz="975" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>오늘 기분 네 자리에서 고르기</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="137" name="Rectangle 81">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{D0A01F53-0E58-E632-D47C-D1A344B5A3AF}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="8286750" y="4895850"/>
+              <a:ext cx="1638300" cy="247650"/>
+            </a:xfrm>
+            <a:prstGeom prst="roundRect">
+              <a:avLst>
+                <a:gd name="adj" fmla="val 50000"/>
+              </a:avLst>
+            </a:prstGeom>
+            <a:solidFill>
+              <a:srgbClr val="E8F4FF"/>
+            </a:solidFill>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr/>
+            <a:lstStyle/>
+            <a:p>
+              <a:endParaRPr lang="ko-KR" altLang="en-US">
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              </a:endParaRPr>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+        <p:sp>
+          <p:nvSpPr>
+            <p:cNvPr id="138" name="TextBox 82">
+              <a:extLst>
+                <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                  <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{41FDE1EB-612E-B03E-0D3C-CB74A9D7C39F}"/>
+                </a:ext>
+              </a:extLst>
+            </p:cNvPr>
+            <p:cNvSpPr txBox="1"/>
+            <p:nvPr/>
+          </p:nvSpPr>
+          <p:spPr>
+            <a:xfrm>
+              <a:off x="8407718" y="4962049"/>
+              <a:ext cx="860813" cy="150041"/>
+            </a:xfrm>
+            <a:prstGeom prst="rect">
+              <a:avLst/>
+            </a:prstGeom>
+            <a:noFill/>
+            <a:ln>
+              <a:noFill/>
+            </a:ln>
+          </p:spPr>
+          <p:txBody>
+            <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+              <a:spAutoFit/>
+            </a:bodyPr>
+            <a:lstStyle/>
+            <a:p>
+              <a:r>
+                <a:rPr lang="ko-KR" altLang="en-US" sz="975" b="1" dirty="0">
+                  <a:solidFill>
+                    <a:srgbClr val="0D2F6E"/>
+                  </a:solidFill>
+                  <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                  <a:cs typeface="Pretendard"/>
+                </a:rPr>
+                <a:t>오늘 하루 말하기</a:t>
+              </a:r>
+            </a:p>
+          </p:txBody>
+        </p:sp>
+      </p:grpSp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="139" name="Rectangle 84">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{8E2491E2-18C0-BA15-FDF3-214D85AE9E15}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="609600" y="5581650"/>
+            <a:ext cx="10972800" cy="590550"/>
+          </a:xfrm>
+          <a:prstGeom prst="roundRect">
+            <a:avLst>
+              <a:gd name="adj" fmla="val 29032"/>
+            </a:avLst>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="E8F4FF"/>
+          </a:solidFill>
+          <a:ln>
+            <a:noFill/>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr/>
+          <a:lstStyle/>
+          <a:p>
+            <a:endParaRPr lang="ko-KR" altLang="en-US">
+              <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+            </a:endParaRPr>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="140" name="Rectangle 85">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{BB8E636F-631E-E881-189F-62BCECDBE28C}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="770796" y="5724525"/>
+            <a:ext cx="2686050" cy="304800"/>
+          </a:xfrm>
+          <a:prstGeom prst="roundRect">
+            <a:avLst>
+              <a:gd name="adj" fmla="val 50000"/>
+            </a:avLst>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="FFFFFF"/>
+          </a:solidFill>
+          <a:ln w="9525">
+            <a:solidFill>
+              <a:srgbClr val="B5D4F8"/>
+            </a:solidFill>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr/>
+          <a:lstStyle/>
+          <a:p>
+            <a:endParaRPr lang="ko-KR" altLang="en-US">
+              <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+            </a:endParaRPr>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="141" name="Freeform 86">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{BB3BB1B8-6FBB-A774-9FE8-BA7D76355B67}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="891928" y="5819775"/>
+            <a:ext cx="157467" cy="114300"/>
+          </a:xfrm>
+          <a:custGeom>
+            <a:avLst/>
+            <a:gdLst/>
+            <a:ahLst/>
+            <a:cxnLst/>
+            <a:rect l="l" t="t" r="r" b="b"/>
+            <a:pathLst>
+              <a:path w="157467" h="114300">
+                <a:moveTo>
+                  <a:pt x="78893" y="0"/>
+                </a:moveTo>
+                <a:cubicBezTo>
+                  <a:pt x="109539" y="0"/>
+                  <a:pt x="135064" y="17352"/>
+                  <a:pt x="155081" y="51106"/>
+                </a:cubicBezTo>
+                <a:lnTo>
+                  <a:pt x="156652" y="53814"/>
+                </a:lnTo>
+                <a:lnTo>
+                  <a:pt x="156974" y="54528"/>
+                </a:lnTo>
+                <a:lnTo>
+                  <a:pt x="157188" y="55121"/>
+                </a:lnTo>
+                <a:lnTo>
+                  <a:pt x="157288" y="55514"/>
+                </a:lnTo>
+                <a:lnTo>
+                  <a:pt x="157388" y="56100"/>
+                </a:lnTo>
+                <a:lnTo>
+                  <a:pt x="157467" y="56814"/>
+                </a:lnTo>
+                <a:lnTo>
+                  <a:pt x="157467" y="57600"/>
+                </a:lnTo>
+                <a:lnTo>
+                  <a:pt x="157367" y="58393"/>
+                </a:lnTo>
+                <a:cubicBezTo>
+                  <a:pt x="157320" y="58658"/>
+                  <a:pt x="157258" y="58921"/>
+                  <a:pt x="157181" y="59179"/>
+                </a:cubicBezTo>
+                <a:lnTo>
+                  <a:pt x="156902" y="59950"/>
+                </a:lnTo>
+                <a:lnTo>
+                  <a:pt x="156645" y="60486"/>
+                </a:lnTo>
+                <a:lnTo>
+                  <a:pt x="156531" y="60700"/>
+                </a:lnTo>
+                <a:cubicBezTo>
+                  <a:pt x="136785" y="95248"/>
+                  <a:pt x="111525" y="113421"/>
+                  <a:pt x="81128" y="114271"/>
+                </a:cubicBezTo>
+                <a:lnTo>
+                  <a:pt x="78893" y="114300"/>
+                </a:lnTo>
+                <a:cubicBezTo>
+                  <a:pt x="47489" y="114300"/>
+                  <a:pt x="21478" y="96091"/>
+                  <a:pt x="1254" y="60693"/>
+                </a:cubicBezTo>
+                <a:cubicBezTo>
+                  <a:pt x="0" y="58498"/>
+                  <a:pt x="0" y="55802"/>
+                  <a:pt x="1254" y="53607"/>
+                </a:cubicBezTo>
+                <a:cubicBezTo>
+                  <a:pt x="21478" y="18209"/>
+                  <a:pt x="47489" y="0"/>
+                  <a:pt x="78893" y="0"/>
+                </a:cubicBezTo>
+                <a:close/>
+                <a:moveTo>
+                  <a:pt x="78893" y="35719"/>
+                </a:moveTo>
+                <a:cubicBezTo>
+                  <a:pt x="67056" y="35719"/>
+                  <a:pt x="57461" y="45314"/>
+                  <a:pt x="57461" y="57150"/>
+                </a:cubicBezTo>
+                <a:cubicBezTo>
+                  <a:pt x="57461" y="68986"/>
+                  <a:pt x="67056" y="78581"/>
+                  <a:pt x="78893" y="78581"/>
+                </a:cubicBezTo>
+                <a:cubicBezTo>
+                  <a:pt x="90729" y="78581"/>
+                  <a:pt x="100324" y="68986"/>
+                  <a:pt x="100324" y="57150"/>
+                </a:cubicBezTo>
+                <a:cubicBezTo>
+                  <a:pt x="100324" y="45314"/>
+                  <a:pt x="90729" y="35719"/>
+                  <a:pt x="78893" y="35719"/>
+                </a:cubicBezTo>
+              </a:path>
+            </a:pathLst>
+          </a:custGeom>
+          <a:solidFill>
+            <a:srgbClr val="00B39A"/>
+          </a:solidFill>
+          <a:ln>
+            <a:noFill/>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr/>
+          <a:lstStyle/>
+          <a:p>
+            <a:endParaRPr lang="ko-KR" altLang="en-US">
+              <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+            </a:endParaRPr>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="142" name="TextBox 87">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{3AE15F0E-35D3-6E8E-7148-F9700EB5E9EA}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="1119411" y="5784592"/>
+            <a:ext cx="2075889" cy="184666"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+          <a:ln>
+            <a:noFill/>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="ctr" anchorCtr="0">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="l"/>
+            <a:r>
+              <a:rPr lang="zh-CN" sz="1200" b="1" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="00B39A"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:cs typeface="Pretendard"/>
+              </a:rPr>
+              <a:t>확인</a:t>
+            </a:r>
+            <a:r>
+              <a:rPr lang="zh-CN" sz="1200" b="1" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:cs typeface="Pretendard"/>
+              </a:rPr>
+              <a:t xml:space="preserve"> · 오늘의 일기로 변화 관찰</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="143" name="TextBox 88">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{920BFE75-F50A-4BFF-C9E4-5C02F4A8F659}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="3504622" y="5784966"/>
+            <a:ext cx="149080" cy="196208"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+          <a:ln>
+            <a:noFill/>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t" anchorCtr="0">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="l"/>
+            <a:r>
+              <a:rPr lang="zh-CN" sz="1275" b="1" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:cs typeface="Pretendard"/>
+              </a:rPr>
+              <a:t>↔</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="144" name="Rectangle 89">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{89312BE2-2282-86A4-CFA6-FF977B15378F}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="3698632" y="5724525"/>
+            <a:ext cx="2686050" cy="304800"/>
+          </a:xfrm>
+          <a:prstGeom prst="roundRect">
+            <a:avLst>
+              <a:gd name="adj" fmla="val 50000"/>
+            </a:avLst>
+          </a:prstGeom>
+          <a:solidFill>
+            <a:srgbClr val="FFFFFF"/>
+          </a:solidFill>
+          <a:ln w="9525">
+            <a:solidFill>
+              <a:srgbClr val="B5D4F8"/>
+            </a:solidFill>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr/>
+          <a:lstStyle/>
+          <a:p>
+            <a:endParaRPr lang="ko-KR" altLang="en-US">
+              <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+            </a:endParaRPr>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="145" name="Freeform 90">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{75BA955B-75DF-7FB2-42D8-2D0FD601918A}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="3827220" y="5812629"/>
+            <a:ext cx="142875" cy="128592"/>
+          </a:xfrm>
+          <a:custGeom>
+            <a:avLst/>
+            <a:gdLst/>
+            <a:ahLst/>
+            <a:cxnLst/>
+            <a:rect l="l" t="t" r="r" b="b"/>
+            <a:pathLst>
+              <a:path w="142875" h="128592">
+                <a:moveTo>
+                  <a:pt x="28575" y="4"/>
+                </a:moveTo>
+                <a:cubicBezTo>
+                  <a:pt x="53861" y="0"/>
+                  <a:pt x="75172" y="18873"/>
+                  <a:pt x="78224" y="43974"/>
+                </a:cubicBezTo>
+                <a:cubicBezTo>
+                  <a:pt x="87637" y="34123"/>
+                  <a:pt x="100675" y="28559"/>
+                  <a:pt x="114300" y="28579"/>
+                </a:cubicBezTo>
+                <a:lnTo>
+                  <a:pt x="135731" y="28579"/>
+                </a:lnTo>
+                <a:cubicBezTo>
+                  <a:pt x="139677" y="28579"/>
+                  <a:pt x="142875" y="31778"/>
+                  <a:pt x="142875" y="35723"/>
+                </a:cubicBezTo>
+                <a:lnTo>
+                  <a:pt x="142875" y="42867"/>
+                </a:lnTo>
+                <a:cubicBezTo>
+                  <a:pt x="142875" y="70484"/>
+                  <a:pt x="120486" y="92873"/>
+                  <a:pt x="92869" y="92873"/>
+                </a:cubicBezTo>
+                <a:lnTo>
+                  <a:pt x="78581" y="92873"/>
+                </a:lnTo>
+                <a:lnTo>
+                  <a:pt x="78581" y="121448"/>
+                </a:lnTo>
+                <a:cubicBezTo>
+                  <a:pt x="78581" y="125393"/>
+                  <a:pt x="75383" y="128592"/>
+                  <a:pt x="71438" y="128592"/>
+                </a:cubicBezTo>
+                <a:cubicBezTo>
+                  <a:pt x="67492" y="128592"/>
+                  <a:pt x="64294" y="125393"/>
+                  <a:pt x="64294" y="121448"/>
+                </a:cubicBezTo>
+                <a:lnTo>
+                  <a:pt x="64294" y="71442"/>
+                </a:lnTo>
+                <a:lnTo>
+                  <a:pt x="50006" y="71442"/>
+                </a:lnTo>
+                <a:cubicBezTo>
+                  <a:pt x="22389" y="71442"/>
+                  <a:pt x="0" y="49053"/>
+                  <a:pt x="0" y="21436"/>
+                </a:cubicBezTo>
+                <a:lnTo>
+                  <a:pt x="0" y="7148"/>
+                </a:lnTo>
+                <a:cubicBezTo>
+                  <a:pt x="0" y="3203"/>
+                  <a:pt x="3198" y="4"/>
+                  <a:pt x="7144" y="4"/>
+                </a:cubicBezTo>
+                <a:close/>
+              </a:path>
+            </a:pathLst>
+          </a:custGeom>
+          <a:solidFill>
+            <a:srgbClr val="34C759"/>
+          </a:solidFill>
+          <a:ln>
+            <a:noFill/>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr/>
+          <a:lstStyle/>
+          <a:p>
+            <a:endParaRPr lang="ko-KR" altLang="en-US">
+              <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+            </a:endParaRPr>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="146" name="TextBox 91">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{5FB41078-012D-F551-9537-C3B8D4DAF11D}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="4047247" y="5784592"/>
+            <a:ext cx="2075889" cy="184666"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+          <a:ln>
+            <a:noFill/>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="ctr" anchorCtr="0">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="l"/>
+            <a:r>
+              <a:rPr lang="zh-CN" sz="1200" b="1" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="34C759"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:cs typeface="Pretendard"/>
+              </a:rPr>
+              <a:t>강화</a:t>
+            </a:r>
+            <a:r>
+              <a:rPr lang="zh-CN" sz="1200" b="1" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:cs typeface="Pretendard"/>
+              </a:rPr>
+              <a:t xml:space="preserve"> · 매일의 일기로 인지 영역 반복</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="147" name="Freeform 92">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{9F8E11D5-8AAF-C26E-534C-BBB861410090}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="6556007" y="5784966"/>
+            <a:ext cx="183618" cy="183919"/>
+          </a:xfrm>
+          <a:custGeom>
+            <a:avLst/>
+            <a:gdLst/>
+            <a:ahLst/>
+            <a:cxnLst/>
+            <a:rect l="l" t="t" r="r" b="b"/>
+            <a:pathLst>
+              <a:path w="183618" h="183919">
+                <a:moveTo>
+                  <a:pt x="130969" y="15611"/>
+                </a:moveTo>
+                <a:cubicBezTo>
+                  <a:pt x="167355" y="36620"/>
+                  <a:pt x="183618" y="80566"/>
+                  <a:pt x="169674" y="120201"/>
+                </a:cubicBezTo>
+                <a:cubicBezTo>
+                  <a:pt x="155730" y="159836"/>
+                  <a:pt x="115534" y="183919"/>
+                  <a:pt x="74008" y="177518"/>
+                </a:cubicBezTo>
+                <a:cubicBezTo>
+                  <a:pt x="32482" y="171117"/>
+                  <a:pt x="1405" y="136047"/>
+                  <a:pt x="44" y="94052"/>
+                </a:cubicBezTo>
+                <a:lnTo>
+                  <a:pt x="0" y="91224"/>
+                </a:lnTo>
+                <a:lnTo>
+                  <a:pt x="44" y="88395"/>
+                </a:lnTo>
+                <a:cubicBezTo>
+                  <a:pt x="1038" y="57722"/>
+                  <a:pt x="18063" y="29823"/>
+                  <a:pt x="44886" y="14911"/>
+                </a:cubicBezTo>
+                <a:cubicBezTo>
+                  <a:pt x="71709" y="0"/>
+                  <a:pt x="104392" y="266"/>
+                  <a:pt x="130969" y="15611"/>
+                </a:cubicBezTo>
+                <a:close/>
+                <a:moveTo>
+                  <a:pt x="119679" y="67588"/>
+                </a:moveTo>
+                <a:cubicBezTo>
+                  <a:pt x="116569" y="64478"/>
+                  <a:pt x="111630" y="64167"/>
+                  <a:pt x="108154" y="66863"/>
+                </a:cubicBezTo>
+                <a:lnTo>
+                  <a:pt x="107333" y="67588"/>
+                </a:lnTo>
+                <a:lnTo>
+                  <a:pt x="78581" y="96331"/>
+                </a:lnTo>
+                <a:lnTo>
+                  <a:pt x="67292" y="85051"/>
+                </a:lnTo>
+                <a:lnTo>
+                  <a:pt x="66471" y="84326"/>
+                </a:lnTo>
+                <a:cubicBezTo>
+                  <a:pt x="62995" y="81632"/>
+                  <a:pt x="58058" y="81943"/>
+                  <a:pt x="54948" y="85053"/>
+                </a:cubicBezTo>
+                <a:cubicBezTo>
+                  <a:pt x="51838" y="88163"/>
+                  <a:pt x="51527" y="93100"/>
+                  <a:pt x="54221" y="96576"/>
+                </a:cubicBezTo>
+                <a:lnTo>
+                  <a:pt x="54946" y="97397"/>
+                </a:lnTo>
+                <a:lnTo>
+                  <a:pt x="72408" y="114859"/>
+                </a:lnTo>
+                <a:lnTo>
+                  <a:pt x="73229" y="115584"/>
+                </a:lnTo>
+                <a:cubicBezTo>
+                  <a:pt x="76379" y="118028"/>
+                  <a:pt x="80784" y="118028"/>
+                  <a:pt x="83934" y="115584"/>
+                </a:cubicBezTo>
+                <a:lnTo>
+                  <a:pt x="84754" y="114859"/>
+                </a:lnTo>
+                <a:lnTo>
+                  <a:pt x="119679" y="79934"/>
+                </a:lnTo>
+                <a:lnTo>
+                  <a:pt x="120404" y="79113"/>
+                </a:lnTo>
+                <a:cubicBezTo>
+                  <a:pt x="123100" y="75638"/>
+                  <a:pt x="122790" y="70699"/>
+                  <a:pt x="119679" y="67588"/>
+                </a:cubicBezTo>
+                <a:close/>
+              </a:path>
+            </a:pathLst>
+          </a:custGeom>
+          <a:solidFill>
+            <a:srgbClr val="34C759"/>
+          </a:solidFill>
+          <a:ln>
+            <a:noFill/>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr/>
+          <a:lstStyle/>
+          <a:p>
+            <a:endParaRPr lang="ko-KR" altLang="en-US">
+              <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+              <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+            </a:endParaRPr>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="148" name="TextBox 93">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{5765D0F3-88F3-5829-0EBF-84AF9E1505CF}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="6830010" y="5784592"/>
+            <a:ext cx="4332917" cy="184666"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+          <a:ln>
+            <a:noFill/>
+          </a:ln>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="none" lIns="0" tIns="0" rIns="0" bIns="0" anchor="ctr" anchorCtr="0">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="l"/>
+            <a:r>
+              <a:rPr lang="zh-CN" sz="1200" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:cs typeface="Pretendard"/>
+              </a:rPr>
+              <a:t xml:space="preserve">전문가 멘토링 제안 문항 </a:t>
+            </a:r>
+            <a:r>
+              <a:rPr lang="en-US" altLang="zh-CN" sz="1200" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:cs typeface="Pretendard"/>
+              </a:rPr>
+              <a:t>-</a:t>
+            </a:r>
+            <a:r>
+              <a:rPr lang="zh-CN" sz="1200" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:cs typeface="Pretendard"/>
+              </a:rPr>
+              <a:t xml:space="preserve"> </a:t>
+            </a:r>
+            <a:r>
+              <a:rPr lang="zh-CN" sz="1200" b="1" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:cs typeface="Pretendard"/>
+              </a:rPr>
+              <a:t>돈 계산 · 단순한 발화 · 주의집중</a:t>
+            </a:r>
+            <a:r>
+              <a:rPr lang="zh-CN" sz="1200" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="0D2F6E"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:ea typeface="나눔스퀘어라운드OTF Bold" panose="020B0600000101010101" pitchFamily="34" charset="-127"/>
+                <a:cs typeface="Pretendard"/>
+              </a:rPr>
+              <a:t xml:space="preserve"> 반영 완료</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+      <p:sp>
+        <p:nvSpPr>
+          <p:cNvPr id="150" name="TextBox 149">
+            <a:extLst>
+              <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{80EA4661-EC56-83E6-EF2C-6879A3152F9C}"/>
+              </a:ext>
+            </a:extLst>
+          </p:cNvPr>
+          <p:cNvSpPr txBox="1"/>
+          <p:nvPr/>
+        </p:nvSpPr>
+        <p:spPr>
+          <a:xfrm>
+            <a:off x="8953500" y="1319011"/>
+            <a:ext cx="2589276" cy="216982"/>
+          </a:xfrm>
+          <a:prstGeom prst="rect">
+            <a:avLst/>
+          </a:prstGeom>
+          <a:noFill/>
+        </p:spPr>
+        <p:txBody>
+          <a:bodyPr wrap="square" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t">
+            <a:spAutoFit/>
+          </a:bodyPr>
+          <a:lstStyle/>
+          <a:p>
+            <a:pPr algn="r">
+              <a:lnSpc>
+                <a:spcPct val="100000"/>
+              </a:lnSpc>
+            </a:pPr>
+            <a:r>
+              <a:rPr lang="ko-KR" altLang="en-US" sz="1410" b="0" dirty="0">
+                <a:solidFill>
+                  <a:srgbClr val="00B39A"/>
+                </a:solidFill>
+                <a:latin typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:ea typeface="나눔스퀘어라운드 ExtraBold"/>
+                <a:cs typeface="나눔스퀘어라운드 ExtraBold"/>
+              </a:rPr>
+              <a:t>매일 42개 일기 문항</a:t>
+            </a:r>
+          </a:p>
+        </p:txBody>
+      </p:sp>
+    </p:spTree>
+  </p:cSld>
+  <p:clrMapOvr>
+    <a:masterClrMapping/>
+  </p:clrMapOvr>
+</p:sld>

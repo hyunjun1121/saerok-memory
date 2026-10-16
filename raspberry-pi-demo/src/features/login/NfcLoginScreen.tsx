@@ -16,7 +16,7 @@ export function NfcLoginScreen({ onAuthenticated }: NfcLoginScreenProps) {
 
   const playWaitingNarration = useCallback(() => {
     void audioManager.playNarration("login.nfc.waiting", language).then((result) => {
-      setAudioUnavailable(result.status !== "played");
+      setAudioUnavailable(result.status !== "played" && result.status !== "disabled");
     });
   }, [language]);
 
@@ -40,7 +40,7 @@ export function NfcLoginScreen({ onAuthenticated }: NfcLoginScreenProps) {
         audioManager.stopNarration();
         return;
       }
-      setAudioUnavailable(result.status !== "played");
+      setAudioUnavailable(result.status !== "played" && result.status !== "disabled");
     });
     return () => {
       active = false;

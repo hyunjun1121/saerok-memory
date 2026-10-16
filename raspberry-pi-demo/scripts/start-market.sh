@@ -8,8 +8,8 @@ source "$SCRIPT_DIR/haru-env.sh"
 MARKET="${1:-}"
 
 case "$MARKET" in
-  ko|ja) ;;
-  *) echo "Usage: start-market.sh ko|ja" >&2; exit 2 ;;
+  ko|ja|en) ;;
+  *) echo "Usage: start-market.sh ko|ja|en" >&2; exit 2 ;;
 esac
 
 CONFIG_TOOL="$SCRIPT_DIR/runtime-config.mjs"
@@ -20,7 +20,11 @@ if [[ ! -f "$BUILD_DIR/index.html" ]]; then
 fi
 
 node "$CONFIG_TOOL" validate >/dev/null
-node "$CONFIG_TOOL" sync "$BUILD_DIR" >/dev/null
+NARRATION_ENABLED=true
+if [[ "$MARKET" == "en" ]]; then
+  NARRATION_ENABLED=false
+fi
+node "$CONFIG_TOOL" sync "$BUILD_DIR" "$NARRATION_ENABLED" >/dev/null
 HOST="$(node "$CONFIG_TOOL" get server.host)"
 PORT="$(node "$CONFIG_TOOL" get server.port)"
 WIDTH="$(node "$CONFIG_TOOL" get display.width)"

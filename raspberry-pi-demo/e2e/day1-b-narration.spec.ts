@@ -38,6 +38,7 @@ const expectedEntries = audit.entries.map((entry) => ({
 }));
 
 test("serves the final 27 B plus 4 selected calm narrations from the Korean build", async ({ page }) => {
+  test.skip((process.env.EXPECTED_LANGUAGE ?? "ko") !== "ko", "Korean Fish Audio coverage only");
   const externalRequests: string[] = [];
   page.on("request", (request: Request) => {
     const url = new URL(request.url());

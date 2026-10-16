@@ -123,8 +123,8 @@ function narrationEntryMap(entries, label) {
     if (!entry || typeof entry !== "object" || Array.isArray(entry)) {
       throw new Error(`${label} contains an invalid entry.`);
     }
-    if (!["ko", "ja"].includes(entry.locale) || typeof entry.id !== "string" || entry.id.length === 0) {
-      throw new Error(`${label} entry must have locale ko/ja and a non-empty id.`);
+    if (!["ko", "ja", "en"].includes(entry.locale) || typeof entry.id !== "string" || entry.id.length === 0) {
+      throw new Error(`${label} entry must have locale ko/ja/en and a non-empty id.`);
     }
     if (typeof entry.text !== "string" || entry.text.length === 0) {
       throw new Error(`${label} entry has empty text: ${entry.locale}:${entry.id}`);
@@ -231,7 +231,7 @@ async function verifyStrictNarration(
   return {
     entryCount: sourceEntries.size,
     localeCounts: Object.fromEntries(
-      ["ko", "ja"].map((locale) => [
+      ["ko", "ja", "en"].map((locale) => [
         locale,
         [...sourceEntries.keys()].filter((key) => key.startsWith(`${locale}:`)).length,
       ]),
@@ -259,8 +259,15 @@ export async function checkBuildDirectory(buildDirectory, options = {}) {
     await readJson(await assertArtifact(rootDirectory, "config/runtime.json")),
   );
   const buildInfo = await readJson(await assertArtifact(rootDirectory, "config/build-info.json"));
-  if (buildInfo?.offline !== true || !["kr", "jp"].includes(buildInfo?.market)) {
-    throw new Error("config/build-info.json must identify a kr/jp offline build.");
+  if (
+    buildInfo?.offline !== true ||
+    !["kr", "jp", "en"].includes(buildInfo?.market) ||
+    typeof buildInfo?.narrationEnabled !== "boolean"
+  ) {
+    throw new Error("config/build-info.json must identify a kr/jp/en offline build and narration state.");
+  }
+  if (runtimeConfig.audio.narrationEnabled !== buildInfo.narrationEnabled) {
+    throw new Error("Runtime config narrationEnabled must match config/build-info.json.");
   }
   await assertArtifact(rootDirectory, "assets/audio/ui/LICENSE.txt");
   const modelSource = await readJson(
@@ -284,7 +291,8 @@ export async function checkBuildDirectory(buildDirectory, options = {}) {
   }
 
   let narrationCoverage = null;
-  if (options.strictNarration === true) {
+  const strictNarration = options.strictNarration ?? buildInfo.narrationEnabled;
+  if (strictNarration) {
     narrationCoverage = await verifyStrictNarration(rootDirectory, narrationManifest, modelSource, {
       narrationSourcePath: path.resolve(
         options.narrationSourcePath ?? PRODUCTION_NARRATION_SOURCE,
@@ -323,14 +331,16 @@ async function main() {
   const targets =
     argumentsList.length > 0
       ? argumentsList
-      : [path.join("dist", "ko"), path.join("dist", "ja")];
+      : [path.join("dist", "ko"), path.join("dist", "ja"), path.join("dist", "en")];
   for (const target of targets) {
     const result = await checkBuildDirectory(path.resolve(demoRoot, target), {
-      strictNarration: true,
       narrationSourcePath: PRODUCTION_NARRATION_SOURCE,
     });
+    const narrationSummary = result.narrationEntryCount === null
+      ? "narration deferred"
+      : `${result.narrationEntryCount} exact narration entries: ko ${result.narrationLocaleCounts.ko}, ja ${result.narrationLocaleCounts.ja}, en ${result.narrationLocaleCounts.en}`;
     process.stdout.write(
-      `Offline build OK: ${path.relative(demoRoot, result.rootDirectory)} (${result.market}, ${result.fileCount} files, ${result.manifestAudioFiles} manifest audio files, ${result.narrationEntryCount} exact narration entries: ko ${result.narrationLocaleCounts.ko}, ja ${result.narrationLocaleCounts.ja})\n`,
+      `Offline build OK: ${path.relative(demoRoot, result.rootDirectory)} (${result.market}, ${result.fileCount} files, ${result.manifestAudioFiles} manifest audio files, ${narrationSummary})\n`,
     );
   }
 }

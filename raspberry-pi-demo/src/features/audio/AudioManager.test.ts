@@ -113,6 +113,25 @@ describe("AudioManager", () => {
     expect(createAudio).not.toHaveBeenCalled();
   });
 
+  it("keeps local UI effects available when narration is intentionally disabled", async () => {
+    const fetcher = vi.fn(async () => new Response(JSON.stringify(manifest)));
+    const created: FakeAudio[] = [];
+    const manager = new AudioManager({
+      fetcher,
+      narrationEnabled: false,
+      createAudio: (src) => {
+        const audio = new FakeAudio(src);
+        created.push(audio);
+        return audio;
+      },
+    });
+
+    expect(await manager.playNarration("guide.choice", "en")).toEqual({ status: "disabled" });
+    expect(fetcher).not.toHaveBeenCalled();
+    expect(await manager.playUi("select")).toEqual({ status: "played" });
+    expect(created.map((audio) => audio.src)).toEqual(["assets/audio/ui/select.wav"]);
+  });
+
   it("fails closed when the manifest is unavailable or invalid", async () => {
     const unavailable = new AudioManager({
       fetcher: async () => {

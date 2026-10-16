@@ -9,7 +9,11 @@ export default defineConfig({
     {
       name: "haru-market-html-language",
       transformIndexHtml(html) {
-        const language = process.env.VITE_HARU_MARKET === "jp" ? "ja" : "ko";
+        const language = process.env.VITE_HARU_MARKET === "jp"
+          ? "ja"
+          : process.env.VITE_HARU_MARKET === "en"
+            ? "en"
+            : "ko";
         return html.replace('<html lang="ko">', `<html lang="${language}">`);
       },
       configureServer(server) {

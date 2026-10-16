@@ -23,7 +23,7 @@ export const UI_AUDIO_PATHS = {
 export type UiAudioEffect = keyof typeof UI_AUDIO_PATHS;
 export type AudioPlayResult =
   | { status: "played" }
-  | { status: "missing" | "unavailable" | "blocked" | "error" };
+  | { status: "disabled" | "missing" | "unavailable" | "blocked" | "error" };
 
 export interface AudioElementLike {
   currentTime: number;
@@ -36,6 +36,7 @@ interface AudioManagerOptions {
   fetcher?: typeof fetch;
   createAudio?: (src: string) => AudioElementLike;
   manifestUrl?: string;
+  narrationEnabled?: boolean;
 }
 
 function defaultCreateAudio(src: string): AudioElementLike {
@@ -58,14 +59,17 @@ export class AudioManager {
   private japaneseDay1Overrides: Map<string, JapaneseDay1NarrationEntry> | null = null;
   private japaneseDay1OverrideLoadPromise: Promise<Map<string, JapaneseDay1NarrationEntry> | null> | null = null;
   private narration: AudioElementLike | null = null;
+  private narrationEnabled: boolean;
 
   constructor(options: AudioManagerOptions = {}) {
     this.fetcher = options.fetcher ?? globalThis.fetch.bind(globalThis);
     this.createAudio = options.createAudio ?? defaultCreateAudio;
     this.manifestUrl = options.manifestUrl ?? NARRATION_MANIFEST_URL;
+    this.narrationEnabled = options.narrationEnabled ?? true;
   }
 
   load(): Promise<boolean> {
+    if (!this.narrationEnabled) return Promise.resolve(false);
     if (this.manifest) return Promise.resolve(true);
     if (this.loadPromise) return this.loadPromise;
 
@@ -84,6 +88,11 @@ export class AudioManager {
       });
 
     return this.loadPromise;
+  }
+
+  setNarrationEnabled(enabled: boolean): void {
+    this.narrationEnabled = enabled;
+    if (!enabled) this.stopNarration();
   }
 
   private loadJapaneseDay1Overrides(): Promise<Map<string, JapaneseDay1NarrationEntry> | null> {
@@ -108,6 +117,7 @@ export class AudioManager {
   }
 
   async playNarration(id: string, locale: NarrationLocale): Promise<AudioPlayResult> {
+    if (!this.narrationEnabled) return { status: "disabled" };
     let path: string | undefined;
     if (locale === "ja") {
       path = (await this.loadJapaneseDay1Overrides())?.get(id)?.path;

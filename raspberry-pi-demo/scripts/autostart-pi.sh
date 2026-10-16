@@ -8,8 +8,8 @@ source "$SCRIPT_DIR/haru-env.sh"
 
 ACTION="${1:-status}"
 MARKET="${2:-ko}"
-case "$ACTION" in enable|disable|status) ;; *) echo "Usage: autostart-pi.sh enable|disable|status [ko|ja]" >&2; exit 2 ;; esac
-case "$MARKET" in ko|ja) ;; *) echo "Market must be ko or ja." >&2; exit 2 ;; esac
+case "$ACTION" in enable|disable|status) ;; *) echo "Usage: autostart-pi.sh enable|disable|status [ko|ja|en]" >&2; exit 2 ;; esac
+case "$MARKET" in ko|ja|en) ;; *) echo "Market must be ko, ja, or en." >&2; exit 2 ;; esac
 [[ "${EUID:-$(id -u)}" -ne 0 ]] || { echo "Run as Desktop user, not root." >&2; exit 1; }
 command -v node >/dev/null 2>&1 || { echo "Node.js missing. Run provision-pi.sh first." >&2; exit 1; }
 

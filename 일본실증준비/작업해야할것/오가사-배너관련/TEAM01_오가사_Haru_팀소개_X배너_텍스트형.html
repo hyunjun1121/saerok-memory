@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TEAM 01 オガサ Haru 팀소개 X배너 (텍스트형)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#12315e;--blue:#1f7fd1;--blue2:#3f9be0;--sky:#8fc8f0;--muted:#6f829c}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#e9edf2;font-family:'Noto Sans JP','Noto Sans CJK JP','Hiragino Kaku Gothic ProN','Meiryo','Yu Gothic','Malgun Gothic',sans-serif;color:var(--navy);padding:16px;display:flex;flex-direction:column;align-items:center}
+  .hint{font-size:13px;color:#4a5a70;margin:0 0 12px;text-align:center;line-height:1.6;max-width:640px}
+  .hint b{color:#12315e}
+  .frame{position:relative}
+  .stage{position:absolute;left:0;top:0;width:600px;height:1800px;background:#fff;overflow:hidden;transform-origin:top left;box-shadow:0 6px 24px rgba(18,49,94,.18)}
+  .abs{position:absolute;left:0;width:600px;text-align:center}
+  svg.wave{position:absolute;left:0;width:600px;display:block}
+
+  .band{position:absolute;left:0;top:0;width:600px;height:222px;background:linear-gradient(135deg,#1f7fd1 0%,#3f9be0 55%,#6fb5ec 100%)}
+  .project{top:46px;font-size:22px;font-weight:700;letter-spacing:.32em;color:#e3f1fc}
+  .team{top:84px;font-size:108px;font-weight:900;line-height:1;color:#fff;letter-spacing:.02em}
+  .teamname{top:262px;font-size:64px;font-weight:900;line-height:1.2;color:var(--navy);padding:0 40px}
+  .rule{position:absolute;top:362px;left:230px;width:140px;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--sky),var(--blue))}
+  .prod{top:392px;padding:0 40px}
+  .prod .en{font-size:112px;font-weight:900;line-height:1.05;color:var(--blue);letter-spacing:.01em}
+  .prod .kana{margin-top:6px;font-size:34px;font-weight:700;color:var(--navy);letter-spacing:.12em}
+
+  .tagline{top:564px;font-size:22px;font-weight:700;line-height:1.3;color:var(--navy);letter-spacing:.02em;padding:0 20px}
+
+  .features{position:absolute;left:0;top:1222px;width:600px;padding:0 46px;display:flex;flex-direction:column;gap:22px}
+  .feat{display:flex;align-items:center;gap:22px}
+  .ico{flex:0 0 70px;width:70px;height:70px;border-radius:50%;background:linear-gradient(160deg,var(--blue2),var(--blue));display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(31,127,209,.28)}
+  .ico svg{width:38px;height:38px;fill:none;stroke:#fff;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round}
+  .ftxt .jp{font-size:33px;font-weight:700;line-height:1.2;color:var(--navy)}
+  .ftxt .ko{margin-top:2px;font-size:19px;font-weight:500;line-height:1.2;color:var(--muted)}
+
+  .body2{position:absolute;left:46px;top:632px;width:508px}
+  .lead{padding:18px 22px 16px;border-radius:22px;background:#f2f7fc;border:3px solid var(--sky);text-align:center;margin-bottom:6px}
+  .lead .l1{font-size:26px;font-weight:900;line-height:1.4;color:var(--navy)}
+  .lead .l2{margin-top:6px;font-size:19px;font-weight:700;color:var(--blue);letter-spacing:.04em}
+  .row{display:flex;gap:22px;align-items:flex-start;padding:40px 0;border-bottom:2px solid #dfeaf7}
+  .row:last-child{border-bottom:none}
+  .row .ico{flex:0 0 64px;width:64px;height:64px}
+  .row .ico svg{width:34px;height:34px}
+  .rt{font-size:30px;font-weight:900;line-height:1.25;color:var(--navy)}
+  .rd{margin-top:4px;font-size:21px;font-weight:500;line-height:1.5;color:#3c5170}
+  [contenteditable]:focus{outline:2px dashed #e08a00;outline-offset:4px}
+  @media print{body{background:#fff;padding:0}.hint{display:none}}
+</style>
+</head>
+<body>
+<p class="hint"><b>TEAM 01 · オガサ · Haru(ハル) — 팀소개 X배너 텍스트형 (600 × 1800, 1:3)</b><br>사진 없이 텍스트만 넣은 버전이에요. 글자는 클릭해서 수정할 수 있고, 문구는 각 팀 <b>大会発表資料(발표자료)</b> 내용 기준입니다.</p>
+
+<div class="frame" id="frame">
+<div class="stage" id="stage">
+
+  <div class="band"></div>
+  <div class="abs project" contenteditable="true" spellcheck="false">GLOBAL PIUDA PROJECT</div>
+  <div class="abs team" contenteditable="true" spellcheck="false">TEAM 01</div>
+  <div class="abs teamname" contenteditable="true" spellcheck="false">オガサ</div>
+  <div class="rule"></div>
+
+  <div class="abs prod">
+    <div class="en" contenteditable="true" spellcheck="false">Haru</div>
+    <div class="kana" contenteditable="true" spellcheck="false">ハル</div>
+  </div>
+  <div class="abs tagline" contenteditable="true" spellcheck="false">検査と感じさせない脳トレーニング・キオスク</div>
+
+  <div class="body2">
+    <div class="lead"><div class="l1" contenteditable="true" spellcheck="false">「検査」と感じさせずに、<br>楽しく認知機能をチェック。</div><div class="l2" contenteditable="true" spellcheck="false">脳トレーニング・キオスク</div></div>
+    <div class="row"><div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div><div><div class="rt" contenteditable="true" spellcheck="false">毎日3分のルーティン</div><div class="rd" contenteditable="true" spellcheck="false">通いなれた場所で、毎日3分。<br>気軽に続けられる脳トレーニングです。</div></div></div>
+    <div class="row"><div class="ico"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg></div><div><div class="rt" contenteditable="true" spellcheck="false">大画面と4つのボタン</div><div class="rd" contenteditable="true" spellcheck="false">大きな画面と2×2のボタン、<br>音声認識で操作もかんたんです。</div></div></div>
+    <div class="row"><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3Z"/><path d="M18.5 16.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8.8-2Z"/></svg></div><div><div class="rt" contenteditable="true" spellcheck="false">AIで個人に合わせた設問</div><div class="rd" contenteditable="true" spellcheck="false">AIがお一人おひとりに合わせて<br>設問をパーソナライズします。</div></div></div>
+    <div class="row"><div class="ico"><svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="6" r="2.6"/><circle cx="18" cy="18" r="2.6"/><path d="M8.3 10.8l7.4-3.6M8.3 13.2l7.4 3.6"/></svg></div><div><div class="rt" contenteditable="true" spellcheck="false">家族・福祉・医療をつなぐ</div><div class="rd" contenteditable="true" spellcheck="false">高齢者ご本人、ご家族、福祉、医療を<br>データでつなぎ、見守りを支えます。</div></div></div>
+  </div>
+
+  <!-- 하단 파도 (아래로 갈수록 진해지는 레이어) -->
+  <svg class="wave" style="bottom:0" height="230" viewBox="0 0 600 290" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e3f1fc"/><stop offset="1" stop-color="#bfe0f8"/></linearGradient>
+      <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fd0f3"/><stop offset="1" stop-color="#6fb5ec"/></linearGradient>
+      <linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4aa2e6"/><stop offset="1" stop-color="#1f7fd1"/></linearGradient>
+    </defs>
+    <path d="M0 74C70 40 140 36 220 62C300 88 380 96 460 70C520 52 570 50 600 58V290H0Z" fill="url(#g1)"/>
+    <path d="M0 128C80 98 150 96 230 120C310 144 390 150 470 124C530 106 575 104 600 110V290H0Z" fill="url(#g2)"/>
+    <path d="M0 186C90 160 160 160 240 180C320 200 400 204 480 182C535 168 575 166 600 170V290H0Z" fill="url(#g3)"/>
+  </svg>
+
+</div>
+</div>
+
+<script>
+(function(){
+  var stage=document.getElementById('stage'), frame=document.getElementById('frame');
+  function fit(){
+    var s=Math.min(1,(window.innerWidth-32)/600);
+    stage.style.transform='scale('+s+')';
+    frame.style.width=(600*s)+'px'; frame.style.height=(1800*s)+'px';
+  }
+  fit(); window.addEventListener('resize',fit);
+})();
+</script>
+</body>
+</html>

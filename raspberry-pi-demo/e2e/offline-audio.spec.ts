@@ -12,7 +12,12 @@ const KEY_BY_SLOT = {
 const OFFLINE_PROGRESS_KEY = "haru:offline:progress:v1";
 const NARRATION_MANIFEST_PATH = "assets/audio/narration/manifest.json";
 const DEBOUNCE_SETTLE_MS = 230;
-const EXPECTED_LANGUAGE = process.env.EXPECTED_LANGUAGE === "ja" ? "ja" : "ko";
+const EXPECTED_LANGUAGE = process.env.EXPECTED_LANGUAGE === "ja"
+  ? "ja"
+  : process.env.EXPECTED_LANGUAGE === "en"
+    ? "en"
+    : "ko";
+const NARRATION_ENABLED = EXPECTED_LANGUAGE !== "en";
 
 const UI_AUDIO_PATHS = {
   select: "assets/audio/ui/select.wav",
@@ -38,7 +43,7 @@ interface AudioResponseRecord {
 
 interface NarrationManifestEntry {
   id: string;
-  locale: "ko" | "ja";
+  locale: "ko" | "ja" | "en";
   path: string;
 }
 
@@ -210,13 +215,26 @@ async function expectPlayedWithHttp200(
   })).toBe(true);
 }
 
-test("plays the NFC waiting prompt on entry and replays it for every physical button", async ({ page }) => {
+test("plays the NFC waiting prompt only when narration is enabled", async ({ page }) => {
   await installAudioProbe(page);
   const { audioResponses, externalRequests } = watchNetwork(page);
 
   await page.goto("/#/lesson?day=1");
   const login = page.locator('[data-screen="nfc-login"]');
   await expect(login).toBeVisible();
+
+  if (!NARRATION_ENABLED) {
+    await expect.poll(async () => (await getAudioProbe(page)).plays.length).toBe(0);
+    await expect(login.locator(".audio-warning")).toHaveCount(0);
+    for (const slot of ["topLeft", "topRight", "bottomLeft", "bottomRight"] as const) {
+      await pressPhysicalButton(page, slot);
+      await expect(login).toBeVisible();
+    }
+    expect((await getAudioProbe(page)).plays).toEqual([]);
+    expect(audioResponses).toEqual([]);
+    expect(externalRequests).toEqual([]);
+    return;
+  }
 
   const { ["login.nfc.waiting"]: loginPath } = await getNarrationPaths(page, ["login.nfc.waiting"]);
   const loginUrl = absoluteAssetUrl(page, loginPath);
@@ -263,7 +281,7 @@ test("plays representative narration and UI cues from local HTTP 200 assets", as
   page.on("pageerror", (error) => pageErrors.push(error.message));
 
   await openDayOne(page);
-  const narrationPaths = await getNarrationPaths(page, [
+  const narrationPaths: Record<string, string> = NARRATION_ENABLED ? await getNarrationPaths(page, [
     "day.1.greeting",
     "exercise.D1_Q1.prompt",
     "exercise.D1_Q1.option.A",
@@ -271,13 +289,15 @@ test("plays representative narration and UI cues from local HTTP 200 assets", as
     "exercise.D1_Q5.prompt",
     "guide.voice_review",
     "exercise.D1_Q6.sequence",
-  ]);
-  await expectPlayedWithHttp200(page, [narrationPaths["day.1.greeting"]], audioResponses);
-  const greetingUrl = absoluteAssetUrl(page, narrationPaths["day.1.greeting"]);
-  await expect.poll(async () => {
-    const { plays } = await getAudioProbe(page);
-    return plays.filter((path) => path === greetingUrl).length;
-  }).toBe(1);
+  ]) : {};
+  if (NARRATION_ENABLED) {
+    await expectPlayedWithHttp200(page, [narrationPaths["day.1.greeting"]], audioResponses);
+    const greetingUrl = absoluteAssetUrl(page, narrationPaths["day.1.greeting"]);
+    await expect.poll(async () => {
+      const { plays } = await getAudioProbe(page);
+      return plays.filter((path) => path === greetingUrl).length;
+    }).toBe(1);
+  }
 
   await pressPhysicalButton(page, "topRight");
   await expect(page.locator('[data-screen="lesson-question"][data-exercise-id="D1_Q1"]')).toBeVisible();
@@ -318,13 +338,15 @@ test("plays representative narration and UI cues from local HTTP 200 assets", as
   )).toBeVisible();
 
   const expectedPaths = [
-    narrationPaths["day.1.greeting"],
-    narrationPaths["exercise.D1_Q1.prompt"],
-    narrationPaths["exercise.D1_Q1.option.A"],
-    narrationPaths["feedback.saved"],
-    narrationPaths["exercise.D1_Q5.prompt"],
-    narrationPaths["guide.voice_review"],
-    narrationPaths["exercise.D1_Q6.sequence"],
+    ...(NARRATION_ENABLED ? [
+      narrationPaths["day.1.greeting"],
+      narrationPaths["exercise.D1_Q1.prompt"],
+      narrationPaths["exercise.D1_Q1.option.A"],
+      narrationPaths["feedback.saved"],
+      narrationPaths["exercise.D1_Q5.prompt"],
+      narrationPaths["guide.voice_review"],
+      narrationPaths["exercise.D1_Q6.sequence"],
+    ] : []),
     ...Object.values(UI_AUDIO_PATHS),
   ];
   await expectPlayedWithHttp200(page, expectedPaths, audioResponses);
@@ -332,7 +354,8 @@ test("plays representative narration and UI cues from local HTTP 200 assets", as
   const probe = await getAudioProbe(page);
   expect(probe.plays.length).toBeGreaterThanOrEqual(expectedPaths.length);
   expect(probe.plays.every(isAppAudioAsset)).toBe(true);
-  expect(probe.pauses.length).toBeGreaterThan(0);
+  if (NARRATION_ENABLED) expect(probe.pauses.length).toBeGreaterThan(0);
+  else expect(probe.pauses).toEqual([]);
   expect(pageErrors).toEqual([]);
   expect(externalRequests).toEqual([]);
 });
@@ -344,7 +367,8 @@ test("keeps four-key progress available when every audio play rejects", async ({
   page.on("pageerror", (error) => pageErrors.push(error.message));
 
   await openDayOne(page);
-  await expect(page.locator(".audio-warning")).toBeVisible();
+  if (NARRATION_ENABLED) await expect(page.locator(".audio-warning")).toBeVisible();
+  else await expect(page.locator(".audio-warning")).toHaveCount(0);
   await pressPhysicalButton(page, "topRight");
 
   const firstQuestion = page.locator('[data-screen="lesson-question"][data-exercise-id="D1_Q1"]');
@@ -358,7 +382,7 @@ test("keeps four-key progress available when every audio play rejects", async ({
 
   const probe = await getAudioProbe(page);
   expect(probe.failPlayback).toBe(true);
-  expect(probe.plays.length).toBeGreaterThanOrEqual(6);
+  expect(probe.plays.length).toBeGreaterThanOrEqual(NARRATION_ENABLED ? 6 : 2);
   expect(probe.plays.every(isAppAudioAsset)).toBe(true);
   expect(pageErrors).toEqual([]);
   expect(externalRequests).toEqual([]);

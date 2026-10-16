@@ -1,4 +1,4 @@
-export type NarrationLocale = "ko" | "ja";
+export type NarrationLocale = "ko" | "ja" | "en";
 
 export interface NarrationEntry {
   id: string;
@@ -308,8 +308,8 @@ export function parseNarrationManifest(input: unknown): NarrationManifest {
     const sha256 = requireString(rawEntry, "sha256", context);
 
     if (!SAFE_ID_PATTERN.test(id)) throw new NarrationManifestError(`${context}.id is invalid`);
-    if (locale !== "ko" && locale !== "ja") {
-      throw new NarrationManifestError(`${context}.locale must be ko or ja`);
+    if (locale !== "ko" && locale !== "ja" && locale !== "en") {
+      throw new NarrationManifestError(`${context}.locale must be ko, ja, or en`);
     }
     if (!isLocalNarrationPath(path)) {
       throw new NarrationManifestError(`${context}.path must stay inside ${LOCAL_PATH_PREFIX}`);

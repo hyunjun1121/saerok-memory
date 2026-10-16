@@ -1,4 +1,4 @@
-"""Decode and conservatively condition browser audio for Qwen3-ASR.
+"""Decode and conservatively condition browser audio before Microsoft STT.
 
 The output remains the same length as the decoded recording: pauses are never
 trimmed.  Conditioning follows the supplied STT design: DC removal, an 80 Hz
@@ -112,7 +112,7 @@ def normalize_rms(
 
 
 def preprocess_audio(audio: np.ndarray, sample_rate: int = TARGET_SAMPLE_RATE) -> np.ndarray:
-    """Run the versioned Haru Qwen input conditioning pipeline."""
+    """Run the versioned Haru audio conditioning pipeline."""
     conditioned = remove_dc(audio)
     conditioned = high_pass_filter(conditioned, sample_rate=sample_rate)
     return normalize_rms(conditioned)
@@ -158,7 +158,7 @@ def has_speech_activity(
     """Conservatively detect whether a complete recording contains speech.
 
     This is not a trimming VAD: it never changes samples or removes pauses. It
-    only rejects an entirely silent/steady-noise utterance before Qwen, avoiding
+    only rejects an entirely silent/steady-noise utterance before transcription, avoiding
     language-model filler hallucinations on recordings with no spoken response.
     """
     if sample_rate <= 0:

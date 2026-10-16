@@ -1,0 +1,9 @@
+Communication job: Competition judges should understand that Haru has instrumented the voice funnel, identified the highest-risk interaction hypothesis, built a concrete assist intervention, and defined measurable criteria for a real 50-70s pilot.
+
+Narrative: measurement readiness -> hypothesized friction -> product intervention -> sample decision thresholds -> real-pilot plan.
+
+Visual direction: 16:9, white background, Korean startup pitch style, editorial typography, one dominant visual per slide, Haru coral/green accents, warm off-white surfaces, thin gray rules, no dense dashboard grids.
+
+Typography: Pretendard, 48-54px titles, 24-30px subheads, 18-22px body, 14px source/provenance footer.
+
+Medical/privacy: voice UX only; no clinical, diagnostic, disease-detection, or cognition claims. Real pilot plan includes consent and de-identification.

@@ -63,7 +63,7 @@ async function main() {
   await runNode(viteCli, ["build"], environment);
 
   const absoluteOutput = path.join(demoRoot, spec.outDirectory);
-  await syncRuntimeConfig(absoluteOutput);
+  await syncRuntimeConfig(absoluteOutput, { narrationEnabled: spec.narrationEnabled });
   await mkdir(path.join(absoluteOutput, "config"), { recursive: true });
   await writeFile(
     path.join(absoluteOutput, "config", "build-info.json"),
@@ -73,6 +73,7 @@ async function main() {
         market: spec.market,
         locale: spec.localeDirectory,
         offline: true,
+        narrationEnabled: spec.narrationEnabled,
       },
       null,
       2,

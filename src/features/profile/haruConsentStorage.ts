@@ -8,10 +8,12 @@ export interface HaruConsentState {
   usageAnalytics: boolean;
   voiceRecording: boolean;
   sttProcessing: boolean;
+  microsoftSpeechTransferConsent?: boolean;
   transcriptStorage: boolean;
   audioStorage: boolean;
   longitudinalUsageStorage: boolean;
   personalizedQuestionUse: boolean;
+  museQuestionGeneration?: boolean;
   familySharing: boolean;
   consentedAt: string;
   updatedAt: string;
@@ -26,6 +28,7 @@ export type HaruConsentPermissions = Pick<
   | "audioStorage"
   | "longitudinalUsageStorage"
   | "personalizedQuestionUse"
+  | "museQuestionGeneration"
   | "familySharing"
 >;
 
@@ -49,13 +52,15 @@ function defaultConsent(): HaruConsentState {
   return {
     usageAnalytics: demoMode,
     voiceRecording: demoMode && HARU_DEMO_PERSONA.consents.voiceRecording,
-    sttProcessing: demoMode && HARU_DEMO_PERSONA.consents.sttProcessing,
+    sttProcessing: false,
+    microsoftSpeechTransferConsent: false,
     transcriptStorage: demoMode,
     audioStorage: demoMode,
     longitudinalUsageStorage:
       demoMode && HARU_DEMO_PERSONA.consents.longitudinalUsageStorage,
     personalizedQuestionUse:
       demoMode && HARU_DEMO_PERSONA.consents.personalizedQuestionUse,
+    museQuestionGeneration: false,
     familySharing: demoMode,
     consentedAt: fallbackTimestamp,
     updatedAt: fallbackTimestamp,
@@ -68,10 +73,12 @@ function failClosedConsent(): HaruConsentState {
     usageAnalytics: false,
     voiceRecording: false,
     sttProcessing: false,
+    microsoftSpeechTransferConsent: false,
     transcriptStorage: false,
     audioStorage: false,
     longitudinalUsageStorage: false,
     personalizedQuestionUse: false,
+    museQuestionGeneration: false,
     familySharing: false,
   };
 }
@@ -100,13 +107,20 @@ function parseConsent(value: unknown): HaruConsentState | null {
     usageAnalytics:
       typeof value.usageAnalytics === "boolean" ? value.usageAnalytics : false,
     voiceRecording: value.voiceRecording,
-    sttProcessing: value.sttProcessing,
+    // Existing STT consent covered local processing only; Microsoft transfer
+    // requires the learner to enable this setting again.
+    sttProcessing:
+      value.sttProcessing && value.microsoftSpeechTransferConsent === true,
+    microsoftSpeechTransferConsent:
+      value.microsoftSpeechTransferConsent === true,
     transcriptStorage:
       typeof value.transcriptStorage === "boolean" ? value.transcriptStorage : false,
     audioStorage:
       typeof value.audioStorage === "boolean" ? value.audioStorage : false,
     longitudinalUsageStorage: value.longitudinalUsageStorage,
     personalizedQuestionUse: value.personalizedQuestionUse,
+    // Existing records predate external question phrasing and must opt in again.
+    museQuestionGeneration: value.museQuestionGeneration === true,
     familySharing:
       typeof value.familySharing === "boolean" ? value.familySharing : false,
     consentedAt: value.consentedAt,
@@ -145,10 +159,12 @@ function isSameConsent(
       left.voiceRecording === right.voiceRecording &&
       left.usageAnalytics === right.usageAnalytics &&
       left.sttProcessing === right.sttProcessing &&
+      left.microsoftSpeechTransferConsent === right.microsoftSpeechTransferConsent &&
       left.transcriptStorage === right.transcriptStorage &&
       left.audioStorage === right.audioStorage &&
       left.longitudinalUsageStorage === right.longitudinalUsageStorage &&
       left.personalizedQuestionUse === right.personalizedQuestionUse &&
+      left.museQuestionGeneration === right.museQuestionGeneration &&
       left.familySharing === right.familySharing &&
       left.consentedAt === right.consentedAt &&
       left.updatedAt === right.updatedAt,
@@ -197,7 +213,10 @@ export function updateHaruConsent(
       ? { voiceRecording: update.voiceRecording }
       : {}),
     ...(typeof update.sttProcessing === "boolean"
-      ? { sttProcessing: update.sttProcessing }
+      ? {
+          sttProcessing: update.sttProcessing,
+          microsoftSpeechTransferConsent: update.sttProcessing,
+        }
       : {}),
     ...(typeof update.transcriptStorage === "boolean"
       ? { transcriptStorage: update.transcriptStorage }
@@ -210,6 +229,9 @@ export function updateHaruConsent(
       : {}),
     ...(typeof update.personalizedQuestionUse === "boolean"
       ? { personalizedQuestionUse: update.personalizedQuestionUse }
+      : {}),
+    ...(typeof update.museQuestionGeneration === "boolean"
+      ? { museQuestionGeneration: update.museQuestionGeneration }
       : {}),
     ...(typeof update.familySharing === "boolean"
       ? { familySharing: update.familySharing }

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { copyFile, mkdir, readFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -34,8 +34,12 @@ export function getConfigValue(config, dottedPath) {
   return value;
 }
 
-export async function syncRuntimeConfig(outputDirectory) {
-  await loadRuntimeConfig();
+export async function syncRuntimeConfig(outputDirectory, options = {}) {
+  const config = await loadRuntimeConfig();
+  const narrationEnabled = options.narrationEnabled ?? config.audio.narrationEnabled;
+  if (typeof narrationEnabled !== "boolean") {
+    throw new Error("Runtime config narrationEnabled override must be boolean.");
+  }
   const resolvedOutput = path.resolve(outputDirectory);
   const distRoot = path.resolve(demoRoot, "dist");
   if (!resolvedOutput.startsWith(`${distRoot}${path.sep}`)) {
@@ -44,12 +48,16 @@ export async function syncRuntimeConfig(outputDirectory) {
   const targetDirectory = path.join(resolvedOutput, "config");
   await mkdir(targetDirectory, { recursive: true });
   const target = path.join(targetDirectory, "runtime.json");
-  await copyFile(runtimeConfigPath, target);
+  await writeFile(
+    target,
+    `${JSON.stringify({ ...config, audio: { ...config.audio, narrationEnabled } }, null, 2)}\n`,
+    "utf8",
+  );
   return target;
 }
 
 async function main() {
-  const [command = "validate", argument] = process.argv.slice(2);
+  const [command = "validate", argument, narrationEnabledArgument] = process.argv.slice(2);
   const config = await loadRuntimeConfig();
   if (command === "validate") {
     process.stdout.write(`${runtimeConfigPath}\n`);
@@ -63,7 +71,14 @@ async function main() {
   }
   if (command === "sync") {
     if (!argument) throw new Error("Usage: runtime-config.mjs sync <dist-directory>");
-    process.stdout.write(`${await syncRuntimeConfig(argument)}\n`);
+    let narrationEnabled;
+    if (narrationEnabledArgument !== undefined) {
+      if (narrationEnabledArgument !== "true" && narrationEnabledArgument !== "false") {
+        throw new Error("Runtime config narrationEnabled override must be true or false.");
+      }
+      narrationEnabled = narrationEnabledArgument === "true";
+    }
+    process.stdout.write(`${await syncRuntimeConfig(argument, { narrationEnabled })}\n`);
     return;
   }
   throw new Error(`Unknown runtime-config command: ${command}`);

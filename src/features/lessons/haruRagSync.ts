@@ -1,4 +1,6 @@
 import type { HaruAdminUsageRecord } from "@/features/lessons/haruAdminUsageRecordStorage";
+import type { MarketCode } from "@/config/market";
+import type { HaruGeneratedQuestion } from "@/features/lessons/haruGeneratedQuestionStorage";
 import {
   getHaruConsent,
   subscribeToHaruConsent,
@@ -231,6 +233,8 @@ function payloadForCurrentConsent(
         personalized_question_use:
           record.user.consents.personalized_question_use &&
           runtimeConsent.personalizedQuestionUse,
+        muse_question_generation:
+          runtimeConsent.museQuestionGeneration === true,
       },
     },
   };
@@ -280,6 +284,10 @@ function dispatchOutboxUpdated(): void {
 
 export function getHaruRagOutbox(): readonly HaruRagOutboxEntry[] {
   return readOutbox();
+}
+
+export function hasPendingHaruRagRecord(userId: string): boolean {
+  return readOutbox().some((entry) => entryUserId(entry) === userId);
 }
 
 export function getHaruRagDeletionOutbox(): readonly HaruRagDeletionEntry[] {
@@ -746,6 +754,96 @@ export function flushHaruRagOutbox(options: HaruRagSyncOptions = {}): Promise<vo
     nextFlushOptions = null;
   });
   return activeFlush;
+}
+
+export async function generateHaruNextDayQuestion(
+  userId: string,
+  targetDate: string,
+  market: MarketCode,
+  locale: "ko-KR" | "ja-JP",
+): Promise<HaruGeneratedQuestion | null> {
+  const hasConsent = () => {
+    const consent = getHaruConsent();
+    return (
+      consent.longitudinalUsageStorage &&
+      consent.personalizedQuestionUse &&
+      consent.museQuestionGeneration === true
+    );
+  };
+  if (!hasConsent()) return null;
+
+  await flushHaruRagOutbox({ force: true });
+  if (!hasConsent() || hasPendingHaruRagRecord(userId)) return null;
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 45_000);
+  try {
+    const response = await fetch(
+      `${ragApiBaseUrl()}/api/users/${encodeURIComponent(userId)}/questions/generate`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...authorizationHeaders(),
+        },
+        body: JSON.stringify({ target_date: targetDate, count: 1, market, locale }),
+        signal: controller.signal,
+      },
+    );
+    if (!response.ok || !hasConsent()) return null;
+    const payload: unknown = await response.json();
+    if (!isRecord(payload) || payload.target_date !== targetDate || !Array.isArray(payload.questions)) {
+      return null;
+    }
+    const question = payload.questions.find(
+      (candidate) =>
+        isRecord(candidate) &&
+        candidate.target_date === targetDate &&
+        candidate.market === market &&
+        isRecord(candidate.prompts) &&
+        isRecord(candidate.correct_answer) &&
+        typeof candidate.correct_answer.button === "string" &&
+        Array.isArray(candidate.choices),
+    );
+    if (!isRecord(question) || !hasConsent()) return null;
+    const prompts = question.prompts as Record<string, unknown>;
+    const correctAnswer = question.correct_answer as Record<string, unknown>;
+    if (
+      typeof prompts.ko !== "string" ||
+      typeof prompts.ja !== "string" ||
+      typeof prompts.en !== "string" ||
+      !["A", "B", "C", "D"].includes(String(correctAnswer.button))
+    ) {
+      return null;
+    }
+    const questionChoices = question.choices;
+    if (!Array.isArray(questionChoices)) return null;
+    const choices = questionChoices.flatMap((choice: unknown) =>
+      isRecord(choice) &&
+      ["A", "B", "C", "D"].includes(String(choice.button)) &&
+      typeof choice.label === "string"
+        ? [{ button: choice.button as "A" | "B" | "C" | "D", label: choice.label }]
+        : [],
+    );
+    if (
+      choices.length !== 4 ||
+      new Set(choices.map((choice) => choice.button)).size !== 4 ||
+      !hasConsent()
+    ) {
+      return null;
+    }
+    return {
+      targetDate,
+      market,
+      prompts: { ko: prompts.ko, ja: prompts.ja, en: prompts.en },
+      choices,
+      correctButton: correctAnswer.button as "A" | "B" | "C" | "D",
+    };
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 export function startHaruRagSync(

@@ -1,0 +1,325 @@
+{
+  "accountId": "team_wBAll4r1TUbESSv3c0yLUdJn",
+  "creator": {
+    "type": "user",
+    "user": {
+      "id": "4NwImgH6ifSAu9EE35TwSUkA"
+    },
+    "via": {
+      "type": "app",
+      "app": {
+        "id": "cl_HYyOPBNtFMfHhaUn9L4QPfTZz6TP47bp"
+      }
+    }
+  },
+  "alias": [],
+  "speedInsights": {
+    "id": "fAGeARqGwp2OJ59roIP89nYhPfQ",
+    "hasData": false
+  },
+  "autoExposeSystemEnvs": true,
+  "autoAssignCustomDomains": true,
+  "autoAssignCustomDomainsUpdatedBy": "system",
+  "buildCommand": "npm run build",
+  "createdAt": 1785317485231,
+  "crons": {
+    "enabledAt": 1785317557768,
+    "disabledAt": null,
+    "updatedAt": 1787555534990,
+    "deploymentId": "dpl_FHPbxEu1p8LyA8EAYhxFPNTA4muP",
+    "definitions": []
+  },
+  "deploymentExpiration": {
+    "expirationDays": 30,
+    "expirationDaysProduction": 30,
+    "expirationDaysCanceled": 30,
+    "expirationDaysErrored": 30,
+    "deploymentsToKeep": 10
+  },
+  "devCommand": null,
+  "directoryListing": false,
+  "env": [
+    {
+      "type": "encrypted",
+      "value": "eyJ2IjoidjIiLCJjIjoib29WcU51SzFWS1MwNXNvMXViZTlRRTNHRjlRVHBESkpEOEhFVmRCSGJQMWl3UlJCaXRZaG93U0czUDZkdVA1NzMxaytMRmx0NWVYUTZBbWczUUMyR0JkQ0pRUT0iLCJrIjpbMTg0LDEsMiwzLDAsMTIwLDEwNywxMTksMTUzLDIzLDIyMywxMTcsMTgzLDEyMCw1NywxOTYsMTEsMjgsMjQ5LDExOSwxMDQsMjEzLDE2OSwxNjEsMTQxLDE0Miw5OSw2NSw0OSwyMTIsMzAsMTk5LDk3LDIwNCwyMTgsNzcsMTA1LDE3OSwxLDI0NSwyNTEsMTU0LDE0NCwyMDQsMTU2LDE3NSwyMTMsMTg3LDE3OCwxNDgsMjMzLDU1LDE3OCwxOTAsMjAsMCwwLDAsMTI2LDQ4LDEyNCw2LDksNDIsMTM0LDcyLDEzNCwyNDcsMTMsMSw3LDYsMTYwLDExMSw0OCwxMDksMiwxLDAsNDgsMTA0LDYsOSw0MiwxMzQsNzIsMTM0LDI0NywxMywxLDcsMSw0OCwzMCw2LDksOTYsMTM0LDcyLDEsMTAxLDMsNCwxLDQ2LDQ4LDE3LDQsMTIsOTUsMTAsMTAyLDE2MywxMjIsMjIsMjIxLDE2NywxMzQsNTIsMTE2LDEzMCwyLDEsMTYsMTI4LDU5LDIzOSwyMDksMjA5LDExNiwxNTIsMTU3LDk1LDE4MCwxNTgsMTQwLDQ3LDEzMSwxNjIsMTE4LDIxOSwxMDUsNTQsMTA4LDE0MiwxNDIsMzQsMTc1LDM3LDEzNywxMjYsNDIsMjE3LDIyOSw0NCw2NSwxMTYsNTMsMjA3LDg1LDI2LDEyOCwxMTYsMTI3LDY0LDE3MCwxODgsMjQ5LDE2NSwyMSwxNjksNTUsMTk2LDU0LDUzLDEyOCwxNjIsNDgsMTQ0LDIyOCwxNTIsNDQsMzUsMTQ5LDI1M119",
+      "target": [
+        "production"
+      ],
+      "configurationId": null,
+      "id": "jx3mIIWXmtcWkp4d",
+      "key": "VITE_DEFAULT_LOCALE",
+      "createdAt": 1785317515527,
+      "updatedAt": 1787554584506,
+      "createdBy": "4NwImgH6ifSAu9EE35TwSUkA",
+      "updatedBy": "4NwImgH6ifSAu9EE35TwSUkA"
+    },
+    {
+      "type": "encrypted",
+      "value": "eyJ2IjoidjIiLCJjIjoib0R3Vk4rRmx2MVNWby9nMkg4MVZ3SGRIMTNvM0cwQW9jbFZueXZBUnNsRjZYcGlLM1FmL0dERlFlWGpBVUpuMmhPSjVIOC9MdURuaWxwVisrbnk2ekM5cXlkMD0iLCJrIjpbMTg0LDEsMiwzLDAsMTIwLDEwNywxMTksMTUzLDIzLDIyMywxMTcsMTgzLDEyMCw1NywxOTYsMTEsMjgsMjQ5LDExOSwxMDQsMjEzLDE2OSwxNjEsMTQxLDE0Miw5OSw2NSw0OSwyMTIsMzAsMTk5LDk3LDIwNCwyMTgsNzcsMTA1LDE3OSwxLDE5OCwyNyw3OCw0MSw2NSwyNTMsMzgsMjEwLDE3NCw1OSwxODcsMjI3LDEyMCwxMzcsMTUzLDE2MSwwLDAsMCwxMjYsNDgsMTI0LDYsOSw0MiwxMzQsNzIsMTM0LDI0NywxMywxLDcsNiwxNjAsMTExLDQ4LDEwOSwyLDEsMCw0OCwxMDQsNiw5LDQyLDEzNCw3MiwxMzQsMjQ3LDEzLDEsNywxLDQ4LDMwLDYsOSw5NiwxMzQsNzIsMSwxMDEsMyw0LDEsNDYsNDgsMTcsNCwxMiwyMjgsMTU3LDExMiw0NCwyMzcsNjMsNTEsMzUsMjExLDEzLDE0NywzOSwyLDEsMTYsMTI4LDU5LDIzNiwxOSw0MywxNjksMjM4LDIyMiwyNTIsMTA5LDg4LDE4LDIxMCwyMzAsMTc4LDIyNiwzMCwxNjksMTcxLDIzMCw2NywyMTAsMjUzLDMsMjM0LDI1LDE4LDIwMCwxNDIsNTMsMjQ1LDIzMiwxMTYsMTYzLDEzOCwxNjMsNzksMTMyLDExMCwzNiwyMTgsMTY2LDQ1LDI0OSwxOTIsODUsMTc3LDc5LDE4OCwxMDEsMTY0LDI3LDIwMiwyMDUsMjEsMTk4LDE2OCwyMTUsNDMsOSwxMzddfQ==",
+      "target": [
+        "production"
+      ],
+      "configurationId": null,
+      "id": "fk3Rg81BsYM83ffV",
+      "key": "VITE_HARU_MARKET",
+      "createdAt": 1787554584452,
+      "updatedAt": 1787554584452,
+      "createdBy": "4NwImgH6ifSAu9EE35TwSUkA",
+      "updatedBy": null
+    }
+  ],
+  "framework": "vite",
+  "gitForkProtection": true,
+  "gitLFS": false,
+  "id": "prj_MWBThM0sOdaL2IhRPObyVvvOVlIH",
+  "installCommand": null,
+  "lastRollbackTarget": null,
+  "lastAliasRequest": null,
+  "name": "haru-japan",
+  "nodeVersion": "24.x",
+  "outputDirectory": "dist",
+  "productionDeploymentsFastLane": true,
+  "defaultResourceConfig": {
+    "fluid": true,
+    "functionDefaultRegions": [
+      "iad1"
+    ],
+    "functionDefaultTimeout": 300,
+    "functionDefaultMemoryType": "standard",
+    "functionZeroConfigFailover": false,
+    "elasticConcurrencyEnabled": false
+  },
+  "resourceConfig": {
+    "fluid": true,
+    "functionDefaultRegions": [
+      "iad1"
+    ],
+    "buildMachineType": "basic",
+    "buildMachineSelection": "fixed"
+  },
+  "rootDirectory": null,
+  "serverlessFunctionRegion": "iad1",
+  "sourceFilesOutsideRootDirectory": true,
+  "ssoProtection": {
+    "deploymentType": "all_except_custom_domains"
+  },
+  "updatedAt": 1787555534990,
+  "live": false,
+  "enableExternalRewriteCaching": true,
+  "gitComments": {
+    "onCommit": false,
+    "onPullRequest": true
+  },
+  "gitProviderOptions": {
+    "createDeployments": "enabled"
+  },
+  "webAnalytics": {
+    "id": "5fGQN9LGDBv9Whd4RtcjlZ77A"
+  },
+  "oidcTokenConfig": {
+    "enabled": true,
+    "issuerMode": "team"
+  },
+  "hasDeployments": true,
+  "latestDeployments": [
+    {
+      "alias": [
+        "haru-japan.vercel.app",
+        "haru-japan-hyunjun-kims-projects.vercel.app"
+      ],
+      "aliasAssigned": 1787555534919,
+      "aliasError": null,
+      "automaticAliases": [
+        "haru-japan-hyunjun-kims-projects.vercel.app"
+      ],
+      "builds": [],
+      "createdAt": 1787555511977,
+      "createdIn": "sfo1",
+      "creator": {
+        "uid": "4NwImgH6ifSAu9EE35TwSUkA",
+        "email": "hyunjun1121@kaist.ac.kr",
+        "username": "hyunjun1121"
+      },
+      "deploymentHostname": "haru-japan-j74bec899-hyunjun-kims-projects",
+      "forced": false,
+      "id": "dpl_FHPbxEu1p8LyA8EAYhxFPNTA4muP",
+      "meta": {
+        "githubCommitAuthorName": "HYUNJUN KIM",
+        "githubCommitAuthorEmail": "hyunjun1121@kaist.ac.kr",
+        "githubCommitMessage": "feat: refresh Haru Pi branding and support flow",
+        "githubCommitOrg": "hyunjun1121",
+        "githubCommitRef": "feat/haru-sound-feedback",
+        "githubCommitRepo": "saerok-memory",
+        "githubCommitSha": "914da8d06ab51a249fd1b7f8fd14f9d44f2c42d8",
+        "githubDeployment": "1",
+        "githubOrg": "hyunjun1121",
+        "githubRepo": "saerok-memory",
+        "gitDirty": "1",
+        "gitRootDirectory": "",
+        "actor": "codex",
+        "lambdaRuntimeStats": "{\"nodejs\":10}"
+      },
+      "name": "haru-japan",
+      "plan": "hobby",
+      "private": true,
+      "readyState": "READY",
+      "readySubstate": "PROMOTED",
+      "target": "production",
+      "teamId": "team_wBAll4r1TUbESSv3c0yLUdJn",
+      "type": "LAMBDAS",
+      "url": "haru-japan-j74bec899-hyunjun-kims-projects.vercel.app",
+      "userId": "4NwImgH6ifSAu9EE35TwSUkA",
+      "withCache": false,
+      "buildingAt": 1787555512907,
+      "readyAt": 1787555534706,
+      "previewCommentsEnabled": true,
+      "oidcTokenClaims": {
+        "sub": "owner:hyunjun-kims-projects:project:haru-japan:environment:production",
+        "iss": "https://oidc.vercel.com/hyunjun-kims-projects",
+        "scope": "owner:hyunjun-kims-projects:project:haru-japan:environment:production",
+        "aud": "https://vercel.com/hyunjun-kims-projects",
+        "owner": "hyunjun-kims-projects",
+        "owner_id": "team_wBAll4r1TUbESSv3c0yLUdJn",
+        "project": "haru-japan",
+        "project_id": "prj_MWBThM0sOdaL2IhRPObyVvvOVlIH",
+        "environment": "production",
+        "plan": "hobby"
+      }
+    },
+    {
+      "alias": [
+        "haru-japan.vercel.app",
+        "haru-japan-hyunjun-kims-projects.vercel.app"
+      ],
+      "aliasAssigned": 1787555002410,
+      "aliasError": null,
+      "automaticAliases": [
+        "haru-japan-hyunjun-kims-projects.vercel.app"
+      ],
+      "builds": [],
+      "createdAt": 1787554975253,
+      "createdIn": "sfo1",
+      "creator": {
+        "uid": "4NwImgH6ifSAu9EE35TwSUkA",
+        "email": "hyunjun1121@kaist.ac.kr",
+        "username": "hyunjun1121"
+      },
+      "deploymentHostname": "haru-japan-id51v26xb-hyunjun-kims-projects",
+      "forced": false,
+      "id": "dpl_ESB4D9zWi5DF8MjGwkzMc3SYLCLE",
+      "meta": {
+        "githubCommitAuthorName": "HYUNJUN KIM",
+        "githubCommitAuthorEmail": "hyunjun1121@kaist.ac.kr",
+        "githubCommitMessage": "feat: refresh Haru Pi branding and support flow",
+        "githubCommitOrg": "hyunjun1121",
+        "githubCommitRef": "feat/haru-sound-feedback",
+        "githubCommitRepo": "saerok-memory",
+        "githubCommitSha": "914da8d06ab51a249fd1b7f8fd14f9d44f2c42d8",
+        "githubDeployment": "1",
+        "githubOrg": "hyunjun1121",
+        "githubRepo": "saerok-memory",
+        "gitDirty": "1",
+        "gitRootDirectory": "",
+        "actor": "codex",
+        "lambdaRuntimeStats": "{\"nodejs\":10}"
+      },
+      "name": "haru-japan",
+      "plan": "hobby",
+      "private": true,
+      "readyState": "READY",
+      "readySubstate": "PROMOTED",
+      "target": "production",
+      "teamId": "team_wBAll4r1TUbESSv3c0yLUdJn",
+      "type": "LAMBDAS",
+      "url": "haru-japan-id51v26xb-hyunjun-kims-projects.vercel.app",
+      "userId": "4NwImgH6ifSAu9EE35TwSUkA",
+      "withCache": false,
+      "buildingAt": 1787554976148,
+      "readyAt": 1787555002169,
+      "previewCommentsEnabled": true,
+      "oidcTokenClaims": {
+        "sub": "owner:hyunjun-kims-projects:project:haru-japan:environment:production",
+        "iss": "https://oidc.vercel.com/hyunjun-kims-projects",
+        "scope": "owner:hyunjun-kims-projects:project:haru-japan:environment:production",
+        "aud": "https://vercel.com/hyunjun-kims-projects",
+        "owner": "hyunjun-kims-projects",
+        "owner_id": "team_wBAll4r1TUbESSv3c0yLUdJn",
+        "project": "haru-japan",
+        "project_id": "prj_MWBThM0sOdaL2IhRPObyVvvOVlIH",
+        "environment": "production",
+        "plan": "hobby"
+      }
+    }
+  ],
+  "targets": {
+    "production": {
+      "alias": [
+        "haru-japan.vercel.app",
+        "haru-japan-hyunjun-kims-projects.vercel.app"
+      ],
+      "aliasAssigned": 1787555534919,
+      "aliasError": null,
+      "automaticAliases": [
+        "haru-japan-hyunjun-kims-projects.vercel.app"
+      ],
+      "builds": [],
+      "createdAt": 1787555511977,
+      "createdIn": "sfo1",
+      "creator": {
+        "uid": "4NwImgH6ifSAu9EE35TwSUkA",
+        "email": "hyunjun1121@kaist.ac.kr",
+        "username": "hyunjun1121"
+      },
+      "deploymentHostname": "haru-japan-j74bec899-hyunjun-kims-projects",
+      "forced": false,
+      "id": "dpl_FHPbxEu1p8LyA8EAYhxFPNTA4muP",
+      "meta": {
+        "githubCommitAuthorName": "HYUNJUN KIM",
+        "githubCommitAuthorEmail": "hyunjun1121@kaist.ac.kr",
+        "githubCommitMessage": "feat: refresh Haru Pi branding and support flow",
+        "githubCommitOrg": "hyunjun1121",
+        "githubCommitRef": "feat/haru-sound-feedback",
+        "githubCommitRepo": "saerok-memory",
+        "githubCommitSha": "914da8d06ab51a249fd1b7f8fd14f9d44f2c42d8",
+        "githubDeployment": "1",
+        "githubOrg": "hyunjun1121",
+        "githubRepo": "saerok-memory",
+        "gitDirty": "1",
+        "gitRootDirectory": "",
+        "actor": "codex",
+        "lambdaRuntimeStats": "{\"nodejs\":10}"
+      },
+      "name": "haru-japan",
+      "plan": "hobby",
+      "private": true,
+      "readyState": "READY",
+      "readySubstate": "PROMOTED",
+      "target": "production",
+      "teamId": "team_wBAll4r1TUbESSv3c0yLUdJn",
+      "type": "LAMBDAS",
+      "url": "haru-japan-j74bec899-hyunjun-kims-projects.vercel.app",
+      "userId": "4NwImgH6ifSAu9EE35TwSUkA",
+      "withCache": false,
+      "buildingAt": 1787555512907,
+      "readyAt": 1787555534706,
+      "previewCommentsEnabled": true,
+      "oidcTokenClaims": {
+        "sub": "owner:hyunjun-kims-projects:project:haru-japan:environment:production",
+        "iss": "https://oidc.vercel.com/hyunjun-kims-projects",
+        "scope": "owner:hyunjun-kims-projects:project:haru-japan:environment:production",
+        "aud": "https://vercel.com/hyunjun-kims-projects",
+        "owner": "hyunjun-kims-projects",
+        "owner_id": "team_wBAll4r1TUbESSv3c0yLUdJn",
+        "project": "haru-japan",
+        "project_id": "prj_MWBThM0sOdaL2IhRPObyVvvOVlIH",
+        "environment": "production",
+        "plan": "hobby"
+      }
+    }
+  },
+  "features": {
+    "webAnalytics": false
+  },
+  "protectedSourcemaps": true,
+  "avatar": null
+}

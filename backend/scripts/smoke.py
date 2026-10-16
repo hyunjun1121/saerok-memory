@@ -1,16 +1,14 @@
-"""CLI smoke test: transcribe files with local Qwen3-ASR checkpoints.
+"""CLI smoke test: submit audio files to the configured Microsoft Speech API.
 
 Run from the repo root after installing backend/requirements.txt:
 
     python backend/scripts/smoke.py path/to/story.webm
 
-Prints the JSON the HTTP service would return. Useful to confirm the model +
-CUDA work before wiring the frontend.
+The audio is sent to Microsoft. Prints the JSON the HTTP service would return.
 """
 from __future__ import annotations
 
 import json
-import os
 import sys
 from pathlib import Path
 

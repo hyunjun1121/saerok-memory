@@ -8,12 +8,15 @@ const AUDIO_EXTENSIONS = new Set([".aac", ".flac", ".m4a", ".mp3", ".ogg", ".opu
 export function getMarketBuildSpec(value) {
   const market = String(value ?? "").trim().toLowerCase();
   if (market === "kr") {
-    return { market, localeDirectory: "ko", outDirectory: "dist/ko" };
+    return { market, localeDirectory: "ko", outDirectory: "dist/ko", narrationEnabled: true };
   }
   if (market === "jp") {
-    return { market, localeDirectory: "ja", outDirectory: "dist/ja" };
+    return { market, localeDirectory: "ja", outDirectory: "dist/ja", narrationEnabled: true };
   }
-  throw new Error(`Market must be kr or jp; received ${JSON.stringify(value)}.`);
+  if (market === "en") {
+    return { market, localeDirectory: "en", outDirectory: "dist/en", narrationEnabled: false };
+  }
+  throw new Error(`Market must be kr, jp, or en; received ${JSON.stringify(value)}.`);
 }
 
 function assertRecord(value, label) {

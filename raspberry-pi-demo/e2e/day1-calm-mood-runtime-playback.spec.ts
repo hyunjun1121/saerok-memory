@@ -75,6 +75,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test("plays all four selected calm Q1 options through physical keys and never plays replaced B paths", async ({ page }) => {
+  test.skip((process.env.EXPECTED_LANGUAGE ?? "ko") !== "ko", "Korean Fish Audio coverage only");
   expect(audit.questionId).toBe("D1_Q1");
   expect(audit.entryCount).toBe(4);
   expect(audit.entries.map((entry) => entry.id)).toEqual([

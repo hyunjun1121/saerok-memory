@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="오래 걸린 문항">
+  <rect width="1200" height="675" rx="28" fill="#FFFDF7"/>
+  <text x="54" y="62" fill="#2F2A24" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="30" font-weight="800">오래 걸린 문항</text>
+  <text x="54" y="94" fill="#706A61" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="17">active 시간 p50 / p90 · 멈춰 둔 시간 제외</text>
+  <g transform="translate(760 112)"><rect width="22" height="14" rx="4" fill="#4F79A7"/><text x="30" y="13" fill="#706A61" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="14">active p50</text><line x1="130" y1="-3" x2="130" y2="18" stroke="#2F2A24" stroke-width="3"/><text x="143" y="13" fill="#706A61" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="14">p90</text></g><text x="245" y="169" text-anchor="end" fill="#2F2A24" font-family="Arial, sans-serif" font-size="17" font-weight="700">D3_Q6</text>
+            <rect x="270" y="145" width="672.918476521421" height="31" rx="8" fill="#4F79A7" opacity="0.88"/>
+            <line x1="1016.4451345828511" y1="141" x2="1016.4451345828511" y2="180" stroke="#2F2A24" stroke-width="3"/>
+            <circle cx="1016.4451345828511" cy="160.5" r="5" fill="#FFFDF7" stroke="#2F2A24" stroke-width="3"/>
+            <text x="1028.445134582851" y="167" fill="#706A61" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="14">25.2초 / 27.9초</text>
+<text x="245" y="224" text-anchor="end" fill="#2F2A24" font-family="Arial, sans-serif" font-size="17" font-weight="700">D1_Q5</text>
+            <rect x="270" y="200" width="666.3695867024475" height="31" rx="8" fill="#4F79A7" opacity="0.88"/>
+            <line x1="978.8839102007223" y1="196" x2="978.8839102007223" y2="235" stroke="#2F2A24" stroke-width="3"/>
+            <circle cx="978.8839102007223" cy="215.5" r="5" fill="#FFFDF7" stroke="#2F2A24" stroke-width="3"/>
+            <text x="990.8839102007223" y="222" fill="#706A61" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="14">24.9초 / 26.5초</text>
+<text x="245" y="279" text-anchor="end" fill="#2F2A24" font-family="Arial, sans-serif" font-size="17" font-weight="700">D6_Q6</text>
+            <rect x="270" y="255" width="648.3400920783755" height="31" rx="8" fill="#4F79A7" opacity="0.88"/>
+            <line x1="1030" y1="251" x2="1030" y2="290" stroke="#2F2A24" stroke-width="3"/>
+            <circle cx="1030" cy="270.5" r="5" fill="#FFFDF7" stroke="#2F2A24" stroke-width="3"/>
+            <text x="1042" y="277" fill="#706A61" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="14">24.3초 / 28.4초</text>
+<text x="245" y="334" text-anchor="end" fill="#2F2A24" font-family="Arial, sans-serif" font-size="17" font-weight="700">D7_Q6</text>
+            <rect x="270" y="310" width="646.6961870830006" height="31" rx="8" fill="#4F79A7" opacity="0.88"/>
+            <line x1="969.1247278623256" y1="306" x2="969.1247278623256" y2="345" stroke="#2F2A24" stroke-width="3"/>
+            <circle cx="969.1247278623256" cy="325.5" r="5" fill="#FFFDF7" stroke="#2F2A24" stroke-width="3"/>
+            <text x="981.1247278623256" y="332" fill="#706A61" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="14">24.2초 / 26.2초</text>
+<text x="245" y="389" text-anchor="end" fill="#2F2A24" font-family="Arial, sans-serif" font-size="17" font-weight="700">D2_Q6</text>
+            <rect x="270" y="365" width="642.6332023789844" height="31" rx="8" fill="#4F79A7" opacity="0.88"/>
+            <line x1="1015.0738772452456" y1="361" x2="1015.0738772452456" y2="400" stroke="#2F2A24" stroke-width="3"/>
+            <circle cx="1015.0738772452456" cy="380.5" r="5" fill="#FFFDF7" stroke="#2F2A24" stroke-width="3"/>
+            <text x="1027.0738772452455" y="387" fill="#706A61" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="14">24.0초 / 27.9초</text>
+<text x="245" y="444" text-anchor="end" fill="#2F2A24" font-family="Arial, sans-serif" font-size="17" font-weight="700">D5_Q6</text>
+            <rect x="270" y="420" width="637.0198682484357" height="31" rx="8" fill="#4F79A7" opacity="0.88"/>
+            <line x1="979.4746467925564" y1="416" x2="979.4746467925564" y2="455" stroke="#2F2A24" stroke-width="3"/>
+            <circle cx="979.4746467925564" cy="435.5" r="5" fill="#FFFDF7" stroke="#2F2A24" stroke-width="3"/>
+            <text x="991.4746467925564" y="442" fill="#706A61" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="14">23.8초 / 26.5초</text>
+<text x="245" y="499" text-anchor="end" fill="#2F2A24" font-family="Arial, sans-serif" font-size="17" font-weight="700">D4_Q5</text>
+            <rect x="270" y="475" width="612.7756108369706" height="31" rx="8" fill="#4F79A7" opacity="0.88"/>
+            <line x1="997.4292969615542" y1="471" x2="997.4292969615542" y2="510" stroke="#2F2A24" stroke-width="3"/>
+            <circle cx="997.4292969615542" cy="490.5" r="5" fill="#FFFDF7" stroke="#2F2A24" stroke-width="3"/>
+            <text x="1009.4292969615542" y="497" fill="#706A61" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="14">22.9초 / 27.2초</text>
+<text x="245" y="554" text-anchor="end" fill="#2F2A24" font-family="Arial, sans-serif" font-size="17" font-weight="700">D3_Q1</text>
+            <rect x="270" y="530" width="179.35939055229437" height="31" rx="8" fill="#4F79A7" opacity="0.88"/>
+            <line x1="469.1958441631525" y1="526" x2="469.1958441631525" y2="565" stroke="#2F2A24" stroke-width="3"/>
+            <circle cx="469.1958441631525" cy="545.5" r="5" fill="#FFFDF7" stroke="#2F2A24" stroke-width="3"/>
+            <text x="481.1958441631525" y="552" fill="#706A61" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="14">6.7초 / 7.5초</text>
+  <text x="54" y="646" fill="#706A61" font-family="Arial, 'Noto Sans KR', sans-serif" font-size="15">합성 시뮬레이션 · 실제 사용자 결과나 임상 성능 아님</text>
+</svg>

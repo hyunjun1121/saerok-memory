@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TEAM 01 오가사 Haru 사용방법 X배너 시안</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#12315e;--blue:#1f7fd1;--blue2:#3f9be0;--sky:#8fc8f0;--muted:#6f829c}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#e9edf2;font-family:'Noto Sans JP','Noto Sans CJK JP','Hiragino Kaku Gothic ProN','Meiryo','Yu Gothic','Malgun Gothic',sans-serif;color:var(--navy);padding:16px;display:flex;flex-direction:column;align-items:center}
+  .hint{font-size:13px;color:#4a5a70;margin:0 0 12px;text-align:center;line-height:1.6;max-width:640px}
+  .hint b{color:#12315e}
+  .frame{position:relative}
+  .stage{position:absolute;left:0;top:0;width:600px;height:1800px;background:#fff;overflow:hidden;transform-origin:top left;box-shadow:0 6px 24px rgba(18,49,94,.18)}
+  .abs{position:absolute;left:0;width:600px;text-align:center}
+  svg.wave{position:absolute;left:0;width:600px;display:block}
+
+  .band{position:absolute;left:0;top:0;width:600px;height:222px;background:linear-gradient(135deg,#1f7fd1 0%,#3f9be0 55%,#6fb5ec 100%)}
+  .project{top:46px;font-size:22px;font-weight:700;letter-spacing:.32em;color:#e3f1fc}
+  .team{top:84px;font-size:108px;font-weight:900;line-height:1;color:#fff;letter-spacing:.02em}
+
+  .who{top:246px;font-size:40px;font-weight:900;line-height:1.2;color:var(--navy)}
+  .who .en{color:var(--blue)}
+  .rule{position:absolute;top:308px;left:230px;width:140px;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--sky),var(--blue))}
+  .title{top:332px;font-size:76px;font-weight:900;line-height:1.1;color:var(--blue)}
+  .title .no{font-size:64px;color:var(--navy)}
+  .sub{top:426px;font-size:24px;font-weight:700;color:var(--navy);letter-spacing:.02em}
+
+  .card{position:absolute;left:40px;top:480px;width:520px;height:334px;border-radius:26px;background:#f2f7fc;border:3px solid var(--sky)}
+  .card .h{position:absolute;left:0;top:16px;width:100%;text-align:center;font-size:26px;font-weight:900;color:var(--navy)}
+  .lbl{position:absolute;top:60px;font-size:19px;font-weight:700;color:var(--muted);text-align:center}
+  .grid{position:absolute;top:88px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .g1{left:20px;width:222px}
+  .g2{left:296px;width:200px}
+  .eq{position:absolute;left:244px;top:150px;width:50px;text-align:center;font-size:44px;font-weight:900;color:var(--blue)}
+  .tile{height:84px;border-radius:14px;border:3px solid;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;font-size:19px;line-height:1.1;position:relative;padding-top:14px;white-space:nowrap}
+  .tile b{position:absolute;left:10px;top:4px;font-size:14px;font-weight:900}
+  .tA{background:#fde3d9;border-color:#e8836f;color:#7a2a17}.tA b{color:#d24a2c}
+  .tB{background:#fdf1d0;border-color:#f0b43c;color:#6b4a06}.tB b{color:#c98a0a}
+  .tC{background:#e7f3e3;border-color:#7fb77e;color:#254d24}.tC b{color:#3f8a3d}
+  .tD{background:#dfe9f7;border-color:#6f8fc9;color:#1c3a6b}.tD b{color:#3d64ad}
+  .key{height:84px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;color:#fff;box-shadow:0 5px 0 rgba(0,0,0,.22),0 8px 14px rgba(18,49,94,.22)}
+  .kA{background:linear-gradient(160deg,#ef7a5f,#d24a2c)}
+  .kB{background:linear-gradient(160deg,#f8c64f,#e5a010)}
+  .kC{background:linear-gradient(160deg,#79c179,#3f8a3d)}
+  .kD{background:linear-gradient(160deg,#7b9bd8,#3d64ad)}
+  .cap{position:absolute;left:0;bottom:16px;width:100%;text-align:center;font-size:21px;font-weight:700;color:var(--navy)}
+
+  .steps{position:absolute;left:0;top:846px;width:600px;padding:0 46px;display:flex;flex-direction:column;gap:34px}
+  .step{position:relative;display:flex;align-items:flex-start;gap:24px}
+  .step:not(:last-child)::after{content:'';position:absolute;left:34px;top:72px;width:4px;height:calc(100% - 72px + 34px);background:repeating-linear-gradient(180deg,var(--sky) 0 8px,transparent 8px 14px)}
+  .num{flex:0 0 72px;width:72px;height:72px;border-radius:50%;background:linear-gradient(160deg,var(--blue2),var(--blue));display:flex;align-items:center;justify-content:center;color:#fff;font-size:38px;font-weight:900;box-shadow:0 4px 10px rgba(31,127,209,.28)}
+  .stxt{font-size:30px;font-weight:700;line-height:1.25;color:var(--navy);min-height:72px;display:flex;align-items:center}
+  .step.last .num{background:linear-gradient(160deg,#f0a83a,#e08a00);box-shadow:0 4px 10px rgba(224,138,0,.3)}
+
+  .tips{position:absolute;left:40px;top:1296px;width:520px;display:flex;flex-direction:column;gap:14px}
+  .tip{border-radius:20px;background:#eaf4fd;border-left:10px solid var(--blue);padding:14px 22px}
+  .tip .th{font-size:25px;font-weight:900;color:var(--blue);line-height:1.2}
+  .tip .tb{margin-top:4px;font-size:23px;font-weight:700;color:var(--navy);line-height:1.35}
+
+  [contenteditable]:focus{outline:2px dashed #e08a00;outline-offset:4px}
+  @media print{body{background:#fff;padding:0}.hint{display:none}}
+</style>
+</head>
+<body>
+<p class="hint"><b>Haru 사용방법 X배너 시안 (600 × 1800, 1:3)</b><br>
+글자는 클릭해서 수정할 수 있어요. 문구는 <b>오가사 大会発表資料(발표자료) 6·18장</b> 내용 기준입니다.</p>
+
+<div class="frame" id="frame">
+<div class="stage" id="stage">
+
+  <div class="band"></div>
+  <div class="abs project" contenteditable="true" spellcheck="false">GLOBAL PIUDA PROJECT</div>
+  <div class="abs team" contenteditable="true" spellcheck="false">TEAM 01</div>
+
+  <div class="abs who" contenteditable="true" spellcheck="false">オガサ ・ <span class="en">Haru</span>（ハル）</div>
+  <div class="rule"></div>
+  <div class="abs title" contenteditable="true" spellcheck="false"><span>Haru</span><span class="no">の</span>使い方</div>
+  <div class="abs sub" contenteditable="true" spellcheck="false">音声案内にそって、4つのボタンで操作</div>
+
+  <div class="card">
+    <div class="h" contenteditable="true" spellcheck="false">画面の選択肢 ＝ ボタンの位置</div>
+    <div class="lbl" style="left:20px;width:222px">画面</div>
+    <div class="lbl" style="left:296px;width:200px">ボタン</div>
+    <div class="grid g1">
+      <div class="tile tA"><b>A</b>非常に良い</div>
+      <div class="tile tB"><b>B</b>良い</div>
+      <div class="tile tC"><b>C</b>普通</div>
+      <div class="tile tD"><b>D</b>良くない</div>
+    </div>
+    <div class="eq">＝</div>
+    <div class="grid g2">
+      <div class="key kA">A</div>
+      <div class="key kB">B</div>
+      <div class="key kC">C</div>
+      <div class="key kD">D</div>
+    </div>
+    <div class="cap" contenteditable="true" spellcheck="false">ボタンの色と位置が、そのまま対応します</div>
+  </div>
+
+  <div class="steps">
+    <div class="step"><div class="num">1</div><div class="stxt" contenteditable="true" spellcheck="false">音声案内を聞く</div></div>
+    <div class="step"><div class="num">2</div><div class="stxt" contenteditable="true" spellcheck="false">表示位置と同じボタンを押す</div></div>
+    <div class="step"><div class="num">3</div><div class="stxt" contenteditable="true" spellcheck="false">画面で選択を確認</div></div>
+    <div class="step last"><div class="num">4</div><div class="stxt" contenteditable="true" spellcheck="false">同じボタンを<br>もう一度押して確定</div></div>
+  </div>
+
+  <div class="tips">
+    <div class="tip"><div class="th" contenteditable="true" spellcheck="false">まちがえても大丈夫</div><div class="tb" contenteditable="true" spellcheck="false">確定前なら、別のボタンで選び直せます</div></div>
+    <div class="tip"><div class="th" contenteditable="true" spellcheck="false">発話の活動も同じ4ボタン</div><div class="tb" contenteditable="true" spellcheck="false">A＝もう一度聞く　B＝発話開始</div></div>
+  </div>
+
+  <svg class="wave" style="bottom:0" height="230" viewBox="0 0 600 290" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e3f1fc"/><stop offset="1" stop-color="#bfe0f8"/></linearGradient>
+      <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fd0f3"/><stop offset="1" stop-color="#6fb5ec"/></linearGradient>
+      <linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4aa2e6"/><stop offset="1" stop-color="#1f7fd1"/></linearGradient>
+    </defs>
+    <path d="M0 74C70 40 140 36 220 62C300 88 380 96 460 70C520 52 570 50 600 58V290H0Z" fill="url(#g1)"/>
+    <path d="M0 128C80 98 150 96 230 120C310 144 390 150 470 124C530 106 575 104 600 110V290H0Z" fill="url(#g2)"/>
+    <path d="M0 186C90 160 160 160 240 180C320 200 400 204 480 182C535 168 575 166 600 170V290H0Z" fill="url(#g3)"/>
+  </svg>
+
+</div>
+</div>
+
+<script>
+(function(){
+  var stage=document.getElementById('stage'), frame=document.getElementById('frame');
+  function fit(){
+    var s=Math.min(1,(window.innerWidth-32)/600);
+    stage.style.transform='scale('+s+')';
+    frame.style.width=(600*s)+'px'; frame.style.height=(1800*s)+'px';
+  }
+  fit(); window.addEventListener('resize',fit);
+})();
+</script>
+</body>
+</html>

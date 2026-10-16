@@ -14,7 +14,6 @@
     "typecheck": "tsc -b",
     "preview": "vite preview",
     "stt:install": "node scripts/run-python-service.mjs stt install",
-    "stt:download": "node scripts/run-python-service.mjs stt download",
     "stt:dev": "node scripts/run-python-service.mjs stt dev",
     "stt:test": "node scripts/run-python-service.mjs stt test",
     "stt:smoke": "node scripts/run-python-service.mjs stt smoke",

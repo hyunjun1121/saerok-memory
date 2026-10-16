@@ -23,9 +23,9 @@ Haru SPA canonical JSON
 - 선택·순서 응답의 오답이나 정답표를 개인 사실로 승격하지 않습니다.
 - Entity는 음성 응답에 이미 포함된 허용 목록의 `derived_annotations`에서만 만듭니다.
 - STT confidence가 없으면 `null`과 검토 항목으로 남깁니다. 임의로 `1.0`을 넣지 않습니다.
-- `demo`/`mock`/`placeholder` 등 Qwen이 아닌 engine에 기록된 숫자 confidence는
-  신뢰하지 않고 `null`과 검토 항목으로 파생합니다. canonical JSON 원문은 변경하지 않습니다.
-- Qwen처럼 confidence를 제공하지 않는 엔진의 명시적 음성 annotation은
+- `demo`/`mock`/`placeholder`/Microsoft STT 등 검증된 confidence 계약이 없는 engine의
+  숫자 confidence는 신뢰하지 않고 `null`과 검토 항목으로 파생합니다. canonical JSON 원문은 변경하지 않습니다.
+- Microsoft STT처럼 confidence를 제공하지 않는 엔진의 명시적 음성 annotation은
   `requires_review=true` 초안 문항에만 사용합니다. 낮은 수치 confidence는 자동 출제에서 제외합니다.
 - SQLite가 원본 저장소이고 Neo4j는 삭제·재구축 가능한 파생 저장소입니다.
 - transcript에 건강·연락처 등 보수적 민감 패턴이 있으면 annotation 유무와 관계없이
@@ -170,6 +170,19 @@ QA와 다음 문항 요청에도 대상 context를 보냅니다. legacy 한국 r
 일본 시장 evidence label, QA 안내, 다음 문항 prompt와 filler는 일본어 전용입니다.
 일본 자동 문항에는 한글, 원화 표기, 알려진 한국 demo 고유 항목을 포함하지 않습니다.
 
+## Meta question phrasing
+
+Question evidence, transcripts, choices, and the answer key remain in the local
+SQLite database. With separate learner consent, the local service sends a
+generic relation type (person, place, activity, food, or purchase), market,
+language instructions, and example wording to Meta Model API. It does not send
+audio, transcript text, personal names, answer choices, or the correct answer.
+
+The default endpoint is `https://api.meta.ai/v1`, model `muse-wonder-1.0`, using
+the Responses API. The key is read from NexQ's Windows Credential Manager
+target `NexQ:custom`; `MODEL_API_KEY` overrides it. If the key,
+service, or model is unavailable, the existing local question wording is used.
+
 ## Neo4j
 
 기본값은 비활성화입니다. 사용할 때 `.env`에서 연결 정보를 설정하거나 Docker
@@ -207,8 +220,8 @@ Neo4j 실패는 SQLite 수집을 되돌리지 않습니다. `/health`와 ingest 
 
 ## 경계
 
-- Qwen STT는 `127.0.0.1:8765`, 이 서비스는 `127.0.0.1:8000`의 별도 프로세스입니다.
-- 두 서비스 모두 로컬 데이터/GPU 서비스이며 Vercel 배포 대상이 아닙니다.
+- Microsoft STT gateway는 `127.0.0.1:8765`, 이 서비스는 `127.0.0.1:8000`의 별도 프로세스입니다.
+- STT 음성은 Microsoft에 전송되고, RAG 데이터베이스와 임베딩 모델은 로컬에 둡니다. 두 서비스 모두 Vercel 배포 대상이 아닙니다.
 - 보호자 화면에는 transcript/raw evidence를 직접 전달하지 않습니다.
 - 운영 전 사용자 인증, 역할 권한, 암호화, 감사 로그, retention 및 Neo4j 재시도
   outbox가 추가로 필요합니다.

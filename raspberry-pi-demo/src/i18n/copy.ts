@@ -1,6 +1,6 @@
 import type { SupportedLanguage } from "@/utils/localizedText";
 
-export type OfflineLanguage = Extract<SupportedLanguage, "ko" | "ja">;
+export type OfflineLanguage = Extract<SupportedLanguage, "ko" | "ja" | "en">;
 
 const uiCopy = {
   ko: {
@@ -189,6 +189,99 @@ const uiCopy = {
     configErrorTitle: "ボタン設定を確認してください",
     configErrorBody: "管理者に設定ファイルを見てもらってください。",
   },
+  en: {
+    appName: "Haru",
+    brandLine: "A little each day. A moment to remember.",
+    loading: "Getting things ready",
+    loginLabel: "Ready",
+    loginTitle: "Tap your card to begin",
+    loginBody: "Hold your Haru card near the card reader to begin today's routine.",
+    loginHint: "The next screen opens as soon as your card is read.",
+    menuTitle: "What would you like to do?",
+    menuHint: "Press the same physical button twice to open a choice.",
+    menuLesson: "Today's routine",
+    menuGarden: "Memory garden",
+    menuSupportConnection: "Connect with family or support team",
+    menuFamily: "Family view",
+    menuSettings: "Help",
+    startTitle: "Let's get started",
+    startDuration: "Six activities · about 5 minutes",
+    startHint: "Press either button on the right to begin.",
+    start: "Start",
+    replay: "Play again",
+    back: "Back",
+    cancel: "Cancel",
+    confirm: "Confirm",
+    next: "Next",
+    finish: "Finish",
+    retry: "Try again",
+    selectHint: "Press once to choose, then press again to confirm.",
+    selectedHint: "Press again to confirm.",
+    sequenceHint: "Choose one button at a time, in order.",
+    sequenceStep: "Choose item {{current}}",
+    sequenceReview: "Check the order you chose.",
+    resetSequence: "Start over",
+    submitSequence: "Confirm order",
+    voiceReady: "Take your time and speak when you're ready",
+    voiceReadyBody: "Press either button on the right to start.",
+    voiceRecording: "We're listening",
+    voiceRecordingBody: "Press either button on the right when you're finished.",
+    voiceReview: "We heard you",
+    voiceReviewBody: "Press left to try again, or right to confirm and continue.",
+    voiceFallback: "We're checking the microphone. You can continue either way.",
+    recordStart: "Start speaking",
+    recordStop: "Finish speaking",
+    responseSaved: "Thank you for sharing",
+    answerMatched: "Nice work",
+    answerDifferent: "That's okay. Let's look at it together",
+    feedbackHint: "Press left to try again or right to continue.",
+    completedTitle: "You're all set for today",
+    completedBody: "You completed all six activities at your own pace.",
+    returnMenu: "Back to start",
+    day: "Day {{day}}",
+    questionProgress: "{{current}} / {{total}}",
+    leftAction: "Left",
+    rightAction: "Right",
+    sameButton: "Press again to confirm",
+    directChoice: "Choose this spot",
+    sequenceUsed: "Selected",
+    guideTitle: "Four-button guide",
+    gardenTitle: "Memory garden",
+    gardenBody: "Each completed activity brings a small change to your garden.",
+    familyTitle: "Everyday moments with family",
+    familyBody: "Look back on completed activities and find gentle ideas for conversation.",
+    caregiverTitle: "Caregiver view",
+    caregiverPages: "Participation · activity patterns · conversation ideas",
+    counselorTitle: "Support staff view",
+    counselorPages: "Participation records · activity patterns · conversation notes",
+    supportConnectionTitle: "Connect with family or support team",
+    supportConnectionHint: "Use a button on the right to choose who to connect with.",
+    connectCaregiver: "Connect with caregiver",
+    connectCounselor: "Connect with support staff",
+    connectCodeLabel: "Connection code",
+    connectCodeHint: "This code is for the demo only. It doesn't send information or link an account.",
+    participantTitle: "Participant activity",
+    participantBody: "Review the last seven days of activities, one day at a time.",
+    settingsTitle: "How to use Haru",
+    settingsBody: "Left buttons go back or try again. Right buttons start, finish, or continue.",
+    onboardingTitle: "Using Haru's four buttons",
+    onboardingBody: "Each on-screen space matches a physical button.",
+    buttonTest: "Press a button to see where it appears.",
+    kioskTitle: "Choose a day from the seven-day routine",
+    previousPage: "Previous page",
+    nextPage: "Next page",
+    pageOf: "Page {{current}} / {{total}}",
+    activityCount: "Activities: {{count}}",
+    activityTime: "About {{minutes}} minutes",
+    completedDays: "{{count}} days completed",
+    soundReady: "Sounds play when you choose, confirm, and finish.",
+    privacyLocal: "Your answers stay on this device. Audio and transcripts are not saved.",
+    noData: "Nothing to show yet.",
+    audioUnavailable: "You can keep going by reading the screen.",
+    buttonLabel: "Four buttons",
+    configErrorTitle: "Check the button settings",
+    configErrorBody: "Ask an administrator to check the runtime settings file.",
+  },
 } as const;
 
 export type UiCopyKey = keyof (typeof uiCopy)["ko"];
@@ -198,7 +291,9 @@ export function getAllUiCopyValues(language: OfflineLanguage): readonly string[]
 }
 
 export function getBuildLanguage(): OfflineLanguage {
-  return import.meta.env.VITE_HARU_MARKET === "jp" ? "ja" : "ko";
+  if (import.meta.env.VITE_HARU_MARKET === "jp") return "ja";
+  if (import.meta.env.VITE_HARU_MARKET === "en") return "en";
+  return "ko";
 }
 
 export function getUiCopy(

@@ -1,5 +1,8 @@
 from datetime import date, timedelta
+import json
 import random
+from urllib.error import HTTPError, URLError
+from urllib.request import Request, urlopen
 from sqlalchemy import select
 from app.core.database import SessionLocal
 from app.core.models import Episode, Entity, EventEntity, User
@@ -54,6 +57,80 @@ FILLERS_BY_MARKET = {
         "DEFAULT": ["思い出せない", "別のもの", "該当なし"],
     },
 }
+
+
+def _muse_prompts(relation: str, market: str) -> dict[str, str] | None:
+    api_key = settings.muse_api_key
+    if not api_key:
+        return None
+    instruction = (
+        "Write one short, gentle memory question in Korean, Japanese, and English. "
+        "Use only the generic relation type and example wording below. Do not add "
+        "an answer, name, personal fact, diagnosis, score, or judgment. Return only "
+        'a JSON object with string keys "ko", "ja", and "en".'
+    )
+    request_data = {
+        "model": settings.muse_model,
+        "reasoning": {"effort": settings.muse_reasoning_effort},
+        "max_output_tokens": 256,
+        "input": (
+            f"Relation type: {relation}\n"
+            f"Market: {market}\n"
+            f"Example wording: {TEMPLATES_BY_MARKET[market][relation]}\n"
+            "Produce the three localized question strings."
+        ),
+        "instructions": instruction,
+    }
+    request = Request(
+        f"{settings.muse_base_url.rstrip('/')}/responses",
+        data=json.dumps(request_data, ensure_ascii=False).encode("utf-8"),
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+        },
+        method="POST",
+    )
+    try:
+        with urlopen(request, timeout=25) as response:
+            payload = json.loads(response.read())
+    except (HTTPError, URLError, TimeoutError, OSError, ValueError):
+        return None
+
+    text = payload.get("output_text") if isinstance(payload, dict) else None
+    if not isinstance(text, str) and isinstance(payload, dict):
+        pieces = []
+        output_items = payload.get("output", [])
+        if not isinstance(output_items, list):
+            return None
+        for item in output_items:
+            if not isinstance(item, dict) or not isinstance(item.get("content"), list):
+                continue
+            pieces.extend(
+                part.get("text", "")
+                for part in item["content"]
+                if isinstance(part, dict)
+                and part.get("type") in {"output_text", "text"}
+                and isinstance(part.get("text"), str)
+            )
+        text = "".join(pieces)
+    try:
+        prompts = json.loads(text) if isinstance(text, str) else None
+    except ValueError:
+        return None
+    if not isinstance(prompts, dict):
+        return None
+    cleaned = {
+        language: prompts.get(language, "").strip()
+        for language in ("ko", "ja", "en")
+        if isinstance(prompts.get(language), str)
+    }
+    if (
+        len(cleaned) != 3
+        or any(not 8 <= len(value) <= 180 for value in cleaned.values())
+        or (market == "jp" and not is_auto_question_text_safe(cleaned["ja"], market))
+    ):
+        return None
+    return cleaned
 
 
 def _distractors(
@@ -123,6 +200,7 @@ def generate(
         assert_matching_context(user.profile, context.market, context.locale)
         if user.consent.get("personalized_question_use") is not True:
             return []
+        allow_muse = user.consent.get("muse_question_generation") is True
         episodes = db.scalars(
             select(Episode)
             .where(Episode.user_id == user_id, Episode.occurred_at == source_date)
@@ -130,10 +208,11 @@ def generate(
         ).all()
 
         for ep in episodes:
-            # Qwen3-ASR does not expose a calibrated confidence value. Missing
-            # confidence must remain null, but it must not make every real
-            # Qwen response unusable. Explicit, allow-listed annotations may
-            # still ground a draft question; callers see requires_review=true.
+            if len(generated) >= count:
+                break
+            # Microsoft STT does not provide calibrated confidence here. Missing
+            # confidence remains null; only allow-listed annotations may ground
+            # a question, and callers see requires_review=true.
             if (
                 ep.confidence is not None
                 and ep.confidence < settings.min_question_confidence
@@ -149,6 +228,8 @@ def generate(
             ).all()
 
             for rel, ent in rows:
+                if len(generated) >= count:
+                    break
                 templates = TEMPLATES_BY_MARKET[context.market]
                 if (
                     rel.relation not in templates
@@ -178,6 +259,7 @@ def generate(
                     "market": context.market,
                     "locale": context.locale,
                     "prompt": templates[rel.relation],
+                    "prompts": None,
                     "entity_type": ent.entity_type,
                     "relation": rel.relation,
                     "choices": [
@@ -197,6 +279,7 @@ def generate(
                         ),
                     }
                 })
-                if len(generated) >= count:
-                    return generated
+    if allow_muse:
+        for question in generated:
+            question["prompts"] = _muse_prompts(question["relation"], context.market)
     return generated

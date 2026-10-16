@@ -385,6 +385,7 @@ export interface HaruAdminUsageRecord {
       audio_storage: boolean;
       longitudinal_usage_storage: boolean;
       personalized_question_use: boolean;
+      muse_question_generation?: boolean;
       consented_at: string;
     };
   };
@@ -546,6 +547,7 @@ function createEmptyRecord(now: Date): HaruAdminUsageRecord {
         audio_storage: consent.audioStorage,
         longitudinal_usage_storage: consent.longitudinalUsageStorage,
         personalized_question_use: consent.personalizedQuestionUse,
+        muse_question_generation: consent.museQuestionGeneration === true,
         consented_at: consent.consentedAt,
       },
     },
@@ -983,6 +985,7 @@ function consentSnapshot(consent: HaruConsentState) {
     audio_storage: consent.audioStorage,
     longitudinal_usage_storage: consent.longitudinalUsageStorage,
     personalized_question_use: consent.personalizedQuestionUse,
+    muse_question_generation: consent.museQuestionGeneration === true,
     consented_at: consent.consentedAt,
   };
 }

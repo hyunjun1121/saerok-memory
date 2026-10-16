@@ -1,11 +1,19 @@
 from __future__ import annotations
 
+import sys
 from pathlib import Path
+from pydantic import Field, SecretStr
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 SERVICE_ROOT = Path(__file__).resolve().parents[2]
+REPO_ROOT = SERVICE_ROOT.parent
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from backend.app.windows_credentials import read_credential
+
 DEFAULT_MODEL_REVISION = "614241f622f53c4eeff9890bdc4f31cfecc418b3"
 
 
@@ -30,6 +38,15 @@ class Settings(BaseSettings):
     qa_min_similarity: float = 0.78
     max_json_bytes: int = 5 * 1024 * 1024
 
+    muse_base_url: str = "https://api.meta.ai/v1"
+    muse_model: str = "muse-wonder-1.0"
+    muse_reasoning_effort: str = "high"
+    model_api_key: SecretStr | None = Field(
+        default=None,
+        validation_alias="MODEL_API_KEY",
+        repr=False,
+    )
+
     # Empty means local ingest may run without a token. Evidence-bearing routes
     # remain closed until an explicit local token is configured.
     rag_api_token: str | None = None
@@ -51,6 +68,14 @@ class Settings(BaseSettings):
     @property
     def model_key(self) -> str:
         return f"{self.embedding_model_id}@{self.embedding_model_revision}"
+
+    @property
+    def muse_api_key(self) -> str | None:
+        if self.model_api_key:
+            key = self.model_api_key.get_secret_value().strip()
+            if key:
+                return key
+        return read_credential("NexQ:custom")
 
 
 settings = Settings()

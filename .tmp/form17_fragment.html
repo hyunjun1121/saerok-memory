@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+ <head>
+  <link rel="stylesheet" type="text/css" href="/LSW/js/jquery/jquery.fancybox-2.1.5.css" />
+  <style type="text/css">
+	div.ast_cont02{
+		height: calc(50vh);
+	}
+	div.form_cont{
+		height: calc(50vh - 10px);
+	}
+</style>
+ </head>
+ <body>
+  <input type="hidden" name="bylNm" id="bylNm" value="특허법 시행규칙" /> 
+  <input type="hidden" id="bylLsId" name="bylLs" value="008561" /> 
+  <input type="hidden" id="bylSeq" name="bylSeq" value="18137739" /> 
+  <input type="hidden" id="lsiSeq" name="lsiSeq" value="286191" />  
+  <script type="text/javascript" src="/LSW/js/jquery/jquery.fancybox-2.1.5.pack.js"></script>  
+  <!-- 2018.11.29. 2018 국가법령 - 추가 --> 
+  <script type="text/javaScript" language="javascript">
+<!--
+$(document).ready(function() 
+{
+    // 팝업 페이지에서만 실행
+    if ("" != "Y" && $("#topDiv").length == 0) {
+
+        var $bylDiff = $("<a/>", {href:"javascript:;", class:"btn type8", text:"별표·서식비교", onClick:"f_lsBylDiffHwpP();return false;"});
+        $(".wrap_type .area_tit .ico_bx").prepend($bylDiff);
+    }
+});
+//-->
+</script> 
+  <!-- 컨텐츠 영역 --> 
+  <div class="wrap_type"> 
+   <div class="area_tit"> 
+    <p class="ast_tit">특허법 시행규칙<br /><span class="c1">[시행 2026. 5. 14.] [총리령 제2115호, 2026. 5. 14., 일부개정]</span></p> 
+    <div class="ico_bx"> 
+     <a href="" id="govLnk" title="정부24 바로가기" target="_blank" style="display:none"><img src="/LSW/images/button/gov_ico.png" alt="정부24 바로가기" /></a> 
+     <a href="javascript:;" title="관심법령" onclick="javascrpt:interestLaw();return false;"><img src="/LSW/images/common/btn_v13fn8.png" alt="관심법령" /></a> 
+     <a href="javascript:;" title="한글문서저장" onclick="javascrpt:setDownBtn('1');return false;"><img id="hanImg" src="/LSW/images/button/btn_han_w.gif" alt="한글문서저장" /></a> 
+     <a href="javascript:;" title="PDF문서저장" onclick="javascrpt:setDownBtn('3');return false;"><img id="pdfImg" src="/LSW/images/button/btn_pdf.gif" alt="PDF문서저장" /></a> 
+     <a href="javascript:;" style="margin-left: 5px;" onclick="javascrpt:printlsByl();return false;" title="인쇄(팝업으로 이동)"><img src="/LSW/images/common/btn_v13fn7.gif" alt="인쇄" /></a> 
+    </div> 
+   </div> 
+   <div class="ast_cont" style="min-width: 950px;"> 
+    <div class="cn"> 
+     <span class="tmi"></span> 
+     <span class="tle"></span> 
+     <span class="tri"></span> 
+     <span class="bmi"></span> 
+     <span class="ble"></span> 
+     <span class="bri"></span> 
+    </div> 
+    <!-- 목록 선택 영역 --> 
+    <ul class="ast_sel_list"> 
+     <li id="prboxList"> <label for="bylList"><img src="/LSW/images/common/stit_stpo1.gif" alt="별표목록" /></label> <select id="bylList" style="width:70%">
+       <!-- 팝업 사이즈에 맞게 %, px로 사이즈 지정 --> <option value="18137103,0000,00,110201,20260514">[별표 ] 전문기관의 등록취소 및 업무정지의 기준(제36조의3 관련)</option> <option value="18137105,0001,00,110202,20260514">[서식 1] 위임장</option> <option value="18137107,0002,00,110202,20260514">[서식 2] 대리인(대표자)에 관한 신고서</option> <option value="18137109,0003,00,110202,20260514">[서식 3] 포괄위임등록 신청서ㆍ변경신청서ㆍ철회서</option> <option value="18137111,0004,00,110202,20260514">[서식 4] 특허고객번호부여신청서</option> <option value="18137113,0005,00,110202,20260514">[서식 5] 특허고객번호 정보변경(경정)신고서ㆍ정정신고서</option> <option value="18137115,0005,02,110202,20260514">[서식 5의 2] 특허고객번호 정보 등 자동변경 신청서ㆍ철회서</option> <option value="18137117,0006,00,110202,20260514">[서식 6] 삭제 &lt;2012.6.28&gt;</option> <option value="18137719,0007,00,110202,20260514">[서식 7] 전자문서첨부서류등 물건제출서</option> <option value="18137721,0008,00,110202,20260514">[서식 8] 서류반려요청서ㆍ반환신청서</option> <option value="18137723,0009,00,110202,20260514">[서식 9] 보정서 </option> <option value="18137725,0010,00,110202,20260514">[서식 10] 기간 연장신청서ㆍ기간 단축신청서ㆍ기간 경과 구제신청서ㆍ절차 계속신청서</option> <option value="18137727,0011,00,110202,20260514">[서식 11] 절차 수계신청서ㆍ절차 수계신청명령신청서ㆍ절차 무효처분신청서</option> <option value="18137729,0012,00,110202,20260514">[서식 12] 취하서ㆍ포기서</option> <option value="18137731,0013,00,110202,20260514">[서식 13] 서류제출서</option> <option value="18137733,0014,00,110202,20260514">[서식 14] 특허출원서</option> <option value="18137735,0015,00,110202,20260514">[서식 15] 명세서</option> <option value="18137737,0016,00,110202,20260514">[서식 16] 요약서</option> <option value="18137739,0017,00,110202,20260514" selected="selected">[서식 17] 도면</option> <option value="18137741,0017,02,110202,20260514">[서식 17의 2] 국어번역문 오역정정서</option> <option value="18137743,0018,00,110202,20260514">[서식 18] 미생물수탁번호 변경신고서</option> <option value="18137745,0019,00,110202,20260514">[서식 19] 증명신청서ㆍ접근코드부여신청서</option> <option value="18137747,0020,00,110202,20260514">[서식 20] 권리관계 변경신고서</option> <option value="18137749,0021,00,110202,20260514">[서식 21] 외국에의 출원허가신청서</option> <option value="18137751,0022,00,110202,20260514">[서식 22] 심사청구서ㆍ우선심사신청서</option> <option value="18137753,0022,02,110202,20260514">[서식 22의 2] 결정보류신청서ㆍ심사유예신청서</option> <option value="18137755,0023,00,110202,20260514">[서식 23] 정보제출서</option> <option value="18137757,0024,00,110202,20260514">[서식 24] 의견서ㆍ답변서ㆍ소명서</option> <option value="18137759,0025,00,110202,20260514">[서식 25] 조기공개신청서</option> <option value="18137761,0026,00,110202,20260514">[서식 26] 특허증</option> <option value="18137763,0026,02,110202,20260514">[서식 26의 2] 특허증(영어)</option> <option value="18137765,0026,03,110202,20260514">[서식 26의 3] 특허증(일본어)</option> <option value="18137767,0026,04,110202,20260514">[서식 26의 4] 특허증(독일어)</option> <option value="18137769,0026,05,110202,20260514">[서식 26의 5] 특허증(프랑스어)</option> <option value="18137771,0026,06,110202,20260514">[서식 26의 6] 특허증(러시아어)</option> <option value="18137773,0026,07,110202,20260514">[서식 26의 7] 특허증(스페인어)</option> <option value="18137775,0026,08,110202,20260514">[서식 26의 8] 특허증(중국어)</option> <option value="18137777,0026,09,110202,20260514">[서식 26의 9] 특허증(아랍어)</option> <option value="18137779,0027,00,110202,20260514">[서식 27] 등록사항</option> <option value="18137781,0028,00,110202,20260514">[서식 28] 휴대용 특허증</option> <option value="18137783,0028,02,110202,20260514">[서식 28의 2] 휴대용 특허증(영어)</option> <option value="18137785,0028,03,110202,20260514">[서식 28의 3] 휴대용 특허증(일본어)</option> <option value="18137787,0028,04,110202,20260514">[서식 28의 4] 휴대용 특허증(독일어)</option> <option value="18137789,0028,05,110202,20260514">[서식 28의 5] 휴대용 특허증(프랑스어)</option> <option value="18137791,0028,06,110202,20260514">[서식 28의 6] 휴대용 특허증(러시아어)</option> <option value="18137793,0028,07,110202,20260514">[서식 28의 7] 휴대용 특허증(스페인어)</option> <option value="18137795,0028,08,110202,20260514">[서식 28의 8] 휴대용 특허증(중국어)</option> <option value="18137797,0028,09,110202,20260514">[서식 28의 9] 휴대용 특허증(아랍어)</option> <option value="18137799,0029,00,110202,20260514">[서식 29] 열람신청서ㆍ복사신청서ㆍ발급신청서ㆍ재발급신청서ㆍ정정발급신청서</option> <option value="18137801,0029,02,110202,20260514">[서식 29의 2] (휴대용) 외국어특허(등록)증 발급 신청서</option> <option value="18137803,0030,00,110202,20260514">[서식 30] 허가등에 따른 특허권의 존속기간의 연장등록출원서</option> <option value="18137805,0030,02,110202,20260514">[서식 30의 2] 등록지연에 따른 특허권(실용신안권)의 존속기간의 연장등록출원서</option> <option value="18137807,0030,03,110202,20260514">[서식 30의 3] 특허취소신청서ㆍ실용신안등록취소신청서</option> <option value="18137809,0031,00,110202,20260514">[서식 31] 심판청구서</option> <option value="18137811,0032,00,110202,20260514">[서식 32] 정정청구서</option> <option value="18137813,0033,00,110202,20260514">[서식 33] 심판사건 신청서ㆍ취소신청사건 신청서</option> <option value="18137815,0033,02,110202,20260514">[서식 33의 2] 심판절차중지 신청서ㆍ취소신청절차중지 신청서</option> <option value="18137817,0034,00,110202,20260514">[서식 34] 심판비용액 결정청구서</option> <option value="18137819,0035,00,110202,20260514">[서식 35] 서류제출서</option> <option value="18137821,0036,00,110202,20260514">[서식 36] 대리인(대표자)에 관한 신고서</option> <option value="18137823,0037,00,110202,20260514">[서식 37] 포괄위임장 제출서ㆍ포괄대리인 해임신고서ㆍ포괄대리인 사임신고서</option> <option value="18137825,0038,00,110202,20260514">[서식 38] 출원정보 변경신고서</option> <option value="18137827,0039,00,110202,20260514">[서식 39] 보정서ㆍ보완서ㆍ정정 신청서ㆍ추가 신청서</option> <option value="18137829,0040,00,110202,20260514">[서식 40] 의견제출서ㆍ소명제출서</option> <option value="18137831,0041,00,110202,20260514">[서식 41] PCT REQUEST</option> <option value="18137833,0041,02,110202,20260514">[서식 41의 2] PCT출원서</option> <option value="18137835,0042,00,110202,20260514">[서식 42] 特許協力조約に基づく國際出願 願書</option> <option value="18137837,0043,00,110202,20260514">[서식 43] 발명의 설명</option> <option value="18137839,0044,00,110202,20260514">[서식 44] 청구범위(CLAIMS, 請求範圍)</option> <option value="18137841,0045,00,110202,20260514">[서식 45] 요약서</option> <option value="18137843,0046,00,110202,20260514">[서식 46] 도면</option> <option value="18137845,0047,00,110202,20260514">[서식 47] 수수료납부서</option> <option value="18137847,0048,00,110202,20260514">[서식 48] 우선권서류 송달신청서</option> <option value="18137849,0049,00,110202,20260514">[서식 49] 취하서</option> <option value="18137851,0050,00,110202,20260514">[서식 50] 추가수수료납부·이의신청료납부·청구범위감축신청서</option> <option value="18137853,0051,00,110202,20260514">[서식 51] PCT DEMAND</option> <option value="18137855,0051,02,110202,20260514">[서식 51의 2] PCT 국제예비심사청구서</option> <option value="18137857,0052,00,110202,20260514">[서식 52] 국제예비심사 개시신청서</option> <option value="18137859,0053,00,110202,20260514">[서식 53] 발명의 설명</option> <option value="18137861,0054,00,110202,20260514">[서식 54] 청구범위</option> <option value="18137863,0055,00,110202,20260514">[서식 55] 요약서</option> <option value="18137865,0056,00,110202,20260514">[서식 56] 도면</option> <option value="18137867,0057,00,110202,20260514">[서식 57] 특허법 제203조에 따른 서면</option> <option value="18137869,0058,00,110202,20260514">[서식 58] 특허법 제214조제1항에 따른 결정신청서</option> <option value="18137871,0059,00,110202,20260514">[서식 59] 삭제 &lt;2024. 8. 7.&gt;</option> <option value="18137873,0060,00,110202,20260514">[서식 60] 조사ㆍ분류 전문기관 등록신청서ㆍ변경등록신청서</option> <option value="18137875,0061,00,110202,20260514">[서식 61] 미생물 기탁 및 분양에 관한 전문기관 등록신청서ㆍ변경등록신청서</option> </select> <a href="javascript:;" class="btn type" onclick="javascript:fHstLsBylList();return false;">선택</a> </li> 
+     <li id="bylListR"></li> 
+    </ul> 
+   </div> 
+   <div class="ast_cont02" style="height: auto; min-width: 922px;"> 
+    <div class="cn"> 
+     <span class="tmi"></span> 
+     <span class="tle"></span> 
+     <span class="tri"></span> 
+     <span class="ble"></span> 
+     <span class="bri"></span> 
+    </div> 
+    <!-- Content 영역 --> 
+    <div class="form_cont" id="bylContents" style="display: block; overflow: auto; width: 926px; height: 470px;"></div> 
+   </div> 
+  </div> 
+  <!-- 별표파일 TEXT 다운로드 ACTION --> 
+  <input type="hidden" id="bylTextDownAction" value="lsBylTextDownLoad.do" /> 
+ </body>
+</html>

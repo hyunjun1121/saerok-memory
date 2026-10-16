@@ -145,7 +145,7 @@ function OfflineLessonSession() {
 
   const playNarration = useCallback((id: string) => {
     void audioManager.playNarration(id, language).then((result) => {
-      if (result.status !== "played") setAudioUnavailable(true);
+      if (result.status !== "played" && result.status !== "disabled") setAudioUnavailable(true);
     });
   }, [language]);
 

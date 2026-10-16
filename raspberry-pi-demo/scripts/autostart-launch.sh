@@ -6,8 +6,8 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
 source "$SCRIPT_DIR/haru-env.sh"
 MARKET="${1:-ko}"
 case "$MARKET" in
-  ko|ja) ;;
-  *) echo "Usage: autostart-launch.sh ko|ja" >&2; exit 2 ;;
+  ko|ja|en) ;;
+  *) echo "Usage: autostart-launch.sh ko|ja|en" >&2; exit 2 ;;
 esac
 
 DISPLAY_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/haru/display.conf"

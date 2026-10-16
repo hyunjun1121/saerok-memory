@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "haru-voice-pilot-sample-analysis-artifacts-v1",
+  "generatedAt": "2026-08-06T09:00:00+09:00",
+  "dataKind": "sample",
+  "inventoryScope": "analysis_outputs_only",
+  "sourceDataInventory": "../manifest.json#files",
+  "dataset": {
+    "dataKind": "sample",
+    "label": "샘플 데이터",
+    "containsRestrictedTranscript": false,
+    "containsAudioFiles": false
+  },
+  "artifacts": [
+    {
+      "path": "artifact-index.json",
+      "mediaType": "application/json",
+      "stage": "inventory"
+    },
+    {
+      "path": "metrics.json",
+      "mediaType": "application/json",
+      "stage": "analysis"
+    },
+    {
+      "path": "dashboard.html",
+      "mediaType": "text/html",
+      "stage": "analysis"
+    },
+    {
+      "path": "findings.md",
+      "mediaType": "text/markdown",
+      "stage": "analysis"
+    },
+    {
+      "path": "methodology.md",
+      "mediaType": "text/markdown",
+      "stage": "analysis"
+    },
+    {
+      "path": "charts/01_daily_retention.svg",
+      "mediaType": "image/svg+xml",
+      "stage": "analysis"
+    },
+    {
+      "path": "charts/02_participant_week.svg",
+      "mediaType": "image/svg+xml",
+      "stage": "analysis"
+    },
+    {
+      "path": "charts/03_stt_variant_comparison.svg",
+      "mediaType": "image/svg+xml",
+      "stage": "analysis"
+    },
+    {
+      "path": "charts/04_question_dropoff_hotspots.svg",
+      "mediaType": "image/svg+xml",
+      "stage": "analysis"
+    },
+    {
+      "path": "charts/05_question_timing.svg",
+      "mediaType": "image/svg+xml",
+      "stage": "analysis"
+    },
+    {
+      "path": "charts/06_cohort_completion.svg",
+      "mediaType": "image/svg+xml",
+      "stage": "analysis"
+    },
+    {
+      "path": "charts/png/dashboard-full.png",
+      "mediaType": "image/png",
+      "stage": "capture"
+    },
+    {
+      "path": "charts/png/01-overview.png",
+      "mediaType": "image/png",
+      "stage": "capture"
+    },
+    {
+      "path": "charts/png/02-assist-intervention.png",
+      "mediaType": "image/png",
+      "stage": "capture"
+    },
+    {
+      "path": "charts/png/03-retention.png",
+      "mediaType": "image/png",
+      "stage": "capture"
+    },
+    {
+      "path": "charts/png/04-participant-week.png",
+      "mediaType": "image/png",
+      "stage": "capture"
+    },
+    {
+      "path": "charts/png/05-stt-comparison.png",
+      "mediaType": "image/png",
+      "stage": "capture"
+    },
+    {
+      "path": "charts/png/06-dropoff-hotspots.png",
+      "mediaType": "image/png",
+      "stage": "capture"
+    },
+    {
+      "path": "charts/png/07-question-timing.png",
+      "mediaType": "image/png",
+      "stage": "capture"
+    },
+    {
+      "path": "charts/png/08-cohorts.png",
+      "mediaType": "image/png",
+      "stage": "capture"
+    },
+    {
+      "path": "charts/png/09-stt-table.png",
+      "mediaType": "image/png",
+      "stage": "capture"
+    },
+    {
+      "path": "charts/png/10-actions.png",
+      "mediaType": "image/png",
+      "stage": "capture"
+    }
+  ],
+  "totals": {
+    "analysis": 10,
+    "capture": 11,
+    "inventory": 1,
+    "all": 22
+  },
+  "capture": {
+    "dashboardPath": "dashboard.html",
+    "viewportWidth": 1440,
+    "viewportHeight": 1000,
+    "capturedAt": "2026-08-06T06:48:12.872Z"
+  }
+}

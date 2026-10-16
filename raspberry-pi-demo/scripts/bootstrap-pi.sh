@@ -60,10 +60,11 @@ node "$SCRIPT_DIR/runtime-config.mjs" validate >/dev/null
 cd -- "$DEMO_ROOT"
 echo "Installing locked ARM64 dependencies..."
 npm ci --include=dev --include=optional --ignore-scripts=false --no-audit --no-fund
-echo "Building Korean and Japanese offline packages..."
+echo "Building Korean, Japanese, and English offline packages..."
 npm run build
 npm run check:offline
 
 echo "Bootstrap complete for $MODEL"
 echo "Korean:  bash scripts/start-ko.sh"
 echo "Japanese: bash scripts/start-ja.sh"
+echo "English:  bash scripts/start-en.sh"

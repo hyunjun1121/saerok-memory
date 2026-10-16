@@ -2,10 +2,17 @@ import { parseFourButtonConfig, type RawFourButtonConfig } from "@/features/inpu
 
 interface RuntimeConfigDocument {
   readonly input?: RawFourButtonConfig;
+  readonly audio?: {
+    readonly narrationEnabled?: unknown;
+  };
 }
 
 export type RuntimeInputConfigResult =
-  | { readonly status: "ready"; readonly config: RawFourButtonConfig }
+  | {
+      readonly status: "ready";
+      readonly config: RawFourButtonConfig;
+      readonly narrationEnabled: boolean;
+    }
   | { readonly status: "error"; readonly reason: "missing" | "invalid" };
 
 export async function loadRuntimeInputConfig(
@@ -24,7 +31,11 @@ export async function loadRuntimeInputConfig(
       return { status: "error", reason: "invalid" };
     }
     parseFourButtonConfig(payload.input);
-    return { status: "ready", config: payload.input };
+    const narrationEnabled = payload.audio?.narrationEnabled;
+    if (narrationEnabled !== undefined && typeof narrationEnabled !== "boolean") {
+      return { status: "error", reason: "invalid" };
+    }
+    return { status: "ready", config: payload.input, narrationEnabled: narrationEnabled ?? true };
   } catch {
     return { status: "error", reason: "invalid" };
   }

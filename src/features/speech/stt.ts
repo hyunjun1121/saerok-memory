@@ -1,5 +1,5 @@
 /**
- * Client for the Haru local Qwen speech-to-text backend.
+ * Client for Haru's local Microsoft Speech gateway.
  *
  * The daily memory-story routine records audio to a Blob (webm/opus) and posts
  * it here to get a transcript. This client NEVER throws: if the backend is

@@ -136,6 +136,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test("routes the final 27 B plus 4 calm narrations through real four-key UI playback", async ({ page }) => {
+  test.skip((process.env.EXPECTED_LANGUAGE ?? "ko") !== "ko", "Korean Fish Audio coverage only");
   expect(audit.choice).toBe("right");
   expect(audit.entryCount).toBe(31);
   expect(expectedEntries).toHaveLength(31);

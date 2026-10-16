@@ -1,3 +1,3 @@
-"""Haru local Qwen3-ASR Korean speech-to-text service."""
+"""Haru local Microsoft Speech gateway."""
 
 __version__ = "2.0.0"

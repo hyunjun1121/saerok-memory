@@ -1,4 +1,4 @@
-"""Pydantic response contracts for the Haru Qwen3-ASR API."""
+"""Pydantic response contracts for Haru's local Microsoft STT gateway."""
 from __future__ import annotations
 
 from typing import Literal

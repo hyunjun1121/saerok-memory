@@ -1,0 +1,86 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-08-06T09:00:00+09:00",
+  "isSynthetic": true,
+  "seed": "haru-voice-pilot-2026-08-06-v1",
+  "title": "Haru 합성 음성 UX 파일럿 20명 × 7일",
+  "purpose": "실증 전 음성 UX A/B 분석을 위한 결정적 합성 사용 기록",
+  "market": "kr",
+  "locale": "ko-KR",
+  "period": {
+    "start": "2026-07-20",
+    "end": "2026-07-26"
+  },
+  "participantCount": 20,
+  "matchedPairCount": 10,
+  "scheduledParticipantDays": 140,
+  "fileInventoryScope": "generated_data_outputs_only",
+  "analysisArtifactIndex": "analysis/artifact-index.json",
+  "voiceExperienceVariants": {
+    "baseline_v1": {
+      "participantCount": 10,
+      "preprocessingVersion": "decode-resample-only-v1"
+    },
+    "assist_v2": {
+      "participantCount": 10,
+      "preprocessingVersion": "haru-dc-hp80-rms-v2"
+    }
+  },
+  "targetAssumptions": {
+    "baseline_v1": {
+      "usableTranscriptRate": 0.78,
+      "noSpeechRate": 0.12,
+      "retryRate": 0.22,
+      "voiceStepDropoutRate": 0.15,
+      "sttLatencyP50Ms": 5500
+    },
+    "assist_v2": {
+      "usableTranscriptRate": 0.92,
+      "noSpeechRate": 0.04,
+      "retryRate": 0.07,
+      "voiceStepDropoutRate": 0.05,
+      "sttLatencyP50Ms": 3200
+    }
+  },
+  "privacy": {
+    "containsRealPersonalData": false,
+    "containsRealAudio": false,
+    "normalizedCsvContainsTranscript": false,
+    "operationalExportContainsSyntheticTranscript": false,
+    "adminRecordsContainSyntheticTranscript": true,
+    "restrictedSyntheticReviewContainsTranscript": true
+  },
+  "files": [
+    "manifest.json",
+    "operational_export.json",
+    "data_dictionary.json",
+    "restricted/stt_review_rows.json",
+    "normalized/participants.csv",
+    "normalized/consent_receipts.csv",
+    "normalized/daily_sessions.csv",
+    "normalized/question_attempts.csv",
+    "normalized/voice_steps.csv",
+    "normalized/telemetry_events.csv",
+    "admin_records/index.json",
+    "admin_records/SYN-KR-001.json",
+    "admin_records/SYN-KR-002.json",
+    "admin_records/SYN-KR-003.json",
+    "admin_records/SYN-KR-004.json",
+    "admin_records/SYN-KR-005.json",
+    "admin_records/SYN-KR-006.json",
+    "admin_records/SYN-KR-007.json",
+    "admin_records/SYN-KR-008.json",
+    "admin_records/SYN-KR-009.json",
+    "admin_records/SYN-KR-010.json",
+    "admin_records/SYN-KR-011.json",
+    "admin_records/SYN-KR-012.json",
+    "admin_records/SYN-KR-013.json",
+    "admin_records/SYN-KR-014.json",
+    "admin_records/SYN-KR-015.json",
+    "admin_records/SYN-KR-016.json",
+    "admin_records/SYN-KR-017.json",
+    "admin_records/SYN-KR-018.json",
+    "admin_records/SYN-KR-019.json",
+    "admin_records/SYN-KR-020.json"
+  ]
+}

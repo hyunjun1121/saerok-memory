@@ -1,0 +1,170 @@
+{
+  "input": "C:\\project\\saerok-memory\\\ud53c\uc6b0\ub2e4\ud504\ub85c\uc81d\ud2b8\\\ubc1c\ud45c\uc790\ub8cc\\Appendix1_Description_of_Information_System_Haru.docx",
+  "fonts_by_char_count": {
+    "Times New Roman": 7400
+  },
+  "direct_run_formatting_runs": 96,
+  "direct_paragraph_formatting_paragraphs": 89,
+  "heading_like_paragraphs_not_heading_style": [
+    {
+      "para_index": 48,
+      "text": "Accessible routine",
+      "style": "Normal"
+    },
+    {
+      "para_index": 49,
+      "text": "\u2192",
+      "style": "Normal"
+    },
+    {
+      "para_index": 50,
+      "text": "Voice / button record",
+      "style": "Normal"
+    },
+    {
+      "para_index": 51,
+      "text": "\u2192",
+      "style": "Normal"
+    },
+    {
+      "para_index": 52,
+      "text": "Related memory retrieval",
+      "style": "Normal"
+    },
+    {
+      "para_index": 53,
+      "text": "\u2192",
+      "style": "Normal"
+    },
+    {
+      "para_index": 54,
+      "text": "Next-day prompt",
+      "style": "Normal"
+    },
+    {
+      "para_index": 55,
+      "text": "\u2192",
+      "style": "Normal"
+    },
+    {
+      "para_index": 56,
+      "text": "Support report",
+      "style": "Normal"
+    },
+    {
+      "para_index": 63,
+      "text": "Audio capture",
+      "style": "Normal"
+    },
+    {
+      "para_index": 64,
+      "text": "\u2192",
+      "style": "Normal"
+    },
+    {
+      "para_index": 65,
+      "text": "STT",
+      "style": "Normal"
+    },
+    {
+      "para_index": 66,
+      "text": "\u2192",
+      "style": "Normal"
+    },
+    {
+      "para_index": 67,
+      "text": "Cue extraction",
+      "style": "Normal"
+    },
+    {
+      "para_index": 68,
+      "text": "\u2192",
+      "style": "Normal"
+    },
+    {
+      "para_index": 69,
+      "text": "Memory index",
+      "style": "Normal"
+    },
+    {
+      "para_index": 70,
+      "text": "\u2192",
+      "style": "Normal"
+    },
+    {
+      "para_index": 71,
+      "text": "RAG prompt",
+      "style": "Normal"
+    },
+    {
+      "para_index": 78,
+      "text": "User",
+      "style": "Normal"
+    },
+    {
+      "para_index": 79,
+      "text": "Primary use",
+      "style": "Normal"
+    }
+  ],
+  "examples": {
+    "direct_paragraph_formatting": [
+      {
+        "para_index": 1,
+        "text": "Appendix1. Description of Information System",
+        "style": "Title"
+      },
+      {
+        "para_index": 2,
+        "text": "Application No.: (To be filled in by Contest Committee)",
+        "style": "Plain Text"
+      },
+      {
+        "para_index": 3,
+        "text": "Title of Information System: Haru: A Daily Cognitive Routine Kiosk with Speech Recognition and Memory-Grounded Personali",
+        "style": "Plain Text"
+      },
+      {
+        "para_index": 4,
+        "text": "University / Institution: Institute for Universal Education",
+        "style": "Plain Text"
+      },
+      {
+        "para_index": 5,
+        "text": "Department / Faculty: Haru Development Team",
+        "style": "Plain Text"
+      }
+    ],
+    "direct_run_formatting": [
+      {
+        "para_index": 1,
+        "run_text": "Appendix1.",
+        "style": "Title"
+      },
+      {
+        "para_index": 1,
+        "run_text": " Description of Information System",
+        "style": "Title"
+      },
+      {
+        "para_index": 2,
+        "run_text": "Application No.: ",
+        "style": "Plain Text"
+      },
+      {
+        "para_index": 2,
+        "run_text": "(To be filled in by Contest Committee)",
+        "style": "Plain Text"
+      },
+      {
+        "para_index": 3,
+        "run_text": "Title of Information System: ",
+        "style": "Plain Text"
+      }
+    ]
+  },
+  "notes": [
+    "Direct formatting is not always wrong, but it often causes inconsistent output when templates change.",
+    "Heading-like paragraphs not using Heading styles can break TOC and accessibility."
+  ]
+}

@@ -1,14 +1,14 @@
 import type { SupportedLanguage } from "@/utils/localizedText";
 
-export type MarketCode = "kr" | "jp";
+export type MarketCode = "kr" | "jp" | "en";
 
 export interface MarketConfig {
   market: MarketCode;
-  language: Extract<SupportedLanguage, "ko" | "ja">;
-  locale: "ko-KR" | "ja-JP";
-  timeZone: "Asia/Seoul" | "Asia/Tokyo";
-  currency: "KRW" | "JPY";
-  speechLanguage: "ko-KR" | "ja-JP";
+  language: Extract<SupportedLanguage, "ko" | "ja" | "en">;
+  locale: "ko-KR" | "ja-JP" | "en-US";
+  timeZone: "Asia/Seoul" | "Asia/Tokyo" | "America/New_York";
+  currency: "KRW" | "JPY" | "USD";
+  speechLanguage: "ko-KR" | "ja-JP" | "en-US";
   contentPackVersion: string;
   lockedLanguage: true;
 }
@@ -34,10 +34,23 @@ const MARKET_CONFIGS: Record<MarketCode, MarketConfig> = {
     contentPackVersion: "jp-2026.08",
     lockedLanguage: true,
   },
+  en: {
+    market: "en",
+    language: "en",
+    locale: "en-US",
+    timeZone: "America/New_York",
+    currency: "USD",
+    speechLanguage: "en-US",
+    contentPackVersion: "en-2026.09",
+    lockedLanguage: true,
+  },
 };
 
 export function normalizeMarket(value?: string | null): MarketCode {
-  return value?.trim().toLowerCase() === "jp" ? "jp" : "kr";
+  const market = value?.trim().toLowerCase();
+  if (market === "jp") return "jp";
+  if (market === "en") return "en";
+  return "kr";
 }
 
 export function getMarketConfig(market: MarketCode): MarketConfig {
@@ -49,7 +62,7 @@ export function getRuntimeMarketConfig(): MarketConfig {
 }
 
 export function hasConfiguredMarket(): boolean {
-  return import.meta.env.VITE_HARU_MARKET === "kr" || import.meta.env.VITE_HARU_MARKET === "jp";
+  return ["kr", "jp", "en"].includes(import.meta.env.VITE_HARU_MARKET ?? "");
 }
 
 export function isDeploymentLanguageLocked(): boolean {

@@ -1,0 +1,121 @@
+{"kind":"deck","id":"pr/84uewa","name":"Deck"}
+{"kind":"layout","layoutId":"/ppt/slideMasters/slideMaster1.xml","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout1.xml","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/y90nupkv","slide":1,"title":"사용 흐름 사전 검증","textShapes":15}
+{"kind":"textbox","id":"sh/547294r6","slide":1,"name":"section-1","text":"사용 흐름 사전 검증","textPreview":"사용 흐름 사전 검증","textChars":11,"textLines":1,"bbox":[70,40,420,26]}
+{"kind":"shape","id":"sh/k3yl0zql","slide":1,"bbox":[70,674,1140,0]}
+{"kind":"textbox","id":"sh/7qp4be9c","slide":1,"name":"footer-left-1","text":"Haru Voice UX · PRE-PILOT","textPreview":"Haru Voice UX · PRE-PILOT","textChars":25,"textLines":1,"bbox":[70,684,320,20]}
+{"kind":"textbox","id":"sh/65g3298r","slide":1,"name":"footer-caution-1","text":"합성 시뮬레이션 · 실제 사용자/실제 음성 결과 아님","textPreview":"합성 시뮬레이션 · 실제 사용자/실제 음성 결과 아님","textChars":29,"textLines":1,"bbox":[700,682,430,22]}
+{"kind":"textbox","id":"sh/ts7md4r2","slide":1,"name":"page-1","text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[1150,682,60,22]}
+{"kind":"textbox","id":"sh/sryl4zqx","slide":1,"name":"s1-title","text":"실증 전에,\n막히는 순간부터 측정했다","textPreview":"실증 전에, | 막히는 순간부터 측정했다","textChars":20,"textLines":2,"bbox":[70,104,720,132]}
+{"kind":"textbox","id":"sh/fu94fe98","slide":1,"name":"s1-subtitle","text":"50~70대 현장 파일럿을 앞두고\n참여·이탈·재시도·STT 흐름을 먼저 연결했습니다.","textPreview":"50~70대 현장 파일럿을 앞두고 | 참여·이탈·재시도·STT 흐름을 먼저 연결했습니다.","textChars":47,"textLines":2,"bbox":[72,254,660,82]}
+{"kind":"shape","id":"sh/utg3698n","slide":1,"name":"s1-device-backdrop","bbox":[860,102,346,536]}
+{"kind":"shape","id":"sh/wn6dc7eh","slide":1,"name":"s1-device-frame","bbox":[897,120,272,484]}
+{"kind":"textbox","id":"sh/ul4vaxgb","slide":1,"name":"s1-stat-value-0","text":"20","textPreview":"20","textChars":2,"textLines":1,"bbox":[72,424,170,56]}
+{"kind":"textbox","id":"sh/vmdcj2xw","slide":1,"name":"s1-stat-label-0","text":"샘플 프로필","textPreview":"샘플 프로필","textChars":6,"textLines":1,"bbox":[72,486,170,32]}
+{"kind":"shape","id":"sh/4r6dg7et","slide":1,"bbox":[238,432,0,78]}
+{"kind":"textbox","id":"sh/5sfepcfe","slide":1,"name":"s1-stat-value-1","text":"140","textPreview":"140","textChars":3,"textLines":1,"bbox":[260,424,170,56]}
+{"kind":"textbox","id":"sh/ipovexwn","slide":1,"name":"s1-stat-label-1","text":"세션 기록","textPreview":"세션 기록","textChars":5,"textLines":1,"bbox":[260,486,170,32]}
+{"kind":"shape","id":"sh/3qxwn2x8","slide":1,"bbox":[426,432,0,78]}
+{"kind":"textbox","id":"sh/sfqdkrep","slide":1,"name":"s1-stat-value-2","text":"832","textPreview":"832","textChars":3,"textLines":1,"bbox":[448,424,170,56]}
+{"kind":"textbox","id":"sh/dgzetcfa","slide":1,"name":"s1-stat-label-2","text":"문항 로그","textPreview":"문항 로그","textChars":5,"textLines":1,"bbox":[448,486,170,32]}
+{"kind":"shape","id":"sh/1cvuxc7e","slide":1,"bbox":[614,432,0,78]}
+{"kind":"textbox","id":"sh/0bmd476t","slide":1,"name":"s1-stat-value-3","text":"5,328","textPreview":"5,328","textChars":5,"textLines":1,"bbox":[636,424,170,56]}
+{"kind":"textbox","id":"sh/zadcv2p8","slide":1,"name":"s1-stat-label-3","text":"상호작용 이벤트","textPreview":"상호작용 이벤트","textChars":8,"textLines":1,"bbox":[636,486,170,32]}
+{"kind":"shape","id":"sh/e94v2hon","slide":1,"name":"s1-proof-strip","bbox":[72,548,718,76]}
+{"kind":"textbox","id":"sh/90ve1w7q","slide":1,"name":"s1-proof-text","text":"한 문항의 탭부터 음성 전사까지, 같은 세션 안에서 추적","textPreview":"한 문항의 탭부터 음성 전사까지, 같은 세션 안에서 추적","textChars":31,"textLines":1,"bbox":[98,568,664,36]}
+{"kind":"image","id":"im/zidgfixg","slide":1,"name":"","geometry":"roundRect","bbox":[1110,38.5,104,53]}
+{"kind":"image","id":"im/0jmxony1","slide":1,"name":"","geometry":"roundRect","bbox":[904,127,258,470]}
+{"kind":"notes","id":"nt/y90nupkv","slide":1,"text":"[Sources]\n- C:/project/saerok-memory/docs/voice-pilot-sample-20x7/manifest.json — sample provenance, 20 profiles, 140 participant-days.\n- C:/project/saerok-memory/docs/voice-pilot-sample-20x7/operational_export.json — 832 question attempts and 5,328 telemetry events.\n- C:/project/saerok-memory/피우다프로젝트/application_assets/auto_screenshots/ko/19_오늘_하루_말하기.png — internal Haru product capture.\n[/Sources]"}
+{"kind":"slide","id":"sl/hwbqtkby","slide":2,"title":"문제 가설","textShapes":11}
+{"kind":"textbox","id":"sh/9072xkry","slide":2,"name":"section-2","text":"문제 가설","textPreview":"문제 가설","textChars":5,"textLines":1,"bbox":[70,40,420,26]}
+{"kind":"shape","id":"sh/ozy1ofad","slide":2,"bbox":[70,674,1140,0]}
+{"kind":"textbox","id":"sh/b29kza94","slide":2,"name":"footer-left-2","text":"Haru Voice UX · PRE-PILOT","textPreview":"Haru Voice UX · PRE-PILOT","textChars":25,"textLines":1,"bbox":[70,684,320,20]}
+{"kind":"textbox","id":"sh/a10jqpsj","slide":2,"name":"footer-caution-2","text":"합성 시뮬레이션 · 실제 사용자/실제 음성 결과 아님","textPreview":"합성 시뮬레이션 · 실제 사용자/실제 음성 결과 아님","textChars":29,"textLines":1,"bbox":[700,682,430,22]}
+{"kind":"textbox","id":"sh/x4r21kru","slide":2,"name":"page-2","text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[1150,682,60,22]}
+{"kind":"textbox","id":"sh/w3i1sfa9","slide":2,"name":"s2-title","text":"샘플 흐름에서 이탈은 말하기 구간에 집중됐다","textPreview":"샘플 흐름에서 이탈은 말하기 구간에 집중됐다","textChars":24,"textLines":1,"bbox":[70,96,1020,68]}
+{"kind":"textbox","id":"sh/r65knqtk","slide":2,"name":"s2-subtitle","text":"실제 파일럿에서 먼저 원인 코드를 심어야 할 위치가 선명해졌습니다.","textPreview":"실제 파일럿에서 먼저 원인 코드를 심어야 할 위치가 선명해졌습니다.","textChars":37,"textLines":1,"bbox":[72,166,940,40]}
+{"kind":"shape","id":"sh/q5wjelsz","slide":2,"name":"s2-chart-frame","bbox":[68,224,726,424]}
+{"kind":"textbox","id":"sh/9wnqhczy","slide":2,"name":"s2-big-rate","text":"10.0%","textPreview":"10.0%","textChars":5,"textLines":1,"bbox":[842,240,330,82]}
+{"kind":"textbox","id":"sh/mtwrmxg7","slide":2,"name":"s2-big-rate-label","text":"음성 문항 이탈\n14 / 140","textPreview":"음성 문항 이탈 | 14 / 140","textChars":17,"textLines":2,"bbox":[846,326,310,68]}
+{"kind":"shape","id":"sh/nu58f2hs","slide":2,"bbox":[844,418,334,0]}
+{"kind":"textbox","id":"sh/wjy9sry9","slide":2,"name":"s2-hotspot-rate","text":"20.0%","textPreview":"20.0%","textChars":5,"textLines":1,"bbox":[844,442,240,58]}
+{"kind":"textbox","id":"sh/xk7qlczu","slide":2,"name":"s2-hotspot-label","text":"D1_Q5 · D4_Q5\n각 4 / 20","textPreview":"D1_Q5 · D4_Q5 | 각 4 / 20","textChars":22,"textLines":2,"bbox":[846,506,300,62]}
+{"kind":"textbox","id":"sh/ahwrqhgj","slide":2,"name":"s2-takeaway","text":"정확도만이 아니라\n말하기 전후 전체를 측정","textPreview":"정확도만이 아니라 | 말하기 전후 전체를 측정","textChars":23,"textLines":2,"bbox":[844,584,330,62]}
+{"kind":"image","id":"im/wved8fit","slide":2,"name":"","geometry":"roundRect","bbox":[1110,38.5,104,53]}
+{"kind":"image","id":"im/nqlwvq1w","slide":2,"name":"","geometry":"roundRect","bbox":[123.48,236,615.04,400]}
+{"kind":"notes","id":"nt/hwbqtkby","slide":2,"text":"[Sources]\n- C:/project/saerok-memory/docs/voice-pilot-sample-20x7/analysis/metrics.json — voiceOperational and dropoutHotspots sample metrics.\n- C:/project/saerok-memory/docs/voice-pilot-sample-20x7/analysis/charts/png/06-dropoff-hotspots.png — generated sample chart.\n- C:/project/saerok-memory/src/features/analytics/syntheticVoicePilot.ts — outcomes assigned from fixed TARGETS; not observed user behavior.\n[/Sources]"}
+{"kind":"slide","id":"sl/ofy9wn61","slide":3,"title":"제품 개선안","textShapes":15}
+{"kind":"textbox","id":"sh/cza94vmx","slide":3,"name":"section-3","text":"제품 개선안","textPreview":"제품 개선안","textChars":6,"textLines":1,"bbox":[70,40,420,26]}
+{"kind":"shape","id":"sh/d0jax03i","slide":3,"bbox":[70,674,1140,0]}
+{"kind":"textbox","id":"sh/298ryl4v","slide":3,"name":"footer-left-3","text":"Haru Voice UX · PRE-PILOT","textPreview":"Haru Voice UX · PRE-PILOT","textChars":25,"textLines":1,"bbox":[70,684,320,20]}
+{"kind":"textbox","id":"sh/3ah8rqlg","slide":3,"name":"footer-caution-3","text":"합성 시뮬레이션 · 실제 사용자/실제 음성 결과 아님","textPreview":"합성 시뮬레이션 · 실제 사용자/실제 음성 결과 아님","textChars":29,"textLines":1,"bbox":[700,682,430,22]}
+{"kind":"textbox","id":"sh/obq90bml","slide":3,"name":"page-3","text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[1150,682,60,22]}
+{"kind":"textbox","id":"sh/pcjqtg36","slide":3,"name":"s3-title","text":"사용자가 맞춰 말하는 대신, 제품이 사용자를 돕는다","textPreview":"사용자가 맞춰 말하는 대신, 제품이 사용자를 돕는다","textChars":28,"textLines":1,"bbox":[70,96,1040,68]}
+{"kind":"textbox","id":"sh/m5cra54z","slide":3,"name":"s3-subtitle","text":"말하기 부담과 입력 불확실성을 함께 줄이는 세 가지 개입입니다.","textPreview":"말하기 부담과 입력 불확실성을 함께 줄이는 세 가지 개입입니다.","textChars":35,"textLines":1,"bbox":[72,166,900,40]}
+{"kind":"shape","id":"sh/n6ls3alk","slide":3,"name":"s3-device-frame","bbox":[82,224,274,424]}
+{"kind":"textbox","id":"sh/m1c3mlsn","slide":3,"name":"s3-item-number-0","text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[420,232,74,48]}
+{"kind":"textbox","id":"sh/943mhgre","slide":3,"name":"s3-item-title-0","text":"보이는 입력 반응","textPreview":"보이는 입력 반응","textChars":9,"textLines":1,"bbox":[510,232,620,42]}
+{"kind":"textbox","id":"sh/83ulovat","slide":3,"name":"s3-item-body-0","text":"빨간 듣기 상태와 움직이는 파형으로\n마이크가 반응하는 순간을 바로 확인","textPreview":"빨간 듣기 상태와 움직이는 파형으로 | 마이크가 반응하는 순간을 바로 확인","textChars":39,"textLines":2,"bbox":[510,282,650,70]}
+{"kind":"shape","id":"sh/v6l4jq94","slide":3,"bbox":[420,354,742,0]}
+{"kind":"textbox","id":"sh/a5c3ql8z","slide":3,"name":"s3-item-number-1","text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[420,368,74,48]}
+{"kind":"textbox","id":"sh/x8nml0ra","slide":3,"name":"s3-item-title-1","text":"부담을 낮춘 안내","textPreview":"부담을 낮춘 안내","textChars":9,"textLines":1,"bbox":[510,368,620,42]}
+{"kind":"textbox","id":"sh/w7ulsvqp","slide":3,"name":"s3-item-body-1","text":"“또박또박 말하려 애쓰지 않아도 됩니다.\n평소처럼 편하게 말씀하세요.”","textPreview":"“또박또박 말하려 애쓰지 않아도 됩니다. | 평소처럼 편하게 말씀하세요.”","textChars":39,"textLines":2,"bbox":[510,418,650,70]}
+{"kind":"shape","id":"sh/ja54na9g","slide":3,"bbox":[420,490,742,0]}
+{"kind":"textbox","id":"sh/i9w3u58v","slide":3,"name":"s3-item-number-2","text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[420,504,74,48]}
+{"kind":"textbox","id":"sh/e10f2twf","slide":3,"name":"s3-item-title-2","text":"같은 Qwen, 더 나은 입력","textPreview":"같은 Qwen, 더 나은 입력","textChars":16,"textLines":1,"bbox":[510,504,620,42]}
+{"kind":"textbox","id":"sh/f29gbyx0","slide":3,"name":"s3-item-body-2","text":"DC 제거 · 80 Hz high-pass · bounded RMS로\n입력 품질을 보정하는 비교 구성","textPreview":"DC 제거 · 80 Hz high-pass · bounded RMS로 | 입력 품질을 보정하는 비교 구성","textChars":56,"textLines":2,"bbox":[510,554,650,70]}
+{"kind":"image","id":"im/n2tc3y1g","slide":3,"name":"","geometry":"roundRect","bbox":[1110,38.5,104,53]}
+{"kind":"image","id":"im/21kvutkb","slide":3,"name":"","geometry":"roundRect","bbox":[89,231,260,410]}
+{"kind":"notes","id":"nt/ofy9wn61","slide":3,"text":"[Sources]\n- C:/project/saerok-memory/피우다프로젝트/application_assets/auto_screenshots/ko/19_오늘_하루_말하기.png — internal Haru product capture.\n- C:/project/saerok-memory/docs/voice-pilot-sample-20x7/analysis/findings.md — intervention description and exact user guidance.\n- C:/project/saerok-memory/README.md — Qwen model and haru-dc-hp80-rms-v2 preprocessing description.\n[/Sources]"}
+{"kind":"slide","id":"sl/jyx0ra1s","slide":4,"title":"판정 기준","textShapes":17}
+{"kind":"textbox","id":"sh/1cj2d8b6","slide":4,"name":"section-4","text":"판정 기준","textPreview":"판정 기준","textChars":5,"textLines":1,"bbox":[70,40,420,26]}
+{"kind":"shape","id":"sh/0ba143al","slide":4,"bbox":[70,674,1140,0]}
+{"kind":"textbox","id":"sh/rm1k7yt4","slide":4,"name":"footer-left-4","text":"Haru Voice UX · PRE-PILOT","textPreview":"Haru Voice UX · PRE-PILOT","textChars":25,"textLines":1,"bbox":[70,684,320,20]}
+{"kind":"textbox","id":"sh/ql8jytsj","slide":4,"name":"footer-caution-4","text":"합성 시뮬레이션 · 실제 사용자/실제 음성 결과 아님","textPreview":"합성 시뮬레이션 · 실제 사용자/실제 음성 결과 아님","textChars":29,"textLines":1,"bbox":[700,682,430,22]}
+{"kind":"textbox","id":"sh/doj29oba","slide":4,"name":"page-4","text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[1150,682,60,22]}
+{"kind":"textbox","id":"sh/sna103ap","slide":4,"name":"s4-title","text":"샘플 A/B로 실제 파일럿의 판정 기준을 정했다","textPreview":"샘플 A/B로 실제 파일럿의 판정 기준을 정했다","textChars":26,"textLines":1,"bbox":[70,96,1040,68]}
+{"kind":"textbox","id":"sh/3ihk3et8","slide":4,"name":"s4-subtitle","text":"사전 설정한 패턴입니다. 측정된 제품 효과가 아닙니다.","textPreview":"사전 설정한 패턴입니다. 측정된 제품 효과가 아닙니다.","textChars":30,"textLines":1,"bbox":[72,166,820,40]}
+{"kind":"shape","id":"sh/ih8ju9sn","slide":4,"name":"s4-chart-frame","bbox":[68,226,720,420]}
+{"kind":"textbox","id":"sh/5cva1cfq","slide":4,"name":"s4-primary-delta","text":"+12.9%p","textPreview":"+12.9%p","textChars":7,"textLines":1,"bbox":[838,232,340,82]}
+{"kind":"textbox","id":"sh/i94r6xgz","slide":4,"name":"s4-primary-label","text":"사용 가능 전사율\n78.6% → 91.4%","textPreview":"사용 가능 전사율 | 78.6% → 91.4%","textChars":23,"textLines":2,"bbox":[842,318,320,70]}
+{"kind":"shape","id":"sh/jadsz2xk","slide":4,"bbox":[840,410,330,0]}
+{"kind":"textbox","id":"sh/w72947yt","slide":4,"name":"s4-metric-name-0","text":"no-speech","textPreview":"no-speech","textChars":9,"textLines":1,"bbox":[842,432,100,28]}
+{"kind":"textbox","id":"sh/x8vaxsfe","slide":4,"name":"s4-metric-value-0","text":"11.4% → 4.3%","textPreview":"11.4% → 4.3%","textChars":12,"textLines":1,"bbox":[938,432,178,28]}
+{"kind":"textbox","id":"sh/a5kr2xg3","slide":4,"name":"s4-metric-delta-0","text":"−7.1%p","textPreview":"−7.1%p","textChars":6,"textLines":1,"bbox":[1122,432,96,28]}
+{"kind":"textbox","id":"sh/v6tsv2xo","slide":4,"name":"s4-metric-name-1","text":"재시도","textPreview":"재시도","textChars":3,"textLines":1,"bbox":[842,497,100,28]}
+{"kind":"textbox","id":"sh/g36tgryd","slide":4,"name":"s4-metric-value-1","text":"21.4% → 7.1%","textPreview":"21.4% → 7.1%","textChars":12,"textLines":1,"bbox":[938,497,178,28]}
+{"kind":"textbox","id":"sh/h4fa9wfy","slide":4,"name":"s4-metric-delta-1","text":"−14.3%p","textPreview":"−14.3%p","textChars":7,"textLines":1,"bbox":[1122,497,96,28]}
+{"kind":"textbox","id":"sh/p0batw72","slide":4,"name":"s4-metric-name-2","text":"중앙 지연","textPreview":"중앙 지연","textChars":5,"textLines":1,"bbox":[842,562,100,28]}
+{"kind":"textbox","id":"sh/oz29krqh","slide":4,"name":"s4-metric-value-2","text":"5.5초 → 3.2초","textPreview":"5.5초 → 3.2초","textChars":11,"textLines":1,"bbox":[938,562,178,28]}
+{"kind":"textbox","id":"sh/3ytsrmpw","slide":4,"name":"s4-metric-delta-2","text":"−2.3초","textPreview":"−2.3초","textChars":5,"textLines":1,"bbox":[1122,562,96,28]}
+{"kind":"image","id":"im/94jq9oju","slide":4,"name":"","geometry":"roundRect","bbox":[1110,38.5,104,53]}
+{"kind":"image","id":"im/a5sritkf","slide":4,"name":"","geometry":"roundRect","bbox":[123.55,238,608.89,396]}
+{"kind":"notes","id":"nt/jyx0ra1s","slide":4,"text":"[Sources]\n- C:/project/saerok-memory/docs/voice-pilot-sample-20x7/analysis/metrics.json — generated baseline/assist rates and p50 latency.\n- C:/project/saerok-memory/docs/voice-pilot-sample-20x7/analysis/charts/png/05-stt-comparison.png — generated sample comparison chart.\n- C:/project/saerok-memory/docs/voice-pilot-sample-20x7/analysis/methodology.md — no significance test or confidence interval; actual matched-input decode remains future work.\n- C:/project/saerok-memory/src/features/analytics/syntheticVoicePilot.ts — fixed target counts generate these scenario differences.\n[/Sources]"}
+{"kind":"slide","id":"sl/i107q5of","slide":5,"title":"다음 검증","textShapes":19}
+{"kind":"textbox","id":"sh/dgbulwnm","slide":5,"name":"section-5","text":"다음 검증","textPreview":"다음 검증","textChars":5,"textLines":1,"bbox":[70,40,420,26]}
+{"kind":"shape","id":"sh/cf2tcr61","slide":5,"bbox":[70,674,1140,0]}
+{"kind":"textbox","id":"sh/z2tcnm5s","slide":5,"name":"footer-left-5","text":"Haru Voice UX · PRE-PILOT","textPreview":"Haru Voice UX · PRE-PILOT","textChars":25,"textLines":1,"bbox":[70,684,320,20]}
+{"kind":"textbox","id":"sh/yhkbe1o7","slide":5,"name":"footer-caution-5","text":"합성 시뮬레이션 · 실제 사용자/실제 음성 결과 아님","textPreview":"합성 시뮬레이션 · 실제 사용자/실제 음성 결과 아님","textChars":29,"textLines":1,"bbox":[700,682,430,22]}
+{"kind":"textbox","id":"sh/l4bupwny","slide":5,"name":"page-5","text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[1150,682,60,22]}
+{"kind":"textbox","id":"sh/032tgr6d","slide":5,"name":"s5-title","text":"이제 실제 50~70대 파일럿에서\n가정을 관찰로 바꾼다","textPreview":"이제 실제 50~70대 파일럿에서 | 가정을 관찰로 바꾼다","textChars":30,"textLines":2,"bbox":[70,100,760,126]}
+{"kind":"textbox","id":"sh/n6dcr65o","slide":5,"name":"s5-subtitle","text":"‘효과’보다 먼저, 어디서 왜 멈추는지 검증합니다.","textPreview":"‘효과’보다 먼저, 어디서 왜 멈추는지 검증합니다.","textChars":28,"textLines":1,"bbox":[72,246,760,40]}
+{"kind":"shape","id":"sh/m5kbi1oj","slide":5,"name":"s5-plan-panel","bbox":[70,318,1140,252]}
+{"kind":"textbox","id":"sh/w32dkbuh","slide":5,"name":"s5-step-number-0","text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[98,350,62,42]}
+{"kind":"textbox","id":"sh/x4vedgvm","slide":5,"name":"s5-step-title-0","text":"동의받은 자연 발화","textPreview":"동의받은 자연 발화","textChars":10,"textLines":1,"bbox":[98,406,240,38]}
+{"kind":"textbox","id":"sh/ahkvi1cb","slide":5,"name":"s5-step-body-0","text":"지인·가족 50~70대\n7일 사용 흐름","textPreview":"지인·가족 50~70대 | 7일 사용 흐름","textChars":21,"textLines":2,"bbox":[98,456,240,72]}
+{"kind":"shape","id":"sh/v2twb6dw","slide":5,"bbox":[348,350,0,172]}
+{"kind":"textbox","id":"sh/k7mxovud","slide":5,"name":"s5-step-number-1","text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[376,350,62,42]}
+{"kind":"textbox","id":"sh/58vehgvy","slide":5,"name":"s5-step-title-1","text":"동일 음성 이중 디코딩","textPreview":"동일 음성 이중 디코딩","textChars":12,"textLines":1,"bbox":[376,406,240,38]}
+{"kind":"textbox","id":"sh/i54fmlc7","slide":5,"name":"s5-step-body-1","text":"baseline / assist를\n같은 입력으로 비교","textPreview":"baseline / assist를 | 같은 입력으로 비교","textChars":29,"textLines":2,"bbox":[376,456,240,72]}
+{"kind":"shape","id":"sh/j6dwfqds","slide":5,"bbox":[626,350,0,172]}
+{"kind":"textbox","id":"sh/sb6xsvu9","slide":5,"name":"s5-step-number-2","text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[654,350,62,42]}
+{"kind":"textbox","id":"sh/tcfel0vu","slide":5,"name":"s5-step-title-2","text":"조건을 가린 사람 검토","textPreview":"조건을 가린 사람 검토","textChars":12,"textLines":1,"bbox":[654,406,240,38]}
+{"kind":"textbox","id":"sh/hgrmpwj2","slide":5,"name":"s5-step-body-2","text":"사용 가능 전사와\n의미 단서 보존 확인","textPreview":"사용 가능 전사와 | 의미 단서 보존 확인","textChars":21,"textLines":2,"bbox":[654,456,240,72]}
+{"kind":"shape","id":"sh/gfi5grih","slide":5,"bbox":[904,350,0,172]}
+{"kind":"textbox","id":"sh/fe94nm1w","slide":5,"name":"s5-step-number-3","text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[932,350,62,42]}
+{"kind":"textbox","id":"sh/ud0ne10b","slide":5,"name":"s5-step-title-3","text":"실패 원인까지 연결","textPreview":"실패 원인까지 연결","textChars":10,"textLines":1,"bbox":[932,406,240,38]}
+{"kind":"textbox","id":"sh/pkr6tgjy","slide":5,"name":"s5-step-body-3","text":"권한 거부 · no-speech\nSTT 실패 · 취소 · 사용 소감","textPreview":"권한 거부 · no-speech | STT 실패 · 취소 · 사용 소감","textChars":37,"textLines":2,"bbox":[932,456,240,72]}
+{"kind":"textbox","id":"sh/4ji5kbid","slide":5,"name":"s5-closing","text":"샘플 데이터는 답이 아니라, 실제 테스트를 빠르게 만드는 리허설입니다.","textPreview":"샘플 데이터는 답이 아니라, 실제 테스트를 빠르게 만드는 리허설입니다.","textChars":39,"textLines":1,"bbox":[90,602,1090,42]}
+{"kind":"image","id":"im/8j2x8b6t","slide":5,"name":"","geometry":"roundRect","bbox":[1110,38.5,104,53]}
+{"kind":"notes","id":"nt/i107q5of","slide":5,"text":"[Sources]\n- C:/project/saerok-memory/docs/voice-pilot-sample-20x7/analysis/methodology.md — matched-input comparison, blind human review, and error annotation requirements.\n- C:/project/saerok-memory/AGENTS.md — privacy, consent, non-clinical framing, and family-sharing guardrails.\n- C:/project/saerok-memory/design.md — granular consent and older-adult interaction principles.\n[/Sources]"}

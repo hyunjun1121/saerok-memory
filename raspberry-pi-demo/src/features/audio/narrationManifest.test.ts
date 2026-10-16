@@ -45,6 +45,19 @@ describe("narration manifest", () => {
     );
   });
 
+  it("accepts English entries for a later local narration pack", () => {
+    const input = validManifest();
+    input.entries[0] = {
+      ...input.entries[0],
+      locale: "en",
+      text: "How are you feeling today?",
+      path: "assets/audio/narration/en/exercise__D1_Q1__prompt.ogg",
+    };
+
+    expect(getNarrationEntry(parseNarrationManifest(input), "exercise.D1_Q1.prompt", "en")?.text)
+      .toBe("How are you feeling today?");
+  });
+
   it.each([
     "https://example.com/speech.ogg",
     "//example.com/speech.ogg",

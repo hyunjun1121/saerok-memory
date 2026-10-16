@@ -138,9 +138,9 @@ def _nullable_confidence(response: dict[str, Any]) -> float | None:
     if not isinstance(stt, dict):
         return None
     engine = str(stt.get("engine") or "").strip().casefold()
-    # Only locally produced Qwen results may contribute a confidence value.
-    # Demo/mock/placeholder and unknown engines remain reviewable evidence, but
-    # their authored numeric confidence must not be treated as measured output.
+    # Only the legacy local Qwen engine currently has a calibrated confidence
+    # contract. Microsoft, demo/mock/placeholder, and unknown engines remain
+    # reviewable evidence; authored numeric values are not measured confidence.
     if engine != "qwen3-asr" and not engine.startswith("qwen3-asr:"):
         return None
     raw = stt.get("confidence")

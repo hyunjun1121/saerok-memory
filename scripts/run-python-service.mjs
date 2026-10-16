@@ -78,7 +78,7 @@ if (!existsSync(venvPython)) {
   process.exit(2);
 }
 
-if (action === "download") {
+if (action === "download" && serviceName === "rag") {
   await run(venvPython, [join("scripts", "download_models.py")], service.root);
 } else if (action === "dev") {
   await run(

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="336" height="272" viewBox="0 0 336 272">
+  <defs>
+    <linearGradient id="coral" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FF8174"/>
+      <stop offset="1" stop-color="#E9655B"/>
+    </linearGradient>
+  </defs>
+  <rect x="1.5" y="1.5" width="333" height="269" rx="14" fill="#FFFDF8" stroke="#202523" stroke-width="3"/>
+  <text x="22" y="29" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#E96B60">부담스러운 검진 대신</text>
+  <text x="22" y="61" font-family="Arial, sans-serif" font-size="25" font-weight="700" fill="url(#coral)">매일 가볍게 즐기는</text>
+  <text x="22" y="89" font-family="Arial, sans-serif" font-size="25" font-weight="700" fill="#4F7773">맞춤 두뇌운동</text>
+  <path d="M22 106H314" stroke="#DDD4C6" stroke-width="1.5"/>
+  <text x="22" y="132" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#D87931">3~5분 루틴</text>
+  <text x="116" y="132" font-family="Arial, sans-serif" font-size="14" font-weight="500" fill="#4A4E49">큰 버튼과 음성으로 쉽게 참여</text>
+  <text x="22" y="178" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#72825F">개인 기억 기반</text>
+  <text x="116" y="178" font-family="Arial, sans-serif" font-size="14" font-weight="500" fill="#4A4E49">말한 이야기가 다음 문항으로</text>
+  <text x="22" y="224" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#4F7773">안부 리포트</text>
+  <text x="116" y="224" font-family="Arial, sans-serif" font-size="14" font-weight="500" fill="#4A4E49">가족과 변화 흐름을 함께 확인</text>
+  <text x="22" y="254" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#E96B60">이야기 → 맞춤 문항 → 가족 대화</text>
+</svg>

@@ -1,0 +1,55 @@
+{
+  "outputSlides": [
+    {
+      "outputSlide": 1,
+      "sourceSlide": 1,
+      "narrativeRole": "pre-pilot measurement scope",
+      "reuseMode": "duplicate-slide",
+      "editTargets": [
+        { "sourceElementId": "sh/sryl4zqx", "action": "rewrite", "label": "s1-title" },
+        { "sourceElementId": "sh/fu94fe98", "action": "rewrite", "label": "s1-subtitle" }
+      ]
+    },
+    {
+      "outputSlide": 2,
+      "sourceSlide": 2,
+      "narrativeRole": "voice drop-off hypothesis",
+      "reuseMode": "duplicate-slide",
+      "editTargets": [
+        { "sourceElementId": "sh/w3i1sfa9", "action": "rewrite", "label": "s2-title" },
+        { "sourceElementId": "sh/r65knqtk", "action": "rewrite", "label": "s2-subtitle" }
+      ]
+    },
+    {
+      "outputSlide": 3,
+      "sourceSlide": 3,
+      "narrativeRole": "voice UX intervention",
+      "reuseMode": "duplicate-slide",
+      "editTargets": [
+        { "sourceElementId": "sh/pcjqtg36", "action": "rewrite", "label": "s3-title" },
+        { "sourceElementId": "sh/m5cra54z", "action": "rewrite", "label": "s3-subtitle" }
+      ]
+    },
+    {
+      "outputSlide": 4,
+      "sourceSlide": 4,
+      "narrativeRole": "pilot decision criteria",
+      "reuseMode": "duplicate-slide",
+      "editTargets": [
+        { "sourceElementId": "sh/sna103ap", "action": "rewrite", "label": "s4-title" },
+        { "sourceElementId": "sh/3ihk3et8", "action": "rewrite", "label": "s4-subtitle" }
+      ]
+    },
+    {
+      "outputSlide": 5,
+      "sourceSlide": 5,
+      "narrativeRole": "actual pilot next step",
+      "reuseMode": "duplicate-slide",
+      "editTargets": [
+        { "sourceElementId": "sh/032tgr6d", "action": "rewrite", "label": "s5-title" },
+        { "sourceElementId": "sh/n6dcr65o", "action": "rewrite", "label": "s5-subtitle" }
+      ]
+    }
+  ],
+  "omittedSourceSlides": []
+}
