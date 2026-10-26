@@ -9,6 +9,7 @@ const PARTS = ['main', 'followUp'];
 const json = (value) => JSON.stringify(value);
 const fail = (message, status = 400) => { throw Object.assign(new Error(message), { status }); };
 const validId = (value) => { if (!UUID.test(value ?? '')) fail('invalid-id'); return value; };
+const audioExtension = (mimeType) => mimeType?.includes('mp4') ? 'm4a' : mimeType?.includes('ogg') ? 'ogg' : 'webm';
 
 function durableWrite(filename, bytes) {
   mkdirSync(path.dirname(filename), { recursive: true });
@@ -58,6 +59,10 @@ export function createPilotLocalStore(directory) {
   };
   const folder = (row) => path.join(root, 'participants', row.participant, `attempt-${String(row.attempt).padStart(3, '0')}-${row.id}`);
   const chunkFile = (row, sequence) => path.join(folder(getRow(row.session_id)), 'chunks', row.id, `${String(sequence).padStart(6, '0')}.bin`);
+  // Derive from validated recording metadata and the current data root. Older
+  // databases stored an absolute filename from a different computer; never use
+  // that path to read/delete files outside this copied store.
+  const audioFile = (row) => path.join(folder(getRow(row.session_id)), 'audio', `${row.question_id}-${row.part}-${row.id}.${audioExtension(row.mime_type)}`);
   const manifest = (row) => ({ ...JSON.parse(row.snapshot), attemptNumber: row.attempt,
     status: row.status, updatedAt: row.updated_at, localDataDirectory: folder(row),
     lastSeenAt: row.last_seen, exitReason: row.exit_reason,
@@ -159,7 +164,11 @@ export function createPilotLocalStore(directory) {
 
   function readAudio(id) {
     const row = recording(id);
-    if (row.file && existsSync(row.file)) return readFileSync(row.file);
+    if (row.file) {
+      const filename = audioFile(row);
+      if (!existsSync(filename)) fail('recording-file-not-found', 404);
+      return readFileSync(filename);
+    }
     const chunks = db.prepare('SELECT * FROM chunks WHERE recording_id=? ORDER BY sequence').all(id);
     const prefix = [];
     for (let index = 0; index < chunks.length; index++) {
@@ -175,11 +184,11 @@ export function createPilotLocalStore(directory) {
     const chunks = db.prepare('SELECT sequence FROM chunks WHERE recording_id=? ORDER BY sequence').all(id);
     if (!Number.isSafeInteger(input.chunkCount) || input.chunkCount < 1 || chunks.length !== input.chunkCount
       || chunks.some((chunk, index) => chunk.sequence !== index)) fail('recording-chunks-incomplete', 409);
-    const extension = input.mimeType?.includes('mp4') ? 'm4a' : input.mimeType?.includes('ogg') ? 'ogg' : 'webm';
-    const filename = path.join(folder(getRow(row.session_id)), 'audio', `${row.question_id}-${row.part}-${id}.${extension}`);
+    const mimeType = input.mimeType ?? row.mime_type;
+    const filename = audioFile({ ...row, mime_type: mimeType });
     durableWrite(filename, readAudio(id));
     db.prepare("UPDATE recordings SET status='finalized',file=?,mime_type=?,ended_at=?,duration_ms=?,expected_chunks=?,sample_rate=?,channels=?,started_at=? WHERE id=?")
-      .run(filename, input.mimeType ?? row.mime_type, input.endedAt, input.durationMs ?? 0, input.chunkCount,
+      .run(path.relative(root, filename), mimeType, input.endedAt, input.durationMs ?? 0, input.chunkCount,
         input.sampleRateHz ?? null, input.channelCount ?? null, input.startedAt ?? row.started_at, id);
     for (const chunk of chunks) { try { unlinkSync(chunkFile(row, chunk.sequence)); } catch { /* Final file is durable; leftovers can be retained. */ } }
     return { saved: true, file: filename };
@@ -194,7 +203,7 @@ export function createPilotLocalStore(directory) {
       mimeType: take.mime_type, startedAt: take.started_at, endedAt: take.ended_at ?? null,
       durationMs: take.status === 'finalized' ? take.duration_ms : null, sampleRateHz: take.sample_rate, channelCount: take.channels,
       byteLength: take.bytes, chunkCount: take.chunk_count,
-      localFile: take.file, audioUrl: `/api/pilot-local/recordings/${take.id}/audio`,
+      localFile: take.file ? audioFile(take) : null, audioUrl: `/api/pilot-local/recordings/${take.id}/audio`,
     }));
     if (diagnostics) result.events = db.prepare('SELECT * FROM events WHERE session_id=? ORDER BY elapsed_ms,received_at,id').all(id).map((event) => ({
       eventId: event.id, sessionId: id, type: event.type, questionId: event.question_id,
@@ -210,7 +219,7 @@ export function createPilotLocalStore(directory) {
     // Remove only files belonging to the explicitly selected attempt, using
     // individual checked paths. Keep the participant's other attempts intact.
     for (const take of db.prepare('SELECT * FROM recordings WHERE session_id=?').all(id)) {
-      const files = [take.file, ...db.prepare('SELECT sequence FROM chunks WHERE recording_id=?').all(take.id).map((chunk) => chunkFile(take, chunk.sequence))];
+      const files = [take.file ? audioFile(take) : null, ...db.prepare('SELECT sequence FROM chunks WHERE recording_id=?').all(take.id).map((chunk) => chunkFile(take, chunk.sequence))];
       for (const file of files.filter(Boolean)) {
         if (!path.resolve(file).startsWith(`${folder(row)}${path.sep}`)) fail('unsafe-delete', 500);
         if (existsSync(file)) unlinkSync(file);

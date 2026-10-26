@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
-import { mkdtempSync, rmSync } from 'node:fs';
+import { cpSync, existsSync, mkdtempSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { createServer, request as httpRequest } from 'node:http';
@@ -84,6 +84,47 @@ test('exit checkpoints and repeated event delivery preserve the last question an
   assert.equal(saved.exitReason, 'page_closed_or_navigated');
   assert.equal(saved.events[0].detail.dwellMs, 34567);
   assert.equal(saved.status, 'interrupted');
+});
+
+test('a copied store reads current and legacy audio from its new root and deletes only the copied attempt', (t) => {
+  const owned = mkdtempSync(path.join(tmpdir(), 'haru-pilot-test-'));
+  const originalDirectory = path.join(owned, 'original-PC');
+  const copiedDirectory = path.join(owned, 'different-PC', 'saved-data');
+  let original = createPilotLocalStore(originalDirectory);
+  let copied;
+  t.after(() => {
+    original?.close(); copied?.close();
+    assert.ok(path.resolve(owned).startsWith(path.join(path.resolve(tmpdir()), 'haru-pilot-test-')));
+    rmSync(owned, { recursive: true, force: true });
+  });
+  const first = session(); original.saveSession(first);
+  const metadata = { sessionId: first.sessionId, questionId: 'JP_PILOT_Q02', part: 'main', startedAt: new Date().toISOString() };
+  const current = randomUUID(); const legacy = randomUUID(); const partial = randomUUID();
+  for (const recordingId of [current, legacy, partial]) {
+    const mimeType = recordingId === current ? 'audio/ogg' : recordingId === legacy ? 'audio/mp4' : 'audio/webm';
+    original.beginRecording({ ...metadata, recordingId, mimeType });
+    original.addChunk(recordingId, 0, Buffer.from(recordingId));
+    if (recordingId !== partial) original.finishRecording(recordingId, {
+      chunkCount: 1, durationMs: 1000, endedAt: new Date().toISOString(),
+    });
+  }
+  assert.equal(path.isAbsolute(original.db.prepare('SELECT file FROM recordings WHERE id=?').get(current).file), false);
+  const originalFiles = original.getSession(first.sessionId).recordingHistory.filter(take => take.localFile).map(take => take.localFile);
+  // Model a database created before portable paths, even across Windows/POSIX.
+  original.db.prepare('UPDATE recordings SET file=? WHERE id=?').run('C:\\unavailable-old-PC\\original.webm', legacy);
+  original.saveSession(session());
+  original.close(); original = null;
+  cpSync(originalDirectory, copiedDirectory, { recursive: true });
+  copied = createPilotLocalStore(copiedDirectory);
+  for (const recordingId of [current, legacy, partial]) assert.equal(copied.readAudio(recordingId).toString(), recordingId);
+  for (const take of copied.getSession(first.sessionId).recordingHistory.filter(take => take.localFile)) {
+    assert.ok(take.localFile.startsWith(`${copiedDirectory}${path.sep}`));
+    assert.equal(readFileSync(take.localFile).toString(), take.recordingId);
+  }
+  assert.equal(copied.saveSession(session()).attemptNumber, 3);
+  copied.deleteSession(first.sessionId);
+  assert.equal(copied.listSessions().length, 2);
+  assert.ok(originalFiles.every(file => existsSync(file)));
 });
 
 test('deleting one selected attempt retains the same participant’s other attempts', (t) => {
