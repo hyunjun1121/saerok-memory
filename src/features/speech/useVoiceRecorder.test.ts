@@ -427,6 +427,30 @@ describe("useVoiceRecorder", () => {
     expect(revokeObjectURL).toHaveBeenCalledWith("blob:second");
   });
 
+  it("records pilot audio without emitting routine telemetry when explicitly disabled", async () => {
+    const { result } = renderHook(() => useVoiceRecorder(5_000, { telemetryEnabled: false }));
+    await act(async () => {
+      result.current.start();
+      await flushMicrotasks();
+    });
+    expect(result.current.isRecording).toBe(true);
+    expect(analyticsMocks.captureHaruTelemetry).not.toHaveBeenCalled();
+  });
+
+  it("delivers the final local audio chunk even when the recording UI unmounts", async () => {
+    const onAudioChunk = vi.fn();
+    const { result, unmount } = renderHook(() => useVoiceRecorder(5_000, { telemetryEnabled: false, onAudioChunk }));
+    await act(async () => {
+      result.current.start();
+      await flushMicrotasks();
+    });
+    unmount();
+    await act(async () => { await vi.advanceTimersByTimeAsync(50); });
+    expect(onAudioChunk).toHaveBeenCalled();
+    expect(onAudioChunk.mock.calls[0][0].size).toBeGreaterThan(0);
+    expect(analyticsMocks.captureHaruTelemetry).not.toHaveBeenCalled();
+  });
+
   it("emits assisted reactive-waveform metadata when capture starts", async () => {
     const { result } = renderHook(() => useVoiceRecorder(5_000));
 

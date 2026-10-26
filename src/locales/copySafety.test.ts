@@ -3,6 +3,7 @@ import ko from "@/locales/ko.json";
 import en from "@/locales/en.json";
 import ja from "@/locales/ja.json";
 import { mockExercises } from "@/data/mockExercises";
+import { PILOT_COPY, PILOT_QUESTIONS } from "@/features/pilot/pilotProtocol";
 import {
   HARU_WEEK_PLAN,
   HARU_WEEK_QUESTION_META,
@@ -213,7 +214,20 @@ describe("learner-facing copy safety", () => {
   it("typed learner exercise and week-plan copy follows the same bans", () => {
     const offenders: string[] = [];
     for (const { locale } of cases) {
-      const typedCopy = [...gatherExerciseCopy(locale), ...gatherWeekPlanCopy(locale)];
+      const pilotCopy: { path: string; value: string }[] = [];
+      const addPilot = (path: string, value: LocalizedText | undefined) => {
+        pilotCopy.push({ path, value: getLocalizedText(value, locale) });
+      };
+      Object.entries(PILOT_COPY).forEach(([key, value]) => addPilot(`pilot.${key}`, value));
+      for (const question of PILOT_QUESTIONS) {
+        addPilot(`pilot.${question.id}.prompt`, question.prompt);
+        addPilot(`pilot.${question.id}.title`, question.title);
+        if (question.kind === 'voice') {
+          addPilot(`pilot.${question.id}.followUp`, question.followUp);
+          addPilot(`pilot.${question.id}.hint`, question.hint);
+        } else question.options.forEach((option) => addPilot(`pilot.${question.id}.${option.id}`, option.label));
+      }
+      const typedCopy = [...gatherExerciseCopy(locale), ...gatherWeekPlanCopy(locale), ...pilotCopy];
       for (const { path, value } of typedCopy) {
         const lowered = value.toLowerCase();
         for (const ban of GLOBAL_BANS) {

@@ -27,7 +27,18 @@
     "sample:voice:analyze": "node scripts/voice-pilot-sample/analyze.mjs",
     "sample:voice:capture": "node scripts/voice-pilot-sample/capture-dashboard.mjs",
     "sample:voice:test": "node --test \"scripts/voice-pilot-sample/*.test.mjs\"",
-    "sample:voice": "npm run sample:voice:generate && npm run sample:voice:analyze && npm run sample:voice:capture"
+    "sample:voice": "npm run sample:voice:generate && npm run sample:voice:analyze && npm run sample:voice:capture",
+    "check:pilot": "node scripts/check-pilot-runtime.mjs",
+    "predev:pilot": "npm run check:pilot",
+    "dev:pilot": "node scripts/dev-japan-pilot.mjs",
+    "start:pilot": "npm run build:pilot && npm run preview:pilot",
+    "prepreview:pilot": "npm run check:pilot",
+    "preview:pilot": "node scripts/dev-japan-pilot.mjs --preview",
+    "test:pilot": "npm run test:pilot-local && vitest run src/features/pilot src/app/pilot src/features/speech/useVoiceRecorder.test.ts src/components/ChoiceCard.test.tsx src/locales/copySafety.test.ts src/App.test.tsx",
+    "test:pilot-local": "node --test scripts/pilot-local-store.test.mjs",
+    "prebuild:pilot": "npm run check:pilot",
+    "build:pilot": "tsc -b && vite build --mode japan-pilot",
+    "docs:pilot": "node scripts/generate-japan-pilot-document.mjs && node scripts/generate-japan-pilot-tts-plan.mjs"
   },
   "dependencies": {
     "i18next": "^26.1.0",
@@ -59,5 +70,9 @@
     "typescript-eslint": "^8.59.3",
     "vite": "^6.4.3",
     "vitest": "^3.2.7"
+  },
+  "engines": {
+    "node": ">=24.0.0 <25",
+    "npm": ">=11.0.0"
   }
 }

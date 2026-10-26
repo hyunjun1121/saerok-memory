@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { InteractionCue } from "@/hooks/interactionFeedback";
 import { useInteractionFeedback } from "@/hooks/useInteractionFeedback";
-import { captureHaruTelemetry } from "@/features/analytics/client";
+import { captureHaruTelemetry as captureTelemetry } from "@/features/analytics/client";
 import { HARU_VOICE_EXPERIENCE } from "@/features/speech/voiceExperience";
 
 // Voice recorder for the daily memory routine. It records mic audio and exposes
@@ -60,7 +60,17 @@ function recorderAvailable(): boolean {
   );
 }
 
-export function useVoiceRecorder(maxDurationMs = DEFAULT_MAX_DURATION_MS): VoiceRecorder {
+const discardTelemetry: typeof captureTelemetry = async () => false;
+
+export function useVoiceRecorder(
+  maxDurationMs = DEFAULT_MAX_DURATION_MS,
+  { telemetryEnabled = true, onAudioChunk, onRecordingStarted }: {
+    telemetryEnabled?: boolean;
+    onAudioChunk?: (chunk: Blob) => void;
+    onRecordingStarted?: (startedAt: string) => void;
+  } = {},
+): VoiceRecorder {
+  const captureHaruTelemetry = telemetryEnabled ? captureTelemetry : discardTelemetry;
   const { playCue } = useInteractionFeedback();
   const [isRecording, setIsRecording] = useState(false);
   const [isFinalizing, setIsFinalizing] = useState(false);
@@ -388,7 +398,12 @@ export function useVoiceRecorder(maxDurationMs = DEFAULT_MAX_DURATION_MS): Voice
           finalizationResolveRef.current = resolve;
         });
         recorder.ondataavailable = (event) => {
-          if (event.data.size > 0) chunks.push(event.data);
+          if (event.data.size > 0) {
+            chunks.push(event.data);
+            // Optional local collection consumes chunks independently of the
+            // final UI artifact, including the final chunk on page teardown.
+            try { onAudioChunk?.(event.data); } catch { /* The consumer reports its own delivery error. */ }
+          }
         };
         recorder.onstop = () => {
           recorderRef.current = null;
@@ -426,7 +441,8 @@ export function useVoiceRecorder(maxDurationMs = DEFAULT_MAX_DURATION_MS): Voice
         recorderRef.current = recorder;
         startedAtRef.current = Date.now();
         try {
-          recorder.start();
+          if (onAudioChunk) recorder.start(1000);
+          else recorder.start();
         } catch {
           recorderRef.current = null;
           teardownAudio();
@@ -441,6 +457,7 @@ export function useVoiceRecorder(maxDurationMs = DEFAULT_MAX_DURATION_MS): Voice
           return;
         }
         setIsRecording(true);
+        try { onRecordingStarted?.(new Date(startedAtRef.current!).toISOString()); } catch { /* Local collection owns delivery errors. */ }
         void captureHaruTelemetry("voice_capture_status", {
           ...HARU_VOICE_EXPERIENCE,
           phase: "started",
@@ -477,6 +494,9 @@ export function useVoiceRecorder(maxDurationMs = DEFAULT_MAX_DURATION_MS): Voice
       });
     startPromiseRef.current = startPromise;
   }, [
+    captureHaruTelemetry,
+    onAudioChunk,
+    onRecordingStarted,
     clearMaxTimer,
     clearRaf,
     maxDurationMs,
@@ -498,7 +518,7 @@ export function useVoiceRecorder(maxDurationMs = DEFAULT_MAX_DURATION_MS): Voice
       recorderRef.current = null;
       if (recorder && recorder.state !== "inactive") {
         try {
-          recorder.ondataavailable = null;
+          if (!onAudioChunk) recorder.ondataavailable = null;
           recorder.onstop = null;
           recorder.stop();
         } catch {
@@ -516,6 +536,7 @@ export function useVoiceRecorder(maxDurationMs = DEFAULT_MAX_DURATION_MS): Voice
     resolveFinalization,
     revokePreviewUrl,
     teardownAudio,
+    onAudioChunk,
   ]);
 
   return {

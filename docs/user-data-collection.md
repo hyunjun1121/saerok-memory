@@ -1,5 +1,20 @@
 # Haru 사용자 데이터 수집 사양
 
+## 일본 로컬 실증 `/pilot` 별도 사양 (2026-10-26)
+
+이 절은 `japan-pilot` 브랜치의 첫 만남 실증에 적용합니다. 아래의 일일 루틴·Supabase 데이터 수집 사양과 분리됩니다. 실행·백업·이동은 [로컬 운영 가이드](japan-pilot-local-guide.md), 고정 문항은 [일·한 문항 문서](japan-first-meeting-pilot-ja-ko.md)를 따릅니다.
+
+- 범위: 참가자 번호 1~99999, UUID 회차, 문항 정의 스냅샷, 동의 시각·범위, 선택·변경·확정, 본질문·후속 질문별 원본 녹음, 중간 녹음과 재녹음, 체류·포커스·이탈 체크포인트·기기 환경.
+- 시작할 때마다 새 회차로 Q1부터 수집합니다. 동일 번호의 이전 회차는 보존하고, 강제 종료 시 정확한 종료 시각을 추정하지 않습니다.
+- 매 회차 녹음·로컬 저장 동의가 필요하며 미래 개인화 동의는 별도·기본 해제입니다. 기존 일일 루틴 동의를 실증 동의로 대신하지 않습니다.
+- 저장: 로컬 Node.js 내장 SQLite `local-data/japan-pilot/pilot.sqlite`, `participants/` 원본·조각 파일, 브라우저 IndexedDB 전송 대기 `haruJapanPilotDelivery`. 이전 브라우저 회차 `haruJapanPilot`은 호환·내보내기를 위해 구분합니다.
+- `/api/pilot-local/`은 같은 PC·같은 출처로만 접근합니다. 일일 루틴 telemetry·Supabase·STT·RAG 전송을 실행하지 않으며, 자동 전사·관계 추정·프로필 생성도 하지 않습니다.
+- 내보내기: `sessions.json`, `attempts.csv`, `questions.csv`, `events.csv`, 원본 음성 ZIP. 삭제는 선택 회차 하나에만 적용되며 이미 내보낸 ZIP·백업은 진행자가 따로 관리합니다.
+- Git에는 코드·고정 안내 자산·문서만 포함합니다. Git clone은 참가자 데이터를 복제하거나 여러 PC의 기록을 동기화하지 않습니다. 전체 데이터 이동은 서버 종료 후 저장 폴더 전체 복사로 진행합니다.
+- 새 Fish Audio 음원은 고정 안내 대본의 제작 계획 단계입니다. 참가자 음성을 Fish로 보내는 기능이 아닙니다. [장면별 대본](japan-pilot-tts-plan-ja-ko.md)과 현재 브라우저 읽어주기 동작을 구분합니다.
+
+## 기존 일일 루틴 데이터 수집
+
 기준일: 2026-08-06. 구현 기준 파일은 `src/features/analytics/`,
 `src/features/profile/haruDataApi.ts`, `api/`,
 `supabase/migrations/202608060001_haru_data_plane.sql`이다.

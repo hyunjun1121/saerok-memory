@@ -20,6 +20,31 @@ Haru는 60-80대 고령 사용자를 위한 Duolingo 스타일의 일일 인지�
 
 현재 MVP는 일일 루틴, 기억 단서, 로컬 활동 기록, 보호자·상담사 리포트에 집중합니다.
 
+## 일본 첫 만남 실증 세션
+
+다른 컴퓨터에서 **Git·Node.js 24.x·npm 11 이상**을 준비하고 아래 순서로 실행합니다. 실증 코드가 있는 브랜치는 **`japan-pilot`**입니다.
+
+```sh
+git clone --branch japan-pilot --single-branch https://github.com/hyunjun1121/saerok-memory.git
+cd saerok-memory
+npm ci --include=dev --include=optional --no-audit --no-fund
+npm run start:pilot
+```
+
+**http://127.0.0.1:5188/pilot**을 엽니다. `start:pilot`가 실증용 빌드와 로컬 수집 서버 실행을 함께 처리합니다. 터미널은 열어 두며 종료는 `Ctrl+C`입니다. 다시 실행할 때는 `npm run preview:pilot`을 사용합니다. Python·GPU·API 키·STT·RAG 설치는 필요하지 않습니다. 비밀값이 없는 `.env.japan-pilot`은 저장소에 포함됩니다.
+
+일본 일회 실증용 첫 만남 세션은 루트 웹앱의 `/pilot`에 있습니다. 기본 언어는 일본어이며 한국어 확인은 `/pilot?lang=ko`입니다. 개발할 때는 `npm run dev:pilot`을 사용합니다. 별도 `raspberry-pi-demo/` 프로젝트와는 구분합니다.
+
+고정 12문항(4지선다 4개·음성 8개)과 공통 후속 질문을 제공합니다. 시작할 때 참가자 번호 1·2·3·4·5·6 등을 고르며, 같은 번호도 매번 처음부터 새 회차로 수집합니다. 이전 회차는 덮어쓰지 않습니다.
+
+`npm run dev:pilot`는 `http://127.0.0.1:5188/pilot`과 로컬 수집 서버를 함께 실행합니다(Node.js 24). 데이터는 `local-data/japan-pilot/pilot.sqlite`와 `participants/<참가자번호>/attempt-<회차>-<ID>/`에 자동 저장합니다. `HARU_PILOT_DATA_DIR`로 저장 폴더를 바꿀 수 있습니다. 선택 변경·확정·문항 진입과 이탈·체류 시간·녹음 및 재녹음·창 숨김과 포커스·기기 환경을 기록하고, 녹음 중에도 약 1초마다 데이터를 저장 큐에 보냅니다. 종료되지 않은 녹음도 보존합니다.
+
+ZIP에는 원본 음성, `sessions.json`, 회차 요약 `attempts.csv`, 문항별 시간 `questions.csv`, 전체 이벤트 `events.csv`를 포함합니다. 자동 전사나 외부 서비스 전송은 하지 않습니다. 강제 종료 시 마지막 미전송 구간은 누락될 수 있으며, 정확한 종료 신호가 없으면 마지막 확인 시점으로 구분합니다. 문항과 운영 방법은 [일본어 한 줄·한국어 한 줄 안내 문서](docs/japan-first-meeting-pilot-ja-ko.md)에 있습니다. `npm run docs:pilot`로 문서를 갱신하며, 빌드한 앱은 `npm run preview:pilot`로 로컬 수집 서버와 함께 실행합니다.
+
+**Git clone은 코드를 가져오며 참가자 데이터는 가져오지 않습니다.** 새 PC는 빈 상태로 시작합니다. 기존 데이터를 옮기려면 서버 종료 후 저장 폴더 전체를 복사합니다. 자세한 설치·수집·백업·복구·업데이트·문제 해결은 [로컬 운영 가이드](docs/japan-pilot-local-guide.md)를 따릅니다.
+
+현재 실증 안내는 브라우저 읽어주기를 사용합니다. 이전 Fish Audio의 일본어 최종 화자는 `女性アナウンサー（ベテラン）` (`veteran`)이며, 새 실증용 [장면별 TTS 제작 계획](docs/japan-pilot-tts-plan-ja-ko.md)과 [기계용 대본 목록](docs/japan-pilot-tts-inventory.json)을 정리했습니다. 새 음원은 아직 생성하거나 실증 화면에 연결하지 않았습니다.
+
 ## Raspberry Pi 오프라인 데모
 
 `raspberry-pi-demo/`는 Raspberry Pi 5와 세로형 1080×1920 화면, USB NFC 리더기, 2×2 USB 버튼을 위한 별도 정적 패키지입니다. STT·RAG·원격 API 없이 미리 생성한 한국어·일본어 음성과 브라우저 저장소만 사용합니다. NFC 리더기가 키보드 숫자 `5`를 보내면 로그인 대기 화면에서 활동 시작 화면으로 이동합니다.
@@ -81,10 +106,10 @@ npm run check:offline
 
 ## 개발 PC 설치·검증
 
-루트 웹앱만 실행할 때는 Node.js와 npm을 준비한 뒤 다음 명령을 사용합니다.
+일반 일일 루틴 개발은 `main`, 일본 실증 수집은 위의 `japan-pilot` 브랜치를 사용합니다. Node.js 24.x와 npm 11 이상을 준비합니다.
 
 ```bash
-git clone --branch feat/haru-sound-feedback https://github.com/hyunjun1121/saerok-memory.git
+git clone --branch main https://github.com/hyunjun1121/saerok-memory.git
 cd saerok-memory
 npm ci --include=dev --include=optional --ignore-scripts=false --no-audit --no-fund
 npm run typecheck
@@ -110,21 +135,7 @@ npm run rag:download
 npm run rag:dev       # 127.0.0.1:8000
 ```
 
-개발 서버를 종료한 뒤 루트 변경을 원격 브랜치에 반영하는 명령은 다음과 같습니다. 임시 산출물과 비밀값이 포함된 `.env*` 파일은 커밋하지 않습니다.
-
-```bash
-git status --short
-# 앱 소스·설정과 필요한 개인정보 문서만 명시적으로 추가합니다.
-git add README.md package.json package-lock.json .env.example .vercelignore \
-  eslint.config.js index.html tsconfig.json tsconfig.api.json vitest.config.ts \
-  vercel.json vercel.japan.json api backend rag_backend raspberry-pi-demo \
-  scripts src supabase public/assets/audio/narration/ja/day1 \
-  docs/haru-privacy-consent-demo.md docs/user-data-collection.md
-git commit -m "docs: record full build and Raspberry Pi setup"
-git push origin feat/haru-sound-feedback
-```
-
-`피우다프로젝트/`, `docs/patent/`, `docs/voice-pilot-sample-20x7/`, `.tmp*/`, `tmp/` 같은 발표 자료·특허 원본·로컬 생성물은 공개 저장소에 올리기 전에 별도 검토합니다. Pi 데모만 필요한 경우에는 루트 전체를 받지 않고 위의 sparse clone 명령을 사용하면 됩니다.
+코드 업데이트는 수집을 마치고 서버를 종료한 뒤 진행합니다. 실증 데이터·녹음·비밀값·로컬 생성물은 Git에 올리지 않습니다. 실증 코드의 변경과 push는 [로컬 운영 가이드](docs/japan-pilot-local-guide.md)의 브랜치와 검증 절차를 기준으로 검토합니다. Pi 데모만 필요하면 위 sparse clone을 사용합니다.
 
 ## 멘토링 기반 개정 (2026-06-23)
 
@@ -184,7 +195,8 @@ git push origin feat/haru-sound-feedback
 
 ## 주요 화면
 
-- `/` → `/lesson`
+- `/pilot` 일본 실증 고정 문항·참가자 번호·로컬 수집. 실증 모드에서는 `/`도 이 화면으로 이동
+- `/` → `/lesson` (일반 모드)
 - `/lesson` 일일 학습 세션
 - `/result` 세션 완료 결과
 - `/connect/caregiver` 보호자 화면
@@ -246,6 +258,8 @@ git push origin feat/haru-sound-feedback
 
 ## 설치
 
+일본 실증만 진행한다면 위의 `npm ci`와 `npm run start:pilot`만 필요합니다. 아래 STT·RAG 설치는 일반 일일 루틴의 선택 기능입니다.
+
 ```powershell
 npm install
 npm run stt:install
@@ -257,6 +271,8 @@ npm run rag:download
 모델 weight는 각각 `backend/models/`, `rag_backend/models/`에 저장되며 Git에서 제외됩니다.
 
 ## 개발 서버
+
+일본 실증: `npm run start:pilot` → `http://127.0.0.1:5188/pilot`. `npm run dev`에는 실증 저장 서버가 포함되지 않습니다.
 
 프론트엔드만 실행:
 
@@ -281,26 +297,7 @@ npm test
 npm run build
 ```
 
-현재 검증 상태:
-
-- TypeScript build mode 통과
-- ESLint 통과
-- Vitest 59개 파일, 303개 테스트 통과
-- STT 30개 테스트 통과, 실제 GPU/model smoke 1개는 기본 suite에서 제외
-- RAG 24개 테스트 통과
-- Vite production build 통과
-- Playwright 화면 캡처 69개 통과. 기본 webServer 방식은 Windows에서 worker 종료 지연이 발생해, 최종 검증은 Vite preview 서버를 별도로 띄우고 `PLAYWRIGHT_BASE_URL`을 지정해 exit code 0으로 완료함
-- Vercel production 배포 완료
-  - Project: `hyunjun-kims-projects/haru`
-  - Deployment: `dpl_9Hr1jfYSgowEYHSzk2Umd4U5av4M`
-  - Stable URL: `https://saerok-memory.vercel.app`
-  - Production URL 기준 Playwright 화면 캡처 69개 통과
-
-Playwright로 확인한 화면:
-
-- 한국어, 일본어, 영어 각 23개 화면 캡처
-- 홈, lesson exercise 전체, 결과, 정원, 보호자/상담사 리포트, 설정 화면
-- raw i18n key와 깨진 `??` 텍스트 미노출 검사
+2026-10-26, `main` 기준의 별도 작업 폴더에 `npm ci`로 새로 설치한 환경에서 실증 관련 저장 테스트 6개·프론트엔드 테스트 68개, `build:pilot`의 TypeScript·Vite 빌드, 변경한 TS/TSX 대상 ESLint가 통과했습니다. 전체 저장소 테스트·lint가 통과했다는 의미는 아닙니다. 실제 마이크·권한·일본어 음질은 현장 PC에서 별도로 확인합니다.
 
 ## 프로젝트 구조
 
@@ -309,8 +306,8 @@ src/
   app/
     family/
     garden/
-    home/
     lesson/
+    pilot/
     result/
     settings/
   components/
@@ -319,11 +316,14 @@ src/
     gamification/
     lessons/
     memory/
+    pilot/
   locales/
   styles/
 ```
 
 ## 로컬 데이터
+
+일본 실증 `/pilot`은 일일 루틴 저장소와 분리됩니다. SQLite·원본 녹음은 `local-data/japan-pilot/`, 브라우저 전송 대기는 `haruJapanPilotDelivery`, 이전 브라우저 회차 호환 저장소는 `haruJapanPilot`입니다. [실증 저장·백업 안내](docs/japan-pilot-local-guide.md)를 참고하세요.
 
 기본 화면과 루틴 완료는 로컬 서비스 장애 때도 동작합니다. 다음 값은 브라우저 `localStorage`에 저장됩니다.
 
@@ -342,6 +342,9 @@ src/
 
 ## 참고 문서
 
+- [일본 실증 로컬 설치·운영·백업](docs/japan-pilot-local-guide.md)
+- [일본 실증 문항 구성: 일본어·한국어](docs/japan-first-meeting-pilot-ja-ko.md)
+- [일본 실증 TTS 제작 대본](docs/japan-pilot-tts-plan-ja-ko.md)
 - `design.md`: UI/UX 및 제품 설계 상세
 - `AGENTS.md`: 개발 컨벤션과 MVP 범위
 - `docs/cognitive-screening-integration-plan.md`: 연구 보고서와 코드 구조를 대조한 인지 루틴 확장 판단서
