@@ -1,7 +1,8 @@
-import { haru7DayExercises } from '@/data/haru7DayExercises';
 import type { LocalizedText, SupportedLanguage } from '@/utils/localizedText';
 
-export const PILOT_PROTOCOL_VERSION = 'jp-first-meeting-1.0';
+export const PILOT_PROTOCOL_VERSION = 'jp-first-meeting-2.0';
+export const PILOT_TIME_ZONE = 'Asia/Tokyo';
+export const PILOT_RECORDING_MAX_MS = 180_000;
 export const text = (ja: string, ko: string, en: string): LocalizedText => ({ ja, ko, en });
 
 interface QuestionBase {
@@ -14,15 +15,19 @@ interface QuestionBase {
 
 export interface PilotChoiceQuestion extends QuestionBase {
   kind: 'choice';
-  sourceExerciseId: string;
-  options: { id: string; label: LocalizedText }[];
+  sourceExerciseId?: string;
+  options: { id: string; label: LocalizedText; weekday?: number }[];
   correctOptionId: string | null;
+  dynamic?: 'japan-weekday';
+  dateContext?: { localDate: string; timeZone: string; correctWeekday: number; generatedAt: string };
+  explanation?: LocalizedText;
   reference?: string;
 }
 
 export interface PilotVoiceQuestion extends QuestionBase {
   kind: 'voice';
   followUp: LocalizedText;
+  followUpPolicy?: 'short-answer-only';
   hint?: LocalizedText;
   informationFields: string[];
 }
@@ -30,19 +35,14 @@ export interface PilotVoiceQuestion extends QuestionBase {
 export type PilotQuestion = PilotChoiceQuestion | PilotVoiceQuestion;
 
 function choice(
-  number: number, sourceExerciseId: string, title: LocalizedText,
-  targetSeconds: number, prompt?: LocalizedText, reference?: string,
+  number: number, title: LocalizedText, targetSeconds: number,
+  prompt: LocalizedText, labels: LocalizedText[], correctOptionId: string | null,
+  purpose: LocalizedText, explanation?: LocalizedText,
 ): PilotChoiceQuestion {
-  const source = haru7DayExercises.find((exercise) => exercise.id === sourceExerciseId);
-  if (!source?.payload.options?.length) throw new Error(`Missing pilot source: ${sourceExerciseId}`);
   return {
     id: `JP_PILOT_Q${String(number).padStart(2, '0')}`,
-    kind: 'choice', title, sourceExerciseId, targetSeconds,
-    prompt: prompt ?? source.prompt,
-    options: source.payload.options.map(({ id, label }) => ({ id, label })),
-    correctOptionId: typeof source.correctAnswer === 'string' ? source.correctAnswer : null,
-    reference,
-    purpose: text('ボタン操作に慣れ、会話の合間に短い活動を行います。', '버튼 조작에 익숙해지고 대화 사이에 짧은 활동을 합니다.', 'Practice the buttons and take a short activity break between conversations.'),
+    kind: 'choice', title, targetSeconds, prompt, correctOptionId, purpose, explanation,
+    options: labels.map((label, index) => ({ id: 'ABCD'[index], label })),
   };
 }
 
@@ -54,61 +54,95 @@ function voice(
   return {
     id: `JP_PILOT_Q${String(number).padStart(2, '0')}`,
     kind: 'voice', title, targetSeconds, prompt, followUp, purpose, informationFields, hint,
+    followUpPolicy: 'short-answer-only',
   };
 }
 
+export const PILOT_WEEKDAYS = [
+  text('日曜日', '일요일', 'Sunday'), text('月曜日', '월요일', 'Monday'),
+  text('火曜日', '화요일', 'Tuesday'), text('水曜日', '수요일', 'Wednesday'),
+  text('木曜日', '목요일', 'Thursday'), text('金曜日', '금요일', 'Friday'),
+  text('土曜日', '토요일', 'Saturday'),
+] as const;
+
+// Q1's template shows the supplied Sunday example. Only buildPilotQuestions()
+// supplies an administered answer and randomized choices, frozen per attempt.
 export const PILOT_QUESTIONS: readonly PilotQuestion[] = [
-  choice(1, 'D1_Q1', text('今日の気分', '오늘 기분', 'How you feel'), 20,
-    text('今日の気分はいかがですか。', '오늘 기분은 어떠세요?', 'How are you feeling today?')),
-  voice(2, text('子どものころ', '어린 시절', 'Childhood'), 50,
-    text('子どものころは、どのあたりで暮らしていましたか。', '어릴 때는 어느 지역에서 사셨나요?', 'Where did you live when you were a child?'),
-    text('そのころ、よくしていた遊びや楽しみを一つ教えてください。', '그때 자주 하던 놀이나 즐기던 일을 하나 알려 주세요.', 'Tell us one thing you enjoyed doing then.'),
-    text('育った地域と、当時の暮らしや楽しみを知ります。', '성장한 지역과 당시의 생활·즐거움을 파악합니다.', 'Learn about the place you grew up and activities you enjoyed.'),
-    ['childhood_place', 'childhood_activity']),
-  voice(3, text('続けてきたこと', '오래 해 온 일', 'Work and roles'), 60,
-    text('これまで、長く続けてきた仕事や役割を一つ教えてください。', '지금까지 오래 해 오신 일이나 역할을 하나 알려 주세요.', 'Tell us about one job or role you have had for a long time.'),
-    text('ふだん、どんなことをしていましたか。', '평소에 구체적으로 어떤 일을 하셨나요?', 'What did you usually do in that role?'),
-    text('仕事や家庭、地域での役割と具体的な経験を知ります。', '직장·가정·지역에서의 역할과 구체적인 경험을 파악합니다.', 'Learn about roles and concrete experience at work, home, or in the community.'),
-    ['past_role', 'role_activity'],
-    text('お仕事のほか、家事や地域での活動でもかまいません。', '직장 일 외에 집안일이나 지역 활동도 괜찮습니다.', 'Housework and community activities are welcome too.')),
-  choice(4, 'D1_Q4', text('お買い物', '장보기', 'Shopping'), 30),
-  voice(5, text('身近な方', '가족과 주변 사람', 'People in your life'), 35,
-    text('今は、どなたと一緒に暮らしていますか。', '지금은 누구와 함께 살고 계신가요?', 'Who do you live with now?'),
-    text('離れて暮らしているご家族や、よく連絡を取る方についても、話せる範囲で教えてください。', '따로 사는 가족이나 자주 연락하는 분에 대해서도 편한 만큼 알려 주세요.', 'If you wish, tell us about family living elsewhere or people you often contact.'),
-    text('同居と別居を分け、本人が話した範囲の人間関係を記録します。', '동거·별거를 구분하고 본인이 말한 범위의 관계를 기록합니다.', 'Record relationships while distinguishing living together from living apart.'),
-    ['living_arrangement', 'relationships', 'contact_pattern'],
-    text('一人暮らしや施設での暮らしも、そのまま教えてください。お名前は言わなくてもかまいません。', '혼자 살거나 시설에서 생활하시는 경우도 그대로 알려 주세요. 이름은 말하지 않으셔도 됩니다.', 'Living alone or in a care home is fine. Names are optional.')),
-  voice(6, text('一緒に過ごした思い出', '함께한 즐거운 경험', 'A shared memory'), 65,
-    text('ご家族やご友人とのことで、うれしかった出来事を一つ教えてください。', '가족이나 친구와 있었던 일 중 기뻤던 일을 하나 들려주세요.', 'Tell us about a happy experience with family or a friend.'),
-    text('そのときの様子を、もう少し聞かせてください。', '그때의 모습을 조금 더 들려주세요.', 'Tell us a little more about what it was like.'),
-    text('人物と活動、場所がつながる具体的な出来事を集めます。', '사람·활동·장소가 연결된 구체적인 사건을 수집합니다.', 'Collect an event connecting people, activities, and places.'),
-    ['event_people', 'event_activity', 'event_place', 'event_emotion']),
-  choice(7, 'D2_Q4', text('ことわざ', '속담', 'A proverb'), 25),
-  voice(8, text('このごろの楽しみ', '요즘의 즐거움', 'Things you enjoy'), 60,
-    text('このごろ、楽しみにしていることを一つ教えてください。', '요즘 즐기거나 기대하는 일을 하나 알려 주세요.', 'Tell us one thing you enjoy or look forward to these days.'),
-    text('どんなところが好きですか。', '어떤 점이 좋으세요?', 'What do you like about it?'),
-    text('現在の関心と、本人が好きだと感じる理由を知ります。', '현재 관심사와 본인이 좋아하는 이유를 파악합니다.', 'Learn about current interests and what makes them enjoyable.'),
-    ['interest', 'interest_reason'],
-    text('毎日の小さな楽しみでもかまいません。', '일상의 작은 즐거움도 괜찮습니다.', 'Small everyday pleasures are welcome.')),
-  voice(9, text('好きな食べ物', '좋아하는 음식', 'A food you like'), 55,
-    text('好きな食べ物を一つ教えてください。', '좋아하는 음식을 하나 알려 주세요.', 'Tell us one food you like.'),
-    text('その食べ物にまつわる思い出があれば、聞かせてください。', '그 음식과 관련된 추억이 있다면 들려주세요.', 'If you have a memory connected to that food, please share it.'),
-    text('食の好みと、食べ物につながる人や場所、経験を集めます。', '음식 취향과 그 음식에 연결된 사람·장소·경험을 수집합니다.', 'Collect a food preference and any related people, places, or experiences.'),
-    ['food_preference', 'food_memory']),
-  choice(10, 'D5_Q5', text('同じ形', '같은 모양', 'Matching shapes'), 25, undefined, '● ▲'),
-  voice(11, text('最近の出来事', '최근의 경험', 'A recent experience'), 60,
-    text('最近あったことで、誰かに話したいことを一つ教えてください。', '최근 있었던 일 중 누군가에게 이야기하고 싶은 일을 하나 들려주세요.', 'Tell us about one recent experience you would like to share.'),
-    text('そのときの様子を、もう少し聞かせてください。', '그때의 모습을 조금 더 들려주세요.', 'Tell us a little more about what it was like.'),
-    text('最近の生活から、後の会話に使える具体的な出来事を集めます。', '최근 생활에서 이후 대화에 사용할 구체적인 사건을 수집합니다.', 'Collect a recent event for future conversations.'),
-    ['recent_event', 'event_time_expression', 'event_people', 'event_place'],
-    text('今日のことでも、少し前のことでもかまいません。', '오늘 일도, 조금 전의 일도 괜찮습니다.', 'It can be from today or a little while ago.')),
-  voice(12, text('これからの楽しみ', '앞으로의 즐거움', 'Something to look forward to'), 45,
-    text('これから、やってみたいことを一つ教えてください。', '앞으로 해 보고 싶은 일을 하나 알려 주세요.', 'Tell us one thing you would like to do.'),
-    text('そのことの、どんなところを楽しみにしていますか。', '그 일의 어떤 점이 기대되세요?', 'What do you look forward to about it?'),
-    text('本人の希望と、次の会話のきっかけを知ります。', '본인의 희망과 다음 대화 소재를 파악합니다.', 'Learn about wishes and ideas for future conversations.'),
-    ['future_wish', 'wish_reason'],
-    text('以前していて、またやりたいことでもかまいません。', '예전에 하셨다가 다시 하고 싶은 일도 괜찮습니다.', 'It can be something you used to do and would like to do again.')),
+  { ...choice(1, text('今日の曜日', '오늘의 요일', 'Today’s weekday'), 25,
+    text('今日は何曜日ですか？', '오늘은 무슨 요일인가요?', 'What day of the week is it today?'),
+    [PILOT_WEEKDAYS[0], PILOT_WEEKDAYS[4], PILOT_WEEKDAYS[2], PILOT_WEEKDAYS[3]], null,
+    text('今日の曜日への応答を記録します。', '오늘의 요일에 대한 응답을 관찰합니다.', 'Observe the response about today’s weekday.')), dynamic: 'japan-weekday' },
+  choice(2, text('りんごの代金', '사과 가격 계산', 'Apple prices'), 50,
+    text('八百屋で、赤いりんごは1個120円、青いりんごは1個80円です。赤いりんごを2個、青いりんごを3個買いました。合計はいくらですか？',
+      '과일가게에서 빨간 사과는 개당 120엔, 초록 사과는 개당 80엔입니다. 빨간 사과 2개와 초록 사과 3개를 사면 총 얼마인가요?',
+      'At a greengrocer, red apples cost 120 yen each and green apples cost 80 yen each. You bought two red apples and three green apples. What is the total?'),
+    [440, 480, 520, 400].map(amount => text(`${amount}円`, `${amount}엔`, `${amount} yen`)), 'B',
+    text('二つの価格と個数を使う計算への応答を記録します。', '두 가격과 수량을 이용한 복합 계산 응답을 관찰합니다.', 'Observe a calculation involving two prices and quantities.'),
+    text('（120 × 2）＋（80 × 3）＝480円', '(120 × 2) + (80 × 3) = 480엔', '(120 × 2) + (80 × 3) = 480 yen')),
+  choice(3, text('到着する時刻', '이동시간 계산', 'Arrival time'), 50,
+    text('午前9時40分に家を出て、バスに25分乗り、そのあと15分歩きました。目的地に着いたのは何時ですか？',
+      '오전 9시 40분에 집에서 나와 버스를 25분 타고, 이후 15분 걸었습니다. 목적지에 도착한 시간은 몇 시인가요?',
+      'You left home at 9:40 a.m., rode a bus for 25 minutes, then walked for 15 minutes. What time did you arrive?'),
+    [10, 30, 20, 40].map(minute => text(`午前10時${minute}分`, `오전 10시 ${minute}분`, `10:${minute} a.m.`)), 'C',
+    text('移動時間の加算と情報を保ちながらの応答を記録します。', '시간 연산과 정보를 유지하며 답하는 모습을 관찰합니다.', 'Observe time arithmetic and holding information while responding.'),
+    text('9時40分 ＋ 25分 ＋ 15分 ＝ 10時20分', '9시 40분 + 25분 + 15분 = 10시 20분', '9:40 + 25 minutes + 15 minutes = 10:20')),
+  choice(4, text('先に来た人', '도착 순서 추론', 'Arrival order'), 40,
+    text('ある集まりで、田中さんは佐藤さんより早く来ました。鈴木さんは田中さんより早く来ました。3人の中で、最も早く来たのは誰ですか？',
+      '어떤 모임에서 다나카 씨는 사토 씨보다 먼저 왔습니다. 스즈키 씨는 다나카 씨보다 먼저 왔습니다. 세 사람 중 가장 먼저 온 사람은 누구인가요?',
+      'At a gathering, Tanaka arrived before Sato. Suzuki arrived before Tanaka. Who arrived first among the three?'),
+    [text('佐藤さん', '사토 씨', 'Sato'), text('田中さん', '다나카 씨', 'Tanaka'), text('鈴木さん', '스즈키 씨', 'Suzuki'), text('3人とも同じ', '세 사람 모두 동일', 'All three at the same time')], 'C',
+    text('二つの条件から順序を考える応答を記録します。', '두 조건에서 순서를 추론하는 응답을 관찰합니다.', 'Observe reasoning about order from two conditions.'),
+    text('鈴木 → 田中 → 佐藤', '스즈키 → 다나카 → 사토', 'Suzuki → Tanaka → Sato')),
+  voice(5, text('ふるさとと子どものころ', '고향과 어린 시절', 'Hometown and childhood'), 75,
+    text('子どものころは、どんなところに住んでいましたか？ その町での思い出を聞かせてください。', '어릴 때 어떤 곳에 사셨나요? 그 동네에서의 추억을 들려주세요.', 'What kind of place did you live in as a child? Please tell us a memory of that town.'),
+    text('近所では、どんなことをして遊びましたか？', '동네에서 어떤 놀이를 하셨나요?', 'What did you play in the neighborhood?'),
+    text('ふるさと、地名、育った環境、子どものころの活動と思い出を集めます。', '고향·지명·성장 환경·어린 시절 활동과 추억을 수집합니다.', 'Collect hometown, place names, childhood surroundings, activities, and memories.'),
+    ['hometown', 'place_name', 'childhood_environment', 'childhood_activity', 'childhood_memory']),
+  voice(6, text('若いころの仕事', '젊은 시절의 직업', 'Work in younger years'), 75,
+    text('若いころは、どんなお仕事や活動をされていましたか？ そのころのことを教えてください。', '젊었을 때 어떤 일이나 활동을 하셨나요? 그 시절 이야기를 들려주세요.', 'What work or activities did you do when you were younger? Please tell us about that time.'),
+    text('その中で、忘れられない出来事はありますか？', '그중 잊을 수 없는 일이 있나요?', 'Is there an unforgettable experience from that time?'),
+    text('仕事、活動、社会での役割、大切な人生経験を集めます。', '직업·활동·사회적 역할·중요한 인생 경험을 수집합니다.', 'Collect work, activities, social roles, and significant life experiences.'),
+    ['occupation', 'activity', 'social_role', 'life_event']),
+  voice(7, text('家族との幸せな思い出', '가족과 가장 행복했던 추억', 'Happiest family memory'), 75,
+    text('ご家族と過ごした時間の中で、一番幸せだった思い出を聞かせてください。', '가족과 함께 보낸 시간 중 가장 행복했던 추억을 들려주세요.', 'Please tell us your happiest memory of time spent with your family.'),
+    text('そのときは、どこで何をしましたか？', '그때는 어디에서 무엇을 하셨나요?', 'Where were you, and what did you do then?'),
+    text('本人が話した家族、関係、幸せな出来事、場所、気持ちを集めます。', '본인이 언급한 가족 구성원·관계·행복했던 사건·장소·감정을 수집합니다.', 'Collect explicitly mentioned family members, relationships, happy events, places, and feelings.'),
+    ['family_member', 'relationship', 'happy_event', 'event_place', 'event_emotion']),
+  voice(8, text('最近の楽しい出来事', '최근 즐거웠던 경험', 'Recent enjoyable experience'), 75,
+    text('最近、一番楽しかったことは何ですか？ どんなことがあったのか聞かせてください。', '최근 가장 즐거웠던 일은 무엇인가요? 어떤 일이 있었는지 들려주세요.', 'What have you enjoyed most recently? Please tell us what happened.'),
+    text('そのとき、どなたと一緒でしたか？', '그때 누구와 함께하셨나요?', 'Who were you with then?'),
+    text('最近の出来事、活動、一緒にいた人、気持ちを集めます。', '최근 사건·활동·함께한 사람·감정을 수집합니다.', 'Collect recent events, activities, companions, and feelings.'),
+    ['recent_event', 'event_time_expression', 'activity', 'event_people', 'event_emotion']),
+  voice(9, text('趣味とふだんの暮らし', '취미와 일상 활동', 'Hobbies and everyday activities'), 75,
+    text('普段は、どんなことをして過ごすのが好きですか？', '평소 어떤 일을 하며 시간을 보내는 것을 좋아하시나요?', 'What do you like to spend time doing in everyday life?'),
+    text('その楽しみは、いつごろから続けていますか？', '그 취미나 즐거움은 언제부터 이어오셨나요?', 'Since about when have you enjoyed doing that?'),
+    text('趣味、関心、日常の過ごし方、好きな活動を集めます。', '취미·관심사·일상 패턴·선호 활동을 수집합니다.', 'Collect hobbies, interests, daily routines, and preferred activities.'),
+    ['hobby', 'interest', 'daily_routine', 'preferred_activity', 'activity_since']),
 ];
+
+function shuffled<T>(values: readonly T[], random: () => number): T[] {
+  const result = [...values];
+  for (let index = result.length - 1; index > 0; index--) {
+    const other = Math.floor(random() * (index + 1));
+    [result[index], result[other]] = [result[other], result[index]];
+  }
+  return result;
+}
+
+export function buildPilotQuestions(now = new Date(), random = Math.random): readonly PilotQuestion[] {
+  const parts = new Intl.DateTimeFormat('en', { timeZone: PILOT_TIME_ZONE, year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(now);
+  const value = (type: string) => parts.find(part => part.type === type)!.value;
+  const localDate = `${value('year')}-${value('month')}-${value('day')}`;
+  const correctWeekday = new Date(`${localDate}T00:00:00Z`).getUTCDay();
+  const distractors = shuffled([0, 1, 2, 3, 4, 5, 6].filter(day => day !== correctWeekday), random).slice(0, 3);
+  const weekdays = shuffled([correctWeekday, ...distractors], random);
+  return PILOT_QUESTIONS.map(question => question.kind === 'choice' && question.dynamic === 'japan-weekday' ? {
+    ...question,
+    options: weekdays.map((weekday, index) => ({ id: 'ABCD'[index], label: PILOT_WEEKDAYS[weekday], weekday })),
+    correctOptionId: 'ABCD'[weekdays.indexOf(correctWeekday)],
+    dateContext: { localDate, timeZone: PILOT_TIME_ZONE, correctWeekday, generatedAt: now.toISOString() },
+  } : question);
+}
 
 export const PILOT_COPY = {
   title: text('はじめましての お話', '처음 만나는 이야기', 'Getting to know you'),
@@ -124,11 +158,11 @@ export const PILOT_COPY = {
   dataDirectory: text('このPCの保存先', '이 PC의 저장 폴더', 'Storage folder on this PC'),
   codeHint: text('1〜6のボタンか数字キーで選べます。7以上は入力欄も使えます。以前の記録は上書きしません。', '1~6 버튼이나 숫자 키로 고르세요. 7번 이상은 입력란도 사용할 수 있습니다. 이전 회차를 덮어쓰지 않습니다.', 'Choose with the number buttons or keys. You can also type a number above 6. Earlier attempts are kept.'),
   recordingConsent: text('回答、途中や録り直しを含む音声、操作と滞在時間の記録を、このPCに保存することに同意します。', '답변, 중간·재녹음을 포함한 음성, 조작·체류 시간 기록을 이 PC에 저장하는 데 동의합니다.', 'I agree to storing responses, partial recordings and retakes, interactions, and time spent on this PC.'),
-  personalizationConsent: text('今後の個別の問いかけづくりに、回答を使うことに同意します。', '이후 개인화 질문을 만드는 데 답변을 활용하는 데 동의합니다.', 'I agree to using my responses to prepare future personalized questions.'),
+  personalizationConsent: text('今後の個別の問いかけづくりのため、回答の文字起こしと、話した内容の記憶データとしての保存・利用に同意します。', '이후 개인화 질문을 만들기 위한 답변 전사와, 말한 내용의 기억 데이터 저장·활용에 동의합니다.', 'I agree to later transcription and storage and use of explicitly stated memories to prepare personalized questions.'),
   localOnly: text('回答と音声はこのPCのフォルダーに自動保存します。外部サービスへの送信や自動の文字起こしは行いません。', '답변과 음성은 이 PC의 폴더에 자동 저장합니다. 외부 서비스 전송이나 자동 전사는 하지 않습니다.', 'Responses and audio are saved automatically to a folder on this PC, without external services or automatic transcription.'),
   consentNote: text('担当者から目的と保存期間の説明を受けてから、確認してください。', '진행자에게 목적과 보관 기간을 안내받은 뒤 확인해 주세요.', 'Confirm after the facilitator explains the purpose and retention period.'),
   prepare: text('お話を始める', '이야기 시작', 'Begin'),
-  intro: text('これから、あなたの暮らしや好きなことを伺います。約10分です。話したくないことは飛ばせます。ご自分のペースでお話しください。', '지금부터 생활과 좋아하는 것에 대해 여쭙겠습니다. 약 10분입니다. 말하고 싶지 않은 내용은 건너뛰셔도 됩니다. 편안한 속도로 말씀해 주세요.', 'We will ask about your life and things you enjoy. It takes about ten minutes. You can skip anything you prefer not to discuss. Take your time.'),
+  intro: text('これから、四つのボタンで答える質問を4問、そのあと暮らしや思い出のお話を5問伺います。8〜10分ほどです。思い出せないことや、話したくないことは飛ばせます。ご自分のペースでお答えください。', '먼저 네 버튼으로 답하는 질문 4개, 이어서 생활과 추억에 관한 이야기 5개를 여쭙겠습니다. 약 8~10분입니다. 기억이 나지 않거나 말하기 불편한 내용은 건너뛰셔도 됩니다. 편안한 속도로 답해 주세요.', 'First come four questions with four choices, then five questions about your life and memories. Allow about 8–10 minutes. Skip anything you cannot recall or prefer not to discuss. Take your time.'),
   begin: text('始めましょう', '시작해요', 'Let’s begin'),
   replay: text('もう一度聞く', '다시 듣기', 'Listen again'),
   record: text('話し始める', '말하기 시작', 'Start speaking'),
@@ -140,6 +174,9 @@ export const PILOT_COPY = {
   choose: text('一つ選んで、同じボタンでもう一度決めます。', '하나를 고른 뒤 같은 버튼을 한 번 더 누르세요.', 'Choose one, then press the same button again to confirm.'),
   voiceGuide: text('右のボタンで話し始めます。終わったら、もう一度右を押します。', '오른쪽 버튼으로 말하기를 시작하고, 마치면 오른쪽을 한 번 더 누르세요.', 'Press a right button to start speaking, then press it again when finished.'),
   followUp: text('もう少し聞かせてください', '조금 더 들려주세요', 'Tell us a little more'),
+  requestFollowUp: text('追加で聞く（担当者）', '후속 질문하기 (진행자)', 'Ask a follow-up (facilitator)'),
+  followUpNote: text('担当者へ：お答えが短いときだけ、追加の質問を一度使います。十分に話されたら「次へ」で進みます。', '진행자: 답변이 짧을 때만 후속 질문을 한 번 사용하세요. 충분히 이야기하셨으면 다음으로 진행합니다.', 'Facilitator: use the follow-up once only for a short answer. Otherwise, continue with Next.'),
+  skipFollowUp: text('追加の質問を飛ばす', '후속 질문 건너뛰기', 'Skip the follow-up'),
   listening: text('お話を録音しています', '이야기를 녹음하고 있어요', 'Recording your story'),
   recordingEnded: text('録音が終わりました。右のボタンで保存してください。', '녹음이 끝났어요. 오른쪽 버튼으로 저장해 주세요.', 'Recording has ended. Press a right button to save.'),
   savedTake: text('音声を確認しました。次へ進めます。', '음성을 확인했어요. 다음으로 넘어갈 수 있어요.', 'Your audio is ready. You can continue.'),
@@ -170,7 +207,7 @@ export const PILOT_COPY = {
   completedCount: text('保存済みの回', '저장된 회차', 'Saved attempts'),
   partMain: text('最初の質問', '본질문', 'Main question'),
   partFollowUp: text('続きの質問', '후속 질문', 'Follow-up question'),
-  recordingLimit: text('1回の録音は最大60秒です。短いお答えでもかまいません。', '한 번에 최대 60초 녹음합니다. 짧게 답하셔도 괜찮습니다.', 'Each recording can last up to 60 seconds. A short answer is fine.'),
+  recordingLimit: text('お話の目安は45〜90秒です。急がずお話しください。1回の録音は最長3分です。', '이야기는 45~90초를 목표로 하되 서두르지 않으셔도 됩니다. 한 번에 최대 3분 녹음합니다.', 'Aim for 45–90 seconds, and take your time. Each recording can last up to three minutes.'),
 } satisfies Record<string, LocalizedText>;
 
 export function getPilotLanguage(value: string | null): SupportedLanguage {

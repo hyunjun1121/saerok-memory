@@ -1,4 +1,4 @@
-import { PILOT_PROTOCOL_VERSION, PILOT_QUESTIONS } from '@/features/pilot/pilotProtocol';
+import { PILOT_PROTOCOL_VERSION, PILOT_QUESTIONS, buildPilotQuestions } from '@/features/pilot/pilotProtocol';
 import type { SupportedLanguage } from '@/utils/localizedText';
 import { flushPilotOutbox, materializeSession, pilotLocalRequest, snapshotForDisk } from '@/features/pilot/pilotLocalClient';
 import type { PilotEvent } from '@/features/pilot/pilotTracking';
@@ -45,6 +45,10 @@ export interface PilotResponse {
   selectedOptionId?: string;
   isCorrect?: boolean | null;
   takes?: Partial<Record<PilotPart, PilotTake>>;
+  followUpStatus?: 'not_needed' | 'requested' | 'answered' | 'skipped';
+  followUpReason?: 'short_answer';
+  followUpDecidedAt?: string;
+  followUpSkipReason?: Exclude<PilotResponseStatus, 'in_progress' | 'answered'>;
 }
 
 export interface PilotSession {
@@ -69,8 +73,10 @@ export interface PilotSession {
   lastPoint?: { questionId: string; part: PilotPart | null; at: string; type: string } | null;
   lastContactState?: 'recent' | 'stale_unconfirmed';
   consent: {
+    revision?: string;
     recordingAndLocalStorage: true;
     futurePersonalization: boolean;
+    futurePersonalizationScope?: 'transcription-explicit-memories-personalization';
     confirmedAt: string;
   };
   responses: PilotResponse[];
@@ -94,20 +100,28 @@ export function createPilotSession(
 ): PilotSession {
   if (!isPilotParticipantCode(participantCode)) throw new Error('invalid-participant-code');
   if (!consent.recordingAndLocalStorage) throw new Error('pilot-recording-consent-required');
-  const now = new Date().toISOString();
+  const created = new Date();
+  const now = created.toISOString();
   return {
     schemaVersion: 1, protocolVersion: PILOT_PROTOCOL_VERSION,
-    collectionVersion: 'local-numbered-attempts-v1',
+    collectionVersion: 'local-numbered-attempts-v2',
     sessionId: crypto.randomUUID(), participantCode: /^\d+$/.test(participantCode) ? String(Number(participantCode)) : participantCode, language,
     createdAt: now, updatedAt: now, status: 'in_progress',
-    protocolSnapshot: PILOT_QUESTIONS,
-    consent: { recordingAndLocalStorage: true, futurePersonalization: consent.futurePersonalization, confirmedAt: now },
+    protocolSnapshot: buildPilotQuestions(created),
+    consent: { revision: 'jp-pilot-consent-2.0', recordingAndLocalStorage: true,
+      futurePersonalization: consent.futurePersonalization,
+      futurePersonalizationScope: 'transcription-explicit-memories-personalization', confirmedAt: now },
     responses: [],
   };
 }
 
+export function getPilotSessionQuestions(session: PilotSession): readonly PilotQuestion[] {
+  // An older attempt's IDs have different meanings. Always use its own snapshot.
+  return session.protocolSnapshot ?? (session.protocolVersion === PILOT_PROTOCOL_VERSION ? PILOT_QUESTIONS : []);
+}
+
 export function putPilotResponse(session: PilotSession, response: PilotResponse): PilotSession {
-  if (!PILOT_QUESTIONS.some((question) => question.id === response.questionId)) throw new Error('unknown-pilot-question');
+  if (!getPilotSessionQuestions(session).some((question) => question.id === response.questionId)) throw new Error('unknown-pilot-question');
   return {
     ...session, updatedAt: new Date().toISOString(),
     responses: [...session.responses.filter((item) => item.questionId !== response.questionId), response],
@@ -115,12 +129,17 @@ export function putPilotResponse(session: PilotSession, response: PilotResponse)
 }
 
 export function isPilotSessionComplete(session: PilotSession): boolean {
-  return PILOT_QUESTIONS.every((question) => {
+  const questions = getPilotSessionQuestions(session);
+  return questions.length > 0 && questions.every((question) => {
     const response = session.responses.find((item) => item.questionId === question.id);
     if (!response || response.status === 'in_progress') return false;
     if (response.status !== 'answered') return true;
     if (question.kind === 'choice') return question.options.some((option) => option.id === response.selectedOptionId);
-    return (['main', 'followUp'] as const).every((part) => (response.takes?.[part]?.blob.size ?? 0) > 0);
+    if (!(response.takes?.main?.blob.size)) return false;
+    if (question.followUpPolicy !== 'short-answer-only') return (response.takes?.followUp?.blob.size ?? 0) > 0;
+    if (response.followUpStatus === 'answered') return (response.takes?.followUp?.blob.size ?? 0) > 0;
+    return response.followUpStatus === 'not_needed'
+      || (response.followUpStatus === 'skipped' && Boolean(response.followUpSkipReason));
   });
 }
 
@@ -169,7 +188,9 @@ export async function listBrowserPilotSessions(): Promise<PilotSession[]> {
 function isStoredPilotSession(value: unknown): value is PilotSession {
   if (!value || typeof value !== 'object') return false;
   const session = value as Partial<PilotSession>;
-  return session.schemaVersion === 1 && session.protocolVersion === PILOT_PROTOCOL_VERSION
+  if (session.protocolSnapshot !== undefined && (!Array.isArray(session.protocolSnapshot)
+    || !session.protocolSnapshot.every(question => question && typeof question === 'object' && typeof question.id === 'string'))) return false;
+  return session.schemaVersion === 1 && ['jp-first-meeting-1.0', PILOT_PROTOCOL_VERSION].includes(session.protocolVersion ?? '')
     && typeof session.sessionId === 'string' && typeof session.participantCode === 'string'
     && isPilotParticipantCode(session.participantCode)
     && ['ja', 'ko', 'en'].includes(session.language ?? '')
@@ -179,7 +200,8 @@ function isStoredPilotSession(value: unknown): value is PilotSession {
     && typeof session.consent.futurePersonalization === 'boolean'
     && Array.isArray(session.responses) && session.responses.every((response) =>
       response && typeof response === 'object'
-      && PILOT_QUESTIONS.some((question) => question.id === response.questionId)
+      && (session.protocolSnapshot?.some((question) => question.id === response.questionId)
+        ?? /^JP_PILOT_Q(0[1-9]|1[0-2])$/.test(response.questionId))
       && ['in_progress', 'answered', 'skipped', 'not_applicable', 'no_response', 'recording_failed'].includes(response.status)
       && typeof response.responseTimeMs === 'number' && Number.isFinite(response.responseTimeMs)
       && typeof response.completedAt === 'string'

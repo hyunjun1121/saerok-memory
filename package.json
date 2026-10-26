@@ -34,7 +34,7 @@
     "start:pilot": "npm run build:pilot && npm run preview:pilot",
     "prepreview:pilot": "npm run check:pilot",
     "preview:pilot": "node scripts/dev-japan-pilot.mjs --preview",
-    "test:pilot": "npm run test:pilot-local && vitest run src/features/pilot src/app/pilot src/features/speech/useVoiceRecorder.test.ts src/components/ChoiceCard.test.tsx src/locales/copySafety.test.ts src/App.test.tsx",
+    "test:pilot": "npm run test:pilot-local && node --test scripts/pilot-documentation.test.mjs && vitest run src/features/pilot src/app/pilot src/features/speech/useVoiceRecorder.test.ts src/components/ChoiceCard.test.tsx src/locales/copySafety.test.ts src/App.test.tsx",
     "test:pilot-local": "node --test scripts/pilot-local-store.test.mjs",
     "prebuild:pilot": "npm run check:pilot",
     "build:pilot": "tsc -b && vite build --mode japan-pilot",

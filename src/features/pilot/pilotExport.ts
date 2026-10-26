@@ -1,5 +1,6 @@
-import { PILOT_QUESTIONS, PILOT_PROTOCOL_VERSION } from '@/features/pilot/pilotProtocol';
-import type { PilotSession, PilotTake } from '@/features/pilot/pilotStorage';
+import { PILOT_PROTOCOL_VERSION } from '@/features/pilot/pilotProtocol';
+import { getPilotSessionQuestions, type PilotSession, type PilotTake } from '@/features/pilot/pilotStorage';
+import type { PilotQuestion } from '@/features/pilot/pilotProtocol';
 import { getLocalizedText } from '@/utils/localizedText';
 import { flushPilotOutbox, pilotLocalRequest, readPilotRecording } from '@/features/pilot/pilotLocalClient';
 import { pilotCsv, pilotQuestionMetrics } from '@/features/pilot/pilotMetrics';
@@ -69,6 +70,15 @@ function extension(mimeType: string): string {
   return 'webm';
 }
 
+function administeredQuestions(questions: readonly PilotQuestion[]) {
+  return questions.map(question => ({ ...question,
+    administeredPrompts: Object.fromEntries(['ja', 'ko', 'en'].map(language => [language, {
+      main: getLocalizedText(question.prompt, language),
+      ...(question.kind === 'voice' ? { followUp: getLocalizedText(question.followUp, language) } : {}),
+    }])),
+  }));
+}
+
 export async function exportPilotSessions(sessions: PilotSession[]): Promise<Blob> {
   const entries: ZipEntry[] = [];
   const manifestSessions = [];
@@ -115,26 +125,32 @@ export async function exportPilotSessions(sessions: PilotSession[]): Promise<Blo
       void takes;
       responses.push({ ...metadata, audio, transcription: { status: 'not_requested', text: null } });
     }
-    manifestSessions.push({ ...session, responses, recordingHistory, profileFacts: [], reviewStatus: 'pending',
-      personalizationEligible: session.consent.futurePersonalization });
-    for (const event of session.events ?? []) eventRows.push({ participant: session.participantCode, attempt: session.attemptNumber, ...event });
+    manifestSessions.push({ ...session, responses, recordingHistory,
+      administeredQuestions: administeredQuestions(getPilotSessionQuestions(session)),
+      protocolSnapshotStatus: session.protocolSnapshot ? 'available' : 'not-stored',
+      profileFacts: [], reviewStatus: 'pending',
+      personalizationEligible: session.consent.futurePersonalization,
+      memoryTranscriptionEligible: session.consent.futurePersonalization
+        && session.consent.futurePersonalizationScope === 'transcription-explicit-memories-personalization' });
+    for (const event of session.events ?? []) eventRows.push({ participant: session.participantCode, attempt: session.attemptNumber, protocolVersion: session.protocolVersion, ...event });
     questionRows.push(...pilotQuestionMetrics(session));
     attemptRows.push({ participant: session.participantCode, attempt: session.attemptNumber, sessionId: session.sessionId,
+      protocolVersion: session.protocolVersion, questionCount: getPilotSessionQuestions(session).length,
       status: session.status, startedAt: session.createdAt, lastSeenAt: session.lastSeenAt, exitReason: session.exitReason,
       lastQuestion: session.lastPoint?.questionId, lastPart: session.lastPoint?.part,
       lastContactState: session.lastContactState, responses: session.responses.length,
       recordings: recordingHistory.length, partialRecordings: recordingHistory.filter((item) => item.recordingStatus === 'partial').length });
   }
+  const versions = [...new Set(manifestSessions.map(session => session.protocolVersion))];
+  const firstQuestions = manifestSessions[0]?.administeredQuestions ?? [];
+  const sharedQuestions = manifestSessions.every(session => session.protocolVersion === versions[0]
+    && JSON.stringify(session.administeredQuestions) === JSON.stringify(firstQuestions));
   const manifest = {
-    schemaVersion: 1, protocolVersion: PILOT_PROTOCOL_VERSION, exportedAt: new Date().toISOString(),
+    schemaVersion: 2, protocolVersion: versions.length === 1 ? versions[0] : versions.length ? 'mixed' : PILOT_PROTOCOL_VERSION,
+    currentProtocolVersion: PILOT_PROTOCOL_VERSION, protocolVersions: versions, exportedAt: new Date().toISOString(),
     notice: 'Self-reported audio evidence. No inferred profile, automatic transcription, or clinical interpretation. Respect each session consent before reuse.',
-    questions: PILOT_QUESTIONS.map((question) => ({
-      ...question,
-      administeredPrompts: Object.fromEntries(['ja', 'ko', 'en'].map((language) => [language, {
-        main: getLocalizedText(question.prompt, language),
-        ...(question.kind === 'voice' ? { followUp: getLocalizedText(question.followUp, language) } : {}),
-      }])),
-    })),
+    questionCatalogScope: sharedQuestions ? 'shared-administered-snapshot' : 'per-session',
+    questions: sharedQuestions ? firstQuestions : [],
     sessions: manifestSessions,
   };
   entries.unshift({ name: 'sessions.json', bytes: new TextEncoder().encode(JSON.stringify(manifest, null, 2)) });

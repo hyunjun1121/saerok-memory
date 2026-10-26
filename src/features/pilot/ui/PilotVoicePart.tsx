@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Button3D } from '@/components/Button3D';
 import { useVoiceRecorder } from '@/features/speech/useVoiceRecorder';
 import { VoiceWaveform } from '@/features/speech/VoiceWaveform';
-import { PILOT_COPY } from '@/features/pilot/pilotProtocol';
+import { PILOT_COPY, PILOT_RECORDING_MAX_MS } from '@/features/pilot/pilotProtocol';
 import type { PilotTake } from '@/features/pilot/pilotStorage';
 import { stopPilotNarration } from '@/features/pilot/pilotNarration';
 import { getLocalizedText, type SupportedLanguage } from '@/utils/localizedText';
@@ -23,15 +23,16 @@ interface Props {
   onReplay: () => void;
   onSkip: () => void;
   onEvent: (type: string, detail?: Record<string, unknown>) => void;
+  onFollowUp?: () => void;
 }
 
-export function PilotVoicePart({ sessionId, questionId, part, language, savedTake, blocked, onTake, onNext, onReplay, onSkip, onEvent }: Props) {
+export function PilotVoicePart({ sessionId, questionId, part, language, savedTake, blocked, onTake, onNext, onReplay, onSkip, onEvent, onFollowUp }: Props) {
   const delivery = useRef<PilotRecordingDelivery | null>(null);
   const audioChunk = useCallback((chunk: Blob) => delivery.current?.chunk(chunk), []);
   const recordingStarted = useCallback((startedAt: string) => onEvent('recording_start', {
     recordingId: delivery.current?.recordingId, actualStartedAt: startedAt,
   }), [onEvent]);
-  const recorder = useVoiceRecorder(60_000, { telemetryEnabled: false, onAudioChunk: audioChunk, onRecordingStarted: recordingStarted });
+  const recorder = useVoiceRecorder(PILOT_RECORDING_MAX_MS, { telemetryEnabled: false, onAudioChunk: audioChunk, onRecordingStarted: recordingStarted });
   const [take, setTake] = useState<PilotTake | null>(savedTake ?? null);
   const [started, setStarted] = useState(false);
   const [working, setWorking] = useState(false);
@@ -137,7 +138,11 @@ export function PilotVoicePart({ sessionId, questionId, part, language, savedTak
         </Button3D>
       </div>
       <p className="text-center text-base text-gray-600">{c('left')} · {c('right')}</p>
-      <button type="button" className="min-h-[60px] rounded-xl border-2 border-gray-300 px-4 text-lg underline" disabled={blocked || working || (started && !error)} onClick={onSkip}>{c('skip')}</button>
+      {take && savedTake && onFollowUp && !started && <div className="flex flex-col gap-3">
+        <p className="text-base">{c('followUpNote')}</p>
+        <Button3D variant="secondary" disabled={blocked || working} feedbackCue="none" onClick={onFollowUp}>{c('requestFollowUp')}</Button3D>
+      </div>}
+      <button type="button" className="min-h-[60px] rounded-xl border-2 border-gray-300 px-4 text-lg underline" disabled={blocked || working || (started && !error)} onClick={onSkip}>{part === 'followUp' ? c('skipFollowUp') : c('skip')}</button>
     </section>
   );
 }

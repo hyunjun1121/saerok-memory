@@ -55,7 +55,7 @@ describe('pilot evidence ZIP export', () => {
     let session = createPilotSession('JP-TEST', 'ja', { recordingAndLocalStorage: true, futurePersonalization: false });
     const audio = new Uint8Array([0x1a, 0x45, 0xdf, 0xa3, 10, 20, 30]);
     const take = { blob: new Blob([audio], { type: 'audio/webm' }), mimeType: 'audio/webm', durationMs: 1000, startedAt: session.createdAt, endedAt: session.createdAt };
-    session = putPilotResponse(session, { questionId: 'JP_PILOT_Q02', status: 'answered', takes: { main: take, followUp: take }, completedAt: session.createdAt, responseTimeMs: 3000 });
+    session = putPilotResponse(session, { questionId: 'JP_PILOT_Q05', status: 'answered', takes: { main: take, followUp: take }, followUpStatus: 'answered', followUpReason: 'short_answer', completedAt: session.createdAt, responseTimeMs: 3000 });
     const entries = files(new Uint8Array(await (await exportPilotSessions([session])).arrayBuffer()));
     expect(entries.size).toBe(3);
     const manifest = JSON.parse(new TextDecoder().decode(entries.get('sessions.json')));
@@ -67,6 +67,25 @@ describe('pilot evidence ZIP export', () => {
       expect(entries.get(path)).toEqual(audio);
       expect(path).not.toContain('JP-TEST');
     }
-    expect(manifest.questions[1].administeredPrompts.ja.followUp).toBeTruthy();
+    expect(manifest.schemaVersion).toBe(2);
+    expect(manifest.sessions[0].administeredQuestions[4].administeredPrompts.ja.followUp).toBe('近所では、どんなことをして遊びましたか？');
+    expect(manifest.sessions[0].responses[0].followUpStatus).toBe('answered');
+  });
+
+  it('exports older attempts and different weekday layouts with their own administered snapshots', async () => {
+    const current = createPilotSession('1', 'ja', { recordingAndLocalStorage: true, futurePersonalization: false });
+    const older = { ...current, sessionId: 'older', protocolVersion: 'jp-first-meeting-1.0',
+      consent: { recordingAndLocalStorage: true as const, futurePersonalization: true, confirmedAt: current.createdAt },
+      protocolSnapshot: [{ ...current.protocolSnapshot![0], id: 'JP_PILOT_Q12', prompt: { ja: '旧版の質問', ko: '이전 질문', en: 'Earlier question' } }] };
+    const entries = files(new Uint8Array(await (await exportPilotSessions([older, current])).arrayBuffer()));
+    const manifest = JSON.parse(new TextDecoder().decode(entries.get('sessions.json')));
+    expect(manifest.protocolVersion).toBe('mixed');
+    expect(manifest.questionCatalogScope).toBe('per-session');
+    expect(manifest.questions).toEqual([]);
+    expect(manifest.sessions[0].administeredQuestions[0].administeredPrompts.ja.main).toBe('旧版の質問');
+    expect(manifest.sessions[0].personalizationEligible).toBe(true);
+    expect(manifest.sessions[0].memoryTranscriptionEligible).toBe(false);
+    expect(manifest.sessions[1].protocolSnapshot[0]).toEqual(current.protocolSnapshot![0]);
+    expect(manifest.sessions[1].administeredQuestions).toHaveLength(9);
   });
 });

@@ -7,7 +7,7 @@ import { getPilotLanguage, PILOT_COPY, PILOT_QUESTIONS } from '@/features/pilot/
 import { PilotVoicePart } from '@/features/pilot/ui/PilotVoicePart';
 import {
   createPilotSession, deletePilotSession, isPilotParticipantNumber,
-  isPilotSessionComplete, listPilotSessions, newPilotParticipantCode,
+  getPilotSessionQuestions, isPilotSessionComplete, listPilotSessions, newPilotParticipantCode,
   putPilotResponse, savePilotSession, setActivePilotSession,
   type PilotPart, type PilotResponse, type PilotResponseStatus, type PilotSession, type PilotTake,
 } from '@/features/pilot/pilotStorage';
@@ -48,7 +48,8 @@ export default function PilotScreen() {
   const previousElapsed = useRef(0);
   const heading = useRef<HTMLHeadingElement>(null);
   const c = (key: keyof typeof PILOT_COPY) => getLocalizedText(PILOT_COPY[key], language);
-  const question = PILOT_QUESTIONS[index];
+  const questions = session ? getPilotSessionQuestions(session) : PILOT_QUESTIONS;
+  const question = questions[index];
   const response = session?.responses.find((item) => item.questionId === question.id);
   const prompt = getLocalizedText(question.kind === 'voice' && part === 'followUp' ? question.followUp : question.prompt, language);
 
@@ -130,6 +131,8 @@ export default function PilotScreen() {
     tracker.current?.emit(answer.status === 'answered' ? 'answer_confirmed' : 'answer_skipped', {
       status: answer.status, optionId: answer.selectedOptionId ?? null, isCorrect: answer.isCorrect ?? null,
       responseTimeMs: answer.responseTimeMs,
+      followUpStatus: answer.followUpStatus ?? null, followUpReason: answer.followUpReason ?? null,
+      followUpSkipReason: answer.followUpSkipReason ?? null,
     });
     stopPilotNarration();
     setSelected(null);
@@ -160,6 +163,7 @@ export default function PilotScreen() {
   const saveTake = async (take: PilotTake): Promise<boolean> => {
     if (!session) return false;
     return persist(putPilotResponse(session, {
+      ...response,
       questionId: question.id, status: 'in_progress',
       completedAt: new Date().toISOString(), responseTimeMs: previousElapsed.current + Math.round(performance.now() - questionStart.current),
       takes: { ...response?.takes, [part]: take },
@@ -167,15 +171,31 @@ export default function PilotScreen() {
   };
 
   const nextVoicePart = () => {
-    if (part === 'main') { stopPilotNarration(); setPart('followUp'); }
-    else if (response?.takes?.main && response.takes.followUp) {
+    if (response?.takes?.main && (part === 'main' || response.takes.followUp)) {
       void commitAnswer({ ...response, status: 'answered', completedAt: new Date().toISOString(),
+        followUpStatus: part === 'main' ? 'not_needed' : 'answered',
+        followUpDecidedAt: response.followUpDecidedAt ?? new Date().toISOString(),
         responseTimeMs: previousElapsed.current + Math.round(performance.now() - questionStart.current) });
     }
   };
 
+  const requestFollowUp = async () => {
+    if (!session || !response?.takes?.main || part !== 'main' || busy || saveError || response.followUpStatus === 'requested') return;
+    const next = putPilotResponse(session, { ...response, followUpStatus: 'requested',
+      followUpReason: 'short_answer', followUpDecidedAt: new Date().toISOString() });
+    if (await persist(next)) {
+      tracker.current?.emit('follow_up_requested', { reason: 'short_answer', decidedBy: 'facilitator' });
+      stopPilotNarration(); setPart('followUp');
+    }
+  };
+
   const skip = (status: PilotResponseStatus) => {
-    void commitAnswer({ questionId: question.id, status, completedAt: new Date().toISOString(),
+    if (status === 'in_progress' || status === 'answered') return;
+    // Declining the optional follow-up must not erase a valid main answer.
+    const skippingFollowUp = part === 'followUp' && Boolean(response?.takes?.main);
+    void commitAnswer({ ...response, questionId: question.id, status: skippingFollowUp ? 'answered' : status,
+      ...(skippingFollowUp ? { followUpStatus: 'skipped' as const, followUpSkipReason: status } : {}),
+      completedAt: new Date().toISOString(),
       responseTimeMs: previousElapsed.current + Math.round(performance.now() - questionStart.current) });
   };
 
@@ -305,9 +325,9 @@ export default function PilotScreen() {
           <p>{c('left')} · {c('right')}</p>
         </>}
         {stage === 'question' && <>
-          <ProgressBar value={index + 1} max={PILOT_QUESTIONS.length} />
+          <ProgressBar value={index + 1} max={questions.length} />
           <p className="text-base">{c('participant')} {session?.participantCode} · {c('attempt')} {session?.attemptNumber ?? '—'}</p>
-          <p className="text-xl font-bold">{index + 1} / {PILOT_QUESTIONS.length}{question.kind === 'voice' ? ` · ${part === 'main' ? c('partMain') : c('partFollowUp')}` : ''}</p>
+          <p className="text-xl font-bold">{index + 1} / {questions.length}{question.kind === 'voice' ? ` · ${part === 'main' ? c('partMain') : c('partFollowUp')}` : ''}</p>
           <h1 ref={heading} tabIndex={-1} className="text-3xl font-extrabold leading-relaxed" data-testid="pilot-prompt">{prompt}</h1>
           {question.kind === 'voice' && part === 'main' && question.hint && <p className="text-lg leading-relaxed">{getLocalizedText(question.hint, language)}</p>}
           {question.kind === 'choice' && !skipOpen && <>
@@ -325,6 +345,7 @@ export default function PilotScreen() {
             language={language} savedTake={response?.takes?.[part]} blocked={busy || saveError}
             sessionId={session!.sessionId} questionId={question.id} part={part}
             onEvent={emitEvent}
+            onFollowUp={part === 'main' ? () => void requestFollowUp() : undefined}
             onTake={saveTake} onNext={nextVoicePart} onReplay={replay} onSkip={() => setSkipOpen(true)}
           />}
           {skipOpen && <section role="group" aria-label={c('skipReason')} className="flex flex-col gap-4">

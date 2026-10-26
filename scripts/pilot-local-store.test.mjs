@@ -37,6 +37,23 @@ test('same participant always receives a new numbered attempt without overwritin
   assert.throws(() => store.saveSession({ ...second, participantCode: '2' }), /immutable/);
 });
 
+test('protocol versions and randomized layouts remain frozen while old and new attempts coexist', (t) => {
+  const store = fixture(t);
+  const old = { ...session(), protocolSnapshot: [{ id: 'JP_PILOT_Q12', kind: 'voice', prompt: { ja: '旧版の質問' } }] };
+  store.saveSession(old);
+  const current = { ...session(), protocolVersion: 'jp-first-meeting-2.0',
+    protocolSnapshot: [{ id: 'JP_PILOT_Q01', kind: 'choice', options: [{ id: 'B', weekday: 1 }], correctOptionId: 'B',
+      dateContext: { localDate: '2026-10-26', timeZone: 'Asia/Tokyo', correctWeekday: 1 } }] };
+  assert.equal(store.saveSession(current).attemptNumber, 2);
+  current.responses.push({ questionId: 'JP_PILOT_Q01', status: 'answered', selectedOptionId: 'B', isCorrect: true, responseTimeMs: 4500 });
+  store.saveSession(current);
+  assert.equal(store.getSession(current.sessionId).responses[0].isCorrect, true);
+  assert.deepEqual(store.getSession(old.sessionId).protocolSnapshot, old.protocolSnapshot);
+  assert.equal(store.getSession(old.sessionId).protocolVersion, 'jp-first-meeting-1.0');
+  assert.throws(() => store.saveSession({ ...current, protocolVersion: 'jp-first-meeting-1.0' }), /protocol-is-immutable/);
+  assert.throws(() => store.saveSession({ ...current, protocolSnapshot: [{ ...current.protocolSnapshot[0], correctOptionId: 'A' }] }), /protocol-is-immutable/);
+});
+
 test('partial chunks and all retakes survive reopening SQLite', (t) => {
   const directory = mkdtempSync(path.join(tmpdir(), 'haru-pilot-test-'));
   let store = createPilotLocalStore(directory);

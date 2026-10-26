@@ -4,6 +4,7 @@ import { mkdirSync, existsSync, readFileSync, writeFileSync, renameSync, unlinkS
 import path from 'node:path';
 
 const UUID = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i;
+// Q10–Q12 remain readable for version 1 attempts and queued legacy deliveries.
 const QUESTION = /^JP_PILOT_Q(0[1-9]|1[0-2])$/;
 const PARTS = ['main', 'followUp'];
 const json = (value) => JSON.stringify(value);
@@ -89,6 +90,11 @@ export function createPilotLocalStore(directory) {
     try {
       const existing = getRow(session.sessionId);
       if (existing && existing.participant !== participant) fail('participant-is-immutable', 409);
+      if (existing) {
+        const prior = JSON.parse(existing.snapshot);
+        if (prior.protocolVersion !== session.protocolVersion
+          || json(prior.protocolSnapshot) !== json(session.protocolSnapshot)) fail('protocol-is-immutable', 409);
+      }
       const priorMaximum = Number(db.prepare('SELECT COALESCE(MAX(attempt),0) AS maximum FROM sessions WHERE participant=?').get(participant).maximum);
       const highWater = Number(db.prepare('SELECT last_attempt FROM participant_counters WHERE participant=?').get(participant)?.last_attempt ?? 0);
       const attempt = existing?.attempt ?? Math.max(priorMaximum, highWater) + 1;

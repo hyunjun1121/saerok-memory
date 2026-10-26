@@ -26,7 +26,14 @@ export function pilotQuestionMetrics(session: PilotSession) {
     if (event.type === 'recording_start') view.recordingStarts++;
     if (event.type === 'recording_retry') view.recordingRetries++;
   }
-  return [...views.values()];
+  return [...views.values()].map(view => {
+    const response = session.responses.find(item => item.questionId === view.questionId);
+    return { ...view, protocolVersion: session.protocolVersion,
+      responseStatus: response?.status ?? null, selectedOptionId: response?.selectedOptionId ?? null,
+      isCorrect: response?.isCorrect ?? null, responseTimeMs: response?.responseTimeMs ?? null,
+      followUpStatus: response?.followUpStatus ?? null, followUpReason: response?.followUpReason ?? null,
+      followUpSkipReason: response?.followUpSkipReason ?? null };
+  });
 }
 
 export function pilotCsv(rows: Record<string, unknown>[]): string {
