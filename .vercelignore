@@ -54,3 +54,4 @@ recovery_audit/**
 *.docx
 *.pdf
 *.mp4
+local-data/

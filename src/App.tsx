@@ -20,6 +20,7 @@ const FamilyScreen = lazy(() => import('@/app/family/FamilyScreen'));
 const SettingsScreen = lazy(() => import('@/app/settings/SettingsScreen'));
 const OnboardingScreen = lazy(() => import('@/app/onboarding/OnboardingScreen'));
 const KioskHomeScreen = lazy(() => import('@/app/kiosk/KioskHomeScreen'));
+const PilotScreen = lazy(() => import('@/app/pilot/PilotScreen'));
 
 function LoadingFallback() {
   const { t } = useTranslation();
@@ -72,12 +73,18 @@ function TelemetryRouteObserver() {
   return null;
 }
 
-export default function App() {
+function AppContent() {
+  const location = useLocation();
+  // Pilot collection is isolated from demo seeding, telemetry, and background
+  // STT/RAG synchronization, including when entering from a normal app route.
+  if (location.pathname === '/pilot') {
+    return <Suspense fallback={<LoadingFallback />}><PilotScreen /></Suspense>;
+  }
+  if (import.meta.env.VITE_HARU_SESSION_MODE === 'pilot') {
+    return <Navigate to="/pilot" replace />;
+  }
   return (
     <GamificationProvider>
-      <BrowserRouter
-        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
-      >
         <LaunchGate>
           <TelemetryRouteObserver />
           <Suspense fallback={<LoadingFallback />}>
@@ -100,7 +107,14 @@ export default function App() {
             </Routes>
           </Suspense>
         </LaunchGate>
-      </BrowserRouter>
     </GamificationProvider>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+      <AppContent />
+    </BrowserRouter>
   );
 }

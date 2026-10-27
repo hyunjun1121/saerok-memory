@@ -27,6 +27,7 @@ export interface ChoiceCardProps {
   layout?: ChoiceCardLayout;
   keyboardShortcut?: string;
   tone?: ChoiceCardTone;
+  statusLabels?: { selected: string; correct: string; incorrect: string };
 }
 
 const choiceToneClasses: Record<
@@ -100,6 +101,7 @@ export function ChoiceCard({
   layout = "row",
   keyboardShortcut,
   tone = "neutral",
+  statusLabels,
 }: ChoiceCardProps) {
   const { t } = useTranslation();
   const { playCue } = useInteractionFeedback();
@@ -127,11 +129,11 @@ export function ChoiceCard({
   const isPressed = state === "selected" || state === "correct";
   const statusText =
     state === "selected"
-      ? t("choice.state.selected", "선택됨")
+      ? statusLabels?.selected ?? t("choice.state.selected", "선택됨")
       : state === "correct"
-        ? t("choice.state.correct", "완료")
+        ? statusLabels?.correct ?? t("choice.state.correct", "완료")
         : state === "incorrect"
-          ? t("choice.state.incorrect", "다시 눌러보기")
+          ? statusLabels?.incorrect ?? t("choice.state.incorrect", "다시 눌러보기")
           : "";
 
   const handleSelect = () => {
