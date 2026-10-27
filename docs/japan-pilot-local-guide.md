@@ -1,6 +1,8 @@
 # 일본 실증용 웹앱 설치·운영 가이드
 
-갱신: 2026-10-26. 이 문서는 저장소의 `japan-pilot` 브랜치, 루트 React 웹앱 `/pilot`, Node.js 로컬 수집 서버를 설명합니다. Raspberry Pi 전용 앱과 일일 루틴용 STT·RAG 서버는 별도입니다.
+Raspberry Pi에서 업데이트·설치·테스트·빌드하고 실제 마이크로 확인하는 절차는 [Pi용 9문항 실증 가이드](japan-pilot-raspberry-pi-guide.md)를 사용합니다.
+
+갱신: 2026-10-27. 이 문서는 저장소의 `japan-pilot` 브랜치, 루트 React 웹앱 `/pilot`, Node.js 로컬 수집 서버를 설명합니다. Raspberry Pi 전용 앱과 일일 루틴용 STT·RAG 서버는 별도입니다.
 
 ## 새 컴퓨터에서 처음 실행
 

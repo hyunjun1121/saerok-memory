@@ -45,6 +45,8 @@ ZIP에는 원본 음성, `sessions.json`, 회차 요약 `attempts.csv`, 문항�
 
 **Git clone은 코드를 가져오며 참가자 데이터는 가져오지 않습니다.** 새 PC는 빈 상태로 시작합니다. 기존 데이터를 옮기려면 서버 종료 후 저장 폴더 전체를 복사합니다. 자세한 설치·수집·백업·복구·업데이트·문제 해결은 [로컬 운영 가이드](docs/japan-pilot-local-guide.md)를 따릅니다.
 
+Raspberry Pi에서는 [9문항 실증판 업데이트·테스트·빌드 가이드](docs/japan-pilot-raspberry-pi-guide.md)를 따릅니다. 올바른 브랜치·루트 폴더 확인, ARM64 Node 24, `git pull` 후 직렬 테스트·빌드·수집 서버 실행, 999번 실제 마이크·물리 버튼·ZIP 검증과 백업을 안내합니다.
+
 현재 실증 안내는 브라우저 읽어주기를 사용합니다. 이전 Fish Audio의 일본어 최종 화자는 `女性アナウンサー（ベテラン）` (`veteran`)이며, 9문항용 [장면별 TTS 제작 계획](docs/japan-pilot-tts-plan-ja-ko.md)과 [기계용 대본 목록](docs/japan-pilot-tts-inventory.json)을 갱신했습니다. 이전 Q1 기분 질문의 시제품 두 음원은 이력으로 보존하며 새 Q1 요일에는 사용하지 않습니다. 현재 9문항용 Fish 음원은 아직 생성하거나 화면에 연결하지 않았습니다.
 
 ## Raspberry Pi 오프라인 데모

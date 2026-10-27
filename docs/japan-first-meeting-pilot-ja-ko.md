@@ -385,6 +385,9 @@ Git clone으로 참가자 데이터는 이동하지 않습니다. 다른 PC에�
 詳しい設置・バックアップ・復元・更新の手順は [ローカル運用ガイド](japan-pilot-local-guide.md) にあります。
 자세한 설치·백업·복구·업데이트 절차는 [로컬 운영 가이드](japan-pilot-local-guide.md)에 있습니다.
 
+Raspberry Piでは [Pi向けの更新・テスト・ビルド手順](japan-pilot-raspberry-pi-guide.md) に従い、999番で実際のマイクとボタン、音声保存を確認します。
+Raspberry Pi에서는 [Pi용 업데이트·테스트·빌드 가이드](japan-pilot-raspberry-pi-guide.md)를 따르고 999번으로 실제 마이크·버튼·음성 저장을 확인합니다.
+
 これはルートのWebアプリへの実装です。別プロジェクトのraspberry-pi-demoは変更していません。
 루트 웹앱에 구현한 기능입니다. 별도 프로젝트인 raspberry-pi-demo는 변경하지 않았습니다.
 
